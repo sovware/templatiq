@@ -1,0 +1,1054 @@
+# Copyright (C) 2023 template-market
+# This file is distributed under the same license as the template-market package.
+msgid ""
+msgstr ""
+"Project-Id-Version: template-market\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: sovware <support@sovware.com>\n"
+"POT-Creation-Date: 2023-09-05 04:25+0000\n"
+"Project-Id-Version: undefined\n"
+"Report-Msgid-Bugs-To: support@sovware.com\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: template-market.php:113
+msgid "%1$sAddonskit for Elementor%2$s requires %1$sDirectorist%2$s plugin to be installed and activated. Please install Directorist to continue."
+msgstr ""
+
+#: template-market.php:114
+msgid "Install Directorist"
+msgstr ""
+
+#: template-market.php:109
+msgid "%1$sAddonskit for Elementor%2$s requires %1$sDirectorist%2$s plugin to be active. Please activate Directorist to continue."
+msgstr ""
+
+#: template-market.php:110
+msgid "Activate Directorist"
+msgstr ""
+
+#: template-market.php:135
+msgid "%1$sAddonskit for Elementor%2$s requires %1$sElementor%2$s plugin to be installed and activated. Please install Elementor to continue."
+msgstr ""
+
+#: template-market.php:136
+msgid "Install Elementor"
+msgstr ""
+
+#: template-market.php:131
+msgid "%1$sAddonskit for Elementor%2$s requires %1$sElementor%2$s plugin to be active. Please activate Elementor to continue."
+msgstr ""
+
+#: template-market.php:132
+msgid "Activate Elementor"
+msgstr ""
+
+#: template-market.php:159
+msgid "<h1>An Error Occurred</h1>"
+msgstr ""
+
+#: template-market.php:160
+msgid "<h2>Your installed PHP Version is: "
+msgstr ""
+
+#: template-market.php:161
+msgid "<p>The <strong>Wax Elements</strong> plugin requires PHP version <strong>"
+msgstr ""
+
+#: template-market.php:161
+msgid "</strong> or greater"
+msgstr ""
+
+#: template-market.php:162
+msgid "<p>The version of your PHP is "
+msgstr ""
+
+#: template-market.php:162
+msgid "unsupported and old"
+msgstr ""
+
+#: template-market.php:163
+msgid "You should update your PHP software or contact your host regarding this matter.</p>"
+msgstr ""
+
+#: template-market.php:166
+msgid "Plugin Activation Error"
+msgstr ""
+
+#: src/Admin/AdminMenu.php:26
+msgid "TemplateMarket"
+msgstr ""
+
+#: src/Admin/AdminMenu.php:34, src/Admin/AdminMenu.php:35, src/Elements/UserDashboard/UserDashboard.php:31
+msgid "Dashboard"
+msgstr ""
+
+#: src/Elements/Elements.php:75
+msgid "Directorist"
+msgstr ""
+
+#: src/Utils/Singleton.php:14, src/Utils/Singleton.php:18, src/Utils copy/Singleton.php:14, src/Utils copy/Singleton.php:18
+msgid "Something wen't wrong."
+msgstr ""
+
+#: src/Elements/AddListing/AddListing.php:33
+msgid "Add Listing Form"
+msgstr ""
+
+#: src/Elements/AddListing/AddListing.php:63, src/Elements/AllAuthors/AllAuthors.php:59, src/Elements/AllCategories/AllCategories.php:61, src/Elements/AllListings/AllListings.php:61, src/Elements/AllLocations/AllLocations.php:62, src/Elements/AuthorProfile/AuthorProfile.php:60, src/Elements/Checkout/Checkout.php:57, src/Elements/PaymentReceipt/PaymentReceipt.php:56, src/Elements/SearchListing/SearchListing.php:60, src/Elements/SearchResult/SearchResult.php:60, src/Elements/SingleCategory/SingleCategory.php:60, src/Elements/SingleLocation/SingleLocation.php:60, src/Elements/SingleTag/SingleTag.php:60, src/Elements/TransactionFailure/TransactionFailure.php:52, src/Elements/UserDashboard/UserDashboard.php:57, src/Elements/UserLogin/UserLogin.php:60, src/Elements/UserRegistration/UserRegistration.php:61
+msgid "General"
+msgstr ""
+
+#: src/Elements/AddListing/AddListing.php:70
+msgid "This widget works only in Add Listing page. It has no additional elementor settings."
+msgstr ""
+
+#: src/Elements/AddListing/AddListing.php:79, src/Elements/AllCategories/AllCategories.php:68, src/Elements/AllListings/AllListings.php:173, src/Elements/AllLocations/AllLocations.php:69, src/Elements/SearchListing/SearchListing.php:126
+msgid "Directory Types"
+msgstr ""
+
+#: src/Elements/AddListing/AddListing.php:93, src/Elements/AllCategories/AllCategories.php:222, src/Elements/AllListings/AllListings.php:334, src/Elements/AllLocations/AllLocations.php:197, src/Elements/SearchResult/SearchResult.php:250, src/Elements/SingleCategory/SingleCategory.php:250, src/Elements/SingleLocation/SingleLocation.php:249, src/Elements/SingleTag/SingleTag.php:249
+msgid "Directory Type: Container"
+msgstr ""
+
+#: src/Elements/AddListing/AddListing.php:97
+msgid "Form: Section Name"
+msgstr ""
+
+#: src/Elements/AddListing/AddListing.php:98
+msgid "Form: Fields"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:30, src/Elements/Common/DirectoryTypeStyles.php:30
+msgid "Directory: Types"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:39, src/Elements/AllAuthors/Styles.php:129, src/Elements/AllListings/Styles.php:177, src/Elements/AllListings/Styles.php:271, src/Elements/AllListings/Styles.php:727, src/Elements/AuthorProfile/Styles.php:149, src/Elements/Common/DirectoryTypeStyles.php:39
+msgid "Icon Size"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:72, src/Elements/AddListing/Styles.php:225, src/Elements/AllCategories/Styles.php:55, src/Elements/AllLocations/Styles.php:55, src/Elements/Common/Container.php:31, src/Elements/SearchListing/Styles.php:47, src/Elements/UserDashboard/Styles.php:336
+msgid "Margin"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:85, src/Elements/AddListing/Styles.php:237, src/Elements/AllAuthors/Styles.php:98, src/Elements/AllAuthors/Styles.php:269, src/Elements/AllCategories/Styles.php:41, src/Elements/AllListings/Styles.php:423, src/Elements/AllLocations/Styles.php:41, src/Elements/AuthorProfile/Styles.php:101, src/Elements/AuthorProfile/Styles.php:288, src/Elements/AuthorProfile/Styles.php:476, src/Elements/Common/Button.php:219, src/Elements/Common/Container.php:43, src/Elements/Common/DirectoryTypeStyles.php:301, src/Elements/PaymentReceipt/PaymentReceipt.php:261, src/Elements/SearchListing/Styles.php:34, src/Elements/UserDashboard/Styles.php:348, src/Elements/UserLogin/Styles.php:435
+msgid "Padding"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:97, src/Elements/AddListing/Styles.php:329, src/Elements/AddListing/Styles.php:670, src/Elements/AllListings/Styles.php:49, src/Elements/AllListings/Styles.php:298, src/Elements/AllListings/Styles.php:457, src/Elements/Common/Button.php:43, src/Elements/Common/DirectoryTypeStyles.php:105, src/Elements/Common/Pagination.php:29, src/Elements/PaymentReceipt/PaymentReceipt.php:120, src/Elements/UserDashboard/Styles.php:63, src/Elements/UserDashboard/Styles.php:477, src/Elements/UserLogin/Styles.php:318
+msgid "Normal"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:102, src/Elements/AddListing/Styles.php:151, src/Elements/AddListing/Styles.php:333, src/Elements/AddListing/Styles.php:360, src/Elements/AddListing/Styles.php:392, src/Elements/AddListing/Styles.php:435, src/Elements/AddListing/Styles.php:531, src/Elements/AddListing/Styles.php:674, src/Elements/AddListing/Styles.php:705, src/Elements/AllCategories/Styles.php:140, src/Elements/AllListings/Styles.php:202, src/Elements/AllListings/Styles.php:305, src/Elements/AllListings/Styles.php:366, src/Elements/AllListings/Styles.php:657, src/Elements/AllListings/Styles.php:752, src/Elements/AllLocations/Styles.php:136, src/Elements/Common/Button.php:50, src/Elements/Common/Button.php:108, src/Elements/Common/Button.php:167, src/Elements/Common/DirectoryTypeStyles.php:112, src/Elements/Common/DirectoryTypeStyles.php:175, src/Elements/Common/DirectoryTypeStyles.php:247, src/Elements/Common/TextControls.php:23, src/Elements/Common/TextControls.php:72, src/Elements/PaymentReceipt/PaymentReceipt.php:128, src/Elements/PaymentReceipt/PaymentReceipt.php:172, src/Elements/SearchListing/Styles.php:113, src/Elements/SearchListing/Styles.php:161, src/Elements/SearchListing/Styles.php:212, src/Elements/UserDashboard/Styles.php:67, src/Elements/UserDashboard/Styles.php:94, src/Elements/UserDashboard/Styles.php:121, src/Elements/UserDashboard/Styles.php:161, src/Elements/UserDashboard/Styles.php:187, src/Elements/UserDashboard/Styles.php:233, src/Elements/UserDashboard/Styles.php:270, src/Elements/UserDashboard/Styles.php:483, src/Elements/UserDashboard/Styles.php:540, src/Elements/UserDashboard/Styles.php:596, src/Elements/UserLogin/Styles.php:325, src/Elements/UserLogin/Styles.php:383
+msgid "Text Color"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:113, src/Elements/AllAuthors/Styles.php:235, src/Elements/AllAuthors/Styles.php:362, src/Elements/AllCategories/Styles.php:68, src/Elements/AllCategories/Styles.php:221, src/Elements/AllListings/Styles.php:475, src/Elements/AllListings/Styles.php:531, src/Elements/AllListings/Styles.php:587, src/Elements/AllLocations/Styles.php:68, src/Elements/Common/Pagination.php:47, src/Elements/Common/Pagination.php:103, src/Elements/Common/Pagination.php:159, src/Elements/SearchListing/Styles.php:59, src/Elements/UserDashboard/Styles.php:495, src/Elements/UserDashboard/Styles.php:551, src/Elements/UserDashboard/Styles.php:608
+msgid "Background Color"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:124, src/Elements/AllAuthors/Styles.php:221, src/Elements/AllAuthors/Styles.php:348, src/Elements/AllListings/Styles.php:166, src/Elements/AllListings/Styles.php:715
+msgid "Icon Color"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:135, src/Elements/AddListing/Styles.php:184
+msgid "Icon Background"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:146, src/Elements/AddListing/Styles.php:388, src/Elements/AddListing/Styles.php:701, src/Elements/AllAuthors/Styles.php:336, src/Elements/AllListings/Styles.php:359, src/Elements/AllListings/Styles.php:570, src/Elements/AuthorProfile/Styles.php:355, src/Elements/Common/Button.php:160, src/Elements/Common/DirectoryTypeStyles.php:240, src/Elements/Common/Pagination.php:142, src/Elements/PaymentReceipt/PaymentReceipt.php:164, src/Elements/UserDashboard/Styles.php:117, src/Elements/UserDashboard/Styles.php:590, src/Elements/UserLogin/Styles.php:376
+msgid "Hover"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:162, src/Elements/AddListing/Styles.php:345, src/Elements/AddListing/Styles.php:376, src/Elements/AddListing/Styles.php:405, src/Elements/AddListing/Styles.php:688, src/Elements/AddListing/Styles.php:719, src/Elements/AllListings/Styles.php:318, src/Elements/AllListings/Styles.php:379, src/Elements/Checkout/Styles.php:215, src/Elements/Checkout/Styles.php:242, src/Elements/SearchListing/Styles.php:175, src/Elements/SearchListing/Styles.php:223, src/Elements/UserDashboard/Styles.php:79, src/Elements/UserDashboard/Styles.php:106, src/Elements/UserDashboard/Styles.php:133, src/Elements/UserDashboard/Styles.php:172, src/Elements/UserDashboard/Styles.php:198, src/Elements/UserDashboard/Styles.php:283
+msgid "Background"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:173, src/Elements/AllCategories/Styles.php:176, src/Elements/AuthorProfile/Styles.php:407, src/Elements/SearchListing/Styles.php:189, src/Elements/SearchListing/Styles.php:234
+msgid "Icon"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:207
+msgid "Form: Container"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:215
+msgid "<b>Form View</b>"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:269, src/Elements/AllAuthors/Styles.php:76, src/Elements/AllAuthors/Styles.php:324, src/Elements/AllCategories/Styles.php:90, src/Elements/AllListings/Styles.php:79, src/Elements/AllListings/Styles.php:128, src/Elements/AllListings/Styles.php:337, src/Elements/AllListings/Styles.php:399, src/Elements/AllListings/Styles.php:494, src/Elements/AllListings/Styles.php:550, src/Elements/AllListings/Styles.php:606, src/Elements/AllLocations/Styles.php:89, src/Elements/AuthorProfile/Styles.php:81, src/Elements/AuthorProfile/Styles.php:343, src/Elements/AuthorProfile/Styles.php:511, src/Elements/Common/Button.php:79, src/Elements/Common/Button.php:138, src/Elements/Common/Button.php:195, src/Elements/Common/Container.php:75, src/Elements/Common/DirectoryTypeStyles.php:145, src/Elements/Common/DirectoryTypeStyles.php:218, src/Elements/Common/DirectoryTypeStyles.php:277, src/Elements/Common/Pagination.php:66, src/Elements/Common/Pagination.php:122, src/Elements/Common/Pagination.php:178, src/Elements/PaymentReceipt/PaymentReceipt.php:239, src/Elements/SearchListing/Styles.php:80, src/Elements/UserDashboard/Styles.php:303, src/Elements/UserDashboard/Styles.php:381, src/Elements/UserDashboard/Styles.php:514, src/Elements/UserDashboard/Styles.php:570, src/Elements/UserDashboard/Styles.php:627, src/Elements/UserLogin/Styles.php:354, src/Elements/UserLogin/Styles.php:411
+msgid "Border Radius"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:294
+msgid "Form: Steps"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:310, src/Elements/UserDashboard/Styles.php:35
+msgid "Menu Item Gap"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:356, src/Elements/AllListings/Styles.php:100, src/Elements/AllListings/Styles.php:514, src/Elements/Common/Button.php:101, src/Elements/Common/DirectoryTypeStyles.php:167, src/Elements/Common/Pagination.php:86, src/Elements/UserDashboard/Styles.php:90, src/Elements/UserDashboard/Styles.php:534
+msgid "Active"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:471, src/Elements/AddListing/Styles.php:567
+msgid "Separator"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:480, src/Elements/AddListing/Styles.php:577, src/Elements/AddListing/Styles.php:645
+msgid "Height"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:499, src/Elements/AddListing/Styles.php:598, src/Elements/AllAuthors/Styles.php:153, src/Elements/AllAuthors/Styles.php:208, src/Elements/AllCategories/Styles.php:209, src/Elements/AllListings/Styles.php:55, src/Elements/AllListings/Styles.php:106, src/Elements/AllListings/Styles.php:463, src/Elements/AllListings/Styles.php:520, src/Elements/AllListings/Styles.php:576, src/Elements/AuthorProfile/Styles.php:173, src/Elements/AuthorProfile/Styles.php:228, src/Elements/AuthorProfile/Styles.php:415, src/Elements/Checkout/Styles.php:45, src/Elements/Checkout/Styles.php:115, src/Elements/Checkout/Styles.php:143, src/Elements/Checkout/Styles.php:163, src/Elements/Checkout/Styles.php:204, src/Elements/Checkout/Styles.php:231, src/Elements/Common/Pagination.php:35, src/Elements/Common/Pagination.php:92, src/Elements/Common/Pagination.php:148, src/Elements/UserLogin/Styles.php:48, src/Elements/UserLogin/Styles.php:92, src/Elements/UserLogin/Styles.php:120, src/Elements/UserLogin/Styles.php:148, src/Elements/UserLogin/Styles.php:176, src/Elements/UserLogin/Styles.php:212, src/Elements/UserLogin/Styles.php:275, src/Elements/UserRegistration/Styles.php:50
+msgid "Color"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:523, src/Elements/UserLogin/UserLogin.php:84, src/Elements/UserRegistration/UserRegistration.php:85
+msgid "Label"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:615
+msgid "Form: Progressbar"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:623
+msgid "Progressbar Color"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:634
+msgid "Progressbar Background"
+msgstr ""
+
+#: src/Elements/AddListing/Styles.php:662
+msgid "Form: Buttons"
+msgstr ""
+
+#: src/Elements/AllAuthors/AllAuthors.php:33
+msgid "All Authors"
+msgstr ""
+
+#: src/Elements/AllAuthors/AllAuthors.php:66
+msgid "This widget works only in All Authors page. It has no additional elementor settings."
+msgstr ""
+
+#: src/Elements/AllAuthors/AllAuthors.php:78
+msgid "Alphabet: Container"
+msgstr ""
+
+#: src/Elements/AllAuthors/AllAuthors.php:79
+msgid "Alphabet: Style"
+msgstr ""
+
+#: src/Elements/AllAuthors/AllAuthors.php:80
+msgid "Card: Container"
+msgstr ""
+
+#: src/Elements/AllAuthors/AllAuthors.php:82
+msgid "Card: Author Name"
+msgstr ""
+
+#: src/Elements/AllAuthors/AllAuthors.php:84
+msgid "Card: Author Bio"
+msgstr ""
+
+#: src/Elements/AllAuthors/AllAuthors.php:86
+msgid "Card: Button"
+msgstr ""
+
+#: src/Elements/AllAuthors/Styles.php:34
+msgid "Card: Image"
+msgstr ""
+
+#: src/Elements/AllAuthors/Styles.php:42, src/Elements/AuthorProfile/Styles.php:49
+msgid "Image Size"
+msgstr ""
+
+#: src/Elements/AllAuthors/Styles.php:121
+msgid "Card: Contact Info"
+msgstr ""
+
+#: src/Elements/AllAuthors/Styles.php:200
+msgid "Card: Social Icons"
+msgstr ""
+
+#: src/Elements/AllAuthors/Styles.php:212, src/Elements/AuthorProfile/Styles.php:232, src/Elements/AuthorProfile/Styles.php:419
+msgid "Default Color"
+msgstr ""
+
+#: src/Elements/AllAuthors/Styles.php:213, src/Elements/AuthorProfile/Styles.php:233, src/Elements/AuthorProfile/Styles.php:420
+msgid "Custom"
+msgstr ""
+
+#: src/Elements/AllAuthors/Styles.php:249, src/Elements/AllCategories/Styles.php:184, src/Elements/AuthorProfile/Styles.php:269, src/Elements/AuthorProfile/Styles.php:457
+msgid "Size"
+msgstr ""
+
+#: src/Elements/AllAuthors/Styles.php:295, src/Elements/AuthorProfile/Styles.php:314
+msgid "Spacing"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:35
+msgid "All Categories"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:80, src/Elements/AllListings/AllListings.php:185, src/Elements/AllLocations/AllLocations.php:81, src/Elements/SearchListing/SearchListing.php:138
+msgid "Default Directory"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:91, src/Elements/AllListings/AllListings.php:196
+msgid "Alignment"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:95, src/Elements/AllListings/AllListings.php:200, src/Elements/SearchListing/SearchListing.php:102
+msgid "Left"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:99, src/Elements/AllListings/AllListings.php:204, src/Elements/SearchListing/SearchListing.php:106
+msgid "Center"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:103, src/Elements/AllListings/AllListings.php:208, src/Elements/SearchListing/SearchListing.php:110
+msgid "Right"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:117, src/Elements/AllListings/AllListings.php:102, src/Elements/AllLocations/AllLocations.php:92, src/Elements/SearchResult/SearchResult.php:101, src/Elements/SingleCategory/SingleCategory.php:101, src/Elements/SingleLocation/SingleLocation.php:101, src/Elements/SingleTag/SingleTag.php:101
+msgid "View As"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:120
+msgid "Grid View"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:121
+msgid "List View"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:131
+msgid "Categories Per Row"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:133, src/Elements/AllListings/AllListings.php:70, src/Elements/AllListings/AllListings.php:82, src/Elements/AllListings/AllListings.php:131, src/Elements/AllListings/AllListings.php:163, src/Elements/AllListings/AllListings.php:322, src/Elements/AllLocations/AllLocations.php:108, src/Elements/SearchListing/SearchListing.php:69, src/Elements/SearchListing/SearchListing.php:161, src/Elements/SearchListing/SearchListing.php:183, src/Elements/SearchListing/SearchListing.php:209, src/Elements/SearchResult/SearchResult.php:69, src/Elements/SearchResult/SearchResult.php:81, src/Elements/SearchResult/SearchResult.php:130, src/Elements/SearchResult/SearchResult.php:162, src/Elements/SearchResult/SearchResult.php:239, src/Elements/SingleCategory/SingleCategory.php:69, src/Elements/SingleCategory/SingleCategory.php:81, src/Elements/SingleCategory/SingleCategory.php:161, src/Elements/SingleCategory/SingleCategory.php:238, src/Elements/SingleLocation/SingleLocation.php:69, src/Elements/SingleLocation/SingleLocation.php:81, src/Elements/SingleLocation/SingleLocation.php:160, src/Elements/SingleLocation/SingleLocation.php:237, src/Elements/SingleTag/SingleTag.php:69, src/Elements/SingleTag/SingleTag.php:81, src/Elements/SingleTag/SingleTag.php:160, src/Elements/SingleTag/SingleTag.php:237
+msgid "Show"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:134, src/Elements/AllListings/AllListings.php:71, src/Elements/AllListings/AllListings.php:83, src/Elements/AllListings/AllListings.php:132, src/Elements/AllListings/AllListings.php:164, src/Elements/AllListings/AllListings.php:323, src/Elements/AllLocations/AllLocations.php:109, src/Elements/SearchListing/SearchListing.php:70, src/Elements/SearchListing/SearchListing.php:162, src/Elements/SearchListing/SearchListing.php:184, src/Elements/SearchListing/SearchListing.php:210, src/Elements/SearchResult/SearchResult.php:70, src/Elements/SearchResult/SearchResult.php:82, src/Elements/SearchResult/SearchResult.php:131, src/Elements/SearchResult/SearchResult.php:163, src/Elements/SearchResult/SearchResult.php:240, src/Elements/SingleCategory/SingleCategory.php:70, src/Elements/SingleCategory/SingleCategory.php:82, src/Elements/SingleCategory/SingleCategory.php:162, src/Elements/SingleCategory/SingleCategory.php:239, src/Elements/SingleLocation/SingleLocation.php:70, src/Elements/SingleLocation/SingleLocation.php:82, src/Elements/SingleLocation/SingleLocation.php:161, src/Elements/SingleLocation/SingleLocation.php:238, src/Elements/SingleTag/SingleTag.php:70, src/Elements/SingleTag/SingleTag.php:82, src/Elements/SingleTag/SingleTag.php:161, src/Elements/SingleTag/SingleTag.php:238
+msgid "Hide"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:136, src/Elements/AllListings/AllListings.php:134, src/Elements/AllLocations/AllLocations.php:111, src/Elements/SearchResult/SearchResult.php:133, src/Elements/SingleCategory/SingleCategory.php:131, src/Elements/SingleLocation/SingleLocation.php:131, src/Elements/SingleTag/SingleTag.php:131
+msgid "6 Items / Row"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:137, src/Elements/AllListings/AllListings.php:135, src/Elements/AllLocations/AllLocations.php:112, src/Elements/SearchResult/SearchResult.php:134, src/Elements/SingleCategory/SingleCategory.php:132, src/Elements/SingleLocation/SingleLocation.php:132, src/Elements/SingleTag/SingleTag.php:132
+msgid "4 Items / Row"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:138, src/Elements/AllListings/AllListings.php:136, src/Elements/AllLocations/AllLocations.php:113, src/Elements/SearchResult/SearchResult.php:135, src/Elements/SingleCategory/SingleCategory.php:134, src/Elements/SingleLocation/SingleLocation.php:133, src/Elements/SingleTag/SingleTag.php:133
+msgid "3 Items / Row"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:139, src/Elements/AllListings/AllListings.php:137, src/Elements/AllLocations/AllLocations.php:114, src/Elements/SearchResult/SearchResult.php:136, src/Elements/SingleCategory/SingleCategory.php:135, src/Elements/SingleLocation/SingleLocation.php:134, src/Elements/SingleTag/SingleTag.php:134
+msgid "2 Items / Row"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:150, src/Elements/AllListings/AllListings.php:291, src/Elements/AllLocations/AllLocations.php:125, src/Elements/SearchResult/SearchResult.php:208, src/Elements/SingleCategory/SingleCategory.php:207, src/Elements/SingleLocation/SingleLocation.php:206, src/Elements/SingleTag/SingleTag.php:206
+msgid "Order by"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:153, src/Elements/AllLocations/AllLocations.php:128
+msgid "ID"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:154, src/Elements/AllLocations/AllLocations.php:129
+msgid "Count"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:155, src/Elements/AllLocations/AllLocations.php:130
+msgid "Name"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:156, src/Elements/AllLocations/AllLocations.php:131
+msgid "Slug"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:166, src/Elements/AllListings/AllListings.php:222
+msgid "Specify Categories"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:178
+msgid "Categories Order"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:181, src/Elements/AllListings/AllListings.php:309, src/Elements/AllLocations/AllLocations.php:156, src/Elements/SearchResult/SearchResult.php:226, src/Elements/SingleCategory/SingleCategory.php:225, src/Elements/SingleLocation/SingleLocation.php:224, src/Elements/SingleTag/SingleTag.php:224
+msgid " ASC"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:182, src/Elements/AllListings/AllListings.php:310, src/Elements/AllLocations/AllLocations.php:157, src/Elements/SearchResult/SearchResult.php:227, src/Elements/SingleCategory/SingleCategory.php:226, src/Elements/SingleLocation/SingleLocation.php:225, src/Elements/SingleTag/SingleTag.php:225
+msgid " DESC"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:192
+msgid "Number of Categories to Show"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:205, src/Elements/AllListings/AllListings.php:279, src/Elements/AllLocations/AllLocations.php:180, src/Elements/AuthorProfile/AuthorProfile.php:67, src/Elements/SearchResult/SearchResult.php:196, src/Elements/SingleCategory/SingleCategory.php:195, src/Elements/SingleLocation/SingleLocation.php:194, src/Elements/SingleTag/SingleTag.php:194
+msgid "Only For Logged In User?"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:207, src/Elements/AllListings/AllListings.php:257, src/Elements/AllListings/AllListings.php:269, src/Elements/AllListings/AllListings.php:281, src/Elements/AllLocations/AllLocations.php:182, src/Elements/AuthorProfile/AuthorProfile.php:69, src/Elements/SearchListing/SearchListing.php:250, src/Elements/SearchResult/SearchResult.php:174, src/Elements/SearchResult/SearchResult.php:186, src/Elements/SearchResult/SearchResult.php:198, src/Elements/SingleCategory/SingleCategory.php:173, src/Elements/SingleCategory/SingleCategory.php:185, src/Elements/SingleCategory/SingleCategory.php:197, src/Elements/SingleLocation/SingleLocation.php:172, src/Elements/SingleLocation/SingleLocation.php:184, src/Elements/SingleLocation/SingleLocation.php:196, src/Elements/SingleTag/SingleTag.php:172, src/Elements/SingleTag/SingleTag.php:184, src/Elements/SingleTag/SingleTag.php:196
+msgid "Yes"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:208, src/Elements/AllListings/AllListings.php:258, src/Elements/AllListings/AllListings.php:270, src/Elements/AllListings/AllListings.php:282, src/Elements/AllLocations/AllLocations.php:183, src/Elements/AuthorProfile/AuthorProfile.php:70, src/Elements/SearchListing/SearchListing.php:251, src/Elements/SearchResult/SearchResult.php:175, src/Elements/SearchResult/SearchResult.php:187, src/Elements/SearchResult/SearchResult.php:199, src/Elements/SingleCategory/SingleCategory.php:174, src/Elements/SingleCategory/SingleCategory.php:186, src/Elements/SingleCategory/SingleCategory.php:198, src/Elements/SingleLocation/SingleLocation.php:173, src/Elements/SingleLocation/SingleLocation.php:185, src/Elements/SingleLocation/SingleLocation.php:197, src/Elements/SingleTag/SingleTag.php:173, src/Elements/SingleTag/SingleTag.php:185, src/Elements/SingleTag/SingleTag.php:197
+msgid "No"
+msgstr ""
+
+#: src/Elements/AllCategories/AllCategories.php:239
+msgid "Listing Count"
+msgstr ""
+
+#: src/Elements/AllCategories/Styles.php:25
+msgid "Category Card"
+msgstr ""
+
+#: src/Elements/AllCategories/Styles.php:114
+msgid "Category Title"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:35
+msgid "All Listings"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:68, src/Elements/SearchResult/SearchResult.php:67, src/Elements/SingleCategory/SingleCategory.php:67, src/Elements/SingleLocation/SingleLocation.php:67, src/Elements/SingleTag/SingleTag.php:67
+msgid "Header?"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:80, src/Elements/SearchResult/SearchResult.php:79, src/Elements/SingleCategory/SingleCategory.php:79, src/Elements/SingleLocation/SingleLocation.php:79, src/Elements/SingleTag/SingleTag.php:79
+msgid "Filter Button?"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:92, src/Elements/SearchResult/SearchResult.php:91, src/Elements/SingleCategory/SingleCategory.php:91, src/Elements/SingleLocation/SingleLocation.php:91, src/Elements/SingleTag/SingleTag.php:91
+msgid "Total Listings Found Title"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:94, src/Elements/SearchResult/SearchResult.php:93, src/Elements/SingleCategory/SingleCategory.php:93, src/Elements/SingleLocation/SingleLocation.php:93, src/Elements/SingleTag/SingleTag.php:93
+msgid "Listings Found"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:105, src/Elements/AllLocations/AllLocations.php:95, src/Elements/SearchResult/SearchResult.php:104, src/Elements/SingleCategory/SingleCategory.php:104, src/Elements/SingleLocation/SingleLocation.php:104, src/Elements/SingleTag/SingleTag.php:104
+msgid "Grid"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:106, src/Elements/AllLocations/AllLocations.php:96, src/Elements/SearchResult/SearchResult.php:105, src/Elements/SingleCategory/SingleCategory.php:105, src/Elements/SingleLocation/SingleLocation.php:105, src/Elements/SingleTag/SingleTag.php:105
+msgid "List"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:107, src/Elements/SearchResult/SearchResult.php:106, src/Elements/SingleCategory/SingleCategory.php:106, src/Elements/SingleLocation/SingleLocation.php:106, src/Elements/SingleTag/SingleTag.php:106
+msgid "Map"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:117, src/Elements/SearchResult/SearchResult.php:116, src/Elements/SingleCategory/SingleCategory.php:116, src/Elements/SingleLocation/SingleLocation.php:116, src/Elements/SingleTag/SingleTag.php:116
+msgid "Map Height"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:129, src/Elements/SearchResult/SearchResult.php:128, src/Elements/SingleCategory/SingleCategory.php:128, src/Elements/SingleLocation/SingleLocation.php:128, src/Elements/SingleTag/SingleTag.php:128
+msgid "Listings Per Row"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:148, src/Elements/SearchResult/SearchResult.php:147, src/Elements/SingleCategory/SingleCategory.php:146, src/Elements/SingleLocation/SingleLocation.php:145, src/Elements/SingleTag/SingleTag.php:145
+msgid "Number of Listings to Show"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:161, src/Elements/SearchResult/SearchResult.php:160, src/Elements/SingleCategory/SingleCategory.php:159, src/Elements/SingleLocation/SingleLocation.php:158, src/Elements/SingleTag/SingleTag.php:158
+msgid "Preview Image?"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:233
+msgid "Specify Tags"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:244, src/Elements/AllLocations/AllLocations.php:141
+msgid "Specify Locations"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:255, src/Elements/SearchResult/SearchResult.php:172, src/Elements/SingleCategory/SingleCategory.php:171, src/Elements/SingleLocation/SingleLocation.php:170, src/Elements/SingleTag/SingleTag.php:170
+msgid "Show Featured Only?"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:267, src/Elements/SearchResult/SearchResult.php:184, src/Elements/SingleCategory/SingleCategory.php:183, src/Elements/SingleLocation/SingleLocation.php:182, src/Elements/SingleTag/SingleTag.php:182
+msgid "Show Popular Only?"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:294, src/Elements/AllListings/Styles.php:644, src/Elements/AuthorProfile/Styles.php:127, src/Elements/Checkout/Styles.php:98, src/Elements/SearchListing/SearchListing.php:261, src/Elements/SearchResult/SearchResult.php:211, src/Elements/SingleCategory/SingleCategory.php:210, src/Elements/SingleLocation/SingleLocation.php:209, src/Elements/SingleTag/SingleTag.php:209
+msgid "Title"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:295, src/Elements/SearchResult/SearchResult.php:212, src/Elements/SingleCategory/SingleCategory.php:211, src/Elements/SingleLocation/SingleLocation.php:210, src/Elements/SingleTag/SingleTag.php:210
+msgid "Date"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:296, src/Elements/SearchResult/SearchResult.php:213, src/Elements/SingleCategory/SingleCategory.php:212, src/Elements/SingleLocation/SingleLocation.php:211, src/Elements/SingleTag/SingleTag.php:211
+msgid "Price"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:306, src/Elements/SearchResult/SearchResult.php:223, src/Elements/SingleCategory/SingleCategory.php:222, src/Elements/SingleLocation/SingleLocation.php:221, src/Elements/SingleTag/SingleTag.php:221
+msgid "Listings Order"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:320, src/Elements/SearchResult/SearchResult.php:237, src/Elements/SingleCategory/SingleCategory.php:236
+msgid "Pagination?"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:340
+msgid "Listing Header: Items Found"
+msgstr ""
+
+#: src/Elements/AllListings/AllListings.php:346, src/Elements/AuthorProfile/AuthorProfile.php:114, src/Elements/SearchResult/SearchResult.php:267, src/Elements/SingleCategory/SingleCategory.php:267, src/Elements/SingleLocation/SingleLocation.php:266, src/Elements/SingleTag/SingleTag.php:266
+msgid "Pagination Container"
+msgstr ""
+
+#: src/Elements/AllListings/Styles.php:32
+msgid "Listing Header: Views & Sort"
+msgstr ""
+
+#: src/Elements/AllListings/Styles.php:158
+msgid "Listing: Footer"
+msgstr ""
+
+#: src/Elements/AllListings/Styles.php:246
+msgid "Listing Header: Filters"
+msgstr ""
+
+#: src/Elements/AllListings/Styles.php:448
+msgid "Pagination"
+msgstr ""
+
+#: src/Elements/AllListings/Styles.php:639
+msgid "Listing: Card Info"
+msgstr ""
+
+#: src/Elements/AllListings/Styles.php:649
+msgid "Top Info"
+msgstr ""
+
+#: src/Elements/AllListings/Styles.php:706
+msgid "Bottom Info"
+msgstr ""
+
+#: src/Elements/AllLocations/AllLocations.php:36
+msgid "All Locations"
+msgstr ""
+
+#: src/Elements/AllLocations/AllLocations.php:106
+msgid "Locations Per Row"
+msgstr ""
+
+#: src/Elements/AllLocations/AllLocations.php:153
+msgid "Locations Order"
+msgstr ""
+
+#: src/Elements/AllLocations/AllLocations.php:167
+msgid "Number of Locations to Show"
+msgstr ""
+
+#: src/Elements/AllLocations/Styles.php:25
+msgid "Location Card Container"
+msgstr ""
+
+#: src/Elements/AllLocations/Styles.php:112
+msgid "Location Content"
+msgstr ""
+
+#: src/Elements/AuthorProfile/AuthorProfile.php:34
+msgid "Author Profile"
+msgstr ""
+
+#: src/Elements/AuthorProfile/AuthorProfile.php:81
+msgid "Profile: Container"
+msgstr ""
+
+#: src/Elements/AuthorProfile/AuthorProfile.php:85
+msgid "Profile: Reviews & Listings Container"
+msgstr ""
+
+#: src/Elements/AuthorProfile/AuthorProfile.php:87
+msgid "Profile: Reviews & Listings"
+msgstr ""
+
+#: src/Elements/AuthorProfile/AuthorProfile.php:89
+msgid "Contact Info: Container"
+msgstr ""
+
+#: src/Elements/AuthorProfile/AuthorProfile.php:91
+msgid "Contact Info: Title"
+msgstr ""
+
+#: src/Elements/AuthorProfile/AuthorProfile.php:96
+msgid "About: Container"
+msgstr ""
+
+#: src/Elements/AuthorProfile/AuthorProfile.php:103
+msgid "Listings: Section Title"
+msgstr ""
+
+#: src/Elements/AuthorProfile/AuthorProfile.php:105
+msgid "Listings: Directory Type Container"
+msgstr ""
+
+#: src/Elements/AuthorProfile/AuthorProfile.php:109
+msgid "Listings: Filter"
+msgstr ""
+
+#: src/Elements/AuthorProfile/Styles.php:33
+msgid "Profile: Info"
+msgstr ""
+
+#: src/Elements/AuthorProfile/Styles.php:41
+msgid "Image"
+msgstr ""
+
+#: src/Elements/AuthorProfile/Styles.php:110
+msgid "Profile: Name"
+msgstr ""
+
+#: src/Elements/AuthorProfile/Styles.php:112
+msgid "Profile: Registered"
+msgstr ""
+
+#: src/Elements/AuthorProfile/Styles.php:122
+msgid "About: Title & Description"
+msgstr ""
+
+#: src/Elements/AuthorProfile/Styles.php:129
+msgid "Description"
+msgstr ""
+
+#: src/Elements/AuthorProfile/Styles.php:141
+msgid "Contact Info: Contact List"
+msgstr ""
+
+#: src/Elements/AuthorProfile/Styles.php:220
+msgid "Contact Info: Socials"
+msgstr ""
+
+#: src/Elements/AuthorProfile/Styles.php:241, src/Elements/AuthorProfile/Styles.php:367, src/Elements/AuthorProfile/Styles.php:429
+msgid "Primary Color"
+msgstr ""
+
+#: src/Elements/AuthorProfile/Styles.php:255, src/Elements/AuthorProfile/Styles.php:381, src/Elements/AuthorProfile/Styles.php:443
+msgid "Secondary Color"
+msgstr ""
+
+#: src/Elements/AuthorProfile/Styles.php:520
+msgid "Text"
+msgstr ""
+
+#: src/Elements/Checkout/Checkout.php:31
+msgid "Cart/Checkout"
+msgstr ""
+
+#: src/Elements/Checkout/Checkout.php:64
+msgid "This widget works only in Checkout page. It has no additional elementor settings."
+msgstr ""
+
+#: src/Elements/Checkout/Checkout.php:75
+msgid "Instruction"
+msgstr ""
+
+#: src/Elements/Checkout/Checkout.php:78
+msgid "Section Container"
+msgstr ""
+
+#: src/Elements/Checkout/Styles.php:29
+msgid "Section Title"
+msgstr ""
+
+#: src/Elements/Checkout/Styles.php:90
+msgid "Section Content"
+msgstr ""
+
+#: src/Elements/Checkout/Styles.php:126
+msgid "Content"
+msgstr ""
+
+#: src/Elements/Checkout/Styles.php:154
+msgid "Prices"
+msgstr ""
+
+#: src/Elements/Checkout/Styles.php:175, src/Elements/PaymentReceipt/PaymentReceipt.php:201
+msgid "Border Color"
+msgstr ""
+
+#: src/Elements/Checkout/Styles.php:192
+msgid "Action Buttons"
+msgstr ""
+
+#: src/Elements/Checkout/Styles.php:200
+msgid "Pay Now"
+msgstr ""
+
+#: src/Elements/Checkout/Styles.php:227
+msgid "Not Now"
+msgstr ""
+
+#: src/Elements/Common/DirectoryTypeStyles.php:64
+msgid "Icon Gap"
+msgstr ""
+
+#: src/Elements/PaymentReceipt/PaymentReceipt.php:30
+msgid "Payment Receipt"
+msgstr ""
+
+#: src/Elements/PaymentReceipt/PaymentReceipt.php:63
+msgid "This widget works only in Payment Receipt page. It has no additional elementor settings."
+msgstr ""
+
+#: src/Elements/PaymentReceipt/PaymentReceipt.php:88
+msgid "Button Style"
+msgstr ""
+
+#: src/Elements/PaymentReceipt/PaymentReceipt.php:216
+msgid "Hover Animation"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:33
+msgid "Directorist Search Form"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:67
+msgid "Title & Subtitle?"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:78
+msgid "Search Form Title"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:80
+msgid "Search here"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:88
+msgid "Search Form Subtitle"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:90
+msgid "Find the best match of your interest"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:98
+msgid "Title/Subtitle Alignment"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:149
+msgid "Search Button Label"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:151
+msgid "Search Listing"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:159
+msgid "More Search Fields?"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:171, src/Elements/SearchListing/SearchListing.php:194, src/Elements/SearchListing/SearchListing.php:220
+msgid "Button Label"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:173
+msgid "More Filters"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:181
+msgid "Reset Filters?"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:196
+msgid "Reset Filters"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:207
+msgid "Apply Filters?"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:222
+msgid "Apply Filters"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:233
+msgid "Open Filter Fields"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:236
+msgid "Overlapping"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:237
+msgid "Sliding"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:238
+msgid "Always Open"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:248
+msgid "Show only for logged in user?"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:262
+msgid "Subtitle"
+msgstr ""
+
+#: src/Elements/SearchListing/SearchListing.php:264, src/Elements/UserLogin/UserLogin.php:79, src/Elements/UserRegistration/UserRegistration.php:80
+msgid "Form Container"
+msgstr ""
+
+#: src/Elements/SearchListing/Styles.php:105, src/Elements/UserLogin/Styles.php:203, src/Elements/UserLogin/UserLogin.php:86, src/Elements/UserRegistration/UserRegistration.php:87
+msgid "Placeholder"
+msgstr ""
+
+#: src/Elements/SearchListing/Styles.php:144
+msgid "Form Button"
+msgstr ""
+
+#: src/Elements/SearchListing/Styles.php:154
+msgid "Filters"
+msgstr ""
+
+#: src/Elements/SearchListing/Styles.php:205
+msgid "Search"
+msgstr ""
+
+#: src/Elements/SearchResult/SearchResult.php:34
+msgid "Search Result"
+msgstr ""
+
+#: src/Elements/SearchResult/SearchResult.php:254, src/Elements/SingleCategory/SingleCategory.php:254, src/Elements/SingleLocation/SingleLocation.php:253, src/Elements/SingleTag/SingleTag.php:253
+msgid "Listing Header: Container"
+msgstr ""
+
+#: src/Elements/SearchResult/SearchResult.php:258, src/Elements/SingleCategory/SingleCategory.php:258, src/Elements/SingleLocation/SingleLocation.php:257, src/Elements/SingleTag/SingleTag.php:257
+msgid "Listing Header: Listings Found"
+msgstr ""
+
+#: src/Elements/SearchResult/SearchResult.php:262, src/Elements/SingleCategory/SingleCategory.php:262, src/Elements/SingleLocation/SingleLocation.php:261, src/Elements/SingleTag/SingleTag.php:261
+msgid "Listing: Card Container"
+msgstr ""
+
+#: src/Elements/SingleCategory/SingleCategory.php:34
+msgid "Single Category"
+msgstr ""
+
+#: src/Elements/SingleCategory/SingleCategory.php:133
+msgid "5 Items / Row"
+msgstr ""
+
+#: src/Elements/SingleLocation/SingleLocation.php:34
+msgid "Single Location"
+msgstr ""
+
+#: src/Elements/SingleLocation/SingleLocation.php:235, src/Elements/SingleTag/SingleTag.php:235
+msgid "Show Pagination?"
+msgstr ""
+
+#: src/Elements/SingleTag/SingleTag.php:34
+msgid "Single Tag"
+msgstr ""
+
+#: src/Elements/TransactionFailure/TransactionFailure.php:27
+msgid "Transaction Failure"
+msgstr ""
+
+#: src/Elements/TransactionFailure/TransactionFailure.php:59
+msgid "This widget works only in Transaction Failure page. It has no additional elementor settings."
+msgstr ""
+
+#: src/Elements/UserDashboard/Styles.php:27
+msgid "Sidebar: Menu"
+msgstr ""
+
+#: src/Elements/UserDashboard/Styles.php:54
+msgid "Menu Items"
+msgstr ""
+
+#: src/Elements/UserDashboard/Styles.php:148
+msgid "Buttons Style"
+msgstr ""
+
+#: src/Elements/UserDashboard/Styles.php:157
+msgid "Submit Button"
+msgstr ""
+
+#: src/Elements/UserDashboard/Styles.php:183
+msgid "Logout Button"
+msgstr ""
+
+#: src/Elements/UserDashboard/Styles.php:217
+msgid "My Listings Top: Menu Items"
+msgstr ""
+
+#: src/Elements/UserDashboard/Styles.php:245
+msgid "Active Text Color"
+msgstr ""
+
+#: src/Elements/UserDashboard/Styles.php:262
+msgid "My Listings Top: Search Form"
+msgstr ""
+
+#: src/Elements/UserDashboard/Styles.php:328
+msgid "My Listing Content: Container"
+msgstr ""
+
+#: src/Elements/UserDashboard/Styles.php:406
+msgid "My Listing Content: Listing Info"
+msgstr ""
+
+#: src/Elements/UserDashboard/Styles.php:414
+msgid "Info Color"
+msgstr ""
+
+#: src/Elements/UserDashboard/Styles.php:436
+msgid "Edit Color"
+msgstr ""
+
+#: src/Elements/UserDashboard/Styles.php:469
+msgid "My Listing: Pagination"
+msgstr ""
+
+#: src/Elements/UserDashboard/UserDashboard.php:64
+msgid "This widget works only in Dashboard page. It has no additional elementor settings."
+msgstr ""
+
+#: src/Elements/UserDashboard/UserDashboard.php:74
+msgid "Sidebar: Container"
+msgstr ""
+
+#: src/Elements/UserDashboard/UserDashboard.php:76
+msgid "My Listings Top: Container"
+msgstr ""
+
+#: src/Elements/UserDashboard/UserDashboard.php:80
+msgid "My Listing Content: Label"
+msgstr ""
+
+#: src/Elements/UserDashboard/UserDashboard.php:81
+msgid "My Listing Content: Listing Title"
+msgstr ""
+
+#: src/Elements/UserLogin/Styles.php:32
+msgid "Form Labels"
+msgstr ""
+
+#: src/Elements/UserLogin/Styles.php:75, src/Elements/UserLogin/UserLogin.php:90
+msgid "Remember Me"
+msgstr ""
+
+#: src/Elements/UserLogin/Styles.php:103, src/Elements/UserLogin/UserLogin.php:92
+msgid "Recover Password"
+msgstr ""
+
+#: src/Elements/UserLogin/Styles.php:131, src/Elements/UserLogin/UserLogin.php:96
+msgid "Don't have an account"
+msgstr ""
+
+#: src/Elements/UserLogin/Styles.php:159, src/Elements/UserLogin/UserLogin.php:98, src/Elements/UserRegistration/UserRegistration.php:91, src/Elements/UserRegistration/UserRegistration.php:123
+msgid "Sign Up"
+msgstr ""
+
+#: src/Elements/UserLogin/Styles.php:195
+msgid "Form Fields"
+msgstr ""
+
+#: src/Elements/UserLogin/Styles.php:247
+msgid "Field Separator"
+msgstr ""
+
+#: src/Elements/UserLogin/Styles.php:256, src/Elements/UserRegistration/Styles.php:31
+msgid "Width"
+msgstr ""
+
+#: src/Elements/UserLogin/UserLogin.php:34
+msgid "User Login"
+msgstr ""
+
+#: src/Elements/UserLogin/UserLogin.php:67
+msgid "This widget works only in Login page. It has no additional elementor settings."
+msgstr ""
+
+#: src/Elements/UserLogin/UserLogin.php:88, src/Elements/UserRegistration/UserRegistration.php:89
+msgid "Fields Separator"
+msgstr ""
+
+#: src/Elements/UserLogin/UserLogin.php:94
+msgid "Login Button"
+msgstr ""
+
+#: src/Elements/UserRegistration/UserRegistration.php:35
+msgid "Registration"
+msgstr ""
+
+#: src/Elements/UserRegistration/UserRegistration.php:68
+msgid "This widget works only in Registration page. It has no additional elementor settings."
+msgstr ""
+
+#: src/Elements/UserRegistration/UserRegistration.php:93, src/Elements/UserRegistration/UserRegistration.php:125
+msgid "Already have an account?"
+msgstr ""
+
+#: src/Elements/UserRegistration/UserRegistration.php:95
+msgid "Here"
+msgstr ""
+
+#: src/Elements/UserRegistration/UserRegistration.php:106
+msgid "Username"
+msgstr ""
+
+#: src/Elements/UserRegistration/UserRegistration.php:107
+msgid "Password"
+msgstr ""
+
+#: src/Elements/UserRegistration/UserRegistration.php:110
+msgid "Email"
+msgstr ""
+
+#: src/Elements/UserRegistration/UserRegistration.php:112
+msgid "Website"
+msgstr ""
+
+#: src/Elements/UserRegistration/UserRegistration.php:115
+msgid "First Name"
+msgstr ""
+
+#: src/Elements/UserRegistration/UserRegistration.php:118
+msgid "Last Name"
+msgstr ""
+
+#: src/Elements/UserRegistration/UserRegistration.php:121
+msgid "About/bio"
+msgstr ""
+
+#: src/Elements/UserRegistration/UserRegistration.php:127
+msgid "Login"
+msgstr ""
+
+#: src/Elements/UserRegistration/UserRegistration.php:128
+msgid "I agree with all"
+msgstr ""
+
+#: src/Elements/UserRegistration/UserRegistration.php:129
+msgid "terms & conditions"
+msgstr ""
+
+#: src/Elements/UserRegistration/UserRegistration.php:132
+msgid "I agree to the"
+msgstr ""
+
+#: src/Elements/UserRegistration/UserRegistration.php:133
+msgid "Privacy & Policy"
+msgstr ""

@@ -1,0 +1,16 @@
+.idea
+.vscode
+.DS_Store
+sftp-config.json
+package-lock.json
+todo.txt
+notes.txt
+testing.html
+plugin-bundle/*.zip
+node_modules/
+vendor/
+maps
+composer.json
+phpcs.xml
+__*/
+__build
