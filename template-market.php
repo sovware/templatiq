@@ -193,6 +193,9 @@ final class TemplateMarket {
 		define( 'TEMPLATE_MARKET_ELEMENTS', TEMPLATE_MARKET_PATH . 'App/Elements' );
 		define( 'TEMPLATE_MARKET_URL', plugins_url( '', TEMPLATE_MARKET_FILE ) );
 		define( 'TEMPLATE_MARKET_ASSETS', TEMPLATE_MARKET_URL . '/assets' );
+
+		define( 'TEMPLATE_MARKET_DEV', true );
+		define( 'TEMPLATE_MARKET_DEBUG_LOG', true );
 	}
 
 	/**

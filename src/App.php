@@ -8,26 +8,30 @@
 namespace TemplateMarket;
 
 use TemplateMarket\Admin\Admin;
-use TemplateMarket\Elements\Elements;
+use TemplateMarket\Route\Import;
 use TemplateMarket\Utils\Singleton;
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
 class App {
-    use Singleton;
+	use Singleton;
 
-    public function __construct() {
-        $this->setup();
-    }
+	public function __construct() {
+		$this->setup();
+	}
 
-    public function setup() {
-        if ( is_admin() ) {
-            Admin::initialize();
-        }
+	public function setup() {
+		if ( is_admin() ) {
+			Admin::initialize();
+		}
 
-        Enqueuer::initialize();
-        Elements::initialize();
-    }
+		Enqueuer::initialize();
+
+		/**
+		 * Routes Initialize
+		 */
+		Import::initialize();
+	}
 }
