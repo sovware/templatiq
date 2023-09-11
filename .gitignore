@@ -10,7 +10,7 @@ plugin-bundle/*.zip
 node_modules/
 vendor/
 maps
-composer.json
+composer.lock
 phpcs.xml
 __*/
 __build
