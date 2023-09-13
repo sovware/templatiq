@@ -26,7 +26,7 @@ class Helper {
 			is_preview() );
 	}
 
-	public static function log( $log ) {
+	public static function log( $log ): void {
 		if ( WP_DEBUG_LOG === true ) {
 			if ( is_array( $log ) || is_object( $log ) ) {
 				error_log( print_r( $log, true ) );
@@ -36,7 +36,7 @@ class Helper {
 		}
 	}
 
-	public static function get_ip() {
+	public static function get_ip(): string {
 		$ip = '127.0.0.1'; // Local IP
 		if ( ! empty( $_SERVER['HTTP_CLIENT_IP'] ) ) {
 			$ip = $_SERVER['HTTP_CLIENT_IP'];

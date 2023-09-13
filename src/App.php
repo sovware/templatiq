@@ -8,7 +8,9 @@
 namespace TemplateMarket;
 
 use TemplateMarket\Admin\Admin;
+use TemplateMarket\Route\Dependencies;
 use TemplateMarket\Route\Import;
+use TemplateMarket\Route\Template;
 use TemplateMarket\Utils\Singleton;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -24,14 +26,16 @@ class App {
 
 	public function setup() {
 		if ( is_admin() ) {
-			Admin::initialize();
+			Admin::init();
 		}
 
-		Enqueuer::initialize();
+		Enqueuer::init();
 
 		/**
 		 * Routes Initialize
 		 */
-		Import::initialize();
+		Template::init();
+		Dependencies::init();
+		Import::init();
 	}
 }

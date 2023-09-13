@@ -76,7 +76,7 @@ final class TemplateMarket {
 
 		$this->define_constants();
 		$this->includes();
-		$this->app = App::initialize();
+		$this->app = App::init();
 
 		do_action( 'addonskit_for_elementor_loaded' );
 	}

@@ -18,7 +18,7 @@ trait Singleton {
         _doing_it_wrong( __FUNCTION__, esc_html__( 'Something wen\'t wrong.', 'template-market' ), '1.0.0' );
     }
 
-    public static function initialize( ...$args ): object {
+    public static function init( ...$args ): object {
         $class = get_called_class();
         if ( ! isset( self::$instances[ $class ] ) ) {
             self::$instances[ $class ] = new $class( ...$args );

@@ -12,7 +12,7 @@ use Elementor\Plugin as ElementorPlugin;
 use Elementor\TemplateLibrary\Source_Local as ElementorLocal;
 
 class Elementor extends ElementorLocal {
-	
+
 	public function create_page( array $template_data, string $title ): int {
 		$template_data = $this->get_data( $template_data );
 		$page_settings = $this->page_settings( $template_data );
@@ -40,6 +40,12 @@ class Elementor extends ElementorLocal {
 		] );
 
 		return $document->get_main_id();
+	}
+
+	public function insert_template( array $template_data ): int {
+		$template_data = $this->get_data( $template_data );
+
+		return '3434';
 	}
 
 	private function page_settings( array $template_data ): array {

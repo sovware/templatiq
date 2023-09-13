@@ -14,6 +14,6 @@ class Admin {
     use Singleton;
 
     public function setup() {
-        AdminMenu::initialize();
+        AdminMenu::init();
     }
 }
