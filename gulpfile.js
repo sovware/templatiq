@@ -5,7 +5,6 @@ wpPot           = require('gulp-wp-pot'),
 clean           = require('gulp-clean'),
 zip             = require('gulp-zip');
 
-
 gulp.task('text-domain', function() {
 	return gulp
 	.src('**/*.php')

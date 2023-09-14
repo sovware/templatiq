@@ -11,9 +11,9 @@ use TemplateMarket\Admin\AdminMenu;
 use TemplateMarket\Utils\Singleton;
 
 class Admin {
-    use Singleton;
+	use Singleton;
 
-    public function setup() {
-        AdminMenu::init();
-    }
+	public function __construct() {
+		AdminMenu::init();
+	}
 }

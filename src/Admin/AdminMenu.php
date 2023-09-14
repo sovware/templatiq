@@ -14,32 +14,32 @@ use TemplateMarket\Utils\Singleton;
  * Administration Menu Class
  */
 class AdminMenu {
-    use Hookable;
-    use Singleton;
+	use Hookable;
+	use Singleton;
 
-    public function setup() {
-        $this->action( 'admin_menu', 'admin_menu' );
-    }
+	public function __construct() {
+		$this->action( 'admin_menu', 'admin_menu' );
+	}
 
-    public function admin_menu() {
-        add_menu_page(
-            __( 'TemplateMarket', 'template-market' ),
-            apply_filters( 'template-market_title', 'TemplateMarket' ),
-            'manage_options',
-            'template-market',
-            [ $this, 'overview' ]
-        );
-        add_submenu_page(
-            'template-market',
-            __( 'Dashboard', 'template-market' ),
-            __( 'Dashboard', 'template-market' ),
-            'manage_options',
-            'template-market',
-            [ $this, 'overview' ],
-        );
-    }
+	public function admin_menu() {
+		add_menu_page(
+			__( 'TemplateMarket', 'template-market' ),
+			apply_filters( 'template-market_title', 'TemplateMarket' ),
+			'manage_options',
+			'template-market',
+			[$this, 'overview']
+		);
+		add_submenu_page(
+			'template-market',
+			__( 'Dashboard', 'template-market' ),
+			__( 'Dashboard', 'template-market' ),
+			'manage_options',
+			'template-market',
+			[$this, 'overview'],
+		);
+	}
 
-    public function overview() {
-        echo 1212;
-    }
+	public function overview() {
+		echo 1212;
+	}
 }
