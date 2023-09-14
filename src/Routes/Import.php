@@ -27,7 +27,7 @@ class Import extends RouteBase {
 		$builder = $this->get_param( 'builder', 'elementor' );
 
 		if ( 0 === $id ) {
-			return Response::error( 'invalid_item_id', __( 'Invalid ID is provided.', 'templately' ), 'import/page', 404 );
+			return Response::error( 'invalid_item_id', __( 'Invalid ID is provided.', 'template-market' ), 'import/page', 404 );
 		}
 
 		$importer    = new Importer;
@@ -54,7 +54,7 @@ class Import extends RouteBase {
 		$builder = $this->get_param( 'builder', 'elementor' );
 
 		if ( 0 === $id ) {
-			return Response::error( 'invalid_item_id', __( 'Invalid ID is provided.', 'templately' ), 'import/page', 404 );
+			return Response::error( 'invalid_item_id', __( 'Invalid ID is provided.', 'template-market' ), 'import/page', 404 );
 		}
 
 		$importer    = new Importer;

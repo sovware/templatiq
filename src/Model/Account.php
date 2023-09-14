@@ -27,18 +27,18 @@ class Account {
 			$funcArgs['api_key'] = $api_key;
 
 			if ( empty( $api_key ) ) {
-				$errors['api_key'] = __( 'API Key field cannot be empty.', 'templately' );
+				$errors['api_key'] = __( 'API Key field cannot be empty.', 'template-market' );
 			}
 		} else {
 			$funcArgs['email']    = $email;
 			$funcArgs['password'] = addcslashes( $password, '"' );
 
 			if ( ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
-				$errors['email'] = __( 'Make sure you have given a valid email address.', 'templately' );
+				$errors['email'] = __( 'Make sure you have given a valid email address.', 'template-market' );
 			}
 
 			if ( empty( $password ) ) {
-				$errors['password'] = __( 'Password field cannot be empty.', 'templately' );
+				$errors['password'] = __( 'Password field cannot be empty.', 'template-market' );
 			}
 		}
 
@@ -90,7 +90,7 @@ class Account {
 
 		$response = [
 			'status'  => 'success',
-			'message' => __( 'Logged out.', 'templately' ),
+			'message' => __( 'Logged out.', 'template-market' ),
 		];
 
 		return $response;
@@ -110,5 +110,65 @@ class Account {
 		$_response['api_key'] = $api_key;
 
 		return $_response;
+	}
+
+	public function create( string $first_name, string $last_name, string $email, string $password, string $confirm_password ) {
+		$errors    = [];
+		$_ip       = Helper::get_ip();
+		$_site_url = home_url( '/' );
+
+		if ( empty( $first_name ) ) {
+			$errors['first_name'] = __( 'First name cannot be empty.', 'templately' );
+		}
+		if ( empty( $last_name ) ) {
+			$errors['last_name'] = __( 'Last name cannot be empty.', 'templately' );
+		}
+		if ( empty( $email ) ) {
+			$errors['email'] = __( 'Email cannot be empty.', 'templately' );
+		}
+		if ( $email && ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
+			$errors['email'] = __( 'Make sure you have given a valid email address.', 'templately' );
+		}
+		if ( empty( $password ) ) {
+			$errors['password'] = __( 'Password cannot be empty.', 'templately' );
+		}
+		if ( empty( $confirm_password ) ) {
+			$errors['confirm_password'] = __( 'Confirm password cannot be empty.', 'templately' );
+		}
+
+		if ( ! empty( $password ) && ! empty( $confirm_password ) && $password !== $confirm_password ) {
+			$errors['password_mismatched'] = __( 'Password and confirm password should be matched.', 'templately' );
+		}
+
+		if ( ! empty( $errors ) ) {
+			return Response::error( 'signup_errors', $errors, 'signup', '400' );
+		}
+
+		$query = 'status, message, user{ id, name, first_name, last_name, display_name, email, profile_photo, joined, is_verified, api_key, plan, plan_expire_at, my_cloud{ limit, usages, last_pushed }, show_notice }';
+
+		$http     = new Http;
+		$response = $http->mutation(
+			'createUser',
+			$query,
+			[
+				'first_name' => $first_name,
+				'last_name'  => $last_name,
+				'email'      => $email,
+				'password'   => $password,
+				'site_url'   => $_site_url,
+				'ip'         => $_ip,
+			]
+		)->post();
+
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		if ( ! empty( $response['user']['api_key'] ) ) {
+			Options::set( 'api_key', trim( $response['user']['api_key'] ) );
+			unset( $response['user']['api_key'] );
+		}
+
+		return $response;
 	}
 }

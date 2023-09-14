@@ -12,7 +12,7 @@ use WP_Ajax_Upgrader_Skin;
 use WP_Filesystem_Base;
 
 class Plugin {
-	public static function activate( $file ) {
+	public static function activate( string $file ) {
 		if ( ! current_user_can( 'activate_plugin', $file ) && ! is_plugin_inactive( $file ) ) {
 			return false;
 		}
@@ -49,7 +49,7 @@ class Plugin {
 				if ( $dependency->is_pro ) {
 					if ( isset( $_plugins[$dependency->plugin_file] ) ) {
 						unset( $dependency->is_pro );
-						$dependency->message = __( 'You have the plugin installed.', 'templately' );
+						$dependency->message = __( 'You have the plugin installed.', 'template-market' );
 					}
 				}
 				$_inactive_plugins[] = $dependency;

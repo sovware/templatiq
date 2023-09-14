@@ -47,7 +47,7 @@ class Template extends RouteBase {
 		if ( empty( $item_id ) ) {
 			return Response::error(
 				'invalid_item_slug',
-				__( 'Items slug cannot be empty.', 'templately' ),
+				__( 'Items slug cannot be empty.', 'template-market' ),
 				'items/:slug',
 				'400'
 			);
@@ -63,7 +63,7 @@ class Template extends RouteBase {
 		if ( empty( $response['data'] ) ) {
 			return Response::error(
 				'invalid_response',
-				__( 'Item data not found', 'templately' ),
+				__( 'Item data not found', 'template-market' ),
 				'/items\/' . $item_id,
 				'404'
 			);

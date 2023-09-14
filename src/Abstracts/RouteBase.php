@@ -41,7 +41,7 @@ abstract class RouteBase {
 
 	protected function permission_error( string $message, $endpoint = '' ) {
 		if ( empty( $message ) ) {
-			$message = __( 'Sorry, you need to login/re-login again.', 'muhasabah' );
+			$message = __( 'Sorry, you need to login/re-login again.', 'template-market' );
 		}
 
 		$_additional_data = [
