@@ -41,11 +41,13 @@ class Import extends RouteBase {
 			);
 		}
 
+		
 		return [
 			'post_id'             => $inserted_id,
 			'edit_link'           => get_edit_post_link( $inserted_id, 'internal' ),
 			'elementor_edit_link' => Plugin::$instance->documents->get( $inserted_id )->get_edit_url(),
 			'visit'               => get_permalink( $inserted_id ),
+			'right_access_ache'   => current_user_can( 'publish_posts' ),
 		];
 	}
 

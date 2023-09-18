@@ -26,13 +26,18 @@ class Helper {
 			is_preview() );
 	}
 
-	public static function log( $log ): void {
-		if ( WP_DEBUG_LOG === true ) {
-			if ( is_array( $log ) || is_object( $log ) ) {
-				error_log( print_r( $log, true ) );
-			} else {
-				error_log( $log );
-			}
+	public static function log( $data, string $prefix = '' ): void {
+		$_data = '';
+		if ( is_array( $data ) || is_object( $data ) ) {
+			$_data = print_r( $data, true );
+		} else {
+			$_data = $data;
+		}
+
+		if ( $prefix ) {
+			error_log( $prefix . ':' . $_data );
+		} else {
+			error_log( $_data );
 		}
 	}
 

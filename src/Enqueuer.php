@@ -18,7 +18,7 @@ class Enqueuer extends EnqueuerBase {
 
 	public function __construct() {
 		add_action( 'wp_admin_scripts', [$this, 'enqueue_elementor_scripts'] );
-		// add_action( 'admin_enqueue_scripts', [$this, 'enqueue_admin_script'] );
+		add_action( 'admin_enqueue_scripts', [$this, 'enqueue_admin_script'] );
 
 		//Enqueue editor scripts
 		add_action( 'elementor/editor/after_enqueue_scripts', [$this, 'elementor_editor_enqueue'] );
