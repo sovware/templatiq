@@ -21,12 +21,12 @@ class Account extends RouteBase {
 	}
 
 	public function login() {
-		$via_api  = (bool) $this->get_param( 'via_api', false );
+		$api_key  = $this->get_param( 'api_key', false );
 		$email    = $this->get_param( 'email', '', 'sanitize_email' );
 		$password = $this->get_param( 'password' );
 
 		$account  = new ModelAccount;
-		$response = $account->login( '', $via_api, $email, $password );
+		$response = $account->login( $api_key, $email, $password );
 
 		return $response;
 	}

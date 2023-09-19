@@ -9,14 +9,10 @@ namespace TemplateMarket\Utils;
 
 class Transient {
 	public static function set( string $key, $value, $expiration = DAY_IN_SECONDS ): bool {
-		$key = '_template_market_' . trim( $key );
-
-		return set_transient( $key, $value, $expiration );
+		return set_transient( Key::get( $key ), $value, $expiration );
 	}
 
 	public static function get( string $key ) {
-		$key = '_template_market_' . trim( $key );
-
-		return get_transient( $key );
+		return get_transient( Key::get( $key ) );
 	}
 }

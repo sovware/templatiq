@@ -13,7 +13,7 @@ class Http {
 	private array $body;
 	public $response;
 
-	public function __construct( string $url = 'http://template-market-cloud.local/wp-json/tm', array $body = [], array $headers = [] ) {
+	public function __construct( string $url, array $body = [], array $headers = [] ) {
 		$this->url( $url );
 		$this->body( $body );
 		$this->headers( $headers );
