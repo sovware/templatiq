@@ -44,13 +44,23 @@ class Http {
 	}
 
 	public function post() {
+
+		$args = [
+			'headers' => $this->headers,
+			'body'    => json_encode( $this->body ),
+		];
+
 		$this->response = wp_remote_post(
 			$this->url,
-			[
-				'headers' => $this->headers,
-				'body'    => $this->body,
-			]
+			$args
 		);
+
+		// $log = [
+		// 	'args' => $args,
+		// 	'response' => $this->response,
+		// ];
+
+		// file_put_contents( __DIR__ . '/log.json', json_encode($log) );
 
 		return $this;
 	}

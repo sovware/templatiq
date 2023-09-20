@@ -5,14 +5,19 @@
  * @version 1.0.0
  */
 
-namespace TemplateMarket\Utils;
+namespace TemplateMarketCloud\Utils;
 
-class Transient {
-	public static function set( string $key, $value, $expiration = DAY_IN_SECONDS ): bool {
-		return set_transient( Key::get( $key ), $value, $expiration );
+class Key {
+
+	public static function get( string $key ): string {
+		return sprintf( '%s_%s', self::prefix(), trim( $key ) );
 	}
 
-	public static function get( string $key ) {
-		return get_transient( Key::get( $key ) );
+	public static function prefix(): string {
+		return '_template_market_cloud';
+	}
+
+	private static function generate(): string {
+		return '';
 	}
 }

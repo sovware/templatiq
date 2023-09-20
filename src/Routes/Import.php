@@ -16,22 +16,21 @@ class Import extends RouteBase {
 	private $endpoint = 'import';
 
 	public function register_routes(): void {
-		// Development purpose using GET/ but these would be POST request
-		$this->get( $this->endpoint . '/page', [$this, 'import_as_page'] );
-		$this->get( $this->endpoint . '/template', [$this, 'insert_template'] );
+		$this->post( $this->endpoint . '/page', [$this, 'import_as_page'] );
+		$this->post( $this->endpoint . '/template', [$this, 'insert_template'] );
 	}
 
 	public function import_as_page() {
-		$id      = $this->get_param( 'id', 0, 'intval' );
+		$item_id = $this->get_param( 'item_id', 0, 'intval' );
 		$title   = $this->get_param( 'title' );
 		$builder = $this->get_param( 'builder', 'elementor' );
 
-		if ( 0 === $id ) {
+		if ( 0 === $item_id ) {
 			return Response::error( 'invalid_item_id', __( 'Invalid ID is provided.', 'template-market' ), 'import/page', 404 );
 		}
 
 		$importer    = new Importer;
-		$inserted_id = $importer->import_as_page( $id, $title, $builder );
+		$inserted_id = $importer->import_as_page( $item_id, $title, $builder );
 
 		if ( is_wp_error( $inserted_id ) ) {
 			return Response::error(
@@ -41,7 +40,6 @@ class Import extends RouteBase {
 			);
 		}
 
-		
 		return [
 			'post_id'             => $inserted_id,
 			'edit_link'           => get_edit_post_link( $inserted_id, 'internal' ),
@@ -52,15 +50,15 @@ class Import extends RouteBase {
 	}
 
 	public function insert_template() {
-		$id      = $this->get_param( 'id', 0, 'intval' );
+		$item_id = $this->get_param( 'item_id', 0, 'intval' );
 		$builder = $this->get_param( 'builder', 'elementor' );
 
-		if ( 0 === $id ) {
+		if ( 0 === $item_id ) {
 			return Response::error( 'invalid_item_id', __( 'Invalid ID is provided.', 'template-market' ), 'import/page', 404 );
 		}
 
 		$importer    = new Importer;
-		$inserted_id = $importer->insert_template( $id, $builder );
+		$inserted_id = $importer->insert_template( $item_id, $builder );
 
 		if ( is_wp_error( $inserted_id ) ) {
 			return Response::error(

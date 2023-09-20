@@ -8,12 +8,15 @@
 namespace TemplateMarket\Model;
 
 use TemplateMarket\Utils\Http;
+use TemplateMarket\Utils\Options;
 use TemplateMarket\Utils\Response;
 use WP_Error;
 
 class Importer {
-	public function import_as_page( int $id, string $title, string $builder = 'elementor' ) {
-		$template_data = $this->get_content( $id );
+	private string $cloud_endpoint = 'http://template-market-cloud.local/wp-json/tm';
+
+	public function import_as_page( int $item_id, string $title, string $builder = 'elementor' ) {
+		$template_data = $this->get_content( $item_id );
 
 		if ( 'elementor' === $builder ) {
 			return ( new Elementor )->create_page( $template_data, $title );
@@ -24,8 +27,8 @@ class Importer {
 		return new WP_Error( 'builder-not-specified', __( "Builder not specified", "template-market" ) );
 	}
 
-	public function insert_template( int $id, string $builder = 'elementor' ) {
-		$template_data = $this->get_content( $id );
+	public function insert_template( int $item_id, string $builder = 'elementor' ) {
+		$template_data = $this->get_content( $item_id );
 
 		if ( 'elementor' === $builder ) {
 			return ( new Elementor )->insert_template( $template_data );
@@ -46,17 +49,16 @@ class Importer {
 		return $template_data;
 	}
 
-	// Have to create remote routes, so that we can fetch datas
+	// Have to create remote routes, so that we can fetch data
 	private function get_remote_content( int $item_id ): array {
-
-		$http     = new Http( 'http://template-market-cloud.local/wp-json/tm/contents' );
+		$http     = new Http( $this->cloud_endpoint . '/contents' );
 		$response = $http->body(
 			[
-				'api_key' => 'my-api-key-goes-here',
+				'token'   => Options::get( 'token' ),
 				'item_id' => $item_id,
 			] )
 			->get()
-		// ->log()
+			->log()
 			->response();
 
 		if ( is_wp_error( $response ) ) {

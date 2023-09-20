@@ -16,7 +16,7 @@ use WP_REST_Server;
 abstract class RouteBase {
 	use Singleton;
 
-	protected $api_key;
+	protected $token;
 	protected $request;
 	protected $namespace = 'template-market';
 
@@ -52,7 +52,7 @@ abstract class RouteBase {
 			$_additional_data['endpoint'] = $endpoint;
 		}
 
-		return new WP_Error( 'invalid_api_key', $message, $_additional_data );
+		return new WP_Error( 'invalid_token', $message, $_additional_data );
 	}
 
 	public function get( $endpoint, $callback, $args = [] ) {

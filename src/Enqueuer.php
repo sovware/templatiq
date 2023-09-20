@@ -32,6 +32,10 @@ class Enqueuer extends EnqueuerBase {
 	}
 
 	public function enqueue_admin_script( $hook ) {
+		if ( ! isset( $_GET['tm'] ) ) {
+			return;
+		}
+
 		wp_enqueue_script( 'template_market', plugin_dir_url( __FILE__ ) . '/template_market.js', [], '1.0' );
 		$obj = [
 			'rest_args' => [

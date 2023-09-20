@@ -8,9 +8,16 @@
 namespace TemplateMarket\Utils;
 
 class Key {
-	public static $prefix = 'template_market';
 
-	public static function get( string $key ) {
-		$key = sprintf( '_%s_%s', self::$prefix, trim( $key ) );
+	public static function get( string $key ): string {
+		return sprintf( '%s_%s', self::prefix(), trim( $key ) );
+	}
+
+	public static function prefix(): string {
+		return '_template_market';
+	}
+
+	private static function generate(): string {
+		return '';
 	}
 }

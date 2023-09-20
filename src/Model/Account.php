@@ -19,37 +19,25 @@ class Account {
 		$this->cloud_endpoint = 'http://template-market-cloud.local/wp-json/tm';
 	}
 
-	public function login( string $api_key, string $email, string $password ) {
-		if ( ! empty( $api_key ) ) {
+	public function login( string $token, string $username, string $password, bool $additional = false ) {
+		if ( ! empty( $token ) ) {
 			$http     = new Http( $this->cloud_endpoint . '/account/login' );
-			$response = $http->body(
-				[
-					'api_key' => 'my-api-key-goes-here',
-				] )
+			$response = $http->body( ['token' => $token, 'additional' => $additional] )
 				->post()
-				->log()
 				->response();
 
-		} elseif ( ! empty( $email ) && ! empty( $password ) ) {
-
-			if ( ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
-				$errors['email'] = __( 'Make sure you have given a valid email address.', 'template-market' );
-			}
-
+		} elseif ( ! empty( $username ) && ! empty( $password ) ) {
 			$http     = new Http( $this->cloud_endpoint . '/account/login' );
 			$response = $http->body(
 				[
-					'username' => $email,
+					'username' => $username,
 					'password' => $password,
 				] )
 				->post()
-				->log()
 				->response();
 		} else {
-			$errors['email'] = __( 'Make sure you have given a valid api_key, or email address & password.', 'template-market' );
-		}
+			$errors['empty_request'] = __( 'Make sure you have given a valid token, or email address & password.', 'template-market' );
 
-		if ( ! empty( $errors ) ) {
 			return Response::error( 'login_errors', $errors, 'login', '400' );
 		}
 
@@ -57,15 +45,16 @@ class Account {
 			return Response::error( 'invalid_data', $response->get_error_message(), 'account_login', 404 );
 		}
 
-		if ( ! empty( $response['api_key'] ) ) {
-			Options::set( 'api_key', $response['api_key'] );
+		if ( ! empty( $response['body'] ) ) {
+			$response['body'] = json_decode( $response['body'], true );
+			Options::set( 'token', $response['body']['token'] );
 		}
 
 		return $response;
 	}
 
 	public function logout() {
-		Options::set( 'api_key', '' );
+		Options::set( 'token', '' );
 
 		$response = [
 			'status'  => 'success',
@@ -77,18 +66,18 @@ class Account {
 
 	public static function is_logged_in() {
 		$_response = ['status' => 'success'];
-		$api_key   = Options::get( 'api_key' );
+		$token     = Options::get( 'token' );
 
-		if ( '' === $api_key ) {
+		if ( '' === $token ) {
 			$_response['status'] = 'error';
 		}
 
-		$_response['api_key'] = $api_key;
+		$_response['token'] = $token;
 
 		return $_response;
 	}
 
-	public function create( string $first_name, string $last_name, string $email, string $password, string $confirm_password ) {
+	public function create( string $first_name, string $last_name, string $username, string $password, string $confirm_password ) {
 		$errors    = [];
 		$_ip       = Helper::get_ip();
 		$_site_url = home_url( '/' );
@@ -99,10 +88,10 @@ class Account {
 		if ( empty( $last_name ) ) {
 			$errors['last_name'] = __( 'Last name cannot be empty.', 'template-market' );
 		}
-		if ( empty( $email ) ) {
+		if ( empty( $username ) ) {
 			$errors['email'] = __( 'Email cannot be empty.', 'template-market' );
 		}
-		if ( $email && ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
+		if ( $username && ! filter_var( $username, FILTER_VALIDATE_EMAIL ) ) {
 			$errors['email'] = __( 'Make sure you have given a valid email address.', 'template-market' );
 		}
 		if ( empty( $password ) ) {
@@ -125,7 +114,7 @@ class Account {
 			[
 				'first_name' => $first_name,
 				'last_name'  => $last_name,
-				'email'      => $email,
+				'email'      => $username,
 				'password'   => $password,
 				'site_url'   => $_site_url,
 				'ip'         => $_ip,
@@ -138,8 +127,8 @@ class Account {
 			return $response;
 		}
 
-		if ( ! empty( $response['user']['api_key'] ) ) {
-			Options::set( 'api_key', $response['api_key'] );
+		if ( ! empty( $response['user']['token'] ) ) {
+			Options::set( 'token', $response['token'] );
 		}
 
 		return $response;
