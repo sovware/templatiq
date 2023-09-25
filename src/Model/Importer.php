@@ -13,7 +13,11 @@ use TemplateMarket\Utils\Response;
 use WP_Error;
 
 class Importer {
-	private string $cloud_endpoint = 'http://template-market-cloud.local/wp-json/tm';
+	private string $cloud_endpoint;
+
+	public function __construct() {
+		$this->cloud_endpoint = TEMPLATE_MARKET_CLOUD_BASE;
+	}
 
 	public function import_as_page( int $item_id, string $title, string $builder = 'elementor' ) {
 		$template_data = $this->get_content( $item_id );
@@ -49,7 +53,6 @@ class Importer {
 		return $template_data;
 	}
 
-	// Have to create remote routes, so that we can fetch data
 	private function get_remote_content( int $item_id ): array {
 		$http     = new Http( $this->cloud_endpoint . '/contents' );
 		$response = $http->body(

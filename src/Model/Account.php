@@ -16,7 +16,7 @@ class Account {
 	private string $cloud_endpoint;
 
 	public function __construct() {
-		$this->cloud_endpoint = 'http://template-market-cloud.local/wp-json/tm';
+		$this->cloud_endpoint = TEMPLATE_MARKET_CLOUD_BASE;
 	}
 
 	public function login( string $token, string $username, string $password, bool $additional = false ) {
@@ -47,7 +47,7 @@ class Account {
 
 		if ( ! empty( $response['body'] ) ) {
 			$response['body'] = json_decode( $response['body'], true );
-			Options::set( 'token', $response['body']['token'] );
+			Options::set( 'token', $response['body']['token'] ?? '' );
 		}
 
 		return $response;

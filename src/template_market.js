@@ -5,8 +5,8 @@ jQuery.ajax( {
         xhr.setRequestHeader( 'X-WP-Nonce', template_market_obj.rest_args.nonce );
     },
     data:{
-        'title' : 'dClassified',
-		'item_id': 64,
+        'title' : 'OneBase - Gaming',
+		'item_id' : 696,
 		'builder' : 'elementor'
     }
 } ).done( function ( response ) {
