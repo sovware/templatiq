@@ -41,10 +41,12 @@ class Elementor extends ElementorLocal {
 		return $document->get_main_id();
 	}
 
-	public function insert_template( array $template_data ): int {
-		$template_data = $this->get_data( $template_data );
+	public function get_template_data( array $data ): array {
+		$data = $this->get_data( $data );
 
-		return '3434';
+		// $data['content'] = $document->get_elements_raw_data( $data['content'], true );
+
+		return $data;
 	}
 
 	private function page_settings( array $template_data ): array {

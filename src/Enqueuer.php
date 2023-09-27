@@ -25,10 +25,7 @@ class Enqueuer extends EnqueuerBase {
 	}
 
 	public function enqueue_elementor_scripts() {
-		if ( Helper::is_edit() ) {
-			wp_enqueue_script( 'directorist-select2-script' );
-			wp_enqueue_script( 'directorist-add-listing' );
-		}
+		
 	}
 
 	public function enqueue_admin_script( $hook ) {
@@ -55,5 +52,15 @@ class Enqueuer extends EnqueuerBase {
 			TEMPLATE_MARKET_VERSION,
 			true
 		);
+
+		$obj = [
+			'rest_args' => [
+				'nonce'    => wp_create_nonce( 'wp_rest' ),
+				'endpoint' => get_rest_url( null, 'template-market' ),
+			],
+		];
+
+		wp_localize_script( 'template-market-elementor-editor', 'template_market_obj', $obj );
+
 	}
 }

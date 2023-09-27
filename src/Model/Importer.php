@@ -31,16 +31,10 @@ class Importer {
 		return new WP_Error( 'builder-not-specified', __( "Builder not specified", "template-market" ) );
 	}
 
-	public function insert_template( int $item_id, string $builder = 'elementor' ) {
+	public function get_template_data( int $item_id, string $builder = 'elementor' ) {
 		$template_data = $this->get_content( $item_id );
 
-		if ( 'elementor' === $builder ) {
-			return ( new Elementor )->insert_template( $template_data );
-		} elseif ( 'block-editor' === $builder ) {
-			return ( new Elementor )->insert_template( $template_data );
-		}
-
-		return new WP_Error( 'builder-not-specified', __( "Builder not specified", "template-market" ) );
+		return ( new Elementor )->get_template_data( $template_data );
 	}
 
 	private function get_content( int $item_id, string $origin = 'remote' ): array {
@@ -61,7 +55,7 @@ class Importer {
 				'item_id' => $item_id,
 			] )
 			->get()
-			->log()
+		// ->log()
 			->response();
 
 		if ( is_wp_error( $response ) ) {

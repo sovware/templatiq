@@ -7,13 +7,20 @@
 
 namespace TemplateMarket\Route;
 
+use Elementor\Core\Common\Modules\Ajax\Module as Ajax;
 use Elementor\Plugin;
 use TemplateMarket\Abstracts\RouteBase;
 use TemplateMarket\Model\Importer;
+use TemplateMarket\Utils\Hookable;
 use TemplateMarket\Utils\Response;
 
 class Import extends RouteBase {
 	private $endpoint = 'import';
+	use Hookable;
+
+	public function __construct() {
+		$this->action( 'elementor/ajax/register_actions', 'elementor_editor_ajax' );
+	}
 
 	public function register_routes(): void {
 		$this->post( $this->endpoint . '/page', [$this, 'import_as_page'] );
@@ -58,7 +65,7 @@ class Import extends RouteBase {
 		}
 
 		$importer    = new Importer;
-		$inserted_id = $importer->insert_template( $item_id, $builder );
+		$inserted_id = 0; //;$importer->insert_template( $item_id, $builder );
 
 		if ( is_wp_error( $inserted_id ) ) {
 			return Response::error(
@@ -75,5 +82,25 @@ class Import extends RouteBase {
 			'visit'               => get_permalink( $inserted_id ),
 		];
 	}
-}
 
+	public function elementor_editor_ajax( Ajax $ajax ) {
+		$ajax->register_ajax_action( 'get_tm_template_data', function ( $data ) {
+
+			if ( ! current_user_can( 'edit_posts' ) ) {
+				throw new \Exception( 'Access Denied' );
+			}
+
+			if ( empty( $data['item_id'] ) ) {
+				throw new \Exception( 'Item ID Missing' );
+			}
+
+			$item_id  = (int) $data['item_id'];
+			$importer = new Importer;
+			$result   = $importer->get_template_data( $item_id );
+
+			unset( $result['type'] );
+
+			return $result;
+		} );
+	}
+}
