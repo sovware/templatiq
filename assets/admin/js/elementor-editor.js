@@ -14,6 +14,7 @@ jQuery(document).ready(function ($) {
 
     elementor.on("preview:loaded", function () {
 
+      console.log(elementorModules.common.views.modal)
       $(elementor.$previewContents[0].body).on("click", ".elementor-add-template-market-button", function (e) {
 
         let data = {
@@ -30,8 +31,11 @@ jQuery(document).ready(function ($) {
           success: function(data) {
             console.log(data);
 
+           let modelO = elementorModules.common.views.modal.Layout.extend({});
+            
+
             $e.run("document/elements/import", {
-              modal: elementorModules.common.views.modal,
+              modal: modelO,
               data: data,
               options: {}
             })
