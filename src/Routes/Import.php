@@ -9,6 +9,7 @@ namespace TemplateMarket\Route;
 
 use Elementor\Core\Common\Modules\Ajax\Module as Ajax;
 use Elementor\Plugin;
+use Happy_Addons\Elementor\Library_Manager;
 use TemplateMarket\Abstracts\RouteBase;
 use TemplateMarket\Model\Importer;
 use TemplateMarket\Utils\Hookable;
@@ -20,6 +21,11 @@ class Import extends RouteBase {
 
 	public function __construct() {
 		$this->action( 'elementor/ajax/register_actions', 'elementor_editor_ajax' );
+		$this->action( 'elementor/editor/footer', 'print_template_views' );
+	}
+
+	public function print_template_views() {
+		include_once TEMPLATE_MARKET_PATH . '/templates/template-library/templates.php';
 	}
 
 	public function register_routes(): void {
@@ -84,19 +90,41 @@ class Import extends RouteBase {
 	}
 
 	public function elementor_editor_ajax( Ajax $ajax ) {
+		$ajax->register_ajax_action( 'get_tm_library_data', function ( $data ) {
+			if ( ! current_user_can( 'edit_posts' ) ) {
+				throw new \Exception( 'Access Denied' );
+			}
+
+			if ( ! empty( $data['editor_post_id'] ) ) {
+				$editor_post_id = absint( $data['editor_post_id'] );
+
+				if ( ! get_post( $editor_post_id ) ) {
+					throw new \Exception( __( 'Post not found.', 'happy-elementor-addons' ) );
+				}
+
+				ha_elementor()->db->switch_to_post( $editor_post_id );
+			}
+
+			error_log( print_r( $data, true ) );
+
+			$result = Library_Manager::get_library_data( $data );
+
+			return $result;
+		} );
+
 		$ajax->register_ajax_action( 'get_tm_template_data', function ( $data ) {
 
 			if ( ! current_user_can( 'edit_posts' ) ) {
 				throw new \Exception( 'Access Denied' );
 			}
 
-			if ( empty( $data['item_id'] ) ) {
+			if ( empty( $data['template_id'] ) ) {
 				throw new \Exception( 'Item ID Missing' );
 			}
 
-			$item_id  = (int) $data['item_id'];
+			$template_id  = (int) $data['template_id'];
 			$importer = new Importer;
-			$result   = $importer->get_template_data( $item_id );
+			$result   = $importer->get_template_data( $template_id );
 
 			unset( $result['type'] );
 

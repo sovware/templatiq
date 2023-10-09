@@ -8,7 +8,6 @@
 namespace TemplateMarket;
 
 use TemplateMarket\Abstracts\EnqueuerBase;
-use TemplateMarket\Utils\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -25,7 +24,7 @@ class Enqueuer extends EnqueuerBase {
 	}
 
 	public function enqueue_elementor_scripts() {
-		
+
 	}
 
 	public function enqueue_admin_script( $hook ) {
@@ -45,9 +44,16 @@ class Enqueuer extends EnqueuerBase {
 	}
 
 	public function elementor_editor_enqueue() {
+		wp_enqueue_style(
+			'template-market-elementor-editor',
+			TEMPLATE_MARKET_ASSETS . '/css/elementor-editor.css',
+			[],
+			TEMPLATE_MARKET_VERSION,
+		);
+
 		wp_enqueue_script(
 			'template-market-elementor-editor',
-			TEMPLATE_MARKET_ASSETS . '/admin/js/elementor-editor.js',
+			TEMPLATE_MARKET_ASSETS . '/js/elementor-editor.js',
 			['elementor-editor', 'jquery'],
 			TEMPLATE_MARKET_VERSION,
 			true
