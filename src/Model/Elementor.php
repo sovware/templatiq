@@ -10,8 +10,17 @@ namespace TemplateMarket\Model;
 use Elementor\Core\Settings\Page\Model;
 use Elementor\Plugin as ElementorPlugin;
 use Elementor\TemplateLibrary\Source_Local as ElementorLocal;
+use TemplateMarketCloud\Utils\Response;
+use TemplateMarket\Utils\Http;
+use TemplateMarket\Utils\Options;
 
 class Elementor extends ElementorLocal {
+	private string $cloud_endpoint;
+
+	public function __construct() {
+		$this->cloud_endpoint = TEMPLATE_MARKET_CLOUD_BASE;
+	}
+
 	public function create_page( array $template_data, string $title ): int {
 		$template_data = $this->get_data( $template_data );
 		$page_settings = $this->page_settings( $template_data );
@@ -75,5 +84,32 @@ class Elementor extends ElementorLocal {
 		$args['content'] = $this->process_export_import_content( $args['content'], 'on_import' );
 
 		return $args;
+	}
+
+	public function get_library_data(): array {
+		$http     = new Http( $this->cloud_endpoint . '/template/library' );
+		$response = $http->body(
+			[
+				'token' => Options::get( 'token' ),
+			] )
+			->get()
+			// ->log()
+			->response();
+
+		if ( is_wp_error( $response ) ) {
+			return Response::error( 'invalid_data', $response->get_error_message(), 'get_remote_content', 404 );
+		}
+
+		if ( isset( $response['status'] ) && 'error' === $response['status'] ) {
+			return Response::error( 'invalid_data', $response['message'], 'get_content', 404 );
+		}
+
+		if ( ! empty( $response['body'] ) && is_string( $response['body'] ) ) {
+			$data = json_decode( $response['body'], true );
+		} else {
+			$data = isset( $response['body'] ) ? (array) $response['body'] : [];
+		}
+
+		return $data;
 	}
 }

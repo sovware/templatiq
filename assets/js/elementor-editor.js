@@ -719,8 +719,6 @@
 		};
 
 		this.requestTemplateData = function (template_id, ajaxOptions) {
-			template_id = 696;
-			
 			var options = {
 				unique_id: template_id,
 				data: {

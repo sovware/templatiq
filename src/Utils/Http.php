@@ -44,7 +44,6 @@ class Http {
 	}
 
 	public function post() {
-
 		$args = [
 			'headers' => $this->headers,
 			'body'    => json_encode( $this->body ),
@@ -55,12 +54,8 @@ class Http {
 			$args
 		);
 
-		// $log = [
-		// 	'args' => $args,
-		// 	'response' => $this->response,
-		// ];
 
-		// file_put_contents( __DIR__ . '/log.json', json_encode($log) );
+		error_log( $this->url);
 
 		return $this;
 	}

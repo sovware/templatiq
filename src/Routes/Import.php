@@ -11,6 +11,7 @@ use Elementor\Core\Common\Modules\Ajax\Module as Ajax;
 use Elementor\Plugin;
 use Happy_Addons\Elementor\Library_Manager;
 use TemplateMarket\Abstracts\RouteBase;
+use TemplateMarket\Model\Elementor;
 use TemplateMarket\Model\Importer;
 use TemplateMarket\Utils\Hookable;
 use TemplateMarket\Utils\Response;
@@ -102,12 +103,14 @@ class Import extends RouteBase {
 					throw new \Exception( __( 'Post not found.', 'happy-elementor-addons' ) );
 				}
 
-				ha_elementor()->db->switch_to_post( $editor_post_id );
+				\Elementor\Plugin::instance()->db->switch_to_post( $editor_post_id );
 			}
 
-			error_log( print_r( $data, true ) );
+			// error_log( print_r( $data, true ) );
 
-			$result = Library_Manager::get_library_data( $data );
+			$result = ( new Elementor )->get_library_data();
+
+			// $result = Library_Manager::get_library_data( $data );
 
 			return $result;
 		} );
@@ -122,9 +125,9 @@ class Import extends RouteBase {
 				throw new \Exception( 'Item ID Missing' );
 			}
 
-			$template_id  = (int) $data['template_id'];
-			$importer = new Importer;
-			$result   = $importer->get_template_data( $template_id );
+			$template_id = (int) $data['template_id'];
+			$importer    = new Importer;
+			$result      = $importer->get_template_data( $template_id );
 
 			unset( $result['type'] );
 

@@ -19,8 +19,8 @@ class Importer {
 		$this->cloud_endpoint = TEMPLATE_MARKET_CLOUD_BASE;
 	}
 
-	public function import_as_page( int $item_id, string $title, string $builder = 'elementor' ) {
-		$template_data = $this->get_content( $item_id );
+	public function import_as_page( int $template_id, string $title, string $builder = 'elementor' ) {
+		$template_data = $this->get_content( $template_id );
 
 		if ( 'elementor' === $builder ) {
 			return ( new Elementor )->create_page( $template_data, $title );
@@ -31,30 +31,30 @@ class Importer {
 		return new WP_Error( 'builder-not-specified', __( "Builder not specified", "template-market" ) );
 	}
 
-	public function get_template_data( int $item_id, string $builder = 'elementor' ) {
-		$template_data = $this->get_content( $item_id );
+	public function get_template_data( int $template_id, string $builder = 'elementor' ) {
+		$template_data = $this->get_content( $template_id );
 
 		return ( new Elementor )->get_template_data( $template_data );
 	}
 
-	private function get_content( int $item_id, string $origin = 'remote' ): array {
+	private function get_content( int $template_id, string $origin = 'remote' ): array {
 		switch ( $origin ) {
 			case 'remote':
-				$template_data = self::get_remote_content( $item_id );
+				$template_data = self::get_remote_content( $template_id );
 				break;
 		}
 
 		return $template_data;
 	}
 
-	private function get_remote_content( int $item_id ): array {
-		$http     = new Http( $this->cloud_endpoint . '/contents' );
+	private function get_remote_content( int $template_id ): array {
+		$http     = new Http( $this->cloud_endpoint . '/template/contents' );
 		$response = $http->body(
 			[
-				'token'   => Options::get( 'token' ),
-				'item_id' => $item_id,
+				'token'       => Options::get( 'token' ),
+				'template_id' => $template_id,
 			] )
-			->get()
+			->post()
 		// ->log()
 			->response();
 
