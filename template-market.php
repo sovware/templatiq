@@ -70,6 +70,10 @@ final class TemplateMarket {
 			return;
 		}
 
+		if ( ! $this->activated_required_plugins() ) {
+			return;
+		}
+
 		$this->define_constants();
 		$this->includes();
 		$this->app = App::init();
@@ -83,6 +87,62 @@ final class TemplateMarket {
 		}
 
 		return true;
+	}
+
+	private function activated_required_plugins(): bool {
+		if ( ! did_action( 'directorist_loaded' ) ) {
+			add_action( 'admin_notices', [$this, 'directorist_missing_notice'] );
+		}
+
+		if ( ! did_action( 'elementor/loaded' ) ) {
+			add_action( 'admin_notices', [$this, 'elementor_missing_notice'] );
+		}
+
+		return true;
+	}
+
+	public function directorist_missing_notice(): void {
+		if ( ! current_user_can( 'activate_plugins' ) ) {
+			return;
+		}
+
+		$directorist = 'directorist/directorist-base.php';
+
+		if ( $this->is_plugin_installed( $directorist ) ) {
+			$activation_url = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=' . $directorist . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . $directorist );
+			$message        = sprintf( __( '%1$sTemplate Market%2$s requires %1$sDirectorist%2$s plugin to be active. Please activate Directorist to continue.', 'addonskit-for-elementor' ), "<strong>", "</strong>" );
+			$button_text    = __( 'Activate Directorist', 'addonskit-for-elementor' );
+		} else {
+			$activation_url = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=directorist' ), 'install-plugin_directorist' );
+			$message        = sprintf( __( '%1$sTemplate Market%2$s requires %1$sDirectorist%2$s plugin to be installed and activated. Please install Directorist to continue.', 'addonskit-for-elementor' ), '<strong>', '</strong>' );
+			$button_text    = __( 'Install Directorist', 'addonskit-for-elementor' );
+		}
+
+		$button = '<p><a href="' . esc_url( $activation_url ) . '" class="button-primary">' . esc_html( $button_text ) . '</a></p>';
+
+		printf( '<div class="error"><p>%1$s</p>%2$s</div>', wp_kses_post( $message ), wp_kses_post( $button ) );
+	}
+
+	public function elementor_missing_notice(): void {
+		if ( ! current_user_can( 'activate_plugins' ) ) {
+			return;
+		}
+
+		$elementor = 'elementor/elementor.php';
+
+		if ( $this->is_plugin_installed( $elementor ) ) {
+			$activation_url = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=' . $elementor . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . $elementor );
+			$message        = sprintf( __( '%1$sTemplate Market%2$s requires %1$sElementor%2$s plugin to be active. Please activate Elementor to continue.', 'addonskit-for-elementor' ), "<strong>", "</strong>" );
+			$button_text    = __( 'Activate Elementor', 'addonskit-for-elementor' );
+		} else {
+			$activation_url = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=elementor' ), 'install-plugin_elementor' );
+			$message        = sprintf( __( '%1$sTemplate Market%2$s requires %1$sElementor%2$s plugin to be installed and activated. Please install Elementor to continue.', 'addonskit-for-elementor' ), '<strong>', '</strong>' );
+			$button_text    = __( 'Install Elementor', 'addonskit-for-elementor' );
+		}
+
+		$button = '<p><a href="' . esc_url( $activation_url ) . '" class="button-primary">' . esc_html( $button_text ) . '</a></p>';
+
+		printf( '<div class="error"><p>%1$s</p>%2$s</div>', wp_kses_post( $message ), wp_kses_post( $button ) );
 	}
 
 	public function auto_deactivate(): void {
