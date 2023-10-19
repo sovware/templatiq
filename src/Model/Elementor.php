@@ -93,7 +93,6 @@ class Elementor extends ElementorLocal {
 				'token' => Options::get( 'token' ),
 			] )
 			->get()
-			// ->log()
 			->response();
 
 		if ( is_wp_error( $response ) ) {

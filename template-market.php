@@ -130,7 +130,7 @@ final class TemplateMarket {
 		define( 'TEMPLATE_MARKET_URL', plugins_url( '', TEMPLATE_MARKET_FILE ) );
 		define( 'TEMPLATE_MARKET_ASSETS', TEMPLATE_MARKET_URL . '/assets' );
 
-		define( 'TEMPLATE_MARKET_CLOUD_BASE', 'http://template-market-cloud.local/wp-json/tm' );
+		define( 'TEMPLATE_MARKET_CLOUD_BASE', 'http://localhost:10144/wp-json/tm' );
 
 		define( 'TEMPLATE_MARKET_DEV', true );
 		define( 'TEMPLATE_MARKET_DEBUG_LOG', true );
