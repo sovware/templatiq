@@ -52,12 +52,12 @@
 
 		modesStrings: {
 			empty: {
-				title: haGetTranslated('templatesEmptyTitle'),
-				message: haGetTranslated('templatesEmptyMessage'),
+				title: 'Empty',
+				message: 'It looks like not found',
 			},
 			noResults: {
-				title: haGetTranslated('templatesNoResultsTitle'),
-				message: haGetTranslated('templatesNoResultsMessage'),
+				title: 'No result found',
+				message: 'No result found',
 			},
 		},
 
@@ -415,7 +415,7 @@
 		},
 
 		getTemplateActionButton: function getTemplateActionButton(templateData) {
-			var templateName = (templateData.isPro && !HappyAddonsEditor.hasPro) ? 'pro-button' : 'insert-button',
+			var templateName = (templateData.isPro && !TemplateMarket.hasPro) ? 'pro-button' : 'insert-button',
 			viewId = '#tmpl-tmTemplateLibrary__' + templateName,
 				template = Marionette.TemplateCache.get(viewId);
 

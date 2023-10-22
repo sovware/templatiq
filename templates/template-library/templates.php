@@ -64,7 +64,7 @@ defined( 'ABSPATH' ) || exit;
 </script>
 
 <script type="text/template" id="tmpl-tmTemplateLibrary__pro-button">
-	<a class="elementor-template-library-template-action elementor-button tmTemplateLibrary__pro-button" href="https://happyaddons.com/pricing/" target="_blank">
+	<a class="elementor-template-library-template-action elementor-button tmTemplateLibrary__pro-button" href="https://template-market.com/pricing/" target="_blank">
 		<i class="eicon-external-link-square" aria-hidden="true"></i>
 		<span class="elementor-button-title"><?php esc_html_e( 'Get Pro', 'template-market' ); ?></span>
 	</a>
@@ -142,7 +142,7 @@ defined( 'ABSPATH' ) || exit;
 	<div class="elementor-template-library-blank-title"></div>
 	<div class="elementor-template-library-blank-message"></div>
 	<div class="elementor-template-library-blank-footer">
-		<?php esc_html_e( 'Want to learn more about the Happy Library?', 'template-market' ); ?>
-		<a class="elementor-template-library-blank-footer-link" href="https://happyaddons.com/docs/happy-addons-for-elementor/happy-features/happy-templates/" target="_blank"><?php echo __( 'Click here', 'template-market' ); ?></a>
+		<?php esc_html_e( 'Want to learn more about the Template Market Library?', 'template-market' ); ?>
+		<a class="elementor-template-library-blank-footer-link" href="https://template-market.com/docs/" target="_blank"><?php echo __( 'Click here', 'template-market' ); ?></a>
 	</div>
 </script>
