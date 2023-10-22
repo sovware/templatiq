@@ -30,20 +30,22 @@ class Template extends RouteBase {
 
 	public function register_routes(): void {
 		$this->post( $this->endpoint . '/import-as-page', [$this, 'import_as_page'] );
-		$this->post( $this->endpoint . '/insert', [$this, 'insert_template'] );
 	}
 
+	/**
+	 * Import as page from plugin dashboard area
+	 */
 	public function import_as_page() {
-		$item_id = $this->get_param( 'item_id', 0, 'intval' );
-		$title   = $this->get_param( 'title' );
-		$builder = $this->get_param( 'builder', 'elementor' );
+		$template_id = $this->get_param( 'template_id', 0, 'intval' );
+		$title       = $this->get_param( 'title' );
+		$builder     = $this->get_param( 'builder', 'elementor' );
 
-		if ( 0 === $item_id ) {
-			return Response::error( 'invalid_item_id', __( 'Invalid ID is provided.', 'template-market' ), 'import/page', 404 );
+		if ( 0 === $template_id ) {
+			return Response::error( 'invalid_template_id', __( 'Invalid ID is provided.', 'template-market' ), 'import/page', 404 );
 		}
 
 		$importer    = new Importer;
-		$inserted_id = $importer->import_as_page( $item_id, $title, $builder );
+		$inserted_id = $importer->import_as_page( $template_id, $title, $builder );
 
 		if ( is_wp_error( $inserted_id ) ) {
 			return Response::error(
@@ -59,33 +61,6 @@ class Template extends RouteBase {
 			'elementor_edit_link' => Plugin::$instance->documents->get( $inserted_id )->get_edit_url(),
 			'visit'               => get_permalink( $inserted_id ),
 			'right_access_ache'   => current_user_can( 'publish_posts' ),
-		];
-	}
-
-	public function insert_template() {
-		$item_id = $this->get_param( 'item_id', 0, 'intval' );
-		$builder = $this->get_param( 'builder', 'elementor' );
-
-		if ( 0 === $item_id ) {
-			return Response::error( 'invalid_item_id', __( 'Invalid ID is provided.', 'template-market' ), 'import/page', 404 );
-		}
-
-		$importer    = new Importer;
-		$inserted_id = 0; //;$importer->insert_template( $item_id, $builder );
-
-		if ( is_wp_error( $inserted_id ) ) {
-			return Response::error(
-				'import_failed',
-				__( 'Import Failed', 'template-market' ),
-				'import/template'
-			);
-		}
-
-		return [
-			'post_id'             => $inserted_id,
-			'edit_link'           => get_edit_post_link( $inserted_id, 'internal' ),
-			'elementor_edit_link' => Plugin::$instance->documents->get( $inserted_id )->get_edit_url(),
-			'visit'               => get_permalink( $inserted_id ),
 		];
 	}
 

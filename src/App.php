@@ -10,7 +10,6 @@ namespace TemplateMarket;
 use TemplateMarket\Admin\Admin;
 use TemplateMarket\Route\Account;
 use TemplateMarket\Route\Dependencies;
-use TemplateMarket\Route\Import;
 use TemplateMarket\Route\Template;
 use TemplateMarket\Utils\Singleton;
 
@@ -37,7 +36,6 @@ class App {
 		 */
 		Template::init();
 		Dependencies::init();
-		// Import::init();
 		Account::init();
 	}
 }

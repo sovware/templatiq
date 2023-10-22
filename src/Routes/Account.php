@@ -39,7 +39,7 @@ class Account extends RouteBase {
 		return $response;
 	}
 
-	public static function is_logged_in() {
+	public function is_logged_in() {
 		$account  = new ModelAccount;
 		$response = $account->is_logged_in();
 

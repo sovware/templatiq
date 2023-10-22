@@ -22,7 +22,7 @@ class Dependencies extends RouteBase {
 	}
 
 	public function check() {
-		$item_id = (string) $this->get_param( 'item_id', '', '' );
+		$template_id = (string) $this->get_param( 'template_id', '', '' );
 		// Send a request to cloud, to know what plugins need to activate to run this template
 		// after getting response split the dependencies to array. and pass this array to check
 		// which plugins are not activated yet. send an array
