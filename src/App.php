@@ -37,7 +37,7 @@ class App {
 		 */
 		Template::init();
 		Dependencies::init();
-		Import::init();
+		// Import::init();
 		Account::init();
 	}
 }
