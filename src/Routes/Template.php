@@ -22,6 +22,7 @@ class Template extends RouteBase {
 	public function __construct() {
 		$this->action( 'elementor/ajax/register_actions', 'elementor_editor_ajax' );
 		$this->action( 'elementor/editor/footer', 'print_template_views' );
+		$this->action( 'rest_api_init', 'register_routes' );
 	}
 
 	public function print_template_views() {
