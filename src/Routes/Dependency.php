@@ -18,7 +18,6 @@ class Dependency extends RouteBase {
 	public function register_routes(): void {
 		$this->post( $this->endpoint . '/check', [$this, 'check'] );
 		$this->post( $this->endpoint . '/install', [$this, 'install'] );
-		$this->post( $this->endpoint . '/activate', [$this, 'activate'] );
 	}
 
 	public function check() {
