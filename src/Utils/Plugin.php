@@ -13,11 +13,12 @@ use WP_Filesystem_Base;
 
 class Plugin {
 	public static function activate( string $file ) {
-		if ( ! current_user_can( 'activate_plugin', $file ) && ! is_plugin_inactive( $file ) ) {
+		if ( ! current_user_can( 'activate_plugin', $file ) || ! is_plugin_inactive( $file ) ) {
 			return false;
 		}
 
 		$result = activate_plugin( $file, false, false );
+
 		if ( is_wp_error( $result ) ) {
 			return $result;
 		}
@@ -25,40 +26,56 @@ class Plugin {
 		return true;
 	}
 
-	public static function dependencies( array $dependencies ): array {
-		$_inactive_plugins = [];
-		$_plugins          = self::get();
+	/**
+	 * Pass a list of required plugins
+	 * the array structure would be like this
+	 * [
+	 * 	[
+	 * 		name : Elementor PRO
+	 * 		file_name: elementor-pro/elementor-pro.php
+	 * 		slug: elementor-pro
+	 * 		is_pro : true
+	 * 	],
+	 *  [
+	 * 		name : Directorist
+	 * 		file_name: directorist/directorist-base.php
+	 * 		slug: directorist
+	 * 		is_pro : false
+	 * 	]
+	 * ]
+	 *
+	 * return inactive plugins
+	 */
+	public static function dependencies( array $plugins ): array {
+		$_inactive = [];
+		$_plugins  = self::get();
 
-		if ( ! empty( $dependencies ) ) {
-			foreach ( $dependencies as $dependency ) {
-
-				if ( ! is_array( $dependency ) || ! isset( $dependency['plugin_file'] ) ) {
-					continue;
-				}
-
-				$dependency = (object) $dependency;
-				if ( null === $dependency->plugin_file || self::is_active( $dependency->plugin_file ) ) {
-					continue;
-				}
-
-				if ( isset( $dependency->plugin_original_slug ) ) {
-					$dependency->slug = $dependency->plugin_original_slug;
-					unset( $dependency->plugin_original_slug );
-				}
-
-				if ( $dependency->is_pro ) {
-					if ( isset( $_plugins[$dependency->plugin_file] ) ) {
-						unset( $dependency->is_pro );
-						$dependency->message = __( 'You have the plugin installed.', 'template-market' );
-					}
-				}
-				$_inactive_plugins[] = $dependency;
-			}
+		if ( empty( $plugins ) ) {
+			return $_inactive;
 		}
 
-		return [
-			'dependencies' => $_inactive_plugins,
-		];
+		foreach ( $plugins as $plugin ) {
+
+			if ( ! is_array( $plugin ) || ! isset( $plugin['file_name'] ) ) {
+				continue;
+			}
+
+			$plugin = (object) $plugin;
+			if ( null === $plugin->file_name || self::is_active( $plugin->file_name ) ) {
+				continue;
+			}
+
+			if ( $plugin->is_pro ) {
+				if ( isset( $_plugins[$plugin->file_name] ) ) {
+					unset( $plugin->is_pro );
+					$plugin->message = __( 'You have the plugin installed.', 'template-market' );
+				}
+			}
+
+			$_inactive[] = $plugin;
+		}
+
+		return $_inactive;
 	}
 
 	public static function get(): array {
@@ -73,14 +90,8 @@ class Plugin {
 		return is_plugin_active( $plugin );
 	}
 
-	public static function includes(): void {
-		if ( ! function_exists( 'is_plugin_active' ) || ! function_exists( 'get_plugins' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
-	}
-
 	public static function installer( array $plugin ): array {
-		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		self::includes();
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 		include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
@@ -88,7 +99,7 @@ class Plugin {
 		$response = ['success' => false];
 
 		$_plugins     = self::get();
-		$is_installed = isset( $_plugins[$plugin['plugin_file']] );
+		$is_installed = isset( $_plugins[$plugin['file_name']] );
 
 		if ( isset( $plugin['is_pro'] ) && true === $plugin['is_pro'] ) {
 			if ( ! $is_installed ) {
@@ -146,11 +157,11 @@ class Plugin {
 				return $response;
 			}
 
-			$install_status        = install_plugin_install_status( $api );
-			$plugin['plugin_file'] = $install_status['file'];
+			$install_status      = install_plugin_install_status( $api );
+			$plugin['file_name'] = $install_status['file'];
 		}
 
-		$activate_status = self::activate( $plugin['plugin_file'] );
+		$activate_status = self::activate( $plugin['file_name'] );
 		if ( $activate_status && ! is_wp_error( $activate_status ) ) {
 			$response['success'] = true;
 		}
@@ -158,5 +169,11 @@ class Plugin {
 		$response['slug'] = $plugin['slug'];
 
 		return $response;
+	}
+
+	public static function includes(): void {
+		if ( ! function_exists( 'is_plugin_active' ) || ! function_exists( 'get_plugins' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
 	}
 }
