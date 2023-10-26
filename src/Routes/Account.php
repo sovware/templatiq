@@ -9,6 +9,7 @@ namespace TemplateMarket\Route;
 
 use TemplateMarket\Abstracts\RouteBase;
 use TemplateMarket\Model\Account as ModelAccount;
+use TemplateMarket\Model\Directorist;
 
 class Account extends RouteBase {
 	private $endpoint = 'account';
@@ -18,6 +19,7 @@ class Account extends RouteBase {
 		$this->post( $this->endpoint . '/logout', [$this, 'logout'] );
 		$this->post( $this->endpoint . '/create', [$this, 'create'] );
 		$this->get( $this->endpoint . '/is-logged-in', [$this, 'is_logged_in'] );
+		$this->post( $this->endpoint . '/directorist-syncc', [$this, 'directorist_membership_sync'] );
 	}
 
 	public function login() {
@@ -55,6 +57,13 @@ class Account extends RouteBase {
 
 		$account  = new ModelAccount;
 		$response = $account->create( $first_name, $last_name, $email, $password, $confirm_password );
+
+		return $response;
+	}
+
+	public function directorist_membership_sync() {
+		$directorist = new Directorist;
+		$response    = $directorist->sync_membership_with_cloud();
 
 		return $response;
 	}
