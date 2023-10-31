@@ -34,8 +34,8 @@ class App {
 		/**
 		 * Routes Initialize
 		 */
-		Template::init();
-		Dependency::init();
 		Account::init();
+		Dependency::init();
+		Template::init();
 	}
 }
