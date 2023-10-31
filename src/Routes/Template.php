@@ -30,7 +30,7 @@ class Template extends RouteBase {
 	}
 
 	public function register_routes(): void {
-		$this->post( $this->endpoint . '/import-as-page', [$this, 'import_as_page'] );
+		$this->post( $this->endpoint . '/import-as-page', [$this, 'import_as_page'], $this->prepare_args( 'import_as_page' ) );
 	}
 
 	/**
@@ -104,5 +104,38 @@ class Template extends RouteBase {
 
 			return $result;
 		} );
+	}
+
+	private function prepare_args( string $type ) {
+		$args = [
+			'template_id' => [
+				'description' => 'The selected template id',
+				'type'        => 'int',
+				'required'    => true,
+			],
+			'title'       => [
+				'description' => 'Page title',
+				'type'        => 'string',
+				'required'    => true,
+			],
+			'builder'     => [
+				'description' => 'The selected builder like elementor',
+				'type'        => 'string',
+				'required'    => true,
+			],
+		];
+
+		$_args = [];
+		switch ( $type ) {
+			case 'import_as_page':
+				$_args = [
+					'template_id' => $args['template_id'],
+					'title'       => $args['title'],
+					'builder'     => $args['builder'],
+				];
+				break;
+		}
+
+		return $_args;
 	}
 }
