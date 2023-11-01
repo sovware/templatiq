@@ -122,10 +122,10 @@ var unitlessKeys = {
 
 /***/ }),
 
-/***/ "./src/svg/icon/arrow-small-left.svg":
-/*!*******************************************!*\
-  !*** ./src/svg/icon/arrow-small-left.svg ***!
-  \*******************************************/
+/***/ "./assets/svg/icon/arrow-small-left.svg":
+/*!**********************************************!*\
+  !*** ./assets/svg/icon/arrow-small-left.svg ***!
+  \**********************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -154,10 +154,10 @@ var SvgArrowSmallLeft = function SvgArrowSmallLeft(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/minus-solid.svg":
-/*!**************************************!*\
-  !*** ./src/svg/icon/minus-solid.svg ***!
-  \**************************************/
+/***/ "./assets/svg/icon/minus-solid.svg":
+/*!*****************************************!*\
+  !*** ./assets/svg/icon/minus-solid.svg ***!
+  \*****************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -183,10 +183,10 @@ var SvgMinusSolid = function SvgMinusSolid(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/times.svg":
-/*!********************************!*\
-  !*** ./src/svg/icon/times.svg ***!
-  \********************************/
+/***/ "./assets/svg/icon/times.svg":
+/*!***********************************!*\
+  !*** ./assets/svg/icon/times.svg ***!
+  \***********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -214,10 +214,10 @@ var SvgTimes = function SvgTimes(props) {
 
 /***/ }),
 
-/***/ "./src/js/components/ContentLoading.js":
-/*!*********************************************!*\
-  !*** ./src/js/components/ContentLoading.js ***!
-  \*********************************************/
+/***/ "./assets/js/components/ContentLoading.js":
+/*!************************************************!*\
+  !*** ./assets/js/components/ContentLoading.js ***!
+  \************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -227,7 +227,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../style */ "./src/js/style.js");
+/* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../style */ "./assets/js/style.js");
 
 
 function ContentLoading({
@@ -254,10 +254,10 @@ function ContentLoading({
 
 /***/ }),
 
-/***/ "./src/js/frontend/pages/ChatBubble/components/ChatFormBack.js":
-/*!*********************************************************************!*\
-  !*** ./src/js/frontend/pages/ChatBubble/components/ChatFormBack.js ***!
-  \*********************************************************************/
+/***/ "./assets/js/frontend/pages/ChatBubble/components/ChatFormBack.js":
+/*!************************************************************************!*\
+  !*** ./assets/js/frontend/pages/ChatBubble/components/ChatFormBack.js ***!
+  \************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -268,7 +268,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
-/* harmony import */ var _icon_arrow_small_left_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @icon/arrow-small-left.svg */ "./src/svg/icon/arrow-small-left.svg");
+/* harmony import */ var _icon_arrow_small_left_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @icon/arrow-small-left.svg */ "./assets/svg/icon/arrow-small-left.svg");
 
 
 
@@ -294,10 +294,10 @@ function ChatFormBack(props) {
 
 /***/ }),
 
-/***/ "./src/js/frontend/pages/ChatBubble/components/ChatFormClose.js":
-/*!**********************************************************************!*\
-  !*** ./src/js/frontend/pages/ChatBubble/components/ChatFormClose.js ***!
-  \**********************************************************************/
+/***/ "./assets/js/frontend/pages/ChatBubble/components/ChatFormClose.js":
+/*!*************************************************************************!*\
+  !*** ./assets/js/frontend/pages/ChatBubble/components/ChatFormClose.js ***!
+  \*************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -308,8 +308,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
-/* harmony import */ var _icon_times_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @icon/times.svg */ "./src/svg/icon/times.svg");
-/* harmony import */ var _icon_minus_solid_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @icon/minus-solid.svg */ "./src/svg/icon/minus-solid.svg");
+/* harmony import */ var _icon_times_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @icon/times.svg */ "./assets/svg/icon/times.svg");
+/* harmony import */ var _icon_minus_solid_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @icon/minus-solid.svg */ "./assets/svg/icon/minus-solid.svg");
 
 
 
@@ -341,10 +341,10 @@ function ChatFormClose(props) {
 
 /***/ }),
 
-/***/ "./src/js/style.js":
-/*!*************************!*\
-  !*** ./src/js/style.js ***!
-  \*************************/
+/***/ "./assets/js/style.js":
+/*!****************************!*\
+  !*** ./assets/js/style.js ***!
+  \****************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5748,9 +5748,9 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 !function() {
 "use strict";
-/*!***************************************************!*\
-  !*** ./src/js/frontend/pages/ChatBubble/index.js ***!
-  \***************************************************/
+/*!******************************************************!*\
+  !*** ./assets/js/frontend/pages/ChatBubble/index.js ***!
+  \******************************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
@@ -5760,9 +5760,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _components_ChatFormClose__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/ChatFormClose */ "./src/js/frontend/pages/ChatBubble/components/ChatFormClose.js");
-/* harmony import */ var _components_ChatFormBack__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/ChatFormBack */ "./src/js/frontend/pages/ChatBubble/components/ChatFormBack.js");
-/* harmony import */ var _components_ContentLoading__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @components/ContentLoading */ "./src/js/components/ContentLoading.js");
+/* harmony import */ var _components_ChatFormClose__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/ChatFormClose */ "./assets/js/frontend/pages/ChatBubble/components/ChatFormClose.js");
+/* harmony import */ var _components_ChatFormBack__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/ChatFormBack */ "./assets/js/frontend/pages/ChatBubble/components/ChatFormBack.js");
+/* harmony import */ var _components_ContentLoading__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @components/ContentLoading */ "./assets/js/components/ContentLoading.js");
 /* harmony import */ var _helpgent_modules__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @helpgent/modules */ "@helpgent/modules");
 /* harmony import */ var _helpgent_modules__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_helpgent_modules__WEBPACK_IMPORTED_MODULE_7__);
 
