@@ -1,1 +1,1 @@
-<?php return array('dependencies' => array('helpgent/modules', 'react', 'wp-element', 'wp-hooks'), 'version' => 'e56cf27c28bf649609c9');
+<?php return array('dependencies' => array('helpgent/modules', 'react', 'wp-element', 'wp-hooks'), 'version' => '2b46691ff26c0afe9eae');

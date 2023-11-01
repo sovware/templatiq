@@ -27,7 +27,7 @@ class AdminMenu {
 			apply_filters( 'template-market_title', 'TemplateMarket' ),
 			'manage_options',
 			'template-market',
-			[$this, 'overview']
+			[$this, 'content']
 		);
 		add_submenu_page(
 			'template-market',
@@ -35,11 +35,11 @@ class AdminMenu {
 			__( 'Dashboard', 'template-market' ),
 			'manage_options',
 			'template-market',
-			[$this, 'overview'],
+			[$this, 'content'],
 		);
 	}
 
-	public function overview() {
-		echo 1212;
+	public function content() {
+		echo '<div class="template-market-root"></div>';
 	}
 }
