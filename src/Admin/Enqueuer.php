@@ -26,8 +26,9 @@ class Enqueuer extends EnqueuerBase {
 		if ( ! isset( $_GET['page'] ) || 'template-market' !== $_GET['page'] ) {
 			return;
 		}
-		$inc = require '/js/index.asset.php';
-		$this->enqueue_script( 'template-market-admin-app', '/js/index.js', $inc['dependencies'], $inc['version']);
+		$inc = require_once TEMPLATE_MARKET_ASSETS_PATH . '/js/index.asset.php';
+
+		$this->enqueue_script( 'template-market-admin-app', '/js/index.js', $inc['dependencies'], $inc['version'] );
 
 		$obj = [
 			'rest_args' => [
