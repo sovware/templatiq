@@ -16,23 +16,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Enqueuer extends EnqueuerBase {
 
 	public function __construct() {
-		add_action( 'wp_admin_scripts', [$this, 'enqueue_elementor_scripts'] );
-		add_action( 'admin_enqueue_scripts', [$this, 'enqueue_admin_script'] );
+		$this->action( 'admin_enqueue_scripts', 'admin_enqueue_scripts' );
 
 		//Enqueue editor scripts
-		add_action( 'elementor/editor/after_enqueue_scripts', [$this, 'elementor_editor_enqueue'] );
+		$this->action( 'elementor/editor/after_enqueue_scripts', 'elementor_editor_enqueue' );
 	}
 
-	public function enqueue_elementor_scripts() {
-
-	}
-
-	public function enqueue_admin_script( $hook ) {
-		if ( ! isset( $_GET['tm'] ) ) {
+	public function admin_enqueue_scripts( $hook ) {
+		if ( ! isset( $_GET['page'] ) || 'template-market' !== $_GET['page'] ) {
 			return;
 		}
 
-		wp_enqueue_script( 'template_market', plugin_dir_url( __FILE__ ) . '/template_market.js', [], '1.0' );
+		$this->enqueue_script( 'template-market-admin-app', '/js/template-market-admin-app.js' );
+		$this->enqueue_style( 'template-market-admin-app', '/css/template-market-admin-app.css' );
+
 		$obj = [
 			'rest_args' => [
 				'nonce'    => wp_create_nonce( 'wp_rest' ),
@@ -40,7 +37,7 @@ class Enqueuer extends EnqueuerBase {
 			],
 		];
 
-		wp_localize_script( 'template_market', 'template_market_obj', $obj );
+		wp_localize_script( 'template-market-admin-app', 'template_market_obj', $obj );
 	}
 
 	public function elementor_editor_enqueue() {
