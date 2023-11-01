@@ -75,7 +75,7 @@ class Template extends RouteBase {
 				$editor_post_id = absint( $data['editor_post_id'] );
 
 				if ( ! get_post( $editor_post_id ) ) {
-					throw new \Exception( __( 'Post not found.', 'happy-elementor-addons' ) );
+					throw new \Exception( __( 'Post not found.', 'template-market' ) );
 				}
 
 				\Elementor\Plugin::instance()->db->switch_to_post( $editor_post_id );
