@@ -28,6 +28,7 @@ class Enqueuer extends EnqueuerBase {
 		}
 
 		$this->enqueue_script( 'template-market-admin-app', '/js/template-market-admin-app.js' );
+		$this->enqueue_style( 'template-market-admin-app', '/css/template-market-admin-app.css' );
 
 		$obj = [
 			'rest_args' => [
