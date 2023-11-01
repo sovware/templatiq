@@ -11,7 +11,7 @@ domReady( () => {
 		return items;
 	} );
 
-	const containers = document.querySelectorAll( '.helpgent-form' );
+	const containers = document.querySelectorAll( '.template-market-form' );
 
 	if ( containers.length === 0 ) {
 		return;

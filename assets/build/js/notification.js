@@ -162,22 +162,21 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/dom-ready */ "@wordpress/dom-ready");
-/* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/hooks */ "@wordpress/hooks");
-/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/dom-ready */ "@wordpress/dom-ready");
+/* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/hooks */ "@wordpress/hooks");
+/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.mjs");
 
 
 
 
 
-
 const Notification = () => {
-  const [toastConfig, setToastConfig] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)({});
-  const pushNotification = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useCallback)(data => {
+  const [toastConfig, setToastConfig] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)({});
+  const pushNotification = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useCallback)(data => {
     const config = Object.assign({
       position: 'bottom-right',
       message: 'Helpgent Notification',
@@ -193,19 +192,19 @@ const Notification = () => {
       }
     }));
   }, []);
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
-    (0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_3__.addAction)('helpgent-toast', 'component-helpgent-toast', pushNotification);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useEffect)(() => {
+    (0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_2__.addAction)('helpgent-toast', 'component-helpgent-toast', pushNotification);
   }, [pushNotification]);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_toastify__WEBPACK_IMPORTED_MODULE_4__.ToastContainer, {
     ...toastConfig
   });
 };
-_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_2___default()(() => {
+_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_1___default()(() => {
   const container = document.createElement('div');
   container.setAttribute('id', 'helpgent-toast');
   container.setAttribute('style', 'position: absolute; z-index: 99999');
   document.body.appendChild(container);
-  const root = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createRoot)(container);
+  const root = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createRoot)(container);
   root.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Notification, null));
 });
 }();

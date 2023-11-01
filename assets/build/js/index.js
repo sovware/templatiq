@@ -6047,10 +6047,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function FormEdit() {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_helpgent_modules__WEBPACK_IMPORTED_MODULE_1__.SingleFormModule, {
-    baseApiRoute: "/helpgent/admin/form"
-  });
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, "Admin Form Edit");
+  // return <SingleFormModule baseApiRoute="/helpgent/admin/form" />;
 }
+
 /* harmony default export */ __webpack_exports__["default"] = (FormEdit);
 
 /***/ }),
@@ -15419,7 +15419,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 document.addEventListener('DOMContentLoaded', function () {
-  const container = document.querySelector('.helpgent-root');
+  const container = document.querySelector('.template-market-root');
+  console.log('container', container, _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createRoot);
   if (!container) {
     return;
   }

@@ -47,46 +47,46 @@ export default function Login() {
 
 	return (
 		<LoginWrapper>
-			<div className="helpgent-login-wrap">
-				<h2 className="helpgent-login-title">Login to your account</h2>
-				<span className="helpgent-login-subtitle">
+			<div className="template-market-login-wrap">
+				<h2 className="template-market-login-title">Login to your account</h2>
+				<span className="template-market-login-subtitle">
 					Enter your email address and we’ll send a password to your
 					email.
 				</span>
-				<div className="helpgent-form-group helpgent-form-group-column">
+				<div className="template-market-form-group template-market-form-group-column">
 					{ isSuccess ? (
-						<span className="helpgent-notice helpgent-notice-success-light">
+						<span className="template-market-notice template-market-notice-success-light">
 							{ formatMessage }
 						</span>
 					) : (
 						<>
 							{ isError && (
-								<span className="helpgent-notice helpgent-notice-danger helpgent-mb-15">
+								<span className="template-market-notice template-market-notice-danger template-market-mb-15">
 									{ formatMessage }
 								</span>
 							) }
 							{ statusCode !== 503 && (
 								<>
 									<label
-										htmlFor="helpgent-undefined"
-										className="helpgent-form-group__label"
+										htmlFor="template-market-undefined"
+										className="template-market-form-group__label"
 									>
 										Enter your email address
 									</label>
-									<div className="helpgent-form helpgent-form-group helpgent-form-icon-left">
-										<span className="helpgent-input-icon">
+									<div className="template-market-form template-market-form-group template-market-form-icon-left">
+										<span className="template-market-input-icon">
 											<ReactSVG src={ envelope } />
 										</span>
 										<input
 											type="email"
-											className="helpgent-form-group__element"
+											className="template-market-form-group__element"
 											placeholder="Email address"
 											value={ email }
 											onChange={ handleEmailChange }
 										/>
 									</div>
 									<button
-										className="helpgent-btn helpgent-btn-primary helpgent-btn-block helpgent-btn-icon"
+										className="template-market-btn template-market-btn-primary template-market-btn-block template-market-btn-icon"
 										onClick={ handleLoginClick }
 									>
 										{ isLoading ? 'Logging' : 'Login' }
