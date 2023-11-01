@@ -169,7 +169,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   stripBasename: function() { return /* binding */ stripBasename; }
 /* harmony export */ });
 /**
- * @remix-run/router v1.11.0
+ * @remix-run/router v1.10.0
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -938,29 +938,20 @@ function matchPath(pattern, pathname) {
       end: true
     };
   }
-  let [matcher, compiledParams] = compilePath(pattern.path, pattern.caseSensitive, pattern.end);
+  let [matcher, paramNames] = compilePath(pattern.path, pattern.caseSensitive, pattern.end);
   let match = pathname.match(matcher);
   if (!match) return null;
   let matchedPathname = match[0];
   let pathnameBase = matchedPathname.replace(/(.)\/+$/, "$1");
   let captureGroups = match.slice(1);
-  let params = compiledParams.reduce((memo, _ref, index) => {
-    let {
-      paramName,
-      isOptional
-    } = _ref;
+  let params = paramNames.reduce((memo, paramName, index) => {
     // We need to compute the pathnameBase here using the raw splat value
     // instead of using params["*"] later because it will be decoded then
     if (paramName === "*") {
       let splatValue = captureGroups[index] || "";
       pathnameBase = matchedPathname.slice(0, matchedPathname.length - splatValue.length).replace(/(.)\/+$/, "$1");
     }
-    const value = captureGroups[index];
-    if (isOptional && !value) {
-      memo[paramName] = undefined;
-    } else {
-      memo[paramName] = safelyDecodeURIComponent(value || "", paramName);
-    }
+    memo[paramName] = safelyDecodeURIComponent(captureGroups[index] || "", paramName);
     return memo;
   }, {});
   return {
@@ -978,21 +969,16 @@ function compilePath(path, caseSensitive, end) {
     end = true;
   }
   warning(path === "*" || !path.endsWith("*") || path.endsWith("/*"), "Route path \"" + path + "\" will be treated as if it were " + ("\"" + path.replace(/\*$/, "/*") + "\" because the `*` character must ") + "always follow a `/` in the pattern. To get rid of this warning, " + ("please change the route path to \"" + path.replace(/\*$/, "/*") + "\"."));
-  let params = [];
+  let paramNames = [];
   let regexpSource = "^" + path.replace(/\/*\*?$/, "") // Ignore trailing / and /*, we'll handle it below
   .replace(/^\/*/, "/") // Make sure it has a leading /
-  .replace(/[\\.*+^${}|()[\]]/g, "\\$&") // Escape special regex chars
-  .replace(/\/:(\w+)(\?)?/g, (_, paramName, isOptional) => {
-    params.push({
-      paramName,
-      isOptional: isOptional != null
-    });
-    return isOptional ? "/?([^\\/]+)?" : "/([^\\/]+)";
+  .replace(/[\\.*+^$?{}|()[\]]/g, "\\$&") // Escape special regex chars
+  .replace(/\/:(\w+)/g, (_, paramName) => {
+    paramNames.push(paramName);
+    return "/([^\\/]+)";
   });
   if (path.endsWith("*")) {
-    params.push({
-      paramName: "*"
-    });
+    paramNames.push("*");
     regexpSource += path === "*" || path === "/*" ? "(.*)$" // Already matched the initial /, just match the rest
     : "(?:\\/(.+)|\\/*)$"; // Don't include the / in params["*"]
   } else if (end) {
@@ -1009,7 +995,7 @@ function compilePath(path, caseSensitive, end) {
     regexpSource += "(?:(?=\\/|$))";
   } else ;
   let matcher = new RegExp(regexpSource, caseSensitive ? undefined : "i");
-  return [matcher, params];
+  return [matcher, paramNames];
 }
 function safelyDecodeURI(value) {
   try {
@@ -1222,8 +1208,8 @@ class DeferredData {
     let onAbort = () => reject(new AbortedDeferredError("Deferred data aborted"));
     this.unlistenAbortSignal = () => this.controller.signal.removeEventListener("abort", onAbort);
     this.controller.signal.addEventListener("abort", onAbort);
-    this.data = Object.entries(data).reduce((acc, _ref2) => {
-      let [key, value] = _ref2;
+    this.data = Object.entries(data).reduce((acc, _ref) => {
+      let [key, value] = _ref;
       return Object.assign(acc, {
         [key]: this.trackPromise(key, value)
       });
@@ -1320,8 +1306,8 @@ class DeferredData {
   }
   get unwrappedData() {
     invariant(this.data !== null && this.done, "Can only unwrap data on initialized and settled deferreds");
-    return Object.entries(this.data).reduce((acc, _ref3) => {
-      let [key, value] = _ref3;
+    return Object.entries(this.data).reduce((acc, _ref2) => {
+      let [key, value] = _ref2;
       return Object.assign(acc, {
         [key]: unwrapTrackedPromise(value)
       });
@@ -1485,7 +1471,6 @@ function createRouter(init) {
   let basename = init.basename || "/";
   // Config driven behavior flags
   let future = _extends({
-    v7_fetcherPersist: false,
     v7_normalizeFormMethod: false,
     v7_prependBasename: false
   }, init.future);
@@ -1588,11 +1573,6 @@ function createRouter(init) {
   let fetchRedirectIds = new Set();
   // Most recent href/match for fetcher.load calls for fetchers
   let fetchLoadMatches = new Map();
-  // Ref-count mounted fetchers so we know when it's ok to clean them up
-  let activeFetchers = new Map();
-  // Fetchers that have requested a delete when using v7_fetcherPersist,
-  // they'll be officially removed after they return to idle
-  let deletedFetchers = new Set();
   // Store DeferredData instances for active route matches.  When a
   // route loader returns defer() we stick one in here.  Then, when a nested
   // promise resolves we update loaderData.  If a new navigation starts we
@@ -1697,33 +1677,9 @@ function createRouter(init) {
   // Update our state and notify the calling context of the change
   function updateState(newState, viewTransitionOpts) {
     state = _extends({}, state, newState);
-    // Prep fetcher cleanup so we can tell the UI which fetcher data entries
-    // can be removed
-    let completedFetchers = [];
-    let deletedFetchersKeys = [];
-    if (future.v7_fetcherPersist) {
-      state.fetchers.forEach((fetcher, key) => {
-        if (fetcher.state === "idle") {
-          if (deletedFetchers.has(key)) {
-            // Unmounted from the UI and can be totally removed
-            deletedFetchersKeys.push(key);
-          } else {
-            // Returned to idle but still mounted in the UI, so semi-remains for
-            // revalidations and such
-            completedFetchers.push(key);
-          }
-        }
-      });
-    }
     subscribers.forEach(subscriber => subscriber(state, {
-      deletedFetchers: deletedFetchersKeys,
       unstable_viewTransitionOpts: viewTransitionOpts
     }));
-    // Remove idle fetchers from state since we only care about in-flight fetchers.
-    if (future.v7_fetcherPersist) {
-      completedFetchers.forEach(key => state.fetchers.delete(key));
-      deletedFetchersKeys.forEach(key => deleteFetcher(key));
-    }
   }
   // Complete a navigation returning the state.navigation back to the IDLE_NAVIGATION
   // and setting state.[historyAction/location/matches] to the new route.
@@ -2241,14 +2197,6 @@ function createRouter(init) {
     } : {});
   }
   function getFetcher(key) {
-    if (future.v7_fetcherPersist) {
-      activeFetchers.set(key, (activeFetchers.get(key) || 0) + 1);
-      // If this fetcher was previously marked for deletion, unmark it since we
-      // have a new instance
-      if (deletedFetchers.has(key)) {
-        deletedFetchers.delete(key);
-      }
-    }
     return state.fetchers.get(key) || IDLE_FETCHER;
   }
   // Trigger a fetcher load/submit for the given fetcher key
@@ -2317,18 +2265,11 @@ function createRouter(init) {
     let originatingLoadId = incrementingLoadId;
     let actionResult = await callLoaderOrAction("action", fetchRequest, match, requestMatches, manifest, mapRouteProperties, basename);
     if (fetchRequest.signal.aborted) {
-      // We can delete this so long as we weren't aborted by our own fetcher
+      // We can delete this so long as we weren't aborted by ou our own fetcher
       // re-submit which would have put _new_ controller is in fetchControllers
       if (fetchControllers.get(key) === abortController) {
         fetchControllers.delete(key);
       }
-      return;
-    }
-    if (deletedFetchers.has(key)) {
-      state.fetchers.set(key, getDoneFetcher(undefined));
-      updateState({
-        fetchers: new Map(state.fetchers)
-      });
       return;
     }
     if (isRedirectResult(actionResult)) {
@@ -2435,7 +2376,7 @@ function createRouter(init) {
       let doneFetcher = getDoneFetcher(actionResult.data);
       state.fetchers.set(key, doneFetcher);
     }
-    abortStaleFetchLoads(loadId);
+    let didAbortFetchLoads = abortStaleFetchLoads(loadId);
     // If we are currently in a navigation loading state and this fetcher is
     // more recent than the navigation, we want the newer data so abort the
     // navigation and complete it with the fetcher data
@@ -2452,11 +2393,12 @@ function createRouter(init) {
       // otherwise just update with the fetcher data, preserving any existing
       // loaderData for loaders that did not need to reload.  We have to
       // manually merge here since we aren't going through completeNavigation
-      updateState({
+      updateState(_extends({
         errors,
-        loaderData: mergeLoaderData(state.loaderData, loaderData, matches, errors),
+        loaderData: mergeLoaderData(state.loaderData, loaderData, matches, errors)
+      }, didAbortFetchLoads || revalidatingFetchers.length > 0 ? {
         fetchers: new Map(state.fetchers)
-      });
+      } : {}));
       isRevalidationRequired = false;
     }
   }
@@ -2490,13 +2432,6 @@ function createRouter(init) {
     if (fetchRequest.signal.aborted) {
       return;
     }
-    if (deletedFetchers.has(key)) {
-      state.fetchers.set(key, getDoneFetcher(undefined));
-      updateState({
-        fetchers: new Map(state.fetchers)
-      });
-      return;
-    }
     // If the loader threw a redirect Response, start a new REPLACE navigation
     if (isRedirectResult(result)) {
       if (pendingNavigationLoadId > originatingLoadId) {
@@ -2516,7 +2451,17 @@ function createRouter(init) {
     }
     // Process any non-redirect errors thrown
     if (isErrorResult(result)) {
-      setFetcherError(key, routeId, result.error);
+      let boundaryMatch = findNearestBoundary(state.matches, routeId);
+      state.fetchers.delete(key);
+      // TODO: In remix, this would reset to IDLE_NAVIGATION if it was a catch -
+      // do we need to behave any differently with our non-redirect errors?
+      // What if it was a non-redirect Response?
+      updateState({
+        fetchers: new Map(state.fetchers),
+        errors: {
+          [boundaryMatch.route.id]: result.error
+        }
+      });
       return;
     }
     invariant(!isDeferredResult(result), "Unhandled fetcher deferred data");
@@ -2681,24 +2626,7 @@ function createRouter(init) {
     fetchLoadMatches.delete(key);
     fetchReloadIds.delete(key);
     fetchRedirectIds.delete(key);
-    deletedFetchers.delete(key);
     state.fetchers.delete(key);
-  }
-  function deleteFetcherAndUpdateState(key) {
-    if (future.v7_fetcherPersist) {
-      let count = (activeFetchers.get(key) || 0) - 1;
-      if (count <= 0) {
-        activeFetchers.delete(key);
-        deletedFetchers.add(key);
-      } else {
-        activeFetchers.set(key, count);
-      }
-    } else {
-      deleteFetcher(key);
-    }
-    updateState({
-      fetchers: new Map(state.fetchers)
-    });
   }
   function abortFetcher(key) {
     let controller = fetchControllers.get(key);
@@ -2888,7 +2816,7 @@ function createRouter(init) {
     createHref: to => init.history.createHref(to),
     encodeLocation: to => init.history.encodeLocation(to),
     getFetcher,
-    deleteFetcher: deleteFetcherAndUpdateState,
+    deleteFetcher,
     dispose,
     getBlocker,
     deleteBlocker,
@@ -4374,10 +4302,10 @@ function persistAppliedTransitions(_window, transitions) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/address-book.svg":
-/*!***************************************!*\
-  !*** ./src/svg/icon/address-book.svg ***!
-  \***************************************/
+/***/ "./assets/svg/icon/address-book.svg":
+/*!******************************************!*\
+  !*** ./assets/svg/icon/address-book.svg ***!
+  \******************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4405,10 +4333,10 @@ var SvgAddressBook = function SvgAddressBook(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/angle-circle.svg":
-/*!***************************************!*\
-  !*** ./src/svg/icon/angle-circle.svg ***!
-  \***************************************/
+/***/ "./assets/svg/icon/angle-circle.svg":
+/*!******************************************!*\
+  !*** ./assets/svg/icon/angle-circle.svg ***!
+  \******************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4441,10 +4369,10 @@ var SvgAngleCircle = function SvgAngleCircle(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/arrow-square-left.svg":
-/*!********************************************!*\
-  !*** ./src/svg/icon/arrow-square-left.svg ***!
-  \********************************************/
+/***/ "./assets/svg/icon/arrow-square-left.svg":
+/*!***********************************************!*\
+  !*** ./assets/svg/icon/arrow-square-left.svg ***!
+  \***********************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4473,10 +4401,10 @@ var SvgArrowSquareLeft = function SvgArrowSquareLeft(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/arrow-square-right.svg":
-/*!*********************************************!*\
-  !*** ./src/svg/icon/arrow-square-right.svg ***!
-  \*********************************************/
+/***/ "./assets/svg/icon/arrow-square-right.svg":
+/*!************************************************!*\
+  !*** ./assets/svg/icon/arrow-square-right.svg ***!
+  \************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4505,10 +4433,10 @@ var SvgArrowSquareRight = function SvgArrowSquareRight(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/bar.svg":
-/*!******************************!*\
-  !*** ./src/svg/icon/bar.svg ***!
-  \******************************/
+/***/ "./assets/svg/icon/bar.svg":
+/*!*********************************!*\
+  !*** ./assets/svg/icon/bar.svg ***!
+  \*********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4541,10 +4469,10 @@ var SvgBar = function SvgBar(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/bulb-solid.svg":
-/*!*************************************!*\
-  !*** ./src/svg/icon/bulb-solid.svg ***!
-  \*************************************/
+/***/ "./assets/svg/icon/bulb-solid.svg":
+/*!****************************************!*\
+  !*** ./assets/svg/icon/bulb-solid.svg ***!
+  \****************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4573,10 +4501,10 @@ var SvgBulbSolid = function SvgBulbSolid(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/bulb.svg":
-/*!*******************************!*\
-  !*** ./src/svg/icon/bulb.svg ***!
-  \*******************************/
+/***/ "./assets/svg/icon/bulb.svg":
+/*!**********************************!*\
+  !*** ./assets/svg/icon/bulb.svg ***!
+  \**********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4604,10 +4532,10 @@ var SvgBulb = function SvgBulb(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/button.svg":
-/*!*********************************!*\
-  !*** ./src/svg/icon/button.svg ***!
-  \*********************************/
+/***/ "./assets/svg/icon/button.svg":
+/*!************************************!*\
+  !*** ./assets/svg/icon/button.svg ***!
+  \************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4635,10 +4563,10 @@ var SvgButton = function SvgButton(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/calendar-day.svg":
-/*!***************************************!*\
-  !*** ./src/svg/icon/calendar-day.svg ***!
-  \***************************************/
+/***/ "./assets/svg/icon/calendar-day.svg":
+/*!******************************************!*\
+  !*** ./assets/svg/icon/calendar-day.svg ***!
+  \******************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4666,10 +4594,10 @@ var SvgCalendarDay = function SvgCalendarDay(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/chart-bar.svg":
-/*!************************************!*\
-  !*** ./src/svg/icon/chart-bar.svg ***!
-  \************************************/
+/***/ "./assets/svg/icon/chart-bar.svg":
+/*!***************************************!*\
+  !*** ./assets/svg/icon/chart-bar.svg ***!
+  \***************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4710,10 +4638,10 @@ var SvgChartBar = function SvgChartBar(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/chart-simple-horizontal.svg":
-/*!**************************************************!*\
-  !*** ./src/svg/icon/chart-simple-horizontal.svg ***!
-  \**************************************************/
+/***/ "./assets/svg/icon/chart-simple-horizontal.svg":
+/*!*****************************************************!*\
+  !*** ./assets/svg/icon/chart-simple-horizontal.svg ***!
+  \*****************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4741,10 +4669,10 @@ var SvgChartSimpleHorizontal = function SvgChartSimpleHorizontal(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/chart-simple.svg":
-/*!***************************************!*\
-  !*** ./src/svg/icon/chart-simple.svg ***!
-  \***************************************/
+/***/ "./assets/svg/icon/chart-simple.svg":
+/*!******************************************!*\
+  !*** ./assets/svg/icon/chart-simple.svg ***!
+  \******************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4772,10 +4700,10 @@ var SvgChartSimple = function SvgChartSimple(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/checkbox.svg":
-/*!***********************************!*\
-  !*** ./src/svg/icon/checkbox.svg ***!
-  \***********************************/
+/***/ "./assets/svg/icon/checkbox.svg":
+/*!**************************************!*\
+  !*** ./assets/svg/icon/checkbox.svg ***!
+  \**************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4808,10 +4736,10 @@ var SvgCheckbox = function SvgCheckbox(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/comment.svg":
-/*!**********************************!*\
-  !*** ./src/svg/icon/comment.svg ***!
-  \**********************************/
+/***/ "./assets/svg/icon/comment.svg":
+/*!*************************************!*\
+  !*** ./assets/svg/icon/comment.svg ***!
+  \*************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4848,10 +4776,10 @@ var SvgComment = function SvgComment(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/envelope.svg":
-/*!***********************************!*\
-  !*** ./src/svg/icon/envelope.svg ***!
-  \***********************************/
+/***/ "./assets/svg/icon/envelope.svg":
+/*!**************************************!*\
+  !*** ./assets/svg/icon/envelope.svg ***!
+  \**************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4879,10 +4807,10 @@ var SvgEnvelope = function SvgEnvelope(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/facebook.svg":
-/*!***********************************!*\
-  !*** ./src/svg/icon/facebook.svg ***!
-  \***********************************/
+/***/ "./assets/svg/icon/facebook.svg":
+/*!**************************************!*\
+  !*** ./assets/svg/icon/facebook.svg ***!
+  \**************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4910,10 +4838,10 @@ var SvgFacebook = function SvgFacebook(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/file-pdf.svg":
-/*!***********************************!*\
-  !*** ./src/svg/icon/file-pdf.svg ***!
-  \***********************************/
+/***/ "./assets/svg/icon/file-pdf.svg":
+/*!**************************************!*\
+  !*** ./assets/svg/icon/file-pdf.svg ***!
+  \**************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4941,10 +4869,10 @@ var SvgFilePdf = function SvgFilePdf(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/flag-solid.svg":
-/*!*************************************!*\
-  !*** ./src/svg/icon/flag-solid.svg ***!
-  \*************************************/
+/***/ "./assets/svg/icon/flag-solid.svg":
+/*!****************************************!*\
+  !*** ./assets/svg/icon/flag-solid.svg ***!
+  \****************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4973,10 +4901,10 @@ var SvgFlagSolid = function SvgFlagSolid(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/flag.svg":
-/*!*******************************!*\
-  !*** ./src/svg/icon/flag.svg ***!
-  \*******************************/
+/***/ "./assets/svg/icon/flag.svg":
+/*!**********************************!*\
+  !*** ./assets/svg/icon/flag.svg ***!
+  \**********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5004,10 +4932,10 @@ var SvgFlag = function SvgFlag(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/hash.svg":
-/*!*******************************!*\
-  !*** ./src/svg/icon/hash.svg ***!
-  \*******************************/
+/***/ "./assets/svg/icon/hash.svg":
+/*!**********************************!*\
+  !*** ./assets/svg/icon/hash.svg ***!
+  \**********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5035,10 +4963,10 @@ var SvgHash = function SvgHash(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/heart-solid.svg":
-/*!**************************************!*\
-  !*** ./src/svg/icon/heart-solid.svg ***!
-  \**************************************/
+/***/ "./assets/svg/icon/heart-solid.svg":
+/*!*****************************************!*\
+  !*** ./assets/svg/icon/heart-solid.svg ***!
+  \*****************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5067,10 +4995,10 @@ var SvgHeartSolid = function SvgHeartSolid(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/heart.svg":
-/*!********************************!*\
-  !*** ./src/svg/icon/heart.svg ***!
-  \********************************/
+/***/ "./assets/svg/icon/heart.svg":
+/*!***********************************!*\
+  !*** ./assets/svg/icon/heart.svg ***!
+  \***********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5098,10 +5026,10 @@ var SvgHeart = function SvgHeart(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/instagram.svg":
-/*!************************************!*\
-  !*** ./src/svg/icon/instagram.svg ***!
-  \************************************/
+/***/ "./assets/svg/icon/instagram.svg":
+/*!***************************************!*\
+  !*** ./assets/svg/icon/instagram.svg ***!
+  \***************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5129,10 +5057,10 @@ var SvgInstagram = function SvgInstagram(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/link-alt.svg":
-/*!***********************************!*\
-  !*** ./src/svg/icon/link-alt.svg ***!
-  \***********************************/
+/***/ "./assets/svg/icon/link-alt.svg":
+/*!**************************************!*\
+  !*** ./assets/svg/icon/link-alt.svg ***!
+  \**************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5160,10 +5088,10 @@ var SvgLinkAlt = function SvgLinkAlt(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/marker.svg":
-/*!*********************************!*\
-  !*** ./src/svg/icon/marker.svg ***!
-  \*********************************/
+/***/ "./assets/svg/icon/marker.svg":
+/*!************************************!*\
+  !*** ./assets/svg/icon/marker.svg ***!
+  \************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5196,10 +5124,10 @@ var SvgMarker = function SvgMarker(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/meter.svg":
-/*!********************************!*\
-  !*** ./src/svg/icon/meter.svg ***!
-  \********************************/
+/***/ "./assets/svg/icon/meter.svg":
+/*!***********************************!*\
+  !*** ./assets/svg/icon/meter.svg ***!
+  \***********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5227,10 +5155,10 @@ var SvgMeter = function SvgMeter(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/mic.svg":
-/*!******************************!*\
-  !*** ./src/svg/icon/mic.svg ***!
-  \******************************/
+/***/ "./assets/svg/icon/mic.svg":
+/*!*********************************!*\
+  !*** ./assets/svg/icon/mic.svg ***!
+  \*********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5264,10 +5192,10 @@ var SvgMic = function SvgMic(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/open-ended.svg":
-/*!*************************************!*\
-  !*** ./src/svg/icon/open-ended.svg ***!
-  \*************************************/
+/***/ "./assets/svg/icon/open-ended.svg":
+/*!****************************************!*\
+  !*** ./assets/svg/icon/open-ended.svg ***!
+  \****************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5303,10 +5231,10 @@ var SvgOpenEnded = function SvgOpenEnded(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/phone-flip.svg":
-/*!*************************************!*\
-  !*** ./src/svg/icon/phone-flip.svg ***!
-  \*************************************/
+/***/ "./assets/svg/icon/phone-flip.svg":
+/*!****************************************!*\
+  !*** ./assets/svg/icon/phone-flip.svg ***!
+  \****************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5334,10 +5262,10 @@ var SvgPhoneFlip = function SvgPhoneFlip(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/picture.svg":
-/*!**********************************!*\
-  !*** ./src/svg/icon/picture.svg ***!
-  \**********************************/
+/***/ "./assets/svg/icon/picture.svg":
+/*!*************************************!*\
+  !*** ./assets/svg/icon/picture.svg ***!
+  \*************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5373,10 +5301,10 @@ var SvgPicture = function SvgPicture(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/redo.svg":
-/*!*******************************!*\
-  !*** ./src/svg/icon/redo.svg ***!
-  \*******************************/
+/***/ "./assets/svg/icon/redo.svg":
+/*!**********************************!*\
+  !*** ./assets/svg/icon/redo.svg ***!
+  \**********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5404,10 +5332,10 @@ var SvgRedo = function SvgRedo(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/scrubber.svg":
-/*!***********************************!*\
-  !*** ./src/svg/icon/scrubber.svg ***!
-  \***********************************/
+/***/ "./assets/svg/icon/scrubber.svg":
+/*!**************************************!*\
+  !*** ./assets/svg/icon/scrubber.svg ***!
+  \**************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5435,10 +5363,10 @@ var SvgScrubber = function SvgScrubber(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/sliders.svg":
-/*!**********************************!*\
-  !*** ./src/svg/icon/sliders.svg ***!
-  \**********************************/
+/***/ "./assets/svg/icon/sliders.svg":
+/*!*************************************!*\
+  !*** ./assets/svg/icon/sliders.svg ***!
+  \*************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5475,10 +5403,10 @@ var SvgSliders = function SvgSliders(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/star-alt.svg":
-/*!***********************************!*\
-  !*** ./src/svg/icon/star-alt.svg ***!
-  \***********************************/
+/***/ "./assets/svg/icon/star-alt.svg":
+/*!**************************************!*\
+  !*** ./assets/svg/icon/star-alt.svg ***!
+  \**************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5509,10 +5437,10 @@ var SvgStarAlt = function SvgStarAlt(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/star.svg":
-/*!*******************************!*\
-  !*** ./src/svg/icon/star.svg ***!
-  \*******************************/
+/***/ "./assets/svg/icon/star.svg":
+/*!**********************************!*\
+  !*** ./assets/svg/icon/star.svg ***!
+  \**********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5541,10 +5469,10 @@ var SvgStar = function SvgStar(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/text.svg":
-/*!*******************************!*\
-  !*** ./src/svg/icon/text.svg ***!
-  \*******************************/
+/***/ "./assets/svg/icon/text.svg":
+/*!**********************************!*\
+  !*** ./assets/svg/icon/text.svg ***!
+  \**********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5573,10 +5501,10 @@ var SvgText = function SvgText(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/thumbs-up-solid.svg":
-/*!******************************************!*\
-  !*** ./src/svg/icon/thumbs-up-solid.svg ***!
-  \******************************************/
+/***/ "./assets/svg/icon/thumbs-up-solid.svg":
+/*!*********************************************!*\
+  !*** ./assets/svg/icon/thumbs-up-solid.svg ***!
+  \*********************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5605,10 +5533,10 @@ var SvgThumbsUpSolid = function SvgThumbsUpSolid(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/thumbs-up.svg":
-/*!************************************!*\
-  !*** ./src/svg/icon/thumbs-up.svg ***!
-  \************************************/
+/***/ "./assets/svg/icon/thumbs-up.svg":
+/*!***************************************!*\
+  !*** ./assets/svg/icon/thumbs-up.svg ***!
+  \***************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5641,10 +5569,10 @@ var SvgThumbsUp = function SvgThumbsUp(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/toggle.svg":
-/*!*********************************!*\
-  !*** ./src/svg/icon/toggle.svg ***!
-  \*********************************/
+/***/ "./assets/svg/icon/toggle.svg":
+/*!************************************!*\
+  !*** ./assets/svg/icon/toggle.svg ***!
+  \************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5672,10 +5600,10 @@ var SvgToggle = function SvgToggle(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/trophy-solid.svg":
-/*!***************************************!*\
-  !*** ./src/svg/icon/trophy-solid.svg ***!
-  \***************************************/
+/***/ "./assets/svg/icon/trophy-solid.svg":
+/*!******************************************!*\
+  !*** ./assets/svg/icon/trophy-solid.svg ***!
+  \******************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5704,10 +5632,10 @@ var SvgTrophySolid = function SvgTrophySolid(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/trophy.svg":
-/*!*********************************!*\
-  !*** ./src/svg/icon/trophy.svg ***!
-  \*********************************/
+/***/ "./assets/svg/icon/trophy.svg":
+/*!************************************!*\
+  !*** ./assets/svg/icon/trophy.svg ***!
+  \************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5735,10 +5663,10 @@ var SvgTrophy = function SvgTrophy(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/twitter.svg":
-/*!**********************************!*\
-  !*** ./src/svg/icon/twitter.svg ***!
-  \**********************************/
+/***/ "./assets/svg/icon/twitter.svg":
+/*!*************************************!*\
+  !*** ./assets/svg/icon/twitter.svg ***!
+  \*************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5766,10 +5694,10 @@ var SvgTwitter = function SvgTwitter(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/upload.svg":
-/*!*********************************!*\
-  !*** ./src/svg/icon/upload.svg ***!
-  \*********************************/
+/***/ "./assets/svg/icon/upload.svg":
+/*!************************************!*\
+  !*** ./assets/svg/icon/upload.svg ***!
+  \************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5797,10 +5725,10 @@ var SvgUpload = function SvgUpload(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/user-solid.svg":
-/*!*************************************!*\
-  !*** ./src/svg/icon/user-solid.svg ***!
-  \*************************************/
+/***/ "./assets/svg/icon/user-solid.svg":
+/*!****************************************!*\
+  !*** ./assets/svg/icon/user-solid.svg ***!
+  \****************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5834,10 +5762,10 @@ var SvgUserSolid = function SvgUserSolid(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/user-unlock.svg":
-/*!**************************************!*\
-  !*** ./src/svg/icon/user-unlock.svg ***!
-  \**************************************/
+/***/ "./assets/svg/icon/user-unlock.svg":
+/*!*****************************************!*\
+  !*** ./assets/svg/icon/user-unlock.svg ***!
+  \*****************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5865,10 +5793,10 @@ var SvgUserUnlock = function SvgUserUnlock(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/user.svg":
-/*!*******************************!*\
-  !*** ./src/svg/icon/user.svg ***!
-  \*******************************/
+/***/ "./assets/svg/icon/user.svg":
+/*!**********************************!*\
+  !*** ./assets/svg/icon/user.svg ***!
+  \**********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5906,10 +5834,10 @@ var SvgUser = function SvgUser(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/video-camera-alt.svg":
-/*!*******************************************!*\
-  !*** ./src/svg/icon/video-camera-alt.svg ***!
-  \*******************************************/
+/***/ "./assets/svg/icon/video-camera-alt.svg":
+/*!**********************************************!*\
+  !*** ./assets/svg/icon/video-camera-alt.svg ***!
+  \**********************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5937,10 +5865,10 @@ var SvgVideoCameraAlt = function SvgVideoCameraAlt(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/video.svg":
-/*!********************************!*\
-  !*** ./src/svg/icon/video.svg ***!
-  \********************************/
+/***/ "./assets/svg/icon/video.svg":
+/*!***********************************!*\
+  !*** ./assets/svg/icon/video.svg ***!
+  \***********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5968,10 +5896,10 @@ var SvgVideo = function SvgVideo(props) {
 
 /***/ }),
 
-/***/ "./src/svg/icon/youtube.svg":
-/*!**********************************!*\
-  !*** ./src/svg/icon/youtube.svg ***!
-  \**********************************/
+/***/ "./assets/svg/icon/youtube.svg":
+/*!*************************************!*\
+  !*** ./assets/svg/icon/youtube.svg ***!
+  \*************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5999,10 +5927,10 @@ var SvgYoutube = function SvgYoutube(props) {
 
 /***/ }),
 
-/***/ "./src/js/admin/app.js":
-/*!*****************************!*\
-  !*** ./src/js/admin/app.js ***!
-  \*****************************/
+/***/ "./assets/js/admin/app.js":
+/*!********************************!*\
+  !*** ./assets/js/admin/app.js ***!
+  \********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6018,22 +5946,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
-/* harmony import */ var _helper_utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @helper/utils.js */ "./src/js/helper/utils.js");
+/* harmony import */ var _helper_utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @helper/utils.js */ "./assets/js/helper/utils.js");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _pages_FormTable_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/FormTable.js */ "./src/js/admin/pages/FormTable.js");
-/* harmony import */ var _pages_FormEdit_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/FormEdit.js */ "./src/js/admin/pages/FormEdit.js");
-/* harmony import */ var _pages_PreMadeTemplate_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/PreMadeTemplate.js */ "./src/js/admin/pages/PreMadeTemplate.js");
-/* harmony import */ var _pages_PreMadeTemplatePreview_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/PreMadeTemplatePreview.js */ "./src/js/admin/pages/PreMadeTemplatePreview.js");
-/* harmony import */ var _pages_Response_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pages/Response.js */ "./src/js/admin/pages/Response.js");
-/* harmony import */ var _pages_Tag_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pages/Tag.js */ "./src/js/admin/pages/Tag.js");
-/* harmony import */ var _pages_Summary_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pages/Summary.js */ "./src/js/admin/pages/Summary.js");
+/* harmony import */ var _pages_FormTable_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/FormTable.js */ "./assets/js/admin/pages/FormTable.js");
+/* harmony import */ var _pages_FormEdit_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/FormEdit.js */ "./assets/js/admin/pages/FormEdit.js");
+/* harmony import */ var _pages_PreMadeTemplate_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/PreMadeTemplate.js */ "./assets/js/admin/pages/PreMadeTemplate.js");
+/* harmony import */ var _pages_PreMadeTemplatePreview_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/PreMadeTemplatePreview.js */ "./assets/js/admin/pages/PreMadeTemplatePreview.js");
+/* harmony import */ var _pages_Response_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pages/Response.js */ "./assets/js/admin/pages/Response.js");
+/* harmony import */ var _pages_Tag_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pages/Tag.js */ "./assets/js/admin/pages/Tag.js");
+/* harmony import */ var _pages_Summary_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pages/Summary.js */ "./assets/js/admin/pages/Summary.js");
 
 
 
 
 
 
-const Settings = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.lazy)(() => __webpack_require__.e(/*! import() */ "src_js_admin_pages_Settings_js").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/Settings.js */ "./src/js/admin/pages/Settings.js")));
+const Settings = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.lazy)(() => __webpack_require__.e(/*! import() */ "assets_js_admin_pages_Settings_js").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/Settings.js */ "./assets/js/admin/pages/Settings.js")));
 
 
 
@@ -6104,10 +6032,10 @@ function App() {
 
 /***/ }),
 
-/***/ "./src/js/admin/pages/FormEdit.js":
-/*!****************************************!*\
-  !*** ./src/js/admin/pages/FormEdit.js ***!
-  \****************************************/
+/***/ "./assets/js/admin/pages/FormEdit.js":
+/*!*******************************************!*\
+  !*** ./assets/js/admin/pages/FormEdit.js ***!
+  \*******************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6127,10 +6055,10 @@ function FormEdit() {
 
 /***/ }),
 
-/***/ "./src/js/admin/pages/FormTable.js":
-/*!*****************************************!*\
-  !*** ./src/js/admin/pages/FormTable.js ***!
-  \*****************************************/
+/***/ "./assets/js/admin/pages/FormTable.js":
+/*!********************************************!*\
+  !*** ./assets/js/admin/pages/FormTable.js ***!
+  \********************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6150,10 +6078,10 @@ function FormTable() {
 
 /***/ }),
 
-/***/ "./src/js/admin/pages/PreMadeTemplate.js":
-/*!***********************************************!*\
-  !*** ./src/js/admin/pages/PreMadeTemplate.js ***!
-  \***********************************************/
+/***/ "./assets/js/admin/pages/PreMadeTemplate.js":
+/*!**************************************************!*\
+  !*** ./assets/js/admin/pages/PreMadeTemplate.js ***!
+  \**************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6173,10 +6101,10 @@ function PreMadeTemplate() {
 
 /***/ }),
 
-/***/ "./src/js/admin/pages/PreMadeTemplatePreview.js":
-/*!******************************************************!*\
-  !*** ./src/js/admin/pages/PreMadeTemplatePreview.js ***!
-  \******************************************************/
+/***/ "./assets/js/admin/pages/PreMadeTemplatePreview.js":
+/*!*********************************************************!*\
+  !*** ./assets/js/admin/pages/PreMadeTemplatePreview.js ***!
+  \*********************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6196,10 +6124,10 @@ function PreMadeTemplatePreview() {
 
 /***/ }),
 
-/***/ "./src/js/admin/pages/Response.js":
-/*!****************************************!*\
-  !*** ./src/js/admin/pages/Response.js ***!
-  \****************************************/
+/***/ "./assets/js/admin/pages/Response.js":
+/*!*******************************************!*\
+  !*** ./assets/js/admin/pages/Response.js ***!
+  \*******************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6220,10 +6148,10 @@ function Response() {
 
 /***/ }),
 
-/***/ "./src/js/admin/pages/Summary.js":
-/*!***************************************!*\
-  !*** ./src/js/admin/pages/Summary.js ***!
-  \***************************************/
+/***/ "./assets/js/admin/pages/Summary.js":
+/*!******************************************!*\
+  !*** ./assets/js/admin/pages/Summary.js ***!
+  \******************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6243,10 +6171,10 @@ function Summary() {
 
 /***/ }),
 
-/***/ "./src/js/admin/pages/Tag.js":
-/*!***********************************!*\
-  !*** ./src/js/admin/pages/Tag.js ***!
-  \***********************************/
+/***/ "./assets/js/admin/pages/Tag.js":
+/*!**************************************!*\
+  !*** ./assets/js/admin/pages/Tag.js ***!
+  \**************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6264,10 +6192,10 @@ function Tags() {
 
 /***/ }),
 
-/***/ "./src/js/constants.js":
-/*!*****************************!*\
-  !*** ./src/js/constants.js ***!
-  \*****************************/
+/***/ "./assets/js/constants.js":
+/*!********************************!*\
+  !*** ./assets/js/constants.js ***!
+  \********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6290,55 +6218,55 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
-/* harmony import */ var _icon_facebook_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @icon/facebook.svg */ "./src/svg/icon/facebook.svg");
-/* harmony import */ var _icon_twitter_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @icon/twitter.svg */ "./src/svg/icon/twitter.svg");
-/* harmony import */ var _icon_youtube_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @icon/youtube.svg */ "./src/svg/icon/youtube.svg");
-/* harmony import */ var _icon_instagram_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @icon/instagram.svg */ "./src/svg/icon/instagram.svg");
-/* harmony import */ var _icon_chart_bar_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @icon/chart-bar.svg */ "./src/svg/icon/chart-bar.svg");
-/* harmony import */ var _icon_bar_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @icon/bar.svg */ "./src/svg/icon/bar.svg");
-/* harmony import */ var _icon_hash_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @icon/hash.svg */ "./src/svg/icon/hash.svg");
-/* harmony import */ var _icon_button_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @icon/button.svg */ "./src/svg/icon/button.svg");
-/* harmony import */ var _icon_upload_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @icon/upload.svg */ "./src/svg/icon/upload.svg");
-/* harmony import */ var _icon_sliders_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @icon/sliders.svg */ "./src/svg/icon/sliders.svg");
-/* harmony import */ var _icon_calendar_day_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @icon/calendar-day.svg */ "./src/svg/icon/calendar-day.svg");
-/* harmony import */ var _icon_star_svg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @icon/star.svg */ "./src/svg/icon/star.svg");
-/* harmony import */ var _icon_meter_svg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @icon/meter.svg */ "./src/svg/icon/meter.svg");
-/* harmony import */ var _icon_marker_svg__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @icon/marker.svg */ "./src/svg/icon/marker.svg");
-/* harmony import */ var _icon_address_book_svg__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @icon/address-book.svg */ "./src/svg/icon/address-book.svg");
-/* harmony import */ var _icon_envelope_svg__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @icon/envelope.svg */ "./src/svg/icon/envelope.svg");
-/* harmony import */ var _icon_phone_flip_svg__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @icon/phone-flip.svg */ "./src/svg/icon/phone-flip.svg");
-/* harmony import */ var _icon_link_alt_svg__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @icon/link-alt.svg */ "./src/svg/icon/link-alt.svg");
-/* harmony import */ var _icon_open_ended_svg__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @icon/open-ended.svg */ "./src/svg/icon/open-ended.svg");
-/* harmony import */ var _icon_chart_simple_horizontal_svg__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @icon/chart-simple-horizontal.svg */ "./src/svg/icon/chart-simple-horizontal.svg");
-/* harmony import */ var _icon_video_svg__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @icon/video.svg */ "./src/svg/icon/video.svg");
-/* harmony import */ var _icon_comment_svg__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @icon/comment.svg */ "./src/svg/icon/comment.svg");
-/* harmony import */ var _icon_scrubber_svg__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @icon/scrubber.svg */ "./src/svg/icon/scrubber.svg");
-/* harmony import */ var _icon_checkbox_svg__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @icon/checkbox.svg */ "./src/svg/icon/checkbox.svg");
-/* harmony import */ var _icon_angle_circle_svg__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @icon/angle-circle.svg */ "./src/svg/icon/angle-circle.svg");
-/* harmony import */ var _icon_toggle_svg__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @icon/toggle.svg */ "./src/svg/icon/toggle.svg");
-/* harmony import */ var _icon_picture_svg__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @icon/picture.svg */ "./src/svg/icon/picture.svg");
-/* harmony import */ var _icon_file_pdf_svg__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @icon/file-pdf.svg */ "./src/svg/icon/file-pdf.svg");
-/* harmony import */ var _icon_arrow_square_right_svg__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @icon/arrow-square-right.svg */ "./src/svg/icon/arrow-square-right.svg");
-/* harmony import */ var _icon_arrow_square_left_svg__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! @icon/arrow-square-left.svg */ "./src/svg/icon/arrow-square-left.svg");
-/* harmony import */ var _icon_chart_simple_svg__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @icon/chart-simple.svg */ "./src/svg/icon/chart-simple.svg");
-/* harmony import */ var _icon_user_unlock_svg__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @icon/user-unlock.svg */ "./src/svg/icon/user-unlock.svg");
-/* harmony import */ var _icon_text_svg__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! @icon/text.svg */ "./src/svg/icon/text.svg");
-/* harmony import */ var _icon_video_camera_alt_svg__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! @icon/video-camera-alt.svg */ "./src/svg/icon/video-camera-alt.svg");
-/* harmony import */ var _icon_mic_svg__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @icon/mic.svg */ "./src/svg/icon/mic.svg");
-/* harmony import */ var _icon_redo_svg__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @icon/redo.svg */ "./src/svg/icon/redo.svg");
-/* harmony import */ var _icon_star_alt_svg__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @icon/star-alt.svg */ "./src/svg/icon/star-alt.svg");
-/* harmony import */ var _icon_heart_svg__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @icon/heart.svg */ "./src/svg/icon/heart.svg");
-/* harmony import */ var _icon_heart_solid_svg__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! @icon/heart-solid.svg */ "./src/svg/icon/heart-solid.svg");
-/* harmony import */ var _icon_bulb_svg__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! @icon/bulb.svg */ "./src/svg/icon/bulb.svg");
-/* harmony import */ var _icon_bulb_solid_svg__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! @icon/bulb-solid.svg */ "./src/svg/icon/bulb-solid.svg");
-/* harmony import */ var _icon_thumbs_up_svg__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! @icon/thumbs-up.svg */ "./src/svg/icon/thumbs-up.svg");
-/* harmony import */ var _icon_thumbs_up_solid_svg__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! @icon/thumbs-up-solid.svg */ "./src/svg/icon/thumbs-up-solid.svg");
-/* harmony import */ var _icon_user_svg__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! @icon/user.svg */ "./src/svg/icon/user.svg");
-/* harmony import */ var _icon_user_solid_svg__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! @icon/user-solid.svg */ "./src/svg/icon/user-solid.svg");
-/* harmony import */ var _icon_trophy_svg__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! @icon/trophy.svg */ "./src/svg/icon/trophy.svg");
-/* harmony import */ var _icon_trophy_solid_svg__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! @icon/trophy-solid.svg */ "./src/svg/icon/trophy-solid.svg");
-/* harmony import */ var _icon_flag_svg__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! @icon/flag.svg */ "./src/svg/icon/flag.svg");
-/* harmony import */ var _icon_flag_solid_svg__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! @icon/flag-solid.svg */ "./src/svg/icon/flag-solid.svg");
+/* harmony import */ var _icon_facebook_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @icon/facebook.svg */ "./assets/svg/icon/facebook.svg");
+/* harmony import */ var _icon_twitter_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @icon/twitter.svg */ "./assets/svg/icon/twitter.svg");
+/* harmony import */ var _icon_youtube_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @icon/youtube.svg */ "./assets/svg/icon/youtube.svg");
+/* harmony import */ var _icon_instagram_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @icon/instagram.svg */ "./assets/svg/icon/instagram.svg");
+/* harmony import */ var _icon_chart_bar_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @icon/chart-bar.svg */ "./assets/svg/icon/chart-bar.svg");
+/* harmony import */ var _icon_bar_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @icon/bar.svg */ "./assets/svg/icon/bar.svg");
+/* harmony import */ var _icon_hash_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @icon/hash.svg */ "./assets/svg/icon/hash.svg");
+/* harmony import */ var _icon_button_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @icon/button.svg */ "./assets/svg/icon/button.svg");
+/* harmony import */ var _icon_upload_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @icon/upload.svg */ "./assets/svg/icon/upload.svg");
+/* harmony import */ var _icon_sliders_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @icon/sliders.svg */ "./assets/svg/icon/sliders.svg");
+/* harmony import */ var _icon_calendar_day_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @icon/calendar-day.svg */ "./assets/svg/icon/calendar-day.svg");
+/* harmony import */ var _icon_star_svg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @icon/star.svg */ "./assets/svg/icon/star.svg");
+/* harmony import */ var _icon_meter_svg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @icon/meter.svg */ "./assets/svg/icon/meter.svg");
+/* harmony import */ var _icon_marker_svg__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @icon/marker.svg */ "./assets/svg/icon/marker.svg");
+/* harmony import */ var _icon_address_book_svg__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @icon/address-book.svg */ "./assets/svg/icon/address-book.svg");
+/* harmony import */ var _icon_envelope_svg__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @icon/envelope.svg */ "./assets/svg/icon/envelope.svg");
+/* harmony import */ var _icon_phone_flip_svg__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @icon/phone-flip.svg */ "./assets/svg/icon/phone-flip.svg");
+/* harmony import */ var _icon_link_alt_svg__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @icon/link-alt.svg */ "./assets/svg/icon/link-alt.svg");
+/* harmony import */ var _icon_open_ended_svg__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @icon/open-ended.svg */ "./assets/svg/icon/open-ended.svg");
+/* harmony import */ var _icon_chart_simple_horizontal_svg__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @icon/chart-simple-horizontal.svg */ "./assets/svg/icon/chart-simple-horizontal.svg");
+/* harmony import */ var _icon_video_svg__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @icon/video.svg */ "./assets/svg/icon/video.svg");
+/* harmony import */ var _icon_comment_svg__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @icon/comment.svg */ "./assets/svg/icon/comment.svg");
+/* harmony import */ var _icon_scrubber_svg__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @icon/scrubber.svg */ "./assets/svg/icon/scrubber.svg");
+/* harmony import */ var _icon_checkbox_svg__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @icon/checkbox.svg */ "./assets/svg/icon/checkbox.svg");
+/* harmony import */ var _icon_angle_circle_svg__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @icon/angle-circle.svg */ "./assets/svg/icon/angle-circle.svg");
+/* harmony import */ var _icon_toggle_svg__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @icon/toggle.svg */ "./assets/svg/icon/toggle.svg");
+/* harmony import */ var _icon_picture_svg__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @icon/picture.svg */ "./assets/svg/icon/picture.svg");
+/* harmony import */ var _icon_file_pdf_svg__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @icon/file-pdf.svg */ "./assets/svg/icon/file-pdf.svg");
+/* harmony import */ var _icon_arrow_square_right_svg__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @icon/arrow-square-right.svg */ "./assets/svg/icon/arrow-square-right.svg");
+/* harmony import */ var _icon_arrow_square_left_svg__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! @icon/arrow-square-left.svg */ "./assets/svg/icon/arrow-square-left.svg");
+/* harmony import */ var _icon_chart_simple_svg__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @icon/chart-simple.svg */ "./assets/svg/icon/chart-simple.svg");
+/* harmony import */ var _icon_user_unlock_svg__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @icon/user-unlock.svg */ "./assets/svg/icon/user-unlock.svg");
+/* harmony import */ var _icon_text_svg__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! @icon/text.svg */ "./assets/svg/icon/text.svg");
+/* harmony import */ var _icon_video_camera_alt_svg__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! @icon/video-camera-alt.svg */ "./assets/svg/icon/video-camera-alt.svg");
+/* harmony import */ var _icon_mic_svg__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @icon/mic.svg */ "./assets/svg/icon/mic.svg");
+/* harmony import */ var _icon_redo_svg__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @icon/redo.svg */ "./assets/svg/icon/redo.svg");
+/* harmony import */ var _icon_star_alt_svg__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @icon/star-alt.svg */ "./assets/svg/icon/star-alt.svg");
+/* harmony import */ var _icon_heart_svg__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @icon/heart.svg */ "./assets/svg/icon/heart.svg");
+/* harmony import */ var _icon_heart_solid_svg__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! @icon/heart-solid.svg */ "./assets/svg/icon/heart-solid.svg");
+/* harmony import */ var _icon_bulb_svg__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! @icon/bulb.svg */ "./assets/svg/icon/bulb.svg");
+/* harmony import */ var _icon_bulb_solid_svg__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! @icon/bulb-solid.svg */ "./assets/svg/icon/bulb-solid.svg");
+/* harmony import */ var _icon_thumbs_up_svg__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! @icon/thumbs-up.svg */ "./assets/svg/icon/thumbs-up.svg");
+/* harmony import */ var _icon_thumbs_up_solid_svg__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! @icon/thumbs-up-solid.svg */ "./assets/svg/icon/thumbs-up-solid.svg");
+/* harmony import */ var _icon_user_svg__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! @icon/user.svg */ "./assets/svg/icon/user.svg");
+/* harmony import */ var _icon_user_solid_svg__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! @icon/user-solid.svg */ "./assets/svg/icon/user-solid.svg");
+/* harmony import */ var _icon_trophy_svg__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! @icon/trophy.svg */ "./assets/svg/icon/trophy.svg");
+/* harmony import */ var _icon_trophy_solid_svg__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! @icon/trophy-solid.svg */ "./assets/svg/icon/trophy-solid.svg");
+/* harmony import */ var _icon_flag_svg__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! @icon/flag.svg */ "./assets/svg/icon/flag.svg");
+/* harmony import */ var _icon_flag_solid_svg__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! @icon/flag-solid.svg */ "./assets/svg/icon/flag-solid.svg");
 
 
 
@@ -6574,10 +6502,10 @@ const socialIcons = {
 
 /***/ }),
 
-/***/ "./src/js/helper/utils.js":
-/*!********************************!*\
-  !*** ./src/js/helper/utils.js ***!
-  \********************************/
+/***/ "./assets/js/helper/utils.js":
+/*!***********************************!*\
+  !*** ./assets/js/helper/utils.js ***!
+  \***********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6597,7 +6525,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   safeUpdateObjectItem: function() { return /* binding */ safeUpdateObjectItem; },
 /* harmony export */   updateGlobalState: function() { return /* binding */ updateGlobalState; }
 /* harmony export */ });
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/js/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./assets/js/constants.js");
 
 const isObject = value => value && typeof value === 'object' && !Array.isArray(value);
 function getMaxUploadSize() {
@@ -6762,10 +6690,10 @@ function getGlobalState(key, defaultValue) {
 
 /***/ }),
 
-/***/ "./src/js/queryStore/index.js":
-/*!************************************!*\
-  !*** ./src/js/queryStore/index.js ***!
-  \************************************/
+/***/ "./assets/js/queryStore/index.js":
+/*!***************************************!*\
+  !*** ./assets/js/queryStore/index.js ***!
+  \***************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8082,7 +8010,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   ScrollRestoration: function() { return /* binding */ ScrollRestoration; },
 /* harmony export */   UNSAFE_DataRouterContext: function() { return /* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_2__.UNSAFE_DataRouterContext; },
 /* harmony export */   UNSAFE_DataRouterStateContext: function() { return /* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_2__.UNSAFE_DataRouterStateContext; },
-/* harmony export */   UNSAFE_FetchersContext: function() { return /* binding */ FetchersContext; },
 /* harmony export */   UNSAFE_LocationContext: function() { return /* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_2__.UNSAFE_LocationContext; },
 /* harmony export */   UNSAFE_NavigationContext: function() { return /* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_2__.UNSAFE_NavigationContext; },
 /* harmony export */   UNSAFE_RouteContext: function() { return /* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_2__.UNSAFE_RouteContext; },
@@ -8144,7 +8071,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/dist/index.js");
 /* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @remix-run/router */ "./node_modules/@remix-run/router/dist/router.js");
 /**
- * React Router DOM v6.18.0
+ * React Router DOM v6.17.0
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -8353,7 +8280,7 @@ function getFormSubmissionInfo(target, basename) {
 
 const _excluded = ["onClick", "relative", "reloadDocument", "replace", "state", "target", "to", "preventScrollReset", "unstable_viewTransition"],
   _excluded2 = ["aria-current", "caseSensitive", "className", "end", "style", "to", "unstable_viewTransition", "children"],
-  _excluded3 = ["fetcherKey", "navigate", "reloadDocument", "replace", "state", "method", "action", "onSubmit", "relative", "preventScrollReset", "unstable_viewTransition"];
+  _excluded3 = ["reloadDocument", "replace", "state", "method", "action", "onSubmit", "submit", "relative", "preventScrollReset", "unstable_viewTransition"];
 function createBrowserRouter(routes, opts) {
   return (0,react_router__WEBPACK_IMPORTED_MODULE_1__.createRouter)({
     basename: opts == null ? void 0 : opts.basename,
@@ -8439,10 +8366,6 @@ const ViewTransitionContext = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.cr
 if (true) {
   ViewTransitionContext.displayName = "ViewTransition";
 }
-const FetchersContext = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createContext(new Map());
-if (true) {
-  FetchersContext.displayName = "Fetchers";
-}
 //#endregion
 ////////////////////////////////////////////////////////////////////////////////
 //#region Components
@@ -8513,7 +8436,6 @@ function RouterProvider(_ref) {
   let [renderDfd, setRenderDfd] = react__WEBPACK_IMPORTED_MODULE_0__.useState();
   let [transition, setTransition] = react__WEBPACK_IMPORTED_MODULE_0__.useState();
   let [interruption, setInterruption] = react__WEBPACK_IMPORTED_MODULE_0__.useState();
-  let fetcherData = react__WEBPACK_IMPORTED_MODULE_0__.useRef(new Map());
   let {
     v7_startTransition
   } = future || {};
@@ -8526,15 +8448,8 @@ function RouterProvider(_ref) {
   }, [v7_startTransition]);
   let setState = react__WEBPACK_IMPORTED_MODULE_0__.useCallback((newState, _ref2) => {
     let {
-      deletedFetchers,
       unstable_viewTransitionOpts: viewTransitionOpts
     } = _ref2;
-    deletedFetchers.forEach(key => fetcherData.current.delete(key));
-    newState.fetchers.forEach((fetcher, key) => {
-      if (fetcher.data !== undefined) {
-        fetcherData.current.set(key, fetcher.data);
-      }
-    });
     if (!viewTransitionOpts || router.window == null || typeof router.window.document.startViewTransition !== "function") {
       // Mid-navigation state update, or startViewTransition isn't available
       optInStartTransition(() => setStateImpl(newState));
@@ -8557,7 +8472,7 @@ function RouterProvider(_ref) {
         nextLocation: viewTransitionOpts.nextLocation
       });
     }
-  }, [router.window, transition, renderDfd, fetcherData, optInStartTransition]);
+  }, [optInStartTransition, transition, renderDfd, router.window]);
   // Need to use a layout effect here so we are subscribed early enough to
   // pick up on any render-driven redirects/navigations (useEffect/<Navigate>)
   react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect(() => router.subscribe(setState), [router, setState]);
@@ -8643,8 +8558,6 @@ function RouterProvider(_ref) {
     value: dataRouterContext
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router__WEBPACK_IMPORTED_MODULE_2__.UNSAFE_DataRouterStateContext.Provider, {
     value: state
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(FetchersContext.Provider, {
-    value: fetcherData.current
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(ViewTransitionContext.Provider, {
     value: vtContext
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router__WEBPACK_IMPORTED_MODULE_2__.Router, {
@@ -8655,7 +8568,7 @@ function RouterProvider(_ref) {
   }, state.initialized ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(DataRoutes, {
     routes: router.routes,
     state: state
-  }) : fallbackElement))))), null);
+  }) : fallbackElement)))), null);
 }
 function DataRoutes(_ref3) {
   let {
@@ -8924,26 +8837,34 @@ if (true) {
  * requests, allowing components to add nicer UX to the page as the form is
  * submitted and returns with data.
  */
-const Form = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((_ref9, forwardedRef) => {
+const Form = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((props, ref) => {
+  let submit = useSubmit();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(FormImpl, _extends({}, props, {
+    submit: submit,
+    ref: ref
+  }));
+});
+if (true) {
+  Form.displayName = "Form";
+}
+const FormImpl = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((_ref9, forwardedRef) => {
   let {
-      fetcherKey,
-      navigate,
       reloadDocument,
       replace,
       state,
       method = defaultMethod,
       action,
       onSubmit,
+      submit,
       relative,
       preventScrollReset,
       unstable_viewTransition
     } = _ref9,
     props = _objectWithoutPropertiesLoose(_ref9, _excluded3);
-  let submit = useSubmit();
+  let formMethod = method.toLowerCase() === "get" ? "get" : "post";
   let formAction = useFormAction(action, {
     relative
   });
-  let formMethod = method.toLowerCase() === "get" ? "get" : "post";
   let submitHandler = event => {
     onSubmit && onSubmit(event);
     if (event.defaultPrevented) return;
@@ -8951,9 +8872,7 @@ const Form = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((_ref9, 
     let submitter = event.nativeEvent.submitter;
     let submitMethod = (submitter == null ? void 0 : submitter.getAttribute("formmethod")) || method;
     submit(submitter || event.currentTarget, {
-      fetcherKey,
       method: submitMethod,
-      navigate,
       replace,
       state,
       relative,
@@ -8969,7 +8888,7 @@ const Form = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((_ref9, 
   }, props));
 });
 if (true) {
-  Form.displayName = "Form";
+  FormImpl.displayName = "FormImpl";
 }
 /**
  * This component will emulate the browser's scroll restoration on location
@@ -9003,11 +8922,9 @@ var DataRouterHook;
 })(DataRouterHook || (DataRouterHook = {}));
 var DataRouterStateHook;
 (function (DataRouterStateHook) {
-  DataRouterStateHook["UseFetcher"] = "useFetcher";
   DataRouterStateHook["UseFetchers"] = "useFetchers";
   DataRouterStateHook["UseScrollRestoration"] = "useScrollRestoration";
 })(DataRouterStateHook || (DataRouterStateHook = {}));
-// Internal hooks
 function getDataRouterConsoleError(hookName) {
   return hookName + " must be used within a data router.  See https://reactrouter.com/routers/picking-a-router.";
 }
@@ -9021,7 +8938,6 @@ function useDataRouterState(hookName) {
   !state ?  true ? (0,react_router__WEBPACK_IMPORTED_MODULE_1__.UNSAFE_invariant)(false, getDataRouterConsoleError(hookName)) : 0 : void 0;
   return state;
 }
-// External hooks
 /**
  * Handles the click behavior for router `<Link>` components. This is useful if
  * you need to create custom `<Link>` components with the same click behavior we
@@ -9084,8 +9000,6 @@ function validateClientSideSubmission() {
     throw new Error("You are calling submit during the server render. " + "Try calling submit within a `useEffect` or callback instead.");
   }
 }
-let fetcherId = 0;
-let getUniqueFetcherId = () => "__" + String(++fetcherId) + "__";
 /**
  * Returns a function that may be used to programmatically submit a form (or
  * some arbitrary data) to the server.
@@ -9110,29 +9024,50 @@ function useSubmit() {
       formData,
       body
     } = getFormSubmissionInfo(target, basename);
-    if (options.navigate === false) {
-      let key = options.fetcherKey || getUniqueFetcherId();
-      router.fetch(key, currentRouteId, options.action || action, {
-        preventScrollReset: options.preventScrollReset,
-        formData,
-        body,
-        formMethod: options.method || method,
-        formEncType: options.encType || encType
-      });
-    } else {
-      router.navigate(options.action || action, {
-        preventScrollReset: options.preventScrollReset,
-        formData,
-        body,
-        formMethod: options.method || method,
-        formEncType: options.encType || encType,
-        replace: options.replace,
-        state: options.state,
-        fromRouteId: currentRouteId,
-        unstable_viewTransition: options.unstable_viewTransition
-      });
-    }
+    router.navigate(options.action || action, {
+      preventScrollReset: options.preventScrollReset,
+      formData,
+      body,
+      formMethod: options.method || method,
+      formEncType: options.encType || encType,
+      replace: options.replace,
+      state: options.state,
+      fromRouteId: currentRouteId,
+      unstable_viewTransition: options.unstable_viewTransition
+    });
   }, [router, basename, currentRouteId]);
+}
+/**
+ * Returns the implementation for fetcher.submit
+ */
+function useSubmitFetcher(fetcherKey, fetcherRouteId) {
+  let {
+    router
+  } = useDataRouterContext(DataRouterHook.UseSubmitFetcher);
+  let {
+    basename
+  } = react__WEBPACK_IMPORTED_MODULE_0__.useContext(react_router__WEBPACK_IMPORTED_MODULE_2__.UNSAFE_NavigationContext);
+  return react__WEBPACK_IMPORTED_MODULE_0__.useCallback(function (target, options) {
+    if (options === void 0) {
+      options = {};
+    }
+    validateClientSideSubmission();
+    let {
+      action,
+      method,
+      encType,
+      formData,
+      body
+    } = getFormSubmissionInfo(target, basename);
+    !(fetcherRouteId != null) ?  true ? (0,react_router__WEBPACK_IMPORTED_MODULE_1__.UNSAFE_invariant)(false, "No routeId available for useFetcher()") : 0 : void 0;
+    router.fetch(fetcherKey, fetcherRouteId, options.action || action, {
+      preventScrollReset: options.preventScrollReset,
+      formData,
+      body,
+      formMethod: options.method || method,
+      formEncType: options.encType || encType
+    });
+  }, [router, basename, fetcherKey, fetcherRouteId]);
 }
 // v7: Eventually we should deprecate this entirely in favor of using the
 // router method directly?
@@ -9182,76 +9117,63 @@ function useFormAction(action, _temp2) {
   }
   return (0,react_router__WEBPACK_IMPORTED_MODULE_1__.createPath)(path);
 }
+function createFetcherForm(fetcherKey, routeId) {
+  let FetcherForm = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((props, ref) => {
+    let submit = useSubmitFetcher(fetcherKey, routeId);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(FormImpl, _extends({}, props, {
+      ref: ref,
+      submit: submit
+    }));
+  });
+  if (true) {
+    FetcherForm.displayName = "fetcher.Form";
+  }
+  return FetcherForm;
+}
+let fetcherId = 0;
 // TODO: (v7) Change the useFetcher generic default from `any` to `unknown`
 /**
  * Interacts with route loaders and actions without causing a navigation. Great
  * for any interaction that stays on the same page.
  */
-function useFetcher(_temp3) {
+function useFetcher() {
   var _route$matches;
-  let {
-    key
-  } = _temp3 === void 0 ? {} : _temp3;
   let {
     router
   } = useDataRouterContext(DataRouterHook.UseFetcher);
-  let state = useDataRouterState(DataRouterStateHook.UseFetcher);
-  let fetcherData = react__WEBPACK_IMPORTED_MODULE_0__.useContext(FetchersContext);
   let route = react__WEBPACK_IMPORTED_MODULE_0__.useContext(react_router__WEBPACK_IMPORTED_MODULE_2__.UNSAFE_RouteContext);
-  let routeId = (_route$matches = route.matches[route.matches.length - 1]) == null ? void 0 : _route$matches.route.id;
-  !fetcherData ?  true ? (0,react_router__WEBPACK_IMPORTED_MODULE_1__.UNSAFE_invariant)(false, "useFetcher must be used inside a FetchersContext") : 0 : void 0;
   !route ?  true ? (0,react_router__WEBPACK_IMPORTED_MODULE_1__.UNSAFE_invariant)(false, "useFetcher must be used inside a RouteContext") : 0 : void 0;
+  let routeId = (_route$matches = route.matches[route.matches.length - 1]) == null ? void 0 : _route$matches.route.id;
   !(routeId != null) ?  true ? (0,react_router__WEBPACK_IMPORTED_MODULE_1__.UNSAFE_invariant)(false, "useFetcher can only be used on routes that contain a unique \"id\"") : 0 : void 0;
-  // Fetcher key handling
-  let [fetcherKey, setFetcherKey] = react__WEBPACK_IMPORTED_MODULE_0__.useState(key || "");
-  if (!fetcherKey) {
-    setFetcherKey(getUniqueFetcherId());
-  }
-  // Registration/cleanup
+  let [fetcherKey] = react__WEBPACK_IMPORTED_MODULE_0__.useState(() => String(++fetcherId));
+  let [Form] = react__WEBPACK_IMPORTED_MODULE_0__.useState(() => {
+    !routeId ?  true ? (0,react_router__WEBPACK_IMPORTED_MODULE_1__.UNSAFE_invariant)(false, "No routeId available for fetcher.Form()") : 0 : void 0;
+    return createFetcherForm(fetcherKey, routeId);
+  });
+  let [load] = react__WEBPACK_IMPORTED_MODULE_0__.useState(() => href => {
+    !router ?  true ? (0,react_router__WEBPACK_IMPORTED_MODULE_1__.UNSAFE_invariant)(false, "No router available for fetcher.load()") : 0 : void 0;
+    !routeId ?  true ? (0,react_router__WEBPACK_IMPORTED_MODULE_1__.UNSAFE_invariant)(false, "No routeId available for fetcher.load()") : 0 : void 0;
+    router.fetch(fetcherKey, routeId, href);
+  });
+  let submit = useSubmitFetcher(fetcherKey, routeId);
+  let fetcher = router.getFetcher(fetcherKey);
+  let fetcherWithComponents = react__WEBPACK_IMPORTED_MODULE_0__.useMemo(() => _extends({
+    Form,
+    submit,
+    load
+  }, fetcher), [fetcher, Form, submit, load]);
   react__WEBPACK_IMPORTED_MODULE_0__.useEffect(() => {
-    router.getFetcher(fetcherKey);
+    // Is this busted when the React team gets real weird and calls effects
+    // twice on mount?  We really just need to garbage collect here when this
+    // fetcher is no longer around.
     return () => {
-      // Tell the router we've unmounted - if v7_fetcherPersist is enabled this
-      // will not delete immediately but instead queue up a delete after the
-      // fetcher returns to an `idle` state
+      if (!router) {
+        console.warn("No router available to clean up from useFetcher()");
+        return;
+      }
       router.deleteFetcher(fetcherKey);
     };
   }, [router, fetcherKey]);
-  // Fetcher additions
-  let load = react__WEBPACK_IMPORTED_MODULE_0__.useCallback(href => {
-    !routeId ?  true ? (0,react_router__WEBPACK_IMPORTED_MODULE_1__.UNSAFE_invariant)(false, "No routeId available for fetcher.load()") : 0 : void 0;
-    router.fetch(fetcherKey, routeId, href);
-  }, [fetcherKey, routeId, router]);
-  let submitImpl = useSubmit();
-  let submit = react__WEBPACK_IMPORTED_MODULE_0__.useCallback((target, opts) => {
-    submitImpl(target, _extends({}, opts, {
-      navigate: false,
-      fetcherKey
-    }));
-  }, [fetcherKey, submitImpl]);
-  let FetcherForm = react__WEBPACK_IMPORTED_MODULE_0__.useMemo(() => {
-    let FetcherForm = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((props, ref) => {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Form, _extends({}, props, {
-        navigate: false,
-        fetcherKey: fetcherKey,
-        ref: ref
-      }));
-    });
-    if (true) {
-      FetcherForm.displayName = "fetcher.Form";
-    }
-    return FetcherForm;
-  }, [fetcherKey]);
-  // Exposed FetcherWithComponents
-  let fetcher = state.fetchers.get(fetcherKey) || react_router__WEBPACK_IMPORTED_MODULE_1__.IDLE_FETCHER;
-  let data = fetcherData.get(fetcherKey);
-  let fetcherWithComponents = react__WEBPACK_IMPORTED_MODULE_0__.useMemo(() => _extends({
-    Form: FetcherForm,
-    submit,
-    load
-  }, fetcher, {
-    data
-  }), [FetcherForm, submit, load, fetcher, data]);
   return fetcherWithComponents;
 }
 /**
@@ -9260,23 +9182,18 @@ function useFetcher(_temp3) {
  */
 function useFetchers() {
   let state = useDataRouterState(DataRouterStateHook.UseFetchers);
-  return Array.from(state.fetchers.entries()).map(_ref11 => {
-    let [key, fetcher] = _ref11;
-    return _extends({}, fetcher, {
-      key
-    });
-  });
+  return [...state.fetchers.values()];
 }
 const SCROLL_RESTORATION_STORAGE_KEY = "react-router-scroll-positions";
 let savedScrollPositions = {};
 /**
  * When rendered inside a RouterProvider, will restore scroll positions on navigations
  */
-function useScrollRestoration(_temp4) {
+function useScrollRestoration(_temp3) {
   let {
     getKey,
     storageKey
-  } = _temp4 === void 0 ? {} : _temp4;
+  } = _temp3 === void 0 ? {} : _temp3;
   let {
     router
   } = useDataRouterContext(DataRouterHook.UseScrollRestoration);
@@ -9414,11 +9331,11 @@ function usePageHide(callback, options) {
  * very incorrectly in some cases) across browsers if user click addition
  * back/forward navigations while the confirm is open.  Use at your own risk.
  */
-function usePrompt(_ref12) {
+function usePrompt(_ref11) {
   let {
     when,
     message
-  } = _ref12;
+  } = _ref11;
   let blocker = (0,react_router__WEBPACK_IMPORTED_MODULE_2__.unstable_useBlocker)(when);
   react__WEBPACK_IMPORTED_MODULE_0__.useEffect(() => {
     if (blocker.state === "blocked") {
@@ -9555,7 +9472,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _remix_run_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @remix-run/router */ "./node_modules/@remix-run/router/dist/router.js");
 /**
- * React Router v6.18.0
+ * React Router v6.17.0
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -15485,17 +15402,17 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 !function() {
 "use strict";
-/*!*******************************!*\
-  !*** ./src/js/admin/index.js ***!
-  \*******************************/
+/*!**********************************!*\
+  !*** ./assets/js/admin/index.js ***!
+  \**********************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _tanstack_react_query__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @tanstack/react-query */ "./node_modules/@tanstack/react-query/build/lib/QueryClientProvider.mjs");
-/* harmony import */ var _queryStore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../queryStore */ "./src/js/queryStore/index.js");
-/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app */ "./src/js/admin/app.js");
+/* harmony import */ var _queryStore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../queryStore */ "./assets/js/queryStore/index.js");
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app */ "./assets/js/admin/app.js");
 
 
 

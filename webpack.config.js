@@ -22,15 +22,15 @@ function camelCaseDash( string ) {
 module.exports = {
 	...defaultConfig,
 	entry: {
-		'js/index': './src/js/admin/index.js',
-		'js/frontend/ChatForm/index': './src/js/frontend/pages/ChatForm/index.js',
-		'js/frontend/ChatBubble/index': './src/js/frontend/pages/ChatBubble/index.js',
-		'js/frontend/UserDashboard/index': './src/js/frontend/pages/UserDashboard/index.js',
-		'js/notification': './src/js/components/Notification.js',
-		'css/notification': './src/js/components/notification.scss',
-		'js/queryStore': './src/js/queryStore/index.js',
-		'css/global': './src/sass/global.scss',
-		'modules/index': './src/js/modules/index.js',
+		'js/index': './assets/js/admin/index.js',
+		'js/frontend/ChatForm/index': './assets/js/frontend/pages/ChatForm/index.js',
+		'js/frontend/ChatBubble/index': './assets/js/frontend/pages/ChatBubble/index.js',
+		'js/frontend/UserDashboard/index': './assets/js/frontend/pages/UserDashboard/index.js',
+		'js/notification': './assets/js/components/Notification.js',
+		'css/notification': './assets/js/components/notification.scss',
+		'js/queryStore': './assets/js/queryStore/index.js',
+		'css/global': './assets/scss/global.scss',
+		'modules/index': './assets/js/modules/index.js',
 	},
 	output: {
 		path: path.resolve( __dirname, './assets/build/' ),
@@ -66,17 +66,17 @@ module.exports = {
 		alias: {
 			'@helpgent/queryStore': path.resolve(
 				__dirname,
-				'src/js/queryStore'
+				'assets/js/queryStore'
 			),
-			'@modules': path.resolve( __dirname, 'src/js/modules' ),
-			'@constants': path.resolve( __dirname, 'src/js/constants.js' ),
-			'@lib': path.resolve( __dirname, 'src/js/lib' ),
-			'@root/style': path.resolve( __dirname, 'src/js/style.js' ),
-			'@context': path.resolve( __dirname, 'src/js/Context' ),
-			'@components': path.resolve( __dirname, 'src/js/components' ),
-			'@hooks': path.resolve( __dirname, 'src/js/hooks' ),
-			'@helper': path.resolve( __dirname, 'src/js/helper' ),
-			'@icon': path.resolve( __dirname, 'src/svg/icon' ),
+			'@modules': path.resolve( __dirname, 'assets/js/modules' ),
+			'@constants': path.resolve( __dirname, 'assets/js/constants.js' ),
+			'@lib': path.resolve( __dirname, 'assets/js/lib' ),
+			'@root/style': path.resolve( __dirname, 'assets/js/style.js' ),
+			'@context': path.resolve( __dirname, 'assets/js/Context' ),
+			'@components': path.resolve( __dirname, 'assets/js/components' ),
+			'@hooks': path.resolve( __dirname, 'assets/js/hooks' ),
+			'@helper': path.resolve( __dirname, 'assets/js/helper' ),
+			'@icon': path.resolve( __dirname, 'assets/svg/icon' ),
 			'@assets': path.resolve( __dirname, 'assets' ),
 		},
 	},
@@ -88,9 +88,9 @@ module.exports = {
 		port: 8887,
 		host: devHost,
 		proxy: {
-			'/assets/build': {
+			'./build': {
 				pathRewrite: {
-					'^/assets/build': '',
+					'^./build': '',
 				},
 			},
 		},

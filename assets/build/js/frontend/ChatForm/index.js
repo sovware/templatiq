@@ -113,9 +113,9 @@ module.exports = window["wp"]["hooks"];
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 !function() {
-/*!*************************************************!*\
-  !*** ./src/js/frontend/pages/ChatForm/index.js ***!
-  \*************************************************/
+/*!****************************************************!*\
+  !*** ./assets/js/frontend/pages/ChatForm/index.js ***!
+  \****************************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
