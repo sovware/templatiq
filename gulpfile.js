@@ -46,7 +46,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('zip', function () {
-	return gulp.src(['**', '!__*/**', '!node_modules/**', '!gulpfile.js', '!.DS_Store', '!package.json', '!package-lock.json', '!todo.txt', '!sftp-config.json', '!testing.html'], { base: '..' })
+	return gulp.src(['**', '!__*/**', '!node_modules/**', '!gulpfile.js', '!Gruntfile.js', '!.DS_Store', '!package.json', '!package-lock.json', '!todo.txt', '!sftp-config.json', '!testing.html'], { base: '..' })
 	.pipe(zip(project.name+'.zip'))
 	.pipe(gulp.dest('__build'));
 });

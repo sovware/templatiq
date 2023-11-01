@@ -7,7 +7,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: sovware <support@sovware.com>\n"
-"POT-Creation-Date: 2023-09-13 11:01+0000\n"
+"POT-Creation-Date: 2023-11-01 03:44+0000\n"
 "Project-Id-Version: undefined\n"
 "Report-Msgid-Bugs-To: support@sovware.com\n"
 "X-Poedit-Basepath: ..\n"
@@ -17,67 +17,35 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: template-market.php:113
-msgid "%1$sAddonskit for Elementor%2$s requires %1$sDirectorist%2$s plugin to be installed and activated. Please install Directorist to continue."
-msgstr ""
-
-#: template-market.php:114
-msgid "Install Directorist"
-msgstr ""
-
-#: template-market.php:109
-msgid "%1$sAddonskit for Elementor%2$s requires %1$sDirectorist%2$s plugin to be active. Please activate Directorist to continue."
-msgstr ""
-
-#: template-market.php:110
-msgid "Activate Directorist"
-msgstr ""
-
-#: template-market.php:135
-msgid "%1$sAddonskit for Elementor%2$s requires %1$sElementor%2$s plugin to be installed and activated. Please install Elementor to continue."
-msgstr ""
-
-#: template-market.php:136
-msgid "Install Elementor"
-msgstr ""
-
-#: template-market.php:131
-msgid "%1$sAddonskit for Elementor%2$s requires %1$sElementor%2$s plugin to be active. Please activate Elementor to continue."
-msgstr ""
-
-#: template-market.php:132
-msgid "Activate Elementor"
-msgstr ""
-
-#: template-market.php:159
+#: template-market.php:95
 msgid "<h1>An Error Occurred</h1>"
 msgstr ""
 
-#: template-market.php:160
+#: template-market.php:96
 msgid "<h2>Your installed PHP Version is: "
 msgstr ""
 
-#: template-market.php:161
+#: template-market.php:97
 msgid "<p>The <strong>Wax Elements</strong> plugin requires PHP version <strong>"
 msgstr ""
 
-#: template-market.php:161
+#: template-market.php:97
 msgid "</strong> or greater"
 msgstr ""
 
-#: template-market.php:162
+#: template-market.php:98
 msgid "<p>The version of your PHP is "
 msgstr ""
 
-#: template-market.php:162
+#: template-market.php:98
 msgid "unsupported and old"
 msgstr ""
 
-#: template-market.php:163
+#: template-market.php:99
 msgid "You should update your PHP software or contact your host regarding this matter.</p>"
 msgstr ""
 
-#: template-market.php:166
+#: template-market.php:102
 msgid "Plugin Activation Error"
 msgstr ""
 
@@ -93,46 +61,179 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
-#: src/Model/Account.php:37
-msgid "Make sure you have given a valid email address."
+#: src/Model/Account.php:39
+msgid "Make sure you have given a valid token, or email address & password."
 msgstr ""
 
-#: src/Model/Account.php:41
-msgid "Password field cannot be empty."
-msgstr ""
-
-#: src/Model/Account.php:30
-msgid "API Key field cannot be empty."
-msgstr ""
-
-#: src/Model/Account.php:93
+#: src/Model/Account.php:61
 msgid "Logged out."
 msgstr ""
 
-#: src/Model/Importer.php:24, src/Model/Importer.php:36
+#: src/Model/Account.php:86
+msgid "First name cannot be empty."
+msgstr ""
+
+#: src/Model/Account.php:89
+msgid "Last name cannot be empty."
+msgstr ""
+
+#: src/Model/Account.php:92
+msgid "Email cannot be empty."
+msgstr ""
+
+#: src/Model/Account.php:95
+msgid "Make sure you have given a valid email address."
+msgstr ""
+
+#: src/Model/Account.php:98
+msgid "Password cannot be empty."
+msgstr ""
+
+#: src/Model/Account.php:101
+msgid "Confirm password cannot be empty."
+msgstr ""
+
+#: src/Model/Account.php:105
+msgid "Password and confirm password should be matched."
+msgstr ""
+
+#: src/Model/Importer.php:31
 msgid "Builder not specified"
 msgstr ""
 
-#: src/Routes/Import.php:30, src/Routes/Import.php:57
+#: src/Routes/Template.php:45
 msgid "Invalid ID is provided."
 msgstr ""
 
-#: src/Routes/Import.php:39, src/Routes/Import.php:66
+#: src/Routes/Template.php:54
 msgid "Import Failed"
 msgstr ""
 
-#: src/Routes/Template.php:50
-msgid "Items slug cannot be empty."
+#: src/Routes/Template.php:78
+msgid "Post not found."
 msgstr ""
 
-#: src/Routes/Template.php:66
-msgid "Item data not found"
-msgstr ""
-
-#: src/Utils/Plugin.php:52
+#: src/Utils/Plugin.php:71
 msgid "You have the plugin installed."
 msgstr ""
 
-#: src/Utils/Singleton.php:14, src/Utils/Singleton.php:18
+#: src/Utils/Singleton.php:14, src/Utils/Singleton.php:18, vendor/wpth/utils/src/Singleton.php:14, vendor/wpth/utils/src/Singleton.php:18
 msgid "Something wen't wrong."
+msgstr ""
+
+#: templates/template-library/templates.php:18
+msgid "Back to Library"
+msgstr ""
+
+#: templates/template-library/templates.php:29, templates/template-library/templates.php:30
+msgid "Desktop view"
+msgstr ""
+
+#: templates/template-library/templates.php:33, templates/template-library/templates.php:34
+msgid "Tab view"
+msgstr ""
+
+#: templates/template-library/templates.php:37, templates/template-library/templates.php:38
+msgid "Mobile view"
+msgstr ""
+
+#: templates/template-library/templates.php:44, templates/template-library/templates.php:45
+msgid "Sync Library"
+msgstr ""
+
+#: templates/template-library/templates.php:62
+msgid "Insert"
+msgstr ""
+
+#: templates/template-library/templates.php:69
+msgid "Get Pro"
+msgstr ""
+
+#: templates/template-library/templates.php:83
+msgid "Loading"
+msgstr ""
+
+#: templates/template-library/templates.php:94
+msgid "Filter"
+msgstr ""
+
+#: templates/template-library/templates.php:108
+msgid "Search Templates:"
+msgstr ""
+
+#: templates/template-library/templates.php:109
+msgid "Search"
+msgstr ""
+
+#: templates/template-library/templates.php:126
+msgid "Pro"
+msgstr ""
+
+#: templates/template-library/templates.php:133
+msgid "Preview"
+msgstr ""
+
+#: templates/template-library/templates.php:145
+msgid "Want to learn more about the Template Market Library?"
+msgstr ""
+
+#: templates/template-library/templates.php:146
+msgid "Click here"
+msgstr ""
+
+#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:3, node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:5, node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:9, node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:10, node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:14, node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:15, node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:4, node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:6, node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:10, node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:11, node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:15, node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:16, node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:3, node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:5, node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:9, node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:10, node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:14, node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:15, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:3, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:5, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:9, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:10, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:14, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:15, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:3, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:5, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:9, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:10, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:14, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:15, node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:4, node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:6, node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:10, node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:11, node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:15, node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:16
+msgid "Hello World"
+msgstr ""
+
+#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:4, node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:6, node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:11, node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:16, node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:5, node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:7, node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:12, node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:17, node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:4, node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:6, node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:11, node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:16, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:4, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:6, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:11, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:16, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:4, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:6, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:11, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:16, node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:5, node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:7, node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:12, node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:17
+msgctxt "verb"
+msgid "Post"
+msgstr ""
+
+#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:20, node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:24, node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:21, node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:25, node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:20, node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:24, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:20, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:24, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:20, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:24, node_modules/grunt-checktextdomain/test/fixtures/plurals.php:3, node_modules/grunt-checktextdomain/test/fixtures/plurals.php:8, node_modules/grunt-checktextdomain/test/fixtures/plurals.php:15, node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:21, node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:25
+msgid "%d apple"
+msgid_plural "%d apples"
+msgstr[0] ""
+msgstr[1] ""
+
+#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:21, node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:25, node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:22, node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:26, node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:21, node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:25, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:21, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:25, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:21, node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:25, node_modules/grunt-checktextdomain/test/fixtures/plurals.php:4, node_modules/grunt-checktextdomain/test/fixtures/plurals.php:9, node_modules/grunt-checktextdomain/test/fixtures/plurals.php:16, node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:22, node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:26
+msgctxt "noun, job positions"
+msgid "%d post"
+msgid_plural "%d posts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/wpth/utils/src/User.php:32
+msgid "Invalid User"
+msgstr ""
+
+#: node_modules/grunt-wp-i18n/test/fixtures/plugin-include/plugin-include.php:6, node_modules/grunt-wp-i18n/test/fixtures/basic-theme/exclude/file.php:3
+msgid "Exclude"
+msgstr ""
+
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:3, node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:4, node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-domains.php:2, node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-domains.php:3
+msgid "String"
+msgstr ""
+
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:7, node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:8
+msgctxt "a string"
+msgid "String"
+msgstr ""
+
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:10, node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:11
+msgid "1 Star"
+msgid_plural "%s Stars"
+msgstr[0] ""
+msgstr[1] ""
+
+#: node_modules/grunt-wp-i18n/test/fixtures/basic-theme/page-templates/full-width.php:3
+msgid "Full Width"
+msgstr ""
+
+#: node_modules/grunt-wp-i18n/test/fixtures/plugin-include/include/file.php:2, node_modules/node-wp-i18n/test/fixtures/makepot/nested-theme/include/include.php:2
+msgid "Include"
+msgstr ""
+
+#: node_modules/node-wp-i18n/test/fixtures/makepot/nested-theme/subdir/index.php:2
+msgid "Index"
 msgstr ""
