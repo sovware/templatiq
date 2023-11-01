@@ -3,7 +3,7 @@ import { createRoot } from '@wordpress/element';
 import Dashboard from './Dashboard';
 
 domReady( () => {
-	const containers = document.querySelectorAll( '.helpgent-user-dashboard' );
+	const containers = document.querySelectorAll( '.template-market-user-dashboard' );
 
 	if ( containers.length === 0 ) {
 		return;

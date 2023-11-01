@@ -6,9 +6,12 @@ import ChatFormBack from './components/ChatFormBack';
 import ContentLoading from '@components/ContentLoading';
 
 import { ChatBubbleModule } from '@helpgent/modules';
+
+{/* <h2>Frontend ChatBubble</h2> */}
+
 domReady( () => {
 	const containers = document.querySelectorAll(
-		'.helpgent-chat-bubble-item'
+		'.template-market-chat-bubble-item'
 	);
 
 	if ( containers.length === 0 ) {

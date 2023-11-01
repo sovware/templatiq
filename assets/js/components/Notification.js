@@ -1,7 +1,6 @@
-import { createRoot } from '@wordpress/element';
 import domReady from '@wordpress/dom-ready';
 import { addAction } from '@wordpress/hooks';
-import { useState, useCallback, useEffect } from '@wordpress/element';
+import { createRoot, useState, useCallback, useEffect } from '@wordpress/element';
 import { ToastContainer, toast, Slide, Bounce } from 'react-toastify';
 
 const Notification = () => {

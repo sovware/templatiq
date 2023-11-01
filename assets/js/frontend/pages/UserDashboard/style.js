@@ -6,69 +6,69 @@ const LoginWrapper = Styled.div`
     padding: 107px 50px 115px;
     background: #fff;
     border-radius: 20px;
-    .helpgent-login-title{
+    .template-market-login-title{
         font-size: 22px;
         font-weight: 600;
         margin-bottom: 15px;
-        color: var(--helpgent-color-dark);
+        color: var(--template-market-color-dark);
     }
-    .helpgent-login-subtitle{
+    .template-market-login-subtitle{
         font-size: 15px;
-        color: var(--helpgent-color-light-gray);
+        color: var(--template-market-color-light-gray);
         margin-bottom: 35px;
         display: block;
     }
-    .helpgent-form-group{
+    .template-market-form-group{
         margin-bottom: 0;
-        .helpgent-form-group__label{
-            color: var(--helpgent-color-gray);
+        .template-market-form-group__label{
+            color: var(--template-market-color-gray);
         }
-        .helpgent-btn{
+        .template-market-btn{
             margin-top: 25px;
             svg path{
                 fill: #fff;
-                transition: var(--helpgent-transition);
+                transition: var(--template-market-transition);
             }
             &:hover{
                 svg path{
-                    fill: var(--helpgent-color-primary);
+                    fill: var(--template-market-color-primary);
                 }
             }
         }
     }
-    .helpgent-user-dashboard__actions{
+    .template-market-user-dashboard__actions{
         display: flex;
         justify-content: flex-end;
         align-items: center;
         gap: 15px;
         padding: 20px 30px 0;
-        .helpgent-user-status{
+        .template-market-user-status{
             display: flex;
             align-items: center;
             gap: 8px;
-            color: var(--helpgent-color-gray);
+            color: var(--template-market-color-gray);
             font-size: 14px;
             font-weight: 500;
         }
-        .helpgent-btn{
+        .template-market-btn{
             svg path{
                 fill: #fff;
-                transition: var(--helpgent-transition);
+                transition: var(--template-market-transition);
             }
             &:hover{
                 svg path{
-                    fill: var(--helpgent-color-dark);
+                    fill: var(--template-market-color-dark);
                 }
             }
         }
     }
 
-    .helpgent-success-message{
+    .template-market-success-message{
         background: rgba(40,168, 0, 0.15);
         padding: 15px 12px;
         font-size: 14px;
         font-weight: 500;
-        color: var(--helpgent-color-gray);
+        color: var(--template-market-color-gray);
         border-radius: 6px;
         span{
             display: block;
@@ -78,35 +78,35 @@ const LoginWrapper = Styled.div`
 `;
 
 const DashboardWrapper = Styled.div`
-    .helpgent-user-dashboard__contents{
-        transition: var(--helpgent-transition);
+    .template-market-user-dashboard__contents{
+        transition: var(--template-market-transition);
     }
-    /* .helpgent-user-dashboard__contents--loading{
+    /* .template-market-user-dashboard__contents--loading{
         opacity: 0;
         visibility: hidden;
     } */
-    .helpgent-user-dashboard__actions{
+    .template-market-user-dashboard__actions{
         display: flex;
         justify-content: flex-end;
         align-items: center;
         gap: 15px;
         padding: 20px 30px 0;
-        .helpgent-user-status{
+        .template-market-user-status{
             display: flex;
             align-items: center;
             gap: 8px;
-            color: var(--helpgent-color-gray);
+            color: var(--template-market-color-gray);
             font-size: 14px;
             font-weight: 500;
         }
-        .helpgent-btn{
+        .template-market-btn{
             svg path{
                 fill: #fff;
-                transition: var(--helpgent-transition);
+                transition: var(--template-market-transition);
             }
             &:hover{
                 svg path{
-                    fill: var(--helpgent-color-gray);
+                    fill: var(--template-market-color-gray);
                 }
             }
         }

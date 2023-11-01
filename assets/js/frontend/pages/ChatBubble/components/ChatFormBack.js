@@ -5,9 +5,9 @@ export default function ChatFormBack( props ) {
 	return (
 		<a
 			href="#"
-			className={ `helpgent-chatForm-back-btn ${
+			className={ `template-market-chatForm-back-btn ${
 				moduleState.isProcessingSubmitCallback
-					? 'helpgent-disabled'
+					? 'template-market-disabled'
 					: ''
 			}` }
 			onClick={ ( e ) => {

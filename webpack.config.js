@@ -22,10 +22,8 @@ function camelCaseDash( string ) {
 module.exports = {
 	...defaultConfig,
 	entry: {
-		'js/index': './assets/js/admin/index.js',
-		'js/frontend/ChatForm/index': './assets/js/frontend/pages/ChatForm/index.js',
-		'js/frontend/ChatBubble/index': './assets/js/frontend/pages/ChatBubble/index.js',
-		'js/frontend/UserDashboard/index': './assets/js/frontend/pages/UserDashboard/index.js',
+		'js/admin': './assets/js/admin/index.js',
+		'js/frontend': './assets/js/frontend/index.js',
 		'js/notification': './assets/js/components/Notification.js',
 		'css/notification': './assets/js/components/notification.scss',
 		'js/queryStore': './assets/js/queryStore/index.js',

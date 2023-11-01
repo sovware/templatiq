@@ -2,8 +2,10 @@ import { createRoot } from '@wordpress/element';
 import { QueryClientProvider } from '@tanstack/react-query';
 import queryStore from '../queryStore';
 import App from './app';
+
 document.addEventListener( 'DOMContentLoaded', function () {
-	const container = document.querySelector( '.helpgent-root' );
+	const container = document.querySelector( '.template-market-root' );
+	console.log( 'container', container, createRoot );
 	if ( ! container ) {
 		return;
 	}
