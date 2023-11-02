@@ -22,19 +22,11 @@ function camelCaseDash( string ) {
 module.exports = {
 	...defaultConfig,
 	entry: {
-		'js/admin': './assets/js/admin/index.js',
-		'js/frontend/ChatForm/index': './assets/js/frontend/pages/ChatForm/index.js',
-		'js/frontend/ChatBubble/index': './assets/js/frontend/pages/ChatBubble/index.js',
-		'js/frontend/UserDashboard/index': './assets/js/frontend/pages/UserDashboard/index.js',
-		// 'js/frontend': './assets/js/frontend/index.js',
-		// 'js/notification': './assets/js/components/Notification.js',
-		// 'css/notification': './assets/js/components/notification.scss',
-		'js/queryStore': './assets/js/queryStore/index.js',
-		// 'css/global': './assets/scss/global.scss',
-		// 'modules/index': './assets/js/modules/index.js',
+		'js/admin': './src/js/admin/index.js',
+		'css/global': './src/sass/global.scss',
 	},
 	output: {
-		path: path.resolve( __dirname, './assets/build/' ),
+		path: path.resolve( __dirname, './assets' ),
 		filename: '[name].js',
 		clean: false,
 	},
