@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace TemplateMarket\Route;
+namespace TemplateMarket\Routes;
 
 use Elementor\Core\Common\Modules\Ajax\Module as Ajax;
 use Elementor\Plugin;

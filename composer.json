@@ -2,10 +2,7 @@
     "name": "wpwax/template-market",
     "autoload": {
         "psr-4": {
-            "TemplateMarket\\": "src",
-            "TemplateMarket\\Abstracts\\": "src/Abstracts",
-            "TemplateMarket\\Utils\\": "src/Utils",
-            "TemplateMarket\\Route\\": "src/Routes"
+            "TemplateMarket\\": "app"
         }
     },
     "authors": [

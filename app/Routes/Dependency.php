@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace TemplateMarket\Route;
+namespace TemplateMarket\Routes;
 
 use TemplateMarket\Abstracts\RouteBase;
 use TemplateMarket\Utils\Plugin;
