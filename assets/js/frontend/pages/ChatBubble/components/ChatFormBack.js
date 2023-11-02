@@ -1,3 +1,4 @@
+
 import ReactSVG from 'react-inlinesvg';
 import arrowLeft from '@icon/arrow-small-left.svg';
 export default function ChatFormBack( props ) {
@@ -5,15 +6,17 @@ export default function ChatFormBack( props ) {
 	return (
 		<a
 			href="#"
-			className={ `template-market-chatForm-back-btn ${
+			className={ `helpgent-chatForm-back-btn ${
 				moduleState.isProcessingSubmitCallback
-					? 'template-market-disabled'
+					? 'helpgent-disabled'
 					: ''
 			}` }
 			onClick={ ( e ) => {
 				if ( moduleState.isProcessingSubmitCallback ) {
 					return;
 				}
+
+				e.preventDefault();
 			} }
 		>
 			<ReactSVG src={ arrowLeft } />

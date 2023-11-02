@@ -1,15 +1,15 @@
 import Styled from 'styled-components';
 
 const ChatFormStyle = Styled.div`
-    &.template-market-answer-loading{
-        .template-market-navigation,
-        .template-market-question-element-wrapper{
+    &.helpgent-answer-loading{
+        .helpgent-navigation,
+        .helpgent-question-element-wrapper{
             user-select: none;
             opacity: .5;
         }
     }
-    .template-market-chatForm-back-btn,
-    .template-market-chatForm-close-btn{
+    .helpgent-chatForm-back-btn,
+    .helpgent-chatForm-close-btn{
         position: absolute;
         right: -10px;
         top: -10px;
@@ -19,25 +19,25 @@ const ChatFormStyle = Styled.div`
         width: 38px;
         height: 38px;
         border-radius: 50%;
-        background-color: var(--template-market-color-dark);
+        background-color: var(--helpgent-color-dark);
         z-index: 2;
         svg{
             width: 10px;
             height: 10px;
             path{
-                fill: var(--template-market-color-white);
+                fill: var(--helpgent-color-white);
             }
         }
     }
-    .template-market-chatForm-back-btn{
+    .helpgent-chatForm-back-btn{
         right: auto;
         left: 0;
         top: 0;
-        background-color: var(--template-market-color-white);
+        background-color: var(--helpgent-color-white);
         width: 40px;
         height: inherit;
         border-radius: 20px 0 0 20px;
-        background: var(--template-market-color-dark);
+        background: var(--helpgent-color-dark);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -49,15 +49,15 @@ const ChatFormStyle = Styled.div`
             }
         }
     }
-    .template-market-question-element-wrapper--user_validation,
-    .template-market-question-element-wrapper--date,
-    .template-market-question-element-wrapper--long_text,
-    .template-market-question-element-wrapper--short_text,
-    .template-market-question-element-wrapper--email,
-    .template-market-question-element-wrapper--dropdown,
-    .template-market-question-element-wrapper--multi_select,
-    .template-market-question-element-wrapper--single_select{
-        .template-market-validate-danger{
+    .helpgent-question-element-wrapper--user_validation,
+    .helpgent-question-element-wrapper--date,
+    .helpgent-question-element-wrapper--long_text,
+    .helpgent-question-element-wrapper--short_text,
+    .helpgent-question-element-wrapper--email,
+    .helpgent-question-element-wrapper--dropdown,
+    .helpgent-question-element-wrapper--multi_select,
+    .helpgent-question-element-wrapper--single_select{
+        .helpgent-validate-danger{
             display: block;
         }
     }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';
-import { ResponseModule } from '@helpgent/modules';
+// import { ResponseModule } from '@helpgent/modules';
 import ReactSVG from 'react-inlinesvg';
 import userCircle from '@icon/user-circle.svg';
 import signOutIcon from '@icon/sign-out-alt.svg';
@@ -75,10 +75,7 @@ export default function Dashboard() {
 						<Login />
 					</QueryClientProvider>
 				) : (
-					<ResponseModule
-						baseApiRoute="/helpgent/response"
-						isClientModeActive={ true }
-					/>
+					''
 				) }
 			</div>
 		</DashboardWrapper>

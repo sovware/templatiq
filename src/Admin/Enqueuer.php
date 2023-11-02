@@ -26,8 +26,13 @@ class Enqueuer extends EnqueuerBase {
 		if ( ! isset( $_GET['page'] ) || 'template-market' !== $_GET['page'] ) {
 			return;
 		}
-		$inc = require '../../assets/build/js/index.asset.php';
-		$this->enqueue_script( 'template-market-admin-app', '/js/index.js', $inc['dependencies'], $inc['version']);
+		// $inc = require_once TEMPLATE_MARKET_ASSETS_PATH . '/js/admin.asset.php';
+
+		$this->enqueue_script( 'template-market-admin-app', '/js/admin.js', ['wp-element']);
+
+		$this->enqueue_script( 'helpgent-frontend-chat-shortCode', '/js/frontend/ChatForm/index.js', ['wp-element'] );
+		$this->enqueue_script( 'helpgent-frontend-chat-bubble', '/js/frontend/ChatBubble/index.js', ['wp-element'] );
+		$this->enqueue_script( 'helpgent-frontend-dashboard-shortCode', '/js/frontend/UserDashboard/index.js', ['wp-element'] );
 
 		$obj = [
 			'rest_args' => [

@@ -5944,24 +5944,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/hooks */ "@wordpress/hooks");
 /* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
 /* harmony import */ var _helper_utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @helper/utils.js */ "./assets/js/helper/utils.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _pages_FormTable_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/FormTable.js */ "./assets/js/admin/pages/FormTable.js");
-/* harmony import */ var _pages_FormEdit_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/FormEdit.js */ "./assets/js/admin/pages/FormEdit.js");
-/* harmony import */ var _pages_PreMadeTemplate_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/PreMadeTemplate.js */ "./assets/js/admin/pages/PreMadeTemplate.js");
-/* harmony import */ var _pages_PreMadeTemplatePreview_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/PreMadeTemplatePreview.js */ "./assets/js/admin/pages/PreMadeTemplatePreview.js");
-/* harmony import */ var _pages_Response_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pages/Response.js */ "./assets/js/admin/pages/Response.js");
-/* harmony import */ var _pages_Tag_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pages/Tag.js */ "./assets/js/admin/pages/Tag.js");
-/* harmony import */ var _pages_Summary_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pages/Summary.js */ "./assets/js/admin/pages/Summary.js");
-
-
-
-
-
-
-const Settings = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.lazy)(() => __webpack_require__.e(/*! import() */ "assets_js_admin_pages_Settings_js").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/Settings.js */ "./assets/js/admin/pages/Settings.js")));
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _pages_FormEdit_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/FormEdit.js */ "./assets/js/admin/pages/FormEdit.js");
 
 
 
@@ -5981,53 +5968,50 @@ function App() {
       setDir('ltr');
     }
     (0,_helper_utils_js__WEBPACK_IMPORTED_MODULE_3__.updateGlobalState)('helpgent_router_references', {
-      navigationHook: react_router_dom__WEBPACK_IMPORTED_MODULE_11__.useNavigate,
-      routeLink: react_router_dom__WEBPACK_IMPORTED_MODULE_12__.Link,
-      routerNavLink: react_router_dom__WEBPACK_IMPORTED_MODULE_12__.NavLink,
-      paramsHook: react_router_dom__WEBPACK_IMPORTED_MODULE_11__.useParams,
+      navigationHook: react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useNavigate,
+      routeLink: react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link,
+      routerNavLink: react_router_dom__WEBPACK_IMPORTED_MODULE_6__.NavLink,
+      paramsHook: react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useParams,
       locationHook: {
-        useLocation: react_router_dom__WEBPACK_IMPORTED_MODULE_11__.useLocation
+        useLocation: react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useLocation
       }
     });
   }, []);
-  const adminRoutes = (0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_2__.applyFilters)('helpgent_admin_routes', [{
-    path: `/*`,
-    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_FormTable_js__WEBPACK_IMPORTED_MODULE_4__["default"], null)
-  }, {
-    path: '/pre-made-templates',
-    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_PreMadeTemplate_js__WEBPACK_IMPORTED_MODULE_6__["default"], null)
-  }, {
-    path: `/template/preview/:id`,
-    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_PreMadeTemplatePreview_js__WEBPACK_IMPORTED_MODULE_7__["default"], null)
-  }, {
-    path: `/settings/*`,
-    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Settings, null)
-  }, {
-    path: '/forms/:id/edit',
-    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_FormEdit_js__WEBPACK_IMPORTED_MODULE_5__["default"], null)
-  }, {
-    path: '/forms/:id/responses',
-    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_Response_js__WEBPACK_IMPORTED_MODULE_8__["default"], null)
-  }, {
-    path: '/forms/:id/summary',
-    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_Summary_js__WEBPACK_IMPORTED_MODULE_10__["default"], null)
-  }, {
-    path: '/tags',
-    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_Tag_js__WEBPACK_IMPORTED_MODULE_9__["default"], null)
-  }]);
+
+  // const adminRoutes = applyFilters( 'helpgent_admin_routes', [
+  // 	{
+  // 		path: `/*`,
+  // 		element: <FormEdit />,
+  // 	},
+  // 	{
+  // 		path: `/settings/*`,
+  // 		element: <Settings />,
+  // 	},
+  // 	{
+  // 		path: '/forms/:id/edit',
+  // 		element: <FormEdit />,
+  // 	},
+  // 	{
+  // 		path: '/forms/:id/responses',
+  // 		element: <Response />,
+  // 	},
+  // 	{
+  // 		path: '/forms/:id/summary',
+  // 		element: <Summary />,
+  // 	},
+  // 	{
+  // 		path: '/tags',
+  // 		element: <Tags />,
+  // 	},
+  // ] );
+
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "helpgent-app-wrap"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_12__.HashRouter, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Suspense, {
+    className: "template-market-app-wrap"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, "Admin App"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.HashRouter, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Suspense, {
     fallback: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null)
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(styled_components__WEBPACK_IMPORTED_MODULE_13__.ThemeProvider, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(styled_components__WEBPACK_IMPORTED_MODULE_7__.ThemeProvider, {
     theme: theme
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Routes, null, adminRoutes.map((routeItem, index) => {
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
-      key: index,
-      path: routeItem.path,
-      element: routeItem.element
-    });
-  }))))));
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Routes, null)))));
 }
 
 /***/ }),
@@ -6042,153 +6026,11 @@ function App() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _helpgent_modules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @helpgent/modules */ "@helpgent/modules");
-/* harmony import */ var _helpgent_modules__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_helpgent_modules__WEBPACK_IMPORTED_MODULE_1__);
-
 
 function FormEdit() {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, "Admin Form Edit");
-  // return <SingleFormModule baseApiRoute="/helpgent/admin/form" />;
 }
-
 /* harmony default export */ __webpack_exports__["default"] = (FormEdit);
-
-/***/ }),
-
-/***/ "./assets/js/admin/pages/FormTable.js":
-/*!********************************************!*\
-  !*** ./assets/js/admin/pages/FormTable.js ***!
-  \********************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _helpgent_modules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @helpgent/modules */ "@helpgent/modules");
-/* harmony import */ var _helpgent_modules__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_helpgent_modules__WEBPACK_IMPORTED_MODULE_1__);
-
-
-function FormTable() {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_helpgent_modules__WEBPACK_IMPORTED_MODULE_1__.FormTableModule, {
-    baseApiRoute: "/helpgent/admin/form"
-  });
-}
-/* harmony default export */ __webpack_exports__["default"] = (FormTable);
-
-/***/ }),
-
-/***/ "./assets/js/admin/pages/PreMadeTemplate.js":
-/*!**************************************************!*\
-  !*** ./assets/js/admin/pages/PreMadeTemplate.js ***!
-  \**************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _helpgent_modules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @helpgent/modules */ "@helpgent/modules");
-/* harmony import */ var _helpgent_modules__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_helpgent_modules__WEBPACK_IMPORTED_MODULE_1__);
-
-
-function PreMadeTemplate() {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_helpgent_modules__WEBPACK_IMPORTED_MODULE_1__.PreMadeTemplateModule, {
-    baseApiRoute: "/helpgent/admin/form/templates"
-  });
-}
-/* harmony default export */ __webpack_exports__["default"] = (PreMadeTemplate);
-
-/***/ }),
-
-/***/ "./assets/js/admin/pages/PreMadeTemplatePreview.js":
-/*!*********************************************************!*\
-  !*** ./assets/js/admin/pages/PreMadeTemplatePreview.js ***!
-  \*********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _helpgent_modules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @helpgent/modules */ "@helpgent/modules");
-/* harmony import */ var _helpgent_modules__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_helpgent_modules__WEBPACK_IMPORTED_MODULE_1__);
-
-
-function PreMadeTemplatePreview() {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_helpgent_modules__WEBPACK_IMPORTED_MODULE_1__.PreMadeTemplatePreviewModule, {
-    baseApiRoute: "/helpgent/admin/form/templates"
-  });
-}
-/* harmony default export */ __webpack_exports__["default"] = (PreMadeTemplatePreview);
-
-/***/ }),
-
-/***/ "./assets/js/admin/pages/Response.js":
-/*!*******************************************!*\
-  !*** ./assets/js/admin/pages/Response.js ***!
-  \*******************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _helpgent_modules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @helpgent/modules */ "@helpgent/modules");
-/* harmony import */ var _helpgent_modules__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_helpgent_modules__WEBPACK_IMPORTED_MODULE_1__);
-
-
-function Response() {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_helpgent_modules__WEBPACK_IMPORTED_MODULE_1__.ResponseModule, {
-    baseApiRoute: "/helpgent/admin/response",
-    isClientModeActive: false
-  });
-}
-/* harmony default export */ __webpack_exports__["default"] = (Response);
-
-/***/ }),
-
-/***/ "./assets/js/admin/pages/Summary.js":
-/*!******************************************!*\
-  !*** ./assets/js/admin/pages/Summary.js ***!
-  \******************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _helpgent_modules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @helpgent/modules */ "@helpgent/modules");
-/* harmony import */ var _helpgent_modules__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_helpgent_modules__WEBPACK_IMPORTED_MODULE_1__);
-
-
-function Summary() {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_helpgent_modules__WEBPACK_IMPORTED_MODULE_1__.SummaryModule, {
-    baseApiRoute: "/helpgent/admin/form"
-  });
-}
-/* harmony default export */ __webpack_exports__["default"] = (Summary);
-
-/***/ }),
-
-/***/ "./assets/js/admin/pages/Tag.js":
-/*!**************************************!*\
-  !*** ./assets/js/admin/pages/Tag.js ***!
-  \**************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _helpgent_modules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @helpgent/modules */ "@helpgent/modules");
-/* harmony import */ var _helpgent_modules__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_helpgent_modules__WEBPACK_IMPORTED_MODULE_1__);
-
-
-function Tags() {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_helpgent_modules__WEBPACK_IMPORTED_MODULE_1__.TagModule, null);
-}
-/* harmony default export */ __webpack_exports__["default"] = (Tags);
 
 /***/ }),
 
@@ -6206,12 +6048,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   MB_IN_BYTES: function() { return /* binding */ MB_IN_BYTES; },
 /* harmony export */   MIN_IN_SECONDS: function() { return /* binding */ MIN_IN_SECONDS; },
 /* harmony export */   SECOND_IN_MILLISECONDS: function() { return /* binding */ SECOND_IN_MILLISECONDS; },
-/* harmony export */   endQuestion: function() { return /* binding */ endQuestion; },
 /* harmony export */   iconList: function() { return /* binding */ iconList; },
-/* harmony export */   initialQuestions: function() { return /* binding */ initialQuestions; },
 /* harmony export */   mimeTypeIcons: function() { return /* binding */ mimeTypeIcons; },
 /* harmony export */   mimeTypes: function() { return /* binding */ mimeTypes; },
-/* harmony export */   questionIcons: function() { return /* binding */ questionIcons; },
 /* harmony export */   ratingIcons: function() { return /* binding */ ratingIcons; },
 /* harmony export */   socialIcons: function() { return /* binding */ socialIcons; }
 /* harmony export */ });
@@ -6480,10 +6319,20 @@ const mimeTypes = {
   'audio/x-matroska': 'voice',
   'application/pdf': 'pdf'
 };
-const questions = null;
-const initialQuestions = questions.filter(item => item.question_type === 'welcome' || item.question_type === 'end' || item.question_type === 'user_validation');
-const filteredEndScreen = questions.filter(item => item.question_type === 'end');
-const endQuestion = filteredEndScreen[0];
+
+// const questions = null;
+
+// const initialQuestions = questions.filter(
+// 	( item ) =>
+// 		item.question_type === 'welcome' ||
+// 		item.question_type === 'end' ||
+// 		item.question_type === 'user_validation'
+// );
+// const filteredEndScreen = questions.filter(
+// 	( item ) => item.question_type === 'end'
+// );
+// const endQuestion = filteredEndScreen[ 0 ];
+
 const socialIcons = {
   facebook: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_50__["default"], {
     src: _icon_facebook_svg__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -10937,17 +10786,6 @@ module.exports = window["React"];
 
 /***/ }),
 
-/***/ "@helpgent/modules":
-/*!***************************************!*\
-  !*** external ["helpgent","modules"] ***!
-  \***************************************/
-/***/ (function(module) {
-
-"use strict";
-module.exports = window["helpgent"]["modules"];
-
-/***/ }),
-
 /***/ "@wordpress/element":
 /*!*********************************!*\
   !*** external ["wp","element"] ***!
@@ -15144,9 +14982,6 @@ function __disposeResources(env) {
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = __webpack_modules__;
-/******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	!function() {
@@ -15172,98 +15007,9 @@ function __disposeResources(env) {
 /******/ 		};
 /******/ 	}();
 /******/ 	
-/******/ 	/* webpack/runtime/ensure chunk */
-/******/ 	!function() {
-/******/ 		__webpack_require__.f = {};
-/******/ 		// This file contains only the entry chunk.
-/******/ 		// The chunk loading function for additional chunks
-/******/ 		__webpack_require__.e = function(chunkId) {
-/******/ 			return Promise.all(Object.keys(__webpack_require__.f).reduce(function(promises, key) {
-/******/ 				__webpack_require__.f[key](chunkId, promises);
-/******/ 				return promises;
-/******/ 			}, []));
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/get javascript chunk filename */
-/******/ 	!function() {
-/******/ 		// This function allow to reference async chunks
-/******/ 		__webpack_require__.u = function(chunkId) {
-/******/ 			// return url for filenames based on template
-/******/ 			return "" + chunkId + ".js";
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/get mini-css chunk filename */
-/******/ 	!function() {
-/******/ 		// This function allow to reference async chunks
-/******/ 		__webpack_require__.miniCssF = function(chunkId) {
-/******/ 			// return url for filenames based on template
-/******/ 			return undefined;
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/global */
-/******/ 	!function() {
-/******/ 		__webpack_require__.g = (function() {
-/******/ 			if (typeof globalThis === 'object') return globalThis;
-/******/ 			try {
-/******/ 				return this || new Function('return this')();
-/******/ 			} catch (e) {
-/******/ 				if (typeof window === 'object') return window;
-/******/ 			}
-/******/ 		})();
-/******/ 	}();
-/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	!function() {
 /******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/load script */
-/******/ 	!function() {
-/******/ 		var inProgress = {};
-/******/ 		var dataWebpackPrefix = "template-market:";
-/******/ 		// loadScript function to load a script via script tag
-/******/ 		__webpack_require__.l = function(url, done, key, chunkId) {
-/******/ 			if(inProgress[url]) { inProgress[url].push(done); return; }
-/******/ 			var script, needAttach;
-/******/ 			if(key !== undefined) {
-/******/ 				var scripts = document.getElementsByTagName("script");
-/******/ 				for(var i = 0; i < scripts.length; i++) {
-/******/ 					var s = scripts[i];
-/******/ 					if(s.getAttribute("src") == url || s.getAttribute("data-webpack") == dataWebpackPrefix + key) { script = s; break; }
-/******/ 				}
-/******/ 			}
-/******/ 			if(!script) {
-/******/ 				needAttach = true;
-/******/ 				script = document.createElement('script');
-/******/ 		
-/******/ 				script.charset = 'utf-8';
-/******/ 				script.timeout = 120;
-/******/ 				if (__webpack_require__.nc) {
-/******/ 					script.setAttribute("nonce", __webpack_require__.nc);
-/******/ 				}
-/******/ 				script.setAttribute("data-webpack", dataWebpackPrefix + key);
-/******/ 		
-/******/ 				script.src = url;
-/******/ 			}
-/******/ 			inProgress[url] = [done];
-/******/ 			var onScriptComplete = function(prev, event) {
-/******/ 				// avoid mem leaks in IE.
-/******/ 				script.onerror = script.onload = null;
-/******/ 				clearTimeout(timeout);
-/******/ 				var doneFns = inProgress[url];
-/******/ 				delete inProgress[url];
-/******/ 				script.parentNode && script.parentNode.removeChild(script);
-/******/ 				doneFns && doneFns.forEach(function(fn) { return fn(event); });
-/******/ 				if(prev) return prev(event);
-/******/ 			}
-/******/ 			var timeout = setTimeout(onScriptComplete.bind(null, undefined, { type: 'timeout', target: script }), 120000);
-/******/ 			script.onerror = onScriptComplete.bind(null, script.onerror);
-/******/ 			script.onload = onScriptComplete.bind(null, script.onload);
-/******/ 			needAttach && document.head.appendChild(script);
-/******/ 		};
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
@@ -15275,121 +15021,6 @@ function __disposeResources(env) {
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/publicPath */
-/******/ 	!function() {
-/******/ 		var scriptUrl;
-/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
-/******/ 		var document = __webpack_require__.g.document;
-/******/ 		if (!scriptUrl && document) {
-/******/ 			if (document.currentScript)
-/******/ 				scriptUrl = document.currentScript.src;
-/******/ 			if (!scriptUrl) {
-/******/ 				var scripts = document.getElementsByTagName("script");
-/******/ 				if(scripts.length) {
-/******/ 					var i = scripts.length - 1;
-/******/ 					while (i > -1 && !scriptUrl) scriptUrl = scripts[i--].src;
-/******/ 				}
-/******/ 			}
-/******/ 		}
-/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
-/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
-/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
-/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
-/******/ 		__webpack_require__.p = scriptUrl + "../";
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/jsonp chunk loading */
-/******/ 	!function() {
-/******/ 		// no baseURI
-/******/ 		
-/******/ 		// object to store loaded and loading chunks
-/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
-/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
-/******/ 		var installedChunks = {
-/******/ 			"js/index": 0
-/******/ 		};
-/******/ 		
-/******/ 		__webpack_require__.f.j = function(chunkId, promises) {
-/******/ 				// JSONP chunk loading for javascript
-/******/ 				var installedChunkData = __webpack_require__.o(installedChunks, chunkId) ? installedChunks[chunkId] : undefined;
-/******/ 				if(installedChunkData !== 0) { // 0 means "already installed".
-/******/ 		
-/******/ 					// a Promise means "currently loading".
-/******/ 					if(installedChunkData) {
-/******/ 						promises.push(installedChunkData[2]);
-/******/ 					} else {
-/******/ 						if(true) { // all chunks have JS
-/******/ 							// setup Promise in chunk cache
-/******/ 							var promise = new Promise(function(resolve, reject) { installedChunkData = installedChunks[chunkId] = [resolve, reject]; });
-/******/ 							promises.push(installedChunkData[2] = promise);
-/******/ 		
-/******/ 							// start chunk loading
-/******/ 							var url = __webpack_require__.p + __webpack_require__.u(chunkId);
-/******/ 							// create error before stack unwound to get useful stacktrace later
-/******/ 							var error = new Error();
-/******/ 							var loadingEnded = function(event) {
-/******/ 								if(__webpack_require__.o(installedChunks, chunkId)) {
-/******/ 									installedChunkData = installedChunks[chunkId];
-/******/ 									if(installedChunkData !== 0) installedChunks[chunkId] = undefined;
-/******/ 									if(installedChunkData) {
-/******/ 										var errorType = event && (event.type === 'load' ? 'missing' : event.type);
-/******/ 										var realSrc = event && event.target && event.target.src;
-/******/ 										error.message = 'Loading chunk ' + chunkId + ' failed.\n(' + errorType + ': ' + realSrc + ')';
-/******/ 										error.name = 'ChunkLoadError';
-/******/ 										error.type = errorType;
-/******/ 										error.request = realSrc;
-/******/ 										installedChunkData[1](error);
-/******/ 									}
-/******/ 								}
-/******/ 							};
-/******/ 							__webpack_require__.l(url, loadingEnded, "chunk-" + chunkId, chunkId);
-/******/ 						}
-/******/ 					}
-/******/ 				}
-/******/ 		};
-/******/ 		
-/******/ 		// no prefetching
-/******/ 		
-/******/ 		// no preloaded
-/******/ 		
-/******/ 		// no HMR
-/******/ 		
-/******/ 		// no HMR manifest
-/******/ 		
-/******/ 		// no on chunks loaded
-/******/ 		
-/******/ 		// install a JSONP callback for chunk loading
-/******/ 		var webpackJsonpCallback = function(parentChunkLoadingFunction, data) {
-/******/ 			var chunkIds = data[0];
-/******/ 			var moreModules = data[1];
-/******/ 			var runtime = data[2];
-/******/ 			// add "moreModules" to the modules object,
-/******/ 			// then flag all "chunkIds" as loaded and fire callback
-/******/ 			var moduleId, chunkId, i = 0;
-/******/ 			if(chunkIds.some(function(id) { return installedChunks[id] !== 0; })) {
-/******/ 				for(moduleId in moreModules) {
-/******/ 					if(__webpack_require__.o(moreModules, moduleId)) {
-/******/ 						__webpack_require__.m[moduleId] = moreModules[moduleId];
-/******/ 					}
-/******/ 				}
-/******/ 				if(runtime) var result = runtime(__webpack_require__);
-/******/ 			}
-/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
-/******/ 			for(;i < chunkIds.length; i++) {
-/******/ 				chunkId = chunkIds[i];
-/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
-/******/ 					installedChunks[chunkId][0]();
-/******/ 				}
-/******/ 				installedChunks[chunkId] = 0;
-/******/ 			}
-/******/ 		
-/******/ 		}
-/******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunktemplate_market"] = self["webpackChunktemplate_market"] || [];
-/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
-/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/nonce */
@@ -15438,4 +15069,4 @@ document.addEventListener('DOMContentLoaded', function () {
 }();
 /******/ })()
 ;
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=admin.js.map

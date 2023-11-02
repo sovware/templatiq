@@ -51,6 +51,7 @@ export default function App() {
 
 	return (
 		<div className="template-market-front-wrap">
+			<h2>Frontend App</h2>
 			<HashRouter>
 				<Suspense fallback={ <></> }>
 					<ThemeProvider theme={ theme }>

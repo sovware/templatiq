@@ -227,18 +227,18 @@ const mimeTypes = {
 	'application/pdf': 'pdf',
 };
 
-const questions = null;
+// const questions = null;
 
-const initialQuestions = questions.filter(
-	( item ) =>
-		item.question_type === 'welcome' ||
-		item.question_type === 'end' ||
-		item.question_type === 'user_validation'
-);
-const filteredEndScreen = questions.filter(
-	( item ) => item.question_type === 'end'
-);
-const endQuestion = filteredEndScreen[ 0 ];
+// const initialQuestions = questions.filter(
+// 	( item ) =>
+// 		item.question_type === 'welcome' ||
+// 		item.question_type === 'end' ||
+// 		item.question_type === 'user_validation'
+// );
+// const filteredEndScreen = questions.filter(
+// 	( item ) => item.question_type === 'end'
+// );
+// const endQuestion = filteredEndScreen[ 0 ];
 
 const socialIcons = {
 	facebook: <ReactSVG src={ facebook } />,
@@ -249,11 +249,11 @@ const socialIcons = {
 
 export {
 	iconList,
-	questionIcons,
+	// questionIcons,
 	// previewComponents,
-	endQuestion,
+	// endQuestion,
 	// questions,
-	initialQuestions,
+	// initialQuestions,
 	socialIcons,
 	mimeTypeIcons,
 	mimeTypes,

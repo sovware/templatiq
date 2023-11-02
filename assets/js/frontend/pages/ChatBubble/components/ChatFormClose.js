@@ -23,7 +23,7 @@ export default function ChatFormClose( props ) {
 	return (
 		<a
 			href="#"
-			className="template-market-chatForm-close-btn"
+			className="helpgent-chatForm-close-btn"
 			onClick={ ( e ) => handleCloseChatForm( e ) }
 		>
 			<ReactSVG

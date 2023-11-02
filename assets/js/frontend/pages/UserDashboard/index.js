@@ -2,19 +2,21 @@ import domReady from '@wordpress/dom-ready';
 import { createRoot } from '@wordpress/element';
 import Dashboard from './Dashboard';
 
-domReady( () => {
-	const containers = document.querySelectorAll( '.template-market-user-dashboard' );
+<h2>Front Dashboard</h2>
 
-	if ( containers.length === 0 ) {
-		return;
-	}
+// domReady( () => {
+// 	const containers = document.querySelectorAll( '.template-market-user-dashboard' );
 
-	containers.forEach( ( container ) => {
-		if ( createRoot ) {
-			const root = createRoot( container );
-			root.render( <Dashboard /> );
-		} else {
-			render( <Dashboard />, container );
-		}
-	} );
-} );
+// 	if ( containers.length === 0 ) {
+// 		return;
+// 	}
+
+// 	containers.forEach( ( container ) => {
+// 		if ( createRoot ) {
+// 			const root = createRoot( container );
+// 			root.render( <Dashboard /> );
+// 		} else {
+// 			render( <Dashboard />, container );
+// 		}
+// 	} );
+// } );

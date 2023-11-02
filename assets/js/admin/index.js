@@ -4,7 +4,7 @@ import queryStore from '../queryStore';
 import App from './app';
 
 document.addEventListener( 'DOMContentLoaded', function () {
-	const container = document.querySelector( '.template-market-root' );
+	const container = document.querySelector( '.template-market-root' ); 
 	console.log( 'container', container, createRoot );
 	if ( ! container ) {
 		return;

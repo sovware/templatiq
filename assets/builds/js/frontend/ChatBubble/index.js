@@ -281,11 +281,12 @@ function ChatFormBack(props) {
   } = props;
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
-    className: `template-market-chatForm-back-btn ${moduleState.isProcessingSubmitCallback ? 'template-market-disabled' : ''}`,
+    className: `helpgent-chatForm-back-btn ${moduleState.isProcessingSubmitCallback ? 'helpgent-disabled' : ''}`,
     onClick: e => {
       if (moduleState.isProcessingSubmitCallback) {
         return;
       }
+      e.preventDefault();
     }
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_2__["default"], {
     src: _icon_arrow_small_left_svg__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -332,7 +333,7 @@ function ChatFormClose(props) {
   }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
-    className: "template-market-chatForm-close-btn",
+    className: "helpgent-chatForm-close-btn",
     onClick: e => handleCloseChatForm(e)
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_3__["default"], {
     src: moduleState.chatBubble.canCloseChatForm ? _icon_times_svg__WEBPACK_IMPORTED_MODULE_1__["default"] : _icon_minus_solid_svg__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -4141,17 +4142,6 @@ module.exports = window["React"];
 
 /***/ }),
 
-/***/ "@helpgent/modules":
-/*!***************************************!*\
-  !*** external ["helpgent","modules"] ***!
-  \***************************************/
-/***/ (function(module) {
-
-"use strict";
-module.exports = window["helpgent"]["modules"];
-
-/***/ }),
-
 /***/ "@wordpress/dom-ready":
 /*!**********************************!*\
   !*** external ["wp","domReady"] ***!
@@ -5763,8 +5753,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_ChatFormClose__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/ChatFormClose */ "./assets/js/frontend/pages/ChatBubble/components/ChatFormClose.js");
 /* harmony import */ var _components_ChatFormBack__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/ChatFormBack */ "./assets/js/frontend/pages/ChatBubble/components/ChatFormBack.js");
 /* harmony import */ var _components_ContentLoading__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @components/ContentLoading */ "./assets/js/components/ContentLoading.js");
-/* harmony import */ var _helpgent_modules__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @helpgent/modules */ "@helpgent/modules");
-/* harmony import */ var _helpgent_modules__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_helpgent_modules__WEBPACK_IMPORTED_MODULE_7__);
 
 
 
@@ -5772,48 +5760,60 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+(0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, "Front ChatBubbleModule");
 
-{/* <h2>Frontend ChatBubble</h2> */}
-_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_1___default()(() => {
-  const containers = document.querySelectorAll('.template-market-chat-bubble-item');
-  if (containers.length === 0) {
-    return;
-  }
-  (0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_2__.addFilter)('helpgent_chat_form_close', 'helpgent', function (items) {
-    // replace unique_key
-    items['helpgent_chat_form_close'] = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_ChatFormClose__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      ...items.props
-    });
-    return items;
-  });
-  (0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_2__.addFilter)('helpgent_chat_form_back', 'helpgent', function (items) {
-    // replace unique_key
-    items['helpgent_chat_form_back'] = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_ChatFormBack__WEBPACK_IMPORTED_MODULE_5__["default"], {
-      ...items.props
-    });
-    return items;
-  });
-  containers.forEach(container => {
-    const singleForm = container.dataset.form_data;
-    const isLoggedIn = container.dataset.is_user_logged_in;
-    if (_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createRoot) {
-      const root = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createRoot)(container);
-      root.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.Suspense, {
-        fallback: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_ContentLoading__WEBPACK_IMPORTED_MODULE_6__["default"], null)
-      }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_helpgent_modules__WEBPACK_IMPORTED_MODULE_7__.ChatBubbleModule, {
-        data: singleForm,
-        isLoggedIn: isLoggedIn,
-        isFloatingForm: true
-      })));
-    } else {
-      render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_helpgent_modules__WEBPACK_IMPORTED_MODULE_7__.ChatBubbleModule, {
-        data: singleForm,
-        isLoggedIn: isLoggedIn,
-        isFloatingForm: true
-      }), container);
-    }
-  });
-});
+// import { ChatBubbleModule } from '@helpgent/modules';
+// domReady( () => {
+// 	const containers = document.querySelectorAll(
+// 		'.helpgent-chat-bubble-item'
+// 	);
+
+// 	if ( containers.length === 0 ) {
+// 		return;
+// 	}
+
+// 	addFilter( 'helpgent_chat_form_close', 'helpgent', function ( items ) {
+// 		// replace unique_key
+// 		items[ 'helpgent_chat_form_close' ] = (
+// 			<ChatFormClose { ...items.props } />
+// 		);
+// 		return items;
+// 	} );
+
+// 	addFilter( 'helpgent_chat_form_back', 'helpgent', function ( items ) {
+// 		// replace unique_key
+// 		items[ 'helpgent_chat_form_back' ] = (
+// 			<ChatFormBack { ...items.props } />
+// 		);
+// 		return items;
+// 	} );
+
+// 	containers.forEach( ( container ) => {
+// 		const singleForm = container.dataset.form_data;
+// 		const isLoggedIn = container.dataset.is_user_logged_in;
+// 		if ( createRoot ) {
+// 			const root = createRoot( container );
+// 			root.render(
+// 				<Suspense fallback={ <ContentLoading /> }>
+// 					{/* <ChatBubbleModule
+// 						data={ singleForm }
+// 						isLoggedIn={ isLoggedIn }
+// 						isFloatingForm={ true }
+// 					/> */}
+// 				</Suspense>
+// 			);
+// 		} else {
+// 			render(
+// 				// <ChatBubbleModule
+// 				// 	data={ singleForm }
+// 				// 	isLoggedIn={ isLoggedIn }
+// 				// 	isFloatingForm={ true }
+// 				// />,
+// 				container
+// 			);
+// 		}
+// 	} );
+// } );
 }();
 /******/ })()
 ;

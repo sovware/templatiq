@@ -129,6 +129,7 @@ final class TemplateMarket {
 		define( 'TEMPLATE_MARKET_ELEMENTS', TEMPLATE_MARKET_PATH . 'App/Elements' );
 		define( 'TEMPLATE_MARKET_URL', plugins_url( '', TEMPLATE_MARKET_FILE ) );
 		define( 'TEMPLATE_MARKET_ASSETS', TEMPLATE_MARKET_URL . '/assets/build' );
+		define( 'TEMPLATE_MARKET_ASSETS_PATH', TEMPLATE_MARKET_PATH . '/assets/build' );
 
 		define( 'TEMPLATE_MARKET_CLOUD_BASE', 'http://localhost:10144/wp-json/tm' );
 
