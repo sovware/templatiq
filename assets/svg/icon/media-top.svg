@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="60" height="40" viewBox="0 0 60 40">
-  <g id="media-top" transform="translate(-1745 -1247)">
-    <path id="Rectangle_3761_-_Outline" data-name="Rectangle 3761 - Outline" d="M6,1.5A4.505,4.505,0,0,0,1.5,6V34A4.505,4.505,0,0,0,6,38.5H54A4.505,4.505,0,0,0,58.5,34V6A4.505,4.505,0,0,0,54,1.5H6M6,0H54a6,6,0,0,1,6,6V34a6,6,0,0,1-6,6H6a6,6,0,0,1-6-6V6A6,6,0,0,1,6,0Z" transform="translate(1745 1247)" fill="#a2a2a2"/>
-    <rect id="Rectangle_3763" data-name="Rectangle 3763" width="16" height="1.5" rx="0.75" transform="translate(1767 1274)" fill="#a2a2a2"/>
-    <rect id="Rectangle_3764" data-name="Rectangle 3764" width="12" height="1.5" rx="0.75" transform="translate(1769 1278)" fill="#a2a2a2"/>
-    <rect id="Rectangle_1106" data-name="Rectangle 1106" width="30" height="16" rx="3" transform="translate(1760 1254)" fill="#a2a2a2"/>
-  </g>
-</svg>
