@@ -2,9 +2,9 @@ const path = require( 'path' );
 const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
 const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
 const { log } = require( 'console' );
-const HELPGENT_NAMESPACE = '@helpgent/';
+const TEMPLATE_MARKET_NAMESPACE = '@template-market/';
 
-const devHost = 'helpgent.test';
+const devHost = 'template-market.test';
 
 /**
  * Given a string, returns a new string with dash separators converted to
@@ -37,19 +37,19 @@ module.exports = {
 		),
 		new DependencyExtractionWebpackPlugin( {
 			requestToExternal( request ) {
-				if ( request.startsWith( HELPGENT_NAMESPACE ) ) {
+				if ( request.startsWith( TEMPLATE_MARKET_NAMESPACE ) ) {
 					return [
-						'helpgent',
+						'template-market',
 						camelCaseDash(
-							request.substring( HELPGENT_NAMESPACE.length )
+							request.substring( TEMPLATE_MARKET_NAMESPACE.length )
 						),
 					];
 				}
 			},
 			requestToHandle( request ) {
-				if ( request.startsWith( HELPGENT_NAMESPACE ) ) {
-					return `helpgent/${ camelCaseDash(
-						request.substring( HELPGENT_NAMESPACE.length )
+				if ( request.startsWith( TEMPLATE_MARKET_NAMESPACE ) ) {
+					return `template-market/${ camelCaseDash(
+						request.substring( TEMPLATE_MARKET_NAMESPACE.length )
 					) }`;
 				}
 			},
@@ -57,19 +57,19 @@ module.exports = {
 	],
 	resolve: {
 		alias: {
-			'@helpgent/queryStore': path.resolve(
+			'@template-market/queryStore': path.resolve(
 				__dirname,
-				'assets/js/queryStore'
+				'src/js/queryStore'
 			),
-			'@modules': path.resolve( __dirname, 'assets/js/modules' ),
-			'@constants': path.resolve( __dirname, 'assets/js/constants.js' ),
-			'@lib': path.resolve( __dirname, 'assets/js/lib' ),
-			'@root/style': path.resolve( __dirname, 'assets/js/style.js' ),
-			// '@context': path.resolve( __dirname, 'assets/js/Context' ),
-			'@components': path.resolve( __dirname, 'assets/js/components' ),
-			'@hooks': path.resolve( __dirname, 'assets/js/hooks' ),
-			'@helper': path.resolve( __dirname, 'assets/js/helper' ),
-			'@icon': path.resolve( __dirname, 'assets/svg/icon' ),
+			'@modules': path.resolve( __dirname, 'src/js/modules' ),
+			'@constants': path.resolve( __dirname, 'src/js/constants.js' ),
+			'@lib': path.resolve( __dirname, 'src/js/lib' ),
+			'@root/style': path.resolve( __dirname, 'src/js/style.js' ),
+			// '@context': path.resolve( __dirname, 'src/js/Context' ),
+			'@components': path.resolve( __dirname, 'src/js/components' ),
+			'@hooks': path.resolve( __dirname, 'src/js/hooks' ),
+			'@helper': path.resolve( __dirname, 'src/js/helper' ),
+			'@icon': path.resolve( __dirname, 'src/svg/icon' ),
 			'@assets': path.resolve( __dirname, 'assets' ),
 		},
 	},

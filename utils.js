@@ -1,7 +1,7 @@
 const path = require( 'path' );
 const fs = require( 'fs' ).promises;
 
-const pluginRootFile = 'helpgent';
+const pluginRootFile = 'template-market';
 
 const getPluginInfo = async () => {
 	try {
