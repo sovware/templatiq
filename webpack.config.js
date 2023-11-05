@@ -65,7 +65,7 @@ module.exports = {
 			'@constants': path.resolve( __dirname, 'assets/js/constants.js' ),
 			'@lib': path.resolve( __dirname, 'assets/js/lib' ),
 			'@root/style': path.resolve( __dirname, 'assets/js/style.js' ),
-			'@context': path.resolve( __dirname, 'assets/js/Context' ),
+			// '@context': path.resolve( __dirname, 'assets/js/Context' ),
 			'@components': path.resolve( __dirname, 'assets/js/components' ),
 			'@hooks': path.resolve( __dirname, 'assets/js/hooks' ),
 			'@helper': path.resolve( __dirname, 'assets/js/helper' ),
