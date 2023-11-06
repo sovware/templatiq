@@ -40,6 +40,6 @@ class AdminMenu {
 	}
 
 	public function content() {
-		echo '<div id="template-market-root"></div>';
+		echo '<div id="templatiq-root" class="templatiq-root"></div>';
 	}
 }

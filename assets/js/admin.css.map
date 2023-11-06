@@ -1,1 +1,0 @@
-{"version":3,"file":"js/admin.css","mappings":";;;AAAA;EACC;AACD,C","sources":["webpack://template-market/./src/sass/global.scss"],"sourcesContent":["body {\n\tbackground-color: red !important;\n}\n"],"names":[],"sourceRoot":""}

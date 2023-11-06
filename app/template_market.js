@@ -1,5 +1,5 @@
 jQuery.ajax( {
-    url:'http://template-market.local/wp-json/template-market/import/page/',
+    url:'http://templatiq.local/wp-json/templatiq/import/page/',
     method: 'POST',
     beforeSend: function ( xhr ) {
         xhr.setRequestHeader( 'X-WP-Nonce', template_market_obj.rest_args.nonce );
