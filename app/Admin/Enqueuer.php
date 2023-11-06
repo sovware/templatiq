@@ -29,6 +29,9 @@ class Enqueuer extends EnqueuerBase {
 
 		$this->enqueue_script( 'template-market-app', '/js/index.js', ['wp-element'] );
 
+
+		$this->enqueue_style( 'template-market-app', '/css/global.css');
+
 		$obj = [
 			'rest_args' => [
 				'nonce'    => wp_create_nonce( 'wp_rest' ),
