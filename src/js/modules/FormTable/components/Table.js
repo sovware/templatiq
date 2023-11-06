@@ -3,7 +3,7 @@ import { Spinner } from '@wordpress/components';
 import { getGlobalState } from '@helper/utils.js';
 import PropTypes from 'prop-types';
 import { TableStyle } from './style.js';
-import { template-marketTableStyle } from '@root/style';
+import { templatiqTableStyle } from '@root/style';
 import TableBody from './TableBody.js';
 import TableHead from './TableHead.js';
 import ReactPaginate from 'react-paginate';
@@ -24,8 +24,8 @@ export default function Table( props ) {
 	const [ renameFormId, setRenameFormId ] = useState( null );
 	return (
 		<TableStyle>
-			<div className="template-market-table-wrap template-market-table-forms-list template-market-table-responsive">
-				<template-marketTableStyle className="template-market-table">
+			<div className="templatiq-table-wrap templatiq-table-forms-list templatiq-table-responsive">
+				<templatiqTableStyle className="templatiq-table">
 					<thead>
 						<TableHead />
 					</thead>
@@ -41,14 +41,14 @@ export default function Table( props ) {
 						) : (
 							<tr>
 								<td colSpan={ 7 }>
-									<div className="template-market-table-loader">
+									<div className="templatiq-table-loader">
 										<Spinner />
 									</div>
 								</td>
 							</tr>
 						) }
 					</tbody>
-				</template-marketTableStyle>
+				</templatiqTableStyle>
 			</div>
 			{ total > perPage && (
 				<ReactPaginate
@@ -58,14 +58,14 @@ export default function Table( props ) {
 					previousLabel={ <ReactSVG src={ angleLeft } /> }
 					pageRangeDisplayed={ 3 }
 					pageCount={ Math.ceil( total / perPage ) }
-					previousClassName="template-market-pagination__item"
-					previousLinkClassName="template-market-pagination__link template-market-pagination__control"
-					nextClassName="template-market-pagination__item"
-					nextLinkClassName="template-market-pagination__link template-market-pagination__control"
-					containerClassName="template-market-pagination"
-					pageClassName="template-market-pagination__item"
-					pageLinkClassName="template-market-pagination__link"
-					activeLinkClassName="template-market-pagination__active"
+					previousClassName="templatiq-pagination__item"
+					previousLinkClassName="templatiq-pagination__link templatiq-pagination__control"
+					nextClassName="templatiq-pagination__item"
+					nextLinkClassName="templatiq-pagination__link templatiq-pagination__control"
+					containerClassName="templatiq-pagination"
+					pageClassName="templatiq-pagination__item"
+					pageLinkClassName="templatiq-pagination__link"
+					activeLinkClassName="templatiq-pagination__active"
 					renderOnZeroPageCount={ null }
 				/>
 			) }

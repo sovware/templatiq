@@ -25,8 +25,8 @@ const Tag = ( props ) => {
 		errorMessage: tagErrorMessage,
 		isFetching: isTagFetching,
 	} = useFetchData(
-		[ `template-market-tag-list-${ currentPage }-${ tagSearchText }` ],
-		addQueryArgs( '/template-market/admin/tag', fetchParams )
+		[ `templatiq-tag-list-${ currentPage }-${ tagSearchText }` ],
+		addQueryArgs( '/templatiq/admin/tag', fetchParams )
 	);
 
 	return (

@@ -158,26 +158,26 @@ export default function SearchBar() {
 	}
 
 	return (
-		<div className="template-market-settings-panel-search">
+		<div className="templatiq-settings-panel-search">
 			<input
 				type="text"
 				value={ keyword }
 				onChange={ handleSearch }
-				className="template-market-settings-panel-search-input"
+				className="templatiq-settings-panel-search-input"
 				placeholder="Search settings here..."
 			/>
 
-			<div className="template-market-settings-panel-search-results">
+			<div className="templatiq-settings-panel-search-results">
 				{ searchResults.map( ( item ) => (
 					<a
 						href={ item.link }
 						onClick={ reset }
-						className="template-market-settings-panel-search-result-link"
+						className="templatiq-settings-panel-search-result-link"
 					>
-						<p className="template-market-settings-panel-search-result-label">
+						<p className="templatiq-settings-panel-search-result-label">
 							{ item.label }
 						</p>
-						<p className="template-market-settings-panel-search-result-breadcrumb">
+						<p className="templatiq-settings-panel-search-result-breadcrumb">
 							{ item.breadcrumb }
 						</p>
 					</a>

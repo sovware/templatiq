@@ -4,12 +4,12 @@ export default function FormDeleteAlert( props ) {
 	return (
 		<FormDeleteAlertStyle>
 			{ error?.data?.status === 500 && (
-				<span className=" template-market-notice template-market-notice-danger">
+				<span className=" templatiq-notice templatiq-notice-danger">
 					Internal server error
 				</span>
 			) }
 
-			<div className="template-market-alert-content">
+			<div className="templatiq-alert-content">
 				<p>
 					You are about to delete ( <strong>{ formTitle }</strong> )
 				</p>

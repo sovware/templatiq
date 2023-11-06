@@ -31,9 +31,9 @@ export default async function handleUpdateFormStatus(
 			forms: updatedForms,
 		};
 
-		queryClient.invalidateQueries( [ `template-market-form-${ currentPage }` ] );
-		setStoreData( [ 'template-market-form' ], formData );
-		doAction( 'template-market-toast', {
+		queryClient.invalidateQueries( [ `templatiq-form-${ currentPage }` ] );
+		setStoreData( [ 'templatiq-form' ], formData );
+		doAction( 'templatiq-toast', {
 			message: updateFormResponse.message,
 		} );
 	} catch ( error ) {

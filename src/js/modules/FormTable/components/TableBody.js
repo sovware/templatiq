@@ -12,7 +12,7 @@ import { WelcomeBoxStyleWrap } from './style';
 import handleTextSelect from '../helper/handleTextSelect';
 export default function TableBody( props ) {
 	const { routeLink: Link } = getGlobalState(
-		'template-market_router_references',
+		'templatiq_router_references',
 		null
 	);
 	const { forms, renameFormId, setRenameFormId, isFetchError, baseApiRoute } =
@@ -45,29 +45,29 @@ export default function TableBody( props ) {
 						baseApiRoute={ baseApiRoute }
 					/>
 				</td>
-				<td className="template-market-form-shortcode">
+				<td className="templatiq-form-shortcode">
 					<label>
 						<input
 							type="text"
 							readOnly
-							value={ `[template-market-form id="${ form.id }"]` }
+							value={ `[templatiq-form id="${ form.id }"]` }
 							onClick={ handleTextSelect }
 						/>
 					</label>
 				</td>
-				<td className="template-market-form-responses">
+				<td className="templatiq-form-responses">
 					<Link to={ `/forms/${ form.id }/responses` }>
 						{ form.total_responses }
 					</Link>
 				</td>
-				<td className="template-market-form-date">
+				<td className="templatiq-form-date">
 					{ formatDate(
 						'en-US',
 						form.created_at,
 						dateFormatOptions
 					) }
 				</td>
-				<td className="template-market-form-status">
+				<td className="templatiq-form-status">
 					<FormTableStatus
 						id={ form.id }
 						status={ form.status }
@@ -84,7 +84,7 @@ export default function TableBody( props ) {
 			</tr>
 		) )
 	) : (
-		<tr className="template-market-welcome-wrapper">
+		<tr className="templatiq-welcome-wrapper">
 			<td colSpan={ 7 }>
 				<WelcomeBoxStyleWrap>
 					<Suspense fallback={ <Spinner /> }>

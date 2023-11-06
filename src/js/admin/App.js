@@ -1,5 +1,4 @@
 import { lazy, Suspense, useState, useEffect } from '@wordpress/element';
-import { applyFilters } from '@wordpress/hooks';
 import {
 	HashRouter,
 	Routes,
@@ -13,18 +12,14 @@ import {
 import { updateGlobalState } from '@helper/utils.js';
 import { ThemeProvider } from 'styled-components';
 
-// const Settings = lazy( () => import( './pages/Settings.js' ) );
+import AppLayout from '../layout/AppLayout.js';
 
-import Settings from './pages/Settings.js';
-import FormTable from './pages/FormTable.js';
-import FormEdit from './pages/FormEdit.js';
-import PreMadeTemplate from './pages/PreMadeTemplate.js';
-import PreMadeTemplatePreview from './pages/PreMadeTemplatePreview.js';
-import Response from './pages/Response.js';
-import Tags from './pages/Tag.js';
-import Summary from './pages/Summary.js';
+import Favorites from './pages/Favorites.js';
+import Downloads from './pages/Downloads.js';
+import Purchase from './pages/Purchase.js';
+import Account from './pages/Account.js';
 
-export default function App() {
+export default function AdminApp() {
 	const [ dir, setDir ] = useState( 'ltr' );
 
 	const theme = {
@@ -37,7 +32,7 @@ export default function App() {
 		} else {
 			setDir( 'ltr' );
 		}
-		updateGlobalState( 'template-market_router_references', {
+		updateGlobalState( 'templatiq_router_references', {
 			navigationHook: useNavigate,
 			routeLink: Link,
 			routerNavLink: NavLink,
@@ -46,43 +41,27 @@ export default function App() {
 		} );
 	}, [] );
 
-	const adminRoutes = applyFilters( 'template-market_admin_routes', [
+	const adminRoutes = [
 		{
 			path: `/*`,
-			element: <FormTable />,
+			element: <Favorites />,
 		},
 		{
-			path: '/pre-made-templates',
-			element: <PreMadeTemplate />,
+			path: '/downloads',
+			element: <Downloads />,
 		},
 		{
-			path: `/template/preview/:id`,
-			element: <PreMadeTemplatePreview />,
+			path: `/purchase`,
+			element: <Purchase />,
 		},
 		{
-			path: `/settings/*`,
-			element: <Settings />,
+			path: `/account`,
+			element: <Account />,
 		},
-		{
-			path: '/forms/:id/edit',
-			element: <FormEdit />,
-		},
-		{
-			path: '/forms/:id/responses',
-			element: <Response />,
-		},
-		{
-			path: '/forms/:id/summary',
-			element: <Summary />,
-		},
-		{
-			path: '/tags',
-			element: <Tags />,
-		},
-	] );
+	] ;
 
 	return (
-		<div className="template-market-app-wrap">
+		<AppLayout>
 			<HashRouter>
 				<Suspense fallback={ <></> }>
 					<ThemeProvider theme={ theme }>
@@ -100,6 +79,6 @@ export default function App() {
 					</ThemeProvider>
 				</Suspense>
 			</HashRouter>
-		</div>
+		</AppLayout>
 	);
 }

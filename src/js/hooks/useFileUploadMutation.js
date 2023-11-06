@@ -3,12 +3,12 @@ import dataFetch from '@helper/dataFetch.js';
 
 const useFileUploadMutation = ( path, config ) => {
 	const nonce =
-		template-market_localization && template-market_localization.rest_nonce
-			? template-market_localization.rest_nonce
+		templatiq_localization && templatiq_localization.rest_nonce
+			? templatiq_localization.rest_nonce
 			: '';
 	const restURL =
-		template-market_localization && template-market_localization.rest_url
-			? template-market_localization.rest_url
+		templatiq_localization && templatiq_localization.rest_url
+			? templatiq_localization.rest_url
 			: '';
 
 	const defaultConfig = {

@@ -1,12 +1,12 @@
 import { applyFilters as wpApplyFilters } from '@wordpress/hooks';
 
 export function registerModule( key, value ) {
-	if ( ! window.template-market ) {
-		window.template-market = {};
+	if ( ! window.templatiq ) {
+		window.templatiq = {};
 	}
 
-	if ( ! window.template-market[ key ] ) {
-		window.template-market[ key ] = value;
+	if ( ! window.templatiq[ key ] ) {
+		window.templatiq[ key ] = value;
 	}
 }
 

@@ -1,8 +1,8 @@
 export default function SaveButton( { buttonRef, isSaving, message } ) {
-	const statusMessageClass = 'template-market-settings-panel-save-status';
+	const statusMessageClass = 'templatiq-settings-panel-save-status';
 
 	return (
-		<div className="template-market-settings-panel-save-action">
+		<div className="templatiq-settings-panel-save-action">
 			{ message && (
 				<div
 					className={
@@ -18,7 +18,7 @@ export default function SaveButton( { buttonRef, isSaving, message } ) {
 			<button
 				type="submit"
 				ref={ buttonRef }
-				className="template-market-btn template-market-btn-primary"
+				className="templatiq-btn templatiq-btn-primary"
 			>
 				{ isSaving ? 'Saving' : 'Save Settings' }
 			</button>

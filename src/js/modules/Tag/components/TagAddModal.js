@@ -66,10 +66,10 @@ export default function TagAddModal( props ) {
 		try {
 			if ( tagUpdateMutation ) {
 				const tagResponse = await tagUpdateMutation( data );
-				doAction( 'template-market-toast', { message: tagResponse.message } );
+				doAction( 'templatiq-toast', { message: tagResponse.message } );
 			} else {
 				const tagCreationResponse = await tagMutation( data );
-				doAction( 'template-market-toast', {
+				doAction( 'templatiq-toast', {
 					message: tagCreationResponse.message,
 				} );
 			}
@@ -77,7 +77,7 @@ export default function TagAddModal( props ) {
 			resetField( 'form_id' );
 			setPopupState( false );
 			queryClient.invalidateQueries( [
-				`template-market-tag-list-${ currentPage }-${ tagSearchText }`,
+				`templatiq-tag-list-${ currentPage }-${ tagSearchText }`,
 			] );
 		} catch ( error ) {
 			setError( 'server', {
@@ -99,7 +99,7 @@ export default function TagAddModal( props ) {
 	}, [] );
 	return (
 		<TagAddAlertStyle>
-			<div className="template-market-add-tag-form">
+			<div className="templatiq-add-tag-form">
 				{ errors[ 'server' ] &&
 					getValidationMessage( errors[ 'server' ].message ) }
 				<form
@@ -107,19 +107,19 @@ export default function TagAddModal( props ) {
 						handleSubmitTag( submittedData )
 					) }
 				>
-					<div className="template-market-form-tag-name">
+					<div className="templatiq-form-tag-name">
 						<label
-							className="template-market-form-group__label"
-							htmlFor="template-market-form-tag"
+							className="templatiq-form-group__label"
+							htmlFor="templatiq-form-tag"
 						>
 							Tag name
 						</label>
-						<div className="template-market-form-group">
-							<div className="template-market-add-tag-field">
+						<div className="templatiq-form-group">
+							<div className="templatiq-add-tag-field">
 								<input
 									type="text"
-									className="template-market-form-group__element"
-									id="template-market-form-tag"
+									className="templatiq-form-group__element"
+									id="templatiq-form-tag"
 									{ ...register( 'title', {
 										required: {
 											value: true,
@@ -128,7 +128,7 @@ export default function TagAddModal( props ) {
 									} ) }
 								/>
 								<span
-									className="template-market-selected-color"
+									className="templatiq-selected-color"
 									style={ { backgroundColor: selectedColor } }
 								></span>
 							</div>
@@ -137,7 +137,7 @@ export default function TagAddModal( props ) {
 									errors[ 'title' ].message
 								) }
 
-							<ul className="template-market-tags-color-list">
+							<ul className="templatiq-tags-color-list">
 								{ colorList.map( ( item, index ) => {
 									return (
 										<li
@@ -154,10 +154,10 @@ export default function TagAddModal( props ) {
 							</ul>
 						</div>
 					</div>
-					<div className="template-market-form-group">
+					<div className="templatiq-form-group">
 						<label
-							className="template-market-form-group__label"
-							htmlFor="template-market-form-select"
+							className="templatiq-form-group__label"
+							htmlFor="templatiq-form-select"
 						>
 							Assign tag to
 						</label>
@@ -171,9 +171,9 @@ export default function TagAddModal( props ) {
 							maxMenuHeight={ 200 }
 							isDisabled={ editableTag }
 							cacheOptions
-							inputId="template-market-form-select"
-							className="template-market-select"
-							classNamePrefix="template-market-select"
+							inputId="templatiq-form-select"
+							className="templatiq-select"
+							classNamePrefix="templatiq-select"
 							placeholder="Select"
 							loadOptions={ handleLoadForms }
 							defaultOptions
@@ -187,10 +187,10 @@ export default function TagAddModal( props ) {
 								errors[ 'form_id' ]?.message
 							) }
 					</div>
-					<div className="template-market-modal-submit">
+					<div className="templatiq-modal-submit">
 						<button
 							type="submit"
-							className="template-market-btn template-market-btn-primary template-market-btn-md"
+							className="templatiq-btn templatiq-btn-primary templatiq-btn-md"
 						>
 							{ editableTag ? 'Update' : 'Create' }
 						</button>

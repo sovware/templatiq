@@ -32,7 +32,7 @@ const FormTable = ( props ) => {
 		isError: isFetchError,
 		errorMessage: formErrorMessage,
 	} = useFetchData(
-		[ `template-market-form-${ currentPage }` ],
+		[ `templatiq-form-${ currentPage }` ],
 		addQueryArgs( baseApiRoute, fetchParams )
 	);
 
@@ -44,7 +44,7 @@ const FormTable = ( props ) => {
 	};
 
 	return (
-		<div className="template-market-page-inner">
+		<div className="templatiq-page-inner">
 			{ formData && (
 				<Fragment>
 					<Header forms={ formData.forms } />

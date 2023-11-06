@@ -8,7 +8,7 @@ export default function ErrorMessage( { inputKey, form, rules } ) {
 	}
 
 	return (
-		<div className="template-market-form-input-error-message">
+		<div className="templatiq-form-input-error-message">
 			{ errorMessage }
 		</div>
 	);

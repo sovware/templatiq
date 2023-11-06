@@ -19,8 +19,8 @@ const ChatBubbleCircle = ( props ) => {
 	const { bubble } = global;
 	const { offset_x, offset_y, position } = bubble;
 	const bubbleFormStyles = {
-		'--template-market-bubble-form-offset-x': `${ offset_x }px`,
-		'--template-market-bubble-form-offset-y': `${ offset_y }px`,
+		'--templatiq-bubble-form-offset-x': `${ offset_x }px`,
+		'--templatiq-bubble-form-offset-y': `${ offset_y }px`,
 	};
 	useEffect( () => {
 		let activeQuestion = questions.find( ( item, index ) => {
@@ -53,8 +53,8 @@ const ChatBubbleCircle = ( props ) => {
 			beforeSubmitCallbackArgs: null,
 			submissionServerError: null,
 		} );
-		if ( window.template-marketGlobalState ) {
-			window.template-marketGlobalState = {};
+		if ( window.templatiqGlobalState ) {
+			window.templatiqGlobalState = {};
 		}
 	}, [ chatBubbleState?.chatBubble?.isChatFormActive ] );
 
@@ -72,7 +72,7 @@ const ChatBubbleCircle = ( props ) => {
 						} }
 					>
 						<ChatBubbleFormStyle
-							className={ `template-market-chat-bubble-form template-market-chat-bubble-form--${ position }` }
+							className={ `templatiq-chat-bubble-form templatiq-chat-bubble-form--${ position }` }
 							style={ bubbleFormStyles }
 						>
 							<ChatForm

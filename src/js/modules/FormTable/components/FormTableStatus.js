@@ -11,15 +11,15 @@ export default function FormTableStatus( props ) {
 	const { id, status, baseApiRoute } = props;
 	const statusText = status === 'publish' ? 'Active' : 'Inactive';
 	const { setStoreData, getStoreData } = useStore();
-	const forms = getStoreData( [ `template-market-form-${ currentPage }` ] );
+	const forms = getStoreData( [ `templatiq-form-${ currentPage }` ] );
 	const queryClient = useQueryClient();
 
 	/* Form Update Mutation */
 	const { mutateAsync: updateStatusFormMutation, isLoading } =
-		useUpdateMutation( `/template-market/admin/form/${ id }/status` );
+		useUpdateMutation( `/templatiq/admin/form/${ id }/status` );
 
 	return (
-		<div className="template-market-toggle template-market-toggle-success">
+		<div className="templatiq-toggle templatiq-toggle-success">
 			<ToggleControl
 				onChange={ () =>
 					handleUpdateFormStatus(

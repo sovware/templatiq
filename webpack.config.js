@@ -2,9 +2,9 @@ const path = require( 'path' );
 const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
 const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
 const { log } = require( 'console' );
-const TEMPLATE_MARKET_NAMESPACE = '@template-market/';
+const TEMPLATE_MARKET_NAMESPACE = '@templatiq/';
 
-const devHost = 'template-market.test';
+const devHost = 'templatiq.test';
 
 /**
  * Given a string, returns a new string with dash separators converted to
@@ -23,6 +23,7 @@ module.exports = {
 	...defaultConfig,
 	entry: {
 		'js/admin': './src/js/admin/index.js',
+		'js/index': './src/js/frontend/index.js',
 		'css/global': './src/sass/global.scss',
 	},
 	output: {
@@ -39,7 +40,7 @@ module.exports = {
 			requestToExternal( request ) {
 				if ( request.startsWith( TEMPLATE_MARKET_NAMESPACE ) ) {
 					return [
-						'template-market',
+						'templatiq',
 						camelCaseDash(
 							request.substring( TEMPLATE_MARKET_NAMESPACE.length )
 						),
@@ -48,7 +49,7 @@ module.exports = {
 			},
 			requestToHandle( request ) {
 				if ( request.startsWith( TEMPLATE_MARKET_NAMESPACE ) ) {
-					return `template-market/${ camelCaseDash(
+					return `templatiq/${ camelCaseDash(
 						request.substring( TEMPLATE_MARKET_NAMESPACE.length )
 					) }`;
 				}
@@ -57,7 +58,7 @@ module.exports = {
 	],
 	resolve: {
 		alias: {
-			'@template-market/queryStore': path.resolve(
+			'@templatiq/queryStore': path.resolve(
 				__dirname,
 				'src/js/queryStore'
 			),
@@ -70,6 +71,7 @@ module.exports = {
 			'@hooks': path.resolve( __dirname, 'src/js/hooks' ),
 			'@helper': path.resolve( __dirname, 'src/js/helper' ),
 			'@icon': path.resolve( __dirname, 'src/svg/icon' ),
+			'@images': path.resolve( __dirname, 'src/images' ),
 			'@assets': path.resolve( __dirname, 'assets' ),
 		},
 	},

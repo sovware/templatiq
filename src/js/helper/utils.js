@@ -110,7 +110,7 @@ export function isSelectedExtensionValid( fileExtension, uploadedMimeType ) {
 
 export function getAcceptedExtensions() {
 	const supportedExtensions =
-		template-market_localization.supported_file_extensions || [];
+		templatiq_localization.supported_file_extensions || [];
 
 	Object.entries( supportedExtensions ).forEach(
 		( [ extString, mimeType ] ) => {

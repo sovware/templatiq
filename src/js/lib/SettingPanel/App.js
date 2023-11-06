@@ -95,13 +95,13 @@ export default function App( props ) {
 	}
 
 	return (
-		<SettingPanelStyle className="template-market-settings-panel">
+		<SettingPanelStyle className="templatiq-settings-panel">
 			{ isLoading ? (
 				<LoaderContent />
 			) : (
 				<Suspense fallback={ <ContentLoading /> }>
 					<form onSubmit={ form.handleSubmit( onSubmit ) }>
-						<div className="template-market-settings-panel-header">
+						<div className="templatiq-settings-panel-header">
 							<Breadcrumb
 								routeLocation={ routeLocation }
 								routeList={ routeList }
@@ -110,7 +110,7 @@ export default function App( props ) {
 
 							<SearchBar />
 
-							<div className="template-market-settings-panel-action">
+							<div className="templatiq-settings-panel-action">
 								<SaveButton
 									buttonRef={ buttonRef }
 									isSaving={ isSaving }
@@ -119,10 +119,10 @@ export default function App( props ) {
 							</div>
 						</div>
 
-						<div className="template-market-settings-panel-body">
+						<div className="templatiq-settings-panel-body">
 							<Navigation />
 
-							<div className="template-market-settings-panel-contents">
+							<div className="templatiq-settings-panel-contents">
 								<Routes>
 									{ routeList.map( ( route, index ) => (
 										<Route
@@ -142,8 +142,8 @@ export default function App( props ) {
 							</div>
 						</div>
 
-						<div className="template-market-settings-panel-footer">
-							<div className="template-market-settings-panel-action">
+						<div className="templatiq-settings-panel-footer">
+							<div className="templatiq-settings-panel-action">
 								<SaveButton
 									buttonRef={ buttonRef }
 									isSaving={ isSaving }

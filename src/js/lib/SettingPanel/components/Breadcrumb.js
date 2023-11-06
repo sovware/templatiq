@@ -26,14 +26,14 @@ export default function Breadcrumb( {
 		.map( wordCase );
 
 	return (
-		<div className="template-market-settings-panel-breadcrumb">
+		<div className="templatiq-settings-panel-breadcrumb">
 			{ routes.map( ( routeLabel, index, items ) => {
 				const isLastItem = index + 1 === items.length;
 
 				return (
 					<div key={ index }>
 						<span
-							className={ `template-market-breadcrumb-label${
+							className={ `templatiq-breadcrumb-label${
 								isLastItem ? ' --is-active' : ''
 							}` }
 						>
@@ -41,7 +41,7 @@ export default function Breadcrumb( {
 						</span>
 
 						{ ! isLastItem && (
-							<span className="template-market-breadcrumb-label template-market-breadcrumb-separator">
+							<span className="templatiq-breadcrumb-label templatiq-breadcrumb-separator">
 								&#x3E;
 							</span>
 						) }

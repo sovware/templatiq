@@ -12,7 +12,7 @@ export default function DropDownMenuItem( { menu } ) {
 	const currentRoutePath = routeLocation.pathname;
 
 	const activeMenuClass = ( { isActive }, menu ) => {
-		const baseClass = 'template-market-settings-panel-nav-menu-link';
+		const baseClass = 'templatiq-settings-panel-nav-menu-link';
 
 		if ( isActive ) {
 			return `${ baseClass } --is-active`;
@@ -31,14 +31,14 @@ export default function DropDownMenuItem( { menu } ) {
 	};
 
 	const menuIconClass = ( menu ) => {
-		const baseClass = 'template-market-settings-panel-nav-menu-icon template-market-icon';
+		const baseClass = 'templatiq-settings-panel-nav-menu-icon templatiq-icon';
 		return menu.iconClass
 			? `${ baseClass } ${ menu.iconClass }`
 			: baseClass;
 	};
 
 	return (
-		<div className="template-market-settings-panel-nav-menu-item --has-dropdown">
+		<div className="templatiq-settings-panel-nav-menu-item --has-dropdown">
 			<NavLink
 				to={ `${
 					menu.grandChildPath ? menu.grandChildPath : menu.path
@@ -48,12 +48,12 @@ export default function DropDownMenuItem( { menu } ) {
 				<span className={ menuIconClass( menu ) }>{ menu.icon }</span>
 				{ menu.label }
 
-				<span className="template-market-settings-panel-nav-menu-action">
+				<span className="templatiq-settings-panel-nav-menu-action">
 					<ReactSVG src={ caretDown } />
 				</span>
 			</NavLink>
 
-			<div className="template-market-settings-panel-nav-menu-dropdown">
+			<div className="templatiq-settings-panel-nav-menu-dropdown">
 				{ menu.submenu.map( ( submenu, index ) => (
 					<MenuItem menu={ submenu } key={ index } />
 				) ) }

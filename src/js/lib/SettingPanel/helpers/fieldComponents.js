@@ -9,7 +9,7 @@ const GoogleDriveField = lazy( () =>
 	import( '../components/fields/GoogleDriveField' )
 );
 
-const fieldComponents = applyFilters( 'template-market-settings-field-components', {
+const fieldComponents = applyFilters( 'templatiq-settings-field-components', {
 	text: TextField,
 	bunnyDrive: BunnyDriveField,
 	googleDrive: GoogleDriveField,

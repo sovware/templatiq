@@ -8,7 +8,7 @@ import useDeleteMutation from '@hooks/useDeleteMutation.js';
 import TagAddModal from './TagAddModal';
 import ReactSVG from 'react-inlinesvg';
 import { TagContentStyle } from './style';
-import { template-marketTableStyle } from '@root/style';
+import { templatiqTableStyle } from '@root/style';
 import { formatDate } from '@helper/formatter';
 import ContentLoading from '@components/ContentLoading';
 import { updateGlobalState, getGlobalState } from '@helper/utils';
@@ -29,9 +29,9 @@ export default function TagContent( props ) {
 		navigationHook: useNavigate,
 		routeLink: Link,
 		paramsHook: useParams,
-	} = getGlobalState( 'template-market_router_references', null );
+	} = getGlobalState( 'templatiq_router_references', null );
 	const responseQueryKey = getGlobalState(
-		'template-market_responseQueryKey',
+		'templatiq_responseQueryKey',
 		null
 	);
 	const { tagState, setTagState } = useTagState();
@@ -43,11 +43,11 @@ export default function TagContent( props ) {
 
 	const { mutateAsync: updateTag, isLoading: tagUpdating } =
 		useUpdateMutation(
-			`/template-market/admin/tag/${ editableTag && editableTag.id }`
+			`/templatiq/admin/tag/${ editableTag && editableTag.id }`
 		);
 	/* Tag Delete Mutation */
 	const { mutateAsync: deleteTagMutation, isLoading: isDeleteTagLoading } =
-		useDeleteMutation( `/template-market/admin/tag/${ deletableTag }` );
+		useDeleteMutation( `/templatiq/admin/tag/${ deletableTag }` );
 
 	const dateFormatOptions = {
 		year: 'numeric',
@@ -84,21 +84,21 @@ export default function TagContent( props ) {
 			const deleteTagResponse = await deleteTagMutation();
 			setDeletableTag( null );
 
-			doAction( 'template-market-toast', {
+			doAction( 'templatiq-toast', {
 				message: deleteTagResponse.message,
 			} );
 
 			queryClient.invalidateQueries( [
-				`template-market-tag-list-${ currentPage }-${ tagSearchText }`,
+				`templatiq-tag-list-${ currentPage }-${ tagSearchText }`,
 			] );
 		} catch ( error ) {}
 	}
 
 	function handleResponseNavigation( e, formId, tagId ) {
 		e.preventDefault();
-		updateGlobalState( 'template-market_filterByTags', [ tagId ] );
+		updateGlobalState( 'templatiq_filterByTags', [ tagId ] );
 		queryClient.invalidateQueries( [
-			`template-market-responses-${ responseQueryKey }`,
+			`templatiq-responses-${ responseQueryKey }`,
 		] );
 		navigate( `/forms/${ formId }/responses` );
 	}
@@ -109,20 +109,20 @@ export default function TagContent( props ) {
 			currentPage: event.selected + 1,
 		} );
 		queryClient.invalidateQueries( [
-			`template-market-tag-list-${ currentPage }-${ tagSearchText }`,
+			`templatiq-tag-list-${ currentPage }-${ tagSearchText }`,
 		] );
 	}
 	return (
 		<TagContentStyle>
-			<template-marketTableStyle className="template-market-table">
+			<templatiqTableStyle className="templatiq-table">
 				<thead>
 					<tr>
-						<th className="template-market-table-tag-id">ID</th>
-						<th className="template-market-table-tag-name">Name</th>
-						<th className="template-market-table-form-name">Form name</th>
+						<th className="templatiq-table-tag-id">ID</th>
+						<th className="templatiq-table-tag-name">Name</th>
+						<th className="templatiq-table-form-name">Form name</th>
 						<th>Responses</th>
 						<th>Created date</th>
-						<th className="template-market-table-tag-action">Action</th>
+						<th className="templatiq-table-tag-action">Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -138,7 +138,7 @@ export default function TagContent( props ) {
 						<tr>
 							<td colSpan={ 6 }>
 								{ ' ' }
-								<span className="template-market-empty-data">
+								<span className="templatiq-empty-data">
 									Tags not found
 								</span>{ ' ' }
 							</td>
@@ -149,14 +149,14 @@ export default function TagContent( props ) {
 						data.tags.map( ( item, index ) => {
 							return (
 								<tr key={ index }>
-									<td className="template-market-tag-id">
+									<td className="templatiq-tag-id">
 										#{ item?.id }
 									</td>
 									<td>
-										<div className="template-market-tag-name">
+										<div className="templatiq-tag-name">
 											{ ' ' }
 											<span
-												className="template-market-tag-color"
+												className="templatiq-tag-color"
 												style={ {
 													backgroundColor:
 														item?.color,
@@ -166,7 +166,7 @@ export default function TagContent( props ) {
 										</div>
 									</td>
 									<td>
-										<span className="template-market-tag-form">
+										<span className="templatiq-tag-form">
 											{ item?.form_title }
 										</span>
 									</td>
@@ -185,7 +185,7 @@ export default function TagContent( props ) {
 										</Link>
 									</td>
 									<td>
-										<span className="template-market-tag-created">
+										<span className="templatiq-tag-created">
 											{ formatDate(
 												'en-US',
 												item?.created_at,
@@ -194,10 +194,10 @@ export default function TagContent( props ) {
 										</span>
 									</td>
 									<td>
-										<div className="template-market-table-action">
+										<div className="templatiq-table-action">
 											<a
 												href="#"
-												className="template-market-btn template-market-btn-sm template-market-btn-light-gray"
+												className="templatiq-btn templatiq-btn-sm templatiq-btn-light-gray"
 												onClick={ ( e ) =>
 													handleActiveEditModal(
 														e,
@@ -210,7 +210,7 @@ export default function TagContent( props ) {
 											</a>
 											<a
 												href="#"
-												className="template-market-btn template-market-btn-sm template-market-btn-light-gray template-market-btn-tag-delete"
+												className="templatiq-btn templatiq-btn-sm templatiq-btn-light-gray templatiq-btn-tag-delete"
 												onClick={ ( e ) =>
 													handleTagDeleteModal(
 														e,
@@ -227,7 +227,7 @@ export default function TagContent( props ) {
 							);
 						} ) }
 				</tbody>
-			</template-marketTableStyle>
+			</templatiqTableStyle>
 			{ editableTag && (
 				<PopUp
 					title={ 'Edit Tag' }
@@ -253,7 +253,7 @@ export default function TagContent( props ) {
 					hasSubmitButton
 					isActiveSubmit
 					submitText={ isDeleteTagLoading ? 'Deleting' : 'Delete' }
-					className="template-market-delete-tag-alert"
+					className="templatiq-delete-tag-alert"
 				>
 					<TagDeleteModal />
 				</PopUp>
@@ -266,14 +266,14 @@ export default function TagContent( props ) {
 					previousLabel={ <ReactSVG src={ angleLeft } /> }
 					pageRangeDisplayed={ 3 }
 					pageCount={ Math.ceil( data.total / perPage ) }
-					previousClassName="template-market-pagination__item"
-					previousLinkClassName="template-market-pagination__link template-market-pagination__control"
-					nextClassName="template-market-pagination__item"
-					nextLinkClassName="template-market-pagination__link template-market-pagination__control"
-					containerClassName="template-market-pagination"
-					pageClassName="template-market-pagination__item"
-					pageLinkClassName="template-market-pagination__link"
-					activeLinkClassName="template-market-pagination__active"
+					previousClassName="templatiq-pagination__item"
+					previousLinkClassName="templatiq-pagination__link templatiq-pagination__control"
+					nextClassName="templatiq-pagination__item"
+					nextLinkClassName="templatiq-pagination__link templatiq-pagination__control"
+					containerClassName="templatiq-pagination"
+					pageClassName="templatiq-pagination__item"
+					pageLinkClassName="templatiq-pagination__link"
+					activeLinkClassName="templatiq-pagination__active"
 					renderOnZeroPageCount={ null }
 				/>
 			) }

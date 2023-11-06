@@ -9,10 +9,10 @@ export default function FieldSection( { menu, form, save, onSubmit } ) {
 	}
 
 	return (
-		<div className="template-market-settings-panel-field-section">
+		<div className="templatiq-settings-panel-field-section">
 			{ menu.fields && (
-				<div className="template-market-settings-panel-field-group">
-					<div className="template-market-settings-panel-field-group-contents">
+				<div className="templatiq-settings-panel-field-group">
+					<div className="templatiq-settings-panel-field-group-contents">
 						<Fields
 							fields={ menu.fields }
 							form={ form }

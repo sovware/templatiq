@@ -24,7 +24,7 @@ function titleBox( props ) {
 	const { currentPage } = formTableState;
 	const queryClient = useQueryClient();
 	const { setStoreData, getStoreData } = useStore();
-	const allForms = getStoreData( [ `template-market-form-${ currentPage }` ] );
+	const allForms = getStoreData( [ `templatiq-form-${ currentPage }` ] );
 
 	const dateFormatOptions = {
 		year: 'numeric',
@@ -34,7 +34,7 @@ function titleBox( props ) {
 
 	/* Form Update Mutation */
 	const { mutateAsync: renameFormMutation, isLoading } = useUpdateMutation(
-		`/template-market/admin/form/${ id }/rename`
+		`/templatiq/admin/form/${ id }/rename`
 	);
 
 	function handleCancelEditMode() {
@@ -49,13 +49,13 @@ function titleBox( props ) {
 	}, [ isLoading ] );
 
 	return (
-		<TitleBoxStyle className="template-market-titleBox">
-			<div className="template-market-titleBox__data">
+		<TitleBoxStyle className="templatiq-titleBox">
+			<div className="templatiq-titleBox__data">
 				{ renameFormId === id ? (
-					<div className="template-market-titleBox__editor">
+					<div className="templatiq-titleBox__editor">
 						<input
 							type="text"
-							name="template-market-title-input"
+							name="templatiq-title-input"
 							value={ formTableState.formInputTitle }
 							onChange={ ( e ) =>
 								handleFormTitleInput(
@@ -69,11 +69,11 @@ function titleBox( props ) {
 						<span>{ inputValidation.message }</span>
 					</div>
 				) : (
-					<div className="template-market-titleBox__content template-market-show">
-						<div className="template-market-titleBox-media">
+					<div className="templatiq-titleBox__content templatiq-show">
+						<div className="templatiq-titleBox-media">
 							{ color && (
 								<span
-									className="template-market-titleBox-media__form"
+									className="templatiq-titleBox-media__form"
 									style={ { backgroundColor: color } }
 								></span>
 							) }
@@ -81,17 +81,17 @@ function titleBox( props ) {
 							{ featured_image && (
 								<img
 									src={ featured_image }
-									alt="template-market featured image"
+									alt="templatiq featured image"
 								/>
 							) }
 						</div>
-						<div className="template-market-titleBox-text">
-							<span className="template-market-title">{ title }</span>
-							<ul className="template-market-titleBox-meta">
-								<li className="template-market-titleBox-meta__id">
+						<div className="templatiq-titleBox-text">
+							<span className="templatiq-title">{ title }</span>
+							<ul className="templatiq-titleBox-meta">
+								<li className="templatiq-titleBox-meta__id">
 									ID #{ id }
 								</li>
-								<li className="template-market-titleBox-meta__date">
+								<li className="templatiq-titleBox-meta__date">
 									Created:{ ' ' }
 									{ formatDate(
 										'en-US',
@@ -105,15 +105,15 @@ function titleBox( props ) {
 				) }
 			</div>
 			{ renameFormId === id && (
-				<div className="template-market-titleBox__actions">
+				<div className="templatiq-titleBox__actions">
 					<span
-						className="template-market-titleBox-action-item template-market-titleBox__actions-cancel"
+						className="templatiq-titleBox-action-item templatiq-titleBox__actions-cancel"
 						onClick={ handleCancelEditMode }
 					>
 						<ReactSVG src={ times } />
 					</span>
 					<span
-						className="template-market-titleBox-action-item template-market-titleBox__actions-yes"
+						className="templatiq-titleBox-action-item templatiq-titleBox__actions-yes"
 						onClick={ () =>
 							handleRenameFormTitle(
 								renameFormMutation,
@@ -130,7 +130,7 @@ function titleBox( props ) {
 						}
 					>
 						{ isLoading ? (
-							<span className="template-market-circle-loader"></span>
+							<span className="templatiq-circle-loader"></span>
 						) : (
 							<ReactSVG src={ check } />
 						) }

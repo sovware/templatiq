@@ -5,7 +5,7 @@ export default function MenuItem( { menu } ) {
 	const { NavLink } = settingsState;
 
 	const activeMenuClass = ( { isActive } ) => {
-		const baseClass = 'template-market-settings-panel-nav-menu-link';
+		const baseClass = 'templatiq-settings-panel-nav-menu-link';
 
 		if ( isActive ) {
 			return `${ baseClass } --is-active`;
@@ -15,17 +15,17 @@ export default function MenuItem( { menu } ) {
 	};
 
 	const menuIconClass = ( menu ) => {
-		const baseClass = 'template-market-settings-panel-nav-menu-icon template-market-icon';
+		const baseClass = 'templatiq-settings-panel-nav-menu-icon templatiq-icon';
 		return menu.iconClass
 			? `${ baseClass } ${ menu.iconClass }`
 			: baseClass;
 	};
 
 	return (
-		<div className="template-market-settings-panel-nav-menu-item">
+		<div className="templatiq-settings-panel-nav-menu-item">
 			<NavLink to={ `${ menu.path }` } className={ activeMenuClass }>
 				<span className={ menuIconClass( menu ) }>{ menu.icon }</span>
-				<span className="template-market-settings-panel-nav-menu-label">
+				<span className="templatiq-settings-panel-nav-menu-label">
 					{ menu.label }
 				</span>
 			</NavLink>

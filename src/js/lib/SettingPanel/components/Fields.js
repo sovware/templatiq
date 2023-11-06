@@ -40,8 +40,8 @@ export default function Fields( { fields, form, save, onSubmit } ) {
 				return (
 					<div
 						key={ index }
-						id={ `template-market-settings-panel-${ fieldKey }-field-item` }
-						className={ `template-market-settings-panel-field-item template-market-settings-panel-${ fieldKey }-field-item` }
+						id={ `templatiq-settings-panel-${ fieldKey }-field-item` }
+						className={ `templatiq-settings-panel-field-item templatiq-settings-panel-${ fieldKey }-field-item` }
 					>
 						<Field
 							{ ...settingsState.fields[ fieldKey ] }

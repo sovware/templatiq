@@ -17,7 +17,7 @@ import eye from '@icon/eye.svg';
 
 export default function TableActions( props ) {
 	const { navigationHook: useNavigate, routeLink: Link } = getGlobalState(
-		'template-market_router_references',
+		'templatiq_router_references',
 		null
 	);
 	const { id, form, setRenameFormId } = props;
@@ -29,7 +29,7 @@ export default function TableActions( props ) {
 	const navigate = useNavigate();
 	const formName = form.title;
 	const moreDropdown = applyFilters(
-		'template-market_form_table_actions',
+		'templatiq_form_table_actions',
 		[
 			{
 				name: 'preview',
@@ -63,7 +63,7 @@ export default function TableActions( props ) {
 		mutateAsync: deleteFormMutation,
 		isLoading: formDeleting,
 		error: formDeletionError,
-	} = useDeleteMutation( `/template-market/admin/form/${ id }` );
+	} = useDeleteMutation( `/templatiq/admin/form/${ id }` );
 
 	async function handleDropdownTrigger( event, name ) {
 		event.preventDefault();
@@ -87,10 +87,10 @@ export default function TableActions( props ) {
 		try {
 			const deleteFormResponse = await deleteFormMutation();
 			queryClient.invalidateQueries( [
-				`template-market-form-${ currentPage }`,
+				`templatiq-form-${ currentPage }`,
 			] );
 			setIsActivateFormDeleteModal( false );
-			doAction( 'template-market-toast', {
+			doAction( 'templatiq-toast', {
 				message: deleteFormResponse.message,
 			} );
 		} catch ( error ) {
@@ -102,12 +102,12 @@ export default function TableActions( props ) {
 		setIsActivateFormDeleteModal( false );
 	}
 	return (
-		<div className="template-market-table-action">
+		<div className="templatiq-table-action">
 			<Link
 				disabled={ ! formTableState.titleRenaming }
 				to={ `/forms/${ id }/edit` }
-				className={ `template-market-btn template-market-btn-light ${
-					formTableState.titleRenaming ? 'template-market-btn-disabled' : ''
+				className={ `templatiq-btn templatiq-btn-light ${
+					formTableState.titleRenaming ? 'templatiq-btn-disabled' : ''
 				}` }
 			>
 				<ReactSVG src={ pencil } />
@@ -122,7 +122,7 @@ export default function TableActions( props ) {
 					hasSubmitButton
 					isActiveSubmit
 					submitText={ formDeleting ? 'Deleting' : 'Delete' }
-					className="template-market-form-delete-alert"
+					className="templatiq-form-delete-alert"
 				>
 					<FormDeleteAlert
 						error={ formDeletionError }

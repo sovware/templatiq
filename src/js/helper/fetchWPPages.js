@@ -8,9 +8,9 @@ export default async function fetchWPPages( inputValue, ids ) {
 		const queryStrings = ids
 			.map( ( item ) => `ids[]=${ item }` )
 			.join( '&' );
-		url = `/template-market/admin/page/?${ queryStrings }`;
+		url = `/templatiq/admin/page/?${ queryStrings }`;
 	} else {
-		url = `/template-market/admin/page/?search=${ inputValue }`;
+		url = `/templatiq/admin/page/?search=${ inputValue }`;
 	}
 
 	try {

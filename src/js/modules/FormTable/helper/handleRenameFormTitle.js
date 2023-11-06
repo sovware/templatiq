@@ -35,11 +35,11 @@ export default async function handleRenameFormTitle(
 			...allForms,
 			forms: updatedForms,
 		};
-		queryClient.invalidateQueries( [ `template-market-single-form-${ id }` ] );
-		queryClient.invalidateQueries( [ `template-market-form-${ currentPage }` ] );
-		setStoreData( [ 'template-market-form' ], formData );
+		queryClient.invalidateQueries( [ `templatiq-single-form-${ id }` ] );
+		queryClient.invalidateQueries( [ `templatiq-form-${ currentPage }` ] );
+		setStoreData( [ 'templatiq-form' ], formData );
 		setRenameFormId( null );
-		doAction( 'template-market-toast', { message: updateFormResponse.message } );
+		doAction( 'templatiq-toast', { message: updateFormResponse.message } );
 	} catch ( error ) {
 		console.log( error );
 	}

@@ -8,10 +8,10 @@ function Header( props ) {
 
 	return (
 		<HeaderStyle>
-			<h1 className="template-market-page-header-title">All Forms</h1>
+			<h1 className="templatiq-page-header-title">All Forms</h1>
 			{ forms && forms.length !== 0 ? (
 				<button
-					className="template-market-btn template-market-btn-dark template-market-page-header-btn"
+					className="templatiq-btn templatiq-btn-dark templatiq-page-header-btn"
 					onClick={ () =>
 						setFormTableState( {
 							...formTableState,

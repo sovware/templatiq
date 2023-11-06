@@ -10,16 +10,16 @@ export default function FieldGroups( { fieldGroups, form, save } ) {
 
 				return (
 					<div
-						className="template-market-settings-panel-field-group"
+						className="templatiq-settings-panel-field-group"
 						key={ index }
 					>
 						{ fieldGroup.label && (
-							<div className="template-market-settings-panel-field-group-header">
+							<div className="templatiq-settings-panel-field-group-header">
 								<h2>{ fieldGroup.label }</h2>
 							</div>
 						) }
 
-						<div className="template-market-settings-panel-field-group-contents">
+						<div className="templatiq-settings-panel-field-group-contents">
 							<Fields
 								fields={ fieldGroup.fields }
 								form={ form }
