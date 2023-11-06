@@ -5,13 +5,13 @@
  * @version 1.0.0
  */
 
-namespace TemplateMarket;
+namespace Templatiq;
 
-use TemplateMarket\Admin\Admin;
-use TemplateMarket\Routes\Account;
-use TemplateMarket\Routes\Dependency;
-use TemplateMarket\Routes\Template;
-use TemplateMarket\Utils\Singleton;
+use Templatiq\Admin\Admin;
+use Templatiq\Routes\Account;
+use Templatiq\Routes\Dependency;
+use Templatiq\Routes\Template;
+use Templatiq\Utils\Singleton;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

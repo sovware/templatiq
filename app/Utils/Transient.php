@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace TemplateMarketCloud\Utils;
+namespace TemplatiqCloud\Utils;
 
 class Key {
 

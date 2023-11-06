@@ -5,11 +5,11 @@
  * @version 1.0.0
  */
 
-namespace TemplateMarket\Model;
+namespace Templatiq\Model;
 
-use TemplateMarket\Utils\Http;
-use TemplateMarket\Utils\Plugin;
-use TemplateMarket\Utils\Response;
+use Templatiq\Utils\Http;
+use Templatiq\Utils\Plugin;
+use Templatiq\Utils\Response;
 
 /**
  * Will unlock the directory related templates
@@ -21,7 +21,7 @@ class Directorist {
 	private string $cloud_endpoint;
 
 	public function __construct() {
-		$this->cloud_endpoint = TEMPLATE_MARKET_CLOUD_BASE;
+		$this->cloud_endpoint = TEMPLATIQ_CLOUD_BASE;
 	}
 
 	public function is_active() {

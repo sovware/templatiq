@@ -5,15 +5,15 @@
  * @version 1.0.0
  */
 
-namespace TemplateMarket\Routes;
+namespace Templatiq\Routes;
 
 use Elementor\Core\Common\Modules\Ajax\Module as Ajax;
 use Elementor\Plugin;
-use TemplateMarket\Abstracts\RouteBase;
-use TemplateMarket\Model\Elementor;
-use TemplateMarket\Model\Importer;
-use TemplateMarket\Utils\Hookable;
-use TemplateMarket\Utils\Response;
+use Templatiq\Abstracts\RouteBase;
+use Templatiq\Model\Elementor;
+use Templatiq\Model\Importer;
+use Templatiq\Utils\Hookable;
+use Templatiq\Utils\Response;
 
 class Template extends RouteBase {
 	private $endpoint = 'template';
@@ -26,7 +26,7 @@ class Template extends RouteBase {
 	}
 
 	public function print_template_views() {
-		include_once TEMPLATE_MARKET_PATH . '/templates/template-library/templates.php';
+		include_once TEMPLATIQ_PATH . '/templates/template-library/templates.php';
 	}
 
 	public function register_routes(): void {
@@ -42,7 +42,7 @@ class Template extends RouteBase {
 		$builder     = $this->get_param( 'builder', 'elementor' );
 
 		if ( 0 === $template_id ) {
-			return Response::error( 'invalid_template_id', __( 'Invalid ID is provided.', 'template-market' ), 'import/page', 404 );
+			return Response::error( 'invalid_template_id', __( 'Invalid ID is provided.', 'templatiq' ), 'import/page', 404 );
 		}
 
 		$importer    = new Importer;
@@ -51,7 +51,7 @@ class Template extends RouteBase {
 		if ( is_wp_error( $inserted_id ) ) {
 			return Response::error(
 				'import_failed',
-				__( 'Import Failed', 'template-market' ),
+				__( 'Import Failed', 'templatiq' ),
 				'import/page'
 			);
 		}
@@ -75,7 +75,7 @@ class Template extends RouteBase {
 				$editor_post_id = absint( $data['editor_post_id'] );
 
 				if ( ! get_post( $editor_post_id ) ) {
-					throw new \Exception( __( 'Post not found.', 'template-market' ) );
+					throw new \Exception( __( 'Post not found.', 'templatiq' ) );
 				}
 
 				\Elementor\Plugin::instance()->db->switch_to_post( $editor_post_id );

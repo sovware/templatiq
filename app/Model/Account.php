@@ -5,18 +5,18 @@
  * @version 1.0.0
  */
 
-namespace TemplateMarket\Model;
+namespace Templatiq\Model;
 
-use TemplateMarket\Utils\Helper;
-use TemplateMarket\Utils\Http;
-use TemplateMarket\Utils\Options;
-use TemplateMarket\Utils\Response;
+use Templatiq\Utils\Helper;
+use Templatiq\Utils\Http;
+use Templatiq\Utils\Options;
+use Templatiq\Utils\Response;
 
 class Account {
 	private string $cloud_endpoint;
 
 	public function __construct() {
-		$this->cloud_endpoint = TEMPLATE_MARKET_CLOUD_BASE;
+		$this->cloud_endpoint = TEMPLATIQ_CLOUD_BASE;
 	}
 
 	public function login( string $token, string $username, string $password, bool $additional = false ) {
@@ -36,7 +36,7 @@ class Account {
 				->post()
 				->response();
 		} else {
-			$errors['empty_request'] = __( 'Make sure you have given a valid token, or email address & password.', 'template-market' );
+			$errors['empty_request'] = __( 'Make sure you have given a valid token, or email address & password.', 'templatiq' );
 
 			return Response::error( 'login_errors', $errors, 'login', '400' );
 		}
@@ -58,7 +58,7 @@ class Account {
 
 		$response = [
 			'status'  => 'success',
-			'message' => __( 'Logged out.', 'template-market' ),
+			'message' => __( 'Logged out.', 'templatiq' ),
 		];
 
 		return $response;
@@ -83,26 +83,26 @@ class Account {
 		$_site_url = home_url( '/' );
 
 		if ( empty( $first_name ) ) {
-			$errors['first_name'] = __( 'First name cannot be empty.', 'template-market' );
+			$errors['first_name'] = __( 'First name cannot be empty.', 'templatiq' );
 		}
 		if ( empty( $last_name ) ) {
-			$errors['last_name'] = __( 'Last name cannot be empty.', 'template-market' );
+			$errors['last_name'] = __( 'Last name cannot be empty.', 'templatiq' );
 		}
 		if ( empty( $username ) ) {
-			$errors['email'] = __( 'Email cannot be empty.', 'template-market' );
+			$errors['email'] = __( 'Email cannot be empty.', 'templatiq' );
 		}
 		if ( $username && ! filter_var( $username, FILTER_VALIDATE_EMAIL ) ) {
-			$errors['email'] = __( 'Make sure you have given a valid email address.', 'template-market' );
+			$errors['email'] = __( 'Make sure you have given a valid email address.', 'templatiq' );
 		}
 		if ( empty( $password ) ) {
-			$errors['password'] = __( 'Password cannot be empty.', 'template-market' );
+			$errors['password'] = __( 'Password cannot be empty.', 'templatiq' );
 		}
 		if ( empty( $confirm_password ) ) {
-			$errors['confirm_password'] = __( 'Confirm password cannot be empty.', 'template-market' );
+			$errors['confirm_password'] = __( 'Confirm password cannot be empty.', 'templatiq' );
 		}
 
 		if ( ! empty( $password ) && ! empty( $confirm_password ) && $password !== $confirm_password ) {
-			$errors['password_mismatched'] = __( 'Password and confirm password should be matched.', 'template-market' );
+			$errors['password_mismatched'] = __( 'Password and confirm password should be matched.', 'templatiq' );
 		}
 
 		if ( ! empty( $errors ) ) {

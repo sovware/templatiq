@@ -5,9 +5,9 @@
  * @version 1.0.0
  */
 
-namespace TemplateMarket;
+namespace Templatiq;
 
-use TemplateMarket\Abstracts\EnqueuerBase;
+use Templatiq\Abstracts\EnqueuerBase;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

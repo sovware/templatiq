@@ -5,18 +5,18 @@
  * @version 1.0.0
  */
 
-namespace TemplateMarket\Model;
+namespace Templatiq\Model;
 
-use TemplateMarket\Utils\Http;
-use TemplateMarket\Utils\Options;
-use TemplateMarket\Utils\Response;
+use Templatiq\Utils\Http;
+use Templatiq\Utils\Options;
+use Templatiq\Utils\Response;
 use WP_Error;
 
 class Importer {
 	private string $cloud_endpoint;
 
 	public function __construct() {
-		$this->cloud_endpoint = TEMPLATE_MARKET_CLOUD_BASE;
+		$this->cloud_endpoint = TEMPLATIQ_CLOUD_BASE;
 	}
 
 	public function import_as_page( int $template_id, string $title, string $builder = 'elementor' ) {
@@ -28,7 +28,7 @@ class Importer {
 			return ( new Elementor )->create_page( $template_data, $title );
 		}
 
-		return new WP_Error( 'builder-not-specified', __( "Builder not specified", "template-market" ) );
+		return new WP_Error( 'builder-not-specified', __( "Builder not specified", "templatiq" ) );
 	}
 
 	public function get_template_data( int $template_id, string $builder = 'elementor' ) {

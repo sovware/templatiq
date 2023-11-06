@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace TemplateMarket\Utils;
+namespace Templatiq\Utils;
 
 use Plugin_Upgrader;
 use WP_Ajax_Upgrader_Skin;
@@ -68,7 +68,7 @@ class Plugin {
 			if ( $plugin->is_pro ) {
 				if ( isset( $_plugins[$plugin->file_name] ) ) {
 					unset( $plugin->is_pro );
-					$plugin->message = __( 'You have the plugin installed.', 'template-market' );
+					$plugin->message = __( 'You have the plugin installed.', 'templatiq' );
 				}
 			}
 

@@ -2,7 +2,7 @@ const path = require( 'path' );
 const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
 const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
 const { log } = require( 'console' );
-const TEMPLATE_MARKET_NAMESPACE = '@templatiq/';
+const TEMPLATIQ_NAMESPACE = '@templatiq/';
 
 const devHost = 'templatiq.test';
 
@@ -38,19 +38,19 @@ module.exports = {
 		),
 		new DependencyExtractionWebpackPlugin( {
 			requestToExternal( request ) {
-				if ( request.startsWith( TEMPLATE_MARKET_NAMESPACE ) ) {
+				if ( request.startsWith( TEMPLATIQ_NAMESPACE ) ) {
 					return [
 						'templatiq',
 						camelCaseDash(
-							request.substring( TEMPLATE_MARKET_NAMESPACE.length )
+							request.substring( TEMPLATIQ_NAMESPACE.length )
 						),
 					];
 				}
 			},
 			requestToHandle( request ) {
-				if ( request.startsWith( TEMPLATE_MARKET_NAMESPACE ) ) {
+				if ( request.startsWith( TEMPLATIQ_NAMESPACE ) ) {
 					return `templatiq/${ camelCaseDash(
-						request.substring( TEMPLATE_MARKET_NAMESPACE.length )
+						request.substring( TEMPLATIQ_NAMESPACE.length )
 					) }`;
 				}
 			},

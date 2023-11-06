@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name: Template Market
+ * Plugin Name: Templatiq
  * Description: Complete Elementor Widgets
  * Author: wpWax
  * Author URI: https://wpwax.com
  * Version: 1.0.0
  * License: GPL2
  * Requires PHP: 7.4
- * Text Domain: template-market
+ * Text Domain: templatiq
  * Domain Path: /i18n/languages/
  *
  * Released under the GPL license
@@ -33,7 +33,7 @@
  * **********************************************************************
  */
 
-use TemplateMarket\App;
+use Templatiq\App;
 
 // don't call the file directly
 if ( ! defined( 'ABSPATH' ) ) {
@@ -41,11 +41,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * TemplateMarket class
+ * Templatiq class
  *
- * @class TemplateMarket The class that holds the entire TemplateMarket plugin
+ * @class Templatiq The class that holds the entire Templatiq plugin
  */
-final class TemplateMarket {
+final class Templatiq {
 	public $version = '1.0.0';
 
 	private $min_php = '7.4';
@@ -55,8 +55,8 @@ final class TemplateMarket {
 	public $app;
 
 	public static function init() {
-		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof TemplateMarket ) ) {
-			self::$instance = new TemplateMarket();
+		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Templatiq ) ) {
+			self::$instance = new Templatiq();
 			self::$instance->setup();
 		}
 
@@ -92,14 +92,14 @@ final class TemplateMarket {
 
 		deactivate_plugins( basename( __FILE__ ) );
 
-		$error = __( '<h1>An Error Occurred</h1>', 'template-market' );
-		$error .= __( '<h2>Your installed PHP Version is: ', 'template-market' ) . PHP_VERSION . '</h2>';
-		$error .= __( '<p>The <strong>Wax Elements</strong> plugin requires PHP version <strong>', 'template-market' ) . $this->min_php . __( '</strong> or greater', 'template-market' );
-		$error .= __( '<p>The version of your PHP is ', 'template-market' ) . '<a href="http://php.net/supported-versions.php" target="_blank"><strong>' . __( 'unsupported and old', 'template-market' ) . '</strong></a>.';
-		$error .= __( 'You should update your PHP software or contact your host regarding this matter.</p>', 'template-market' );
+		$error = __( '<h1>An Error Occurred</h1>', 'templatiq' );
+		$error .= __( '<h2>Your installed PHP Version is: ', 'templatiq' ) . PHP_VERSION . '</h2>';
+		$error .= __( '<p>The <strong>Wax Elements</strong> plugin requires PHP version <strong>', 'templatiq' ) . $this->min_php . __( '</strong> or greater', 'templatiq' );
+		$error .= __( '<p>The version of your PHP is ', 'templatiq' ) . '<a href="http://php.net/supported-versions.php" target="_blank"><strong>' . __( 'unsupported and old', 'templatiq' ) . '</strong></a>.';
+		$error .= __( 'You should update your PHP software or contact your host regarding this matter.</p>', 'templatiq' );
 		wp_die(
 			wp_kses_post( $error ),
-			esc_html__( 'Plugin Activation Error', 'template-market' ),
+			esc_html__( 'Plugin Activation Error', 'templatiq' ),
 			[
 				'response'  => 200,
 				'back_link' => true,
@@ -123,18 +123,18 @@ final class TemplateMarket {
 	 * @return void
 	 */
 	private function define_constants(): void {
-		define( 'TEMPLATE_MARKET_VERSION', $this->version );
-		define( 'TEMPLATE_MARKET_FILE', __FILE__ );
-		define( 'TEMPLATE_MARKET_PATH', dirname( TEMPLATE_MARKET_FILE ) );
-		define( 'TEMPLATE_MARKET_ELEMENTS', TEMPLATE_MARKET_PATH . 'App/Elements' );
-		define( 'TEMPLATE_MARKET_URL', plugins_url( '', TEMPLATE_MARKET_FILE ) );
-		define( 'TEMPLATE_MARKET_ASSETS', TEMPLATE_MARKET_URL . '/assets' );
-		define( 'TEMPLATE_MARKET_ASSETS_PATH', TEMPLATE_MARKET_PATH . '/assets' );
+		define( 'TEMPLATIQ_VERSION', $this->version );
+		define( 'TEMPLATIQ_FILE', __FILE__ );
+		define( 'TEMPLATIQ_PATH', dirname( TEMPLATIQ_FILE ) );
+		define( 'TEMPLATIQ_ELEMENTS', TEMPLATIQ_PATH . 'App/Elements' );
+		define( 'TEMPLATIQ_URL', plugins_url( '', TEMPLATIQ_FILE ) );
+		define( 'TEMPLATIQ_ASSETS', TEMPLATIQ_URL . '/assets' );
+		define( 'TEMPLATIQ_ASSETS_PATH', TEMPLATIQ_PATH . '/assets' );
 
-		define( 'TEMPLATE_MARKET_CLOUD_BASE', 'http://localhost:10144/wp-json/tm' );
+		define( 'TEMPLATIQ_CLOUD_BASE', 'http://localhost:10144/wp-json/tm' );
 
-		define( 'TEMPLATE_MARKET_DEV', true );
-		define( 'TEMPLATE_MARKET_DEBUG_LOG', true );
+		define( 'TEMPLATIQ_DEV', true );
+		define( 'TEMPLATIQ_DEBUG_LOG', true );
 	}
 
 	/**
@@ -148,13 +148,13 @@ final class TemplateMarket {
 }
 
 /**
- * Init the TemplateMarket plugin
+ * Init the Templatiq plugin
  *
- * @return TemplateMarket the plugin object
+ * @return Templatiq the plugin object
  */
-function TemplateMarket() {
-	add_action( 'plugins_loaded', ['TemplateMarket', 'init'] );
+function Templatiq() {
+	add_action( 'plugins_loaded', ['Templatiq', 'init'] );
 }
 
 // kick it off
-TemplateMarket();
+Templatiq();

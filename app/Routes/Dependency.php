@@ -5,11 +5,11 @@
  * @version 1.0.0
  */
 
-namespace TemplateMarket\Routes;
+namespace Templatiq\Routes;
 
-use TemplateMarket\Abstracts\RouteBase;
-use TemplateMarket\Utils\Plugin;
-use TemplateMarket\Utils\Response;
+use Templatiq\Abstracts\RouteBase;
+use Templatiq\Utils\Plugin;
+use Templatiq\Utils\Response;
 
 class Dependency extends RouteBase {
 

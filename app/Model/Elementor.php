@@ -5,20 +5,20 @@
  * @version 1.0.0
  */
 
-namespace TemplateMarket\Model;
+namespace Templatiq\Model;
 
 use Elementor\Core\Settings\Page\Model;
 use Elementor\Plugin as ElementorPlugin;
 use Elementor\TemplateLibrary\Source_Local as ElementorLocal;
-use TemplateMarketCloud\Utils\Response;
-use TemplateMarket\Utils\Http;
-use TemplateMarket\Utils\Options;
+use TemplatiqCloud\Utils\Response;
+use Templatiq\Utils\Http;
+use Templatiq\Utils\Options;
 
 class Elementor extends ElementorLocal {
 	private string $cloud_endpoint;
 
 	public function __construct() {
-		$this->cloud_endpoint = TEMPLATE_MARKET_CLOUD_BASE;
+		$this->cloud_endpoint = TEMPLATIQ_CLOUD_BASE;
 	}
 
 	public function create_page( array $template_data, string $title ): int {
@@ -26,7 +26,7 @@ class Elementor extends ElementorLocal {
 		$page_settings = $this->page_settings( $template_data );
 
 		$defaults = [
-			'post_title'    => $title ?? 'Template Market: ' . $template_data['title'],
+			'post_title'    => $title ?? 'Templatiq: ' . $template_data['title'],
 			'page_settings' => $page_settings,
 			'status'        => current_user_can( 'publish_posts' ) ? 'publish' : 'pending',
 		];

@@ -5,11 +5,11 @@
  * @version 1.0.0
  */
 
-namespace TemplateMarket\Routes;
+namespace Templatiq\Routes;
 
-use TemplateMarket\Abstracts\RouteBase;
-use TemplateMarket\Model\Account as ModelAccount;
-use TemplateMarket\Model\Directorist;
+use Templatiq\Abstracts\RouteBase;
+use Templatiq\Model\Account as ModelAccount;
+use Templatiq\Model\Directorist;
 
 class Account extends RouteBase {
 	private $endpoint = 'account';
