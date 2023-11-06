@@ -4593,6 +4593,43 @@ var SvgBar = function SvgBar(props) {
 
 /***/ }),
 
+/***/ "./src/svg/icon/box.svg":
+/*!******************************!*\
+  !*** ./src/svg/icon/box.svg ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ReactComponent: () => (/* binding */ SvgBox),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _path, _path2;
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+var SvgBox = function SvgBox(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", _extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    width: 14.003,
+    height: 14.003
+  }, props), _path || (_path = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    fill: "#6e6e6e",
+    d: "M14 3.209A3.213 3.213 0 0 0 10.794 0H3.209A3.213 3.213 0 0 0 0 3.209v.583a2.034 2.034 0 0 0 .583 1.425v5.577A3.213 3.213 0 0 0 3.792 14h6.418a3.212 3.212 0 0 0 3.209-3.209V5.217A2.033 2.033 0 0 0 14 3.792Zm-12.253 0A1.459 1.459 0 0 1 3.209 1.75h7.585a1.459 1.459 0 0 1 1.459 1.459v.583a.292.292 0 0 1-.292.292H2.042a.292.292 0 0 1-.292-.292Zm9.919 7.585a1.459 1.459 0 0 1-1.459 1.459H3.792a1.459 1.459 0 0 1-1.459-1.459V5.835h9.335v4.959Z",
+    "data-name": "Path 1551"
+  })), _path2 || (_path2 = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    fill: "#6e6e6e",
+    d: "M5.543 7.001H8.46a.875.875 0 0 1 .875.875.875.875 0 0 1-.875.875H5.543a.875.875 0 0 1-.875-.875.875.875 0 0 1 .875-.875Z",
+    "data-name": "Path 1552"
+  })));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyBpZD0iYm94IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNC4wMDMiIGhlaWdodD0iMTQuMDAzIiB2aWV3Qm94PSIwIDAgMTQuMDAzIDE0LjAwMyI+CiAgPHBhdGggaWQ9IlBhdGhfMTU1MSIgZGF0YS1uYW1lPSJQYXRoIDE1NTEiIGQ9Ik0xNCwzLjIwOUEzLjIxMywzLjIxMywwLDAsMCwxMC43OTQsMEgzLjIwOUEzLjIxMywzLjIxMywwLDAsMCwwLDMuMjA5di41ODNBMi4wMzQsMi4wMzQsMCwwLDAsLjU4Myw1LjIxN3Y1LjU3N0EzLjIxMywzLjIxMywwLDAsMCwzLjc5MiwxNEgxMC4yMWEzLjIxMiwzLjIxMiwwLDAsMCwzLjIwOS0zLjIwOVY1LjIxN0EyLjAzMywyLjAzMywwLDAsMCwxNCwzLjc5MlptLTEyLjI1MywwQTEuNDU5LDEuNDU5LDAsMCwxLDMuMjA5LDEuNzVoNy41ODVhMS40NTksMS40NTksMCwwLDEsMS40NTksMS40NTl2LjU4M2EuMjkyLjI5MiwwLDAsMS0uMjkyLjI5MkgyLjA0MmEuMjkyLjI5MiwwLDAsMS0uMjkyLS4yOTJabTkuOTE5LDcuNTg1YTEuNDU5LDEuNDU5LDAsMCwxLTEuNDU5LDEuNDU5SDMuNzkyYTEuNDU5LDEuNDU5LDAsMCwxLTEuNDU5LTEuNDU5VjUuODM1aDkuMzM1djQuOTU5WiIgZmlsbD0iIzZlNmU2ZSIvPgogIDxwYXRoIGlkPSJQYXRoXzE1NTIiIGRhdGEtbmFtZT0iUGF0aCAxNTUyIiBkPSJNMTcxLjU0MiwyNTZoMi45MTdhLjg3NS44NzUsMCwwLDEsLjg3NS44NzVoMGEuODc1Ljg3NSwwLDAsMS0uODc1Ljg3NWgtMi45MTdhLjg3NS44NzUsMCwwLDEtLjg3NS0uODc1aDBBLjg3NS44NzUsMCwwLDEsMTcxLjU0MiwyNTZaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTY1Ljk5OSAtMjQ4Ljk5OSkiIGZpbGw9IiM2ZTZlNmUiLz4KPC9zdmc+Cg==");
+
+/***/ }),
+
 /***/ "./src/svg/icon/bulb-solid.svg":
 /*!*************************************!*\
   !*** ./src/svg/icon/bulb-solid.svg ***!
@@ -6987,12 +7024,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 
-console.log('Styled');
 const HeaderStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div`
     height: 70px;
     display: flex;
     align-items: center;
     background: #ffffff;
+    box-shadow: 0 2px 4px #10101404;
     .templatiq__header__logo {
         flex: 0 0 256px;
         max-width: 256px;
@@ -7120,12 +7157,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style */ "./src/js/layout/Sidebar/style.js");
+/* harmony import */ var _icon_box_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @icon/box.svg */ "./src/svg/icon/box.svg");
+
+
+
 
 
 const SidebarLayout = ({
   children
 }) => {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, "Sidebar"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, "Filter"), children);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_style__WEBPACK_IMPORTED_MODULE_1__.SidebarStyle, {
+    className: "templatiq__sidebar"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__filter"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
+    className: "templatiq__sidebar__filter__title"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    src: _icon_box_svg__WEBPACK_IMPORTED_MODULE_2__["default"],
+    width: 18,
+    height: 18
+  }), "Filter"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: "#",
+    className: "templatiq__sidebar__filter__clear"
+  }, "Clear")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__wrapper"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__nav"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: "#",
+    className: "templatiq__sidebar__nav__link active"
+  }, "Plugins"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: "#",
+    className: "templatiq__sidebar__nav__link"
+  }, "Categories")), children));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SidebarLayout);
 
@@ -7145,12 +7211,285 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _SidebarLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SidebarLayout */ "./src/js/layout/Sidebar/SidebarLayout.js");
+/* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./style */ "./src/js/layout/Sidebar/style.js");
+
 
 
 const Sidebar = () => {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_SidebarLayout__WEBPACK_IMPORTED_MODULE_1__["default"], null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, "Sidebar Content"));
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_SidebarLayout__WEBPACK_IMPORTED_MODULE_1__["default"], null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_style__WEBPACK_IMPORTED_MODULE_2__.SidebarCollapseStyle, {
+    className: "templatiq__sidebar__collapse"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
+    className: "templatiq__sidebar__collapse__title"
+  }, "Directorist"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__collapse__item__single__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__collapse__item__single__label"
+  }, "Pricing Plan"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__collapse__item__single__count"
+  }, "12")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__collapse__item__single__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__collapse__item__single__label"
+  }, "WooCommerce Pricing Plans"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__collapse__item__single__count"
+  }, "12")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__collapse__item__single__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__collapse__item__single__label"
+  }, "Business Directory"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__collapse__item__single__count"
+  }, "12")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__collapse__item__single__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__collapse__item__single__label"
+  }, "Marketplace"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__collapse__item__single__count"
+  }, "12")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__collapse__item__single__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__collapse__item__single__label"
+  }, "Claim Listing"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__collapse__item__single__count"
+  }, "12")))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
+    className: "templatiq__sidebar__collapse__title"
+  }, "WooCommerce"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__collapse__item__single__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__collapse__item__single__label"
+  }, "Pricing Plan"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__collapse__item__single__count"
+  }, "12")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__collapse__item__single__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__collapse__item__single__label"
+  }, "WooCommerce Pricing Plans"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__collapse__item__single__count"
+  }, "12")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__collapse__item__single__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__collapse__item__single__label"
+  }, "Business Directory"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__collapse__item__single__count"
+  }, "12")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__collapse__item__single__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__collapse__item__single__label"
+  }, "Marketplace"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__collapse__item__single__count"
+  }, "12")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__collapse__item__single__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__collapse__item__single__label"
+  }, "Claim Listing"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__collapse__item__single__count"
+  }, "12")))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
+    className: "templatiq__sidebar__collapse__title"
+  }, "HelpGent"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__collapse__item__single__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__collapse__item__single__label"
+  }, "Pricing Plan"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__collapse__item__single__count"
+  }, "12")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__collapse__item__single__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__collapse__item__single__label"
+  }, "WooCommerce Pricing Plans"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__collapse__item__single__count"
+  }, "12")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__collapse__item__single__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__collapse__item__single__label"
+  }, "Business Directory"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__collapse__item__single__count"
+  }, "12")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__collapse__item__single__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__collapse__item__single__label"
+  }, "Marketplace"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__collapse__item__single__count"
+  }, "12")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__collapse__item__single__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__collapse__item__single__label"
+  }, "Claim Listing"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__collapse__item__single__count"
+  }, "12"))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Sidebar);
+
+/***/ }),
+
+/***/ "./src/js/layout/Sidebar/style.js":
+/*!****************************************!*\
+  !*** ./src/js/layout/Sidebar/style.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   SidebarCollapseStyle: () => (/* binding */ SidebarCollapseStyle),
+/* harmony export */   SidebarStyle: () => (/* binding */ SidebarStyle)
+/* harmony export */ });
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+
+const SidebarStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div`
+    width: 256px;
+    background: #ffffff;
+    box-shadow: 0 7px 20px 5px #10101405;
+    .templatiq__sidebar__filter {
+        display: flex;
+        gap: 20px;
+        justify-content: space-between;
+        padding: 10px 24px;
+        background: #F8F8F9;
+        .templatiq__sidebar__filter__title {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: #57575F;
+            margin: 0;
+            path {
+                fill: #57575F;
+            }
+        }
+        .templatiq__sidebar__filter__clear {
+            color: #8941FF;
+        }
+    }
+
+    .templatiq__sidebar__wrapper {
+        padding-bottom: 30px
+    }
+    
+    .templatiq__sidebar__nav {
+        display: flex;
+        gap: 24px;
+        padding: 0 24px;
+        margin-bottom: 24px;
+        border-bottom: 1px solid #F1F1F4;
+        .templatiq__sidebar__nav__link {
+            position: relative;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: #57575F;
+            height: 50px;
+            text-decoration: none;
+            &:before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                height: 2px;
+                width: 0;
+                background: transparent;
+                transition: width 0.3s ease;
+            }
+            &.active,
+            &:hover {
+                color: #8941FF;
+                &:before {
+                    width: 100%;
+                    background: #8941FF;
+                }
+            }
+        }
+    }
+`;
+const SidebarCollapseStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div`
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    padding: 0 24px;
+    .templatiq__sidebar__collapse__title {
+        font-size: 14px;
+        font-weight: 500;
+        margin: 0 0 15px;
+    }
+    .templatiq__sidebar__collapse__item {
+        display: flex;
+        gap: 15px;
+        flex-direction: column;
+        .templatiq__sidebar__collapse__item__single {
+            display: flex;
+            gap: 12px;
+            .templatiq__sidebar__collapse__item__single__checkbox {
+                margin: 3px 0 0;
+            }
+            .templatiq__sidebar__collapse__item__single__label {
+                font-size: 13px;
+                font-weight: 500;
+            }
+            .templatiq__sidebar__collapse__item__single__count {
+                flex: 1;
+                text-align: end;
+            }
+        }
+    }
+`;
+
 
 /***/ }),
 

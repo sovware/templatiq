@@ -1,9 +1,11 @@
 import SidebarLayout from "./SidebarLayout";
 import { SidebarCollapseStyle } from './style';
 
-const Sidebar = () => {
+const PluginSidebarItems = () => {
 	return (
 		<SidebarLayout>
+			<h2>Plugin Sidebar</h2>
+			
 			<SidebarCollapseStyle className="templatiq__sidebar__collapse">
 				<div className="templatiq__sidebar__collapse__single">
 					<h3 className="templatiq__sidebar__collapse__title">Directorist</h3>
@@ -99,9 +101,8 @@ const Sidebar = () => {
 					</div>
 				</div>
 			</SidebarCollapseStyle>
-			
 		</SidebarLayout>
 	);
 }
 
-export default Sidebar;
+export default PluginSidebarItems;

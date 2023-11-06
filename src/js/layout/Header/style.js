@@ -1,12 +1,11 @@
 import Styled from 'styled-components';
 
-console.log( 'Styled' );
-
 const HeaderStyle = Styled.div`
     height: 70px;
     display: flex;
     align-items: center;
     background: #ffffff;
+    box-shadow: 0 2px 4px #10101404;
     .templatiq__header__logo {
         flex: 0 0 256px;
         max-width: 256px;
