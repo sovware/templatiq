@@ -10,15 +10,15 @@ import {
 	useParams,
 	useLocation,
 } from 'react-router-dom';
-import { updateGlobalState } from '@helper/utils.js';
+import { updateGlobalState } from '@helper/utils';
 import { ThemeProvider } from 'styled-components';
 
 
-import TemplatePack from './pages/TemplatePack.js';
+import TemplatePack from './pages/TemplatePack';
 
-import AppLayout from '../layout/AppLayout.js';
-import Pages from './pages/Pages.js';
-import Blocks from './pages/Blocks.js';
+import AppLayout from '../layout/AppLayout';
+import Pages from './pages/Pages';
+import Blocks from './pages/Blocks';
 
 export default function App() {
 	const [ dir, setDir ] = useState( 'ltr' );

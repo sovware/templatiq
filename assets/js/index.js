@@ -5662,6 +5662,39 @@ var SvgScrubber = function SvgScrubber(props) {
 
 /***/ }),
 
+/***/ "./src/svg/icon/search.svg":
+/*!*********************************!*\
+  !*** ./src/svg/icon/search.svg ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ReactComponent: () => (/* binding */ SvgSearch),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _path;
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+var SvgSearch = function SvgSearch(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", _extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    width: 14,
+    height: 14
+  }, props), _path || (_path = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    fill: "#6e6e6e",
+    d: "m12.805 13.795-2.572-2.572a6.3 6.3 0 0 1-8.388-9.378A6.3 6.3 0 0 1 12.6 6.3a6.252 6.252 0 0 1-1.377 3.933l2.577 2.572a.7.7 0 1 1-.99.99ZM1.4 6.3a4.9 4.9 0 0 0 8.311 3.514.71.71 0 0 1 .049-.054.735.735 0 0 1 .055-.049A4.9 4.9 0 1 0 1.4 6.3Z",
+    "data-name": "Union 4"
+  })));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNCIgdmlld0JveD0iMCAwIDE0IDE0Ij4KICA8cGF0aCBpZD0iVW5pb25fNCIgZGF0YS1uYW1lPSJVbmlvbiA0IiBkPSJNMTIuODA1LDEzLjc5NWwtMi41NzItMi41NzJBNi4zLDYuMywwLDAsMSwxLjg0NSwxLjg0NSw2LjMsNi4zLDAsMCwxLDEyLjYsNi4zYTYuMjUyLDYuMjUyLDAsMCwxLTEuMzc3LDMuOTMzTDEzLjgsMTIuODA1YS43LjcsMCwxLDEtLjk5Ljk5Wk0xLjQsNi4zQTQuOSw0LjksMCwwLDAsOS43MTEsOS44MTQuNzEuNzEsMCwwLDEsOS43Niw5Ljc2YS43MzUuNzM1LDAsMCwxLC4wNTUtLjA0OUE0LjksNC45LDAsMSwwLDEuNCw2LjNaIiBmaWxsPSIjNmU2ZTZlIi8+Cjwvc3ZnPgo=");
+
+/***/ }),
+
 /***/ "./src/svg/icon/sliders.svg":
 /*!**********************************!*\
   !*** ./src/svg/icon/sliders.svg ***!
@@ -6541,12 +6574,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
-/* harmony import */ var _helper_utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @helper/utils.js */ "./src/js/helper/utils.js");
+/* harmony import */ var _helper_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @helper/utils */ "./src/js/helper/utils.js");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _pages_TemplatePack_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/TemplatePack.js */ "./src/js/frontend/pages/TemplatePack.js");
-/* harmony import */ var _layout_AppLayout_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../layout/AppLayout.js */ "./src/js/layout/AppLayout.js");
-/* harmony import */ var _pages_Pages_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/Pages.js */ "./src/js/frontend/pages/Pages.js");
-/* harmony import */ var _pages_Blocks_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/Blocks.js */ "./src/js/frontend/pages/Blocks.js");
+/* harmony import */ var _pages_TemplatePack__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/TemplatePack */ "./src/js/frontend/pages/TemplatePack/index.js");
+/* harmony import */ var _layout_AppLayout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../layout/AppLayout */ "./src/js/layout/AppLayout.js");
+/* harmony import */ var _pages_Pages__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/Pages */ "./src/js/frontend/pages/Pages.js");
+/* harmony import */ var _pages_Blocks__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/Blocks */ "./src/js/frontend/pages/Blocks.js");
 
 
 // import { applyFilters } from '@wordpress/hooks';
@@ -6568,7 +6601,7 @@ function App() {
     } else {
       setDir('ltr');
     }
-    (0,_helper_utils_js__WEBPACK_IMPORTED_MODULE_2__.updateGlobalState)('templatiq_router_references', {
+    (0,_helper_utils__WEBPACK_IMPORTED_MODULE_2__.updateGlobalState)('templatiq_router_references', {
       navigationHook: react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useNavigate,
       routeLink: react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link,
       routerNavLink: react_router_dom__WEBPACK_IMPORTED_MODULE_8__.NavLink,
@@ -6580,15 +6613,15 @@ function App() {
   }, []);
   const templateRoutes = [{
     path: `/*`,
-    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_TemplatePack_js__WEBPACK_IMPORTED_MODULE_3__["default"], null)
+    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_TemplatePack__WEBPACK_IMPORTED_MODULE_3__["default"], null)
   }, {
     path: '/pages',
-    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_Pages_js__WEBPACK_IMPORTED_MODULE_5__["default"], null)
+    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_Pages__WEBPACK_IMPORTED_MODULE_5__["default"], null)
   }, {
     path: `/blocks`,
-    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_Blocks_js__WEBPACK_IMPORTED_MODULE_6__["default"], null)
+    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_Blocks__WEBPACK_IMPORTED_MODULE_6__["default"], null)
   }];
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_layout_AppLayout_js__WEBPACK_IMPORTED_MODULE_4__["default"], null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.HashRouter, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Suspense, {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_layout_AppLayout__WEBPACK_IMPORTED_MODULE_4__["default"], null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.HashRouter, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Suspense, {
     fallback: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null)
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(styled_components__WEBPACK_IMPORTED_MODULE_9__.ThemeProvider, {
     theme: theme
@@ -6643,10 +6676,81 @@ function Pages() {
 
 /***/ }),
 
-/***/ "./src/js/frontend/pages/TemplatePack.js":
-/*!***********************************************!*\
-  !*** ./src/js/frontend/pages/TemplatePack.js ***!
-  \***********************************************/
+/***/ "./src/js/frontend/pages/TemplatePack/TemplatePackLayout.js":
+/*!******************************************************************!*\
+  !*** ./src/js/frontend/pages/TemplatePack/TemplatePackLayout.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style */ "./src/js/frontend/pages/TemplatePack/style.js");
+/* harmony import */ var _icon_search_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @icon/search.svg */ "./src/svg/icon/search.svg");
+
+
+
+
+
+const TemplatePackLayout = ({
+  children
+}) => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_style__WEBPACK_IMPORTED_MODULE_1__.TemplatePackStyle, {
+    className: "templatiq__content"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__content__top"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__content__top__filter"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
+    className: "templatiq__content__top__filter__title"
+  }, "Template Pack"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_style__WEBPACK_IMPORTED_MODULE_1__.TemplatePackFilterStyle, {
+    className: "templatiq__content__top__filter__wrapper"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+    className: "templatiq__content__top__filter__item"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: "#",
+    className: "templatiq__content__top__filter__link active"
+  }, "All (24)")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+    className: "templatiq__content__top__filter__item"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: "#",
+    className: "templatiq__content__top__filter__link active"
+  }, "Free (8)")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+    className: "templatiq__content__top__filter__item"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: "#",
+    className: "templatiq__content__top__filter__link active"
+  }, "Pro (16)")))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__content__top__search"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__content__top__searchbox"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    className: "templatiq__content__top__searchbox__button"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    src: _icon_search_svg__WEBPACK_IMPORTED_MODULE_2__["default"],
+    width: 18,
+    height: 18
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "text",
+    className: "templatiq__content__top__searchbox__input",
+    placeholder: "Search Template Pack"
+  })))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__content__wrapper"
+  }, children));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TemplatePackLayout);
+
+/***/ }),
+
+/***/ "./src/js/frontend/pages/TemplatePack/index.js":
+/*!*****************************************************!*\
+  !*** ./src/js/frontend/pages/TemplatePack/index.js ***!
+  \*****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6656,10 +6760,55 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _TemplatePackLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TemplatePackLayout */ "./src/js/frontend/pages/TemplatePack/TemplatePackLayout.js");
+
 
 function TemplatePack() {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, "Template Pack");
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_TemplatePackLayout__WEBPACK_IMPORTED_MODULE_1__["default"], null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, "ALl Template"));
 }
+
+/***/ }),
+
+/***/ "./src/js/frontend/pages/TemplatePack/style.js":
+/*!*****************************************************!*\
+  !*** ./src/js/frontend/pages/TemplatePack/style.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   TemplatePackFilterStyle: () => (/* binding */ TemplatePackFilterStyle),
+/* harmony export */   TemplatePackStyle: () => (/* binding */ TemplatePackStyle)
+/* harmony export */ });
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+
+const TemplatePackStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div`
+    .templatiq__content__top {
+        display: flex;
+        gap: 24px;
+        justify-content: space-between;
+        .templatiq__content__top__filter__title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #101014;
+        }
+        .templatiq__content__top__filter {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+    }
+`;
+const TemplatePackFilterStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].ul`
+    display: flex;
+    padding: 4px 10px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 16px #10101404;
+
+`;
+
 
 /***/ }),
 
