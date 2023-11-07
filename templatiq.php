@@ -131,7 +131,7 @@ final class Templatiq {
 		define( 'TEMPLATIQ_ASSETS', TEMPLATIQ_URL . '/assets' );
 		define( 'TEMPLATIQ_ASSETS_PATH', TEMPLATIQ_PATH . '/assets' );
 
-		define( 'TEMPLATIQ_CLOUD_BASE', 'http://localhost:10144/wp-json/tm' );
+		define( 'TEMPLATIQ_CLOUD_BASE', 'https://tm.wpwax.com/wp-json/tm' );
 
 		define( 'TEMPLATIQ_DEV', true );
 		define( 'TEMPLATIQ_DEBUG_LOG', true );
