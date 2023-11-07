@@ -27,7 +27,10 @@ class Enqueuer extends EnqueuerBase {
 			return;
 		}
 
-		$this->enqueue_script( 'templatiq-app', '/js/index.js', ['wp-element'] );
+		$this->enqueue_script( 'templatiq-app', '/js/admin.js', ['wp-element'] );
+
+
+		$this->enqueue_style( 'templatiq-app', '/css/global.css' );
 
 		$obj = [
 			'rest_args' => [

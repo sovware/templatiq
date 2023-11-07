@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c4f4e05a257e377ace5c41f6c3a66977",
+    "content-hash": "63841f8593e9064a9dac73f31062ee83",
     "packages": [
         {
             "name": "wpth/utils",

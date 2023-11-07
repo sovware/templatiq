@@ -3,16 +3,19 @@ import Header from './Header/index.js';
 import Sidebar from './Sidebar/index.js';
 import AdminSidebar from './Sidebar/AdminSidebar.js';
 
+import { LayoutStyle } from './style.js';
+
 const AppLayout = ({ children }) => {
 	let isLoggedIn = false;
 
 	return (
-		<div className="templatiq-app-wrap">
+		<div className="templatiq">
 			<Header />
+			<LayoutStyle className="templatiq__wrapper">
+				{isLoggedIn ? <AdminSidebar /> : <Sidebar /> }
 
-			{isLoggedIn ? <AdminSidebar /> : <Sidebar /> }
-
-			{ children }
+				{ children }
+			</LayoutStyle>
 		</div>
 	);
 };
