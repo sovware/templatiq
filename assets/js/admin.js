@@ -7685,11 +7685,76 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style */ "./src/js/modules/TemplatePack/components/style.js");
+/* harmony import */ var _icon_user_alt_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @icon/user-alt.svg */ "./src/svg/icon/user-alt.svg");
+
+
+
 
 const SingleTemplate = () => {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, "Single Template");
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_style__WEBPACK_IMPORTED_MODULE_1__.SingleTemplateStyle, {
+    className: "templatiq__template__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__template__single__wrapper"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__template__single__img"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__template__single__content"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
+    className: "templatiq__template__single__title"
+  }, "DDoctors"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__template__single__cat"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: "#",
+    className: "templatiq__template__single__cat__link"
+  }, "Directorist Core"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: "#",
+    className: "templatiq__template__single__cat__link"
+  }, "Pricing Plan")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__template__single__quickmeta"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__template__single__quickmeta__item"
+  }, "$20"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__template__single__quickmeta__item"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    src: _icon_user_alt_svg__WEBPACK_IMPORTED_MODULE_2__["default"],
+    width: 14,
+    height: 14
+  }), "24"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: "#",
+    className: "templatiq__template__single__quickmeta__item"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    src: _icon_user_alt_svg__WEBPACK_IMPORTED_MODULE_2__["default"],
+    width: 14,
+    height: 14
+  }), "52")))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SingleTemplate);
+
+/***/ }),
+
+/***/ "./src/js/modules/TemplatePack/components/style.js":
+/*!*********************************************************!*\
+  !*** ./src/js/modules/TemplatePack/components/style.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   SingleTemplateStyle: () => (/* binding */ SingleTemplateStyle)
+/* harmony export */ });
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+
+const SingleTemplateStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div`
+    display: flex;
+    .templatiq__content {
+        flex: 1;
+        padding: 32px;
+    }
+`;
+
 
 /***/ }),
 
