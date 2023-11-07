@@ -75,9 +75,11 @@ const HeaderActionStyle = Styled.div`
         gap: 10px;
         align-items: center;
         height: 36px;
-        padding: 0 10px;
+        padding: 0 12px;
         border-radius: 8px;
         color: #57575F;
+        font-size: 14px;
+        font-weight: 500;
         background-color: #F1F1F4;
         transition: background-color 0.3s ease;
         path {

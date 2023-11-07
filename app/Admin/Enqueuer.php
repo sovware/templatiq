@@ -27,7 +27,7 @@ class Enqueuer extends EnqueuerBase {
 			return;
 		}
 
-		$this->enqueue_script( 'template-market-app', '/js/index.js', ['wp-element'] );
+		$this->enqueue_script( 'template-market-app', '/js/admin.js', ['wp-element'] );
 
 
 		$this->enqueue_style( 'template-market-app', '/css/global.css');

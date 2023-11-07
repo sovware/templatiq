@@ -1,4 +1,5 @@
 import { lazy, Suspense, useState, useEffect } from '@wordpress/element';
+// import { applyFilters } from '@wordpress/hooks';
 import {
 	HashRouter,
 	Routes,
@@ -9,17 +10,17 @@ import {
 	useParams,
 	useLocation,
 } from 'react-router-dom';
-import { updateGlobalState } from '@helper/utils.js';
+import { updateGlobalState } from '@helper/utils';
 import { ThemeProvider } from 'styled-components';
 
-import AppLayout from '../layout/AppLayout.js';
 
-import Favorites from './pages/Favorites.js';
-import Downloads from './pages/Downloads.js';
-import Purchase from './pages/Purchase.js';
-import Account from './pages/Account.js';
+import TemplatePack from './pages/TemplatePack';
 
-export default function AdminApp() {
+import AppLayout from '../layout/AppLayout';
+import Pages from './pages/Pages';
+import Blocks from './pages/Blocks';
+
+export default function App() {
 	const [ dir, setDir ] = useState( 'ltr' );
 
 	const theme = {
@@ -41,22 +42,18 @@ export default function AdminApp() {
 		} );
 	}, [] );
 
-	const adminRoutes = [
+	const templateRoutes = [
 		{
 			path: `/*`,
-			element: <Favorites />,
+			element: <TemplatePack />,
 		},
 		{
-			path: '/downloads',
-			element: <Downloads />,
+			path: '/pages',
+			element: <Pages />,
 		},
 		{
-			path: `/purchase`,
-			element: <Purchase />,
-		},
-		{
-			path: `/account`,
-			element: <Account />,
+			path: `/blocks`,
+			element: <Blocks />,
 		},
 	] ;
 
@@ -66,7 +63,7 @@ export default function AdminApp() {
 				<Suspense fallback={ <></> }>
 					<ThemeProvider theme={ theme }>
 						<Routes>
-							{ adminRoutes.map( ( routeItem, index ) => {
+							{ templateRoutes.map( ( routeItem, index ) => {
 								return (
 									<Route
 										key={ index }

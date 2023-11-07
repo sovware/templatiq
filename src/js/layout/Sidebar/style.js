@@ -15,11 +15,11 @@ const SidebarStyle = Styled.div`
             gap: 10px;
             align-items: center;
             font-size: 14px;
-            font-weight: 500;
-            color: #57575F;
+            font-weight: 400;
+            color: #6B6B73;
             margin: 0;
             path {
-                fill: #57575F;
+                fill: #6B6B73;
             }
         }
         .templatiq__sidebar__filter__clear {
@@ -70,13 +70,13 @@ const SidebarStyle = Styled.div`
 
 const SidebarCollapseStyle = Styled.div`
     display: flex;
-    gap: 20px;
+    gap: 25px;
     flex-direction: column;
     padding: 0 24px;
     .templatiq__sidebar__collapse__title {
         font-size: 14px;
         font-weight: 500;
-        margin: 0 0 15px;
+        margin: 0 0 20px;
     }
     .templatiq__sidebar__collapse__item {
         display: flex;
