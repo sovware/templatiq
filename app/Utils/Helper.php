@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace TemplateMarket\Utils;
+namespace Templatiq\Utils;
 
 use Elementor\Plugin;
 

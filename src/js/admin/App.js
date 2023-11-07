@@ -17,8 +17,8 @@ import { ThemeProvider } from 'styled-components';
 import TemplatePack from './pages/TemplatePack';
 
 import AppLayout from '../layout/AppLayout';
-import Pages from './pages/Pages';
-import Blocks from './pages/Blocks';
+import Pages from './pages/Pages'; 
+import Blocks from './pages/Blocks'; 
 
 export default function App() {
 	const [ dir, setDir ] = useState( 'ltr' );

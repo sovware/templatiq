@@ -5,17 +5,17 @@
  * @version 1.0.0
  */
 
-namespace TemplateMarket\Utils;
+namespace Templatiq\Utils;
 
 trait Singleton {
     private static $instances = [];
 
     public function __clone() {
-        _doing_it_wrong( __FUNCTION__, esc_html__( 'Something wen\'t wrong.', 'template-market' ), '1.0.0' );
+        _doing_it_wrong( __FUNCTION__, esc_html__( 'Something wen\'t wrong.', 'templatiq' ), '1.0.0' );
     }
 
     public function __wakeup() {
-        _doing_it_wrong( __FUNCTION__, esc_html__( 'Something wen\'t wrong.', 'template-market' ), '1.0.0' );
+        _doing_it_wrong( __FUNCTION__, esc_html__( 'Something wen\'t wrong.', 'templatiq' ), '1.0.0' );
     }
 
     public static function init( ...$args ): object {

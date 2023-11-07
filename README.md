@@ -1,1 +1,1 @@
-# template-market
+# templatiq

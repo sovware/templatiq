@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace TemplateMarket\Utils;
+namespace Templatiq\Utils;
 
 class Http {
 	private string $url;
@@ -28,8 +28,8 @@ class Http {
 	public function headers( array $args = [] ) {
 		$_headers = $this->headers ?? [
 			'Content-Type'          => 'application/json',
-			'x-template-market-ip'  => Helper::get_ip(),
-			'x-template-market-url' => home_url( '/' ),
+			'x-templatiq-ip'  => Helper::get_ip(),
+			'x-templatiq-url' => home_url( '/' ),
 		];
 
 		$this->headers = wp_parse_args( $args, $_headers );

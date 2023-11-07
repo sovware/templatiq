@@ -41,6 +41,11 @@ export default function TemplatePackModule() {
 
 			<div className="templatiq__content__wrapper">
 				<SingleTemplate />
+				<SingleTemplate />
+				<SingleTemplate />
+				<SingleTemplate />
+				<SingleTemplate />
+				<SingleTemplate />
 			</div>
 		</TemplatePackStyle>
 	);

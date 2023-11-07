@@ -5,10 +5,10 @@
  * @version 1.0.0
  */
 
-namespace TemplateMarket\Admin;
+namespace Templatiq\Admin;
 
-use TemplateMarket\Admin\AdminMenu;
-use TemplateMarket\Utils\Singleton;
+use Templatiq\Admin\AdminMenu;
+use Templatiq\Utils\Singleton;
 
 class Admin {
 	use Singleton;

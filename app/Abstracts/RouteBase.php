@@ -5,10 +5,10 @@
  * @version 1.0.0
  */
 
-namespace TemplateMarket\Abstracts;
+namespace Templatiq\Abstracts;
 
-use TemplateMarket\Utils\Response;
-use TemplateMarket\Utils\Singleton;
+use Templatiq\Utils\Response;
+use Templatiq\Utils\Singleton;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Server;
@@ -18,7 +18,7 @@ abstract class RouteBase {
 
 	protected $token;
 	protected $request;
-	protected $namespace = 'template-market';
+	protected $namespace = 'templatiq';
 
 	public function __construct() {
 		add_action( 'rest_api_init', [$this, 'register_routes'] );
@@ -41,7 +41,7 @@ abstract class RouteBase {
 
 	protected function permission_error( string $message, $endpoint = '' ) {
 		if ( empty( $message ) ) {
-			$message = __( 'Sorry, you need to login/re-login again.', 'template-market' );
+			$message = __( 'Sorry, you need to login/re-login again.', 'templatiq' );
 		}
 
 		$_additional_data = [

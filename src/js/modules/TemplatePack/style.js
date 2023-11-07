@@ -1,6 +1,9 @@
 import Styled from 'styled-components';
 
 const TemplatePackStyle = Styled.div`
+    display: flex;
+    gap: 24px;
+    flex-direction: column;
     .templatiq__content__top {
         display: flex;
         gap: 24px;
@@ -9,12 +12,19 @@ const TemplatePackStyle = Styled.div`
             font-size: 16px;
             font-weight: 600;
             color: #101014;
+            margin: 0;
         }
         .templatiq__content__top__filter {
             display: flex;
             gap: 20px;
             align-items: center;
         }
+    }
+
+    .templatiq__content__wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 32px;
     }
 `;
 

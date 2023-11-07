@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 
 <script type="text/template" id="tmpl-tmTemplateLibrary__header-back">
 	<i class="eicon-" aria-hidden="true"></i>
-	<span><?php echo __( 'Back to Library', 'template-market' ); ?></span>
+	<span><?php echo __( 'Back to Library', 'templatiq' ); ?></span>
 </script>
 
 <script type="text/template" id="tmpl-tmTemplateLibrary__header-menu">
@@ -26,23 +26,23 @@ defined( 'ABSPATH' ) || exit;
 
 <script type="text/template" id="tmpl-tmTemplateLibrary__header-menu-responsive">
 	<div class="elementor-component-tab tmTemplateLibrary__responsive-menu-item elementor-active" data-tab="desktop">
-		<i class="eicon-device-desktop" aria-hidden="true" title="<?php esc_attr_e( 'Desktop view', 'template-market' ); ?>"></i>
-		<span class="elementor-screen-only"><?php esc_html_e( 'Desktop view', 'template-market' ); ?></span>
+		<i class="eicon-device-desktop" aria-hidden="true" title="<?php esc_attr_e( 'Desktop view', 'templatiq' ); ?>"></i>
+		<span class="elementor-screen-only"><?php esc_html_e( 'Desktop view', 'templatiq' ); ?></span>
 	</div>
 	<div class="elementor-component-tab tmTemplateLibrary__responsive-menu-item" data-tab="tab">
-		<i class="eicon-device-tablet" aria-hidden="true" title="<?php esc_attr_e( 'Tab view', 'template-market' ); ?>"></i>
-		<span class="elementor-screen-only"><?php esc_html_e( 'Tab view', 'template-market' ); ?></span>
+		<i class="eicon-device-tablet" aria-hidden="true" title="<?php esc_attr_e( 'Tab view', 'templatiq' ); ?>"></i>
+		<span class="elementor-screen-only"><?php esc_html_e( 'Tab view', 'templatiq' ); ?></span>
 	</div>
 	<div class="elementor-component-tab tmTemplateLibrary__responsive-menu-item" data-tab="mobile">
-		<i class="eicon-device-mobile" aria-hidden="true" title="<?php esc_attr_e( 'Mobile view', 'template-market' ); ?>"></i>
-		<span class="elementor-screen-only"><?php esc_html_e( 'Mobile view', 'template-market' ); ?></span>
+		<i class="eicon-device-mobile" aria-hidden="true" title="<?php esc_attr_e( 'Mobile view', 'templatiq' ); ?>"></i>
+		<span class="elementor-screen-only"><?php esc_html_e( 'Mobile view', 'templatiq' ); ?></span>
 	</div>
 </script>
 
 <script type="text/template" id="tmpl-tmTemplateLibrary__header-actions">
 	<div id="tmTemplateLibrary__header-sync" class="elementor-templates-modal__header__item">
-		<i class="eicon-sync" aria-hidden="true" title="<?php esc_attr_e( 'Sync Library', 'template-market' ); ?>"></i>
-		<span class="elementor-screen-only"><?php esc_html_e( 'Sync Library', 'template-market' ); ?></span>
+		<i class="eicon-sync" aria-hidden="true" title="<?php esc_attr_e( 'Sync Library', 'templatiq' ); ?>"></i>
+		<span class="elementor-screen-only"><?php esc_html_e( 'Sync Library', 'templatiq' ); ?></span>
 	</div>
 </script>
 
@@ -59,14 +59,14 @@ defined( 'ABSPATH' ) || exit;
 <script type="text/template" id="tmpl-tmTemplateLibrary__insert-button">
 	<a class="elementor-template-library-template-action elementor-button tmTemplateLibrary__insert-button">
 		<i class="eicon-file-download" aria-hidden="true"></i>
-		<span class="elementor-button-title"><?php esc_html_e( 'Insert', 'template-market' ); ?></span>
+		<span class="elementor-button-title"><?php esc_html_e( 'Insert', 'templatiq' ); ?></span>
 	</a>
 </script>
 
 <script type="text/template" id="tmpl-tmTemplateLibrary__pro-button">
-	<a class="elementor-template-library-template-action elementor-button tmTemplateLibrary__pro-button" href="https://template-market.com/pricing/" target="_blank">
+	<a class="elementor-template-library-template-action elementor-button tmTemplateLibrary__pro-button" href="https://templatiq.com/pricing/" target="_blank">
 		<i class="eicon-external-link-square" aria-hidden="true"></i>
-		<span class="elementor-button-title"><?php esc_html_e( 'Get Pro', 'template-market' ); ?></span>
+		<span class="elementor-button-title"><?php esc_html_e( 'Get Pro', 'templatiq' ); ?></span>
 	</a>
 </script>
 
@@ -80,7 +80,7 @@ defined( 'ABSPATH' ) || exit;
 				<div class="elementor-loader-box"></div>
 			</div>
 		</div>
-		<div class="elementor-loading-title"><?php esc_html_e( 'Loading', 'template-market' ); ?></div>
+		<div class="elementor-loading-title"><?php esc_html_e( 'Loading', 'templatiq' ); ?></div>
 	</div>
 </script>
 
@@ -91,7 +91,7 @@ defined( 'ABSPATH' ) || exit;
 				<# if ( selectedTag ) { #>
 				<span class="tmTemplateLibrary__filter-btn">{{{ tm.library.getTags()[selectedTag] }}} <i class="eicon-caret-right"></i></span>
 				<# } else { #>
-				<span class="tmTemplateLibrary__filter-btn"><?php esc_html_e( 'Filter', 'template-market' ); ?> <i class="eicon-caret-right"></i></span>
+				<span class="tmTemplateLibrary__filter-btn"><?php esc_html_e( 'Filter', 'templatiq' ); ?> <i class="eicon-caret-right"></i></span>
 				<# } #>
 				<ul id="tmTemplateLibrary__filter-tags" class="tmTemplateLibrary__filter-tags">
 					<li data-tag="">All</li>
@@ -105,8 +105,8 @@ defined( 'ABSPATH' ) || exit;
 		</div>
 		<div id="tmTemplateLibrary__toolbar-counter"></div>
 		<div id="tmTemplateLibrary__toolbar-search">
-			<label for="tmTemplateLibrary__search" class="elementor-screen-only"><?php esc_html_e( 'Search Templates:', 'template-market' ); ?></label>
-			<input id="tmTemplateLibrary__search" placeholder="<?php esc_attr_e( 'Search', 'template-market' ); ?>">
+			<label for="tmTemplateLibrary__search" class="elementor-screen-only"><?php esc_html_e( 'Search Templates:', 'templatiq' ); ?></label>
+			<input id="tmTemplateLibrary__search" placeholder="<?php esc_attr_e( 'Search', 'templatiq' ); ?>">
 			<i class="eicon-search"></i>
 		</div>
 	</div>
@@ -123,14 +123,14 @@ defined( 'ABSPATH' ) || exit;
 		</div>
 		<img class="tmTemplateLibrary__template-thumbnail" src="{{ thumbnail }}">
 		<# if ( obj.isPro ) { #>
-		<span class="tmTemplateLibrary__template-badge"><?php esc_html_e( 'Pro', 'template-market' ); ?></span>
+		<span class="tmTemplateLibrary__template-badge"><?php esc_html_e( 'Pro', 'templatiq' ); ?></span>
 		<# } #>
 	</div>
 	<div class="tmTemplateLibrary__template-footer">
 		{{{ tm.library.getModal().getTemplateActionButton( obj ) }}}
 		<a href="#" class="elementor-button tmTemplateLibrary__preview-button">
 			<i class="eicon-device-desktop" aria-hidden="true"></i>
-			<?php esc_html_e( 'Preview', 'template-market' ); ?>
+			<?php esc_html_e( 'Preview', 'templatiq' ); ?>
 		</a>
 	</div>
 </script>
@@ -142,7 +142,7 @@ defined( 'ABSPATH' ) || exit;
 	<div class="elementor-template-library-blank-title"></div>
 	<div class="elementor-template-library-blank-message"></div>
 	<div class="elementor-template-library-blank-footer">
-		<?php esc_html_e( 'Want to learn more about the Template Market Library?', 'template-market' ); ?>
-		<a class="elementor-template-library-blank-footer-link" href="https://template-market.com/docs/" target="_blank"><?php echo __( 'Click here', 'template-market' ); ?></a>
+		<?php esc_html_e( 'Want to learn more about the Templatiq Library?', 'templatiq' ); ?>
+		<a class="elementor-template-library-blank-footer-link" href="https://templatiq.com/docs/" target="_blank"><?php echo __( 'Click here', 'templatiq' ); ?></a>
 	</div>
 </script>

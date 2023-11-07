@@ -5,10 +5,10 @@
  * @version 1.0.0
  */
 
-namespace TemplateMarket\Admin;
+namespace Templatiq\Admin;
 
-use TemplateMarket\Utils\Hookable;
-use TemplateMarket\Utils\Singleton;
+use Templatiq\Utils\Hookable;
+use Templatiq\Utils\Singleton;
 
 /**
  * Administration Menu Class
@@ -23,18 +23,18 @@ class AdminMenu {
 
 	public function admin_menu() {
 		add_menu_page(
-			__( 'TemplateMarket', 'template-market' ),
-			apply_filters( 'template-market_title', 'TemplateMarket' ),
+			__( 'Templatiq', 'templatiq' ),
+			apply_filters( 'templatiq_title', 'Templatiq' ),
 			'manage_options',
-			'template-market',
+			'templatiq',
 			[$this, 'content']
 		);
 		add_submenu_page(
-			'template-market',
-			__( 'Dashboard', 'template-market' ),
-			__( 'Dashboard', 'template-market' ),
+			'templatiq',
+			__( 'Dashboard', 'templatiq' ),
+			__( 'Dashboard', 'templatiq' ),
 			'manage_options',
-			'template-market',
+			'templatiq',
 			[$this, 'content'],
 		);
 	}

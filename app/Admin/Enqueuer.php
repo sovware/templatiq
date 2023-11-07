@@ -5,9 +5,9 @@
  * @version 1.0.0
  */
 
-namespace TemplateMarket\Admin;
+namespace Templatiq\Admin;
 
-use TemplateMarket\Abstracts\EnqueuerBase;
+use Templatiq\Abstracts\EnqueuerBase;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -23,49 +23,49 @@ class Enqueuer extends EnqueuerBase {
 	}
 
 	public function admin_enqueue_scripts( $hook ) {
-		if ( ! isset( $_GET['page'] ) || 'template-market' !== $_GET['page'] ) {
+		if ( ! isset( $_GET['page'] ) || 'templatiq' !== $_GET['page'] ) {
 			return;
 		}
 
-		$this->enqueue_script( 'template-market-app', '/js/admin.js', ['wp-element'] );
+		$this->enqueue_script( 'templatiq-app', '/js/admin.js', ['wp-element'] );
 
 
-		$this->enqueue_style( 'template-market-app', '/css/global.css');
+		$this->enqueue_style( 'templatiq-app', '/css/global.css' );
 
 		$obj = [
 			'rest_args' => [
 				'nonce'    => wp_create_nonce( 'wp_rest' ),
-				'endpoint' => get_rest_url( null, 'template-market' ),
+				'endpoint' => get_rest_url( null, 'templatiq' ),
 			],
 		];
 
-		wp_localize_script( 'template-market-admin-app', 'template_market_obj', $obj );
+		wp_localize_script( 'templatiq-admin-app', 'template_market_obj', $obj );
 	}
 
 	public function elementor_editor_enqueue() {
 		wp_enqueue_style(
-			'template-market-elementor-editor',
-			TEMPLATE_MARKET_ASSETS . '/css/elementor-editor.css',
+			'templatiq-elementor-editor',
+			TEMPLATIQ_ASSETS . '/css/elementor-editor.css',
 			[],
-			TEMPLATE_MARKET_VERSION,
+			TEMPLATIQ_VERSION,
 		);
 
 		wp_enqueue_script(
-			'template-market-elementor-editor',
-			TEMPLATE_MARKET_ASSETS . '/js/elementor-editor.js',
+			'templatiq-elementor-editor',
+			TEMPLATIQ_ASSETS . '/js/elementor-editor.js',
 			['elementor-editor', 'jquery'],
-			TEMPLATE_MARKET_VERSION,
+			TEMPLATIQ_VERSION,
 			true
 		);
 
 		$obj = [
 			'rest_args' => [
 				'nonce'    => wp_create_nonce( 'wp_rest' ),
-				'endpoint' => get_rest_url( null, 'template-market' ),
+				'endpoint' => get_rest_url( null, 'templatiq' ),
 			],
 		];
 
-		wp_localize_script( 'template-market-elementor-editor', 'template_market_obj', $obj );
+		wp_localize_script( 'templatiq-elementor-editor', 'template_market_obj', $obj );
 
 	}
 }

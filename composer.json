@@ -1,8 +1,8 @@
 {
-    "name": "wpwax/template-market",
+    "name": "wpwax/templatiq",
     "autoload": {
         "psr-4": {
-            "TemplateMarket\\": "app"
+            "Templatiq\\": "app"
         }
     },
     "authors": [

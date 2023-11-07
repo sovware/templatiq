@@ -198,41 +198,41 @@ export function safeUpdateObjectItem( path, data, value ) {
 }
 
 export function updateGlobalState( key, value, merge ) {
-	if ( ! window.templateMarketGlobalState ) {
-		window.templateMarketGlobalState = {};
+	if ( ! window.templatiqGlobalState ) {
+		window.templatiqGlobalState = {};
 	}
 
 	if (
 		typeof merge === 'boolean' &&
 		merge &&
 		isObject( value ) &&
-		isObject( window.templateMarketGlobalState[ key ] )
+		isObject( window.templatiqGlobalState[ key ] )
 	) {
 		const newValue = {
-			...window.templateMarketGlobalState[ key ],
+			...window.templatiqGlobalState[ key ],
 			...value,
 		};
 
-		window.templateMarketGlobalState[ key ] = newValue;
-		return window.templateMarketGlobalState[ key ];
+		window.templatiqGlobalState[ key ] = newValue;
+		return window.templatiqGlobalState[ key ];
 	}
 
-	window.templateMarketGlobalState[ key ] = value;
-	return window.templateMarketGlobalState[ key ];
+	window.templatiqGlobalState[ key ] = value;
+	return window.templatiqGlobalState[ key ];
 }
 
 export function getGlobalState( key, defaultValue ) {
-	if ( ! window.templateMarketGlobalState ) {
-		window.templateMarketGlobalState = {};
+	if ( ! window.templatiqGlobalState ) {
+		window.templatiqGlobalState = {};
 	}
 
 	if ( typeof key === 'undefined' ) {
-		return window.templateMarketGlobalState;
+		return window.templatiqGlobalState;
 	}
 
-	if ( ! window.templateMarketGlobalState.hasOwnProperty( key ) ) {
+	if ( ! window.templatiqGlobalState.hasOwnProperty( key ) ) {
 		return defaultValue;
 	}
 
-	return window.templateMarketGlobalState[ key ];
+	return window.templatiqGlobalState[ key ];
 }
