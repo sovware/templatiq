@@ -29,6 +29,44 @@ const TemplatePackStyle = Styled.div`
         flex-wrap: wrap;
         gap: 32px;
     }
+
+    .templatiq-pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        margin-top: 32px;
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #ffffff;
+            border: 1px solid #E8E8EE;
+            border-right: none;
+            cursor: pointer;
+            a {
+                color: #57575F;
+                box-shadow: none;
+            }
+            &:first-child {
+                border-radius: 8px 0 0 8px;
+            }
+            &:last-child {
+                border-radius: 0 8px 8px 0;
+                border-right: 1px solid #E8E8EE;
+            }
+            &.selected,
+            &:hover {
+                background: #F1F1F4;
+            }
+            &.break,
+            &.disabled {
+                pointer-events: none;
+            }
+        }
+    }
 `;
 
 const TemplatePackFilterStyle = Styled.div`

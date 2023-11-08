@@ -7,10 +7,19 @@ import SingleTemplate from './components/SingleTemplate';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
+import ReactPaginate from 'react-paginate';
+
+
 import searchIcon from '@icon/search.svg';
 import crownIcon from '@icon/crown.svg';
+import arrowLeft from '@icon/angle-left.svg';
+import arrowRight from '@icon/angle-right.svg';
 
 export default function TemplatePackModule() {
+
+	let handlePageClick = ( data ) => {
+		return data;
+	}
 	return (
 		<TemplatePackStyle className="templatiq__content">
 			<Tabs className="templatiq__content__tab">
@@ -62,6 +71,23 @@ export default function TemplatePackModule() {
 						<SingleTemplate />
 						<SingleTemplate />
 					</TabPanel>
+					<ReactPaginate
+						breakLabel="..."
+						onPageChange={ handlePageClick }
+						nextLabel={ <ReactSVG src={ arrowRight } /> }
+						previousLabel={ <ReactSVG src={ arrowLeft } /> }
+						pageRangeDisplayed={ 3 }
+						pageCount={ 10 }
+						previousClassName="templatiq-pagination__item"
+						previousLinkClassName="templatiq-pagination__link templatiq-pagination__control"
+						nextClassName="templatiq-pagination__item"
+						nextLinkClassName="templatiq-pagination__link templatiq-pagination__control"
+						containerClassName="templatiq-pagination"
+						pageClassName="templatiq-pagination__item"
+						pageLinkClassName="templatiq-pagination__link"
+						activeLinkClassName="templatiq-pagination__active"
+						renderOnZeroPageCount={ null }
+					/>
 				</div>
 			</Tabs>
 		</TemplatePackStyle>

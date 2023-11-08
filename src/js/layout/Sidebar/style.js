@@ -116,12 +116,13 @@ const SidebarItemStyle = Styled.div`
                 content: '';
                 position: absolute;
                 inset-inline-start: 0;
-                top: -2px;
+                top: 0;
                 width: 18px;
                 height: 18px;
                 border-radius: 4px;
                 background: #ffffff;
                 border: 2px solid #D1D1D9;
+                box-sizing: border-box;
             }
             &:after {
                 content: '';
