@@ -117,11 +117,6 @@ final class Templatiq {
 		return isset( $installed_plugins[$basename] );
 	}
 
-	/**
-	 * Define the constants
-	 *
-	 * @return void
-	 */
 	private function define_constants(): void {
 		define( 'TEMPLATIQ_VERSION', $this->version );
 		define( 'TEMPLATIQ_FILE', __FILE__ );
@@ -137,11 +132,6 @@ final class Templatiq {
 		define( 'TEMPLATIQ_DEBUG_LOG', true );
 	}
 
-	/**
-	 * Include the required files
-	 *
-	 * @return void
-	 */
 	private function includes() {
 		include __DIR__ . '/vendor/autoload.php';
 	}
