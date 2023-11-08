@@ -24,6 +24,7 @@ const SidebarStyle = Styled.div`
         }
         .templatiq__sidebar__filter__clear {
             color: #8941FF;
+            box-shadow: none;
         }
     }
 
@@ -37,6 +38,17 @@ const SidebarStyle = Styled.div`
         padding: 0 24px;
         margin-bottom: 24px;
         border-bottom: 1px solid #F1F1F4;
+        .templatiq__sidebar__nav__item {
+            &.react-tabs__tab--selected {
+                .templatiq__sidebar__nav__link {
+                    color: #8941FF;
+                    &:before {
+                        width: 100%;
+                        background: #8941FF;
+                    }
+                }
+            }
+        }
         .templatiq__sidebar__nav__link {
             position: relative;
             display: flex;
@@ -56,7 +68,6 @@ const SidebarStyle = Styled.div`
                 background: transparent;
                 transition: width 0.3s ease;
             }
-            &.active,
             &:hover {
                 color: #8941FF;
                 &:before {
@@ -68,7 +79,7 @@ const SidebarStyle = Styled.div`
     }
 `;
 
-const SidebarCollapseStyle = Styled.div`
+const SidebarItemStyle = Styled.div`
     display: flex;
     gap: 25px;
     flex-direction: column;
@@ -98,8 +109,29 @@ const SidebarCollapseStyle = Styled.div`
             }
         }
     }
+
+    .templatiq__sidebar__categories__wrapper {
+        display: flex;
+        gap: 15px;
+        flex-direction: column;
+    }
+    .templatiq__sidebar__categories__item {
+        display: flex;
+        gap: 12px;
+        .templatiq__sidebar__categories__checkbox {
+            margin: 1px 0 0;
+        }
+        .templatiq__sidebar__categories__label {
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .templatiq__sidebar__categories__count {
+            flex: 1;
+            text-align: end;
+        }
+    }
 `;
 
 
 
-export { SidebarStyle, SidebarCollapseStyle };
+export { SidebarStyle, SidebarItemStyle };

@@ -7512,9 +7512,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style */ "./src/js/layout/Sidebar/style.js");
-/* harmony import */ var _icon_filter_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @icon/filter.svg */ "./src/svg/icon/filter.svg");
+/* harmony import */ var react_tabs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-tabs */ "./node_modules/react-tabs/esm/index.js");
+/* harmony import */ var react_tabs_style_react_tabs_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-tabs/style/react-tabs.css */ "./node_modules/react-tabs/style/react-tabs.css");
+/* harmony import */ var _icon_filter_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @icon/filter.svg */ "./src/svg/icon/filter.svg");
+
+
 
 
 
@@ -7527,8 +7531,8 @@ const Sidebar = () => {
     className: "templatiq__sidebar__filter"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
     className: "templatiq__sidebar__filter__title"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    src: _icon_filter_svg__WEBPACK_IMPORTED_MODULE_2__["default"],
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    src: _icon_filter_svg__WEBPACK_IMPORTED_MODULE_4__["default"],
     width: 18,
     height: 18
   }), "Filter"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
@@ -7536,15 +7540,19 @@ const Sidebar = () => {
     className: "templatiq__sidebar__filter__clear"
   }, "Clear")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__sidebar__wrapper"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_tabs__WEBPACK_IMPORTED_MODULE_2__.Tabs, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_tabs__WEBPACK_IMPORTED_MODULE_2__.TabList, {
     className: "templatiq__sidebar__nav"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_tabs__WEBPACK_IMPORTED_MODULE_2__.Tab, {
+    className: "templatiq__sidebar__nav__item"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
-    className: "templatiq__sidebar__nav__link active"
-  }, "Plugins"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    className: "templatiq__sidebar__nav__link"
+  }, "Plugins")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_tabs__WEBPACK_IMPORTED_MODULE_2__.Tab, {
+    className: "templatiq__sidebar__nav__item"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
     className: "templatiq__sidebar__nav__link"
-  }, "Categories")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_style__WEBPACK_IMPORTED_MODULE_1__.SidebarCollapseStyle, {
+  }, "Categories"))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_tabs__WEBPACK_IMPORTED_MODULE_2__.TabPanel, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_style__WEBPACK_IMPORTED_MODULE_1__.SidebarItemStyle, {
     className: "templatiq__sidebar__collapse"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__sidebar__collapse__single"
@@ -7699,7 +7707,98 @@ const Sidebar = () => {
     className: "templatiq__sidebar__collapse__item__single__label"
   }, "Claim Listing"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "templatiq__sidebar__collapse__item__single__count"
-  }, "12")))))));
+  }, "12")))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
+    className: "templatiq__sidebar__collapse__title"
+  }, "Legal Pages"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__collapse__item__single__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__collapse__item__single__label"
+  }, "Pricing Plan"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__collapse__item__single__count"
+  }, "12")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__collapse__item__single__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__collapse__item__single__label"
+  }, "WooCommerce Pricing Plans"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__collapse__item__single__count"
+  }, "12")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__collapse__item__single__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__collapse__item__single__label"
+  }, "Business Directory"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__collapse__item__single__count"
+  }, "12")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__collapse__item__single__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__collapse__item__single__label"
+  }, "Marketplace"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__collapse__item__single__count"
+  }, "12")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__collapse__item__single"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__collapse__item__single__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__collapse__item__single__label"
+  }, "Claim Listing"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__collapse__item__single__count"
+  }, "12")))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_tabs__WEBPACK_IMPORTED_MODULE_2__.TabPanel, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_style__WEBPACK_IMPORTED_MODULE_1__.SidebarItemStyle, {
+    className: "templatiq__sidebar__categories"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__categories__wrapper"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__categories__item"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__categories__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__categories__label"
+  }, "Directorist"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__categories__count"
+  }, "12")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__categories__item"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__categories__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__categories__label"
+  }, "WooCommerce"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__categories__count"
+  }, "12")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__categories__item"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__categories__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__categories__label"
+  }, "HelpGent"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__categories__count"
+  }, "12")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__sidebar__categories__item"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    className: "templatiq__sidebar__categories__checkbox"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "templatiq__sidebar__categories__label"
+  }, "Legal Pages"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__sidebar__categories__count"
+  }, "12"))))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Sidebar);
 
@@ -7714,7 +7813,7 @@ const Sidebar = () => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SidebarCollapseStyle: () => (/* binding */ SidebarCollapseStyle),
+/* harmony export */   SidebarItemStyle: () => (/* binding */ SidebarItemStyle),
 /* harmony export */   SidebarStyle: () => (/* binding */ SidebarStyle)
 /* harmony export */ });
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
@@ -7743,6 +7842,7 @@ const SidebarStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].d
         }
         .templatiq__sidebar__filter__clear {
             color: #8941FF;
+            box-shadow: none;
         }
     }
 
@@ -7756,6 +7856,17 @@ const SidebarStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].d
         padding: 0 24px;
         margin-bottom: 24px;
         border-bottom: 1px solid #F1F1F4;
+        .templatiq__sidebar__nav__item {
+            &.react-tabs__tab--selected {
+                .templatiq__sidebar__nav__link {
+                    color: #8941FF;
+                    &:before {
+                        width: 100%;
+                        background: #8941FF;
+                    }
+                }
+            }
+        }
         .templatiq__sidebar__nav__link {
             position: relative;
             display: flex;
@@ -7775,7 +7886,6 @@ const SidebarStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].d
                 background: transparent;
                 transition: width 0.3s ease;
             }
-            &.active,
             &:hover {
                 color: #8941FF;
                 &:before {
@@ -7786,7 +7896,7 @@ const SidebarStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].d
         }
     }
 `;
-const SidebarCollapseStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div`
+const SidebarItemStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div`
     display: flex;
     gap: 25px;
     flex-direction: column;
@@ -7814,6 +7924,27 @@ const SidebarCollapseStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["def
                 flex: 1;
                 text-align: end;
             }
+        }
+    }
+
+    .templatiq__sidebar__categories__wrapper {
+        display: flex;
+        gap: 15px;
+        flex-direction: column;
+    }
+    .templatiq__sidebar__categories__item {
+        display: flex;
+        gap: 12px;
+        .templatiq__sidebar__categories__checkbox {
+            margin: 1px 0 0;
+        }
+        .templatiq__sidebar__categories__label {
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .templatiq__sidebar__categories__count {
+            flex: 1;
+            text-align: end;
         }
     }
 `;
