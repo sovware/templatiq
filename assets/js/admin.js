@@ -9178,6 +9178,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const SingleTemplate = () => {
+  let isPurchased = false;
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_style__WEBPACK_IMPORTED_MODULE_1__.SingleTemplateStyle, {
     className: "templatiq__template__single"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -9202,7 +9203,14 @@ const SingleTemplate = () => {
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
     className: "templatiq__template__single__info__action__link"
-  }, "Live Demo"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+  }, "Live Demo"), isPurchased ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: "#",
+    className: "templatiq__template__single__info__action__link insert-btn"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    src: _icon_download_alt_svg__WEBPACK_IMPORTED_MODULE_5__["default"],
+    width: 14,
+    height: 14
+  }), "Insert") : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
     className: "templatiq__template__single__info__action__link purchase-btn"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_9__["default"], {
@@ -9371,6 +9379,16 @@ const SingleTemplateStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["defa
             &.purchase-btn {
                 color: #ffffff;
                 background-color: #8941FF;
+                path {
+                    fill: #ffffff;
+                }
+            }
+            &.insert-btn {
+                color: #ffffff;
+                background-color: #2AB76E;
+                path {
+                    fill: #ffffff;
+                }
             }
         }
     }

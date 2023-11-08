@@ -98,6 +98,16 @@ const SingleTemplateStyle = Styled.div`
             &.purchase-btn {
                 color: #ffffff;
                 background-color: #8941FF;
+                path {
+                    fill: #ffffff;
+                }
+            }
+            &.insert-btn {
+                color: #ffffff;
+                background-color: #2AB76E;
+                path {
+                    fill: #ffffff;
+                }
             }
         }
     }

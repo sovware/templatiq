@@ -11,6 +11,8 @@ import directoristIcon from "@icon/directorist.svg";
 import templateImg1 from "@images/template/1.svg";
 
 const SingleTemplate = () => {
+    let isPurchased = false;
+
     return (
         <SingleTemplateStyle className="templatiq__template__single">
             <div className="templatiq__template__single__img">
@@ -27,10 +29,18 @@ const SingleTemplate = () => {
                         <a href="#" className="templatiq__template__single__info__action__link">
                             Live Demo
                         </a>
-                        <a href="#" className="templatiq__template__single__info__action__link purchase-btn">
-                            <ReactSVG src={ cartIcon } width={14} height={14} />
-                            Purchase
-                        </a>
+                        {
+                            isPurchased ? 
+                                <a href="#" className="templatiq__template__single__info__action__link insert-btn">
+                                <ReactSVG src={ downloadIcon } width={14} height={14} />
+                                Insert
+                            </a> :
+                            <a href="#" className="templatiq__template__single__info__action__link purchase-btn">
+                                <ReactSVG src={ cartIcon } width={14} height={14} />
+                                Purchase
+                            </a>
+
+                        }
                     </div>
                     <div className="templatiq__template__single__info__required">
                         <a href="#" className="templatiq__template__single__info__required__item">
