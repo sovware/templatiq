@@ -1,4 +1,6 @@
+import React, { useState } from 'react';
 import ReactSVG from 'react-inlinesvg';
+import Dropdown from '@components/Dropdown';
 
 import { HeaderStyle, HeaderNavStyle, HeaderActionStyle } from "./style";
 
@@ -8,11 +10,28 @@ import userIcon from "@icon/user-alt.svg";
 import fileIcon from "@icon/file-solid.svg";
 import pagesIcon from "@icon/pages.svg";
 import blocksIcon from "@icon/blocks.svg";
+
+import chevronIcon from "@icon/chevron-down-solid.svg";
 import elementorIcon from "@icon/elementor.svg";
+import directoristIcon from "@icon/directorist.svg";
+
 
 const Header = () =>  {
 
 	let isLoggedIn = false;
+
+	let editorItems = [
+		{
+			icon: elementorIcon,
+			text: 'Elementor',
+			url: '#',
+		},
+		{
+			icon: directoristIcon,
+			text: 'Direrctorist',
+			url: '#',
+		},
+	];
 
 	return (
 		<HeaderStyle className="templatiq__header">
@@ -42,13 +61,18 @@ const Header = () =>  {
 						</a>
 					</li>
 				</HeaderNavStyle>
+				
 				<HeaderActionStyle className="templatiq__header__action">
 					<div className="templatiq__header__action__item">
-						<a href="#" className="templatiq__header__action__link">
-							<ReactSVG src={ elementorIcon } width={24} height={24} />
-							Elementor
-						</a>
+						<Dropdown
+							className="templatiq__dropdown"
+							dropDownText= "Select Editor"
+							dropDownIcon={ chevronIcon }
+							dropdownList={ editorItems }
+							defaultSelect = { editorItems[0] }
+						/>
 					</div>
+
 					<div className="templatiq__header__action__item">
 						{isLoggedIn ? 
 							<a href="#" className="templatiq__header__action__link">
