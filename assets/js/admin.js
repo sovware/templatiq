@@ -8171,12 +8171,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../style */ "./src/js/style.js");
 /* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./style */ "./src/js/modules/TemplatePack/style.js");
 /* harmony import */ var _components_SingleTemplate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/SingleTemplate */ "./src/js/modules/TemplatePack/components/SingleTemplate.js");
-/* harmony import */ var _icon_search_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @icon/search.svg */ "./src/svg/icon/search.svg");
-/* harmony import */ var _icon_crown_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @icon/crown.svg */ "./src/svg/icon/crown.svg");
+/* harmony import */ var react_tabs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-tabs */ "./node_modules/react-tabs/esm/index.js");
+/* harmony import */ var react_tabs_style_react_tabs_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-tabs/style/react-tabs.css */ "./node_modules/react-tabs/style/react-tabs.css");
+/* harmony import */ var _icon_search_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @icon/search.svg */ "./src/svg/icon/search.svg");
+/* harmony import */ var _icon_crown_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @icon/crown.svg */ "./src/svg/icon/crown.svg");
+
+
 
 
 
@@ -8188,6 +8192,8 @@ __webpack_require__.r(__webpack_exports__);
 function TemplatePackModule() {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_style__WEBPACK_IMPORTED_MODULE_2__.TemplatePackStyle, {
     className: "templatiq__content"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_tabs__WEBPACK_IMPORTED_MODULE_4__.Tabs, {
+    className: "templatiq__content__tab"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__content__top"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -8196,33 +8202,35 @@ function TemplatePackModule() {
     className: "templatiq__content__top__filter__title"
   }, "Template Pack"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_style__WEBPACK_IMPORTED_MODULE_2__.TemplatePackFilterStyle, {
     className: "templatiq__content__top__filter__wrapper"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
-    className: "templatiq__content__top__filter__item"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-    href: "#",
-    className: "templatiq__content__top__filter__link active"
-  }, "All (24)")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
-    className: "templatiq__content__top__filter__item"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-    href: "#",
-    className: "templatiq__content__top__filter__link"
-  }, "Free (8)")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_tabs__WEBPACK_IMPORTED_MODULE_4__.TabList, {
+    className: "templatiq__content__top__filter__tablist"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_tabs__WEBPACK_IMPORTED_MODULE_4__.Tab, {
     className: "templatiq__content__top__filter__item"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
     className: "templatiq__content__top__filter__link"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__["default"], {
-    src: _icon_crown_svg__WEBPACK_IMPORTED_MODULE_5__["default"],
+  }, "All (24)")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_tabs__WEBPACK_IMPORTED_MODULE_4__.Tab, {
+    className: "templatiq__content__top__filter__item"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: "#",
+    className: "templatiq__content__top__filter__link"
+  }, "Free (8)")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_tabs__WEBPACK_IMPORTED_MODULE_4__.Tab, {
+    className: "templatiq__content__top__filter__item"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: "#",
+    className: "templatiq__content__top__filter__link"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    src: _icon_crown_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
     width: 12,
     height: 12
-  }), "Pro (16)")))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }), "Pro (16)"))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__content__top__search"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_style__WEBPACK_IMPORTED_MODULE_1__.SearchBoxStyle, {
     className: "templatiq__content__top__searchbox"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     className: "templatiq__content__top__searchbox__button"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__["default"], {
-    src: _icon_search_svg__WEBPACK_IMPORTED_MODULE_4__["default"],
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    src: _icon_search_svg__WEBPACK_IMPORTED_MODULE_6__["default"],
     width: 18,
     height: 18
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
@@ -8231,7 +8239,13 @@ function TemplatePackModule() {
     placeholder: "Search "
   })))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__content__wrapper"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SingleTemplate__WEBPACK_IMPORTED_MODULE_3__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SingleTemplate__WEBPACK_IMPORTED_MODULE_3__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SingleTemplate__WEBPACK_IMPORTED_MODULE_3__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SingleTemplate__WEBPACK_IMPORTED_MODULE_3__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SingleTemplate__WEBPACK_IMPORTED_MODULE_3__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SingleTemplate__WEBPACK_IMPORTED_MODULE_3__["default"], null)));
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_tabs__WEBPACK_IMPORTED_MODULE_4__.TabPanel, {
+    className: "templatiq__content__tab-panel"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SingleTemplate__WEBPACK_IMPORTED_MODULE_3__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SingleTemplate__WEBPACK_IMPORTED_MODULE_3__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SingleTemplate__WEBPACK_IMPORTED_MODULE_3__["default"], null)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_tabs__WEBPACK_IMPORTED_MODULE_4__.TabPanel, {
+    className: "templatiq__content__tab-panel"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SingleTemplate__WEBPACK_IMPORTED_MODULE_3__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SingleTemplate__WEBPACK_IMPORTED_MODULE_3__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SingleTemplate__WEBPACK_IMPORTED_MODULE_3__["default"], null)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_tabs__WEBPACK_IMPORTED_MODULE_4__.TabPanel, {
+    className: "templatiq__content__tab-panel"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SingleTemplate__WEBPACK_IMPORTED_MODULE_3__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SingleTemplate__WEBPACK_IMPORTED_MODULE_3__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SingleTemplate__WEBPACK_IMPORTED_MODULE_3__["default"], null)))));
 }
 
 /***/ }),
@@ -8251,9 +8265,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 
 const TemplatePackStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div`
-    display: flex;
-    gap: 24px;
-    flex-direction: column;
+    .templatiq__content__tab {
+        display: flex;
+        gap: 24px;
+        flex-direction: column;
+    }
+    
     .templatiq__content__top {
         display: flex;
         gap: 24px;
@@ -8271,21 +8288,29 @@ const TemplatePackStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["defaul
         }
     }
 
-    .templatiq__content__wrapper {
+    .templatiq__content__tab-panel {
         display: flex;
         flex-wrap: wrap;
         gap: 32px;
     }
 `;
-const TemplatePackFilterStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].ul`
-    display: flex;
-    gap: 4px;
-    padding: 4px 10px;
-    border-radius: 8px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 16px #10101404;
+const TemplatePackFilterStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div`
+    .templatiq__content__top__filter__tablist {
+        display: flex;
+        gap: 4px;
+        padding: 4px 10px;
+        border-radius: 8px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 16px #10101404;
+    }
     .templatiq__content__top__filter__item {
         display: flex;
+        &.react-tabs__tab--selected {
+            a {
+                color: #ffffff;
+                background: #8941FF;
+            }
+        }
     }
     .templatiq__content__top__filter__link {
         display: flex;
@@ -8299,7 +8324,6 @@ const TemplatePackFilterStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["
         text-transform: uppercase;
         background: transparent;
         transition: background 0.3s ease, color 0.3s ease;
-        &.active,
         &:hover {
             color: #ffffff;
             background: #8941FF;
@@ -8625,6 +8649,1122 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	} else {}
 
 }());
+
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/style/react-tabs.css":
+/*!******************************************************!*\
+  !*** ./node_modules/react-tabs/style/react-tabs.css ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./node_modules/prop-types/checkPropTypes.js":
+/*!***************************************************!*\
+  !*** ./node_modules/prop-types/checkPropTypes.js ***!
+  \***************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+var printWarning = function() {};
+
+if (true) {
+  var ReactPropTypesSecret = __webpack_require__(/*! ./lib/ReactPropTypesSecret */ "./node_modules/prop-types/lib/ReactPropTypesSecret.js");
+  var loggedTypeFailures = {};
+  var has = __webpack_require__(/*! ./lib/has */ "./node_modules/prop-types/lib/has.js");
+
+  printWarning = function(text) {
+    var message = 'Warning: ' + text;
+    if (typeof console !== 'undefined') {
+      console.error(message);
+    }
+    try {
+      // --- Welcome to debugging React ---
+      // This error was thrown as a convenience so that you can use this stack
+      // to find the callsite that caused this warning to fire.
+      throw new Error(message);
+    } catch (x) { /**/ }
+  };
+}
+
+/**
+ * Assert that the values match with the type specs.
+ * Error messages are memorized and will only be shown once.
+ *
+ * @param {object} typeSpecs Map of name to a ReactPropType
+ * @param {object} values Runtime values that need to be type-checked
+ * @param {string} location e.g. "prop", "context", "child context"
+ * @param {string} componentName Name of the component for error messages.
+ * @param {?Function} getStack Returns the component stack.
+ * @private
+ */
+function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
+  if (true) {
+    for (var typeSpecName in typeSpecs) {
+      if (has(typeSpecs, typeSpecName)) {
+        var error;
+        // Prop type validation may throw. In case they do, we don't want to
+        // fail the render phase where it didn't fail before. So we log it.
+        // After these have been cleaned up, we'll let them throw.
+        try {
+          // This is intentionally an invariant that gets caught. It's the same
+          // behavior as without this statement except with a better message.
+          if (typeof typeSpecs[typeSpecName] !== 'function') {
+            var err = Error(
+              (componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' +
+              'it must be a function, usually from the `prop-types` package, but received `' + typeof typeSpecs[typeSpecName] + '`.' +
+              'This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.'
+            );
+            err.name = 'Invariant Violation';
+            throw err;
+          }
+          error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
+        } catch (ex) {
+          error = ex;
+        }
+        if (error && !(error instanceof Error)) {
+          printWarning(
+            (componentName || 'React class') + ': type specification of ' +
+            location + ' `' + typeSpecName + '` is invalid; the type checker ' +
+            'function must return `null` or an `Error` but returned a ' + typeof error + '. ' +
+            'You may have forgotten to pass an argument to the type checker ' +
+            'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' +
+            'shape all require an argument).'
+          );
+        }
+        if (error instanceof Error && !(error.message in loggedTypeFailures)) {
+          // Only monitor this failure once because there tends to be a lot of the
+          // same error.
+          loggedTypeFailures[error.message] = true;
+
+          var stack = getStack ? getStack() : '';
+
+          printWarning(
+            'Failed ' + location + ' type: ' + error.message + (stack != null ? stack : '')
+          );
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Resets warning cache when testing.
+ *
+ * @private
+ */
+checkPropTypes.resetWarningCache = function() {
+  if (true) {
+    loggedTypeFailures = {};
+  }
+}
+
+module.exports = checkPropTypes;
+
+
+/***/ }),
+
+/***/ "./node_modules/prop-types/factoryWithTypeCheckers.js":
+/*!************************************************************!*\
+  !*** ./node_modules/prop-types/factoryWithTypeCheckers.js ***!
+  \************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+var ReactIs = __webpack_require__(/*! react-is */ "./node_modules/prop-types/node_modules/react-is/index.js");
+var assign = __webpack_require__(/*! object-assign */ "./node_modules/prop-types/node_modules/object-assign/index.js");
+
+var ReactPropTypesSecret = __webpack_require__(/*! ./lib/ReactPropTypesSecret */ "./node_modules/prop-types/lib/ReactPropTypesSecret.js");
+var has = __webpack_require__(/*! ./lib/has */ "./node_modules/prop-types/lib/has.js");
+var checkPropTypes = __webpack_require__(/*! ./checkPropTypes */ "./node_modules/prop-types/checkPropTypes.js");
+
+var printWarning = function() {};
+
+if (true) {
+  printWarning = function(text) {
+    var message = 'Warning: ' + text;
+    if (typeof console !== 'undefined') {
+      console.error(message);
+    }
+    try {
+      // --- Welcome to debugging React ---
+      // This error was thrown as a convenience so that you can use this stack
+      // to find the callsite that caused this warning to fire.
+      throw new Error(message);
+    } catch (x) {}
+  };
+}
+
+function emptyFunctionThatReturnsNull() {
+  return null;
+}
+
+module.exports = function(isValidElement, throwOnDirectAccess) {
+  /* global Symbol */
+  var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
+  var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
+
+  /**
+   * Returns the iterator method function contained on the iterable object.
+   *
+   * Be sure to invoke the function with the iterable as context:
+   *
+   *     var iteratorFn = getIteratorFn(myIterable);
+   *     if (iteratorFn) {
+   *       var iterator = iteratorFn.call(myIterable);
+   *       ...
+   *     }
+   *
+   * @param {?object} maybeIterable
+   * @return {?function}
+   */
+  function getIteratorFn(maybeIterable) {
+    var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
+    if (typeof iteratorFn === 'function') {
+      return iteratorFn;
+    }
+  }
+
+  /**
+   * Collection of methods that allow declaration and validation of props that are
+   * supplied to React components. Example usage:
+   *
+   *   var Props = require('ReactPropTypes');
+   *   var MyArticle = React.createClass({
+   *     propTypes: {
+   *       // An optional string prop named "description".
+   *       description: Props.string,
+   *
+   *       // A required enum prop named "category".
+   *       category: Props.oneOf(['News','Photos']).isRequired,
+   *
+   *       // A prop named "dialog" that requires an instance of Dialog.
+   *       dialog: Props.instanceOf(Dialog).isRequired
+   *     },
+   *     render: function() { ... }
+   *   });
+   *
+   * A more formal specification of how these methods are used:
+   *
+   *   type := array|bool|func|object|number|string|oneOf([...])|instanceOf(...)
+   *   decl := ReactPropTypes.{type}(.isRequired)?
+   *
+   * Each and every declaration produces a function with the same signature. This
+   * allows the creation of custom validation functions. For example:
+   *
+   *  var MyLink = React.createClass({
+   *    propTypes: {
+   *      // An optional string or URI prop named "href".
+   *      href: function(props, propName, componentName) {
+   *        var propValue = props[propName];
+   *        if (propValue != null && typeof propValue !== 'string' &&
+   *            !(propValue instanceof URI)) {
+   *          return new Error(
+   *            'Expected a string or an URI for ' + propName + ' in ' +
+   *            componentName
+   *          );
+   *        }
+   *      }
+   *    },
+   *    render: function() {...}
+   *  });
+   *
+   * @internal
+   */
+
+  var ANONYMOUS = '<<anonymous>>';
+
+  // Important!
+  // Keep this list in sync with production version in `./factoryWithThrowingShims.js`.
+  var ReactPropTypes = {
+    array: createPrimitiveTypeChecker('array'),
+    bigint: createPrimitiveTypeChecker('bigint'),
+    bool: createPrimitiveTypeChecker('boolean'),
+    func: createPrimitiveTypeChecker('function'),
+    number: createPrimitiveTypeChecker('number'),
+    object: createPrimitiveTypeChecker('object'),
+    string: createPrimitiveTypeChecker('string'),
+    symbol: createPrimitiveTypeChecker('symbol'),
+
+    any: createAnyTypeChecker(),
+    arrayOf: createArrayOfTypeChecker,
+    element: createElementTypeChecker(),
+    elementType: createElementTypeTypeChecker(),
+    instanceOf: createInstanceTypeChecker,
+    node: createNodeChecker(),
+    objectOf: createObjectOfTypeChecker,
+    oneOf: createEnumTypeChecker,
+    oneOfType: createUnionTypeChecker,
+    shape: createShapeTypeChecker,
+    exact: createStrictShapeTypeChecker,
+  };
+
+  /**
+   * inlined Object.is polyfill to avoid requiring consumers ship their own
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
+   */
+  /*eslint-disable no-self-compare*/
+  function is(x, y) {
+    // SameValue algorithm
+    if (x === y) {
+      // Steps 1-5, 7-10
+      // Steps 6.b-6.e: +0 != -0
+      return x !== 0 || 1 / x === 1 / y;
+    } else {
+      // Step 6.a: NaN == NaN
+      return x !== x && y !== y;
+    }
+  }
+  /*eslint-enable no-self-compare*/
+
+  /**
+   * We use an Error-like object for backward compatibility as people may call
+   * PropTypes directly and inspect their output. However, we don't use real
+   * Errors anymore. We don't inspect their stack anyway, and creating them
+   * is prohibitively expensive if they are created too often, such as what
+   * happens in oneOfType() for any type before the one that matched.
+   */
+  function PropTypeError(message, data) {
+    this.message = message;
+    this.data = data && typeof data === 'object' ? data: {};
+    this.stack = '';
+  }
+  // Make `instanceof Error` still work for returned errors.
+  PropTypeError.prototype = Error.prototype;
+
+  function createChainableTypeChecker(validate) {
+    if (true) {
+      var manualPropTypeCallCache = {};
+      var manualPropTypeWarningCount = 0;
+    }
+    function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
+      componentName = componentName || ANONYMOUS;
+      propFullName = propFullName || propName;
+
+      if (secret !== ReactPropTypesSecret) {
+        if (throwOnDirectAccess) {
+          // New behavior only for users of `prop-types` package
+          var err = new Error(
+            'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
+            'Use `PropTypes.checkPropTypes()` to call them. ' +
+            'Read more at http://fb.me/use-check-prop-types'
+          );
+          err.name = 'Invariant Violation';
+          throw err;
+        } else if ( true && typeof console !== 'undefined') {
+          // Old behavior for people using React.PropTypes
+          var cacheKey = componentName + ':' + propName;
+          if (
+            !manualPropTypeCallCache[cacheKey] &&
+            // Avoid spamming the console because they are often not actionable except for lib authors
+            manualPropTypeWarningCount < 3
+          ) {
+            printWarning(
+              'You are manually calling a React.PropTypes validation ' +
+              'function for the `' + propFullName + '` prop on `' + componentName + '`. This is deprecated ' +
+              'and will throw in the standalone `prop-types` package. ' +
+              'You may be seeing this warning due to a third-party PropTypes ' +
+              'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.'
+            );
+            manualPropTypeCallCache[cacheKey] = true;
+            manualPropTypeWarningCount++;
+          }
+        }
+      }
+      if (props[propName] == null) {
+        if (isRequired) {
+          if (props[propName] === null) {
+            return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required ' + ('in `' + componentName + '`, but its value is `null`.'));
+          }
+          return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required in ' + ('`' + componentName + '`, but its value is `undefined`.'));
+        }
+        return null;
+      } else {
+        return validate(props, propName, componentName, location, propFullName);
+      }
+    }
+
+    var chainedCheckType = checkType.bind(null, false);
+    chainedCheckType.isRequired = checkType.bind(null, true);
+
+    return chainedCheckType;
+  }
+
+  function createPrimitiveTypeChecker(expectedType) {
+    function validate(props, propName, componentName, location, propFullName, secret) {
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== expectedType) {
+        // `propValue` being instance of, say, date/regexp, pass the 'object'
+        // check, but we can offer a more precise error message here rather than
+        // 'of type `object`'.
+        var preciseType = getPreciseType(propValue);
+
+        return new PropTypeError(
+          'Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + preciseType + '` supplied to `' + componentName + '`, expected ') + ('`' + expectedType + '`.'),
+          {expectedType: expectedType}
+        );
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createAnyTypeChecker() {
+    return createChainableTypeChecker(emptyFunctionThatReturnsNull);
+  }
+
+  function createArrayOfTypeChecker(typeChecker) {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (typeof typeChecker !== 'function') {
+        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside arrayOf.');
+      }
+      var propValue = props[propName];
+      if (!Array.isArray(propValue)) {
+        var propType = getPropType(propValue);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an array.'));
+      }
+      for (var i = 0; i < propValue.length; i++) {
+        var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']', ReactPropTypesSecret);
+        if (error instanceof Error) {
+          return error;
+        }
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createElementTypeChecker() {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      if (!isValidElement(propValue)) {
+        var propType = getPropType(propValue);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createElementTypeTypeChecker() {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      if (!ReactIs.isValidElementType(propValue)) {
+        var propType = getPropType(propValue);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement type.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createInstanceTypeChecker(expectedClass) {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (!(props[propName] instanceof expectedClass)) {
+        var expectedClassName = expectedClass.name || ANONYMOUS;
+        var actualClassName = getClassName(props[propName]);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + actualClassName + '` supplied to `' + componentName + '`, expected ') + ('instance of `' + expectedClassName + '`.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createEnumTypeChecker(expectedValues) {
+    if (!Array.isArray(expectedValues)) {
+      if (true) {
+        if (arguments.length > 1) {
+          printWarning(
+            'Invalid arguments supplied to oneOf, expected an array, got ' + arguments.length + ' arguments. ' +
+            'A common mistake is to write oneOf(x, y, z) instead of oneOf([x, y, z]).'
+          );
+        } else {
+          printWarning('Invalid argument supplied to oneOf, expected an array.');
+        }
+      }
+      return emptyFunctionThatReturnsNull;
+    }
+
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      for (var i = 0; i < expectedValues.length; i++) {
+        if (is(propValue, expectedValues[i])) {
+          return null;
+        }
+      }
+
+      var valuesString = JSON.stringify(expectedValues, function replacer(key, value) {
+        var type = getPreciseType(value);
+        if (type === 'symbol') {
+          return String(value);
+        }
+        return value;
+      });
+      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of value `' + String(propValue) + '` ' + ('supplied to `' + componentName + '`, expected one of ' + valuesString + '.'));
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createObjectOfTypeChecker(typeChecker) {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (typeof typeChecker !== 'function') {
+        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside objectOf.');
+      }
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== 'object') {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an object.'));
+      }
+      for (var key in propValue) {
+        if (has(propValue, key)) {
+          var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+          if (error instanceof Error) {
+            return error;
+          }
+        }
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createUnionTypeChecker(arrayOfTypeCheckers) {
+    if (!Array.isArray(arrayOfTypeCheckers)) {
+       true ? printWarning('Invalid argument supplied to oneOfType, expected an instance of array.') : 0;
+      return emptyFunctionThatReturnsNull;
+    }
+
+    for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+      var checker = arrayOfTypeCheckers[i];
+      if (typeof checker !== 'function') {
+        printWarning(
+          'Invalid argument supplied to oneOfType. Expected an array of check functions, but ' +
+          'received ' + getPostfixForTypeWarning(checker) + ' at index ' + i + '.'
+        );
+        return emptyFunctionThatReturnsNull;
+      }
+    }
+
+    function validate(props, propName, componentName, location, propFullName) {
+      var expectedTypes = [];
+      for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+        var checker = arrayOfTypeCheckers[i];
+        var checkerResult = checker(props, propName, componentName, location, propFullName, ReactPropTypesSecret);
+        if (checkerResult == null) {
+          return null;
+        }
+        if (checkerResult.data && has(checkerResult.data, 'expectedType')) {
+          expectedTypes.push(checkerResult.data.expectedType);
+        }
+      }
+      var expectedTypesMessage = (expectedTypes.length > 0) ? ', expected one of type [' + expectedTypes.join(', ') + ']': '';
+      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`' + expectedTypesMessage + '.'));
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createNodeChecker() {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (!isNode(props[propName])) {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`, expected a ReactNode.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function invalidValidatorError(componentName, location, propFullName, key, type) {
+    return new PropTypeError(
+      (componentName || 'React class') + ': ' + location + ' type `' + propFullName + '.' + key + '` is invalid; ' +
+      'it must be a function, usually from the `prop-types` package, but received `' + type + '`.'
+    );
+  }
+
+  function createShapeTypeChecker(shapeTypes) {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== 'object') {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
+      }
+      for (var key in shapeTypes) {
+        var checker = shapeTypes[key];
+        if (typeof checker !== 'function') {
+          return invalidValidatorError(componentName, location, propFullName, key, getPreciseType(checker));
+        }
+        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+        if (error) {
+          return error;
+        }
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createStrictShapeTypeChecker(shapeTypes) {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== 'object') {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
+      }
+      // We need to check all keys in case some are required but missing from props.
+      var allKeys = assign({}, props[propName], shapeTypes);
+      for (var key in allKeys) {
+        var checker = shapeTypes[key];
+        if (has(shapeTypes, key) && typeof checker !== 'function') {
+          return invalidValidatorError(componentName, location, propFullName, key, getPreciseType(checker));
+        }
+        if (!checker) {
+          return new PropTypeError(
+            'Invalid ' + location + ' `' + propFullName + '` key `' + key + '` supplied to `' + componentName + '`.' +
+            '\nBad object: ' + JSON.stringify(props[propName], null, '  ') +
+            '\nValid keys: ' + JSON.stringify(Object.keys(shapeTypes), null, '  ')
+          );
+        }
+        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+        if (error) {
+          return error;
+        }
+      }
+      return null;
+    }
+
+    return createChainableTypeChecker(validate);
+  }
+
+  function isNode(propValue) {
+    switch (typeof propValue) {
+      case 'number':
+      case 'string':
+      case 'undefined':
+        return true;
+      case 'boolean':
+        return !propValue;
+      case 'object':
+        if (Array.isArray(propValue)) {
+          return propValue.every(isNode);
+        }
+        if (propValue === null || isValidElement(propValue)) {
+          return true;
+        }
+
+        var iteratorFn = getIteratorFn(propValue);
+        if (iteratorFn) {
+          var iterator = iteratorFn.call(propValue);
+          var step;
+          if (iteratorFn !== propValue.entries) {
+            while (!(step = iterator.next()).done) {
+              if (!isNode(step.value)) {
+                return false;
+              }
+            }
+          } else {
+            // Iterator will provide entry [k,v] tuples rather than values.
+            while (!(step = iterator.next()).done) {
+              var entry = step.value;
+              if (entry) {
+                if (!isNode(entry[1])) {
+                  return false;
+                }
+              }
+            }
+          }
+        } else {
+          return false;
+        }
+
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  function isSymbol(propType, propValue) {
+    // Native Symbol.
+    if (propType === 'symbol') {
+      return true;
+    }
+
+    // falsy value can't be a Symbol
+    if (!propValue) {
+      return false;
+    }
+
+    // 19.4.3.5 Symbol.prototype[@@toStringTag] === 'Symbol'
+    if (propValue['@@toStringTag'] === 'Symbol') {
+      return true;
+    }
+
+    // Fallback for non-spec compliant Symbols which are polyfilled.
+    if (typeof Symbol === 'function' && propValue instanceof Symbol) {
+      return true;
+    }
+
+    return false;
+  }
+
+  // Equivalent of `typeof` but with special handling for array and regexp.
+  function getPropType(propValue) {
+    var propType = typeof propValue;
+    if (Array.isArray(propValue)) {
+      return 'array';
+    }
+    if (propValue instanceof RegExp) {
+      // Old webkits (at least until Android 4.0) return 'function' rather than
+      // 'object' for typeof a RegExp. We'll normalize this here so that /bla/
+      // passes PropTypes.object.
+      return 'object';
+    }
+    if (isSymbol(propType, propValue)) {
+      return 'symbol';
+    }
+    return propType;
+  }
+
+  // This handles more types than `getPropType`. Only used for error messages.
+  // See `createPrimitiveTypeChecker`.
+  function getPreciseType(propValue) {
+    if (typeof propValue === 'undefined' || propValue === null) {
+      return '' + propValue;
+    }
+    var propType = getPropType(propValue);
+    if (propType === 'object') {
+      if (propValue instanceof Date) {
+        return 'date';
+      } else if (propValue instanceof RegExp) {
+        return 'regexp';
+      }
+    }
+    return propType;
+  }
+
+  // Returns a string that is postfixed to a warning about an invalid type.
+  // For example, "undefined" or "of type array"
+  function getPostfixForTypeWarning(value) {
+    var type = getPreciseType(value);
+    switch (type) {
+      case 'array':
+      case 'object':
+        return 'an ' + type;
+      case 'boolean':
+      case 'date':
+      case 'regexp':
+        return 'a ' + type;
+      default:
+        return type;
+    }
+  }
+
+  // Returns class name of the object, if any.
+  function getClassName(propValue) {
+    if (!propValue.constructor || !propValue.constructor.name) {
+      return ANONYMOUS;
+    }
+    return propValue.constructor.name;
+  }
+
+  ReactPropTypes.checkPropTypes = checkPropTypes;
+  ReactPropTypes.resetWarningCache = checkPropTypes.resetWarningCache;
+  ReactPropTypes.PropTypes = ReactPropTypes;
+
+  return ReactPropTypes;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/prop-types/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/prop-types/index.js ***!
+  \******************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+if (true) {
+  var ReactIs = __webpack_require__(/*! react-is */ "./node_modules/prop-types/node_modules/react-is/index.js");
+
+  // By explicitly using `prop-types` you are opting into new development behavior.
+  // http://fb.me/prop-types-in-prod
+  var throwOnDirectAccess = true;
+  module.exports = __webpack_require__(/*! ./factoryWithTypeCheckers */ "./node_modules/prop-types/factoryWithTypeCheckers.js")(ReactIs.isElement, throwOnDirectAccess);
+} else {}
+
+
+/***/ }),
+
+/***/ "./node_modules/prop-types/lib/ReactPropTypesSecret.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/prop-types/lib/ReactPropTypesSecret.js ***!
+  \*************************************************************/
+/***/ ((module) => {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+
+module.exports = ReactPropTypesSecret;
+
+
+/***/ }),
+
+/***/ "./node_modules/prop-types/lib/has.js":
+/*!********************************************!*\
+  !*** ./node_modules/prop-types/lib/has.js ***!
+  \********************************************/
+/***/ ((module) => {
+
+module.exports = Function.call.bind(Object.prototype.hasOwnProperty);
+
+
+/***/ }),
+
+/***/ "./node_modules/prop-types/node_modules/object-assign/index.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/prop-types/node_modules/object-assign/index.js ***!
+  \*********************************************************************/
+/***/ ((module) => {
+
+"use strict";
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+
+
+/* eslint-disable no-unused-vars */
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+function toObject(val) {
+	if (val === null || val === undefined) {
+		throw new TypeError('Object.assign cannot be called with null or undefined');
+	}
+
+	return Object(val);
+}
+
+function shouldUseNative() {
+	try {
+		if (!Object.assign) {
+			return false;
+		}
+
+		// Detect buggy property enumeration order in older V8 versions.
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
+		test1[5] = 'de';
+		if (Object.getOwnPropertyNames(test1)[0] === '5') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test2 = {};
+		for (var i = 0; i < 10; i++) {
+			test2['_' + String.fromCharCode(i)] = i;
+		}
+		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+			return test2[n];
+		});
+		if (order2.join('') !== '0123456789') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test3 = {};
+		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+			test3[letter] = letter;
+		});
+		if (Object.keys(Object.assign({}, test3)).join('') !==
+				'abcdefghijklmnopqrst') {
+			return false;
+		}
+
+		return true;
+	} catch (err) {
+		// We don't expect any of the above to throw, but better to be safe.
+		return false;
+	}
+}
+
+module.exports = shouldUseNative() ? Object.assign : function (target, source) {
+	var from;
+	var to = toObject(target);
+	var symbols;
+
+	for (var s = 1; s < arguments.length; s++) {
+		from = Object(arguments[s]);
+
+		for (var key in from) {
+			if (hasOwnProperty.call(from, key)) {
+				to[key] = from[key];
+			}
+		}
+
+		if (getOwnPropertySymbols) {
+			symbols = getOwnPropertySymbols(from);
+			for (var i = 0; i < symbols.length; i++) {
+				if (propIsEnumerable.call(from, symbols[i])) {
+					to[symbols[i]] = from[symbols[i]];
+				}
+			}
+		}
+	}
+
+	return to;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/prop-types/node_modules/react-is/cjs/react-is.development.js":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/prop-types/node_modules/react-is/cjs/react-is.development.js ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+/** @license React v16.13.1
+ * react-is.development.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+
+
+if (true) {
+  (function() {
+'use strict';
+
+// The Symbol used to tag the ReactElement-like types. If there is no native Symbol
+// nor polyfill, then a plain number is used for performance.
+var hasSymbol = typeof Symbol === 'function' && Symbol.for;
+var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for('react.element') : 0xeac7;
+var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for('react.portal') : 0xeaca;
+var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for('react.fragment') : 0xeacb;
+var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for('react.strict_mode') : 0xeacc;
+var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for('react.profiler') : 0xead2;
+var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for('react.provider') : 0xeacd;
+var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 0xeace; // TODO: We don't use AsyncMode or ConcurrentMode anymore. They were temporary
+// (unstable) APIs that have been removed. Can we remove the symbols?
+
+var REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for('react.async_mode') : 0xeacf;
+var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for('react.concurrent_mode') : 0xeacf;
+var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for('react.forward_ref') : 0xead0;
+var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for('react.suspense') : 0xead1;
+var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for('react.suspense_list') : 0xead8;
+var REACT_MEMO_TYPE = hasSymbol ? Symbol.for('react.memo') : 0xead3;
+var REACT_LAZY_TYPE = hasSymbol ? Symbol.for('react.lazy') : 0xead4;
+var REACT_BLOCK_TYPE = hasSymbol ? Symbol.for('react.block') : 0xead9;
+var REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for('react.fundamental') : 0xead5;
+var REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for('react.responder') : 0xead6;
+var REACT_SCOPE_TYPE = hasSymbol ? Symbol.for('react.scope') : 0xead7;
+
+function isValidElementType(type) {
+  return typeof type === 'string' || typeof type === 'function' || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
+  type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
+}
+
+function typeOf(object) {
+  if (typeof object === 'object' && object !== null) {
+    var $$typeof = object.$$typeof;
+
+    switch ($$typeof) {
+      case REACT_ELEMENT_TYPE:
+        var type = object.type;
+
+        switch (type) {
+          case REACT_ASYNC_MODE_TYPE:
+          case REACT_CONCURRENT_MODE_TYPE:
+          case REACT_FRAGMENT_TYPE:
+          case REACT_PROFILER_TYPE:
+          case REACT_STRICT_MODE_TYPE:
+          case REACT_SUSPENSE_TYPE:
+            return type;
+
+          default:
+            var $$typeofType = type && type.$$typeof;
+
+            switch ($$typeofType) {
+              case REACT_CONTEXT_TYPE:
+              case REACT_FORWARD_REF_TYPE:
+              case REACT_LAZY_TYPE:
+              case REACT_MEMO_TYPE:
+              case REACT_PROVIDER_TYPE:
+                return $$typeofType;
+
+              default:
+                return $$typeof;
+            }
+
+        }
+
+      case REACT_PORTAL_TYPE:
+        return $$typeof;
+    }
+  }
+
+  return undefined;
+} // AsyncMode is deprecated along with isAsyncMode
+
+var AsyncMode = REACT_ASYNC_MODE_TYPE;
+var ConcurrentMode = REACT_CONCURRENT_MODE_TYPE;
+var ContextConsumer = REACT_CONTEXT_TYPE;
+var ContextProvider = REACT_PROVIDER_TYPE;
+var Element = REACT_ELEMENT_TYPE;
+var ForwardRef = REACT_FORWARD_REF_TYPE;
+var Fragment = REACT_FRAGMENT_TYPE;
+var Lazy = REACT_LAZY_TYPE;
+var Memo = REACT_MEMO_TYPE;
+var Portal = REACT_PORTAL_TYPE;
+var Profiler = REACT_PROFILER_TYPE;
+var StrictMode = REACT_STRICT_MODE_TYPE;
+var Suspense = REACT_SUSPENSE_TYPE;
+var hasWarnedAboutDeprecatedIsAsyncMode = false; // AsyncMode should be deprecated
+
+function isAsyncMode(object) {
+  {
+    if (!hasWarnedAboutDeprecatedIsAsyncMode) {
+      hasWarnedAboutDeprecatedIsAsyncMode = true; // Using console['warn'] to evade Babel and ESLint
+
+      console['warn']('The ReactIs.isAsyncMode() alias has been deprecated, ' + 'and will be removed in React 17+. Update your code to use ' + 'ReactIs.isConcurrentMode() instead. It has the exact same API.');
+    }
+  }
+
+  return isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
+}
+function isConcurrentMode(object) {
+  return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
+}
+function isContextConsumer(object) {
+  return typeOf(object) === REACT_CONTEXT_TYPE;
+}
+function isContextProvider(object) {
+  return typeOf(object) === REACT_PROVIDER_TYPE;
+}
+function isElement(object) {
+  return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
+}
+function isForwardRef(object) {
+  return typeOf(object) === REACT_FORWARD_REF_TYPE;
+}
+function isFragment(object) {
+  return typeOf(object) === REACT_FRAGMENT_TYPE;
+}
+function isLazy(object) {
+  return typeOf(object) === REACT_LAZY_TYPE;
+}
+function isMemo(object) {
+  return typeOf(object) === REACT_MEMO_TYPE;
+}
+function isPortal(object) {
+  return typeOf(object) === REACT_PORTAL_TYPE;
+}
+function isProfiler(object) {
+  return typeOf(object) === REACT_PROFILER_TYPE;
+}
+function isStrictMode(object) {
+  return typeOf(object) === REACT_STRICT_MODE_TYPE;
+}
+function isSuspense(object) {
+  return typeOf(object) === REACT_SUSPENSE_TYPE;
+}
+
+exports.AsyncMode = AsyncMode;
+exports.ConcurrentMode = ConcurrentMode;
+exports.ContextConsumer = ContextConsumer;
+exports.ContextProvider = ContextProvider;
+exports.Element = Element;
+exports.ForwardRef = ForwardRef;
+exports.Fragment = Fragment;
+exports.Lazy = Lazy;
+exports.Memo = Memo;
+exports.Portal = Portal;
+exports.Profiler = Profiler;
+exports.StrictMode = StrictMode;
+exports.Suspense = Suspense;
+exports.isAsyncMode = isAsyncMode;
+exports.isConcurrentMode = isConcurrentMode;
+exports.isContextConsumer = isContextConsumer;
+exports.isContextProvider = isContextProvider;
+exports.isElement = isElement;
+exports.isForwardRef = isForwardRef;
+exports.isFragment = isFragment;
+exports.isLazy = isLazy;
+exports.isMemo = isMemo;
+exports.isPortal = isPortal;
+exports.isProfiler = isProfiler;
+exports.isStrictMode = isStrictMode;
+exports.isSuspense = isSuspense;
+exports.isValidElementType = isValidElementType;
+exports.typeOf = typeOf;
+  })();
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/prop-types/node_modules/react-is/index.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/prop-types/node_modules/react-is/index.js ***!
+  \****************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+if (false) {} else {
+  module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ "./node_modules/prop-types/node_modules/react-is/cjs/react-is.development.js");
+}
 
 
 /***/ }),
@@ -12715,6 +13855,207 @@ function createMemoryRouter(routes, opts) {
 
 /***/ }),
 
+/***/ "./node_modules/react-tabs/esm/components/Tab.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/react-tabs/esm/components/Tab.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! clsx */ "./node_modules/react-tabs/node_modules/clsx/dist/clsx.mjs");
+const DEFAULT_CLASS="react-tabs__tab";const defaultProps={className:DEFAULT_CLASS,disabledClassName:`${DEFAULT_CLASS}--disabled`,focus:false,id:null,selected:false,selectedClassName:`${DEFAULT_CLASS}--selected`};const propTypes= true?{children:prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_2___default().array),(prop_types__WEBPACK_IMPORTED_MODULE_2___default().object),(prop_types__WEBPACK_IMPORTED_MODULE_2___default().string)]),className:prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),(prop_types__WEBPACK_IMPORTED_MODULE_2___default().array),(prop_types__WEBPACK_IMPORTED_MODULE_2___default().object)]),disabled:(prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),disabledClassName:(prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),focus:(prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),id:(prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),selected:(prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),selectedClassName:(prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),tabIndex:(prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),tabRef:(prop_types__WEBPACK_IMPORTED_MODULE_2___default().func)}:0;const Tab=props=>{let nodeRef=(0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();const{children,className,disabled,disabledClassName,focus,id,selected,selectedClassName,tabIndex,tabRef,...attributes}={...defaultProps,...props};(0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(()=>{if(selected&&focus){nodeRef.current.focus()}},[selected,focus]);return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li",Object.assign({},attributes,{className:(0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])(className,{[selectedClassName]:selected,[disabledClassName]:disabled}),ref:node=>{nodeRef.current=node;if(tabRef)tabRef(node)},role:"tab",id:`tab${id}`,"aria-selected":selected?"true":"false","aria-disabled":disabled?"true":"false","aria-controls":`panel${id}`,tabIndex:tabIndex||(selected?"0":null),"data-rttab":true}),children)};Tab.propTypes= true?propTypes:0;Tab.tabsRole="Tab";/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Tab);
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/components/TabList.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/react-tabs/esm/components/TabList.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! clsx */ "./node_modules/react-tabs/node_modules/clsx/dist/clsx.mjs");
+const defaultProps={className:"react-tabs__tab-list"};const propTypes= true?{children:prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_2___default().object),(prop_types__WEBPACK_IMPORTED_MODULE_2___default().array)]),className:prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),(prop_types__WEBPACK_IMPORTED_MODULE_2___default().array),(prop_types__WEBPACK_IMPORTED_MODULE_2___default().object)])}:0;const TabList=props=>{const{children,className,...attributes}={...defaultProps,...props};return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul",Object.assign({},attributes,{className:(0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])(className),role:"tablist"}),children)};TabList.tabsRole="TabList";TabList.propTypes= true?propTypes:0;/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TabList);
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/components/TabPanel.js":
+/*!************************************************************!*\
+  !*** ./node_modules/react-tabs/esm/components/TabPanel.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! clsx */ "./node_modules/react-tabs/node_modules/clsx/dist/clsx.mjs");
+const DEFAULT_CLASS="react-tabs__tab-panel";const defaultProps={className:DEFAULT_CLASS,forceRender:false,selectedClassName:`${DEFAULT_CLASS}--selected`};const propTypes= true?{children:(prop_types__WEBPACK_IMPORTED_MODULE_2___default().node),className:prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),(prop_types__WEBPACK_IMPORTED_MODULE_2___default().array),(prop_types__WEBPACK_IMPORTED_MODULE_2___default().object)]),forceRender:(prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),id:(prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),selected:(prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),selectedClassName:(prop_types__WEBPACK_IMPORTED_MODULE_2___default().string)}:0;const TabPanel=props=>{const{children,className,forceRender,id,selected,selectedClassName,...attributes}={...defaultProps,...props};return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div",Object.assign({},attributes,{className:(0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])(className,{[selectedClassName]:selected}),role:"tabpanel",id:`panel${id}`,"aria-labelledby":`tab${id}`}),forceRender||selected?children:null)};TabPanel.tabsRole="TabPanel";TabPanel.propTypes= true?propTypes:0;/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TabPanel);
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/components/Tabs.js":
+/*!********************************************************!*\
+  !*** ./node_modules/react-tabs/esm/components/Tabs.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _helpers_propTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/propTypes */ "./node_modules/react-tabs/esm/helpers/propTypes.js");
+/* harmony import */ var _UncontrolledTabs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UncontrolledTabs */ "./node_modules/react-tabs/esm/components/UncontrolledTabs.js");
+/* harmony import */ var _helpers_count__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helpers/count */ "./node_modules/react-tabs/esm/helpers/count.js");
+const MODE_CONTROLLED=0;const MODE_UNCONTROLLED=1;const propTypes= true?{children:_helpers_propTypes__WEBPACK_IMPORTED_MODULE_1__.childrenPropType,className:prop_types__WEBPACK_IMPORTED_MODULE_4___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_4___default().string),(prop_types__WEBPACK_IMPORTED_MODULE_4___default().array),(prop_types__WEBPACK_IMPORTED_MODULE_4___default().object)]),defaultFocus:(prop_types__WEBPACK_IMPORTED_MODULE_4___default().bool),defaultIndex:(prop_types__WEBPACK_IMPORTED_MODULE_4___default().number),direction:prop_types__WEBPACK_IMPORTED_MODULE_4___default().oneOf(["rtl","ltr"]),disabledTabClassName:(prop_types__WEBPACK_IMPORTED_MODULE_4___default().string),disableUpDownKeys:(prop_types__WEBPACK_IMPORTED_MODULE_4___default().bool),disableLeftRightKeys:(prop_types__WEBPACK_IMPORTED_MODULE_4___default().bool),domRef:(prop_types__WEBPACK_IMPORTED_MODULE_4___default().func),environment:(prop_types__WEBPACK_IMPORTED_MODULE_4___default().object),focusTabOnClick:(prop_types__WEBPACK_IMPORTED_MODULE_4___default().bool),forceRenderTabPanel:(prop_types__WEBPACK_IMPORTED_MODULE_4___default().bool),onSelect:_helpers_propTypes__WEBPACK_IMPORTED_MODULE_1__.onSelectPropType,selectedIndex:_helpers_propTypes__WEBPACK_IMPORTED_MODULE_1__.selectedIndexPropType,selectedTabClassName:(prop_types__WEBPACK_IMPORTED_MODULE_4___default().string),selectedTabPanelClassName:(prop_types__WEBPACK_IMPORTED_MODULE_4___default().string)}:0;const defaultProps={defaultFocus:false,focusTabOnClick:true,forceRenderTabPanel:false,selectedIndex:null,defaultIndex:null,environment:null,disableUpDownKeys:false,disableLeftRightKeys:false};const getModeFromProps=props=>{return props.selectedIndex===null?MODE_UNCONTROLLED:MODE_CONTROLLED};const checkForIllegalModeChange=(props,mode)=>{if( true&&mode!=undefined&&mode!==getModeFromProps(props)){throw new Error(`Switching between controlled mode (by using \`selectedIndex\`) and uncontrolled mode is not supported in \`Tabs\`.
+For more information about controlled and uncontrolled mode of react-tabs see https://github.com/reactjs/react-tabs#controlled-vs-uncontrolled-mode.`)}};const Tabs=props=>{const{children,defaultFocus,defaultIndex,focusTabOnClick,onSelect,...attributes}={...defaultProps,...props};const[focus,setFocus]=(0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(defaultFocus);const[mode]=(0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(getModeFromProps(attributes));const[selectedIndex,setSelectedIndex]=(0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(mode===MODE_UNCONTROLLED?defaultIndex||0:null);(0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(()=>{setFocus(false)},[]);if(mode===MODE_UNCONTROLLED){const tabsCount=(0,_helpers_count__WEBPACK_IMPORTED_MODULE_3__.getTabsCount)(children);(0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(()=>{if(selectedIndex!=null){const maxTabIndex=Math.max(0,tabsCount-1);setSelectedIndex(Math.min(selectedIndex,maxTabIndex))}},[tabsCount])}checkForIllegalModeChange(attributes,mode);const handleSelected=(index,last,event)=>{if(typeof onSelect==="function"){if(onSelect(index,last,event)===false)return}if(focusTabOnClick){setFocus(true)}if(mode===MODE_UNCONTROLLED){setSelectedIndex(index)}};let subProps={...props,...attributes};subProps.focus=focus;subProps.onSelect=handleSelected;if(selectedIndex!=null){subProps.selectedIndex=selectedIndex}delete subProps.defaultFocus;delete subProps.defaultIndex;delete subProps.focusTabOnClick;return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_UncontrolledTabs__WEBPACK_IMPORTED_MODULE_2__["default"],subProps,children)};Tabs.propTypes= true?propTypes:0;Tabs.tabsRole="Tabs";/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Tabs);
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/components/UncontrolledTabs.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/react-tabs/esm/components/UncontrolledTabs.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! clsx */ "./node_modules/react-tabs/node_modules/clsx/dist/clsx.mjs");
+/* harmony import */ var _helpers_propTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/propTypes */ "./node_modules/react-tabs/esm/helpers/propTypes.js");
+/* harmony import */ var _helpers_count__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helpers/count */ "./node_modules/react-tabs/esm/helpers/count.js");
+/* harmony import */ var _helpers_childrenDeepMap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../helpers/childrenDeepMap */ "./node_modules/react-tabs/esm/helpers/childrenDeepMap.js");
+/* harmony import */ var _helpers_elementTypes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../helpers/elementTypes */ "./node_modules/react-tabs/esm/helpers/elementTypes.js");
+function isNode(node){return node&&"getAttribute"in node}function isTabNode(node){return isNode(node)&&node.getAttribute("data-rttab")}function isTabDisabled(node){return isNode(node)&&node.getAttribute("aria-disabled")==="true"}let canUseActiveElement;function determineCanUseActiveElement(environment){const env=environment||(typeof window!=="undefined"?window:undefined);try{canUseActiveElement=!!(typeof env!=="undefined"&&env.document&&env.document.activeElement)}catch(e){canUseActiveElement=false}}const defaultProps={className:"react-tabs",focus:false};const propTypes= true?{children:_helpers_propTypes__WEBPACK_IMPORTED_MODULE_2__.childrenPropType,direction:prop_types__WEBPACK_IMPORTED_MODULE_6___default().oneOf(["rtl","ltr"]),className:prop_types__WEBPACK_IMPORTED_MODULE_6___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_6___default().string),(prop_types__WEBPACK_IMPORTED_MODULE_6___default().array),(prop_types__WEBPACK_IMPORTED_MODULE_6___default().object)]),disabledTabClassName:(prop_types__WEBPACK_IMPORTED_MODULE_6___default().string),disableUpDownKeys:(prop_types__WEBPACK_IMPORTED_MODULE_6___default().bool),disableLeftRightKeys:(prop_types__WEBPACK_IMPORTED_MODULE_6___default().bool),domRef:(prop_types__WEBPACK_IMPORTED_MODULE_6___default().func),focus:(prop_types__WEBPACK_IMPORTED_MODULE_6___default().bool),forceRenderTabPanel:(prop_types__WEBPACK_IMPORTED_MODULE_6___default().bool),onSelect:(prop_types__WEBPACK_IMPORTED_MODULE_6___default().func).isRequired,selectedIndex:(prop_types__WEBPACK_IMPORTED_MODULE_6___default().number).isRequired,selectedTabClassName:(prop_types__WEBPACK_IMPORTED_MODULE_6___default().string),selectedTabPanelClassName:(prop_types__WEBPACK_IMPORTED_MODULE_6___default().string),environment:(prop_types__WEBPACK_IMPORTED_MODULE_6___default().object)}:0;const UncontrolledTabs=props=>{let tabNodes=(0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)([]);let tabIds=(0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)([]);const ref=(0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();function setSelected(index,event){if(index<0||index>=getTabsCount())return;const{onSelect,selectedIndex}=props;onSelect(index,selectedIndex,event)}function getNextTab(index){const count=getTabsCount();for(let i=index+1;i<count;i++){if(!isTabDisabled(getTab(i))){return i}}for(let i=0;i<index;i++){if(!isTabDisabled(getTab(i))){return i}}return index}function getPrevTab(index){let i=index;while(i--){if(!isTabDisabled(getTab(i))){return i}}i=getTabsCount();while(i-->index){if(!isTabDisabled(getTab(i))){return i}}return index}function getFirstTab(){const count=getTabsCount();for(let i=0;i<count;i++){if(!isTabDisabled(getTab(i))){return i}}return null}function getLastTab(){let i=getTabsCount();while(i--){if(!isTabDisabled(getTab(i))){return i}}return null}function getTabsCount(){const{children}=props;return (0,_helpers_count__WEBPACK_IMPORTED_MODULE_3__.getTabsCount)(children)}function getTab(index){return tabNodes.current[`tabs-${index}`]}function getChildren(){let index=0;const{children,disabledTabClassName,focus,forceRenderTabPanel,selectedIndex,selectedTabClassName,selectedTabPanelClassName,environment}=props;tabIds.current=tabIds.current||[];let diff=tabIds.current.length-getTabsCount();const id=(0,react__WEBPACK_IMPORTED_MODULE_0__.useId)();while(diff++<0){tabIds.current.push(`${id}${tabIds.current.length}`)}return (0,_helpers_childrenDeepMap__WEBPACK_IMPORTED_MODULE_4__.deepMap)(children,child=>{let result=child;if((0,_helpers_elementTypes__WEBPACK_IMPORTED_MODULE_5__.isTabList)(child)){let listIndex=0;let wasTabFocused=false;if(canUseActiveElement==null){determineCanUseActiveElement(environment)}const env=environment||(typeof window!=="undefined"?window:undefined);if(canUseActiveElement&&env){wasTabFocused=react__WEBPACK_IMPORTED_MODULE_0___default().Children.toArray(child.props.children).filter(_helpers_elementTypes__WEBPACK_IMPORTED_MODULE_5__.isTab).some((tab,i)=>env.document.activeElement===getTab(i))}result=(0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(child,{children:(0,_helpers_childrenDeepMap__WEBPACK_IMPORTED_MODULE_4__.deepMap)(child.props.children,tab=>{const key=`tabs-${listIndex}`;const selected=selectedIndex===listIndex;const props={tabRef:node=>{tabNodes.current[key]=node},id:tabIds.current[listIndex],selected,focus:selected&&(focus||wasTabFocused)};if(selectedTabClassName)props.selectedClassName=selectedTabClassName;if(disabledTabClassName)props.disabledClassName=disabledTabClassName;listIndex++;return (0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(tab,props)})})}else if((0,_helpers_elementTypes__WEBPACK_IMPORTED_MODULE_5__.isTabPanel)(child)){const props={id:tabIds.current[index],selected:selectedIndex===index};if(forceRenderTabPanel)props.forceRender=forceRenderTabPanel;if(selectedTabPanelClassName)props.selectedClassName=selectedTabPanelClassName;index++;result=(0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(child,props)}return result})}function handleKeyDown(e){const{direction,disableUpDownKeys,disableLeftRightKeys}=props;if(isTabFromContainer(e.target)){let{selectedIndex:index}=props;let preventDefault=false;let useSelectedIndex=false;if(e.code==="Space"||e.keyCode===32||e.code==="Enter"||e.keyCode===13){preventDefault=true;useSelectedIndex=false;handleClick(e)}if(!disableLeftRightKeys&&(e.keyCode===37||e.code==="ArrowLeft")||!disableUpDownKeys&&(e.keyCode===38||e.code==="ArrowUp")){if(direction==="rtl"){index=getNextTab(index)}else{index=getPrevTab(index)}preventDefault=true;useSelectedIndex=true}else if(!disableLeftRightKeys&&(e.keyCode===39||e.code==="ArrowRight")||!disableUpDownKeys&&(e.keyCode===40||e.code==="ArrowDown")){if(direction==="rtl"){index=getPrevTab(index)}else{index=getNextTab(index)}preventDefault=true;useSelectedIndex=true}else if(e.keyCode===35||e.code==="End"){index=getLastTab();preventDefault=true;useSelectedIndex=true}else if(e.keyCode===36||e.code==="Home"){index=getFirstTab();preventDefault=true;useSelectedIndex=true}if(preventDefault){e.preventDefault()}if(useSelectedIndex){setSelected(index,e)}}}function handleClick(e){let node=e.target;do{if(isTabFromContainer(node)){if(isTabDisabled(node)){return}const index=[].slice.call(node.parentNode.children).filter(isTabNode).indexOf(node);setSelected(index,e);return}}while((node=node.parentNode)!=null)}function isTabFromContainer(node){if(!isTabNode(node)){return false}let nodeAncestor=node.parentElement;do{if(nodeAncestor===ref.current)return true;if(nodeAncestor.getAttribute("data-rttabs"))break;nodeAncestor=nodeAncestor.parentElement}while(nodeAncestor);return false}const{children,className,disabledTabClassName,domRef,focus,forceRenderTabPanel,onSelect,selectedIndex,selectedTabClassName,selectedTabPanelClassName,environment,disableUpDownKeys,disableLeftRightKeys,...attributes}={...defaultProps,...props};return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div",Object.assign({},attributes,{className:(0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])(className),onClick:handleClick,onKeyDown:handleKeyDown,ref:node=>{ref.current=node;if(domRef)domRef(node)},"data-rttabs":true}),getChildren())};UncontrolledTabs.propTypes= true?propTypes:0;/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UncontrolledTabs);
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/helpers/childrenDeepMap.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/react-tabs/esm/helpers/childrenDeepMap.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   deepForEach: () => (/* binding */ deepForEach),
+/* harmony export */   deepMap: () => (/* binding */ deepMap)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./elementTypes */ "./node_modules/react-tabs/esm/helpers/elementTypes.js");
+function isTabChild(child){return (0,_elementTypes__WEBPACK_IMPORTED_MODULE_1__.isTab)(child)||(0,_elementTypes__WEBPACK_IMPORTED_MODULE_1__.isTabList)(child)||(0,_elementTypes__WEBPACK_IMPORTED_MODULE_1__.isTabPanel)(child)}function deepMap(children,callback){return react__WEBPACK_IMPORTED_MODULE_0__.Children.map(children,child=>{if(child===null)return null;if(isTabChild(child)){return callback(child)}if(child.props&&child.props.children&&typeof child.props.children==="object"){return (0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(child,{...child.props,children:deepMap(child.props.children,callback)})}return child})}function deepForEach(children,callback){return react__WEBPACK_IMPORTED_MODULE_0__.Children.forEach(children,child=>{if(child===null)return;if((0,_elementTypes__WEBPACK_IMPORTED_MODULE_1__.isTab)(child)||(0,_elementTypes__WEBPACK_IMPORTED_MODULE_1__.isTabPanel)(child)){callback(child)}else if(child.props&&child.props.children&&typeof child.props.children==="object"){if((0,_elementTypes__WEBPACK_IMPORTED_MODULE_1__.isTabList)(child))callback(child);deepForEach(child.props.children,callback)}})}
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/helpers/count.js":
+/*!******************************************************!*\
+  !*** ./node_modules/react-tabs/esm/helpers/count.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getTabsCount: () => (/* binding */ getTabsCount)
+/* harmony export */ });
+/* harmony import */ var _childrenDeepMap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./childrenDeepMap */ "./node_modules/react-tabs/esm/helpers/childrenDeepMap.js");
+/* harmony import */ var _elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./elementTypes */ "./node_modules/react-tabs/esm/helpers/elementTypes.js");
+function getTabsCount(children){let tabCount=0;(0,_childrenDeepMap__WEBPACK_IMPORTED_MODULE_0__.deepForEach)(children,child=>{if((0,_elementTypes__WEBPACK_IMPORTED_MODULE_1__.isTab)(child))tabCount++});return tabCount}
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/helpers/elementTypes.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/react-tabs/esm/helpers/elementTypes.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isTab: () => (/* binding */ isTab),
+/* harmony export */   isTabList: () => (/* binding */ isTabList),
+/* harmony export */   isTabPanel: () => (/* binding */ isTabPanel)
+/* harmony export */ });
+function makeTypeChecker(tabsRole){return element=>!!element.type&&element.type.tabsRole===tabsRole}const isTab=makeTypeChecker("Tab");const isTabList=makeTypeChecker("TabList");const isTabPanel=makeTypeChecker("TabPanel");
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/helpers/propTypes.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/react-tabs/esm/helpers/propTypes.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   childrenPropType: () => (/* binding */ childrenPropType),
+/* harmony export */   onSelectPropType: () => (/* binding */ onSelectPropType),
+/* harmony export */   selectedIndexPropType: () => (/* binding */ selectedIndexPropType)
+/* harmony export */ });
+/* harmony import */ var _childrenDeepMap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./childrenDeepMap */ "./node_modules/react-tabs/esm/helpers/childrenDeepMap.js");
+/* harmony import */ var _elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./elementTypes */ "./node_modules/react-tabs/esm/helpers/elementTypes.js");
+function childrenPropType(props,propName,componentName){let error;let tabsCount=0;let panelsCount=0;let tabListFound=false;const listTabs=[];const children=props[propName];(0,_childrenDeepMap__WEBPACK_IMPORTED_MODULE_0__.deepForEach)(children,child=>{if((0,_elementTypes__WEBPACK_IMPORTED_MODULE_1__.isTabList)(child)){if(child.props&&child.props.children&&typeof child.props.children==="object"){(0,_childrenDeepMap__WEBPACK_IMPORTED_MODULE_0__.deepForEach)(child.props.children,listChild=>listTabs.push(listChild))}if(tabListFound){error=new Error("Found multiple 'TabList' components inside 'Tabs'. Only one is allowed.")}tabListFound=true}if((0,_elementTypes__WEBPACK_IMPORTED_MODULE_1__.isTab)(child)){if(!tabListFound||listTabs.indexOf(child)===-1){error=new Error("Found a 'Tab' component outside of the 'TabList' component. 'Tab' components "+"have to be inside the 'TabList' component.")}tabsCount++}else if((0,_elementTypes__WEBPACK_IMPORTED_MODULE_1__.isTabPanel)(child)){panelsCount++}});if(!error&&tabsCount!==panelsCount){error=new Error(`There should be an equal number of 'Tab' and 'TabPanel' in \`${componentName}\`. `+`Received ${tabsCount} 'Tab' and ${panelsCount} 'TabPanel'.`)}return error}function onSelectPropType(props,propName,componentName,location,propFullName){const prop=props[propName];const name=propFullName||propName;let error=null;if(prop&&typeof prop!=="function"){error=new Error(`Invalid ${location} \`${name}\` of type \`${typeof prop}\` supplied `+`to \`${componentName}\`, expected \`function\`.`)}else if(props.selectedIndex!=null&&prop==null){error=new Error(`The ${location} \`${name}\` is marked as required in \`${componentName}\`, but `+`its value is \`undefined\` or \`null\`.\n`+`\`onSelect\` is required when \`selectedIndex\` is also set. Not doing so will `+`make the tabs not do anything, as \`selectedIndex\` indicates that you want to `+`handle the selected tab yourself.\n`+`If you only want to set the inital tab replace \`selectedIndex\` with \`defaultIndex\`.`)}return error}function selectedIndexPropType(props,propName,componentName,location,propFullName){const prop=props[propName];const name=propFullName||propName;let error=null;if(prop!=null&&typeof prop!=="number"){error=new Error(`Invalid ${location} \`${name}\` of type \`${typeof prop}\` supplied to `+`\`${componentName}\`, expected \`number\`.`)}else if(props.defaultIndex!=null&&prop!=null){return new Error(`The ${location} \`${name}\` cannot be used together with \`defaultIndex\` `+`in \`${componentName}\`.\n`+`Either remove \`${name}\` to let \`${componentName}\` handle the selected `+`tab internally or remove \`defaultIndex\` to handle it yourself.`)}return error}
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/react-tabs/esm/index.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Tab: () => (/* reexport safe */ _components_Tab__WEBPACK_IMPORTED_MODULE_2__["default"]),
+/* harmony export */   TabList: () => (/* reexport safe */ _components_TabList__WEBPACK_IMPORTED_MODULE_1__["default"]),
+/* harmony export */   TabPanel: () => (/* reexport safe */ _components_TabPanel__WEBPACK_IMPORTED_MODULE_3__["default"]),
+/* harmony export */   Tabs: () => (/* reexport safe */ _components_Tabs__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _components_Tabs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Tabs */ "./node_modules/react-tabs/esm/components/Tabs.js");
+/* harmony import */ var _components_TabList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/TabList */ "./node_modules/react-tabs/esm/components/TabList.js");
+/* harmony import */ var _components_Tab__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Tab */ "./node_modules/react-tabs/esm/components/Tab.js");
+/* harmony import */ var _components_TabPanel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/TabPanel */ "./node_modules/react-tabs/esm/components/TabPanel.js");
+
+
+/***/ }),
+
 /***/ "./node_modules/shallowequal/index.js":
 /*!********************************************!*\
   !*** ./node_modules/shallowequal/index.js ***!
@@ -15496,6 +16837,22 @@ const QueryClientProvider = ({
 
 //# sourceMappingURL=QueryClientProvider.mjs.map
 
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/node_modules/clsx/dist/clsx.mjs":
+/*!*****************************************************************!*\
+  !*** ./node_modules/react-tabs/node_modules/clsx/dist/clsx.mjs ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   clsx: () => (/* binding */ clsx),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function r(e){var t,f,n="";if("string"==typeof e||"number"==typeof e)n+=e;else if("object"==typeof e)if(Array.isArray(e))for(t=0;t<e.length;t++)e[t]&&(f=r(e[t]))&&(n&&(n+=" "),n+=f);else for(t in e)e[t]&&(n&&(n+=" "),n+=t);return n}function clsx(){for(var e,t,f=0,n="";f<arguments.length;)(e=arguments[f++])&&(t=r(e))&&(n&&(n+=" "),n+=t);return n}/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (clsx);
 
 /***/ }),
 

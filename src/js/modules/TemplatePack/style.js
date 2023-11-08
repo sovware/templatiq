@@ -1,9 +1,12 @@
 import Styled from 'styled-components';
 
 const TemplatePackStyle = Styled.div`
-    display: flex;
-    gap: 24px;
-    flex-direction: column;
+    .templatiq__content__tab {
+        display: flex;
+        gap: 24px;
+        flex-direction: column;
+    }
+    
     .templatiq__content__top {
         display: flex;
         gap: 24px;
@@ -21,22 +24,30 @@ const TemplatePackStyle = Styled.div`
         }
     }
 
-    .templatiq__content__wrapper {
+    .templatiq__content__tab-panel {
         display: flex;
         flex-wrap: wrap;
         gap: 32px;
     }
 `;
 
-const TemplatePackFilterStyle = Styled.ul`
-    display: flex;
-    gap: 4px;
-    padding: 4px 10px;
-    border-radius: 8px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 16px #10101404;
+const TemplatePackFilterStyle = Styled.div`
+    .templatiq__content__top__filter__tablist {
+        display: flex;
+        gap: 4px;
+        padding: 4px 10px;
+        border-radius: 8px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 16px #10101404;
+    }
     .templatiq__content__top__filter__item {
         display: flex;
+        &.react-tabs__tab--selected {
+            a {
+                color: #ffffff;
+                background: #8941FF;
+            }
+        }
     }
     .templatiq__content__top__filter__link {
         display: flex;
@@ -50,7 +61,6 @@ const TemplatePackFilterStyle = Styled.ul`
         text-transform: uppercase;
         background: transparent;
         transition: background 0.3s ease, color 0.3s ease;
-        &.active,
         &:hover {
             color: #ffffff;
             background: #8941FF;
