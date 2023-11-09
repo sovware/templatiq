@@ -9564,12 +9564,10 @@ function TemplateDetailsModule() {
     src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
     width: 22,
     height: 22
-  }), "Fully interactive website")))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }), "Fully interactive website")))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_style__WEBPACK_IMPORTED_MODULE_1__.TemplateDetailsWidgetStyle, {
     className: "templatiq__details__widget"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_style__WEBPACK_IMPORTED_MODULE_1__.TemplateDetailsWidgetStyle, {
-    claName: "templatiq__details__widget__single"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "templatiq__details__widget__subscribe"
+    className: "templatiq__details__widget__single templatiq__details__widget__subscribe"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__details__widget__subscribe__info"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
@@ -9584,9 +9582,9 @@ function TemplateDetailsModule() {
     className: "templatiq__details__widget__subscribe__btn"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
-    className: "templatiq__details__widget__subscribe__btn__link"
+    className: "templatiq__details__widget__subscribe__btn__link templatiq-btn templatiq-btn-warning"
   }, "Get Unlimited Access"))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "templatiq__details__widget__quickinfo"
+    className: "templatiq__details__widget__single templatiq__details__widget__quickinfo"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__details__widget__header"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
@@ -9622,16 +9620,16 @@ function TemplateDetailsModule() {
     className: "templatiq__details__widget__content__required-plugins__link"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
     src: _icon_directorist_svg__WEBPACK_IMPORTED_MODULE_9__["default"],
-    width: 16,
-    height: 16
-  }), "Directorist"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    width: 30,
+    height: 30
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
     className: "templatiq__details__widget__content__required-plugins__link"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
     src: _icon_elementor_svg__WEBPACK_IMPORTED_MODULE_8__["default"],
-    width: 16,
-    height: 16
-  }), "Elementor")))))))));
+    width: 30,
+    height: 30
+  })))))))));
 }
 
 /***/ }),
@@ -9704,6 +9702,7 @@ const TemplateDetailsStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["def
         line-height: 1.7;
         font-weight: 400;
     }
+
 `;
 const TemplateDetailsHeaderStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div`
     display: flex;
@@ -9751,7 +9750,96 @@ const TemplateDetailsHeaderStyle = styled_components__WEBPACK_IMPORTED_MODULE_0_
     }
 `;
 const TemplateDetailsWidgetStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div`
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    .templatiq__details__widget__single {
+        border-radius: 16px;
+        background: var(--templatiq-white-color);
+    }
+    .templatiq__details__widget__subscribe {
+        display: flex;
+        gap: 16px;
+        flex-direction: column;
+        justify-content: center;
+        padding: 20px 24px 24px;
+    }
+    .templatiq__details__widget__subscribe__info {
+        padding: 18px 12px 16px;
+        border-radius: 10px;
+        background: var(--templatiq-warning-color2);
+    }
+    .templatiq__details__widget__subscribe__title {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0 0 10px;
+        color: var(--templatiq-pro-color2);
+    }
+    .templatiq__details__widget__subscribe__desc {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--templatiq-btn-color);
+        strong {
+            color: var(--templatiq-pro-color2);
+        }
+    }
+    .templatiq__details__widget__subscribe__btn__link {
+        width: 100%;
+        justify-content: center;
+        border-radius: 10px;
+        box-sizing: border-box;
+    }
 
+    .templatiq__details__widget__header {
+        padding: 24px 24px 20px;
+        border-bottom: 1px solid var(--templatiq-sec-color);
+    }
+    .templatiq__details__widget__title {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0;
+        color: var(--templatiq-dark-color);
+    }
+    .templatiq__details__widget__content {
+        display: flex;
+        gap: 20px;
+        flex-direction: column;
+        padding: 16px 24px 32px;
+    }
+    .templatiq__details__widget__content__single {
+        display: flex;
+        gap: 2px;
+        flex-direction: column;
+        &.required-plugins {
+            gap: 12px;
+            align-items: center;
+            flex-direction: row;
+        }
+    }
+    .templatiq__details__widget__content__title {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 22px;
+        color: var(--templatiq-gray-color);
+    }
+    .templatiq__details__widget__content__info {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 22px;
+        color: var(--templatiq-dark-color);
+    }
+    .templatiq__details__widget__content__required-plugins {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+    .templatiq__details__widget__content__required-plugins__link svg {
+        max-width: 30px;
+        border-radius: 50%;
+    }
 `;
 
 
