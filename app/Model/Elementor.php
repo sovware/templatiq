@@ -10,9 +10,9 @@ namespace Templatiq\Model;
 use Elementor\Core\Settings\Page\Model;
 use Elementor\Plugin as ElementorPlugin;
 use Elementor\TemplateLibrary\Source_Local as ElementorLocal;
-use TemplatiqCloud\Utils\Response;
 use Templatiq\Utils\Http;
 use Templatiq\Utils\Options;
+use Templatiq\Utils\Response;
 
 class Elementor extends ElementorLocal {
 	private string $cloud_endpoint;
