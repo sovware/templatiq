@@ -156,6 +156,44 @@ button {
   fill: var(--templatiq-pro-color);
 }
 
+.templatiq-tooltip {
+  position: relative;
+}
+.templatiq-tooltip:before {
+  content: attr(data-info);
+  position: absolute;
+  top: -45px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: var(--templatiq-white-color);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: var(--templatiq-dark-color);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.templatiq-tooltip:after {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top: 10px solid var(--templatiq-dark-color);
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.templatiq-tooltip:hover:before, .templatiq-tooltip:hover:after {
+  opacity: 1;
+  visibility: visible;
+}
+
 .templatiq-root {
   margin-inline-start: -20px;
   background-color: var(--templatiq-section-color);

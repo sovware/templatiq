@@ -137,10 +137,10 @@ export default function TemplateDetailsModule() {
 							<div className="templatiq__details__widget__content__single required-plugins">
 								<span className="templatiq__details__widget__content__title">Required Plugins:</span>
 								<div className="templatiq__details__widget__content__required-plugins">
-									<a href="#" className="templatiq__details__widget__content__required-plugins__link">
+									<a href="#" className="templatiq__details__widget__content__required-plugins__link templatiq-tooltip" data-info="Directorist">
 										<ReactSVG src={ directoristIcon } width={30} height={30} />
 									</a>
-									<a href="#" className="templatiq__details__widget__content__required-plugins__link">
+									<a href="#" className="templatiq__details__widget__content__required-plugins__link templatiq-tooltip" data-info="Elementor">
 										<ReactSVG src={ elementorIcon } width={30} height={30} />
 									</a>
 								</div>

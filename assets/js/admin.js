@@ -9617,14 +9617,16 @@ function TemplateDetailsModule() {
     className: "templatiq__details__widget__content__required-plugins"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
-    className: "templatiq__details__widget__content__required-plugins__link"
+    className: "templatiq__details__widget__content__required-plugins__link templatiq-tooltip",
+    "data-info": "Directorist"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
     src: _icon_directorist_svg__WEBPACK_IMPORTED_MODULE_9__["default"],
     width: 30,
     height: 30
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
-    className: "templatiq__details__widget__content__required-plugins__link"
+    className: "templatiq__details__widget__content__required-plugins__link templatiq-tooltip",
+    "data-info": "Elementor"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
     src: _icon_elementor_svg__WEBPACK_IMPORTED_MODULE_8__["default"],
     width: 30,
@@ -9712,6 +9714,7 @@ const TemplateDetailsHeaderStyle = styled_components__WEBPACK_IMPORTED_MODULE_0_
     .templatiq__details__header__title {
         font-size: 26px;
         font-weight: 600;
+        line-height: 31px;
         margin: 0 0 12px;
     }
     .templatiq__details__header__meta {

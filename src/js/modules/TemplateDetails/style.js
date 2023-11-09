@@ -64,6 +64,7 @@ const TemplateDetailsHeaderStyle = Styled.div`
     .templatiq__details__header__title {
         font-size: 26px;
         font-weight: 600;
+        line-height: 31px;
         margin: 0 0 12px;
     }
     .templatiq__details__header__meta {
