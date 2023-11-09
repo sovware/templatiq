@@ -26,29 +26,29 @@ export default function TemplateDetailsModule() {
 							Used by 200 people
 						</span>
 						<span className="templatiq__details__header__meta__item">
-							<ReactSVG src={ crownIcon } width={16} height={16} />
-							PRO
+							<ReactSVG src={ heartIcon } width={16} height={16} />
+							Loved by 250 people
 						</span>
 					</div>
 				</div>
 				<div className="templatiq__details__header__action">
-					<span className="templatiq__details__header__action__link">
-						<ReactSVG src={ cartIcon } width={16} height={16} />
-						Buy this item  $45
+					<span className="templatiq__details__header__action__link templatiq-badge templatiq-badge-pro">
+						<ReactSVG src={ crownIcon } width={16} height={16} />
+						PRO
 					</span>
-					<a href="#" className="templatiq__details__header__action__link add-to-favorite">
+					<a href="#" className="templatiq__details__header__action__link add-to-favorite templatiq-btn templatiq-btn-white">
 						<ReactSVG src={ heartIcon } width={16} height={16} />
 					</a>
-					<a href="#" className="templatiq__details__header__action__link">
+					<a href="#" className="templatiq__details__header__action__link templatiq-btn templatiq-btn-white">
 						Live Demo
 					</a>
-					<a href="#" className="templatiq__details__header__action__link">
+					<a href="#" className="templatiq__details__header__action__link templatiq-btn templatiq-btn-white">
 						<ReactSVG src={ cartIcon } width={16} height={16} />
 						Buy this item  $45
 					</a>
-					<a href="#" className="templatiq__details__header__action__link">
+					<a href="#" className="templatiq__details__header__action__link templatiq-btn templatiq-btn-primary">
 						<ReactSVG src={ cartIcon } width={16} height={16} />
-						Buy this item  $45
+						Buy this item  <strong>$45</strong>
 					</a>
 				</div>
 			</TemplateDetailsHeaderStyle>
@@ -67,35 +67,35 @@ export default function TemplateDetailsModule() {
 						<h3 className="templatiq__details__content__single__title">Highlights</h3>
 						<ul className="templatiq__details__content__single__list">
 							<li className="templatiq__details__content__single__list__item">
-								<ReactSVG src={ checkIcon } width={16} height={16} />
+								<ReactSVG src={ checkIcon } width={22} height={22} />
 								Fully interactive website
 							</li>
 							<li className="templatiq__details__content__single__list__item">
-								<ReactSVG src={ checkIcon } width={16} height={16} />
+								<ReactSVG src={ checkIcon } width={22} height={22} />
 								Fully interactive website
 							</li>
 							<li className="templatiq__details__content__single__list__item">
-								<ReactSVG src={ checkIcon } width={16} height={16} />
+								<ReactSVG src={ checkIcon } width={22} height={22} />
 								Fully interactive website
 							</li>
 							<li className="templatiq__details__content__single__list__item">
-								<ReactSVG src={ checkIcon } width={16} height={16} />
+								<ReactSVG src={ checkIcon } width={22} height={22} />
 								Fully interactive website
 							</li>
 							<li className="templatiq__details__content__single__list__item">
-								<ReactSVG src={ checkIcon } width={16} height={16} />
+								<ReactSVG src={ checkIcon } width={22} height={22} />
 								Fully interactive website
 							</li>
 							<li className="templatiq__details__content__single__list__item">
-								<ReactSVG src={ checkIcon } width={16} height={16} />
+								<ReactSVG src={ checkIcon } width={22} height={22} />
 								Fully interactive website
 							</li>
 							<li className="templatiq__details__content__single__list__item">
-								<ReactSVG src={ checkIcon } width={16} height={16} />
+								<ReactSVG src={ checkIcon } width={22} height={22} />
 								Fully interactive website
 							</li>
 							<li className="templatiq__details__content__single__list__item">
-								<ReactSVG src={ checkIcon } width={16} height={16} />
+								<ReactSVG src={ checkIcon } width={22} height={22} />
 								Fully interactive website
 							</li>
 						</ul>

@@ -75,11 +75,11 @@ const Header = () =>  {
 
 					<div className="templatiq__header__action__item">
 						{isLoggedIn ? 
-							<a href="#" className="templatiq__header__action__link">
+							<a href="#" className="templatiq__header__action__link templatiq-btn">
 								<ReactSVG src={ userIcon } width={14} height={14} />
 								Logout
 							</a> : 
-							<a href="#" className="templatiq__header__action__link">
+							<a href="#" className="templatiq__header__action__link templatiq-btn">
 								<ReactSVG src={ userIcon } width={14} height={14} />
 								Login
 							</a> 

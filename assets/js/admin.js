@@ -7861,7 +7861,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function TemplatePack() {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_modules_TemplatePack__WEBPACK_IMPORTED_MODULE_1__["default"], null);
+  return (
+    // <TemplatePackModule />
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_modules_TemplateDetails__WEBPACK_IMPORTED_MODULE_2__["default"], null)
+  );
 }
 
 /***/ }),
@@ -8701,14 +8704,14 @@ const Header = () => {
     className: "templatiq__header__action__item"
   }, isLoggedIn ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
-    className: "templatiq__header__action__link"
+    className: "templatiq__header__action__link templatiq-btn"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
     src: _icon_user_alt_svg__WEBPACK_IMPORTED_MODULE_4__["default"],
     width: 14,
     height: 14
   }), "Logout") : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
-    className: "templatiq__header__action__link"
+    className: "templatiq__header__action__link templatiq-btn"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
     src: _icon_user_alt_svg__WEBPACK_IMPORTED_MODULE_4__["default"],
     width: 14,
@@ -8804,31 +8807,6 @@ const HeaderActionStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["defaul
     display: flex;
     gap: 32px;
     align-items: center;
-    .templatiq__header__action__link {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        height: 36px;
-        padding: 0 12px;
-        border-radius: 8px;
-        color: var(--templatiq-body-color);
-        font-size: 14px;
-        font-weight: 500;
-        background-color: var(--templatiq-sec-color);
-        box-shadow: none;
-        transition: background-color 0.3s ease;
-        path {
-            fill: var(--templatiq-body-color);
-            transition: fill 0.3s ease;
-        }
-        &:hover {
-            color: var(--templatiq-white-color);
-            background-color: var(--templatiq-primary-color);
-            path {
-                fill: var(--templatiq-white-color);
-            }
-        }
-    }
 `;
 
 
@@ -9225,7 +9203,7 @@ const SidebarStyle = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].d
         gap: 20px;
         justify-content: space-between;
         padding: 10px 24px;
-        background: var(--templatiq-section-color);
+        background: var(--templatiq-section-color2);
         .templatiq__sidebar__top__title {
             display: flex;
             gap: 10px;
@@ -9480,42 +9458,42 @@ function TemplateDetailsModule() {
   }), "Used by 200 people"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "templatiq__details__header__meta__item"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    src: _icon_heart_svg__WEBPACK_IMPORTED_MODULE_4__["default"],
+    width: 16,
+    height: 16
+  }), "Loved by 250 people"))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "templatiq__details__header__action"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__details__header__action__link templatiq-badge templatiq-badge-pro"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
     src: _icon_crown_svg__WEBPACK_IMPORTED_MODULE_2__["default"],
     width: 16,
     height: 16
-  }), "PRO"))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "templatiq__details__header__action"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "templatiq__details__header__action__link"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    src: _icon_cart_svg__WEBPACK_IMPORTED_MODULE_3__["default"],
-    width: 16,
-    height: 16
-  }), "Buy this item  $45"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+  }), "PRO"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
-    className: "templatiq__details__header__action__link add-to-favorite"
+    className: "templatiq__details__header__action__link add-to-favorite templatiq-btn templatiq-btn-white"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
     src: _icon_heart_svg__WEBPACK_IMPORTED_MODULE_4__["default"],
     width: 16,
     height: 16
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
-    className: "templatiq__details__header__action__link"
+    className: "templatiq__details__header__action__link templatiq-btn templatiq-btn-white"
   }, "Live Demo"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
-    className: "templatiq__details__header__action__link"
+    className: "templatiq__details__header__action__link templatiq-btn templatiq-btn-white"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
     src: _icon_cart_svg__WEBPACK_IMPORTED_MODULE_3__["default"],
     width: 16,
     height: 16
   }), "Buy this item  $45"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
-    className: "templatiq__details__header__action__link"
+    className: "templatiq__details__header__action__link templatiq-btn templatiq-btn-primary"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
     src: _icon_cart_svg__WEBPACK_IMPORTED_MODULE_3__["default"],
     width: 16,
     height: 16
-  }), "Buy this item  $45"))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }), "Buy this item  ", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "$45")))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__details__wrapper"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__details__content"
@@ -9542,50 +9520,50 @@ function TemplateDetailsModule() {
     className: "templatiq__details__content__single__list__item"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
     src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
-    width: 16,
-    height: 16
+    width: 22,
+    height: 22
   }), "Fully interactive website"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
     className: "templatiq__details__content__single__list__item"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
     src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
-    width: 16,
-    height: 16
+    width: 22,
+    height: 22
   }), "Fully interactive website"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
     className: "templatiq__details__content__single__list__item"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
     src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
-    width: 16,
-    height: 16
+    width: 22,
+    height: 22
   }), "Fully interactive website"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
     className: "templatiq__details__content__single__list__item"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
     src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
-    width: 16,
-    height: 16
+    width: 22,
+    height: 22
   }), "Fully interactive website"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
     className: "templatiq__details__content__single__list__item"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
     src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
-    width: 16,
-    height: 16
+    width: 22,
+    height: 22
   }), "Fully interactive website"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
     className: "templatiq__details__content__single__list__item"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
     src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
-    width: 16,
-    height: 16
+    width: 22,
+    height: 22
   }), "Fully interactive website"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
     className: "templatiq__details__content__single__list__item"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
     src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
-    width: 16,
-    height: 16
+    width: 22,
+    height: 22
   }), "Fully interactive website"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
     className: "templatiq__details__content__single__list__item"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
     src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
-    width: 16,
-    height: 16
+    width: 22,
+    height: 22
   }), "Fully interactive website")))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__details__widget"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_style__WEBPACK_IMPORTED_MODULE_1__.TemplateDetailsWidgetStyle, {
@@ -9674,10 +9652,103 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 
 const TemplateDetailsStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div`
-    background: var(--templatiq-primary-color);
+    padding: 0 32px;
+    .templatiq__details__wrapper {
+        display: flex;
+        gap: 32px;
+    }
+    .templatiq__details__img {
+        img {
+            width: 100%;
+            border-radius: 16px;
+        }
+    }
+    .templatiq__details__content {
+        display: flex;
+        gap: 32px;
+        flex-direction: column;
+    }
+    .templatiq__details__content__single {
+        display: flex;
+        gap: 20px;
+        flex-direction: column;
+        padding: 32px;
+        border-radius: 16px;
+        background: var(--templatiq-white-color);
+    }
+    .templatiq__details__content__single__title {
+        margin: 0;
+        font-size: 21px;
+        font-weight: 600;
+    }
+    .templatiq__details__content__single__desc {
+        margin: 0 0 15px;
+        font-size: 16px;
+        font-weight: 400;
+        color: var(--templatiq-body-color);
+        &:last-child {
+            margin: 0;
+        }
+    }
+    .templatiq__details__content__single__list {
+        display: flex;
+        gap: 13px;
+        flex-wrap: wrap;
+    }
+    .templatiq__details__content__single__list__item {
+        display: flex;
+        gap: 12px;
+        flex: 0 0 48%;
+        align-items: center;
+        font-size: 16px;
+        line-height: 1.7;
+        font-weight: 400;
+    }
 `;
 const TemplateDetailsHeaderStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div`
-
+    display: flex;
+    gap: 30px;
+    margin: 30px 0 20px;
+    justify-content: space-between;
+    .templatiq__details__header__title {
+        font-size: 26px;
+        font-weight: 600;
+        margin: 0 0 12px;
+    }
+    .templatiq__details__header__meta {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+    .templatiq__details__header__meta__item {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--templatiq-gray-color);
+        path {
+            fill: var(--templatiq-gray-color);
+        }
+        &:not(:last-child) {
+            position: relative;
+            padding-inline-end: 12px;
+            &:after {
+                content: '';
+                position: absolute;
+                inset-inline-end: 0;
+                top: 0;
+                width: 1px;
+                height: 100%;
+                background: var(--templatiq-gray-color2);
+            }
+        }
+    }
+    .templatiq__details__header__action {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
 `;
 const TemplateDetailsWidgetStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div`
 

@@ -11,7 +11,7 @@ const SidebarStyle = Styled.div`
         gap: 20px;
         justify-content: space-between;
         padding: 10px 24px;
-        background: var(--templatiq-section-color);
+        background: var(--templatiq-section-color2);
         .templatiq__sidebar__top__title {
             display: flex;
             gap: 10px;

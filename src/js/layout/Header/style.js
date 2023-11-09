@@ -70,31 +70,6 @@ const HeaderActionStyle = Styled.div`
     display: flex;
     gap: 32px;
     align-items: center;
-    .templatiq__header__action__link {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        height: 36px;
-        padding: 0 12px;
-        border-radius: 8px;
-        color: var(--templatiq-body-color);
-        font-size: 14px;
-        font-weight: 500;
-        background-color: var(--templatiq-sec-color);
-        box-shadow: none;
-        transition: background-color 0.3s ease;
-        path {
-            fill: var(--templatiq-body-color);
-            transition: fill 0.3s ease;
-        }
-        &:hover {
-            color: var(--templatiq-white-color);
-            background-color: var(--templatiq-primary-color);
-            path {
-                fill: var(--templatiq-white-color);
-            }
-        }
-    }
 `;
 
 

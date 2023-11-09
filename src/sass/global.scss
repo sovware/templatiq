@@ -8,8 +8,8 @@
 	--templatiq-gray-color: #6B6B73;
 	--templatiq-gray-color2: #D1D1D9;
 	--templatiq-sec-color: #F1F1F4;
-	--templatiq-section-color: #F8F8F9;
-	--templatiq-border-color: #E8E8EE;
+	--templatiq-section-color: #E8E8EE;
+	--templatiq-section-color2: #F8F8F9;
 	--templatiq-placeholder-color: #94949A;
 	--templatiq-success-color: #2AB76E;
 	--templatiq-danger-color: #D53034;
@@ -40,7 +40,117 @@ button {
 	outline: none;
 	box-shadow: none;
 }
+.templatiq-btn {
+	display: inline-flex;
+    gap: 10px;
+    align-items: center;
+    height: 36px;
+    padding: 0 12px;
+    border-radius: 8px;
+    color: var(--templatiq-btn-color);
+    font-size: 14px;
+    font-weight: 500;
+    background-color: var(--templatiq-sec-color);
+    box-shadow: none;
+    transition: background-color 0.3s ease;
+	path {
+		fill: var(--templatiq-btn-color);
+		transition: fill 0.3s ease;
+	}
+	&:hover {
+		color: var(--templatiq-white-color);
+		background-color: var(--templatiq-primary-color);
+		path {
+			fill: var(--templatiq-white-color);
+		}
+	}
+	&.templatiq-btn-white {
+		background-color: var(--templatiq-white-color);
+		color: var(--templatiq-btn-color);
+		path {
+			fill: var(--templatiq-btn-color);
+			transition: fill 0.3s ease;
+		}
+		&:hover {
+			color: var(--templatiq-white-color);
+			background-color: var(--templatiq-primary-color);
+			path {
+				fill: var(--templatiq-white-color);
+			}
+		}
+	}
+	&.templatiq-btn-dark {
+		background-color: var(--templatiq-dark-color);
+		color: var(--templatiq-white-color);
+		path {
+			fill: var(--templatiq-white-color);
+			transition: fill 0.3s ease;
+		}
+		&:hover {
+			color: var(--templatiq-white-color);
+			background-color: var(--templatiq-dark-color);
+			path {
+				fill: var(--templatiq-white-color);
+			}
+		}
+	}
+	&.templatiq-btn-primary {
+		background-color: var(--templatiq-primary-color);
+		color: var(--templatiq-white-color);
+		path {
+			fill: var(--templatiq-white-color);
+			transition: fill 0.3s ease;
+		}
+		&:hover {
+			color: var(--templatiq-white-color);
+			background-color: var(--templatiq-primary-color);
+			path {
+				fill: var(--templatiq-white-color);
+			}
+		}
+	}
+	&.templatiq-btn-warning {
+		background-color: var(--templatiq-warning-color);
+		color: var(--templatiq-dark-color);
+		path {
+			fill: var(--templatiq-dark-color);
+			transition: fill 0.3s ease;
+		}
+		&:hover {
+			color: var(--templatiq-dark-color);
+			background-color: var(--templatiq-warning-color);
+			path {
+				fill: var(--templatiq-dark-color);
+			}
+		}
+	}
+}
+
+.templatiq-badge {
+	display: inline-flex;
+    gap: 10px;
+    align-items: center;
+    height: 36px;
+    padding: 0 12px;
+    border-radius: 8px;
+    color: var(--templatiq-btn-color);
+    font-size: 13px;
+    font-weight: 600;
+    background-color: var(--templatiq-sec-color);
+	&.templatiq-badge-dark {
+		background-color: var(--templatiq-dark-color);
+		color: var(--templatiq-white-color);
+	}
+	&.templatiq-badge-pro {
+		background-color: var(--templatiq-dark-color);
+		color: var(--templatiq-pro-color);
+		path {
+			fill: var(--templatiq-pro-color);
+		}
+	}
+}
 
 .templatiq-root {
 	margin-inline-start: -20px;
+	background-color: var(--templatiq-section-color);
 }
