@@ -98,8 +98,7 @@ export default function TemplatePackModule() {
 							title = 'DHotels' 
 							price = '25' 
 							downloadCount = '35' 
-							favoriteCount = '63' 
-							isPurchased
+							favoriteCount = '63'
 							requiredPlugins = {[
 								{
 									name: 'Directorist',
@@ -157,8 +156,7 @@ export default function TemplatePackModule() {
 							title = 'Onelisting' 
 							price = '' 
 							downloadCount = '27' 
-							favoriteCount = '42' 
-							isPurchased
+							favoriteCount = '42'
 							requiredPlugins = {[
 								{
 									name: 'Directorist',
@@ -187,8 +185,7 @@ export default function TemplatePackModule() {
 							title = 'DCourse' 
 							price = '' 
 							downloadCount = '17' 
-							favoriteCount = '12' 
-							isPurchased
+							favoriteCount = '12'
 							requiredPlugins = {[
 								{
 									name: 'Directorist',
@@ -217,8 +214,7 @@ export default function TemplatePackModule() {
 							title = 'dList' 
 							price = '' 
 							downloadCount = '22' 
-							favoriteCount = '32' 
-							isPurchased
+							favoriteCount = '32'
 							requiredPlugins = {[
 								{
 									name: 'Directorist',
@@ -249,8 +245,7 @@ export default function TemplatePackModule() {
 							title = 'Onelisting' 
 							price = '' 
 							downloadCount = '27' 
-							favoriteCount = '42' 
-							isPurchased
+							favoriteCount = '42'
 							requiredPlugins = {[
 								{
 									name: 'Directorist',
@@ -279,8 +274,7 @@ export default function TemplatePackModule() {
 							title = 'DCourse' 
 							price = '' 
 							downloadCount = '17' 
-							favoriteCount = '12' 
-							isPurchased
+							favoriteCount = '12'
 							requiredPlugins = {[
 								{
 									name: 'Directorist',
@@ -309,8 +303,7 @@ export default function TemplatePackModule() {
 							title = 'dList' 
 							price = '' 
 							downloadCount = '22' 
-							favoriteCount = '32' 
-							isPurchased
+							favoriteCount = '32'
 							requiredPlugins = {[
 								{
 									name: 'Directorist',
@@ -371,8 +364,7 @@ export default function TemplatePackModule() {
 							title = 'DHotels' 
 							price = '25' 
 							downloadCount = '35' 
-							favoriteCount = '63' 
-							isPurchased
+							favoriteCount = '63'
 							requiredPlugins = {[
 								{
 									name: 'Directorist',

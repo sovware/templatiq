@@ -9,7 +9,7 @@ import downloadIcon from "@icon/download-alt.svg";
 import templateImg1 from "@images/template/1.svg";
 
 const SingleTemplate = (item) => {
-    let { img, title, price, downloadCount, favoriteCount, isPurchased } = item;
+    let { img, title, price, downloadCount, favoriteCount } = item;
     let categories = item.categories;
     let requiredPlugins = item.requiredPlugins;
 
@@ -34,14 +34,14 @@ const SingleTemplate = (item) => {
                             Live Demo
                         </a>
                         {
-                            isPurchased ? 
-                                <a href="#" className="templatiq__template__single__info__action__link insert-btn">
-                                <ReactSVG src={ downloadIcon } width={14} height={14} />
-                                Insert
-                            </a> :
+                            price ? 
                             <a href="#" className="templatiq__template__single__info__action__link purchase-btn">
                                 <ReactSVG src={ cartIcon } width={14} height={14} />
                                 Purchase
+                            </a> :
+                            <a href="#" className="templatiq__template__single__info__action__link insert-btn">
+                                <ReactSVG src={ downloadIcon } width={14} height={14} />
+                                Insert
                             </a>
 
                         }

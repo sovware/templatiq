@@ -116,6 +116,21 @@ button {
 .templatiq-btn.templatiq-btn-primary:hover path {
   fill: var(--templatiq-white-color);
 }
+.templatiq-btn.templatiq-btn-success {
+  background-color: var(--templatiq-success-color);
+  color: var(--templatiq-white-color);
+}
+.templatiq-btn.templatiq-btn-success path {
+  fill: var(--templatiq-white-color);
+  transition: fill 0.3s ease;
+}
+.templatiq-btn.templatiq-btn-success:hover {
+  color: var(--templatiq-white-color);
+  background-color: var(--templatiq-success-color);
+}
+.templatiq-btn.templatiq-btn-success:hover path {
+  fill: var(--templatiq-white-color);
+}
 .templatiq-btn.templatiq-btn-warning {
   background-color: var(--templatiq-warning-color);
   color: var(--templatiq-dark-color);

@@ -5446,6 +5446,43 @@ var SvgDownloadAlt = function SvgDownloadAlt(props) {
 
 /***/ }),
 
+/***/ "./src/svg/icon/download.svg":
+/*!***********************************!*\
+  !*** ./src/svg/icon/download.svg ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ReactComponent: () => (/* binding */ SvgDownload),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _path, _path2;
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+var SvgDownload = function SvgDownload(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", _extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    width: 12,
+    height: 12
+  }, props), _path || (_path = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    fill: "#6e6e6e",
+    d: "M4.424 8.84a2.255 2.255 0 0 0 3.185 0l1.607-1.6a.75.75 0 1 0-1.043-1.078l-.018.018-1.393 1.389-.011-6.82A.75.75 0 0 0 6 0a.75.75 0 0 0-.751.749l.01 6.806-1.382-1.379a.75.75 0 0 0-1.061 1.059Z",
+    "data-name": "Path 1556"
+  })), _path2 || (_path2 = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    fill: "#6e6e6e",
+    d: "M11.25 7.255a.75.75 0 0 0-.75.749v2.293a.2.2 0 0 1-.2.2H1.7a.2.2 0 0 1-.2-.2V8.004a.75.75 0 0 0-1.5 0v2.293a1.706 1.706 0 0 0 1.7 1.7h8.6a1.705 1.705 0 0 0 1.7-1.7V8.004a.75.75 0 0 0-.75-.749Z",
+    "data-name": "Path 1557"
+  })));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyBpZD0iZG93bmxvYWQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEyIiBoZWlnaHQ9IjEyIiB2aWV3Qm94PSIwIDAgMTIgMTIiPgogIDxwYXRoIGlkPSJQYXRoXzE1NTYiIGRhdGEtbmFtZT0iUGF0aCAxNTU2IiBkPSJNMTEzLjEzNCw4Ljg0YTIuMjU1LDIuMjU1LDAsMCwwLDMuMTg1LDBoMGwxLjYwNy0xLjZhLjc1Ljc1LDAsMSwwLTEuMDQzLTEuMDc4bC0uMDE4LjAxOC0xLjM5MywxLjM4OUwxMTUuNDYxLjc0OUEuNzUuNzUsMCwwLDAsMTE0LjcxLDBoMGEuNzUuNzUsMCwwLDAtLjc1MS43NDlsLjAxLDYuODA2LTEuMzgyLTEuMzc5YS43NS43NSwwLDAsMC0xLjA2MSwxLjA1OVoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMDguNzEpIiBmaWxsPSIjNmU2ZTZlIi8+CiAgPHBhdGggaWQ9IlBhdGhfMTU1NyIgZGF0YS1uYW1lPSJQYXRoIDE1NTciIGQ9Ik0xMS4yNSwzMDkuMzMzYS43NS43NSwwLDAsMC0uNzUuNzQ5djIuMjkzYS4yLjIsMCwwLDEtLjIuMkgxLjdhLjIuMiwwLDAsMS0uMi0uMnYtMi4yOTNhLjc1Ljc1LDAsMCwwLTEuNSwwdjIuMjkzYTEuNzA2LDEuNzA2LDAsMCwwLDEuNywxLjdIMTAuM2ExLjcwNSwxLjcwNSwwLDAsMCwxLjctMS43di0yLjI5M0EuNzUuNzUsMCwwLDAsMTEuMjUsMzA5LjMzM1oiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgLTMwMi4wNzgpIiBmaWxsPSIjNmU2ZTZlIi8+Cjwvc3ZnPgo=");
+
+/***/ }),
+
 /***/ "./src/svg/icon/elementor.svg":
 /*!************************************!*\
   !*** ./src/svg/icon/elementor.svg ***!
@@ -7861,10 +7898,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function TemplatePack() {
-  return (
-    // <TemplatePackModule />
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_modules_TemplateDetails__WEBPACK_IMPORTED_MODULE_2__["default"], null)
-  );
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_modules_TemplatePack__WEBPACK_IMPORTED_MODULE_1__["default"], null)
+  // <TemplateDetailsModule />
+  ;
 }
 
 /***/ }),
@@ -9414,17 +9450,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style */ "./src/js/modules/TemplateDetails/style.js");
 /* harmony import */ var _icon_crown_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @icon/crown.svg */ "./src/svg/icon/crown.svg");
 /* harmony import */ var _icon_cart_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @icon/cart.svg */ "./src/svg/icon/cart.svg");
 /* harmony import */ var _icon_heart_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @icon/heart.svg */ "./src/svg/icon/heart.svg");
 /* harmony import */ var _icon_fire_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @icon/fire.svg */ "./src/svg/icon/fire.svg");
-/* harmony import */ var _icon_download_alt_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @icon/download-alt.svg */ "./src/svg/icon/download-alt.svg");
-/* harmony import */ var _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @icon/check-alt.svg */ "./src/svg/icon/check-alt.svg");
-/* harmony import */ var _icon_elementor_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @icon/elementor.svg */ "./src/svg/icon/elementor.svg");
-/* harmony import */ var _icon_directorist_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @icon/directorist.svg */ "./src/svg/icon/directorist.svg");
-/* harmony import */ var _images_template_details1_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @images/template/details1.svg */ "./src/images/template/details1.svg");
+/* harmony import */ var _icon_download_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @icon/download.svg */ "./src/svg/icon/download.svg");
+/* harmony import */ var _icon_download_alt_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @icon/download-alt.svg */ "./src/svg/icon/download-alt.svg");
+/* harmony import */ var _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @icon/check-alt.svg */ "./src/svg/icon/check-alt.svg");
+/* harmony import */ var _icon_elementor_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @icon/elementor.svg */ "./src/svg/icon/elementor.svg");
+/* harmony import */ var _icon_directorist_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @icon/directorist.svg */ "./src/svg/icon/directorist.svg");
+/* harmony import */ var _images_template_details1_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @images/template/details1.svg */ "./src/images/template/details1.svg");
+
 
 
 
@@ -9439,6 +9477,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function TemplateDetailsModule() {
+  let price = '45';
+  let downloadCount = '200';
+  let favoriteCount = '250';
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_style__WEBPACK_IMPORTED_MODULE_1__.TemplateDetailsStyle, {
     className: "templatiq__details"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_style__WEBPACK_IMPORTED_MODULE_1__.TemplateDetailsHeaderStyle, {
@@ -9449,58 +9490,58 @@ function TemplateDetailsModule() {
     className: "templatiq__details__header__title"
   }, "Template Pack Pro"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__details__header__meta"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+  }, downloadCount ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "templatiq__details__header__meta__item"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    src: _icon_download_alt_svg__WEBPACK_IMPORTED_MODULE_6__["default"],
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    src: _icon_download_alt_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
     width: 16,
     height: 16
-  }), "Used by 200 people"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+  }), "Used by ", downloadCount, " people") : '', favoriteCount ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "templatiq__details__header__meta__item"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
     src: _icon_heart_svg__WEBPACK_IMPORTED_MODULE_4__["default"],
     width: 16,
     height: 16
-  }), "Loved by 250 people"))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }), "Loved by ", favoriteCount, " people") : '')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__details__header__action"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "templatiq__details__header__action__link templatiq-badge templatiq-badge-pro"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }, price ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__details__header__action__link templatiq-badge templatiq-badge-dark"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
     src: _icon_crown_svg__WEBPACK_IMPORTED_MODULE_2__["default"],
     width: 16,
     height: 16
-  }), "PRO"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+  }), "PRO") : '', (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
     className: "templatiq__details__header__action__link add-to-favorite templatiq-btn templatiq-btn-white"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
     src: _icon_heart_svg__WEBPACK_IMPORTED_MODULE_4__["default"],
     width: 16,
     height: 16
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
-    className: "templatiq__details__header__action__link templatiq-btn templatiq-btn-white"
-  }, "Live Demo"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    className: "templatiq__details__header__action__link live-demo-btn templatiq-btn templatiq-btn-white"
+  }, "Live Demo"), price ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
-    className: "templatiq__details__header__action__link templatiq-btn templatiq-btn-white"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    className: "templatiq__details__header__action__link purchase-btn templatiq-btn templatiq-btn-primary"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
     src: _icon_cart_svg__WEBPACK_IMPORTED_MODULE_3__["default"],
     width: 16,
     height: 16
-  }), "Buy this item  $45"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+  }), "Buy this item  $", price) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
-    className: "templatiq__details__header__action__link templatiq-btn templatiq-btn-primary"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    src: _icon_cart_svg__WEBPACK_IMPORTED_MODULE_3__["default"],
+    className: "templatiq__details__header__action__link insert-btn templatiq-btn templatiq-btn-success"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    src: _icon_download_svg__WEBPACK_IMPORTED_MODULE_6__["default"],
     width: 16,
     height: 16
-  }), "Buy this item  ", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "$45")))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }), "Insert"))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__details__wrapper"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__details__content"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__details__img"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-    src: _images_template_details1_svg__WEBPACK_IMPORTED_MODULE_10__["default"],
+    src: _images_template_details1_svg__WEBPACK_IMPORTED_MODULE_11__["default"],
     alt: "Template Pack Pro"
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__details__content__single"
@@ -9518,61 +9559,61 @@ function TemplateDetailsModule() {
     className: "templatiq__details__content__single__list"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
     className: "templatiq__details__content__single__list__item"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_8__["default"],
     width: 22,
     height: 22
   }), "Fully interactive website"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
     className: "templatiq__details__content__single__list__item"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_8__["default"],
     width: 22,
     height: 22
   }), "Fully interactive website"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
     className: "templatiq__details__content__single__list__item"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_8__["default"],
     width: 22,
     height: 22
   }), "Fully interactive website"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
     className: "templatiq__details__content__single__list__item"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_8__["default"],
     width: 22,
     height: 22
   }), "Fully interactive website"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
     className: "templatiq__details__content__single__list__item"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_8__["default"],
     width: 22,
     height: 22
   }), "Fully interactive website"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
     className: "templatiq__details__content__single__list__item"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_8__["default"],
     width: 22,
     height: 22
   }), "Fully interactive website"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
     className: "templatiq__details__content__single__list__item"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_8__["default"],
     width: 22,
     height: 22
   }), "Fully interactive website"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
     className: "templatiq__details__content__single__list__item"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    src: _icon_check_alt_svg__WEBPACK_IMPORTED_MODULE_8__["default"],
     width: 22,
     height: 22
   }), "Fully interactive website")))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_style__WEBPACK_IMPORTED_MODULE_1__.TemplateDetailsWidgetStyle, {
     className: "templatiq__details__widget"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, price ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__details__widget__single templatiq__details__widget__subscribe"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__details__widget__subscribe__info"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
     className: "templatiq__details__widget__subscribe__title"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
     src: _icon_fire_svg__WEBPACK_IMPORTED_MODULE_5__["default"],
     width: 22,
     height: 22
@@ -9583,7 +9624,7 @@ function TemplateDetailsModule() {
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
     className: "templatiq__details__widget__subscribe__btn__link templatiq-btn templatiq-btn-warning"
-  }, "Get Unlimited Access"))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, "Get Unlimited Access"))) : '', (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__details__widget__single templatiq__details__widget__quickinfo"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__details__widget__header"
@@ -9619,16 +9660,16 @@ function TemplateDetailsModule() {
     href: "#",
     className: "templatiq__details__widget__content__required-plugins__link templatiq-tooltip",
     "data-info": "Directorist"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    src: _icon_directorist_svg__WEBPACK_IMPORTED_MODULE_9__["default"],
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    src: _icon_directorist_svg__WEBPACK_IMPORTED_MODULE_10__["default"],
     width: 30,
     height: 30
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
     className: "templatiq__details__widget__content__required-plugins__link templatiq-tooltip",
     "data-info": "Elementor"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    src: _icon_elementor_svg__WEBPACK_IMPORTED_MODULE_8__["default"],
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    src: _icon_elementor_svg__WEBPACK_IMPORTED_MODULE_9__["default"],
     width: 30,
     height: 30
   })))))))));
@@ -9652,7 +9693,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 
 const TemplateDetailsStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div`
-    padding: 0 32px;
+    padding: 0 32px 90px;
     .templatiq__details__wrapper {
         display: flex;
         gap: 32px;
@@ -9751,12 +9792,27 @@ const TemplateDetailsHeaderStyle = styled_components__WEBPACK_IMPORTED_MODULE_0_
         gap: 12px;
         align-items: center;
     }
+    .templatiq__details__header__action__link {
+        height: 40px;
+        box-shadow: var(--templatiq-box-shadow);
+        &.live-demo-btn {
+          padding: 0 20px;  
+        }
+        &.purchase-btn,
+        &.insert-btn {
+          padding: 0 25px;  
+        }
+        &.templatiq-badge {
+            height: 32px;
+        }
+    }
 `;
 const TemplateDetailsWidgetStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div`
     display: flex;
     gap: 20px;
     flex-direction: column;
     .templatiq__details__widget__single {
+        min-width: 280px;
         border-radius: 16px;
         background: var(--templatiq-white-color);
     }
@@ -9882,8 +9938,7 @@ const SingleTemplate = item => {
     title,
     price,
     downloadCount,
-    favoriteCount,
-    isPurchased
+    favoriteCount
   } = item;
   let categories = item.categories;
   let requiredPlugins = item.requiredPlugins;
@@ -9911,21 +9966,21 @@ const SingleTemplate = item => {
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
     className: "templatiq__template__single__info__action__link"
-  }, "Live Demo"), isPurchased ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-    href: "#",
-    className: "templatiq__template__single__info__action__link insert-btn"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    src: _icon_download_alt_svg__WEBPACK_IMPORTED_MODULE_5__["default"],
-    width: 14,
-    height: 14
-  }), "Insert") : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+  }, "Live Demo"), price ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
     className: "templatiq__template__single__info__action__link purchase-btn"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
     src: _icon_cart_svg__WEBPACK_IMPORTED_MODULE_3__["default"],
     width: 14,
     height: 14
-  }), "Purchase")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }), "Purchase") : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: "#",
+    className: "templatiq__template__single__info__action__link insert-btn"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    src: _icon_download_alt_svg__WEBPACK_IMPORTED_MODULE_5__["default"],
+    width: 14,
+    height: 14
+  }), "Insert")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__template__single__info__required"
   }, requiredPlugins && requiredPlugins.map((plugin, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     key: index,
@@ -10362,7 +10417,6 @@ function TemplatePackModule() {
     price: "25",
     downloadCount: "35",
     favoriteCount: "63",
-    isPurchased: true,
     requiredPlugins: [{
       name: 'Directorist',
       icon: _icon_directorist_svg__WEBPACK_IMPORTED_MODULE_12__["default"],
@@ -10407,7 +10461,6 @@ function TemplatePackModule() {
     price: "",
     downloadCount: "27",
     favoriteCount: "42",
-    isPurchased: true,
     requiredPlugins: [{
       name: 'Directorist',
       icon: _icon_directorist_svg__WEBPACK_IMPORTED_MODULE_12__["default"],
@@ -10430,7 +10483,6 @@ function TemplatePackModule() {
     price: "",
     downloadCount: "17",
     favoriteCount: "12",
-    isPurchased: true,
     requiredPlugins: [{
       name: 'Directorist',
       icon: _icon_directorist_svg__WEBPACK_IMPORTED_MODULE_12__["default"],
@@ -10453,7 +10505,6 @@ function TemplatePackModule() {
     price: "",
     downloadCount: "22",
     favoriteCount: "32",
-    isPurchased: true,
     requiredPlugins: [{
       name: 'Directorist',
       icon: _icon_directorist_svg__WEBPACK_IMPORTED_MODULE_12__["default"],
@@ -10478,7 +10529,6 @@ function TemplatePackModule() {
     price: "",
     downloadCount: "27",
     favoriteCount: "42",
-    isPurchased: true,
     requiredPlugins: [{
       name: 'Directorist',
       icon: _icon_directorist_svg__WEBPACK_IMPORTED_MODULE_12__["default"],
@@ -10501,7 +10551,6 @@ function TemplatePackModule() {
     price: "",
     downloadCount: "17",
     favoriteCount: "12",
-    isPurchased: true,
     requiredPlugins: [{
       name: 'Directorist',
       icon: _icon_directorist_svg__WEBPACK_IMPORTED_MODULE_12__["default"],
@@ -10524,7 +10573,6 @@ function TemplatePackModule() {
     price: "",
     downloadCount: "22",
     favoriteCount: "32",
-    isPurchased: true,
     requiredPlugins: [{
       name: 'Directorist',
       icon: _icon_directorist_svg__WEBPACK_IMPORTED_MODULE_12__["default"],
@@ -10571,7 +10619,6 @@ function TemplatePackModule() {
     price: "25",
     downloadCount: "35",
     favoriteCount: "63",
-    isPurchased: true,
     requiredPlugins: [{
       name: 'Directorist',
       icon: _icon_directorist_svg__WEBPACK_IMPORTED_MODULE_12__["default"],

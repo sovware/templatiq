@@ -6,7 +6,8 @@ import crownIcon from '@icon/crown.svg';
 import cartIcon from "@icon/cart.svg";
 import heartIcon from "@icon/heart.svg";
 import fireIcon from "@icon/fire.svg";
-import downloadIcon from "@icon/download-alt.svg";
+import downloadIcon from "@icon/download.svg";
+import downloadAltIcon from "@icon/download-alt.svg";
 import checkIcon from "@icon/check-alt.svg";
 import elementorIcon from "@icon/elementor.svg";
 import directoristIcon from "@icon/directorist.svg";
@@ -14,6 +15,9 @@ import directoristIcon from "@icon/directorist.svg";
 import templateImg1 from "@images/template/details1.svg";
 
 export default function TemplateDetailsModule() {
+	let price = '45';
+	let downloadCount = '200';
+	let favoriteCount = '250';
 
 	return (
 		<TemplateDetailsStyle className="templatiq__details">
@@ -21,35 +25,53 @@ export default function TemplateDetailsModule() {
 				<div className="templatiq__details__header__info">
 					<h2 className="templatiq__details__header__title">Template Pack Pro</h2>
 					<div className="templatiq__details__header__meta">
-						<span className="templatiq__details__header__meta__item">
-							<ReactSVG src={ downloadIcon } width={16} height={16} />
-							Used by 200 people
-						</span>
-						<span className="templatiq__details__header__meta__item">
-							<ReactSVG src={ heartIcon } width={16} height={16} />
-							Loved by 250 people
-						</span>
+						{
+							downloadCount ? 
+							<span className="templatiq__details__header__meta__item">
+								<ReactSVG src={ downloadAltIcon } width={16} height={16} />
+								Used by {downloadCount} people
+							</span> :
+							''
+						}
+						{
+							favoriteCount ? 
+							<span className="templatiq__details__header__meta__item">
+								<ReactSVG src={ heartIcon } width={16} height={16} />
+								Loved by {favoriteCount} people
+							</span> :
+							''
+						}
+						
 					</div>
 				</div>
 				<div className="templatiq__details__header__action">
-					<span className="templatiq__details__header__action__link templatiq-badge templatiq-badge-pro">
-						<ReactSVG src={ crownIcon } width={16} height={16} />
-						PRO
-					</span>
+					{
+						price ? 
+						<span className="templatiq__details__header__action__link templatiq-badge templatiq-badge-dark">
+							<ReactSVG src={ crownIcon } width={16} height={16} />
+							PRO
+						</span> :
+						''
+					}
 					<a href="#" className="templatiq__details__header__action__link add-to-favorite templatiq-btn templatiq-btn-white">
 						<ReactSVG src={ heartIcon } width={16} height={16} />
 					</a>
-					<a href="#" className="templatiq__details__header__action__link templatiq-btn templatiq-btn-white">
+					<a href="#" className="templatiq__details__header__action__link live-demo-btn templatiq-btn templatiq-btn-white">
 						Live Demo
-					</a>
-					<a href="#" className="templatiq__details__header__action__link templatiq-btn templatiq-btn-white">
-						<ReactSVG src={ cartIcon } width={16} height={16} />
-						Buy this item  $45
-					</a>
-					<a href="#" className="templatiq__details__header__action__link templatiq-btn templatiq-btn-primary">
-						<ReactSVG src={ cartIcon } width={16} height={16} />
-						Buy this item  <strong>$45</strong>
-					</a>
+					</a> 
+					{
+						price ?
+						<a href="#" className="templatiq__details__header__action__link purchase-btn templatiq-btn templatiq-btn-primary">
+							<ReactSVG src={ cartIcon } width={16} height={16} />
+							Buy this item  ${price}
+						</a> :
+						<a href="#" className="templatiq__details__header__action__link insert-btn templatiq-btn templatiq-btn-success">
+							<ReactSVG src={ downloadIcon } width={16} height={16} />
+							Insert
+						</a>
+					}
+					
+					
 				</div>
 			</TemplateDetailsHeaderStyle>
 			<div className="templatiq__details__wrapper">
@@ -102,20 +124,25 @@ export default function TemplateDetailsModule() {
 					</div>
 				</div>
 				<TemplateDetailsWidgetStyle className="templatiq__details__widget">
-					<div className="templatiq__details__widget__single templatiq__details__widget__subscribe">
-						<div className="templatiq__details__widget__subscribe__info">
-							<h3 className="templatiq__details__widget__subscribe__title">
-								<ReactSVG src={ fireIcon } width={22} height={22} />
-								Subscribe & Save BIG
-							</h3>
-							<span className="templatiq__details__widget__subscribe__desc">Get ultimate access to over 200 Premium templates and <strong>save 60%</strong></span>
-						</div>
-						<div className="templatiq__details__widget__subscribe__btn">
-							<a href="#" className="templatiq__details__widget__subscribe__btn__link templatiq-btn templatiq-btn-warning">
-								Get Unlimited Access
-							</a>
-						</div>
-					</div>
+					{
+						price ? 
+						<div className="templatiq__details__widget__single templatiq__details__widget__subscribe">
+							<div className="templatiq__details__widget__subscribe__info">
+								<h3 className="templatiq__details__widget__subscribe__title">
+									<ReactSVG src={ fireIcon } width={22} height={22} />
+									Subscribe & Save BIG
+								</h3>
+								<span className="templatiq__details__widget__subscribe__desc">Get ultimate access to over 200 Premium templates and <strong>save 60%</strong></span>
+							</div>
+							<div className="templatiq__details__widget__subscribe__btn">
+								<a href="#" className="templatiq__details__widget__subscribe__btn__link templatiq-btn templatiq-btn-warning">
+									Get Unlimited Access
+								</a>
+							</div>
+						</div> :
+						''
+					}
+					
 					<div className="templatiq__details__widget__single templatiq__details__widget__quickinfo">
 						<div className="templatiq__details__widget__header">
 							<h3 className="templatiq__details__widget__title">Quick Information</h3>

@@ -1,7 +1,7 @@
 import Styled from 'styled-components';
 
 const TemplateDetailsStyle = Styled.div`
-    padding: 0 32px;
+    padding: 0 32px 90px;
     .templatiq__details__wrapper {
         display: flex;
         gap: 32px;
@@ -101,6 +101,20 @@ const TemplateDetailsHeaderStyle = Styled.div`
         gap: 12px;
         align-items: center;
     }
+    .templatiq__details__header__action__link {
+        height: 40px;
+        box-shadow: var(--templatiq-box-shadow);
+        &.live-demo-btn {
+          padding: 0 20px;  
+        }
+        &.purchase-btn,
+        &.insert-btn {
+          padding: 0 25px;  
+        }
+        &.templatiq-badge {
+            height: 32px;
+        }
+    }
 `;
 
 const TemplateDetailsWidgetStyle = Styled.div`
@@ -108,6 +122,7 @@ const TemplateDetailsWidgetStyle = Styled.div`
     gap: 20px;
     flex-direction: column;
     .templatiq__details__widget__single {
+        min-width: 280px;
         border-radius: 16px;
         background: var(--templatiq-white-color);
     }
