@@ -81,6 +81,7 @@ const HeaderActionStyle = Styled.div`
         font-size: 14px;
         font-weight: 500;
         background-color: #F1F1F4;
+        box-shadow: none;
         transition: background-color 0.3s ease;
         path {
             fill: #57575F;

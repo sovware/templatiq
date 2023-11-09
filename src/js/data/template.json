@@ -1,0 +1,181 @@
+[
+    {
+      "img": "templateImg1",
+      "title": "DDoctors",
+      "price": "20",
+      "downloadCount": "24",
+      "favoriteCount": "52",
+      "requiredPlugins": [
+        {
+          "name": "Directorist",
+          "icon": "directoristIcon",
+          "url": "#"
+        },
+        {
+          "name": "Elementor",
+          "icon": "elementorIcon",
+          "url": "#"
+        }
+      ],
+      "categories": [
+        {
+          "name": "Directorist Core",
+          "url": "#"
+        },
+        {
+          "name": "Pricing Plan",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "img": "templateImg2",
+      "title": "DHotels",
+      "price": "25",
+      "downloadCount": "35",
+      "favoriteCount": "63",
+      "isPurchased": true,
+      "requiredPlugins": [
+        {
+          "name": "Directorist",
+          "icon": "directoristIcon",
+          "url": "#"
+        },
+        {
+          "name": "Elementor",
+          "icon": "elementorIcon",
+          "url": "#"
+        }
+      ],
+      "categories": [
+        {
+          "name": "Directorist Core",
+          "url": "#"
+        },
+        {
+          "name": "Pricing Plan",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "img": "templateImg3",
+      "title": "DClassified",
+      "price": "32",
+      "downloadCount": "28",
+      "favoriteCount": "39",
+      "requiredPlugins": [
+        {
+          "name": "Directorist",
+          "icon": "directoristIcon",
+          "url": "#"
+        },
+        {
+          "name": "Elementor",
+          "icon": "elementorIcon",
+          "url": "#"
+        }
+      ],
+      "categories": [
+        {
+          "name": "Directorist Core",
+          "url": "#"
+        },
+        {
+          "name": "Pricing Plan",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "img": "templateImg2",
+      "title": "Onelisting",
+      "price": "",
+      "downloadCount": "27",
+      "favoriteCount": "42",
+      "isPurchased": true,
+      "requiredPlugins": [
+        {
+          "name": "Directorist",
+          "icon": "directoristIcon",
+          "url": "#"
+        },
+        {
+          "name": "Elementor",
+          "icon": "elementorIcon",
+          "url": "#"
+        }
+      ],
+      "categories": [
+        {
+          "name": "Directorist Core",
+          "url": "#"
+        },
+        {
+          "name": "Pricing Plan",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "img": "templateImg1",
+      "title": "DCourse",
+      "price": "",
+      "downloadCount": "17",
+      "favoriteCount": "12",
+      "isPurchased": true,
+      "requiredPlugins": [
+        {
+          "name": "Directorist",
+          "icon": "directoristIcon",
+          "url": "#"
+        },
+        {
+          "name": "Elementor",
+          "icon": "elementorIcon",
+          "url": "#"
+        }
+      ],
+      "categories": [
+        {
+          "name": "Directorist Core",
+          "url": "#"
+        },
+        {
+          "name": "Pricing Plan",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "img": "templateImg3",
+      "title": "dList",
+      "price": "",
+      "downloadCount": "22",
+      "favoriteCount": "32",
+      "isPurchased": true,
+      "requiredPlugins": [
+        {
+          "name": "Directorist",
+          "icon": "directoristIcon",
+          "url": "#"
+        },
+        {
+          "name": "Elementor",
+          "icon": "elementorIcon",
+          "url": "#"
+        }
+      ],
+      "categories": [
+        {
+          "name": "Directorist Core",
+          "url": "#"
+        },
+        {
+          "name": "Pricing Plan",
+          "url": "#"
+        }
+      ]
+    }
+  ]
+  

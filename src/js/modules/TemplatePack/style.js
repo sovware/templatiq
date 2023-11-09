@@ -1,9 +1,12 @@
 import Styled from 'styled-components';
 
 const TemplatePackStyle = Styled.div`
-    display: flex;
-    gap: 24px;
-    flex-direction: column;
+    .templatiq__content__tab {
+        display: flex;
+        gap: 24px;
+        flex-direction: column;
+    }
+    
     .templatiq__content__top {
         display: flex;
         gap: 24px;
@@ -21,22 +24,68 @@ const TemplatePackStyle = Styled.div`
         }
     }
 
-    .templatiq__content__wrapper {
+    .templatiq__content__tab-panel {
         display: flex;
         flex-wrap: wrap;
         gap: 32px;
     }
+
+    .templatiq-pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        margin-top: 32px;
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #ffffff;
+            border: 1px solid #E8E8EE;
+            border-right: none;
+            cursor: pointer;
+            a {
+                color: #57575F;
+                box-shadow: none;
+            }
+            &:first-child {
+                border-radius: 8px 0 0 8px;
+            }
+            &:last-child {
+                border-radius: 0 8px 8px 0;
+                border-right: 1px solid #E8E8EE;
+            }
+            &.selected,
+            &:hover {
+                background: #F1F1F4;
+            }
+            &.break,
+            &.disabled {
+                pointer-events: none;
+            }
+        }
+    }
 `;
 
-const TemplatePackFilterStyle = Styled.ul`
-    display: flex;
-    gap: 4px;
-    padding: 4px 10px;
-    border-radius: 8px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 16px #10101404;
+const TemplatePackFilterStyle = Styled.div`
+    .templatiq__content__top__filter__tablist {
+        display: flex;
+        gap: 4px;
+        padding: 4px 10px;
+        border-radius: 8px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 16px #10101404;
+    }
     .templatiq__content__top__filter__item {
         display: flex;
+        &.react-tabs__tab--selected {
+            a {
+                color: #ffffff;
+                background: #8941FF;
+            }
+        }
     }
     .templatiq__content__top__filter__link {
         display: flex;
@@ -50,7 +99,6 @@ const TemplatePackFilterStyle = Styled.ul`
         text-transform: uppercase;
         background: transparent;
         transition: background 0.3s ease, color 0.3s ease;
-        &.active,
         &:hover {
             color: #ffffff;
             background: #8941FF;
