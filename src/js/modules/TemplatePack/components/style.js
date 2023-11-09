@@ -49,14 +49,12 @@ const SingleTemplateStyle = Styled.div`
         left: 0;
         border-radius: 12px;
         box-sizing: border-box;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
     &:hover {
         .templatiq__template__single__overlay,
-        .templatiq__template__single__info {
+        .templatiq__template__single__info__action,
+        .templatiq__template__single__info__required {
             opacity: 1;
             visibility: visible;
         }
@@ -83,6 +81,9 @@ const SingleTemplateStyle = Styled.div`
         display: flex;
         gap: 8px;
         justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
         .templatiq__template__single__info__action__link {
             display: flex;
             gap: 8px;
@@ -114,7 +115,11 @@ const SingleTemplateStyle = Styled.div`
     .templatiq__template__single__info__required {
         display: flex;
         gap: 8px;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
         .templatiq__template__single__info__required__item {
+            position: relative;
             display: inline-flex;
             padding: 4px;
             border-radius: 8px;
@@ -171,6 +176,7 @@ const SingleTemplateStyle = Styled.div`
         border-radius: 8px;
         color: #57575F;
         background: #F1F1F4;
+        box-shadow: none;
         transition: background 0.3s ease;
         path {
             fill: #6B6B73;
@@ -187,6 +193,50 @@ const SingleTemplateStyle = Styled.div`
             &:hover {
                 color: #8941FF;
                 background-color: #F2ECFF;
+            }
+        }
+        &:before {
+            min-width: 120px;
+        }
+    }
+
+    .templatiq-tooltip {
+        position: relative;
+        &:before {
+            content: attr(data-info);
+            position: absolute;
+            top: -45px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background-color: #333;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        &:after {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-top: 10px solid #333;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        &:hover {
+            &:before,
+            &:after {
+                opacity: 1;
+                visibility: visible;
             }
         }
     }

@@ -12,6 +12,7 @@ import templateImg1 from "@images/template/1.svg";
 
 const SingleTemplate = () => {
     let isPurchased = false;
+    let isPro = true;
 
     return (
         <SingleTemplateStyle className="templatiq__template__single">
@@ -20,10 +21,14 @@ const SingleTemplate = () => {
                 <div className="templatiq__template__single__overlay"></div>
                 <div className="templatiq__template__single__info">
                     <div className="templatiq__template__single__info__meta">
-                        <span className="templatiq__template__single__info__meta__item">
-                            <ReactSVG src={ crownIcon } width={16} height={16} />
-                            Pro
-                        </span>
+                        {
+                            isPro ?
+                                <span className="templatiq__template__single__info__meta__item pro-item">
+                                    <ReactSVG src={ crownIcon } width={16} height={16} />
+                                    Pro
+                                </span> : ''
+                        }
+                        
                     </div>
                     <div className="templatiq__template__single__info__action">
                         <a href="#" className="templatiq__template__single__info__action__link">
@@ -43,10 +48,10 @@ const SingleTemplate = () => {
                         }
                     </div>
                     <div className="templatiq__template__single__info__required">
-                        <a href="#" className="templatiq__template__single__info__required__item">
+                        <a href="#" className="templatiq__template__single__info__required__item templatiq-tooltip" data-info="Directorist">
                             <ReactSVG src={ directoristIcon } width={28} height={28} />
                         </a>
-                        <a href="#" className="templatiq__template__single__info__required__item">
+                        <a href="#" className="templatiq__template__single__info__required__item templatiq-tooltip" data-info="Elementor">
                             <ReactSVG src={ elementorIcon } width={28} height={28} />
                         </a>
                     </div>
@@ -60,11 +65,11 @@ const SingleTemplate = () => {
                 </div>
                 <div className="templatiq__template__single__quickmeta">
                     <span className="templatiq__template__single__quickmeta__item pro-item">$20</span>
-                    <span className="templatiq__template__single__quickmeta__item">
+                    <span className="templatiq__template__single__quickmeta__item templatiq-tooltip" data-info="Total Downloads">
                         <ReactSVG src={ downloadIcon } width={14} height={14} />
                         24
                     </span>
-                    <a href="#" className="templatiq__template__single__quickmeta__item favorite-btn">
+                    <a href="#" className="templatiq__template__single__quickmeta__item favorite-btn templatiq-tooltip" data-info="Added to Favourite">
                         <ReactSVG src={ heartIcon } width={14} height={14} />
                         52
                     </a>

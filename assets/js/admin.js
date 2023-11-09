@@ -8603,6 +8603,7 @@ const HeaderActionStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["defaul
         font-size: 14px;
         font-weight: 500;
         background-color: #F1F1F4;
+        box-shadow: none;
         transition: background-color 0.3s ease;
         path {
             fill: #57575F;
@@ -9244,6 +9245,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const SingleTemplate = () => {
   let isPurchased = false;
+  let isPro = true;
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_style__WEBPACK_IMPORTED_MODULE_1__.SingleTemplateStyle, {
     className: "templatiq__template__single"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -9257,13 +9259,13 @@ const SingleTemplate = () => {
     className: "templatiq__template__single__info"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__template__single__info__meta"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "templatiq__template__single__info__meta__item"
+  }, isPro ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "templatiq__template__single__info__meta__item pro-item"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_9__["default"], {
     src: _icon_crown_svg__WEBPACK_IMPORTED_MODULE_2__["default"],
     width: 16,
     height: 16
-  }), "Pro")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }), "Pro") : ''), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "templatiq__template__single__info__action"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
@@ -9286,14 +9288,16 @@ const SingleTemplate = () => {
     className: "templatiq__template__single__info__required"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
-    className: "templatiq__template__single__info__required__item"
+    className: "templatiq__template__single__info__required__item templatiq-tooltip",
+    "data-info": "Directorist"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_9__["default"], {
     src: _icon_directorist_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
     width: 28,
     height: 28
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
-    className: "templatiq__template__single__info__required__item"
+    className: "templatiq__template__single__info__required__item templatiq-tooltip",
+    "data-info": "Elementor"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_9__["default"], {
     src: _icon_elementor_svg__WEBPACK_IMPORTED_MODULE_6__["default"],
     width: 28,
@@ -9315,14 +9319,16 @@ const SingleTemplate = () => {
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "templatiq__template__single__quickmeta__item pro-item"
   }, "$20"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "templatiq__template__single__quickmeta__item"
+    className: "templatiq__template__single__quickmeta__item templatiq-tooltip",
+    "data-info": "Total Downloads"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_9__["default"], {
     src: _icon_download_alt_svg__WEBPACK_IMPORTED_MODULE_5__["default"],
     width: 14,
     height: 14
   }), "24"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
-    className: "templatiq__template__single__quickmeta__item favorite-btn"
+    className: "templatiq__template__single__quickmeta__item favorite-btn templatiq-tooltip",
+    "data-info": "Added to Favourite"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_9__["default"], {
     src: _icon_heart_svg__WEBPACK_IMPORTED_MODULE_4__["default"],
     width: 14,
@@ -9395,14 +9401,12 @@ const SingleTemplateStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["defa
         left: 0;
         border-radius: 12px;
         box-sizing: border-box;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
     &:hover {
         .templatiq__template__single__overlay,
-        .templatiq__template__single__info {
+        .templatiq__template__single__info__action,
+        .templatiq__template__single__info__required {
             opacity: 1;
             visibility: visible;
         }
@@ -9429,6 +9433,9 @@ const SingleTemplateStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["defa
         display: flex;
         gap: 8px;
         justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
         .templatiq__template__single__info__action__link {
             display: flex;
             gap: 8px;
@@ -9460,7 +9467,11 @@ const SingleTemplateStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["defa
     .templatiq__template__single__info__required {
         display: flex;
         gap: 8px;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
         .templatiq__template__single__info__required__item {
+            position: relative;
             display: inline-flex;
             padding: 4px;
             border-radius: 8px;
@@ -9517,6 +9528,7 @@ const SingleTemplateStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["defa
         border-radius: 8px;
         color: #57575F;
         background: #F1F1F4;
+        box-shadow: none;
         transition: background 0.3s ease;
         path {
             fill: #6B6B73;
@@ -9533,6 +9545,50 @@ const SingleTemplateStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["defa
             &:hover {
                 color: #8941FF;
                 background-color: #F2ECFF;
+            }
+        }
+        &:before {
+            min-width: 120px;
+        }
+    }
+
+    .templatiq-tooltip {
+        position: relative;
+        &:before {
+            content: attr(data-info);
+            position: absolute;
+            top: -45px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background-color: #333;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        &:after {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-top: 10px solid #333;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        &:hover {
+            &:before,
+            &:after {
+                opacity: 1;
+                visibility: visible;
             }
         }
     }
