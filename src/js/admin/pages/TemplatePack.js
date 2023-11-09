@@ -5,8 +5,8 @@ import TemplateDetailsModule from '@modules/TemplateDetails';
 export default function TemplatePack() {
 	return (
 		<>
-			{/* <TemplatePackModule /> */}
-			<TemplateDetailsModule />
+			<TemplatePackModule />
+			{/* <TemplateDetailsModule /> */}
 		</>
 	);
 }

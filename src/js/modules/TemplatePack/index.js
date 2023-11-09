@@ -9,6 +9,9 @@ import 'react-tabs/style/react-tabs.css';
 
 import ReactPaginate from 'react-paginate';
 
+import { useQuery } from '@tanstack/react-query';
+import templatesData from '../../data/template.json';
+
 
 import searchIcon from '@icon/search.svg';
 import crownIcon from '@icon/crown.svg';
@@ -26,6 +29,14 @@ export default function TemplatePackModule() {
 	let handlePageClick = ( data ) => {
 		return data;
 	}
+
+	const { isLoading, error, data } = useQuery(['templates'], () => templatesData);
+
+	if (isLoading) return 'Loading...';
+
+	if (error) return 'An error has occurred: ' + error.message;
+
+
 	return (
 		<TemplatePackStyle className="templatiq__content">
 			<Tabs className="templatiq__content__tab">
@@ -63,360 +74,54 @@ export default function TemplatePackModule() {
 
 				<div className="templatiq__content__wrapper">
 					<TabPanel className="templatiq__content__tab-panel">
-						<SingleTemplate 
-							img = {templateImg1} 
-							title = 'DDoctors' 
-							price = '20' 
-							downloadCount = '24' 
-							favoriteCount = '52' 
-							requiredPlugins = {[
-								{
-									name: 'Directorist',
-									icon: directoristIcon,
-									url: '#'
-								},
-								{
-									name: 'Elementor',
-									icon: elementorIcon,
-									url: '#'
-								}
-							]}
-							categories = {[
-								{
-									name: 'Directorist Core',
-									url: '#'
-								},
-								{
-									name: 'Pricing Plan',
-									url: '#'
-								}
-							]}
-						
-						/>
-						<SingleTemplate 
-							img = {templateImg2} 
-							title = 'DHotels' 
-							price = '25' 
-							downloadCount = '35' 
-							favoriteCount = '63'
-							requiredPlugins = {[
-								{
-									name: 'Directorist',
-									icon: directoristIcon,
-									url: '#'
-								},
-								{
-									name: 'Elementor',
-									icon: elementorIcon,
-									url: '#'
-								}
-							]}
-							categories = {[
-								{
-									name: 'Directorist Core',
-									url: '#'
-								},
-								{
-									name: 'Pricing Plan',
-									url: '#'
-								}
-							]}
-						/>
-						<SingleTemplate 
-							img = {templateImg3} 
-							title = 'DClassified' 
-							price = '32' 
-							downloadCount = '28' 
-							favoriteCount = '39' 
-							requiredPlugins = {[
-								{
-									name: 'Directorist',
-									icon: directoristIcon,
-									url: '#'
-								},
-								{
-									name: 'Elementor',
-									icon: elementorIcon,
-									url: '#'
-								}
-							]}
-							categories = {[
-								{
-									name: 'Directorist Core',
-									url: '#'
-								},
-								{
-									name: 'Pricing Plan',
-									url: '#'
-								}
-							]}
-						/>
-						<SingleTemplate 
-							img = {templateImg2} 
-							title = 'Onelisting' 
-							price = '' 
-							downloadCount = '27' 
-							favoriteCount = '42'
-							requiredPlugins = {[
-								{
-									name: 'Directorist',
-									icon: directoristIcon,
-									url: '#'
-								},
-								{
-									name: 'Elementor',
-									icon: elementorIcon,
-									url: '#'
-								}
-							]}
-							categories = {[
-								{
-									name: 'Directorist Core',
-									url: '#'
-								},
-								{
-									name: 'Pricing Plan',
-									url: '#'
-								}
-							]}
-						/>
-						<SingleTemplate 
-							img = {templateImg1} 
-							title = 'DCourse' 
-							price = '' 
-							downloadCount = '17' 
-							favoriteCount = '12'
-							requiredPlugins = {[
-								{
-									name: 'Directorist',
-									icon: directoristIcon,
-									url: '#'
-								},
-								{
-									name: 'Elementor',
-									icon: elementorIcon,
-									url: '#'
-								}
-							]}
-							categories = {[
-								{
-									name: 'Directorist Core',
-									url: '#'
-								},
-								{
-									name: 'Pricing Plan',
-									url: '#'
-								}
-							]}
-						/>
-						<SingleTemplate 
-							img = {templateImg3} 
-							title = 'dList' 
-							price = '' 
-							downloadCount = '22' 
-							favoriteCount = '32'
-							requiredPlugins = {[
-								{
-									name: 'Directorist',
-									icon: directoristIcon,
-									url: '#'
-								},
-								{
-									name: 'Elementor',
-									icon: elementorIcon,
-									url: '#'
-								}
-							]}
-							categories = {[
-								{
-									name: 'Directorist Core',
-									url: '#'
-								},
-								{
-									name: 'Pricing Plan',
-									url: '#'
-								}
-							]}
-						/>
+						{data
+						.map(template => (
+							<SingleTemplate 
+								// img = {template.img} 
+								img = {templateImg1} 
+								title = {template.title} 
+								price = {template.price} 
+								downloadCount = {template.downloadCount} 
+								favoriteCount = {template.favoriteCount} 
+								requiredPlugins = {template.requiredPlugins}
+								categories = {template.categories}
+							
+							/>
+						))}
 					</TabPanel>
 					<TabPanel className="templatiq__content__tab-panel">
-						<SingleTemplate 
-							img = {templateImg1} 
-							title = 'Onelisting' 
-							price = '' 
-							downloadCount = '27' 
-							favoriteCount = '42'
-							requiredPlugins = {[
-								{
-									name: 'Directorist',
-									icon: directoristIcon,
-									url: '#'
-								},
-								{
-									name: 'Elementor',
-									icon: elementorIcon,
-									url: '#'
-								}
-							]}
-							categories = {[
-								{
-									name: 'Directorist Core',
-									url: '#'
-								},
-								{
-									name: 'Pricing Plan',
-									url: '#'
-								}
-							]}
-						/>
-						<SingleTemplate 
-							img = {templateImg2} 
-							title = 'DCourse' 
-							price = '' 
-							downloadCount = '17' 
-							favoriteCount = '12'
-							requiredPlugins = {[
-								{
-									name: 'Directorist',
-									icon: directoristIcon,
-									url: '#'
-								},
-								{
-									name: 'Elementor',
-									icon: elementorIcon,
-									url: '#'
-								}
-							]}
-							categories = {[
-								{
-									name: 'Directorist Core',
-									url: '#'
-								},
-								{
-									name: 'Pricing Plan',
-									url: '#'
-								}
-							]}
-						/>
-						<SingleTemplate 
-							img = {templateImg3} 
-							title = 'dList' 
-							price = '' 
-							downloadCount = '22' 
-							favoriteCount = '32'
-							requiredPlugins = {[
-								{
-									name: 'Directorist',
-									icon: directoristIcon,
-									url: '#'
-								},
-								{
-									name: 'Elementor',
-									icon: elementorIcon,
-									url: '#'
-								}
-							]}
-							categories = {[
-								{
-									name: 'Directorist Core',
-									url: '#'
-								},
-								{
-									name: 'Pricing Plan',
-									url: '#'
-								}
-							]}
-						/>
+					{data
+						.filter(template => template.price === "")
+						.map(template => (
+							<SingleTemplate 
+								// img = {template.img} 
+								img = {templateImg1} 
+								title = {template.title} 
+								price = {template.price} 
+								downloadCount = {template.downloadCount} 
+								favoriteCount = {template.favoriteCount} 
+								requiredPlugins = {template.requiredPlugins}
+								categories = {template.categories}
+							
+							/>
+						))}
 					</TabPanel>
 					<TabPanel className="templatiq__content__tab-panel">
-						<SingleTemplate 
-							img = {templateImg1} 
-							title = 'DDoctors' 
-							price = '20' 
-							downloadCount = '24' 
-							favoriteCount = '52' 
-							requiredPlugins = {[
-								{
-									name: 'Directorist',
-									icon: directoristIcon,
-									url: '#'
-								},
-								{
-									name: 'Elementor',
-									icon: elementorIcon,
-									url: '#'
-								}
-							]}
-							categories = {[
-								{
-									name: 'Directorist Core',
-									url: '#'
-								},
-								{
-									name: 'Pricing Plan',
-									url: '#'
-								}
-							]}
-						
-						/>
-						<SingleTemplate 
-							img = {templateImg2} 
-							title = 'DHotels' 
-							price = '25' 
-							downloadCount = '35' 
-							favoriteCount = '63'
-							requiredPlugins = {[
-								{
-									name: 'Directorist',
-									icon: directoristIcon,
-									url: '#'
-								},
-								{
-									name: 'Elementor',
-									icon: elementorIcon,
-									url: '#'
-								}
-							]}
-							categories = {[
-								{
-									name: 'Directorist Core',
-									url: '#'
-								},
-								{
-									name: 'Pricing Plan',
-									url: '#'
-								}
-							]}
-						/>
-						<SingleTemplate 
-							img = {templateImg3} 
-							title = 'DClassified' 
-							price = '32' 
-							downloadCount = '28' 
-							favoriteCount = '39' 
-							requiredPlugins = {[
-								{
-									name: 'Directorist',
-									icon: directoristIcon,
-									url: '#'
-								},
-								{
-									name: 'Elementor',
-									icon: elementorIcon,
-									url: '#'
-								}
-							]}
-							categories = {[
-								{
-									name: 'Directorist Core',
-									url: '#'
-								},
-								{
-									name: 'Pricing Plan',
-									url: '#'
-								}
-							]}
-						/>
+					{data
+						.filter(template => template.price !== "")
+						.map(template => (
+							<SingleTemplate 
+								// img = {template.img} 
+								img = {templateImg1} 
+								title = {template.title} 
+								price = {template.price} 
+								downloadCount = {template.downloadCount} 
+								favoriteCount = {template.favoriteCount} 
+								requiredPlugins = {template.requiredPlugins}
+								categories = {template.categories}
+							
+							/>
+						))}
 					</TabPanel>
 					<ReactPaginate
 						breakLabel="..."
