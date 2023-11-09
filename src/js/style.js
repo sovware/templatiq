@@ -6,7 +6,7 @@ const SearchBoxStyle = Styled.div`
     padding: 0;
     display: flex;
     align-items: center;
-    background-color: #ffffff;
+    background-color: var(--templatiq-white-color);
     border-radius: 8px;
     button {
         position: absolute;
@@ -21,14 +21,14 @@ const SearchBoxStyle = Styled.div`
         border: none;
         padding: 0 42px;
         background: transparent;
-        box-shadow: 0 4px 16px #10101404;
+        box-shadow: var(----templatiq-box-shadow);
         outline: none;
         transition: box-shadow 0.3s ease;
         &::placeholder {
-            color: #94949A;
+            color: var(--templatiq-placeholder-color);
         }
         &:focus {
-            box-shadow: 0 4px 16px #8941FF25;
+            box-shadow: var(----templatiq-box-shadow-focus);
         }
     }
 `;
@@ -71,7 +71,7 @@ const SingleSelectStyle = Styled.div`
             top: 50%;
             transform: translate(-50%, -50%);
             border-radius: 50%;
-            border: 2px solid #a2a2a2;
+            border: 2px solid var(--templatiq-color-extra-light);
             z-index: 10;
             box-sizing: border-box;
         }

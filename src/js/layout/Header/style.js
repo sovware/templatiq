@@ -4,8 +4,8 @@ const HeaderStyle = Styled.div`
     height: 70px;
     display: flex;
     align-items: center;
-    background: #ffffff;
-    box-shadow: 0 2px 4px #10101404;
+    background: var(--templatiq-white-color);
+    box-shadow: 0 2px 4px var(--templatiq-dark-color)04;
     .templatiq__header__logo {
         flex: 0 0 256px;
         max-width: 256px;
@@ -38,10 +38,10 @@ const HeaderNavStyle = Styled.ul`
         font-size: 14px;
         font-weight: 500;
         height: 70px;
-        color: #57575F;
+        color: var(--templatiq-body-color);
         text-decoration: none;
         path {
-            fill: #57575F;
+            fill: var(--templatiq-body-color);
             transition: fill 0.3s ease;
         }
         &:before {
@@ -55,13 +55,13 @@ const HeaderNavStyle = Styled.ul`
         }
         &:hover,
         &.active {
-            color: #8941FF;
+            color: var(--templatiq-primary-color);
             path {
-                fill: #8941FF;
+                fill: var(--templatiq-primary-color);
             }
             &:before {
                 width: 100%;
-                background: #8941FF;
+                background: var(--templatiq-primary-color);
             }
         }
     }
@@ -77,21 +77,21 @@ const HeaderActionStyle = Styled.div`
         height: 36px;
         padding: 0 12px;
         border-radius: 8px;
-        color: #57575F;
+        color: var(--templatiq-body-color);
         font-size: 14px;
         font-weight: 500;
-        background-color: #F1F1F4;
+        background-color: var(--templatiq-sec-color);
         box-shadow: none;
         transition: background-color 0.3s ease;
         path {
-            fill: #57575F;
+            fill: var(--templatiq-body-color);
             transition: fill 0.3s ease;
         }
         &:hover {
-            color: #ffffff;
-            background-color: #8941FF;
+            color: var(--templatiq-white-color);
+            background-color: var(--templatiq-primary-color);
             path {
-                fill: #ffffff;
+                fill: var(--templatiq-white-color);
             }
         }
     }

@@ -4,10 +4,10 @@ const SingleTemplateStyle = Styled.div`
     display: flex;
     gap: 20px;
     flex-direction: column;
-    background: #ffffff;
+    background: var(--templatiq-white-color);
     padding: 20px 20px 24px;
     border-radius: 16px;
-    box-shadow: 0 4px 16px #10101404;
+    box-shadow: var(----templatiq-box-shadow);
     .templatiq__template__single__img {
         display: flex;
         position: relative;
@@ -67,14 +67,14 @@ const SingleTemplateStyle = Styled.div`
         height: 32px;
         padding: 0 12px;
         border-radius: 8px;
-        color: #F17D0E;
-        background: #101014;
+        color: var(--templatiq-pro-color);
+        background: var(--templatiq-dark-color);
         font-size: 13px;
         line-height: 20px;
         font-weight: 600;
         transition: background 0.3s ease;
         path {
-            fill: #F17D0E;
+            fill: var(--templatiq-pro-color);
         }
     }
     .templatiq__template__single__info__action {
@@ -94,20 +94,20 @@ const SingleTemplateStyle = Styled.div`
             height: 36px;
             padding: 0 16px;
             border-radius: 8px;
-            color: #35353D;
-            background-color: #ffffff;
+            color: var(--templatiq-btn-color);
+            background-color: var(--templatiq-white-color);
             &.purchase-btn {
-                color: #ffffff;
-                background-color: #8941FF;
+                color: var(--templatiq-white-color);
+                background-color: var(--templatiq-primary-color);
                 path {
-                    fill: #ffffff;
+                    fill: var(--templatiq-white-color);
                 }
             }
             &.insert-btn {
-                color: #ffffff;
-                background-color: #2AB76E;
+                color: var(--templatiq-white-color);
+                background-color: var(--templatiq-success-color);
                 path {
-                    fill: #ffffff;
+                    fill: var(--templatiq-white-color);
                 }
             }
         }
@@ -123,7 +123,7 @@ const SingleTemplateStyle = Styled.div`
             display: inline-flex;
             padding: 4px;
             border-radius: 8px;
-            background-color: #ffffff;
+            background-color: var(--templatiq-white-color);
         }
     }
 
@@ -131,7 +131,7 @@ const SingleTemplateStyle = Styled.div`
         font-size: 18px;
         line-height: 22px;
         font-weight: 600;
-        color: #101014;
+        color: var(--templatiq-dark-color);
         margin: 0 0 4px;
     }
     .templatiq__template__single__cat {
@@ -143,9 +143,9 @@ const SingleTemplateStyle = Styled.div`
         font-size: 13px;
         line-height: 20px;
         font-weight: 500;
-        color: #6B6B73;
+        color: var(--templatiq-gray-color);
         &:hover {
-            color: #8941FF;
+            color: var(--templatiq-primary-color);
         }
         &:not(:last-child) {
             position: relative;
@@ -174,15 +174,15 @@ const SingleTemplateStyle = Styled.div`
         height: 28px;
         padding: 0 12px;
         border-radius: 8px;
-        color: #57575F;
-        background: #F1F1F4;
+        color: var(--templatiq-body-color);
+        background: var(--templatiq-sec-color);
         box-shadow: none;
         transition: background 0.3s ease;
         path {
-            fill: #6B6B73;
+            fill: var(--templatiq-gray-color);
         }
         &.pro-item {
-            color: #8941FF;
+            color: var(--templatiq-primary-color);
             background-color: #F2ECFF;
         }
         &.free-item {
@@ -191,7 +191,7 @@ const SingleTemplateStyle = Styled.div`
         }
         &.favorite-btn {
             &:hover {
-                color: #8941FF;
+                color: var(--templatiq-primary-color);
                 background-color: #F2ECFF;
             }
         }
@@ -209,12 +209,12 @@ const SingleTemplateStyle = Styled.div`
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
-            color: #fff;
+            color: var(--templatiq-white-color);
             font-size: 13px;
             font-weight: 600;
             padding: 8px 12px;
             border-radius: 8px;
-            background-color: #333;
+            background-color: var(--templatiq-dark-color);
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -225,7 +225,7 @@ const SingleTemplateStyle = Styled.div`
             top: -12px;
             left: 50%;
             transform: translateX(-50%);
-            border-top: 10px solid #333;
+            border-top: 10px solid var(--templatiq-dark-color);
             border-left: 10px solid transparent;
             border-right: 10px solid transparent;
             opacity: 0;

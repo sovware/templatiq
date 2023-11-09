@@ -14,7 +14,7 @@ const TemplatePackStyle = Styled.div`
         .templatiq__content__top__filter__title {
             font-size: 16px;
             font-weight: 600;
-            color: #101014;
+            color: var(--templatiq-dark-color);
             margin: 0;
         }
         .templatiq__content__top__filter {
@@ -42,12 +42,12 @@ const TemplatePackStyle = Styled.div`
             justify-content: center;
             width: 40px;
             height: 40px;
-            background: #ffffff;
-            border: 1px solid #E8E8EE;
+            background: var(--templatiq-white-color);
+            border: 1px solid var(--templatiq-border-color);
             border-right: none;
             cursor: pointer;
             a {
-                color: #57575F;
+                color: var(--templatiq-body-color);
                 box-shadow: none;
             }
             &:first-child {
@@ -55,11 +55,11 @@ const TemplatePackStyle = Styled.div`
             }
             &:last-child {
                 border-radius: 0 8px 8px 0;
-                border-right: 1px solid #E8E8EE;
+                border-right: 1px solid var(--templatiq-border-color);
             }
             &.selected,
             &:hover {
-                background: #F1F1F4;
+                background: var(--templatiq-sec-color);
             }
             &.break,
             &.disabled {
@@ -75,15 +75,15 @@ const TemplatePackFilterStyle = Styled.div`
         gap: 4px;
         padding: 4px 10px;
         border-radius: 8px;
-        background-color: #ffffff;
-        box-shadow: 0 4px 16px #10101404;
+        background-color: var(--templatiq-white-color);
+        box-shadow: var(----templatiq-box-shadow);
     }
     .templatiq__content__top__filter__item {
         display: flex;
         &.react-tabs__tab--selected {
             a {
-                color: #ffffff;
-                background: #8941FF;
+                color: var(--templatiq-white-color);
+                background: var(--templatiq-primary-color);
             }
         }
     }
@@ -93,15 +93,15 @@ const TemplatePackFilterStyle = Styled.div`
         align-items: center;
         padding: 7px 12px;
         border-radius: 8px;
-        color: #57575F;
+        color: var(--templatiq-body-color);
         font-size: 12px;
         line-height: 1;
         text-transform: uppercase;
         background: transparent;
         transition: background 0.3s ease, color 0.3s ease;
         &:hover {
-            color: #ffffff;
-            background: #8941FF;
+            color: var(--templatiq-white-color);
+            background: var(--templatiq-primary-color);
         }
     }
 

@@ -8,7 +8,7 @@ const DashboardStyle = Styled.div`
         .templatiq__content__top__filter__title {
             font-size: 16px;
             font-weight: 600;
-            color: #101014;
+            color: var(--templatiq-dark-color);
         }
         .templatiq__content__top__filter {
             display: flex;
@@ -22,8 +22,8 @@ const DashboardFilterStyle = Styled.ul`
     display: flex;
     padding: 4px 10px;
     border-radius: 8px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 16px #10101404;
+    background-color: var(--templatiq-white-color);
+    box-shadow: var(----templatiq-box-shadow);
 
 `;
 

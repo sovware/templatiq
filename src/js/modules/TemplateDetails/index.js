@@ -11,9 +11,7 @@ import checkIcon from "@icon/check-alt.svg";
 import elementorIcon from "@icon/elementor.svg";
 import directoristIcon from "@icon/directorist.svg";
 
-import templateImg1 from "@images/template/1.svg";
-import templateImg2 from "@images/template/2.svg";
-import templateImg3 from "@images/template/3.svg";
+import templateImg1 from "@images/template/details1.svg";
 
 export default function TemplateDetailsModule() {
 
