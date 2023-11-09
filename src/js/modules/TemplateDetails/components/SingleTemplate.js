@@ -61,6 +61,8 @@ const SingleTemplate = (item) => {
                     {categories && categories.map((category, index) => (
                         <a key={index} href={category.url} className="templatiq__template__single__cat__link">{category.name}</a>
                     ))}
+                    {/* <a href="#" className="templatiq__template__single__cat__link">Directorist Core</a>
+                    <a href="#" className="templatiq__template__single__cat__link">Pricing Plan</a> */}
                 </div>
                 <div className="templatiq__template__single__quickmeta">
                     {
