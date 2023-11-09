@@ -7898,9 +7898,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function TemplatePack() {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_modules_TemplatePack__WEBPACK_IMPORTED_MODULE_1__["default"], null)
-  // <TemplateDetailsModule />
-  ;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_modules_TemplateDetails__WEBPACK_IMPORTED_MODULE_2__["default"], null));
 }
 
 /***/ }),
@@ -9231,7 +9229,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const SidebarStyle = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div`
-    width: 256px;
+    min-width: 256px;
     background: var(--templatiq-white-color);
     box-shadow: 0 7px 20px 5px var(--templatiq-dark-color)05;
     .templatiq__sidebar__top {
