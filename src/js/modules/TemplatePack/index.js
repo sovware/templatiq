@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactSVG from 'react-inlinesvg';
-import { SearchBoxStyle } from '../../style';
-import { TemplatePackStyle, TemplatePackFilterStyle } from './style';
-import SingleTemplate from './components/SingleTemplate';
+import { TemplatePackStyle, TemplatePackFilterStyle } from '../../style';
+import SingleTemplate from "@components/SingleTemplate";
+import Searchform from "@components/Searchform";
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
@@ -23,7 +23,8 @@ import directoristIcon from "@icon/directorist.svg";
 import templateImg1 from "@images/template/1.svg";
 import templateImg2 from "@images/template/2.svg";
 import templateImg3 from "@images/template/3.svg";
-import RequiredModal from './components/RequiredPluginPopup';
+import Popup from "@components/Popup";
+import AppLayout from "./layout/AppLayout";
 
 export default function TemplatePackModule() {
 
@@ -39,111 +40,108 @@ export default function TemplatePackModule() {
 
 
 	return (
-		<TemplatePackStyle className="templatiq__content">
-			<RequiredModal />
-			<Tabs className="templatiq__content__tab">
-				<div className="templatiq__content__top">
-					<div className="templatiq__content__top__filter">
-						<h3 className="templatiq__content__top__filter__title">
-							Template Pack
-						</h3>
-						<TemplatePackFilterStyle className="templatiq__content__top__filter__wrapper">
-							<TabList className="templatiq__content__top__filter__tablist">
-								<Tab className="templatiq__content__top__filter__item">
-									<a href="#" className="templatiq__content__top__filter__link">All (24)</a>
-								</Tab>
-								<Tab className="templatiq__content__top__filter__item">
-									<a href="#" className="templatiq__content__top__filter__link">Free (8)</a>
-								</Tab>
-								<Tab className="templatiq__content__top__filter__item">
-									<a href="#" className="templatiq__content__top__filter__link">
-										<ReactSVG src={crownIcon} width={12} height={12} />
-										Pro (16)
-									</a>
-								</Tab>
-							</TabList>
-						</TemplatePackFilterStyle>
+		<AppLayout>
+			<TemplatePackStyle className="templatiq__content">
+				<Popup />
+				<Tabs className="templatiq__content__tab">
+					<div className="templatiq__content__top">
+						<div className="templatiq__content__top__filter">
+							<h3 className="templatiq__content__top__filter__title">
+								Template Pack
+							</h3>
+							<TemplatePackFilterStyle className="templatiq__content__top__filter__wrapper">
+								<TabList className="templatiq__content__top__filter__tablist">
+									<Tab className="templatiq__content__top__filter__item">
+										<a href="#" className="templatiq__content__top__filter__link">All (24)</a>
+									</Tab>
+									<Tab className="templatiq__content__top__filter__item">
+										<a href="#" className="templatiq__content__top__filter__link">Free (8)</a>
+									</Tab>
+									<Tab className="templatiq__content__top__filter__item">
+										<a href="#" className="templatiq__content__top__filter__link">
+											<ReactSVG src={crownIcon} width={12} height={12} />
+											Pro (16)
+										</a>
+									</Tab>
+								</TabList>
+							</TemplatePackFilterStyle>
+						</div>
+						<div className="templatiq__content__top__search">
+							<Searchform />
+						</div>
 					</div>
-					<div className="templatiq__content__top__search">
-						<SearchBoxStyle className="templatiq__content__top__searchbox">
-							<button className="templatiq__content__top__searchbox__button">
-								<ReactSVG src={ searchIcon } width={18} height={18} />
-							</button>
-							<input type="text" className="templatiq__content__top__searchbox__input" placeholder="Search " />
-						</SearchBoxStyle>
-					</div>
-				</div>
 
-				<div className="templatiq__content__wrapper">
-					<TabPanel className="templatiq__content__tab-panel">
+					<div className="templatiq__content__wrapper">
+						<TabPanel className="templatiq__content__tab-panel">
+							{data
+							.map(template => (
+								<SingleTemplate 
+									// img = {template.img} 
+									img = {templateImg1} 
+									title = {template.title} 
+									price = {template.price} 
+									downloadCount = {template.downloadCount} 
+									favoriteCount = {template.favoriteCount} 
+									requiredPlugins = {template.requiredPlugins}
+									categories = {template.categories}
+								
+								/>
+							))}
+						</TabPanel>
+						<TabPanel className="templatiq__content__tab-panel">
 						{data
-						.map(template => (
-							<SingleTemplate 
-								// img = {template.img} 
-								img = {templateImg1} 
-								title = {template.title} 
-								price = {template.price} 
-								downloadCount = {template.downloadCount} 
-								favoriteCount = {template.favoriteCount} 
-								requiredPlugins = {template.requiredPlugins}
-								categories = {template.categories}
-							
-							/>
-						))}
-					</TabPanel>
-					<TabPanel className="templatiq__content__tab-panel">
-					{data
-						.filter(template => template.price === "")
-						.map(template => (
-							<SingleTemplate 
-								// img = {template.img} 
-								img = {templateImg1} 
-								title = {template.title} 
-								price = {template.price} 
-								downloadCount = {template.downloadCount} 
-								favoriteCount = {template.favoriteCount} 
-								requiredPlugins = {template.requiredPlugins}
-								categories = {template.categories}
-							
-							/>
-						))}
-					</TabPanel>
-					<TabPanel className="templatiq__content__tab-panel">
-					{data
-						.filter(template => template.price !== "")
-						.map(template => (
-							<SingleTemplate 
-								// img = {template.img} 
-								img = {templateImg1} 
-								title = {template.title} 
-								price = {template.price} 
-								downloadCount = {template.downloadCount} 
-								favoriteCount = {template.favoriteCount} 
-								requiredPlugins = {template.requiredPlugins}
-								categories = {template.categories}
-							
-							/>
-						))}
-					</TabPanel>
-					<ReactPaginate
-						breakLabel="..."
-						onPageChange={ handlePageClick }
-						nextLabel={ <ReactSVG src={ arrowRight } /> }
-						previousLabel={ <ReactSVG src={ arrowLeft } /> }
-						pageRangeDisplayed={ 3 }
-						pageCount={ 10 }
-						previousClassName="templatiq-pagination__item"
-						previousLinkClassName="templatiq-pagination__link templatiq-pagination__control"
-						nextClassName="templatiq-pagination__item"
-						nextLinkClassName="templatiq-pagination__link templatiq-pagination__control"
-						containerClassName="templatiq-pagination"
-						pageClassName="templatiq-pagination__item"
-						pageLinkClassName="templatiq-pagination__link"
-						activeLinkClassName="templatiq-pagination__active"
-						renderOnZeroPageCount={ null }
-					/>
-				</div>
-			</Tabs>
-		</TemplatePackStyle>
+							.filter(template => template.price === "")
+							.map(template => (
+								<SingleTemplate 
+									// img = {template.img} 
+									img = {templateImg1} 
+									title = {template.title} 
+									price = {template.price} 
+									downloadCount = {template.downloadCount} 
+									favoriteCount = {template.favoriteCount} 
+									requiredPlugins = {template.requiredPlugins}
+									categories = {template.categories}
+								
+								/>
+							))}
+						</TabPanel>
+						<TabPanel className="templatiq__content__tab-panel">
+						{data
+							.filter(template => template.price !== "")
+							.map(template => (
+								<SingleTemplate 
+									// img = {template.img} 
+									img = {templateImg1} 
+									title = {template.title} 
+									price = {template.price} 
+									downloadCount = {template.downloadCount} 
+									favoriteCount = {template.favoriteCount} 
+									requiredPlugins = {template.requiredPlugins}
+									categories = {template.categories}
+								
+								/>
+							))}
+						</TabPanel>
+						<ReactPaginate
+							breakLabel="..."
+							onPageChange={ handlePageClick }
+							nextLabel={ <ReactSVG src={ arrowRight } /> }
+							previousLabel={ <ReactSVG src={ arrowLeft } /> }
+							pageRangeDisplayed={ 3 }
+							pageCount={ 10 }
+							previousClassName="templatiq-pagination__item"
+							previousLinkClassName="templatiq-pagination__link templatiq-pagination__control"
+							nextClassName="templatiq-pagination__item"
+							nextLinkClassName="templatiq-pagination__link templatiq-pagination__control"
+							containerClassName="templatiq-pagination"
+							pageClassName="templatiq-pagination__item"
+							pageLinkClassName="templatiq-pagination__link"
+							activeLinkClassName="templatiq-pagination__active"
+							renderOnZeroPageCount={ null }
+						/>
+					</div>
+				</Tabs>
+			</TemplatePackStyle>
+		</AppLayout>
 	);
 }

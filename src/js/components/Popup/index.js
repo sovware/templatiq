@@ -3,7 +3,7 @@ import { RequiredPluginStyle } from './style';
 
 import closeIcon from "@icon/close.svg";
 
-const RequiredModal = () => {
+const Popup = () => {
 
     let closeModal = () => {
         document.querySelector(".templatiq").classList.remove("templatiq-overlay-enable");
@@ -42,4 +42,4 @@ const RequiredModal = () => {
     )
 }
 
-export default RequiredModal;
+export default Popup;

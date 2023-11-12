@@ -4,6 +4,7 @@ import checkIcon from '@icon/check.svg';
 
 const SidebarStyle = Styled.div`
     min-width: 256px;
+    min-height: 100vh;
     background: var(--templatiq-white-color);
     box-shadow: 0 7px 20px 5px var(--templatiq-dark-color)05;
     .templatiq__sidebar__top {

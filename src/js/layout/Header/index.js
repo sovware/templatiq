@@ -5,6 +5,7 @@ import Dropdown from '@components/Dropdown';
 import { HeaderStyle, HeaderNavStyle, HeaderActionStyle } from "./style";
 
 import Logo from "@images/logo.svg";
+import Fav from "@images/fav.svg";
 
 import userIcon from "@icon/user-alt.svg";
 import fileIcon from "@icon/file-solid.svg";
@@ -12,13 +13,15 @@ import pagesIcon from "@icon/pages.svg";
 import blocksIcon from "@icon/blocks.svg";
 
 import chevronIcon from "@icon/chevron-down-solid.svg";
+import backIcon from "@icon/arrow-left.svg";
 import elementorIcon from "@icon/elementor.svg";
 import directoristIcon from "@icon/directorist.svg";
 
 
 const Header = () =>  {
 
-	let isLoggedIn = false;
+	let isLoggedIn = true;
+	let templateDetailsPage = false;
 
 	let editorItems = [
 		{
@@ -35,11 +38,24 @@ const Header = () =>  {
 
 	return (
 		<HeaderStyle className="templatiq__header">
-			<div className="templatiq__header__logo">
-				<a href="#">
-					<img src={Logo} alt="Logo" />
-				</a>
-			</div>
+			{
+				templateDetailsPage ?
+				<div className="templatiq__header__details">
+					<a href="#" className="templatiq__header__details__logo">
+						<img src={Fav} alt="Logo" />
+					</a>
+					<a href="#" className="templatiq__header__details__return">
+						<ReactSVG src={ backIcon } width={12} height={12} />
+						Back to Library
+					</a>
+				</div> : 
+				<div className="templatiq__header__logo">
+					<a href="#">
+						<img src={Logo} alt="Logo" />
+					</a>
+				</div>
+			}
+				
 			<div className="templatiq__header__content">
 				<HeaderNavStyle className="templatiq__header__nav">
 					<li className="templatiq__header__item">

@@ -3,7 +3,7 @@
 	--templatiq-primary-color: #8941FF;
 	--templatiq-dark-color: #101014;
 	--templatiq-black-color: #000000;
-	--templatiq-btn-color: #35353D;
+	--templatiq-btn-color: #35353D; 
 	--templatiq-white-color: #ffffff;
 	--templatiq-body-color: #57575F;
 	--templatiq-gray-color: #6B6B73;
@@ -38,6 +38,7 @@ a {
 	text-decoration: none;
 	outline: none;
 	box-shadow: none;
+	cursor: pointer;
 	transition: color 0.3s ease;
 }
 button {

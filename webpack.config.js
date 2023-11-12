@@ -68,6 +68,7 @@ module.exports = {
 			'@root/style': path.resolve( __dirname, 'src/js/style.js' ),
 			// '@context': path.resolve( __dirname, 'src/js/Context' ),
 			'@components': path.resolve( __dirname, 'src/js/components' ),
+			'@layout': path.resolve( __dirname, 'src/js/layout' ),
 			'@hooks': path.resolve( __dirname, 'src/js/hooks' ),
 			'@helper': path.resolve( __dirname, 'src/js/helper' ),
 			'@icon': path.resolve( __dirname, 'src/svg/icon' ),

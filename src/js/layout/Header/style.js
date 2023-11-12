@@ -21,6 +21,27 @@ const HeaderStyle = Styled.div`
         margin-inline-end: 32px;
         justify-content: space-between;
     }
+    .templatiq__header__details {
+        display: flex;
+        gap: 22px;
+        align-items: center;
+        margin-inline-start: 24px;
+        padding-inline-end: 48px;
+        a {
+            max-height: 30px;
+        }
+    }
+    .templatiq__header__details__return {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--templatiq-body-color);
+        path {
+            fill: var(--templatiq-body-color);
+        }
+    }
 `;
 const HeaderNavStyle = Styled.ul`
     display: flex;
