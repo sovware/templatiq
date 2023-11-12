@@ -12,6 +12,7 @@ use Elementor\Plugin;
 use Templatiq\Abstracts\RouteBase;
 use Templatiq\Model\Elementor;
 use Templatiq\Model\Importer;
+use Templatiq\Model\Library;
 use Templatiq\Utils\Hookable;
 use Templatiq\Utils\Response;
 
@@ -31,6 +32,7 @@ class Template extends RouteBase {
 
 	public function register_routes(): void {
 		$this->post( $this->endpoint . '/import-as-page', [$this, 'import_as_page'], $this->prepare_args( 'import_as_page' ) );
+		$this->get( $this->endpoint . '/library', [$this, 'library'] );
 	}
 
 	/**
@@ -63,6 +65,10 @@ class Template extends RouteBase {
 			'visit'               => get_permalink( $inserted_id ),
 			'right_access_ache'   => current_user_can( 'publish_posts' ),
 		];
+	}
+
+	public function library() {
+		return ( new Library )->data();
 	}
 
 	public function elementor_editor_ajax( Ajax $ajax ) {
