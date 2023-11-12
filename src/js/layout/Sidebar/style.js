@@ -88,65 +88,7 @@ const SidebarItemStyle = Styled.div`
     gap: 15px;
     padding: 0 24px;
     flex-direction: column;
-    .templatiq__sidebar__filter__single {
-        display: flex;
-        gap: 12px;
-        .templatiq__sidebar__filter__single__checkbox {
-            display: none;
-            &:checked {
-              ~ .templatiq__sidebar__filter__single__label {
-                    &:before {
-                        background: var(--templatiq-primary-color);
-                        border-color: var(--templatiq-primary-color);
-                    }
-                    &:after {
-                        opacity: 1;
-                        visibility: visible;
-                    }
-                }
-            }
-        }
-        .templatiq__sidebar__filter__single__label {
-            width: 100%;
-            font-size: 13px;
-            font-weight: 500;
-            position: relative;
-            padding-inline-start: 33px;
-            &:before {
-                content: '';
-                position: absolute;
-                inset-inline-start: 0;
-                top: 0;
-                width: 18px;
-                height: 18px;
-                border-radius: 4px;
-                background: var(--templatiq-white-color);
-                border: 2px solid var(--templatiq-gray-color2);
-                box-sizing: border-box;
-            }
-            &:after {
-                content: '';
-                position: absolute;
-                inset-inline-start: 0;
-                top: 0;
-                width: 18px;
-                height: 18px;
-                background: url(${checkIcon}) no-repeat center center;
-                background-size: 11px;
-                opacity: 0;
-                visibility: hidden;
-                transition: opacity 0.3s ease, visibility 0.3s ease;
-            }
-        }
-        .templatiq__sidebar__filter__single__count {
-            flex: 1;
-            text-align: end;
-        }
-
-        &:not(:last-child) {
-            margin-bottom: 15px;
-        }
-    }
+    
     .templatiq__sidebar__accordion {    
         display: flex;
         gap: 25px;
