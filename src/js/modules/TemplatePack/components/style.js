@@ -242,6 +242,12 @@ const SingleTemplateStyle = Styled.div`
     }
 `;
 
+const RequiredPluginStyle = Styled.div`
+    max-width: 500px;
+    border-radius: 12px;
+    padding: 26px 32px 32px;
+    background-color: var(--templatiq-white-color);
+    
+`;
 
-
-export { SingleTemplateStyle };
+export { SingleTemplateStyle, RequiredPluginStyle };

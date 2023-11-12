@@ -127,12 +127,12 @@ const SidebarItemStyle = Styled.div`
             &:after {
                 content: '';
                 position: absolute;
-                inset-inline-start: 2px;
+                inset-inline-start: 0;
                 top: 0;
                 width: 18px;
                 height: 18px;
                 background: url(${checkIcon}) no-repeat center center;
-                background-size: 12px;
+                background-size: 11px;
                 opacity: 0;
                 visibility: hidden;
                 transition: opacity 0.3s ease, visibility 0.3s ease;

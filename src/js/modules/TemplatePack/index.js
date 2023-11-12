@@ -23,6 +23,7 @@ import directoristIcon from "@icon/directorist.svg";
 import templateImg1 from "@images/template/1.svg";
 import templateImg2 from "@images/template/2.svg";
 import templateImg3 from "@images/template/3.svg";
+import RequiredPopup from './components/RequiredPluginPopup';
 
 export default function TemplatePackModule() {
 
@@ -39,6 +40,7 @@ export default function TemplatePackModule() {
 
 	return (
 		<TemplatePackStyle className="templatiq__content">
+			<RequiredPopup />
 			<Tabs className="templatiq__content__tab">
 				<div className="templatiq__content__top">
 					<div className="templatiq__content__top__filter">
