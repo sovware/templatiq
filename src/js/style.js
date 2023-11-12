@@ -237,6 +237,11 @@ const ModalAlertStyle = Styled.div`
 `;
 
 const TemplatePackStyle = Styled.div`
+    &.templatiq__content__dashboard {
+        display: flex;
+        gap: 20px;
+        flex-direction: column;
+    }
     .templatiq__content__tab {
         display: flex;
         gap: 24px;

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactSVG from 'react-inlinesvg';
-import { TemplatePackStyle, TemplatePackFilterStyle } from '../../style';
+import { TemplatePackStyle, TemplatePackFilterStyle } from '@root/style';
 import SingleTemplate from "@components/SingleTemplate";
 import Searchform from "@components/Searchform";
 

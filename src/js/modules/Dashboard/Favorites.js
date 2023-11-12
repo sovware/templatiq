@@ -1,23 +1,22 @@
-import React from 'react';
-import ReactSVG from 'react-inlinesvg';
-import { TemplatePackStyle, TemplatePackFilterStyle } from '../../style';
+import ReactSVG from "react-inlinesvg";
+import { TemplatePackStyle, TemplatePackFilterStyle } from "@root/style";
 import SingleTemplate from "@components/SingleTemplate";
 import Popup from "@components/Popup";
 import Searchform from "@components/Searchform";
 
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 
-import ReactPaginate from 'react-paginate';
+import ReactPaginate from "react-paginate";
 
-import { useQuery } from '@tanstack/react-query';
-import templatesData from '../../data/template.json';
+import { useQuery } from "@tanstack/react-query";
+import templatesData from "../../data/template.json";
 
 
-import searchIcon from '@icon/search.svg';
-import crownIcon from '@icon/crown.svg';
-import arrowLeft from '@icon/angle-left.svg';
-import arrowRight from '@icon/angle-right.svg';
+import searchIcon from "@icon/search.svg";
+import crownIcon from "@icon/crown.svg";
+import arrowLeft from "@icon/angle-left.svg";
+import arrowRight from "@icon/angle-right.svg";
 import elementorIcon from "@icon/elementor.svg";
 import directoristIcon from "@icon/directorist.svg";
 
