@@ -6,7 +6,7 @@ import AdminSidebar from './Sidebar/AdminSidebar.js';
 import { LayoutStyle } from './style.js';
 
 const AppLayout = ({ children }) => {
-	let isLoggedIn = false;
+	let isLoggedIn = true;
 
 	return (
 		<div className="templatiq">

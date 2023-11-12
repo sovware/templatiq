@@ -62,6 +62,7 @@ const SidebarStyle = Styled.div`
             font-weight: 500;
             color: var(--templatiq-body-color);
             height: 50px;
+            box-shadow: none;
             text-decoration: none;
             &:before {
                 content: '';
@@ -76,6 +77,45 @@ const SidebarStyle = Styled.div`
                 color: var(--templatiq-primary-color);
                 &:before {
                     width: 100%;
+                    background: var(--templatiq-primary-color);
+                }
+            }
+        }
+    }
+
+    .templatiq__sidebar__nav--admin {
+        flex-direction: column;
+        gap: 0;
+        margin: 0;
+        padding: 0;
+        border: none;
+        .templatiq__sidebar__nav__link {
+            height: 46px;
+            gap: 12px;
+            position: relative;
+            background: transparent;
+            padding-inline-start: 24px;
+            transition: background 0.3s ease;
+            path {
+                fill: var(--templatiq-body-color);
+                transition: fill 0.3s ease;
+            }
+            &:before {
+                width: 2px;
+                height: 0;
+                top: 0;
+                inset-inline-end: 0;
+            }
+            &:hover,
+            &.active {
+                color: var(--templatiq-primary-color);
+                background: var(--templatiq-primary-transparent);
+                path {
+                    fill: var(--templatiq-primary-color);
+                }
+                &:before {
+                    width: 2px;
+                    height: 100%;
                     background: var(--templatiq-primary-color);
                 }
             }
