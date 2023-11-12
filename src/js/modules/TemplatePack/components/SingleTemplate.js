@@ -13,6 +13,11 @@ const SingleTemplate = (item) => {
     let categories = item.categories;
     let requiredPlugins = item.requiredPlugins;
 
+    let addModal = (e) => {
+        e.preventDefault();
+        document.querySelector(".templatiq").classList.add("templatiq-overlay-enable");
+    }
+
     return (
         <SingleTemplateStyle className="templatiq__template__single">
             <div className="templatiq__template__single__img">
@@ -39,7 +44,7 @@ const SingleTemplate = (item) => {
                                 <ReactSVG src={ cartIcon } width={14} height={14} />
                                 Purchase
                             </a> :
-                            <a href="#" className="templatiq__template__single__info__action__link insert-btn">
+                            <a href="#" className="templatiq__template__single__info__action__link insert-btn" onClick={addModal}>
                                 <ReactSVG src={ downloadIcon } width={14} height={14} />
                                 Insert
                             </a>

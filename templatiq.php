@@ -126,11 +126,7 @@ final class Templatiq {
 		define( 'TEMPLATIQ_ASSETS', TEMPLATIQ_URL . '/assets' );
 		define( 'TEMPLATIQ_ASSETS_PATH', TEMPLATIQ_PATH . '/assets' );
 
-<<<<<<< HEAD
-		define( 'TEMPLATIQ_CLOUD_BASE', 'https://temlatiq.com/wp-json/tm' );
-=======
 		define( 'TEMPLATIQ_CLOUD_BASE', 'https://templatiq.com/wp-json/tm' );
->>>>>>> d0e0f3b9ca24976c0cde04d8a34f17f482c15dd1
 
 		define( 'TEMPLATIQ_DEV', true );
 		define( 'TEMPLATIQ_DEBUG_LOG', true );
