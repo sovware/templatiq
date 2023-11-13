@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from '@wordpress/element';
 import ReactSVG from "react-inlinesvg";
 import { MyAccountStyle } from "./style";
 
@@ -19,8 +19,6 @@ export default function MyAccount() {
 
 	const handleData = (e) => {
 		e.preventDefault(); // Prevents the default form submission behavior
-		console.log("Full Name:", e.target.elements.authorFullname.value);
-		console.log("Email Address:", e.target.elements["author-email"].value);
 	};
 
 
@@ -33,7 +31,7 @@ export default function MyAccount() {
 				</div>
 				<div className="templatiq__dashboard__account__info">
 					<div className="templatiq__dashboard__account__info__single">
-						<label htmlFor="authorFullname">Full Name</label>
+						<label for="authorFullname">Full Name</label>
 						<input
 							type="text"
 							id="authorFullname"
@@ -43,10 +41,10 @@ export default function MyAccount() {
 						/>
 					</div>
 					<div className="templatiq__dashboard__account__info__single">
-						<label htmlFor="author-email">Email Address</label>
+						<label for="authorEmail">Email Address</label>
 						<input
 							type="text"
-							id="author-email"
+							id="authorEmail"
 							name="authorEmail"
 							value={formData.authorEmail}
 							onChange={handleChange}

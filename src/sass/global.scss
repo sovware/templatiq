@@ -38,7 +38,7 @@ li {
 a { 
 	text-decoration: none;
 	outline: none;
-	box-shadow: none;
+	box-shadow: none !important;
 	cursor: pointer;
 	transition: color 0.3s ease;
 }

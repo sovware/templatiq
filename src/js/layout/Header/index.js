@@ -28,7 +28,7 @@ import downloadIcon from "@icon/download-alt.svg";
 const Header = () =>  {
 	const [isAuthorInfoVisible, setAuthorInfoVisible] = useState(false);
 
-	let isLoggedIn = true;
+	let isLoggedIn = false;
 	let templateDetailsPage = false;
 
 	let editorItems = [

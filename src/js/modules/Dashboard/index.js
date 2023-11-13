@@ -1,5 +1,3 @@
-import 'react-tabs/style/react-tabs.css';
-
 import AppLayout from "@layout/AppLayout";
 
 import MyFavorites from "./Favorites";

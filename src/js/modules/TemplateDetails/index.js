@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactSVG from 'react-inlinesvg';
 import { TemplateDetailsStyle, TemplateDetailsHeaderStyle, TemplateDetailsWidgetStyle } from './style';
 import TemplateDetailsLayout from './TemplateDetailsLayout';
