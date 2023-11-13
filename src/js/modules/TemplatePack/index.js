@@ -1,13 +1,14 @@
 import ReactSVG from 'react-inlinesvg';
 import { TemplatePackStyle, TemplatePackFilterStyle } from '@root/style';
-import SingleTemplate from "@components/SingleTemplate";
+import Popup from "@components/Popup";
+import AppLayout from "@layout/AppLayout";
 import Searchform from "@components/Searchform";
+import SingleTemplate from "@components/SingleTemplate";
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
 import ReactPaginate from 'react-paginate';
-
 import { useQuery } from '@tanstack/react-query';
 import templatesData from '../../data/template.json';
 
@@ -22,8 +23,6 @@ import directoristIcon from "@icon/directorist.svg";
 import templateImg1 from "@images/template/1.svg";
 import templateImg2 from "@images/template/2.svg";
 import templateImg3 from "@images/template/3.svg";
-import Popup from "@components/Popup";
-import AppLayout from "@layout/AppLayout";
 
 export default function TemplatePackModule() {
 
@@ -35,9 +34,7 @@ export default function TemplatePackModule() {
 	}
 
 	const { isLoading, error, data } = useQuery(['templates'], () => templatesData);
-
 	if (isLoading) return 'Loading...';
-
 	if (error) return 'An error has occurred: ' + error.message;
 
 
@@ -75,10 +72,11 @@ export default function TemplatePackModule() {
 
 					<div className="templatiq__content__wrapper">
 						<TabPanel className="templatiq__content__tab-panel">
-							{data
+						{data
 							.map(template => (
 								<SingleTemplate 
 									// img = {template.img} 
+									slug = {template.slug}
 									img = {templateImg1} 
 									title = {template.title} 
 									price = {template.price} 
@@ -88,14 +86,16 @@ export default function TemplatePackModule() {
 									categories = {template.categories}
 								
 								/>
-							))}
+							))
+						}
 						</TabPanel>
 						<TabPanel className="templatiq__content__tab-panel">
 						{data
 							.filter(template => template.price === "")
 							.map(template => (
 								<SingleTemplate 
-									// img = {template.img} 
+									// img = {template.img}
+									slug = {template.slug} 
 									img = {templateImg1} 
 									title = {template.title} 
 									price = {template.price} 
@@ -105,7 +105,8 @@ export default function TemplatePackModule() {
 									categories = {template.categories}
 								
 								/>
-							))}
+							))
+						}
 						</TabPanel>
 						<TabPanel className="templatiq__content__tab-panel">
 						{data
@@ -113,6 +114,7 @@ export default function TemplatePackModule() {
 							.map(template => (
 								<SingleTemplate 
 									// img = {template.img} 
+									slug = {template.slug}
 									img = {templateImg1} 
 									title = {template.title} 
 									price = {template.price} 
@@ -122,7 +124,8 @@ export default function TemplatePackModule() {
 									categories = {template.categories}
 								
 								/>
-							))}
+							))
+						}
 						</TabPanel>
 
 						{ total > perPage && (

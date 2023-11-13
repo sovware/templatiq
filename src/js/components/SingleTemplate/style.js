@@ -132,8 +132,13 @@ const SingleTemplateStyle = Styled.div`
         font-size: 18px;
         line-height: 22px;
         font-weight: 600;
-        color: var(--templatiq-dark-color);
         margin: 0 0 4px;
+        a {
+            color: var(--templatiq-dark-color);
+            &:hover {
+                color: var(--templatiq-primary-color);
+            }
+        }
     }
     .templatiq__template__single__cat {
         display: flex;

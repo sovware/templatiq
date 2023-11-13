@@ -15,10 +15,11 @@ import { ThemeProvider } from 'styled-components';
 
 
 import TemplatePack from './pages/TemplatePack';
+import TemplateDetails from './pages/TemplateDetails';
 
 import Pages from './pages/Pages'; 
 import Blocks from './pages/Blocks'; 
-import SignIn from './pages/Signin';
+import SignIn from './pages/SIgnin';
 import SignUp from './pages/Signup';
 
 export default function App() {
@@ -55,6 +56,10 @@ export default function App() {
 		{
 			path: `/blocks`,
 			element: <Blocks />,
+		},
+		{
+			path: `/template/:slug`,
+			element: <TemplateDetails />,
 		},
 		{
 			path: `/signin`,

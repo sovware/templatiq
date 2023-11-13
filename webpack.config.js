@@ -71,6 +71,7 @@ module.exports = {
 			'@layout': path.resolve( __dirname, 'src/js/layout' ),
 			'@hooks': path.resolve( __dirname, 'src/js/hooks' ),
 			'@helper': path.resolve( __dirname, 'src/js/helper' ),
+			'@data': path.resolve( __dirname, 'src/js/data' ),
 			'@icon': path.resolve( __dirname, 'src/svg/icon' ),
 			'@images': path.resolve( __dirname, 'src/images' ),
 			'@assets': path.resolve( __dirname, 'assets' ),

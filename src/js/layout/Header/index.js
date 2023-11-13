@@ -30,11 +30,11 @@ import logoutIcon from "@icon/logout.svg";
 import settingsIcon from "@icon/settings.svg";
 import downloadIcon from "@icon/download-alt.svg";
 
-const Header = () =>  {
+const Header = (props) =>  {
+	const { type } = props;
 	const [isAuthorInfoVisible, setAuthorInfoVisible] = useState(false);
 
 	let isLoggedIn = false;
-	let templateDetailsPage = false;
 
 	let editorItems = [
 		{
@@ -69,7 +69,7 @@ const Header = () =>  {
 	return (
 		<HeaderStyle className="templatiq__header">
 			{
-				templateDetailsPage ?
+				type == 'detailsHeader' ?
 				<div className="templatiq__header__details">
 					<Link to="/" className="templatiq__header__details__logo">
 						<img src={Fav} alt="Logo" />

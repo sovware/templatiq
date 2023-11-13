@@ -1,5 +1,5 @@
 import ReactSVG from 'react-inlinesvg';
-
+import { Link } from 'react-router-dom';
 import { SingleTemplateStyle } from './style';
 
 import crownIcon from "@icon/crown.svg";
@@ -9,7 +9,7 @@ import downloadIcon from "@icon/download-alt.svg";
 import templateImg1 from "@images/template/1.svg";
 
 const SingleTemplate = (item) => {
-    let { img, title, price, downloadCount, favoriteCount } = item;
+    let { id, slug, img, title, price, downloadCount, favoriteCount } = item;
     let categories = item.categories;
     let requiredPlugins = item.requiredPlugins;
 
@@ -61,7 +61,9 @@ const SingleTemplate = (item) => {
                 </div> 
             </div>
             <div className="templatiq__template__single__content">
-                <h3 className="templatiq__template__single__title">{title ? title : 'DDoctors'}</h3>
+                <h3 className="templatiq__template__single__title">
+                    <Link to={`/template/${slug}`}>{title ? title : 'DDoctors'}</Link>
+                </h3>
                 <div className="templatiq__template__single__cat">
                     {categories && categories.map((category, index) => (
                         <a key={index} href={category.url} className="templatiq__template__single__cat__link">{category.name}</a>

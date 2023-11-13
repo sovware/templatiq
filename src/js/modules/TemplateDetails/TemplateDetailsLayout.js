@@ -1,12 +1,13 @@
 import React from 'react';
 import Header from '@layout/Header';
 
-
 const TemplateDetailsLayout = ({ children }) => {
 
 	return (
 		<div className="templatiq">
-			<Header />
+			<Header 
+				type="detailsHeader"
+			/>
 			{ children }
 		</div>
 	);

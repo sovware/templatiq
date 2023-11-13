@@ -1,6 +1,10 @@
 import ReactSVG from 'react-inlinesvg';
 import { TemplateDetailsStyle, TemplateDetailsHeaderStyle, TemplateDetailsWidgetStyle } from './style';
 import TemplateDetailsLayout from './TemplateDetailsLayout';
+import Popup from "@components/Popup";
+
+import { useQuery } from '@tanstack/react-query';
+import templatesData from '@data/template.json';
 
 import crownIcon from '@icon/crown.svg';
 import cartIcon from "@icon/cart.svg";
@@ -14,17 +18,28 @@ import directoristIcon from "@icon/directorist.svg";
 
 import templateImg1 from "@images/template/details1.svg";
 
-export default function TemplateDetailsModule() {
-	let price = '45';
-	let downloadCount = '200';
-	let favoriteCount = '250';
+export default function TemplateDetailsModule(props) {
+	const { templateSlug } = props;
+
+	const { isLoading, error, data } = useQuery(['templates'], () => templatesData);
+	if (isLoading) return 'Loading...';
+	if (error) return 'An error has occurred: ' + error.message;
+
+	// Retrive Template Details Data
+	const { id, slug, img, title, price, downloadCount, favoriteCount, builders, types, categories, requiredPlugins } = data.filter(template => template.slug == templateSlug)[0];
+
+	let addModal = (e) => {
+        e.preventDefault();
+        document.querySelector(".templatiq").classList.add("templatiq-overlay-enable");
+    }
 
 	return (
 		<TemplateDetailsLayout>
+			<Popup />
 			<TemplateDetailsStyle className="templatiq__details">
 				<TemplateDetailsHeaderStyle className="templatiq__details__header">
 					<div className="templatiq__details__header__info">
-						<h2 className="templatiq__details__header__title">Template Pack Pro</h2>
+						<h2 className="templatiq__details__header__title">{title}</h2>
 						<div className="templatiq__details__header__meta">
 							{
 								downloadCount ? 
@@ -66,7 +81,7 @@ export default function TemplateDetailsModule() {
 								<ReactSVG src={ cartIcon } width={16} height={16} />
 								Buy this item  ${price}
 							</a> :
-							<a href="#" className="templatiq__details__header__action__link insert-btn templatiq-btn templatiq-btn-success">
+							<a href="#" className="templatiq__details__header__action__link insert-btn templatiq-btn templatiq-btn-success" onClick={addModal}>
 								<ReactSVG src={ downloadIcon } width={16} height={16} />
 								Insert
 							</a>
@@ -151,26 +166,32 @@ export default function TemplateDetailsModule() {
 							<div className="templatiq__details__widget__content">
 								<div className="templatiq__details__widget__content__single">
 									<span className="templatiq__details__widget__content__title">Template Type:</span>
-									<span className="templatiq__details__widget__content__info">Demo template type</span>
+									{types && types.map((type, index) => (
+										<span key={index} className="templatiq__details__widget__content__info">{type.name}</span>
+									))}
+									
 								</div>
 								<div className="templatiq__details__widget__content__single">
 									<span className="templatiq__details__widget__content__title">Category:</span>
-									<span className="templatiq__details__widget__content__info">Demo category</span>
+									{categories && categories.map((category, index) => (
+										<span key={index} className="templatiq__details__widget__content__info">{category.name}</span>
+									))}
 								</div>
 								<div className="templatiq__details__widget__content__single">
 									<span className="templatiq__details__widget__content__title">Builder:</span>
-									<span className="templatiq__details__widget__content__info">Elementor</span>
+									{builders && builders.map((builder, index) => (
+										<span key={index} className="templatiq__details__widget__content__info">{builder.name}</span>
+									))}
 								</div>
 
 								<div className="templatiq__details__widget__content__single required-plugins">
 									<span className="templatiq__details__widget__content__title">Required Plugins:</span>
 									<div className="templatiq__details__widget__content__required-plugins">
-										<a href="#" className="templatiq__details__widget__content__required-plugins__link templatiq-tooltip" data-info="Directorist">
-											<ReactSVG src={ directoristIcon } width={30} height={30} />
-										</a>
-										<a href="#" className="templatiq__details__widget__content__required-plugins__link templatiq-tooltip" data-info="Elementor">
-											<ReactSVG src={ elementorIcon } width={30} height={30} />
-										</a>
+										{requiredPlugins && requiredPlugins.map((plugin, index) => (
+												<a key={index} href={plugin.url} className="templatiq__details__widget__content__required-plugins__link templatiq-tooltip" data-info="Directorist">
+												<ReactSVG src={ plugin.icon } width={30} height={30} />
+											</a>
+										))}
 									</div>
 								</div>
 							</div>
