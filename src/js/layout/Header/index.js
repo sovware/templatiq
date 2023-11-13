@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState, useRef, useEffect } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import Dropdown from '@components/Dropdown';
+import checkedClickedOutside from '@helper/checkClickedOutside';
 
 import { HeaderStyle, HeaderNavStyle, HeaderActionStyle } from "./style";
 
@@ -43,10 +44,16 @@ const Header = () =>  {
 		},
 	];
 
+	const ref = useRef( null );
 	const handleToggleAuthorInfo = (e) => {
 		e.preventDefault();
 		setAuthorInfoVisible(!isAuthorInfoVisible);
 	};
+
+	/* Close Dropdown click on outside */
+	useEffect( () => {
+		checkedClickedOutside( isAuthorInfoVisible, setAuthorInfoVisible, ref );
+	}, [ isAuthorInfoVisible ] );
 
 	return (
 		<HeaderStyle className="templatiq__header">
@@ -103,7 +110,7 @@ const Header = () =>  {
 
 					<div className="templatiq__header__action__item">
 						{isLoggedIn ? 
-							<div className="templatiq__header__author__wrapper">
+							<div className="templatiq__header__author__wrapper" ref={ ref }>
 								<a 
 									href="#" 
 									className="templatiq__header__action__author" 
