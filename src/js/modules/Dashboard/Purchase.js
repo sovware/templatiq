@@ -7,7 +7,7 @@ import { DashboardItemsStyle } from "./style"
 import templateImg1 from "@images/template/1.svg";
 import downloadIcon from "@icon/download.svg";
 
-export default function MyPurchase() {
+export default function MyPurchaseModule() {
 	return (
 		<TemplatePackStyle className="templatiq__content__dashboard">
 			<div className="templatiq__content__top">

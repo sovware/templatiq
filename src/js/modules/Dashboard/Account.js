@@ -4,7 +4,7 @@ import { MyAccountStyle } from "./style";
 
 import userIcon from "@icon/user.svg";
 
-export default function MyAccount() {
+export default function MyAccountModule() {
 	const [formData, setFormData] = useState({
 		authorFullname: "Ibn Adam",
 		authorEmail: "sample@gmail.com",

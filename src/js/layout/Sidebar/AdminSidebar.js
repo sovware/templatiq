@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import ReactSVG from 'react-inlinesvg';
 import { AdminSidebarStyle } from './style';
 
@@ -12,22 +12,22 @@ const AdminSidebar = () => {
 		<AdminSidebarStyle className="templatiq__dashboard__sidebar">
 			<div className="templatiq__sidebar__wrapper">
 				<div className="templatiq__sidebar__nav templatiq__sidebar__nav--admin">
-					<a href="#" className="templatiq__sidebar__nav__link">
+					<Link to="/dashboard/favorites" className="templatiq__sidebar__nav__link">
 						<ReactSVG src={ heartIcon } width={16} height={16} />
 						My Favorites
-					</a>
-					<a href="#" className="templatiq__sidebar__nav__link">
+					</Link>
+					<Link to="/dashboard/downloads" className="templatiq__sidebar__nav__link">
 						<ReactSVG src={ downloadIcon } width={16} height={16} />
 						My Downloads
-					</a>
-					<a href="#" className="templatiq__sidebar__nav__link">
+					</Link>
+					<Link to="/dashboard/purchase" className="templatiq__sidebar__nav__link">
 						<ReactSVG src={ cartIcon } width={16} height={16} />
 						My Purchase
-					</a>
-					<a href="#" className="templatiq__sidebar__nav__link active">
+					</Link>
+					<Link to="/dashboard/account" className="templatiq__sidebar__nav__link">
 						<ReactSVG src={ settingsIcon } width={16} height={16} />
 						My Account
-					</a>
+					</Link>
 				</div>
 			</div>
 		</AdminSidebarStyle>

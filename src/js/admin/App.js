@@ -6,6 +6,7 @@ import {
 	Route,
 	Link,
 	NavLink,
+	Switch,
 	useNavigate,
 	useParams,
 	useLocation,
@@ -14,6 +15,7 @@ import { updateGlobalState } from '@helper/utils';
 import { ThemeProvider } from 'styled-components';
 
 
+import Dashboard from './pages/Dashboard';
 import TemplatePack from './pages/TemplatePack';
 import TemplateDetails from './pages/TemplateDetails';
 
@@ -21,6 +23,11 @@ import Pages from './pages/Pages';
 import Blocks from './pages/Blocks'; 
 import SignIn from './pages/SIgnin';
 import SignUp from './pages/Signup';
+
+import MyFavorites from "./pages/dashboard/Favorites";
+import MyDownloads from "./pages/dashboard/Downloads";
+import MyPurchase from "./pages/dashboard/Purchase";
+import MyAccount from "./pages/dashboard/Account";
 
 export default function App() {
 	const [ dir, setDir ] = useState( 'ltr' );
@@ -50,6 +57,10 @@ export default function App() {
 			element: <TemplatePack />,
 		},
 		{
+			path: `/dashboard`,
+			element: <Dashboard />,
+		},
+		{
 			path: '/pages',
 			element: <Pages />,
 		},
@@ -68,6 +79,22 @@ export default function App() {
 		{
 			path: `/signup`,
 			element: <SignUp />,
+		},
+		{
+			path: `/dashboard/*`,
+			element: <MyFavorites />,
+		},
+		{
+			path: `/dashboard/downloads`,
+			element: <MyDownloads />,
+		},
+		{
+			path: '/dashboard/purchase',
+			element: <MyPurchase />,
+		},
+		{
+			path: `/dashboard/account`,
+			element: <MyAccount />,
 		},
 	] ;
 

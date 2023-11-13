@@ -5,7 +5,7 @@ import { DashboardItemsStyle } from "./style"
 
 import templateImg1 from "@images/template/1.svg";
 
-export default function MyDownloads() {
+export default function MyDownloadsModule() {
 	return (
 		<TemplatePackStyle className="templatiq__content__dashboard">
 			<div className="templatiq__content__top">
