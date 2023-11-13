@@ -24,7 +24,7 @@ import templateImg1 from "@images/template/1.svg";
 import templateImg2 from "@images/template/2.svg";
 import templateImg3 from "@images/template/3.svg";
 import Popup from "@components/Popup";
-import AppLayout from "./layout/AppLayout";
+import AppLayout from "@layout/AppLayout";
 
 export default function TemplatePackModule() {
 

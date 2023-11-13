@@ -1,6 +1,5 @@
 import Styled from 'styled-components';
 import chevronIcon from '@icon/chevron-down-solid.svg';
-import checkIcon from '@icon/check.svg';
 
 const SidebarStyle = Styled.div`
     min-width: 256px;
@@ -166,6 +165,58 @@ const SidebarItemStyle = Styled.div`
     }
 `;
 
+const AdminSidebarStyle = Styled.div`
+    min-width: 256px;
+    background: var(--templatiq-white-color);
+    box-shadow: 0 7px 20px 5px var(--templatiq-dark-color)05;
+    
+    .templatiq__sidebar__nav {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        .templatiq__sidebar__nav__link {
+            position: relative;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 500;
+            height: 46px;
+            background: transparent;
+            padding-inline-start: 24px;
+            color: var(--templatiq-body-color);
+            box-shadow: none;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            path {
+                fill: var(--templatiq-body-color);
+                transition: fill 0.3s ease;
+            }
+            &:before {
+                content: '';
+                position: absolute;
+                width: 2px;
+                height: 0;
+                top: 0;
+                inset-inline-end: 0;
+                transition: width 0.3s ease;
+            }
+            &.active,
+            &:hover {
+                color: var(--templatiq-primary-color);
+                background: var(--templatiq-primary-transparent);
+                path {
+                    fill: var(--templatiq-primary-color);
+                }
+                &:before {
+                    height: 100%;
+                    background: var(--templatiq-primary-color);
+                
+                }
+            }
+        }
+    }
+`;
 
 
-export { SidebarStyle, SidebarItemStyle };
+export { SidebarStyle, SidebarItemStyle, AdminSidebarStyle };

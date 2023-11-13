@@ -4,11 +4,18 @@ import TemplateDetailsModule from '@modules/TemplateDetails';
 import DashboardModule from '@modules/Dashboard';
 
 export default function TemplatePack() {
+	let isDetailsPage = false;
+	let isDashboardPage = true;
+
 	return (
 		<>
-			{/* <TemplatePackModule /> */}
-			{/* <TemplateDetailsModule /> */}
-			<DashboardModule />
+			{
+				isDetailsPage ?
+				<TemplateDetailsModule /> :
+				isDashboardPage ?
+				<DashboardModule /> :
+				<TemplatePackModule />
+			}
 		</>
 	);
 }

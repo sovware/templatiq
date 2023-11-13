@@ -1,17 +1,22 @@
 import React from 'react';
 import Header from '@layout/Header';
-import Sidebar from './Sidebar';
+import Sidebar from '@layout/Sidebar';
+import AdminSidebar from '@layout/Sidebar/AdminSidebar';
 
 import { LayoutStyle } from './style.js';
 
 const AppLayout = ({ children }) => {
+	let isLoggedIn = true;
 
 	return (
 		<div className="templatiq">
 			<Header />
 			<LayoutStyle className="templatiq__wrapper">
-				<Sidebar />
-
+				{
+					isLoggedIn ?
+					<AdminSidebar /> :
+					<Sidebar />
+				}
 				{ children }
 			</LayoutStyle>
 		</div>
