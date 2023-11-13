@@ -20,6 +20,14 @@ export default function Dropdown( {
 		isDropdownOpen ? 'templatiq-dropdown-open ' : ''
 	}${ className && className } ${ placement ? `templatiq-dropdown-${ placement }` : '' }`;
 
+	const DropdownIcon = ({ dropDownIcon }) => (
+		dropDownIcon ? (
+		  <span className="templatiq-dropdown__toggle__icon">
+			<ReactSVG src={dropDownIcon} width={14} height={14} />
+		  </span>
+		) : null
+	);
+
 	function handleDropdown( e ) {
 		e.preventDefault();
 		setDropDownOpen( ! isDropdownOpen );
@@ -46,6 +54,7 @@ export default function Dropdown( {
 				>
 					<ReactSVG src={selectedItem.icon} width={24} height={24} />
 					{selectedItem.text}
+					<DropdownIcon dropDownIcon={dropDownIcon} />
 				</a>
 			) :  
 			defaultSelect ?  (
@@ -56,6 +65,7 @@ export default function Dropdown( {
 				>
 					<ReactSVG src={defaultSelect.icon} width={24} height={24} />
 					{defaultSelect.text}
+					<DropdownIcon dropDownIcon={dropDownIcon} />
 				</a>
 			) : 
 				<a
@@ -64,12 +74,8 @@ export default function Dropdown( {
 					onClick={ handleDropdown }
 				>
 					{ dropDownText ? dropDownText : '' }
+					<DropdownIcon dropDownIcon={dropDownIcon} />
 				</a>
-			}
-			{ dropDownIcon ? 
-				<span className="templatiq-dropdown__toggle__icon">
-					<ReactSVG src={ dropDownIcon } width={14} height={14} />
-				</span> : '' 
 			}
 			<ul
 				className={

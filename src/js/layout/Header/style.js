@@ -1,5 +1,7 @@
 import Styled from 'styled-components';
 
+import chevronIcon from '@icon/chevron-down-solid.svg';
+
 const HeaderStyle = Styled.div`
     height: 70px;
     display: flex;
@@ -91,6 +93,75 @@ const HeaderActionStyle = Styled.div`
     display: flex;
     gap: 32px;
     align-items: center;
+    .templatiq__header__action__author {
+        position: relative;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        padding-inline-end: 24px;
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: 500;
+        box-shadow: none;
+        color: var(--templatiq-dark-color);
+        img {
+            max-width: 32px;
+        }
+        &:after {
+            content: url(${chevronIcon});
+            position: absolute;
+            inset-inline-end: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            line-height: 1;
+            color: var(--templatiq-light-color);
+        }
+    }
+    .templatiq__header__author__wrapper {
+        position: relative;
+    }
+    .templatiq__header__author__info {
+        position: absolute;
+        top: 100%;
+        inset-inline-end: 0;
+        min-width: 250px;
+        padding: 12px 8px;
+        border-radius: 8px;
+        box-sizing: border-box;
+        background: var(--templatiq-white-color);
+        box-shadow: 0 15px 40px -5px var(--templatiq-dark-color)1;
+    }
+    .templatiq__header__author__info__link {
+        position: relative;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 500;
+        height: 46px;
+        background: transparent;
+        padding-inline-start: 24px;
+        color: var(--templatiq-body-color);
+        box-shadow: none;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: background 0.3s ease;
+        path {
+            fill: var(--templatiq-body-color);
+            transition: fill 0.3s ease;
+        }
+        &.active,
+        &:hover {
+            color: var(--templatiq-primary-color);
+            background: var(--templatiq-primary-transparent);
+            path {
+                fill: var(--templatiq-primary-color);
+            }
+        }
+    }
+    .templatiq__header__author__info__item--logout {
+        border-top: 1px solid var(--templatiq-sec-color);
+    }
 `;
 
 
