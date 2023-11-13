@@ -21,6 +21,7 @@
 
 
 	--templatiq-primary-transparent: #F2ECFF;
+	--templatiq-primary-transparent2: #D5C4FF;
 
 	--templatiq-box-shadow: 0 4px 16px rgba(16, 16, 20, 0.04);
 	--templatiq-box-shadow-focus: 0 4px 16px rgba(137, 65, 255, .15);
@@ -46,6 +47,30 @@ button {
 	outline: none;
 	box-shadow: none;
 }
+
+.text-primary {
+	color: var(--templatiq-primary-color) !important;
+}
+.text-dark {
+	color: var(--templatiq-dark-color) !important;
+}
+
+.text-white {
+	color: var(--templatiq-white-color) !important;
+}
+
+.text-success {
+	color: var(--templatiq-success-color) !important;
+}
+
+.text-warning {
+	color: var(--templatiq-warning-color) !important;
+}
+
+.text-danger {
+	color: var(--templatiq-danger-color) !important;
+}
+
 
 .templatiq {
 	margin-inline-start: -20px;

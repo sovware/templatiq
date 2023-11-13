@@ -197,4 +197,79 @@ const DashboardItemsStyle = Styled.div`
     }
 `;
 
-export { DashboardStyle, DashboardFilterStyle, SidebarStyle, SidebarItemStyle, DashboardItemsStyle };
+const MyAccountStyle = Styled.div`
+    .templatiq__dashboard__account__title {
+        font-size: 21px;
+        line-height: 25px;
+        font-weight: 600;
+        margin: 0 0 20px;
+        text-align: center;
+        color; var(--templatiq-dark-color);
+    }
+    .templatiq__dashboard__account__wrapper {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 40px 32px;
+        border-radius: 16px;
+        background-color: var(--templatiq-white-color);
+    }
+    .templatiq__dashboard__account__avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 64px;
+        height: 64px;
+        margin: 0 auto;
+        border-radius: 50%;
+        box-sizing: border-box;
+        background: var(--templatiq-primary-transparent2);
+        border: 2px solid var(--templatiq-primary-color);
+        ellipse,
+        path {
+            fill: var(--templatiq-white-color);
+        }
+    }
+    .templatiq__dashboard__account__info {
+        display: flex;
+        gap: 28px;
+        margin: 25px 0 20px;
+        flex-direction: column;
+    }
+    .templatiq__dashboard__account__info__single {
+        display: flex;
+        gap: 8px;
+        flex-direction: column;
+        label {
+            font-size: 15px;
+            line-height: 24px;
+            font-weight: 500;
+        }
+        input {
+            height: 46px;
+            padding: 0 20px;
+            border: none;
+            box-shadow: none;
+            border-radius: 8px;
+            background: var(--templatiq-sec-color);
+        }
+    }
+    .templatiq__dashboard__account__actions {
+        display: flex;
+        gap: 20px;
+        text-align: center;
+        flex-direction: column;
+        .templatiq__dashboard__account__link {
+            font-size: 14px;
+            line-height: 22px;
+            font-weight: 400;
+            box-shadow: none;
+        }
+        .templatiq__dashboard__account__btn {
+            height: 54px;
+            text-align: center;
+            justify-content: center;
+        }
+    }
+`;
+
+export { DashboardStyle, DashboardFilterStyle, SidebarStyle, SidebarItemStyle, DashboardItemsStyle, MyAccountStyle };
