@@ -39,6 +39,8 @@ const HeaderStyle = Styled.div`
         align-items: center;
         font-size: 14px;
         font-weight: 600;
+        background: transparent;
+        cursor: pointer;
         color: var(--templatiq-body-color);
         path {
             fill: var(--templatiq-body-color);

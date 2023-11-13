@@ -1,9 +1,9 @@
 import { useState } from '@wordpress/element';
-import { AuthStyle } from "./style";
+import { Link } from 'react-router-dom';
+import { AuthStyle } from "@root/style";
 
-export default function SignUp() {
+export default function SignInContent() {
 	const [formData, setFormData] = useState({
-		authorFullName: "John Doe",
 		authorEmail: "sample@gmail.com",
 		authorPassword: "123456",
 	});
@@ -22,19 +22,9 @@ export default function SignUp() {
 
 	return (
 		<AuthStyle className="templatiq__auth">
-			<h3 className="templatiq__auth__title">Sign up your account</h3>
+			<h3 className="templatiq__auth__title">Sign in to your account</h3>
 			<form className="templatiq__auth__wrapper" onSubmit={handleData}>
 				<div className="templatiq__auth__info">
-					<div className="templatiq__auth__info__single">
-						<label htmlFor="authorFullName">Full Name</label>
-						<input
-							type="text"
-							id="authorFullName"
-							name="authorFullName"
-							value={formData.authorFullName}
-							onChange={handleChange}
-						/>
-					</div>
 					<div className="templatiq__auth__info__single">
 						<label htmlFor="authorEmail">Email Address</label>
 						<input
@@ -57,15 +47,24 @@ export default function SignUp() {
 					</div>
 				</div>
 				<div className="templatiq__auth__actions">
+                    <div className="templatiq__auth__actions__wrapper">
+                        <div className="templatiq__checkbox templatiq__auth__remember">
+                            <input type="checkbox" name="rememberMe" id="rememberMe" className="templatiq__checkbox__input" />
+                            <label for="rememberMe" className="templatiq__checkbox__label">Remember Me</label>
+                        </div>
+                        <div className="templatiq__auth__forgot">
+                            <a href="#" target='_blank' className="templatiq__auth__link">Forgot password?</a>
+                        </div>
+                    </div>
 					<button 
                         type="submit" 
                         className="templatiq__auth__btn templatiq-btn templatiq-btn-primary"
                     >
-                        Sign Up
+                        Sign In
                     </button>
                     <span className="templatiq__auth__desc">
-                        Already have an account?
-                        <a href="#" className="templatiq__auth__link">Sign in</a>
+                        Don't have an account?
+                        <Link to="/signup" className="templatiq__auth__link">Sign up</Link>
                     </span>
 					
 				</div>

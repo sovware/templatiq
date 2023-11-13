@@ -2,7 +2,6 @@
 import TemplatePackModule from '@modules/TemplatePack';
 import TemplateDetailsModule from '@modules/TemplateDetails';
 import DashboardModule from '@modules/Dashboard';
-import AuthModule from '@modules/Authentication';
 
 export default function TemplatePack() {
 	let isLoggedIn = false;
@@ -11,7 +10,6 @@ export default function TemplatePack() {
 
 	return (
 		<>
-				{/* <AuthModule />  */}
 				{/* <TemplateDetailsModule />  */}
 				{/* <DashboardModule />  */}
 				<TemplatePackModule />

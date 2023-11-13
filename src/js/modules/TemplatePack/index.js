@@ -27,6 +27,9 @@ import AppLayout from "@layout/AppLayout";
 
 export default function TemplatePackModule() {
 
+	let total = 6;
+	let perPage = 4;
+
 	let handlePageClick = ( data ) => {
 		return data;
 	}
@@ -121,23 +124,26 @@ export default function TemplatePackModule() {
 								/>
 							))}
 						</TabPanel>
-						<ReactPaginate
-							breakLabel="..."
-							onPageChange={ handlePageClick }
-							nextLabel={ <ReactSVG src={ arrowRight } /> }
-							previousLabel={ <ReactSVG src={ arrowLeft } /> }
-							pageRangeDisplayed={ 3 }
-							pageCount={ 10 }
-							previousClassName="templatiq-pagination__item"
-							previousLinkClassName="templatiq-pagination__link templatiq-pagination__control"
-							nextClassName="templatiq-pagination__item"
-							nextLinkClassName="templatiq-pagination__link templatiq-pagination__control"
-							containerClassName="templatiq-pagination"
-							pageClassName="templatiq-pagination__item"
-							pageLinkClassName="templatiq-pagination__link"
-							activeLinkClassName="templatiq-pagination__active"
-							renderOnZeroPageCount={ null }
-						/>
+
+						{ total > perPage && (
+							<ReactPaginate
+								breakLabel="..."
+								onPageChange={ handlePageClick }
+								nextLabel={ <ReactSVG src={ arrowRight } /> }
+								previousLabel={ <ReactSVG src={ arrowLeft } /> }
+								pageRangeDisplayed={ 3 }
+								pageCount={ Math.ceil( total / perPage ) }
+								previousClassName="templatiq-pagination__item"
+								previousLinkClassName="templatiq-pagination__link templatiq-pagination__control"
+								nextClassName="templatiq-pagination__item"
+								nextLinkClassName="templatiq-pagination__link templatiq-pagination__control"
+								containerClassName="templatiq-pagination"
+								pageClassName="templatiq-pagination__item"
+								pageLinkClassName="templatiq-pagination__link"
+								activeLinkClassName="templatiq-pagination__active"
+								renderOnZeroPageCount={ null }
+							/>
+						) }
 					</div>
 				</Tabs>
 			</TemplatePackStyle>

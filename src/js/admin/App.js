@@ -18,6 +18,8 @@ import TemplatePack from './pages/TemplatePack';
 
 import Pages from './pages/Pages'; 
 import Blocks from './pages/Blocks'; 
+import SignIn from './pages/Signin';
+import SignUp from './pages/Signup';
 
 export default function App() {
 	const [ dir, setDir ] = useState( 'ltr' );
@@ -53,6 +55,14 @@ export default function App() {
 		{
 			path: `/blocks`,
 			element: <Blocks />,
+		},
+		{
+			path: `/signin`,
+			element: <SignIn />,
+		},
+		{
+			path: `/signup`,
+			element: <SignUp />,
 		},
 	] ;
 

@@ -3,6 +3,11 @@ import ReactSVG from 'react-inlinesvg';
 import Dropdown from '@components/Dropdown';
 import checkedClickedOutside from '@helper/checkClickedOutside';
 
+import {
+	Link,
+	useNavigate
+} from 'react-router-dom';
+
 import { HeaderStyle, HeaderNavStyle, HeaderActionStyle } from "./style";
 
 import Logo from "@images/logo.svg";
@@ -44,6 +49,12 @@ const Header = () =>  {
 		},
 	];
 
+	const navigate = useNavigate();
+
+	const handleGoBack = () => {
+		navigate(-1);
+	};
+
 	const ref = useRef( null );
 	const handleToggleAuthorInfo = (e) => {
 		e.preventDefault();
@@ -60,40 +71,40 @@ const Header = () =>  {
 			{
 				templateDetailsPage ?
 				<div className="templatiq__header__details">
-					<a href="#" className="templatiq__header__details__logo">
+					<Link to="/" className="templatiq__header__details__logo">
 						<img src={Fav} alt="Logo" />
-					</a>
-					<a href="#" className="templatiq__header__details__return">
+					</Link>
+					<button className="templatiq__header__details__return" onClick={handleGoBack}>
 						<ReactSVG src={ backIcon } width={12} height={12} />
 						Back to Library
-					</a>
+					</button>
 				</div> : 
 				<div className="templatiq__header__logo">
-					<a href="#">
+					<Link to="/">
 						<img src={Logo} alt="Logo" />
-					</a>
+					</Link>
 				</div>
 			}
 				
 			<div className="templatiq__header__content">
 				<HeaderNavStyle className="templatiq__header__nav">
 					<li className="templatiq__header__item">
-						<a href="/template-pack" className={`templatiq__header__link active`}>
+						<Link to="/template-pack" className={`templatiq__header__link active`}>
 							<ReactSVG src={ fileIcon } width={18} height={18} />
 							Template Pack
-						</a>
+						</Link>
 					</li>
 					<li className="templatiq__header__item">
-						<a href="/pages" className={`templatiq__header__link`}>
+						<Link to="/pages" className={`templatiq__header__link`}>
 							<ReactSVG src={ pagesIcon } width={18} height={18} />
 							Pages
-						</a>
+						</Link>
 					</li>
 					<li className="templatiq__header__item">
-						<a href="/blocks" className={`templatiq__header__link`}>
+						<Link to="/blocks" className={`templatiq__header__link`}>
 							<ReactSVG src={ blocksIcon } width={18} height={18} />
 							Blocks
-						</a>
+						</Link>
 					</li>
 				</HeaderNavStyle>
 				
@@ -156,10 +167,10 @@ const Header = () =>  {
 								}
 								
 							</div> : 
-							<a href="#" className="templatiq__header__action__link templatiq-btn">
+							<Link to="/signin" className="templatiq__header__action__link templatiq-btn">
 								<ReactSVG src={ userIcon } width={14} height={14} />
 								Login
-							</a> 
+							</Link> 
 						}
 					</div>
 				</HeaderActionStyle>
