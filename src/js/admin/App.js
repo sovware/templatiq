@@ -15,7 +15,6 @@ import { updateGlobalState } from '@helper/utils';
 import { ThemeProvider } from 'styled-components';
 
 
-import Dashboard from './pages/Dashboard';
 import TemplatePack from './pages/TemplatePack';
 import TemplateDetails from './pages/TemplateDetails';
 
@@ -55,10 +54,6 @@ export default function App() {
 		{
 			path: `/*`,
 			element: <TemplatePack />,
-		},
-		{
-			path: `/dashboard`,
-			element: <Dashboard />,
 		},
 		{
 			path: '/pages',

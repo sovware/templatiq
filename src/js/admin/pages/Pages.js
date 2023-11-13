@@ -1,6 +1,11 @@
+import TemplatePackModule from '@modules/TemplatePack';
 
 export default function Pages() {
+	let isLoggedIn = false;
+
 	return (
-		<h2>Pages</h2>
+		<>
+			<TemplatePackModule />
+		</>
 	);
 }

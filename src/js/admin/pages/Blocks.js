@@ -1,6 +1,11 @@
+import TemplatePackModule from '@modules/TemplatePack';
 
 export default function Blocks() {
+	let isLoggedIn = false;
+
 	return (
-		<h2>Blocks</h2>
+		<>
+			<TemplatePackModule />
+		</>
 	);
 }
