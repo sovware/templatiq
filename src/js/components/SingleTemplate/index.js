@@ -10,11 +10,8 @@ import downloadIcon from "@icon/download-alt.svg";
 import templateImg1 from "@images/template/1.svg";
 
 const SingleTemplate = (item) => {
-    let { id, slug, img, title, price, downloadCount, favoriteCount } = item;
-    let categories = item.categories;
-    let requiredPlugins = item.requiredPlugins;
+    let { slug, previewURL, purchaseURL, img, title, price, downloadCount, favoriteCount, categories, requiredPlugins } = item;
 
-    // let addedToFavorite = false;
 	const [addedToFavorite, addFavorite] = useState(false);
 
     function handleFavorite( e ) {
@@ -35,21 +32,21 @@ const SingleTemplate = (item) => {
                 <div className="templatiq__template__single__info">
                     <div className="templatiq__template__single__info__meta">
                         {
-                            price ?
-                                <span className="templatiq__template__single__info__meta__item pro-item">
-                                    <ReactSVG src={ crownIcon } width={16} height={16} />
-                                    Pro
-                                </span> : ''
+                            price > 0 ?
+                            <span className="templatiq__template__single__info__meta__item pro-item">
+                                <ReactSVG src={ crownIcon } width={16} height={16} />
+                                Pro
+                            </span> : ''
                         }
                         
                     </div>
                     <div className="templatiq__template__single__info__action">
-                        <a href="#" className="templatiq__template__single__info__action__link">
+                        <a href={previewURL} className="templatiq__template__single__info__action__link">
                             Live Demo
                         </a>
                         {
-                            price ? 
-                            <a href="#" className="templatiq__template__single__info__action__link purchase-btn">
+                            price > 0 ? 
+                            <a href={purchaseURL} className="templatiq__template__single__info__action__link purchase-btn">
                                 <ReactSVG src={ cartIcon } width={14} height={14} />
                                 Purchase
                             </a> :
@@ -62,8 +59,8 @@ const SingleTemplate = (item) => {
                     </div>
                     <div className="templatiq__template__single__info__required">
                         {requiredPlugins && requiredPlugins.map((plugin, index) => (
-                            <a key={index} href={plugin.url} className="templatiq__template__single__info__required__item templatiq-tooltip" data-info={plugin.name}>
-                                <ReactSVG src={ plugin.icon } width={28} height={28} />
+                            <a key={index} href="#" className="templatiq__template__single__info__required__item templatiq-tooltip" data-info={plugin.name}>
+                                <img src={`/svg/icon/${plugin.slug}.svg`} width={28} height={28} />
                             </a>
                         ))}
                     </div>
@@ -75,12 +72,12 @@ const SingleTemplate = (item) => {
                 </h3>
                 <div className="templatiq__template__single__cat">
                     {categories && categories.map((category, index) => (
-                        <a key={index} href={category.url} className="templatiq__template__single__cat__link">{category.name}</a>
+                        <a key={index} href="#" className="templatiq__template__single__cat__link">{category}</a>
                     ))}
                 </div>
                 <div className="templatiq__template__single__quickmeta">
                     {
-                        price ?
+                        price > 0 ?
                         <span className="templatiq__template__single__quickmeta__item pro-item">{`${price ? '$' + price : ''}`}
                         </span> :
                         <span className="templatiq__template__single__quickmeta__item free-item">Free</span>

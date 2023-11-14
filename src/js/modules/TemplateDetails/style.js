@@ -114,6 +114,14 @@ const TemplateDetailsHeaderStyle = Styled.div`
         &.templatiq-badge {
             height: 32px;
         }
+        &.add-to-favorite {
+            &.active {
+                background: var(--templatiq-primary-color);
+                path {
+                    fill: var(--templatiq-white-color);
+                }
+            }
+        }
     }
 `;
 

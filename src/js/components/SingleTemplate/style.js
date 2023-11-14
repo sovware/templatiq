@@ -3,6 +3,8 @@ import Styled from 'styled-components';
 const SingleTemplateStyle = Styled.div`
     display: flex;
     gap: 20px;
+    flex: 1;
+    min-width: 375px;
     flex-direction: column;
     background: var(--templatiq-white-color);
     padding: 20px 20px 24px;

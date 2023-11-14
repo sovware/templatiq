@@ -36,8 +36,9 @@ export default function TemplatePackModule() {
 	if (error) return 'An error has occurred: ' + error.message;
 
 	let allTemplates = data.templates;
-	console.log('allTemplates: ', allTemplates);
 
+	let proTemplates = allTemplates.filter(template => template.price > 0);
+	let freeTemplates = allTemplates.filter(template => template.price <= 0);
 
 	return (
 		<AppLayout>
@@ -52,15 +53,15 @@ export default function TemplatePackModule() {
 							<TemplatePackFilterStyle className="templatiq__content__top__filter__wrapper">
 								<TabList className="templatiq__content__top__filter__tablist">
 									<Tab className="templatiq__content__top__filter__item">
-										<a href="#" className="templatiq__content__top__filter__link">All (24)</a>
+										<a href="#" className="templatiq__content__top__filter__link">All ({allTemplates.length})</a>
 									</Tab>
 									<Tab className="templatiq__content__top__filter__item">
-										<a href="#" className="templatiq__content__top__filter__link">Free (8)</a>
+										<a href="#" className="templatiq__content__top__filter__link">Free ({freeTemplates.length})</a>
 									</Tab>
 									<Tab className="templatiq__content__top__filter__item">
 										<a href="#" className="templatiq__content__top__filter__link">
 											<ReactSVG src={crownIcon} width={12} height={12} />
-											Pro (16)
+											Pro ({proTemplates.length})
 										</a>
 									</Tab>
 								</TabList>
@@ -84,43 +85,43 @@ export default function TemplatePackModule() {
 									favoriteCount = {template.number_of_bookmarks} 
 									requiredPlugins = {template.required_plugins}
 									categories = {template.categories}
+									purchaseURL = {template.purchase_url}
+									previewURL = {template.preview_link}
 								/>
 							))
 						}
 						</TabPanel>
 						<TabPanel className="templatiq__content__tab-panel">
-						{allTemplates
-							.filter(template => template.price === "")
+						{freeTemplates
 							.map(template => (
 								<SingleTemplate 
-									// img = {template.img}
-									slug = {template.slug} 
-									img = {templateImg1} 
-									title = {template.title} 
-									price = {template.price} 
-									downloadCount = {template.downloadCount} 
-									favoriteCount = {template.favoriteCount} 
-									requiredPlugins = {template.requiredPlugins}
-									categories = {template.categories}
-								
-								/>
-							))
-						}
-						</TabPanel>
-						<TabPanel className="templatiq__content__tab-panel">
-						{allTemplates
-							.filter(template => template.price !== "")
-							.map(template => (
-								<SingleTemplate 
-									slug = {template.slug}
 									img = {template.thumbnail} 
+									slug = {template.slug}
+									title = {template.title} 
+									downloadCount = {template.number_of_downloads} 
+									favoriteCount = {template.number_of_bookmarks} 
+									requiredPlugins = {template.required_plugins}
+									categories = {template.categories}
+									purchaseURL = {template.purchase_url}
+									previewURL = {template.preview_link}
+								/>
+							))
+						}
+						</TabPanel>
+						<TabPanel className="templatiq__content__tab-panel">
+						{proTemplates
+							.map(template => (
+								<SingleTemplate 
+									img = {template.thumbnail} 
+									slug = {template.slug}
 									title = {template.title} 
 									price = {template.price} 
-									downloadCount = {template.downloadCount} 
-									favoriteCount = {template.favoriteCount} 
-									requiredPlugins = {template.requiredPlugins}
+									downloadCount = {template.number_of_downloads} 
+									favoriteCount = {template.number_of_bookmarks} 
+									requiredPlugins = {template.required_plugins}
 									categories = {template.categories}
-								
+									purchaseURL = {template.purchase_url}
+									previewURL = {template.preview_link}
 								/>
 							))
 						}

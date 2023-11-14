@@ -1,10 +1,10 @@
+import { useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { TemplateDetailsStyle, TemplateDetailsHeaderStyle, TemplateDetailsWidgetStyle } from './style';
 import TemplateDetailsLayout from './TemplateDetailsLayout';
 import Popup from "@components/Popup";
 
 import { useQuery } from '@tanstack/react-query';
-import templatesData from '@data/template.json';
 
 import crownIcon from '@icon/crown.svg';
 import cartIcon from "@icon/cart.svg";
@@ -13,20 +13,26 @@ import fireIcon from "@icon/fire.svg";
 import downloadIcon from "@icon/download.svg";
 import downloadAltIcon from "@icon/download-alt.svg";
 import checkIcon from "@icon/check-alt.svg";
-import elementorIcon from "@icon/elementor.svg";
-import directoristIcon from "@icon/directorist.svg";
 
 import templateImg1 from "@images/template/details1.svg";
 
 export default function TemplateDetailsModule(props) {
+	const [addedToFavorite, addFavorite] = useState(false);
 	const { templateSlug } = props;
 
-	const { isLoading, error, data } = useQuery(['templates'], () => templatesData);
+	const { isLoading, error, data } = useQuery(['templates'], () => fetch('http://templatemarket.local/wp-json/templatiq/template/library').then(res =>
+		res.json()
+	));
 	if (isLoading) return 'Loading...';
 	if (error) return 'An error has occurred: ' + error.message;
 
 	// Retrive Template Details Data
-	const { id, slug, img, title, price, downloadCount, favoriteCount, builders, types, categories, requiredPlugins } = data.filter(template => template.slug == templateSlug)[0];
+	const { thumbnail, title, price, number_of_downloads, number_of_bookmarks, purchase_url, preview_link, builder, type, categories, requiredPlugins } = data.templates.filter(template => template.slug == templateSlug)[0];
+
+	function handleFavorite( e ) {
+		e.preventDefault();
+		addFavorite( ! addedToFavorite );
+	}
 
 	let addModal = (e) => {
         e.preventDefault();
@@ -42,18 +48,18 @@ export default function TemplateDetailsModule(props) {
 						<h2 className="templatiq__details__header__title">{title}</h2>
 						<div className="templatiq__details__header__meta">
 							{
-								downloadCount ? 
+								number_of_downloads ? 
 								<span className="templatiq__details__header__meta__item">
 									<ReactSVG src={ downloadAltIcon } width={16} height={16} />
-									Used by {downloadCount} people
+									Used by {number_of_downloads} people
 								</span> :
 								''
 							}
 							{
-								favoriteCount ? 
+								number_of_bookmarks ? 
 								<span className="templatiq__details__header__meta__item">
 									<ReactSVG src={ heartIcon } width={16} height={16} />
-									Loved by {favoriteCount} people
+									Loved by {number_of_bookmarks} people
 								</span> :
 								''
 							}
@@ -62,22 +68,22 @@ export default function TemplateDetailsModule(props) {
 					</div>
 					<div className="templatiq__details__header__action">
 						{
-							price ? 
+							price > 0 ? 
 							<span className="templatiq__details__header__action__link templatiq-badge templatiq-badge-dark">
 								<ReactSVG src={ crownIcon } width={16} height={16} />
 								PRO
 							</span> :
 							''
 						}
-						<a href="#" className="templatiq__details__header__action__link add-to-favorite templatiq-btn templatiq-btn-white">
+						<a href="#" className={`templatiq__details__header__action__link add-to-favorite templatiq-btn templatiq-btn-white ${addedToFavorite ? 'active' : ''}`} onClick={handleFavorite}>
 							<ReactSVG src={ heartIcon } width={16} height={16} />
 						</a>
-						<a href="#" className="templatiq__details__header__action__link live-demo-btn templatiq-btn templatiq-btn-white">
+						<a href={preview_link} className="templatiq__details__header__action__link live-demo-btn templatiq-btn templatiq-btn-white">
 							Live Demo
 						</a> 
 						{
-							price ?
-							<a href="#" className="templatiq__details__header__action__link purchase-btn templatiq-btn templatiq-btn-primary">
+							price > 0 ?
+							<a href={purchase_url} className="templatiq__details__header__action__link purchase-btn templatiq-btn templatiq-btn-primary">
 								<ReactSVG src={ cartIcon } width={16} height={16} />
 								Buy this item  ${price}
 							</a> :
@@ -93,7 +99,7 @@ export default function TemplateDetailsModule(props) {
 				<div className="templatiq__details__wrapper">
 					<div className="templatiq__details__content">
 						<div className="templatiq__details__img">
-							<img src={ templateImg1 } alt="Template Pack Pro" />
+							<img src={ thumbnail ? thumbnail : templateImg1 } alt="Template Pack Pro" />
 						</div>
 						<div className="templatiq__details__content__single">
 							<h3 className="templatiq__details__content__single__title">Overview</h3>
@@ -166,30 +172,25 @@ export default function TemplateDetailsModule(props) {
 							<div className="templatiq__details__widget__content">
 								<div className="templatiq__details__widget__content__single">
 									<span className="templatiq__details__widget__content__title">Template Type:</span>
-									{types && types.map((type, index) => (
-										<span key={index} className="templatiq__details__widget__content__info">{type.name}</span>
-									))}
-									
+									{type && <span className="templatiq__details__widget__content__info">{type}</span>}
 								</div>
 								<div className="templatiq__details__widget__content__single">
 									<span className="templatiq__details__widget__content__title">Category:</span>
 									{categories && categories.map((category, index) => (
-										<span key={index} className="templatiq__details__widget__content__info">{category.name}</span>
+										<span key={index} className="templatiq__details__widget__content__info">{category}</span>
 									))}
 								</div>
 								<div className="templatiq__details__widget__content__single">
 									<span className="templatiq__details__widget__content__title">Builder:</span>
-									{builders && builders.map((builder, index) => (
-										<span key={index} className="templatiq__details__widget__content__info">{builder.name}</span>
-									))}
+									{builder && <span className="templatiq__details__widget__content__info">{builder}</span>}
 								</div>
 
 								<div className="templatiq__details__widget__content__single required-plugins">
 									<span className="templatiq__details__widget__content__title">Required Plugins:</span>
 									<div className="templatiq__details__widget__content__required-plugins">
 										{requiredPlugins && requiredPlugins.map((plugin, index) => (
-												<a key={index} href={plugin.url} className="templatiq__details__widget__content__required-plugins__link templatiq-tooltip" data-info="Directorist">
-												<ReactSVG src={ plugin.icon } width={30} height={30} />
+											<a key={index} href="#" className="templatiq__details__widget__content__required-plugins__link templatiq-tooltip" data-info={plugin.name}>
+												<ReactSVG src={`/svg/icon/${plugin.slug}.svg`} width={30} height={30} />
 											</a>
 										))}
 									</div>
