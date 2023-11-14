@@ -2,7 +2,33 @@ import { useState } from '@wordpress/element';
 import { Link } from 'react-router-dom';
 import { AuthStyle } from "@root/style";
 
-export default function SignInContent() {
+import { useMutation } from '@tanstack/react-query';
+
+// api.js - a file to store your API functions
+export const login = async (credentials) => {
+	console.log("Check credentials: ", credentials)
+	// Replace this with your actual API endpoint
+	const response = await fetch('http://templatemarket.local/wp-json/templatiq/account/login', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(credentials),
+	});
+  
+	if (!response.ok) {
+	  	throw new Error('Login failed');
+	}
+
+	console.log('Response: ', response)
+  
+	return response.json();
+};
+  
+
+export default function SignInContent () {
+
+	const mutation = useMutation(login);
 	const [formData, setFormData] = useState({
 		authorEmail: "sample@gmail.com",
 		authorPassword: "123456",
@@ -17,8 +43,25 @@ export default function SignInContent() {
 
 	const handleData = (e) => {
 		e.preventDefault(); 
+		handleLogin({ username: authorEmail.value, password: authorPassword.value });
 	};
 
+	const handleLogin = async (credentials) => {
+		console.log('Credentials: ', credentials)
+		try {
+			// Call the mutation function with the user's credentials
+
+			const result = await mutation.mutateAsync(credentials);
+			if (result.success) {
+				console.log('Login successful');
+			} else {
+				console.error('Login failed', result.message);
+			}
+		} catch (error) {
+		  	console.error('Error', error); // Handle error
+		}
+	};
+	
 
 	return (
 		<AuthStyle className="templatiq__auth">
