@@ -1,4 +1,4 @@
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { Link } from 'react-router-dom';
 import { SingleTemplateStyle } from './style';
@@ -13,16 +13,24 @@ const SingleTemplate = (item) => {
     let { slug, previewURL, purchaseURL, img, title, price, downloadCount, favoriteCount, categories, requiredPlugins } = item;
 
 	const [addedToFavorite, addFavorite] = useState(false);
+    const [currentFavoriteCount, setCurrentFavoriteCount] = useState(favoriteCount);
 
-    function handleFavorite( e ) {
-		e.preventDefault();
-		addFavorite( ! addedToFavorite );
-	}
 
     let addModal = (e) => {
         e.preventDefault();
         document.querySelector(".templatiq").classList.add("templatiq-overlay-enable");
     }
+ 
+    let handleFavorite = ( e ) => {
+		e.preventDefault();
+		addFavorite( ! addedToFavorite );
+	}
+    
+    useEffect(() => {
+        // This will be triggered whenever addedToFavorite changes
+        setCurrentFavoriteCount(addedToFavorite ? Number(currentFavoriteCount) + 1 : favoriteCount);
+    }, [addedToFavorite]);
+      
 
     return (
         <SingleTemplateStyle className="templatiq__template__single">
@@ -89,7 +97,7 @@ const SingleTemplate = (item) => {
                     </span>
                     <a href="#" className={`templatiq__template__single__quickmeta__item favorite-btn templatiq-tooltip ${addedToFavorite ? 'active' : ''}`} data-info={addedToFavorite ? 'Added to Favourite' : 'Add to Favourite'} onClick={handleFavorite}>
                         <ReactSVG src={ heartIcon } width={14} height={14} />
-                        {favoriteCount ? favoriteCount : ''}
+                        {currentFavoriteCount ? currentFavoriteCount : ''}
                     </a>
                 </div>
             </div>
