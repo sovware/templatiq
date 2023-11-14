@@ -1,6 +1,15 @@
+import AppLayout from '@layout/AppLayout';
+import { TemplatePackStyle } from "@root/style";
+import AllTemplates from "@components/AllTemplates";
 
-export default function Favorites() {
+export default function MyFavoritesModule() {
 	return (
-		<h2>Favorites</h2>
+		<AppLayout>
+			<div className="templatiq__content templatiq__content--dashboard"> 
+				<TemplatePackStyle className="templatiq__content">
+					<AllTemplates />
+				</TemplatePackStyle>
+			</div>
+		</AppLayout>
 	);
 }

@@ -1,9 +1,13 @@
-import DashboardLayout from "./DashboardLayout";
+
+import AppLayout from "@layout/AppLayout";
+import MyFavorites from "./Favorites";
 
 export default function DashboardModule() {
 	return (
-		<DashboardLayout>
-			<h2>ALl Template</h2>
-		</DashboardLayout>
+		<AppLayout>
+			<div className="templatiq__content">
+				<MyFavorites />
+			</div>
+		</AppLayout>
 	);
 }

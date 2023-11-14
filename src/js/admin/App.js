@@ -6,6 +6,7 @@ import {
 	Route,
 	Link,
 	NavLink,
+	Switch,
 	useNavigate,
 	useParams,
 	useLocation,
@@ -15,10 +16,17 @@ import { ThemeProvider } from 'styled-components';
 
 
 import TemplatePack from './pages/TemplatePack';
+import TemplateDetails from './pages/TemplateDetails';
 
-import AppLayout from '../layout/AppLayout';
 import Pages from './pages/Pages'; 
 import Blocks from './pages/Blocks'; 
+import SignIn from './pages/SIgnin';
+import SignUp from './pages/Signup';
+
+import MyFavorites from "./pages/dashboard/Favorites";
+import MyDownloads from "./pages/dashboard/Downloads";
+import MyPurchase from "./pages/dashboard/Purchase";
+import MyAccount from "./pages/dashboard/Account";
 
 export default function App() {
 	const [ dir, setDir ] = useState( 'ltr' );
@@ -55,10 +63,38 @@ export default function App() {
 			path: `/blocks`,
 			element: <Blocks />,
 		},
+		{
+			path: `/template/:slug`,
+			element: <TemplateDetails />,
+		},
+		{
+			path: `/signin`,
+			element: <SignIn />,
+		},
+		{
+			path: `/signup`,
+			element: <SignUp />,
+		},
+		{
+			path: `/dashboard/*`,
+			element: <MyFavorites />,
+		},
+		{
+			path: `/dashboard/downloads`,
+			element: <MyDownloads />,
+		},
+		{
+			path: '/dashboard/purchase',
+			element: <MyPurchase />,
+		},
+		{
+			path: `/dashboard/account`,
+			element: <MyAccount />,
+		},
 	] ;
 
 	return (
-		<AppLayout>
+		<>
 			<HashRouter>
 				<Suspense fallback={ <></> }>
 					<ThemeProvider theme={ theme }>
@@ -76,6 +112,6 @@ export default function App() {
 					</ThemeProvider>
 				</Suspense>
 			</HashRouter>
-		</AppLayout>
+		</>
 	);
 }

@@ -1,11 +1,13 @@
 import Styled from 'styled-components';
 
+import chevronIcon from '@icon/chevron-down-solid.svg';
+
 const HeaderStyle = Styled.div`
     height: 70px;
     display: flex;
     align-items: center;
-    background: #ffffff;
-    box-shadow: 0 2px 4px #10101404;
+    background: var(--templatiq-white-color);
+    box-shadow: 0 2px 4px var(--templatiq-dark-color)04;
     .templatiq__header__logo {
         flex: 0 0 256px;
         max-width: 256px;
@@ -20,6 +22,29 @@ const HeaderStyle = Styled.div`
         align-items: center;
         margin-inline-end: 32px;
         justify-content: space-between;
+    }
+    .templatiq__header__details {
+        display: flex;
+        gap: 22px;
+        align-items: center;
+        margin-inline-start: 24px;
+        padding-inline-end: 48px;
+        a {
+            max-height: 30px;
+        }
+    }
+    .templatiq__header__details__return {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 600;
+        background: transparent;
+        cursor: pointer;
+        color: var(--templatiq-body-color);
+        path {
+            fill: var(--templatiq-body-color);
+        }
     }
 `;
 const HeaderNavStyle = Styled.ul`
@@ -38,10 +63,10 @@ const HeaderNavStyle = Styled.ul`
         font-size: 14px;
         font-weight: 500;
         height: 70px;
-        color: #57575F;
+        color: var(--templatiq-body-color);
         text-decoration: none;
         path {
-            fill: #57575F;
+            fill: var(--templatiq-body-color);
             transition: fill 0.3s ease;
         }
         &:before {
@@ -55,13 +80,13 @@ const HeaderNavStyle = Styled.ul`
         }
         &:hover,
         &.active {
-            color: #8941FF;
+            color: var(--templatiq-primary-color);
             path {
-                fill: #8941FF;
+                fill: var(--templatiq-primary-color);
             }
             &:before {
                 width: 100%;
-                background: #8941FF;
+                background: var(--templatiq-primary-color);
             }
         }
     }
@@ -70,30 +95,74 @@ const HeaderActionStyle = Styled.div`
     display: flex;
     gap: 32px;
     align-items: center;
-    .templatiq__header__action__link {
+    .templatiq__header__action__author {
+        position: relative;
         display: flex;
-        gap: 10px;
+        gap: 8px;
         align-items: center;
-        height: 36px;
-        padding: 0 12px;
+        padding-inline-end: 24px;
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: 500;
+        box-shadow: none;
+        color: var(--templatiq-dark-color);
+        img {
+            max-width: 32px;
+        }
+        &:after {
+            content: url(${chevronIcon});
+            position: absolute;
+            inset-inline-end: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            line-height: 1;
+            color: var(--templatiq-light-color);
+        }
+    }
+    .templatiq__header__author__wrapper {
+        position: relative;
+    }
+    .templatiq__header__author__info {
+        position: absolute;
+        top: 100%;
+        inset-inline-end: 0;
+        min-width: 250px;
+        padding: 12px 8px;
         border-radius: 8px;
-        color: #57575F;
+        box-sizing: border-box;
+        background: var(--templatiq-white-color);
+        box-shadow: 0 15px 40px -5px var(--templatiq-dark-color)1;
+    }
+    .templatiq__header__author__info__link {
+        position: relative;
+        display: flex;
+        gap: 12px;
+        align-items: center;
         font-size: 14px;
         font-weight: 500;
-        background-color: #F1F1F4;
+        height: 46px;
+        background: transparent;
+        padding-inline-start: 24px;
+        color: var(--templatiq-body-color);
         box-shadow: none;
-        transition: background-color 0.3s ease;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: background 0.3s ease;
         path {
-            fill: #57575F;
+            fill: var(--templatiq-body-color);
             transition: fill 0.3s ease;
         }
+        &.active,
         &:hover {
-            color: #ffffff;
-            background-color: #8941FF;
+            color: var(--templatiq-primary-color);
+            background: var(--templatiq-primary-transparent);
             path {
-                fill: #ffffff;
+                fill: var(--templatiq-primary-color);
             }
         }
+    }
+    .templatiq__header__author__info__item--logout {
+        border-top: 1px solid var(--templatiq-sec-color);
     }
 `;
 

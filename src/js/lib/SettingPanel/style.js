@@ -29,7 +29,7 @@ const SettingPanelStyle = Styled.div`
     .templatiq-settings-panel-search-input {
         min-width: 250px;
         padding: 0 20px;
-        color: #fff;
+        color: var(--templatiq-white-color);
         border: none;
         background: rgba(255,255,255, 0.2);
         min-height: 40px;
@@ -43,7 +43,7 @@ const SettingPanelStyle = Styled.div`
         bottom: 0;
         transform: translate(0px, 100%);
         box-shadow: 0 0 20px -8px rgba(0,0,0,0.3);
-        background: #fff;
+        background: var(--templatiq-white-color);
     }
 
     .templatiq-settings-panel-search-result-link {
@@ -78,7 +78,7 @@ const SettingPanelStyle = Styled.div`
 
     .templatiq-settings-panel-body {
         display: flex;
-        background: #ffffff;
+        background: var(--templatiq-white-color);
     }
 
     .templatiq-settings-panel-nav {
@@ -126,7 +126,7 @@ const SettingPanelStyle = Styled.div`
         &.--is-active {
             border-left: 2px solid var(--templatiq-primary-button-bg );
             box-shadow: 0 5px 20px rgba(161, 168, 198 , 0.2);
-            background: #ffffff;
+            background: var(--templatiq-white-color);
             + .templatiq-settings-panel-nav-menu-dropdown {
                 display: block;
             }
@@ -177,7 +177,7 @@ const SettingPanelStyle = Styled.div`
 
     .templatiq-settings-panel-save-status {
         padding: 0 30px;
-        color: #fff;
+        color: var(--templatiq-white-color);
         &.--has-success {
             color: #86f224;
         }
@@ -187,7 +187,7 @@ const SettingPanelStyle = Styled.div`
     }
 
     .templatiq-settings-panel-breadcrumb {
-        color: #fff;
+        color: var(--templatiq-white-color);
         font-size: 14px;
         font-weight: 500;
         display: flex;
@@ -197,7 +197,7 @@ const SettingPanelStyle = Styled.div`
         display: inline-block;
         color: rgba( 255,255,255, 0.6 );
         &.--is-active {
-            color: #fff;
+            color: var(--templatiq-white-color);
         }
     }
 
@@ -337,7 +337,7 @@ const SettingPanelStyle = Styled.div`
 
     .templatiq-dropdown-btn.templatiq-btn-dark {
         svg path {
-            fill: #fff;
+            fill: var(--templatiq-white-color);
         }
 
         &:hover {

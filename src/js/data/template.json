@@ -1,49 +1,56 @@
 [
     {
-      "img": "templateImg1",
+      "template_id": 1,
+      "slug": "ddoctors",
+      "thumbnail": "templateImg1",
       "title": "DDoctors",
       "price": "20",
-      "downloadCount": "24",
-      "favoriteCount": "52",
+      "number_of_downloads": "24",
+      "number_of_bookmarks": "52",
+      "type": "Page",
+      "builder": "Elementor",
+      "categories": [ "Directorist Core", "Pricing Plan"],
       "requiredPlugins": [
         {
           "name": "Directorist",
-          "icon": "directoristIcon",
-          "url": "#"
+          "slug": "directorist",
+          "file_name": "#"
         },
         {
           "name": "Elementor",
-          "icon": "elementorIcon",
-          "url": "#"
-        }
-      ],
-      "categories": [
-        {
-          "name": "Directorist Core",
-          "url": "#"
-        },
-        {
-          "name": "Pricing Plan",
-          "url": "#"
+          "slug": "elementor",
+          "file_name": "#"
         }
       ]
     },
     {
+      "id": 2,
+      "slug": "dhotels",
       "img": "templateImg2",
       "title": "DHotels",
       "price": "25",
       "downloadCount": "35",
       "favoriteCount": "63",
       "isPurchased": true,
-      "requiredPlugins": [
+      "types": [
         {
-          "name": "Directorist",
-          "icon": "directoristIcon",
-          "url": "#"
+          "name": "Premium",
+          "icon": "premiumIcon"
         },
+        {
+          "name": "Demo",
+          "icon": "demoIcon"
+        }
+      ],
+      "builders": [
         {
           "name": "Elementor",
           "icon": "elementorIcon",
+          "url": "#"
+        },
+        {
+          "name": "Gutenberg",
+          "icon": "gutenbergIcon",
           "url": "#"
         }
       ],
@@ -56,23 +63,47 @@
           "name": "Pricing Plan",
           "url": "#"
         }
+      ],
+      "requiredPlugins": [
+        {
+          "name": "Directorist",
+          "icon": "directoristIcon",
+          "url": "#"
+        },
+        {
+          "name": "Elementor",
+          "icon": "elementorIcon",
+          "url": "#"
+        }
       ]
     },
     {
+      "id": 3,
+      "slug": "dclassified",
       "img": "templateImg3",
       "title": "DClassified",
       "price": "32",
       "downloadCount": "28",
       "favoriteCount": "39",
-      "requiredPlugins": [
+      "types": [
         {
-          "name": "Directorist",
-          "icon": "directoristIcon",
-          "url": "#"
+          "name": "Premium",
+          "icon": "premiumIcon"
         },
+        {
+          "name": "Demo",
+          "icon": "demoIcon"
+        }
+      ],
+      "builders": [
         {
           "name": "Elementor",
           "icon": "elementorIcon",
+          "url": "#"
+        },
+        {
+          "name": "Gutenberg",
+          "icon": "gutenbergIcon",
           "url": "#"
         }
       ],
@@ -85,24 +116,48 @@
           "name": "Pricing Plan",
           "url": "#"
         }
+      ],
+      "requiredPlugins": [
+        {
+          "name": "Directorist",
+          "icon": "directoristIcon",
+          "url": "#"
+        },
+        {
+          "name": "Elementor",
+          "icon": "elementorIcon",
+          "url": "#"
+        }
       ]
     },
     {
+      "id": 4,
+      "slug": "onelisting",
       "img": "templateImg2",
       "title": "Onelisting",
       "price": "",
       "downloadCount": "27",
       "favoriteCount": "42",
       "isPurchased": true,
-      "requiredPlugins": [
+      "types": [
         {
-          "name": "Directorist",
-          "icon": "directoristIcon",
-          "url": "#"
+          "name": "Free",
+          "icon": "freeIcon"
         },
+        {
+          "name": "Demo",
+          "icon": "demoIcon"
+        }
+      ],
+      "builders": [
         {
           "name": "Elementor",
           "icon": "elementorIcon",
+          "url": "#"
+        },
+        {
+          "name": "Gutenberg",
+          "icon": "gutenbergIcon",
           "url": "#"
         }
       ],
@@ -115,24 +170,48 @@
           "name": "Pricing Plan",
           "url": "#"
         }
+      ],
+      "requiredPlugins": [
+        {
+          "name": "Directorist",
+          "icon": "directoristIcon",
+          "url": "#"
+        },
+        {
+          "name": "Elementor",
+          "icon": "elementorIcon",
+          "url": "#"
+        }
       ]
     },
     {
+      "id": 5,
+      "slug": "dcourse",
       "img": "templateImg1",
       "title": "DCourse",
       "price": "",
       "downloadCount": "17",
       "favoriteCount": "12",
       "isPurchased": true,
-      "requiredPlugins": [
+      "types": [
         {
-          "name": "Directorist",
-          "icon": "directoristIcon",
-          "url": "#"
+          "name": "Free",
+          "icon": "freeIcon"
         },
+        {
+          "name": "Demo",
+          "icon": "demoIcon"
+        }
+      ],
+      "builders": [
         {
           "name": "Elementor",
           "icon": "elementorIcon",
+          "url": "#"
+        },
+        {
+          "name": "Gutenberg",
+          "icon": "gutenbergIcon",
           "url": "#"
         }
       ],
@@ -145,24 +224,48 @@
           "name": "Pricing Plan",
           "url": "#"
         }
+      ],
+      "requiredPlugins": [
+        {
+          "name": "Directorist",
+          "icon": "directoristIcon",
+          "url": "#"
+        },
+        {
+          "name": "Elementor",
+          "icon": "elementorIcon",
+          "url": "#"
+        }
       ]
     },
     {
+      "id": 6,
+      "slug": "dlist",
       "img": "templateImg3",
       "title": "dList",
       "price": "",
       "downloadCount": "22",
       "favoriteCount": "32",
       "isPurchased": true,
-      "requiredPlugins": [
+      "types": [
         {
-          "name": "Directorist",
-          "icon": "directoristIcon",
-          "url": "#"
+          "name": "Free",
+          "icon": "freeIcon"
         },
+        {
+          "name": "Demo",
+          "icon": "demoIcon"
+        }
+      ],
+      "builders": [
         {
           "name": "Elementor",
           "icon": "elementorIcon",
+          "url": "#"
+        },
+        {
+          "name": "Gutenberg",
+          "icon": "gutenbergIcon",
           "url": "#"
         }
       ],
@@ -173,6 +276,18 @@
         },
         {
           "name": "Pricing Plan",
+          "url": "#"
+        }
+      ],
+      "requiredPlugins": [
+        {
+          "name": "Directorist",
+          "icon": "directoristIcon",
+          "url": "#"
+        },
+        {
+          "name": "Elementor",
+          "icon": "elementorIcon",
           "url": "#"
         }
       ]

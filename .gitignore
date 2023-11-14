@@ -9,7 +9,7 @@ testing.html
 plugin-bundle/*.zip
 node_modules/
 vendor/
-assets/
+assets/**
 maps
 composer.lock
 phpcs.xml

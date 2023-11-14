@@ -1,7 +1,7 @@
-import React from 'react';
-import Header from './Header/index.js';
-import Sidebar from './Sidebar/index.js';
-import AdminSidebar from './Sidebar/AdminSidebar.js';
+
+import Header from '@layout/Header';
+import Sidebar from '@layout/Sidebar';
+import AdminSidebar from '@layout/Sidebar/AdminSidebar';
 
 import { LayoutStyle } from './style.js';
 
@@ -12,8 +12,11 @@ const AppLayout = ({ children }) => {
 		<div className="templatiq">
 			<Header />
 			<LayoutStyle className="templatiq__wrapper">
-				{isLoggedIn ? <AdminSidebar /> : <Sidebar /> }
-
+				{
+					isLoggedIn ?
+					<AdminSidebar /> :
+					<Sidebar />
+				}
 				{ children }
 			</LayoutStyle>
 		</div>

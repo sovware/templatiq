@@ -12,23 +12,23 @@ const DropdownStyle = Styled.div`
         min-width: 150px;
         padding: 0 12px;
         border-radius: 8px;
-        color: #57575F;
+        color: var(--templatiq-body-color);
         font-size: 14px;
         font-weight: 500;
-        background-color: #F1F1F4;
+        background-color: var(--templatiq-sec-color);
         box-shadow: none;
         box-sizing: border-box;
         transition: background-color 0.3s ease;
         path {
-            fill: #57575F;
+            fill: var(--templatiq-body-color);
             transition: fill 0.3s ease;
         }
         &:hover {
-            color: #ffffff;
-            background-color: #8941FF;
+            color: var(--templatiq-white-color);
+            background-color: var(--templatiq-primary-color);
             path,
             ~ .templatiq-dropdown__toggle__icon path {
-                fill: #ffffff;
+                fill: var(--templatiq-white-color);
             }
         }
     }
@@ -38,7 +38,7 @@ const DropdownStyle = Styled.div`
         inset-inline-end: 10px;
         top: 10px;
         path {
-            fill: #57575F;
+            fill: var(--templatiq-body-color);
             transition: fill 0.3s ease;
         }
     }
@@ -49,7 +49,7 @@ const DropdownStyle = Styled.div`
         left: 0;
         top: 100%;
         width: 100%;
-        background: #fff;
+        background: var(--templatiq-white-color);
         padding: 10px 0;
         border-radius: 8px;
         z-index: 1;
@@ -62,7 +62,7 @@ const DropdownStyle = Styled.div`
         align-items: center;
         gap: 10px;
         padding: 5px 15px;
-        color: #57575F;
+        color: var(--templatiq-body-color);
         pointer-events: none;
         svg {
             min-width: 20px;
@@ -72,7 +72,7 @@ const DropdownStyle = Styled.div`
         cursor: pointer;
         &:hover {
             .templatiq-dropdown__content__link {
-                color: #8941FF;
+                color: var(--templatiq-primary-color);
             }
         }
     }
