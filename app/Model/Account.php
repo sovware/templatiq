@@ -77,45 +77,32 @@ class Account {
 		return $_response;
 	}
 
-	public function create( string $first_name, string $last_name, string $username, string $password, string $confirm_password ) {
+	public function create( string $user_login, string $user_email ) {
 		$errors    = [];
 		$_ip       = Helper::get_ip();
 		$_site_url = home_url( '/' );
 
-		if ( empty( $first_name ) ) {
-			$errors['first_name'] = __( 'First name cannot be empty.', 'templatiq' );
-		}
-		if ( empty( $last_name ) ) {
-			$errors['last_name'] = __( 'Last name cannot be empty.', 'templatiq' );
-		}
-		if ( empty( $username ) ) {
-			$errors['email'] = __( 'Email cannot be empty.', 'templatiq' );
-		}
-		if ( $username && ! filter_var( $username, FILTER_VALIDATE_EMAIL ) ) {
-			$errors['email'] = __( 'Make sure you have given a valid email address.', 'templatiq' );
-		}
-		if ( empty( $password ) ) {
-			$errors['password'] = __( 'Password cannot be empty.', 'templatiq' );
-		}
-		if ( empty( $confirm_password ) ) {
-			$errors['confirm_password'] = __( 'Confirm password cannot be empty.', 'templatiq' );
+		if ( empty( $user_login ) ) {
+			$errors['user_login'] = __( 'Username cannot be empty.', 'templatiq' );
 		}
 
-		if ( ! empty( $password ) && ! empty( $confirm_password ) && $password !== $confirm_password ) {
-			$errors['password_mismatched'] = __( 'Password and confirm password should be matched.', 'templatiq' );
+		if ( empty( $user_email ) ) {
+			$errors['user_login'] = __( 'Email cannot be empty.', 'templatiq' );
+		}
+		if ( $user_email && ! filter_var( $user_email, FILTER_VALIDATE_EMAIL ) ) {
+			$errors['user_login'] = __( 'Make sure you have given a valid email address.', 'templatiq' );
 		}
 
 		if ( ! empty( $errors ) ) {
 			return Response::error( 'signup_errors', $errors, 'signup', '400' );
 		}
 
-		$http     = new Http( $this->cloud_endpoint . '/account/login' );
+		$http = new Http( $this->cloud_endpoint . '/account/create' );
+
 		$response = $http->body(
 			[
-				'first_name' => $first_name,
-				'last_name'  => $last_name,
-				'email'      => $username,
-				'password'   => $password,
+				'user_login' => $user_login,
+				'user_email' => $user_email,
 				'site_url'   => $_site_url,
 				'ip'         => $_ip,
 			] )

@@ -42,14 +42,11 @@ class Account extends RouteBase {
 	}
 
 	public function create() {
-		$first_name       = $this->get_param( 'first_name' );
-		$last_name        = $this->get_param( 'last_name' );
-		$email            = $this->get_param( 'email', '', 'sanitize_email' );
-		$password         = $this->get_param( 'password' );
-		$confirm_password = $this->get_param( 'confirm_password' );
+		$user_login = $this->get_param( 'user_login', '', 'sanitize_user' );
+		$user_email = $this->get_param( 'user_email', '', 'sanitize_email' );
 
 		$account  = new ModelAccount;
-		$response = $account->create( $first_name, $last_name, $email, $password, $confirm_password );
+		$response = $account->create( $user_login, $user_email );
 
 		return $response;
 	}
