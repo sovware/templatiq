@@ -25,9 +25,24 @@ export default function TemplatePackModule() {
 	const { isLoading, error, data } = useQuery(['templates'], () => fetch('http://templatemarket.local/wp-json/templatiq/template/library').then(res =>
 		res.json()
 	));
-	if (isLoading) return 'Loading...';
-	if (error) return 'An error has occurred: ' + error.message;
+    
+	if (isLoading) 
+    return (
+        <div className="templatiq-loader">
+            <div className="templatiq-loader__spinner">
+                Loading..
+            </div>
+        </div>
+    );
 
+	if (error) 
+    return (
+        <div className="templatiq-loader">
+            <div className="templatiq-loader__spinner">
+                {error.message}
+            </div>
+        </div>
+    );
 	let allTemplates = data.templates;
 
 	let proTemplates = allTemplates.filter(template => template.price > 0);

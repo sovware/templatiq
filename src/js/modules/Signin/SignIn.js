@@ -57,7 +57,7 @@ export default function SignInContent () {
 
 			console.log('Result: ', result);
 
-			if (result.success) {
+			if (result.body.token) {
 				console.log('Login successful');
 			} else {
 				console.error('Login failed', result.message);
