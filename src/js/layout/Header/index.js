@@ -5,6 +5,7 @@ import checkedClickedOutside from '@helper/checkClickedOutside';
 
 import {
 	Link,
+	NavLink,
 	useNavigate
 } from 'react-router-dom';
 
@@ -89,22 +90,22 @@ const Header = (props) =>  {
 			<div className="templatiq__header__content">
 				<HeaderNavStyle className="templatiq__header__nav">
 					<li className="templatiq__header__item">
-						<Link to="/template-pack" className={`templatiq__header__link active`}>
+						<NavLink to="/template-pack" className={`templatiq__header__link`} activeClassName="active">
 							<ReactSVG src={ fileIcon } width={18} height={18} />
 							Template Pack
-						</Link>
+						</NavLink>
 					</li>
 					<li className="templatiq__header__item">
-						<Link to="/pages" className={`templatiq__header__link`}>
+						<NavLink to="/pages" className={`templatiq__header__link`} activeClassName="active">
 							<ReactSVG src={ pagesIcon } width={18} height={18} />
 							Pages
-						</Link>
+						</NavLink>
 					</li>
 					<li className="templatiq__header__item">
-						<Link to="/blocks" className={`templatiq__header__link`}>
+						<NavLink to="/blocks" className={`templatiq__header__link`} activeClassName="active">
 							<ReactSVG src={ blocksIcon } width={18} height={18} />
 							Blocks
-						</Link>
+						</NavLink>
 					</li>
 				</HeaderNavStyle>
 				

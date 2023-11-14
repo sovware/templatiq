@@ -196,6 +196,7 @@ const SingleTemplateStyle = Styled.div`
             background-color: #E1F6EC;
         }
         &.favorite-btn {
+            &.active,
             &:hover {
                 color: var(--templatiq-primary-color);
                 background-color: #F2ECFF;

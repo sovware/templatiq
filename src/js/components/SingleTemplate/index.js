@@ -1,3 +1,4 @@
+import { useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { Link } from 'react-router-dom';
 import { SingleTemplateStyle } from './style';
@@ -12,6 +13,14 @@ const SingleTemplate = (item) => {
     let { id, slug, img, title, price, downloadCount, favoriteCount } = item;
     let categories = item.categories;
     let requiredPlugins = item.requiredPlugins;
+
+    // let addedToFavorite = false;
+	const [addedToFavorite, addFavorite] = useState(false);
+
+    function handleFavorite( e ) {
+		e.preventDefault();
+		addFavorite( ! addedToFavorite );
+	}
 
     let addModal = (e) => {
         e.preventDefault();
@@ -81,7 +90,7 @@ const SingleTemplate = (item) => {
                         <ReactSVG src={ downloadIcon } width={14} height={14} />
                         {downloadCount ? downloadCount : ''}
                     </span>
-                    <a href="#" className="templatiq__template__single__quickmeta__item favorite-btn templatiq-tooltip" data-info="Added to Favourite">
+                    <a href="#" className={`templatiq__template__single__quickmeta__item favorite-btn templatiq-tooltip ${addedToFavorite ? 'active' : ''}`} data-info={addedToFavorite ? 'Added to Favourite' : 'Add to Favourite'} onClick={handleFavorite}>
                         <ReactSVG src={ heartIcon } width={14} height={14} />
                         {favoriteCount ? favoriteCount : ''}
                     </a>
