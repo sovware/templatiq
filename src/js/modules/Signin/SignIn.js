@@ -5,7 +5,7 @@ import { AuthStyle } from "@root/style";
 import { useMutation } from '@tanstack/react-query';
 
 // api.js - a file to store your API functions
-export const login = async (credentials) => {
+const login = async (credentials) => {
 	console.log("Check credentials: ", credentials)
 	// Replace this with your actual API endpoint
 	const response = await fetch('http://templatemarket.local/wp-json/templatiq/account/login', {
@@ -29,6 +29,8 @@ export const login = async (credentials) => {
 export default function SignInContent () {
 
 	const mutation = useMutation(login);
+	console.log('Mutation: ', mutation)
+
 	const [formData, setFormData] = useState({
 		authorEmail: "sample@gmail.com",
 		authorPassword: "123456",
@@ -43,7 +45,7 @@ export default function SignInContent () {
 
 	const handleData = (e) => {
 		e.preventDefault(); 
-		handleLogin({ username: authorEmail.value, password: authorPassword.value });
+		handleLogin({ username: authorEmail.value, password: authorPassword.value, expiration: 20 });
 	};
 
 	const handleLogin = async (credentials) => {
@@ -52,6 +54,9 @@ export default function SignInContent () {
 			// Call the mutation function with the user's credentials
 
 			const result = await mutation.mutateAsync(credentials);
+
+			console.log('Result: ', result);
+
 			if (result.success) {
 				console.log('Login successful');
 			} else {
