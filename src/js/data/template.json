@@ -1,54 +1,25 @@
 [
     {
-      "id": 1,
+      "template_id": 1,
       "slug": "ddoctors",
-      "img": "templateImg1",
+      "thumbnail": "templateImg1",
       "title": "DDoctors",
       "price": "20",
-      "downloadCount": "24",
-      "favoriteCount": "52",
-      "types": [
-        {
-          "name": "Premium",
-          "icon": "premiumIcon"
-        },
-        {
-          "name": "Demo",
-          "icon": "demoIcon"
-        }
-      ],
-      "builders": [
-        {
-          "name": "Elementor",
-          "icon": "elementorIcon",
-          "url": "#"
-        },
-        {
-          "name": "Gutenberg",
-          "icon": "gutenbergIcon",
-          "url": "#"
-        }
-      ],
-      "categories": [
-        {
-          "name": "Directorist Core",
-          "url": "#"
-        },
-        {
-          "name": "Pricing Plan",
-          "url": "#"
-        }
-      ],
+      "number_of_downloads": "24",
+      "number_of_bookmarks": "52",
+      "type": "Page",
+      "builder": "Elementor",
+      "categories": [ "Directorist Core", "Pricing Plan"],
       "requiredPlugins": [
         {
           "name": "Directorist",
-          "icon": "directoristIcon",
-          "url": "#"
+          "slug": "directorist",
+          "file_name": "#"
         },
         {
           "name": "Elementor",
-          "icon": "elementorIcon",
-          "url": "#"
+          "slug": "elementor",
+          "file_name": "#"
         }
       ]
     },

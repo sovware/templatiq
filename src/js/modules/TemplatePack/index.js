@@ -17,12 +17,8 @@ import searchIcon from '@icon/search.svg';
 import crownIcon from '@icon/crown.svg';
 import arrowLeft from '@icon/angle-left.svg';
 import arrowRight from '@icon/angle-right.svg';
-import elementorIcon from "@icon/elementor.svg";
-import directoristIcon from "@icon/directorist.svg";
 
 import templateImg1 from "@images/template/1.svg";
-import templateImg2 from "@images/template/2.svg";
-import templateImg3 from "@images/template/3.svg";
 
 export default function TemplatePackModule() {
 
@@ -33,9 +29,14 @@ export default function TemplatePackModule() {
 		return data;
 	}
 
-	const { isLoading, error, data } = useQuery(['templates'], () => templatesData);
+	const { isLoading, error, data } = useQuery(['templates'], () => fetch('http://templatemarket.local/wp-json/templatiq/template/library').then(res =>
+		res.json()
+	));
 	if (isLoading) return 'Loading...';
 	if (error) return 'An error has occurred: ' + error.message;
+
+	let allTemplates = data.templates;
+	console.log('allTemplates: ', allTemplates);
 
 
 	return (
@@ -72,25 +73,23 @@ export default function TemplatePackModule() {
 
 					<div className="templatiq__content__wrapper">
 						<TabPanel className="templatiq__content__tab-panel">
-						{data
+						{allTemplates
 							.map(template => (
 								<SingleTemplate 
-									// img = {template.img} 
+									img = {template.thumbnail} 
 									slug = {template.slug}
-									img = {templateImg1} 
 									title = {template.title} 
 									price = {template.price} 
-									downloadCount = {template.downloadCount} 
-									favoriteCount = {template.favoriteCount} 
-									requiredPlugins = {template.requiredPlugins}
+									downloadCount = {template.number_of_downloads} 
+									favoriteCount = {template.number_of_bookmarks} 
+									requiredPlugins = {template.required_plugins}
 									categories = {template.categories}
-								
 								/>
 							))
 						}
 						</TabPanel>
 						<TabPanel className="templatiq__content__tab-panel">
-						{data
+						{allTemplates
 							.filter(template => template.price === "")
 							.map(template => (
 								<SingleTemplate 
@@ -109,13 +108,12 @@ export default function TemplatePackModule() {
 						}
 						</TabPanel>
 						<TabPanel className="templatiq__content__tab-panel">
-						{data
+						{allTemplates
 							.filter(template => template.price !== "")
 							.map(template => (
 								<SingleTemplate 
-									// img = {template.img} 
 									slug = {template.slug}
-									img = {templateImg1} 
+									img = {template.thumbnail} 
 									title = {template.title} 
 									price = {template.price} 
 									downloadCount = {template.downloadCount} 

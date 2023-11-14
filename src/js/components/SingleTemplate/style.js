@@ -200,6 +200,9 @@ const SingleTemplateStyle = Styled.div`
             &:hover {
                 color: var(--templatiq-primary-color);
                 background-color: #F2ECFF;
+                path {
+                    fill: var(--templatiq-primary-color);
+                }
             }
         }
         &:before {
