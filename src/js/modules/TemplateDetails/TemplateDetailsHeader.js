@@ -5,6 +5,7 @@ import { TemplateDetailsHeaderStyle } from './style';
 import crownIcon from '@icon/crown.svg';
 import cartIcon from "@icon/cart.svg";
 import heartIcon from "@icon/heart.svg";
+import heartSolidIcon from "@icon/heart-solid.svg";
 import downloadIcon from "@icon/download.svg";
 import downloadAltIcon from "@icon/download-alt.svg";
 
@@ -70,7 +71,7 @@ const TemplateDetailsHeader = (props) => {
 					''
 				}
 				<a href="#" className={`templatiq__details__header__action__link add-to-favorite templatiq-btn templatiq-btn-white ${addedToFavorite ? 'active' : ''}`} onClick={(e) => handleFavorite(e, number_of_bookmarks)}>
-					<ReactSVG src={ heartIcon } width={16} height={16} />
+					<ReactSVG src={ addedToFavorite ? heartSolidIcon : heartIcon } width={16} height={16} />
 				</a>
 				<a href={preview_link} className="templatiq__details__header__action__link live-demo-btn templatiq-btn templatiq-btn-white">
 					Live Demo

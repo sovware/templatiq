@@ -6,6 +6,7 @@ import { SingleTemplateStyle } from './style';
 import crownIcon from "@icon/crown.svg";
 import cartIcon from "@icon/cart.svg";
 import heartIcon from "@icon/heart.svg";
+import heartSolidIcon from "@icon/heart-solid.svg";
 import downloadIcon from "@icon/download-alt.svg";
 import templateImg1 from "@images/template/1.svg";
 
@@ -25,7 +26,7 @@ const SingleTemplate = (item) => {
 		e.preventDefault();
 		addFavorite( ! addedToFavorite );
 	}
-    
+
     useEffect(() => {
         // This will be triggered whenever addedToFavorite changes
         setCurrentFavoriteCount(addedToFavorite ? Number(currentFavoriteCount) + 1 : favoriteCount);
@@ -96,7 +97,7 @@ const SingleTemplate = (item) => {
                         {downloadCount ? downloadCount : ''}
                     </span>
                     <a href="#" className={`templatiq__template__single__quickmeta__item favorite-btn templatiq-tooltip ${addedToFavorite ? 'active' : ''}`} data-info={addedToFavorite ? 'Added to Favourite' : 'Add to Favourite'} onClick={handleFavorite}>
-                        <ReactSVG src={ heartIcon } width={14} height={14} />
+                        <ReactSVG src={ addedToFavorite ? heartSolidIcon : heartIcon } width={14} height={14} />
                         {currentFavoriteCount ? currentFavoriteCount : ''}
                     </a>
                 </div>

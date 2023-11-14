@@ -166,7 +166,7 @@ const SingleTemplateStyle = Styled.div`
                 background-color: #D1D1D7;
                 position: absolute;
                 inset-inline-end: 0;
-                top: 8px;
+                top: 9px;
             }
         }
     }
@@ -198,12 +198,15 @@ const SingleTemplateStyle = Styled.div`
             background-color: #E1F6EC;
         }
         &.favorite-btn {
-            &.active,
             &:hover {
-                color: var(--templatiq-primary-color);
                 background-color: #F2ECFF;
                 path {
                     fill: var(--templatiq-primary-color);
+                }
+            }
+            &.active {
+                path {
+                    fill: var(--templatiq-danger-color);
                 }
             }
         }
