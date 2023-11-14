@@ -48,6 +48,7 @@ class Account {
 		if ( ! empty( $response['body'] ) ) {
 			$response['body'] = json_decode( $response['body'], true );
 			Options::set( 'token', $response['body']['token'] ?? '' );
+			Options::set( 'account_data', $response['body'] ?? [] );
 		}
 
 		return $response;
@@ -62,6 +63,19 @@ class Account {
 		];
 
 		return $response;
+	}
+
+	public function data() {
+		$_response = ['status' => 'success'];
+		$data      = Options::get( 'account_data' );
+
+		if ( '' === $data ) {
+			$_response['status'] = 'error';
+		}
+
+		$_response['data'] = $data;
+
+		return $_response;
 	}
 
 	public static function is_logged_in() {
