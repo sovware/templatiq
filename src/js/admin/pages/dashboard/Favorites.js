@@ -5,9 +5,7 @@ export default function MyFavorites() {
 
 	return (
 		<AppLayout>
-			<div className="templatiq__content templatiq__content--dashboard"> 
-				<MyFavoritesModule />
-			</div>
+			<MyFavoritesModule />
 		</AppLayout>
 	);
 }

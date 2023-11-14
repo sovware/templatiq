@@ -23,8 +23,6 @@ export default function TemplateDetailsModule(props) {
   
   	if (!templateDetails) return 'Template not found';
 
-  	const { thumbnail } = templateDetails;
-
 	return (
 		<TemplateDetailsLayout>
 			<Popup />
@@ -36,7 +34,7 @@ export default function TemplateDetailsModule(props) {
 					<TemplateDetailsContent
 						item={templateDetails}
 					/>
-					
+
 					<TemplateDetailsWidget
 						item={templateDetails}
 					/>
