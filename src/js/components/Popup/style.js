@@ -12,7 +12,7 @@ const RequiredPluginStyle = Styled.div`
     z-index: 1;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
     .templatiq__modal__title {
         font-size: 21px;
         line-height: 25px;

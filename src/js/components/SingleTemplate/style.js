@@ -255,6 +255,16 @@ const SingleTemplateStyle = Styled.div`
             }
         }
     }
+
+    &.modal-open {
+        .templatiq__modal {
+            opacity: 1;
+            visibility: visible;
+            .templatiq__modal__content {
+                transform: translateY(0);
+            }
+        }
+    }
 `;
 
 export { SingleTemplateStyle };

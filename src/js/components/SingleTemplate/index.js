@@ -1,4 +1,4 @@
-import { useState, useEffect } from '@wordpress/element';
+import { useState, useEffect, useRef } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { Link } from 'react-router-dom';
 import { SingleTemplateStyle } from './style';
@@ -9,17 +9,27 @@ import heartIcon from "@icon/heart.svg";
 import heartSolidIcon from "@icon/heart-solid.svg";
 import downloadIcon from "@icon/download-alt.svg";
 import templateImg1 from "@images/template/1.svg";
+import Popup from '@components/Popup';
 
 const SingleTemplate = (item) => {
     let { slug, previewURL, purchaseURL, img, title, price, downloadCount, favoriteCount, categories, requiredPlugins } = item;
 
+    const [isModalOpen, setModalOpen] = useState(false);
 	const [addedToFavorite, addFavorite] = useState(false);
     const [currentFavoriteCount, setCurrentFavoriteCount] = useState(favoriteCount);
+    const templateRef = useRef(null);
 
-
-    let addModal = (e) => {
+    let addModal = (e, template) => {
         e.preventDefault();
+
+        setModalOpen(true);
+
         document.querySelector(".templatiq").classList.add("templatiq-overlay-enable");
+        
+        // Add the class to the root div using templateRef
+        if (templateRef.current) {
+            templateRef.current.classList.add('modal-open');
+        }
     }
  
     let handleFavorite = ( e ) => {
@@ -28,13 +38,17 @@ const SingleTemplate = (item) => {
 	}
 
     useEffect(() => {
+        setModalOpen(false);
+
         // This will be triggered whenever addedToFavorite changes
         setCurrentFavoriteCount(addedToFavorite ? Number(currentFavoriteCount) + 1 : favoriteCount);
-    }, [addedToFavorite]);
+    }, [addedToFavorite, setModalOpen]);
       
 
     return (
-        <SingleTemplateStyle className="templatiq__template__single">
+        <SingleTemplateStyle className="templatiq__template__single" ref={templateRef}>
+            {isModalOpen && <Popup item={item} isOpen={isModalOpen} />}
+
             <div className="templatiq__template__single__img">
                 <img src={img ? img : templateImg1} alt="Doctors Template Pack" />
                 <div className="templatiq__template__single__overlay"></div>
@@ -59,7 +73,11 @@ const SingleTemplate = (item) => {
                                 <ReactSVG src={ cartIcon } width={14} height={14} />
                                 Purchase
                             </a> :
-                            <a href="#" className="templatiq__template__single__info__action__link insert-btn" onClick={addModal}>
+                            <a 
+                                href="#" 
+                                className="templatiq__template__single__info__action__link insert-btn" 
+                                onClick={(e) => addModal(e, slug)}
+                            >
                                 <ReactSVG src={ downloadIcon } width={14} height={14} />
                                 Insert
                             </a>

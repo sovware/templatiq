@@ -65,7 +65,7 @@ export default function TemplatePackModule() {
 
 	return (
         <>
-            <Popup />
+            {/* <Popup /> */}
             <Tabs className="templatiq__content__tab">
                 <div className="templatiq__content__top">
                     <div className="templatiq__content__top__filter">
