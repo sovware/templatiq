@@ -251,6 +251,7 @@ const TemplatePackStyle = Styled.div`
     .templatiq__content__top {
         display: flex;
         gap: 24px;
+        margin: 0 0 8px;
         justify-content: space-between;
         .templatiq__content__top__filter__title {
             font-size: 16px;
@@ -263,12 +264,6 @@ const TemplatePackStyle = Styled.div`
             gap: 20px;
             align-items: center;
         }
-    }
-
-    .templatiq__content__tab-panel {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 32px;
     }
 
     .templatiq-pagination {

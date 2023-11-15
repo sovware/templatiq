@@ -2,7 +2,7 @@
     {
       "template_id": 1,
       "slug": "ddoctors",
-      "thumbnail": "templateImg1",
+      "thumbnail": "templatethumbnail1",
       "title": "DDoctors",
       "price": "20",
       "number_of_downloads": "24",
@@ -10,7 +10,7 @@
       "type": "Page",
       "builder": "Elementor",
       "categories": [ "Directorist Core", "Pricing Plan"],
-      "requiredPlugins": [
+      "required_plugins": [
         {
           "name": "Directorist",
           "slug": "directorist",
@@ -26,269 +26,120 @@
     {
       "id": 2,
       "slug": "dhotels",
-      "img": "templateImg2",
+      "thumbnail": "templatethumbnail2",
       "title": "DHotels",
       "price": "25",
-      "downloadCount": "35",
-      "favoriteCount": "63",
-      "isPurchased": true,
-      "types": [
-        {
-          "name": "Premium",
-          "icon": "premiumIcon"
-        },
-        {
-          "name": "Demo",
-          "icon": "demoIcon"
-        }
-      ],
-      "builders": [
-        {
-          "name": "Elementor",
-          "icon": "elementorIcon",
-          "url": "#"
-        },
-        {
-          "name": "Gutenberg",
-          "icon": "gutenbergIcon",
-          "url": "#"
-        }
-      ],
-      "categories": [
-        {
-          "name": "Directorist Core",
-          "url": "#"
-        },
-        {
-          "name": "Pricing Plan",
-          "url": "#"
-        }
-      ],
-      "requiredPlugins": [
+      "number_of_downloads": "35",
+      "number_of_bookmarks": "63",
+      "type": "Page",
+      "builder": "Elementor",
+      "categories": [ "Directorist Core", "Pricing Plan"],
+      "required_plugins": [
         {
           "name": "Directorist",
-          "icon": "directoristIcon",
-          "url": "#"
+          "slug": "directorist",
+          "file_name": "#"
         },
         {
           "name": "Elementor",
-          "icon": "elementorIcon",
-          "url": "#"
+          "slug": "elementor",
+          "file_name": "#"
         }
       ]
     },
     {
       "id": 3,
       "slug": "dclassified",
-      "img": "templateImg3",
+      "thumbnail": "templatethumbnail3",
       "title": "DClassified",
       "price": "32",
-      "downloadCount": "28",
-      "favoriteCount": "39",
-      "types": [
-        {
-          "name": "Premium",
-          "icon": "premiumIcon"
-        },
-        {
-          "name": "Demo",
-          "icon": "demoIcon"
-        }
-      ],
-      "builders": [
-        {
-          "name": "Elementor",
-          "icon": "elementorIcon",
-          "url": "#"
-        },
-        {
-          "name": "Gutenberg",
-          "icon": "gutenbergIcon",
-          "url": "#"
-        }
-      ],
-      "categories": [
-        {
-          "name": "Directorist Core",
-          "url": "#"
-        },
-        {
-          "name": "Pricing Plan",
-          "url": "#"
-        }
-      ],
-      "requiredPlugins": [
+      "number_of_downloads": "28",
+      "number_of_bookmarks": "39",
+      "type": "Page",
+      "builder": "Elementor",
+      "categories": [ "Directorist Core", "Pricing Plan"],
+      "required_plugins": [
         {
           "name": "Directorist",
-          "icon": "directoristIcon",
-          "url": "#"
+          "slug": "directorist",
+          "file_name": "#"
         },
         {
           "name": "Elementor",
-          "icon": "elementorIcon",
-          "url": "#"
+          "slug": "elementor",
+          "file_name": "#"
         }
       ]
     },
     {
       "id": 4,
       "slug": "onelisting",
-      "img": "templateImg2",
+      "thumbnail": "templatethumbnail2",
       "title": "Onelisting",
       "price": "",
-      "downloadCount": "27",
-      "favoriteCount": "42",
-      "isPurchased": true,
-      "types": [
-        {
-          "name": "Free",
-          "icon": "freeIcon"
-        },
-        {
-          "name": "Demo",
-          "icon": "demoIcon"
-        }
-      ],
-      "builders": [
-        {
-          "name": "Elementor",
-          "icon": "elementorIcon",
-          "url": "#"
-        },
-        {
-          "name": "Gutenberg",
-          "icon": "gutenbergIcon",
-          "url": "#"
-        }
-      ],
-      "categories": [
-        {
-          "name": "Directorist Core",
-          "url": "#"
-        },
-        {
-          "name": "Pricing Plan",
-          "url": "#"
-        }
-      ],
-      "requiredPlugins": [
+      "number_of_downloads": "27",
+      "number_of_bookmarks": "42",
+      "type": "Page",
+      "builder": "Elementor",
+      "categories": [ "Directorist Core", "Pricing Plan"],
+      "required_plugins": [
         {
           "name": "Directorist",
-          "icon": "directoristIcon",
-          "url": "#"
+          "slug": "directorist",
+          "file_name": "#"
         },
         {
           "name": "Elementor",
-          "icon": "elementorIcon",
-          "url": "#"
+          "slug": "elementor",
+          "file_name": "#"
         }
       ]
     },
     {
       "id": 5,
       "slug": "dcourse",
-      "img": "templateImg1",
+      "thumbnail": "templatethumbnail1",
       "title": "DCourse",
       "price": "",
-      "downloadCount": "17",
-      "favoriteCount": "12",
-      "isPurchased": true,
-      "types": [
-        {
-          "name": "Free",
-          "icon": "freeIcon"
-        },
-        {
-          "name": "Demo",
-          "icon": "demoIcon"
-        }
-      ],
-      "builders": [
-        {
-          "name": "Elementor",
-          "icon": "elementorIcon",
-          "url": "#"
-        },
-        {
-          "name": "Gutenberg",
-          "icon": "gutenbergIcon",
-          "url": "#"
-        }
-      ],
-      "categories": [
-        {
-          "name": "Directorist Core",
-          "url": "#"
-        },
-        {
-          "name": "Pricing Plan",
-          "url": "#"
-        }
-      ],
-      "requiredPlugins": [
+      "number_of_downloads": "17",
+      "number_of_bookmarks": "12",
+      "type": "Page",
+      "builder": "Elementor",
+      "categories": [ "Directorist Core", "Pricing Plan"],
+      "required_plugins": [
         {
           "name": "Directorist",
-          "icon": "directoristIcon",
-          "url": "#"
+          "slug": "directorist",
+          "file_name": "#"
         },
         {
           "name": "Elementor",
-          "icon": "elementorIcon",
-          "url": "#"
+          "slug": "elementor",
+          "file_name": "#"
         }
       ]
     },
     {
       "id": 6,
       "slug": "dlist",
-      "img": "templateImg3",
+      "thumbnail": "templatethumbnail3",
       "title": "dList",
       "price": "",
-      "downloadCount": "22",
-      "favoriteCount": "32",
-      "isPurchased": true,
-      "types": [
-        {
-          "name": "Free",
-          "icon": "freeIcon"
-        },
-        {
-          "name": "Demo",
-          "icon": "demoIcon"
-        }
-      ],
-      "builders": [
-        {
-          "name": "Elementor",
-          "icon": "elementorIcon",
-          "url": "#"
-        },
-        {
-          "name": "Gutenberg",
-          "icon": "gutenbergIcon",
-          "url": "#"
-        }
-      ],
-      "categories": [
-        {
-          "name": "Directorist Core",
-          "url": "#"
-        },
-        {
-          "name": "Pricing Plan",
-          "url": "#"
-        }
-      ],
-      "requiredPlugins": [
+      "number_of_downloads": "22",
+      "number_of_bookmarks": "32",
+      "type": "Page",
+      "builder": "Elementor",
+      "categories": [ "Directorist Core", "Pricing Plan"],
+      "required_plugins": [
         {
           "name": "Directorist",
-          "icon": "directoristIcon",
-          "url": "#"
+          "slug": "directorist",
+          "file_name": "#"
         },
         {
           "name": "Elementor",
-          "icon": "elementorIcon",
-          "url": "#"
+          "slug": "elementor",
+          "file_name": "#"
         }
       ]
     }

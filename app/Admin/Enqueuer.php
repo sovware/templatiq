@@ -37,6 +37,7 @@ class Enqueuer extends EnqueuerBase {
 				'nonce'    => wp_create_nonce( 'wp_rest' ),
 				'endpoint' => get_rest_url( null, 'templatiq' ),
 			],
+			'assets_url' => TEMPLATIQ_ASSETS,
 		];
 
 		wp_localize_script( 'templatiq-app', 'template_market_obj', $obj );

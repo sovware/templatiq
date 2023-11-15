@@ -6,9 +6,6 @@ import { useMutation } from '@tanstack/react-query';
 
 // api.js - a file to store your API functions
 const login = async (credentials) => {
-	console.log("Check credentials: ", credentials)
-	// Replace this with your actual API endpoint
-	console.log(template_market_obj.rest_args.nonce);
 
 	const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/login`, {
 		method: 'POST',

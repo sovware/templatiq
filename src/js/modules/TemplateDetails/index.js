@@ -11,12 +11,35 @@ import TemplateDetailsWidget from './TemplateDetailsWidget';
 export default function TemplateDetailsModule(props) {
 	const { templateSlug } = props;
 
-	const { isLoading, error, data } = useQuery(['templates'], () => fetch(`${template_market_obj.rest_args.endpoint}/template/library`).then(res =>
+	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
+		`${template_market_obj.rest_args.endpoint}/template/library`, 
+        {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': template_market_obj.rest_args.nonce,
+			}
+		}).then(res =>
 		res.json()
 	));
 
-	if (isLoading) return 'Loading...';
-	if (error) return 'An error has occurred: ' + error.message;
+	if (isLoading) 
+    return (
+        <div className="templatiq-loader">
+            <div className="templatiq-loader__spinner">
+                Loading..
+            </div>
+        </div>
+    );
+
+	if (error) 
+    return (
+        <div className="templatiq-loader">
+            <div className="templatiq-loader__spinner">
+                {error.message}
+            </div>
+        </div>
+    );
 
 	// Retrive Template Details Data
 	const templateDetails = data && data.templates.find((template) => template.slug === templateSlug);
@@ -25,7 +48,7 @@ export default function TemplateDetailsModule(props) {
 
 	return (
 		<TemplateDetailsLayout>
-			<Popup />
+			<Popup item={templateDetails} />
 			<TemplateDetailsStyle className="templatiq__details">
 				<TemplateDetailsHeader 
 					item={templateDetails} 
