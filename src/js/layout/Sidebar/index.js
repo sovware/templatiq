@@ -10,7 +10,14 @@ import filterIcon from '@icon/filter.svg';
 
 const Sidebar = () => {
 	let [selectedCategories, setSelectedCategories] = useState([]);
-	let categories = ["Directory", "WooCommerce", "HelpGent", "Legal Pages"];
+
+	let categories = {
+		homepage: "Homepage",
+		directory: "Directory",
+		woocommerce: "WooCommerce",
+		helpgent: "HelpGent",
+		legal_pages: "Legal Pages",
+	}
 
 	const handleCategoryChange = (e) => {
 		console.log('Category: ', e)
@@ -167,26 +174,13 @@ const Sidebar = () => {
 					<TabPanel>
 						<SidebarItemStyle className="templatiq__sidebar__filter templatiq__sidebar__categories">
 							<div className="templatiq__sidebar__categories__wrapper">
-								<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-									<input type="checkbox" id="directorist" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-									<label for="directorist" className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">Directorist</label>
-									<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-								</div>
-								<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-									<input type="checkbox" id="woocommerce" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-									<label for="woocommerce" className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">WooCommerce</label>
-									<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-								</div>
-								<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-									<input type="checkbox" id="helpgent" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-									<label for="helpgent" className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">HelpGent</label>
-									<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-								</div>
-								<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-									<input type="checkbox" id="legal_pages" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-									<label for="legal_pages" className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">Legal Pages</label>
-									<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-								</div>
+								{Object.keys(categories).map((key) => (
+									<div className="templatiq__sidebar__filter__single templatiq__checkbox">
+										<input type="checkbox" id={key} className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
+										<label for="directorist" className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">{categories[key]}</label>
+										<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
+									</div>
+								))}
 							</div>
 						</SidebarItemStyle>
 					</TabPanel>
