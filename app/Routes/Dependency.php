@@ -25,7 +25,8 @@ class Dependency extends RouteBase {
 		 * Need to sanitize the array.
 		 */
 		$plugins = $this->get_param( 'plugins', [], false );
-
+		
+		// return $plugins;
 		return Plugin::dependencies( $plugins );
 	}
 

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { Link } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import { SingleTemplateStyle } from './style';
 
 import crownIcon from "@icon/crown.svg";
@@ -18,21 +18,28 @@ const SingleTemplate = (item) => {
     const [isModalOpen, setModalOpen] = useState(false);
 	const [addedToFavorite, addFavorite] = useState(false);
     const [currentFavoriteCount, setCurrentFavoriteCount] = useState(number_of_bookmarks);
+    const [installablePlugins, setInstallablePlugins] = useState([]);
+
     const templateRef = useRef(null);
 
-    let addModal = (e) => {
+    let addModal = async (e) => {
         e.preventDefault();
-
-        setModalOpen(true);
-
         document.querySelector(".templatiq").classList.add("templatiq-overlay-enable");
-        
+    
         // Add the class to the root div using templateRef
         if (templateRef.current) {
             templateRef.current.classList.add('modal-open');
         }
+    
+        try {
+            await handlePlugins(required_plugins);
+            setModalOpen(true);
+        } catch (error) {
+            // Handle error if needed
+            console.error('Error fetching installable plugins:', error);
+        }
     }
- 
+
     let handleFavorite = ( e ) => {
 		e.preventDefault();
 		addFavorite( ! addedToFavorite );
@@ -45,14 +52,42 @@ const SingleTemplate = (item) => {
         setCurrentFavoriteCount(addedToFavorite ? Number(currentFavoriteCount) + 1 : number_of_bookmarks);
     }, [addedToFavorite, setModalOpen]);
 
-    // dependency/check
-
+	const handlePlugins = async (plugins) => {
+        const response = await fetch(`${template_market_obj.rest_args.endpoint}/dependency/check`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': template_market_obj.rest_args.nonce,
+            },
+            body: JSON.stringify({
+                plugins: plugins
+            }),
+        });
     
-      
+        if (!response.ok) {
+            throw new Error('Error Occurred');
+        }
+    
+        const data = await response.json();
+    
+        console.log('Response: ', data);  
+        setInstallablePlugins(data);
+
+        console.log('Installable Data: ', installablePlugins);  
+    }; 
+
+
+    useEffect(() => {
+        handlePlugins(required_plugins);
+    }, [required_plugins]);
+
 
     return (
         <SingleTemplateStyle className="templatiq__template__single" ref={templateRef}>
-            {isModalOpen && <Popup item={item} />}
+
+            {isModalOpen && installablePlugins && (
+                <Popup item={item} installable_plugins={installablePlugins} onClose={() => setModalOpen(false)} />
+            )}
 
             <div className="templatiq__template__single__img">
                 <img src={thumbnail ? thumbnail : templateImg1} alt={title} />
