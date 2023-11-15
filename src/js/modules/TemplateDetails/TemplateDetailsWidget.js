@@ -9,7 +9,7 @@ const TemplateDetailsWidget = (props) => {
 		builder,
 		type,
 		categories,
-		requiredPlugins,
+		required_plugins,
 	} = props.item;
 
 	return (
@@ -56,9 +56,9 @@ const TemplateDetailsWidget = (props) => {
 				<div className="templatiq__details__widget__content__single required-plugins">
 					<span className="templatiq__details__widget__content__title">Required Plugins:</span>
 					<div className="templatiq__details__widget__content__required-plugins">
-						{requiredPlugins && requiredPlugins.map((plugin, index) => (
+						{required_plugins && required_plugins.map((plugin, index) => (
 							<a key={index} href="#" className="templatiq__details__widget__content__required-plugins__link templatiq-tooltip" data-info={plugin.name}>
-								<ReactSVG src={`/svg/icon/${plugin.slug}.svg`} width={30} height={30} />
+								<ReactSVG src={`${template_market_obj.assets_url}/svg/icon/${plugin.slug}.svg`} width={30} height={30} />
 							</a>
 						))}
 					</div>

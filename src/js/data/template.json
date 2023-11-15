@@ -10,7 +10,7 @@
       "type": "Page",
       "builder": "Elementor",
       "categories": [ "Directorist Core", "Pricing Plan"],
-      "requiredPlugins": [
+      "required_plugins": [
         {
           "name": "Directorist",
           "slug": "directorist",
@@ -34,7 +34,7 @@
       "type": "Page",
       "builder": "Elementor",
       "categories": [ "Directorist Core", "Pricing Plan"],
-      "requiredPlugins": [
+      "required_plugins": [
         {
           "name": "Directorist",
           "slug": "directorist",
@@ -58,7 +58,7 @@
       "type": "Page",
       "builder": "Elementor",
       "categories": [ "Directorist Core", "Pricing Plan"],
-      "requiredPlugins": [
+      "required_plugins": [
         {
           "name": "Directorist",
           "slug": "directorist",
@@ -82,7 +82,7 @@
       "type": "Page",
       "builder": "Elementor",
       "categories": [ "Directorist Core", "Pricing Plan"],
-      "requiredPlugins": [
+      "required_plugins": [
         {
           "name": "Directorist",
           "slug": "directorist",
@@ -106,7 +106,7 @@
       "type": "Page",
       "builder": "Elementor",
       "categories": [ "Directorist Core", "Pricing Plan"],
-      "requiredPlugins": [
+      "required_plugins": [
         {
           "name": "Directorist",
           "slug": "directorist",
@@ -130,7 +130,7 @@
       "type": "Page",
       "builder": "Elementor",
       "categories": [ "Directorist Core", "Pricing Plan"],
-      "requiredPlugins": [
+      "required_plugins": [
         {
           "name": "Directorist",
           "slug": "directorist",

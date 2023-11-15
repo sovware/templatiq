@@ -98,16 +98,16 @@ export default function TemplatePackModule() {
                         .map(template => (
                             <div className="templatiq-col-4">
                                 <SingleTemplate 
-                                    img = {template.thumbnail} 
+                                    thumbnail = {template.thumbnail} 
                                     slug = {template.slug}
                                     title = {template.title} 
                                     price = {template.price} 
-                                    downloadCount = {template.number_of_downloads} 
-                                    favoriteCount = {template.number_of_bookmarks} 
-                                    requiredPlugins = {template.required_plugins}
+                                    number_of_downloads = {template.number_of_downloads} 
+                                    number_of_bookmarks = {template.number_of_bookmarks} 
+                                    required_plugins = {template.required_plugins}
                                     categories = {template.categories}
-                                    purchaseURL = {template.purchase_url}
-                                    previewURL = {template.preview_link}
+                                    purchase_url = {template.purchase_url}
+                                    preview_link = {template.preview_link}
                                 />
                             </div>
                         ))
@@ -117,15 +117,15 @@ export default function TemplatePackModule() {
                     {freeTemplates
                         .map(template => (
                             <SingleTemplate 
-                                img = {template.thumbnail} 
+                                thumbnail = {template.thumbnail} 
                                 slug = {template.slug}
                                 title = {template.title} 
-                                downloadCount = {template.number_of_downloads} 
-                                favoriteCount = {template.number_of_bookmarks} 
-                                requiredPlugins = {template.required_plugins}
+                                number_of_downloads = {template.number_of_downloads} 
+                                number_of_bookmarks = {template.number_of_bookmarks} 
+                                required_plugins = {template.required_plugins}
                                 categories = {template.categories}
-                                purchaseURL = {template.purchase_url}
-                                previewURL = {template.preview_link}
+                                purchase_url = {template.purchase_url}
+                                preview_link = {template.preview_link}
                             />
                         ))
                     }
@@ -134,16 +134,16 @@ export default function TemplatePackModule() {
                     {proTemplates
                         .map(template => (
                             <SingleTemplate 
-                                img = {template.thumbnail} 
+                                thumbnail = {template.thumbnail} 
                                 slug = {template.slug}
                                 title = {template.title} 
                                 price = {template.price} 
-                                downloadCount = {template.number_of_downloads} 
-                                favoriteCount = {template.number_of_bookmarks} 
-                                requiredPlugins = {template.required_plugins}
+                                number_of_downloads = {template.number_of_downloads} 
+                                number_of_bookmarks = {template.number_of_bookmarks} 
+                                required_plugins = {template.required_plugins}
                                 categories = {template.categories}
-                                purchaseURL = {template.purchase_url}
-                                previewURL = {template.preview_link}
+                                purchase_url = {template.purchase_url}
+                                preview_link = {template.preview_link}
                             />
                         ))
                     }
