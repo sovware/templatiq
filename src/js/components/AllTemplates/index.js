@@ -24,7 +24,7 @@ export default function TemplatePackModule() {
 		return data;
 	}
 
-	const { isLoading, error, data } = useQuery(['templates'], () => fetch('http://templatemarket.local/wp-json/templatiq/template/library').then(res =>
+	const { isLoading, error, data } = useQuery(['templates'], () => fetch(`${template_market_obj.rest_args.endpoint}/template/library`).then(res =>
 		res.json()
 	));
 
