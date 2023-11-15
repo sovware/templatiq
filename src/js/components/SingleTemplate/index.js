@@ -14,8 +14,6 @@ import Popup from '@components/Popup';
 const SingleTemplate = (item) => {
     let { slug, preview_link, purchase_url, thumbnail, title, price, number_of_downloads, number_of_bookmarks, categories, required_plugins } = item;
 
-    console.log('Single Template: ', item)
-
     const [isModalOpen, setModalOpen] = useState(false);
 	const [addedToFavorite, addFavorite] = useState(false);
     const [currentFavoriteCount, setCurrentFavoriteCount] = useState(number_of_bookmarks);

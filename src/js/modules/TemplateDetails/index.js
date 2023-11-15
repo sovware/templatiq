@@ -23,16 +23,28 @@ export default function TemplateDetailsModule(props) {
 		res.json()
 	));
 
-	if (isLoading) return 'Loading...';
-	if (error) return 'An error has occurred: ' + error.message;
+	if (isLoading) 
+    return (
+        <div className="templatiq-loader">
+            <div className="templatiq-loader__spinner">
+                Loading..
+            </div>
+        </div>
+    );
+
+	if (error) 
+    return (
+        <div className="templatiq-loader">
+            <div className="templatiq-loader__spinner">
+                {error.message}
+            </div>
+        </div>
+    );
 
 	// Retrive Template Details Data
 	const templateDetails = data && data.templates.find((template) => template.slug === templateSlug);
   
   	if (!templateDetails) return 'Template not found';
-
-
-	console.log('Template: ', templateSlug, templateDetails);
 
 	return (
 		<TemplateDetailsLayout>

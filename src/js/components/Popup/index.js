@@ -5,7 +5,6 @@ import { RequiredPluginStyle } from './style';
 import closeIcon from "@icon/close.svg";
 
 const Popup = (template) => {
-    console.log('Template Popup: ', template)
     const { slug, required_plugins } = template.item;
     
 	let [selectedPlugins, setSelectedPlugins] = useState([]);
@@ -17,14 +16,12 @@ const Popup = (template) => {
 			: [...selectedPlugins, plugin];
 
     	setSelectedPlugins(updatedPlugins);
-
-		console.log('Selected plugin: ', updatedPlugins);
 	};
 
     let closeModal = () => {
         let templatiqRoot = document.querySelector(".templatiq");
         let templatiqModalOpen = document.querySelector(".templatiq__template__single.modal-open");
-        
+
         templatiqRoot && templatiqRoot.classList.remove("templatiq-overlay-enable");
         templatiqModalOpen && templatiqModalOpen.classList.remove("modal-open");
     }
