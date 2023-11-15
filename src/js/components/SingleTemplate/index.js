@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import { SingleTemplateStyle } from './style';
 
 import crownIcon from "@icon/crown.svg";
@@ -43,6 +44,10 @@ const SingleTemplate = (item) => {
         // This will be triggered whenever addedToFavorite changes
         setCurrentFavoriteCount(addedToFavorite ? Number(currentFavoriteCount) + 1 : number_of_bookmarks);
     }, [addedToFavorite, setModalOpen]);
+
+    // dependency/check
+
+    
       
 
     return (

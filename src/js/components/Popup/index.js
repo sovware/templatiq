@@ -1,5 +1,6 @@
 import { useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import { RequiredPluginStyle } from './style';
 
 import closeIcon from "@icon/close.svg";
@@ -30,7 +31,86 @@ const Popup = (template) => {
 		e.preventDefault(); 
 		
         console.log('Form values: ', selectedPlugins);
+        handlePlugins(selectedPlugins);
 	};
+
+    // const { isLoading, error, data } = useQuery(['templates'], () => fetch(
+	// 	`${template_market_obj.rest_args.endpoint}/template/library`, 
+    //     {
+	// 		method: 'GET',
+	// 		headers: {
+	// 			'Content-Type': 'application/json',
+	// 			'X-WP-Nonce': template_market_obj.rest_args.nonce,
+	// 		}
+	// 	}).then(res =>
+	// 	res.json()
+	// ));
+
+	// if (isLoading) 
+    // return (
+    //     <div className="templatiq-loader">
+    //         <div className="templatiq-loader__spinner">
+    //             Loading..
+    //         </div>
+    //     </div>
+    // );
+
+	// if (error) 
+    // return (
+    //     <div className="templatiq-loader">
+    //         <div className="templatiq-loader__spinner">
+    //             {error.message}
+    //         </div>
+    //     </div>
+    // );
+
+	// const thisTemplate = data && data.templates.find((template) => template.slug === slug);
+
+    console.log('Required Plugins: ', required_plugins);
+
+    const checkPlugins = async (plugins) => {
+
+        const response = await fetch(`${template_market_obj.rest_args.endpoint}/dependency/check`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': template_market_obj.rest_args.nonce,
+            },
+            body: {
+                "plugins": plugins
+            },
+        });
+    
+        console.log("Response: ", response);
+      
+        if (!response.ok) {
+            throw new Error('Error Occured');
+        }
+      
+        return response.json();
+    };
+
+    const mutation = useMutation(checkPlugins);
+
+	const handlePlugins = async (plugins) => {
+		console.log('Plugins: ', plugins)
+		try {
+			// Call the mutation function with the user's plugins
+
+			const result = await mutation.mutateAsync(plugins);
+
+			console.log('Plugin Result: ', result);
+
+			if (result.body.token) {
+				console.log('Plugin FOund');
+			} else {
+				console.error('Plugin failed', result.message);
+			}
+		} catch (error) {
+		  	console.error('Error', error); // Handle error
+		}
+	};
+      
 
     return (
         <RequiredPluginStyle className="templatiq__modal templatiq__modal--required">
