@@ -19,7 +19,7 @@ const SingleTemplate = (item) => {
     const [currentFavoriteCount, setCurrentFavoriteCount] = useState(favoriteCount);
     const templateRef = useRef(null);
 
-    let addModal = (e, template) => {
+    let addModal = (e) => {
         e.preventDefault();
 
         setModalOpen(true);
@@ -47,7 +47,7 @@ const SingleTemplate = (item) => {
 
     return (
         <SingleTemplateStyle className="templatiq__template__single" ref={templateRef}>
-            {isModalOpen && <Popup item={item} isOpen={isModalOpen} />}
+            {isModalOpen && <Popup item={item} />}
 
             <div className="templatiq__template__single__img">
                 <img src={img ? img : templateImg1} alt="Doctors Template Pack" />
@@ -76,7 +76,7 @@ const SingleTemplate = (item) => {
                             <a 
                                 href="#" 
                                 className="templatiq__template__single__info__action__link insert-btn" 
-                                onClick={(e) => addModal(e, slug)}
+                                onClick={(e) => addModal(e)}
                             >
                                 <ReactSVG src={ downloadIcon } width={14} height={14} />
                                 Insert

@@ -22,8 +22,8 @@ const Sidebar = () => {
 	const handleCategoryChange = (category) => {
 		console.log('Category: ', category)
 		const updatedCategories = selectedCategories.includes(category)
-      ? selectedCategories.filter((c) => c !== category)
-      : [...selectedCategories, category];
+			? selectedCategories.filter((c) => c !== category)
+			: [...selectedCategories, category];
 
     	setSelectedCategories(updatedCategories);
 

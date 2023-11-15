@@ -9,7 +9,7 @@ const RequiredPluginStyle = Styled.div`
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1;
+    z-index: 2;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
@@ -40,6 +40,7 @@ const RequiredPluginStyle = Styled.div`
             line-height: 20px;
             font-weight: 600;
             color: var(--templatiq-primary-color);
+            z-index: -1;
         }
     }
     .templatiq__modal__actions {
