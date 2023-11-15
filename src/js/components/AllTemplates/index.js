@@ -4,6 +4,8 @@ import { TemplatePackFilterStyle } from '@root/style';
 import Searchform from "@components/Searchform";
 import SingleTemplate from "@components/SingleTemplate";
 
+import templatesData from "@data/template.json";
+
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
@@ -25,6 +27,12 @@ export default function TemplatePackModule() {
 	const { isLoading, error, data } = useQuery(['templates'], () => fetch('http://templatemarket.local/wp-json/templatiq/template/library').then(res =>
 		res.json()
 	));
+
+	// const { isLoading, error, data } = useQuery(['templates'], () => fetch(TemplateData).then(res =>
+	// 	res.json()
+	// ));
+
+    // const { isLoading, ersror, data } = useQuery(['templates'], () => templatesData);
     
 	if (isLoading) 
     return (
@@ -43,6 +51,8 @@ export default function TemplatePackModule() {
             </div>
         </div>
     );
+
+    console.log('Templates: ', data);
 	let allTemplates = data.templates;
 
 	let proTemplates = allTemplates.filter(template => template.price > 0);
