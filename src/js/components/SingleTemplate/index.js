@@ -94,7 +94,6 @@ const SingleTemplate = (item) => {
                 </div> 
             </div>
             <div className="templatiq__template__single__content">
-                <img src={'/svg/icon/elementor.svg'} width={28} height={28} />
                 <h3 className="templatiq__template__single__title">
                     <Link to={`/template/${slug}`}>{title ? title : 'DDoctors'}</Link>
                 </h3>

@@ -1,5 +1,4 @@
 import ReactSVG from 'react-inlinesvg'; 
-import Popup from "@components/Popup";
 import { TemplatePackFilterStyle } from '@root/style';
 import Searchform from "@components/Searchform";
 import SingleTemplate from "@components/SingleTemplate";
@@ -26,15 +25,14 @@ export default function TemplatePackModule() {
 
 	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
         `${template_market_obj.rest_args.endpoint}/template/library`, 
-        {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json',
-			'X-WP-Nonce': template_market_obj.rest_args.nonce,
-		}
-    }).then(res =>
-		res.json()
-	));
+            {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': template_market_obj.rest_args.nonce,
+            }
+        }).then(res => res.json() )
+    );
 
 
     // const { isLoading, ersror, data } = useQuery(['templates'], () => templatesData);
@@ -95,21 +93,23 @@ export default function TemplatePackModule() {
                 </div>
 
                 <div className="templatiq__content__wrapper">
-                    <TabPanel className="templatiq__content__tab-panel">
+                    <TabPanel className="templatiq-row templatiq__content__tab-panel">
                     {allTemplates
                         .map(template => (
-                            <SingleTemplate 
-                                img = {template.thumbnail} 
-                                slug = {template.slug}
-                                title = {template.title} 
-                                price = {template.price} 
-                                downloadCount = {template.number_of_downloads} 
-                                favoriteCount = {template.number_of_bookmarks} 
-                                requiredPlugins = {template.required_plugins}
-                                categories = {template.categories}
-                                purchaseURL = {template.purchase_url}
-                                previewURL = {template.preview_link}
-                            />
+                            <div className="templatiq-col-4">
+                                <SingleTemplate 
+                                    img = {template.thumbnail} 
+                                    slug = {template.slug}
+                                    title = {template.title} 
+                                    price = {template.price} 
+                                    downloadCount = {template.number_of_downloads} 
+                                    favoriteCount = {template.number_of_bookmarks} 
+                                    requiredPlugins = {template.required_plugins}
+                                    categories = {template.categories}
+                                    purchaseURL = {template.purchase_url}
+                                    previewURL = {template.preview_link}
+                                />
+                            </div>
                         ))
                     }
                     </TabPanel>

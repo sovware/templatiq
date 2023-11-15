@@ -14,7 +14,8 @@
 		"fixtextdomain": "grunt fixtextdomain",
 		"git-compress": "webpack --config webpack.compress.git.js",
 		"git-build": "composer build && yarn start --no-watch && grunt build && yarn git-compress",
-		"git-production-build": "composer build && yarn minify && grunt build && yarn git-compress"
+		"git-production-build": "composer build && yarn minify && grunt build && yarn git-compress",
+		"copy-svg": "cp -r src/svg assets/svg"
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^26.3.0",

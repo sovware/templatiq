@@ -1,6 +1,7 @@
+@import 'grid';
 
 :root {
-	--templatiq-primary-color: #8941FF;
+	--templatiq-primary-color: #8941FF; 
 	--templatiq-dark-color: #101014;
 	--templatiq-black-color: #000000;
 	--templatiq-btn-color: #35353D; 
@@ -76,7 +77,7 @@ button {
 	margin-inline-start: -20px;
 	background-color: var(--templatiq-section-color);
 	&:after {
-		content: '';
+		content: ''; 
 		position: fixed;
 		top: 50%;
 		left: 50%;
@@ -326,4 +327,7 @@ button {
 	}
 }
 
+.templatiq-row {
+	
+}
 

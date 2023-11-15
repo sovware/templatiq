@@ -5,6 +5,7 @@ const DashboardStyle = Styled.div`
     .templatiq__content__top {
         display: flex;
         gap: 24px;
+        margin: 0 0 8px;
         justify-content: space-between;
         .templatiq__content__top__filter__title {
             font-size: 16px;
