@@ -28,10 +28,6 @@ export default function TemplatePackModule() {
 		res.json()
 	));
 
-	// const { isLoading, error, data } = useQuery(['templates'], () => fetch(TemplateData).then(res =>
-	// 	res.json()
-	// ));
-
     // const { isLoading, ersror, data } = useQuery(['templates'], () => templatesData);
     
 	if (isLoading) 

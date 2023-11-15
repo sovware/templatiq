@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { SidebarStyle, SidebarItemStyle } from './style';
 
@@ -9,6 +9,20 @@ import 'react-tabs/style/react-tabs.css';
 import filterIcon from '@icon/filter.svg';
 
 const Sidebar = () => {
+	let [selectedCategories, setSelectedCategories] = useState([]);
+	let categories = ["Directory", "WooCommerce", "HelpGent", "Legal Pages"];
+
+	const handleCategoryChange = (e) => {
+		console.log('Category: ', e)
+		// const updatedCategories = selectedCategories.includes(category)
+		// ? selectedCategories.filter((c) => c !== category)
+		// : [...selectedCategories, category];
+
+    	setSelectedCategories(updatedCategories);
+
+		console.log('Selected category: ', selectedCategories);
+	};
+
 	return (
 		<SidebarStyle className="templatiq__sidebar">
 			<div className="templatiq__sidebar__top">
