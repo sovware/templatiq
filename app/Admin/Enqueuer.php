@@ -39,7 +39,7 @@ class Enqueuer extends EnqueuerBase {
 			],
 		];
 
-		wp_localize_script( 'templatiq-admin-app', 'template_market_obj', $obj );
+		wp_localize_script( 'templatiq-app', 'template_market_obj', $obj );
 	}
 
 	public function elementor_editor_enqueue() {

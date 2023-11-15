@@ -8,13 +8,15 @@ import { useMutation } from '@tanstack/react-query';
 const login = async (credentials) => {
 	console.log("Check credentials: ", credentials)
 	// Replace this with your actual API endpoint
-	const response = await fetch('http://templatemarket.local/wp-json/templatiq/account/login', {
+	const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/login`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify(credentials),
 	});
+
+	console.log("Response: ", response);
   
 	if (!response.ok) {
 	  	throw new Error('Login failed');

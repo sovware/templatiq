@@ -19,14 +19,8 @@ class Account {
 		$this->cloud_endpoint = TEMPLATIQ_CLOUD_BASE;
 	}
 
-	public function login( string $token, string $username, string $password, bool $additional = false ) {
-		if ( ! empty( $token ) ) {
-			$http     = new Http( $this->cloud_endpoint . '/account/login' );
-			$response = $http->body( ['token' => $token, 'additional' => $additional] )
-				->post()
-				->response();
-
-		} elseif ( ! empty( $username ) && ! empty( $password ) ) {
+	public function login( string $username, string $password ) {
+		if ( ! empty( $username ) && ! empty( $password ) ) {
 			$http     = new Http( $this->cloud_endpoint . '/account/login' );
 			$response = $http->body(
 				[
