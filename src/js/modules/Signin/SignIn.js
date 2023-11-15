@@ -19,8 +19,6 @@ const login = async (credentials) => {
 	if (!response.ok) {
 	  	throw new Error('Login failed');
 	}
-
-	console.log('Response: ', response)
   
 	return response.json();
 };
@@ -29,7 +27,6 @@ const login = async (credentials) => {
 export default function SignInContent () {
 
 	const mutation = useMutation(login);
-	console.log('Mutation: ', mutation)
 
 	const [formData, setFormData] = useState({
 		authorEmail: "sample@gmail.com",
@@ -57,7 +54,7 @@ export default function SignInContent () {
 
 			console.log('Result: ', result);
 
-			if (result.success) {
+			if (result.body.token) {
 				console.log('Login successful');
 			} else {
 				console.error('Login failed', result.message);
