@@ -11,7 +11,15 @@ import TemplateDetailsWidget from './TemplateDetailsWidget';
 export default function TemplateDetailsModule(props) {
 	const { templateSlug } = props;
 
-	const { isLoading, error, data } = useQuery(['templates'], () => fetch(`${template_market_obj.rest_args.endpoint}/template/library`).then(res =>
+	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
+		`${template_market_obj.rest_args.endpoint}/template/library`, 
+        {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': template_market_obj.rest_args.nonce,
+			}
+		}).then(res =>
 		res.json()
 	));
 

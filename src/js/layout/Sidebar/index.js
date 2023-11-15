@@ -19,15 +19,15 @@ const Sidebar = () => {
 		legal_pages: "Legal Pages",
 	}
 
-	const handleCategoryChange = (e) => {
-		console.log('Category: ', e)
-		// const updatedCategories = selectedCategories.includes(category)
-		// ? selectedCategories.filter((c) => c !== category)
-		// : [...selectedCategories, category];
+	const handleCategoryChange = (category) => {
+		console.log('Category: ', category)
+		const updatedCategories = selectedCategories.includes(category)
+      ? selectedCategories.filter((c) => c !== category)
+      : [...selectedCategories, category];
 
     	setSelectedCategories(updatedCategories);
 
-		console.log('Selected category: ', selectedCategories);
+		console.log('Selected category: ', updatedCategories);
 	};
 
 	return (
@@ -176,8 +176,11 @@ const Sidebar = () => {
 							<div className="templatiq__sidebar__categories__wrapper">
 								{Object.keys(categories).map((key) => (
 									<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-										<input type="checkbox" id={key} className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-										<label for="directorist" className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">{categories[key]}</label>
+										<input 
+											type="checkbox" id={key} className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input"
+											onChange={() => handleCategoryChange(key)}
+										/>
+										<label for={key} className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">{categories[key]}</label>
 										<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
 									</div>
 								))}

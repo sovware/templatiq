@@ -24,9 +24,18 @@ export default function TemplatePackModule() {
 		return data;
 	}
 
-	const { isLoading, error, data } = useQuery(['templates'], () => fetch(`${template_market_obj.rest_args.endpoint}/template/library`).then(res =>
+	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
+        `${template_market_obj.rest_args.endpoint}/template/library`, 
+        {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			'X-WP-Nonce': template_market_obj.rest_args.nonce,
+		}
+    }).then(res =>
 		res.json()
 	));
+
 
     // const { isLoading, ersror, data } = useQuery(['templates'], () => templatesData);
     

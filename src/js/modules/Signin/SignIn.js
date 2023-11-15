@@ -8,10 +8,13 @@ import { useMutation } from '@tanstack/react-query';
 const login = async (credentials) => {
 	console.log("Check credentials: ", credentials)
 	// Replace this with your actual API endpoint
+	console.log(template_market_obj.rest_args.nonce);
+
 	const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/login`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
+			'X-WP-Nonce': template_market_obj.rest_args.nonce,
 		},
 		body: JSON.stringify(credentials),
 	});
@@ -31,8 +34,8 @@ export default function SignInContent () {
 	const mutation = useMutation(login);
 
 	const [formData, setFormData] = useState({
-		authorEmail: "sample@gmail.com",
-		authorPassword: "123456",
+		authorEmail: "riaz",
+		authorPassword: "fffffffffddddd",
 	});
 
 	const handleChange = (e) => {
