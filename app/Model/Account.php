@@ -56,6 +56,7 @@ class Account {
 
 	public function logout() {
 		Options::set( 'token', '' );
+		Options::set( 'account_data', '' );
 
 		$response = [
 			'status'  => 'success',
