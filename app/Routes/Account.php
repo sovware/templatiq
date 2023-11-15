@@ -18,6 +18,7 @@ class Account extends RouteBase {
 		$this->post( $this->endpoint . '/login', [$this, 'login'], $this->prepare_args( 'login' ) );
 		$this->post( $this->endpoint . '/logout', [$this, 'logout'] );
 		$this->post( $this->endpoint . '/create', [$this, 'create'], $this->prepare_args( 'create' ) );
+		$this->get( $this->endpoint . '/data', [$this, 'data'] );
 		$this->get( $this->endpoint . '/is-logged-in', [$this, 'is_logged_in'] );
 		$this->post( $this->endpoint . '/directorist-sync', [$this, 'directorist_membership_sync'] );
 	}
@@ -47,6 +48,13 @@ class Account extends RouteBase {
 
 		$account  = new ModelAccount;
 		$response = $account->create( $user_login, $user_email );
+
+		return $response;
+	}
+
+	public function data() {
+		$account  = new ModelAccount;
+		$response = $account->data();
 
 		return $response;
 	}

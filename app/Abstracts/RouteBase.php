@@ -28,20 +28,20 @@ abstract class RouteBase {
 
 	public function permission_check( WP_REST_Request $request ) {
 
-		$this->request = $request;
-
-		if ( 'mehedi' === 'mehedi' ) {
+		if ( is_user_logged_in() && current_user_can( 'edit_posts' ) ) {
 			return true;
 		}
+
+		$this->request = $request;
 
 		$_route = $request->get_route();
 
 		return $this->permission_error( '', $_route );
 	}
 
-	protected function permission_error( string $message, $endpoint = '' ) {
+	protected function permission_error( string $message, string $endpoint = '' ) {
 		if ( empty( $message ) ) {
-			$message = __( 'Sorry, you need to login/re-login again.', 'templatiq' );
+			$message = __( 'Sorry, you are not logged in.', 'templatiq' );
 		}
 
 		$_additional_data = [
@@ -52,7 +52,7 @@ abstract class RouteBase {
 			$_additional_data['endpoint'] = $endpoint;
 		}
 
-		return new WP_Error( 'invalid_token', $message, $_additional_data );
+		return new WP_Error( 'authorization_failed', $message, $_additional_data );
 	}
 
 	public function get( $endpoint, $callback, $args = [] ) {
