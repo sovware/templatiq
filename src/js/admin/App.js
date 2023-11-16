@@ -14,6 +14,8 @@ import {
 import { updateGlobalState } from '@helper/utils';
 import { ThemeProvider } from 'styled-components';
 
+// import Store from '../store';
+
 
 import TemplatePack from './pages/TemplatePack';
 import TemplateDetails from './pages/TemplateDetails';
