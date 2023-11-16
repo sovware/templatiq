@@ -9,8 +9,12 @@ const Popup = (props) => {
     const installable_plugins = props.installable_plugins;
     
 	let [selectedPlugins, setSelectedPlugins] = useState([]);
-	let [installingPlugins, setInstallingPlugins] = useState([]);
-	let [installedPlugins, setInstalledPlugins] = useState([]);
+	
+    const [installingPlugins, setInstallingPlugins] = useState({});
+    const [installedPlugins, setInstalledPlugins] = useState({});
+
+    const [allInstalledPlugins, setAllInstalledPlugins] = useState([]);
+    const [allPluginsInstalled, setAllPluginsInstalled] = useState(false);
 
 	const handlePluginChange = (plugin) => {
 
@@ -19,7 +23,6 @@ const Popup = (props) => {
 			: [...selectedPlugins, plugin];
 
     	setSelectedPlugins(updatedPlugins);
-    	// setInstallingPlugins(updatedPlugins);
 	};
 
     let closeModal = () => {
@@ -30,15 +33,39 @@ const Popup = (props) => {
         templatiqModalOpen && templatiqModalOpen.classList.remove("modal-open");
     }
 
-    const handlePopUpForm = (e) => {
-		e.preventDefault(); 
+    // const handlePopUpForm = (e) => {
+	// 	e.preventDefault(); 
 
-        selectedPlugins.map((plugin) => {
-            console.log('Proceed to Install: ', plugin.slug)
-            console.log('installingPlugins: ', installingPlugins)
-            installPlugin(plugin);
-        });
-	}; 
+    //     selectedPlugins.map((plugin) => {
+    //         console.log('Proceed to Install: ', plugin.slug)
+    //         console.log('installingPlugins: ', installingPlugins)
+    //         installPlugin(plugin);
+    //     });
+	// }; 
+
+    const handlePopUpForm = async (e) => {
+        e.preventDefault();
+    
+        // Set the installing status for each selected plugin
+        for (const plugin of selectedPlugins) {
+            console.log('Proceed to Install: ', plugin.slug);
+            
+            // Set installing status for the current plugin
+            setInstallingPlugins((prevStatus) => {
+                const updatedStatus = { ...prevStatus };
+                updatedStatus[plugin.slug] = true;
+                return updatedStatus;
+            });
+    
+            // Introduce a delay (e.g., 100 milliseconds) before installing the plugin
+            // await new Promise(resolve => setTimeout(resolve, 100));
+    
+            // Install the current plugin
+            await installPlugin(plugin);
+        }
+    };
+    
+    
 
     const installPlugin = async (plugin) => {
         const response = await fetch(`${template_market_obj.rest_args.endpoint}/dependency/install`, 
@@ -61,12 +88,24 @@ const Popup = (props) => {
 
         console.log('Form Response: ', data); 
 
-        // setInstallingPlugins(...installingPlugins, plugin.slug);
-        setInstallingPlugins([...installingPlugins, plugin.slug]);
+        // Update the status for the plugin
+        setInstallingPlugins((prevStatus) => {
+            const updatedStatus = { ...prevStatus };
+            updatedStatus[plugin.slug] = true;
+            return updatedStatus;
+        });
+
 
         if(data.success) {
             let installed = data.slug;
-            setInstalledPlugins([...installedPlugins, installed]);
+
+            // Update the status for the plugin
+            setInstalledPlugins((prevStatus) => {
+                const updatedStatus = { ...prevStatus };
+                updatedStatus[installed] = true;
+                return updatedStatus;
+            });
+
             console.log('Installed: ', installed);
         }
 
@@ -87,17 +126,16 @@ const Popup = (props) => {
                     <div className="templatiq__modal__plugins">
 
                     {installable_plugins && installable_plugins.map((plugin, index) => {
-                        console.log('installingPlugins ', installingPlugins, 'installedPlugins ', installedPlugins)
-                        
-                        const isInstalling = installingPlugins.includes(plugin.slug);
-                        // console.log('isInstalling: ', isInstalling, installedPlugins);
-                        // isInstalling && console.log( 'IS Installing- ', plugin.slug)
+                        const isInstalling = installingPlugins[plugin.slug];
+                        const isInstalled = installedPlugins[plugin.slug];
+                
+                        let installStatus = '';
+                        if (isInstalled) {
+                            installStatus = 'Installed';
+                        } else if (isInstalling) {
+                            installStatus = 'Installing';
+                        }
 
-                        const isInstalled = installedPlugins.includes(plugin.slug);
-                        // isInstalled && console.log( 'IS Installed- ', plugin.slug)
-
-                        let install_status = isInstalled ? 'installed' : isInstalling ? 'installing' : '';
-                        console.log('install_status: ', install_status)
                         return (
                             <div key={index} className={`templatiq__modal__plugin templatiq__checkbox`}>
                                 <input 
@@ -116,10 +154,13 @@ const Popup = (props) => {
                                     <a href="#" className="templatiq__modal__plugin__link">{plugin.name}</a>
                                 </label>
                                 
-                                {
-                                    install_status ? 
-                                    <span className="templatiq__modal__plugin__pro">{install_status}</span> : ''
-                                }
+                                <span className="templatiq__modal__plugin__status">{installStatus}</span>
+
+                                {allPluginsInstalled && (
+                                    <div className="install-message">
+                                        All plugins are installed successfully!
+                                    </div>
+                                )}
                                
                             </div>
                         );
