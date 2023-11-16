@@ -48,6 +48,17 @@ const RequiredPluginStyle = Styled.div`
             z-index: -1;
         }
     }
+    .templatiq__modal__page {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        .templatiq__modal__page__title {
+            flex: 1;
+            height: 36px;
+            padding: 0 20px;
+            border: 1px solid #9f9f9f;
+        }
+    }
     .templatiq__modal__actions {
         display: flex;
         gap: 12px;
