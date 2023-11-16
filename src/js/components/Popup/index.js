@@ -1,4 +1,4 @@
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { RequiredPluginStyle } from './style';
 
@@ -9,6 +9,8 @@ const Popup = (props) => {
     const installable_plugins = props.installable_plugins;
     
 	let [selectedPlugins, setSelectedPlugins] = useState([]);
+	let [installingPlugins, setInstallingPlugins] = useState([]);
+	let [installedPlugins, setInstalledPlugins] = useState([]);
 
 	const handlePluginChange = (plugin) => {
 
@@ -17,6 +19,7 @@ const Popup = (props) => {
 			: [...selectedPlugins, plugin];
 
     	setSelectedPlugins(updatedPlugins);
+    	// setInstallingPlugins(updatedPlugins);
 	};
 
     let closeModal = () => {
@@ -29,18 +32,17 @@ const Popup = (props) => {
 
     const handlePopUpForm = (e) => {
 		e.preventDefault(); 
-		
-        console.log('Form values: ', selectedPlugins);
-        
-        installPlugins(selectedPlugins);
 
         selectedPlugins.map((plugin) => {
-            // installPlugins(plugin);
+            console.log('Proceed to Install: ', plugin.slug)
+            console.log('installingPlugins: ', installingPlugins)
+            installPlugin(plugin);
         });
 	}; 
 
-    const installPlugins = async (plugin) => {
-        const response = await fetch(`${template_market_obj.rest_args.endpoint}/dependency/install`, {
+    const installPlugin = async (plugin) => {
+        const response = await fetch(`${template_market_obj.rest_args.endpoint}/dependency/install`, 
+        {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -50,17 +52,30 @@ const Popup = (props) => {
                 plugin: plugin
             }),
         });
-
-        console.log('Response: ', response)
     
         if (!response.ok) {
             throw new Error('Error Occurred');
         }
     
         const data = await response.json();
-    
+
         console.log('Form Response: ', data); 
+
+        // setInstallingPlugins(...installingPlugins, plugin.slug);
+        setInstallingPlugins([...installingPlugins, plugin.slug]);
+
+        if(data.success) {
+            let installed = data.slug;
+            setInstalledPlugins([...installedPlugins, installed]);
+            console.log('Installed: ', installed);
+        }
+
+    
     }; 
+
+    // useEffect(() => {
+    //     console.log('Use Installing Plugins: ', installingPlugins)
+    // }, [installingPlugins]);
 
 
     return (
@@ -72,22 +87,40 @@ const Popup = (props) => {
                     <div className="templatiq__modal__plugins">
 
                     {installable_plugins && installable_plugins.map((plugin, index) => {
+                        console.log('installingPlugins ', installingPlugins, 'installedPlugins ', installedPlugins)
+                        
+                        const isInstalling = installingPlugins.includes(plugin.slug);
+                        // console.log('isInstalling: ', isInstalling, installedPlugins);
+                        // isInstalling && console.log( 'IS Installing- ', plugin.slug)
+
+                        const isInstalled = installedPlugins.includes(plugin.slug);
+                        // isInstalled && console.log( 'IS Installed- ', plugin.slug)
+
+                        let install_status = isInstalled ? 'installed' : isInstalling ? 'installing' : '';
+                        console.log('install_status: ', install_status)
                         return (
-                            <div key={index} className="templatiq__modal__plugin templatiq__checkbox">
+                            <div key={index} className={`templatiq__modal__plugin templatiq__checkbox`}>
                                 <input 
                                     id={slug + '_' + plugin.slug}
                                     name={slug + '_' + plugin.slug}
                                     type="checkbox" 
                                     className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
                                     onChange={() => handlePluginChange(plugin)}
-                                    disabled = {plugin.is_pro}
+                                    // disabled = {plugin.is_pro}
                                 />
+
                                 <label 
                                     htmlFor={slug + '_' + plugin.slug}
                                     className="templatiq__modal__plugin__label templatiq__checkbox__label"
                                 >
                                     <a href="#" className="templatiq__modal__plugin__link">{plugin.name}</a>
                                 </label>
+                                
+                                {
+                                    install_status ? 
+                                    <span className="templatiq__modal__plugin__pro">{install_status}</span> : ''
+                                }
+                               
                             </div>
                         );
                     })}
@@ -96,7 +129,7 @@ const Popup = (props) => {
                     <p className="templatiq__modal__desc"><strong>Note:</strong> Make sure you have manually installed & activated the Pro Plugin listed above.</p>
                 </div>
                 <div className="templatiq__modal__actions">
-                    <button className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-primary">Install and Proceed to Import</button>
+                    <button type="submit" className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-primary">Install and Proceed to Import</button>
                     <button className="templatiq__modal__action templatiq__modal__action--cancel templatiq-btn" onClick={closeModal}>Cancel</button>
                 </div>
             </form>

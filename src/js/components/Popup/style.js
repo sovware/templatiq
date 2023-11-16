@@ -33,6 +33,11 @@ const RequiredPluginStyle = Styled.div`
     }
     .templatiq__modal__plugins {
         margin: 20px 0;
+        .install_status {
+            &.installed {
+                color: var(--templatiq-success-color);
+            }
+        }
         a {
             position: relative;
             top: -2px;
