@@ -29,18 +29,15 @@ const Popup = (props) => {
 
     const handlePopUpForm = (e) => {
 		e.preventDefault(); 
-		
-        console.log('Form values: ', selectedPlugins);
-        
-        installPlugins(selectedPlugins);
-
+		        
         selectedPlugins.map((plugin) => {
-            // installPlugins(plugin);
+            installPlugin(plugin);
         });
 	}; 
 
-    const installPlugins = async (plugin) => {
-        const response = await fetch(`${template_market_obj.rest_args.endpoint}/dependency/install`, {
+    const installPlugin = async (plugin) => {
+        const response = await fetch(`${template_market_obj.rest_args.endpoint}/dependency/install`, 
+        {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -50,8 +47,6 @@ const Popup = (props) => {
                 plugin: plugin
             }),
         });
-
-        console.log('Response: ', response)
     
         if (!response.ok) {
             throw new Error('Error Occurred');
@@ -80,7 +75,7 @@ const Popup = (props) => {
                                     type="checkbox" 
                                     className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
                                     onChange={() => handlePluginChange(plugin)}
-                                    disabled = {plugin.is_pro}
+                                    // disabled = {plugin.is_pro}
                                 />
                                 <label 
                                     htmlFor={slug + '_' + plugin.slug}
