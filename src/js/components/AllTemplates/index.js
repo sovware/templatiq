@@ -98,6 +98,8 @@ export default function TemplatePackModule() {
                         .map(template => (
                             <div className="templatiq-col-4">
                                 <SingleTemplate 
+                                    template_id = {template.template_id}
+                                    builder = {template.builder}
                                     thumbnail = {template.thumbnail} 
                                     slug = {template.slug}
                                     title = {template.title} 
@@ -117,6 +119,8 @@ export default function TemplatePackModule() {
                     {freeTemplates
                         .map(template => (
                             <SingleTemplate 
+                                template_id = {template.template_id}
+                                builder = {template.builder}
                                 thumbnail = {template.thumbnail} 
                                 slug = {template.slug}
                                 title = {template.title} 
@@ -134,6 +138,8 @@ export default function TemplatePackModule() {
                     {proTemplates
                         .map(template => (
                             <SingleTemplate 
+                                template_id = {template.template_id}
+                                builder = {template.builder}
                                 thumbnail = {template.thumbnail} 
                                 slug = {template.slug}
                                 title = {template.title} 
