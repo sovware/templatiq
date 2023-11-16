@@ -35,7 +35,7 @@ export default function TemplatePackModule() {
     );
 
 
-    // const { isLoading, ersror, data } = useQuery(['templates'], () => templatesData);
+    // const { isLoading, error, data } = useQuery(['templates'], () => templatesData);
     
 	if (isLoading) 
     return (

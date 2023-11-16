@@ -284,6 +284,12 @@ button {
 				}
 			}
 		}
+		&:disabled {
+			~ .templatiq__checkbox__label {
+				opacity: 0.5;
+				cursor: not-allowed;
+			}
+		}
 	}
 	.templatiq__checkbox__label {
 		width: 100%;
