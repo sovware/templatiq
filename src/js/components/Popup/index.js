@@ -7,10 +7,6 @@ import closeIcon from "@icon/close.svg";
 const Popup = (props) => {
     const { slug, required_plugins } = props.item;
     const installable_plugins = props.installable_plugins;
-
-    console.log('Required Plugins: ', required_plugins)
-    console.log('Installable Plugins: ', installable_plugins)
-    console.log('Unmatched Plugins: ', unmatchedItems)
     
 	let [selectedPlugins, setSelectedPlugins] = useState([]);
 
@@ -35,7 +31,37 @@ const Popup = (props) => {
 		e.preventDefault(); 
 		
         console.log('Form values: ', selectedPlugins);
+        
+        installPlugins(selectedPlugins);
+
+        selectedPlugins.map((plugin) => {
+            // installPlugins(plugin);
+        });
 	}; 
+
+    const installPlugins = async (plugin) => {
+        const response = await fetch(`${template_market_obj.rest_args.endpoint}/dependency/install`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': template_market_obj.rest_args.nonce,
+            },
+            body: JSON.stringify({
+                plugin: plugin
+            }),
+        });
+
+        console.log('Response: ', response)
+    
+        if (!response.ok) {
+            throw new Error('Error Occurred');
+        }
+    
+        const data = await response.json();
+    
+        console.log('Form Response: ', data); 
+    }; 
+
 
     return (
         <RequiredPluginStyle className="templatiq__modal templatiq__modal--required">
@@ -45,18 +71,16 @@ const Popup = (props) => {
                     <p className="templatiq__modal__desc">To import this item you need to install all the Plugin listed below.</p>
                     <div className="templatiq__modal__plugins">
 
-                    {required_plugins && required_plugins.map((plugin, index) => {
-                        const isInstallable = installable_plugins.some(installablePlugin => installablePlugin.slug === plugin.slug);
-                        const className = `templatiq__modal__plugin templatiq__checkbox ${isInstallable ? 'installable' : ''}`;
-
+                    {installable_plugins && installable_plugins.map((plugin, index) => {
                         return (
-                            <div key={index} className={className}>
+                            <div key={index} className="templatiq__modal__plugin templatiq__checkbox">
                                 <input 
                                     id={slug + '_' + plugin.slug}
                                     name={slug + '_' + plugin.slug}
                                     type="checkbox" 
                                     className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
-                                    onChange={() => handlePluginChange(slug + '_' + plugin.slug)}
+                                    onChange={() => handlePluginChange(plugin)}
+                                    disabled = {plugin.is_pro}
                                 />
                                 <label 
                                     htmlFor={slug + '_' + plugin.slug}

@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { Link } from 'react-router-dom';
-import { useQuery, useMutation } from '@tanstack/react-query';
 import { SingleTemplateStyle } from './style';
 
 import crownIcon from "@icon/crown.svg";
@@ -70,10 +69,8 @@ const SingleTemplate = (item) => {
     
         const data = await response.json();
     
-        console.log('Response: ', data);  
+        // console.log('Response: ', data);  
         setInstallablePlugins(data);
-
-        console.log('Installable Data: ', installablePlugins);  
     }; 
 
 
