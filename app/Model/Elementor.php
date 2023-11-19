@@ -42,6 +42,12 @@ class Elementor extends ElementorLocal {
 			]
 		);
 
+		if ( is_wp_error( $document ) ) {
+			error_log( print_r( $document, true ) );
+
+			return 0;
+		}
+
 		$document->save( [
 			'elements' => $template_data['content'],
 			'settings' => $page_settings,

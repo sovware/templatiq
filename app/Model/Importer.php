@@ -55,7 +55,6 @@ class Importer {
 				'template_id' => $template_id,
 			] )
 			->post()
-		// ->log()
 			->response();
 
 		if ( is_wp_error( $response ) ) {
@@ -71,6 +70,8 @@ class Importer {
 		} else {
 			$data = isset( $response['body'] ) ? (array) $response['body'] : [];
 		}
+
+		$data['type'] = strtolower( $data['type'] );
 
 		return $data;
 	}
