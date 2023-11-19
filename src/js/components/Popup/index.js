@@ -119,9 +119,9 @@ const Popup = (props) => {
                 'X-WP-Nonce': template_market_obj.rest_args.nonce,
             },
             body: JSON.stringify({
-                title: {pageTitle},
-                template_id: {template_id},
-                builder: {builder},
+                title: pageTitle,
+                template_id: template_id,
+                builder: builder,
             }),
         });
 

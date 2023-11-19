@@ -5,19 +5,18 @@
  * @version 1.0.0
  */
 
-namespace TemplatiqCloud\Utils;
+namespace Templatiq\Utils;
 
-class Key {
+class Transient {
+	public static function set( string $key, $value, $expiration = DAY_IN_SECONDS ): bool {
+		$key = Key::get( $key );
 
-	public static function get( string $key ): string {
-		return sprintf( '%s_%s', self::prefix(), trim( $key ) );
+		return set_transient( $key, $value, $expiration );
 	}
 
-	public static function prefix(): string {
-		return '_template_market_cloud';
-	}
+	public static function get( string $key ) {
+		$key = Key::get( $key );
 
-	private static function generate(): string {
-		return '';
+		return get_transient( $key );
 	}
 }

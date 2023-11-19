@@ -31,7 +31,7 @@ class Template extends RouteBase {
 	}
 
 	public function register_routes(): void {
-		$this->post( $this->endpoint . '/import-as-page', [$this, 'import_as_page'], $this->prepare_args( 'import_as_page' ) );
+		$this->post( $this->endpoint . '/import-as-page', [$this, 'import_as_page'] );
 		$this->get( $this->endpoint . '/library', [$this, 'library'] );
 	}
 
