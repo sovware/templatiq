@@ -27,13 +27,23 @@ class Enqueuer extends EnqueuerBase {
 			return;
 		}
 
-		$this->enqueue_script( 'templatiq-app', '/js/admin.js', ['react', 'react-dom', 'wp-api-fetch', 'wp-data', 'wp-element'] );
+		wp_enqueue_style( 'wp-components' );
 
+		$script_asset_path = TEMPLATIQ_ASSETS_PATH . '/js/admin.asset.php';
+
+		$script_info = file_exists( $script_asset_path ) ? include $script_asset_path : [
+			'dependencies' => [],
+			'version'      => TEMPLATIQ_VERSION,
+		];
+
+		$script_dep = array_merge( $script_info['dependencies'], ['updates', 'wp-hooks'] );
+
+		$this->enqueue_script( 'templatiq-app', '/js/admin.js', $script_dep );
 
 		$this->enqueue_style( 'templatiq-app', '/css/global.css' );
 
 		$obj = [
-			'rest_args' => [
+			'rest_args'  => [
 				'nonce'    => wp_create_nonce( 'wp_rest' ),
 				'endpoint' => get_rest_url( null, 'templatiq' ),
 			],
@@ -67,6 +77,5 @@ class Enqueuer extends EnqueuerBase {
 		];
 
 		wp_localize_script( 'templatiq-elementor-editor', 'template_market_obj', $obj );
-
 	}
 }
