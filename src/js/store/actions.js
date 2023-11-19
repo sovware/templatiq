@@ -1,22 +1,27 @@
-
-
 const actions = {
-	setFav( item, favCount ) {
-		console.log('setFav: ', {item, favCount})
-		return {
-			type: 'SET_FAV',
-			item,
-			favCount,
-		};
-	},
-
-    fetchFromAPI( path ) {
-        return {
-            type: 'FETCH_FROM_API',
-            path,
-        };
+    setFav(item, favCount) {
+      return {
+        type: 'SET_FAV',
+        item,
+        favCount,
+      };
     },
-
-};
-
-export default actions;
+  
+    toggleTemplateStatus(item, activeStatus) {
+      return {
+        type: 'TOGGLE_TEMPLATE_STATUS',
+        item,
+        activeStatus,
+      };
+    },
+  
+    fetchFromAPI(path) {
+      return {
+        type: 'FETCH_FROM_API',
+        path,
+      };
+    },
+  };
+  
+  export default actions;
+  
