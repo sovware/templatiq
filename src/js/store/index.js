@@ -1,36 +1,15 @@
-import apiFetch from '@wordpress/api-fetch';
+// import apiFetch from '@wordpress/api-fetch';
 import {createReduxStore, register} from '@wordpress/data';
 
-// console.log( 'apiFetch', apiFetch );
-// console.log( 'register', register );
-// console.log( 'createReduxStore', createReduxStore );
+import actions from './actions';
 
 const DEFAULT_STATE = {
 	favCounts: {},
 };
 
-const actions = {
-	setFav( item, favCount ) {
-		console.log('setFav: ', {item, favCount})
-		return {
-			type: 'SET_FAV',
-			item,
-			favCount,
-		};
-	},
-
-    fetchFromAPI( path ) {
-        return {
-            type: 'FETCH_FROM_API',
-            path,
-        };
-    },
-
-};
-
-
-const store = createReduxStore( 'my-shop', {
+const store = createReduxStore( 'templatiq-store', {
 	reducer( state = DEFAULT_STATE, action ) {
+		console.log('reducer: ', {state, action})
 		switch ( action.type ) {
 			case 'SET_FAV':
 				return {
@@ -56,20 +35,21 @@ const store = createReduxStore( 'my-shop', {
 		},
 	},
 
-	// controls: {
-	// 	FETCH_FROM_API( action ) {
-	// 		return apiFetch( { path: action.path } );
-	// 	},
-	// },
+	controls: {
+		FETCH_FROM_API( action ) {
+			return apiFetch( { path: action.path } );
+		},
+	},
 
-	// resolvers: {
-	// 	*getFav( item ) {
-	// 		const path = '/wp/v2/favCounts/' + item;
-	// 		// const favCount = yield actions.fetchFromAPI( path );
-	// 		const favCount = actions.item;
-	// 		return actions.setFav( item, favCount );
-	// 	},
-	// },
+	resolvers: {
+		*getFav( item ) {
+			const path = item;
+			const favCount = yield actions.fetchFromAPI( path );
+			// const favCount = actions.item;
+			console.log('getFav Item: ', {item}, favCount)
+			return actions.setFav( item, favCount );
+		},
+	},
 } );
 
 register( store ); 

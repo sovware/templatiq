@@ -29,8 +29,8 @@ const SingleTemplate = (item) => {
     // dispatch( store ).setFav( slug, '10');
     // const favCountList = resolveSelect( store ).getFav( slug).then( console.log('getFav Resolved') );
 
-    const favCountList = select( store ).getFav( slug);
-    console.log('favCountList: ', favCountList)
+    const favCountList = select( store ).getFav(slug);
+    console.log('favCountList: ', favCountList, )
 
     let addModal = async (e) => {
         e.preventDefault();
