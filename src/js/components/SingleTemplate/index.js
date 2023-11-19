@@ -11,6 +11,11 @@ import downloadIcon from "@icon/download-alt.svg";
 import templateImg1 from "@images/template/1.svg";
 import Popup from '@components/Popup';
 
+import { select, useSelect, withSelect, resolveSelect, dispatch } from '@wordpress/data';
+
+import store from '../../store';
+console.log('Store: ', store)
+
 const SingleTemplate = (item) => {
     let { slug, preview_link, purchase_url, thumbnail, title, price, number_of_downloads, number_of_bookmarks, categories, required_plugins } = item;
 
@@ -20,6 +25,13 @@ const SingleTemplate = (item) => {
     const [installablePlugins, setInstallablePlugins] = useState([]);
 
     const templateRef = useRef(null);
+
+    // dispatch( store ).setFav( slug, '10');
+
+    // const favCountList = select( store ).getFav( slug);
+
+    // console.log('favCountList: ', favCountList)
+    resolveSelect( store ).getFav( slug ).then( console.log('Check: ', slug) );
 
     let addModal = async (e) => {
         e.preventDefault();
@@ -42,6 +54,8 @@ const SingleTemplate = (item) => {
     let handleFavorite = ( e ) => {
 		e.preventDefault();
 		addFavorite( ! addedToFavorite );
+
+        dispatch( store ).setFav( slug, addedToFavorite ? Number(currentFavoriteCount) + 1 : number_of_bookmarks);
 	}
 
     useEffect(() => {
