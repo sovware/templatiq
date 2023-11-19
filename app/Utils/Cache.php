@@ -20,7 +20,7 @@ class Cache {
 		return [];
 	}
 
-	private function key( string...$items ): string {
+	private static function key( string...$items ): string {
 		$single = "demo_data_";
 
 		foreach ( $items as $item ) {

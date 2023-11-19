@@ -3,7 +3,6 @@ import Styled from 'styled-components';
 const SingleTemplateStyle = Styled.div`
     display: flex;
     gap: 20px;
-    min-width: 375px;
     flex-direction: column;
     background: var(--templatiq-white-color);
     padding: 20px 20px 24px;
@@ -222,6 +221,7 @@ const SingleTemplateStyle = Styled.div`
             top: -45px;
             left: 50%;
             transform: translateX(-50%);
+            min-width: 100px;
             text-align: center;
             color: var(--templatiq-white-color);
             font-size: 13px;

@@ -1,51 +1,44 @@
 import apiFetch from '@wordpress/api-fetch';
-import { createReduxStore, register } from '@wordpress/data';
+import {createReduxStore, register} from '@wordpress/data';
+
+// console.log( 'apiFetch', apiFetch );
+// console.log( 'register', register );
+// console.log( 'createReduxStore', createReduxStore );
 
 const DEFAULT_STATE = {
-	prices: {},
-	discountPercent: 0,
+	favCounts: {},
 };
 
 const actions = {
-	setPrice( item, price ) {
+	setFav( item, favCount ) {
+		console.log('setFav: ', {item, favCount})
 		return {
-			type: 'SET_PRICE',
+			type: 'SET_FAV',
 			item,
-			price,
+			favCount,
 		};
 	},
 
-	startSale( discountPercent ) {
-		return {
-			type: 'START_SALE',
-			discountPercent,
-		};
-	},
+    fetchFromAPI( path ) {
+        return {
+            type: 'FETCH_FROM_API',
+            path,
+        };
+    },
 
-	fetchFromAPI( path ) {
-		return {
-			type: 'FETCH_FROM_API',
-			path,
-		};
-	},
 };
+
 
 const store = createReduxStore( 'my-shop', {
 	reducer( state = DEFAULT_STATE, action ) {
 		switch ( action.type ) {
-			case 'SET_PRICE':
+			case 'SET_FAV':
 				return {
 					...state,
-					prices: {
-						...state.prices,
-						[ action.item ]: action.price,
+					favCounts: {
+						...state.favCounts,
+						[ action.item ]: action.favCount,
 					},
-				};
-
-			case 'START_SALE':
-				return {
-					...state,
-					discountPercent: action.discountPercent,
 				};
 		}
 
@@ -55,27 +48,30 @@ const store = createReduxStore( 'my-shop', {
 	actions,
 
 	selectors: {
-		getPrice( state, item ) {
-			const { prices, discountPercent } = state;
-			const price = prices[ item ];
+		getFav( state, item ) {
+			const { favCounts } = state;
+			const favCount = favCounts[ item ];
 
-			return price * ( 1 - 0.01 * discountPercent );
+			return favCount;
 		},
 	},
 
-	controls: {
-		FETCH_FROM_API( action ) {
-			return apiFetch( { path: action.path } );
-		},
-	},
+	// controls: {
+	// 	FETCH_FROM_API( action ) {
+	// 		return apiFetch( { path: action.path } );
+	// 	},
+	// },
 
-	resolvers: {
-		*getPrice( item ) {
-			const path = '/wp/v2/prices/' + item;
-			const price = yield actions.fetchFromAPI( path );
-			return actions.setPrice( item, price );
-		},
-	},
+	// resolvers: {
+	// 	*getFav( item ) {
+	// 		const path = '/wp/v2/favCounts/' + item;
+	// 		// const favCount = yield actions.fetchFromAPI( path );
+	// 		const favCount = actions.item;
+	// 		return actions.setFav( item, favCount );
+	// 	},
+	// },
 } );
 
-register( store );
+register( store ); 
+
+export default store;

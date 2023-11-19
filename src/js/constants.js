@@ -1,5 +1,4 @@
 import ReactSVG from 'react-inlinesvg';
-import { v4 as uuidv4 } from 'uuid';
 
 export const KB_IN_BYTES = 1024;
 export const MB_IN_BYTES = 1024 * KB_IN_BYTES;

@@ -3,6 +3,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import queryStore from '../queryStore';
 import App from './App';
 
+
 document.addEventListener('DOMContentLoaded', function () {
 	const container = document.querySelector('.templatiq-root');
 	if (!container) {
