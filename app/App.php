@@ -9,6 +9,7 @@ namespace Templatiq;
 
 use Templatiq\Admin\Admin;
 use Templatiq\Routes\Account;
+use Templatiq\Routes\Cache;
 use Templatiq\Routes\Dependency;
 use Templatiq\Routes\Template;
 use Templatiq\Utils\Singleton;
@@ -34,5 +35,6 @@ class App {
 		Account::init();
 		Dependency::init();
 		Template::init();
+		Cache::init();
 	}
 }
