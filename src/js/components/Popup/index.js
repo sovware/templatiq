@@ -1,4 +1,4 @@
-import { useState, useEffect } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { RequiredPluginStyle } from './style';
 
@@ -14,8 +14,8 @@ const Popup = (props) => {
     const [installingPlugins, setInstallingPlugins] = useState({});
     const [installedPlugins, setInstalledPlugins] = useState({});
 
-    const [allInstalledPlugins, setAllInstalledPlugins] = useState([]);
     const [allPluginsInstalled, setAllPluginsInstalled] = useState(false);
+    const [importedData, setImportedData] = useState(false);
 
     let closeModal = () => {
         let templatiqRoot = document.querySelector(".templatiq");
@@ -28,7 +28,6 @@ const Popup = (props) => {
     const handlePageTitle = (e) => {
         e.preventDefault();
     	setPageTitle(e.target.value);
-        // console.log('Page Title: ', e.target.value);
 	};
 
 	const handlePluginChange = (plugin) => {
@@ -44,7 +43,6 @@ const Popup = (props) => {
     
         // Set the installing status for each selected plugin
         for (const plugin of selectedPlugins) {
-            // console.log('Proceed to Install: ', plugin.slug);
             
             // Set installing status for the current plugin
             setInstallingPlugins((prevStatus) => {
@@ -52,9 +50,6 @@ const Popup = (props) => {
                 updatedStatus[plugin.slug] = true;
                 return updatedStatus;
             });
-    
-            // Introduce a delay (e.g., 100 milliseconds) before installing the plugin
-            // await new Promise(resolve => setTimeout(resolve, 100));
     
             // Install the current plugin
             await installPlugin(plugin);
@@ -83,8 +78,6 @@ const Popup = (props) => {
     
         const data = await response.json();
 
-        // console.log('Form Response: ', data); 
-
         // Update the status for the plugin
         setInstallingPlugins((prevStatus) => {
             const updatedStatus = { ...prevStatus };
@@ -102,15 +95,12 @@ const Popup = (props) => {
                 updatedStatus[installed] = true;
                 return updatedStatus;
             });
-
-            // console.log('Installed: ', installed);
         }
 
     
     }; 
 
     const importData = async (pageTitle, template_id, builder) => {
-        console.log('Clicked Import Button', pageTitle, template_id, builder);
         const response = await fetch(`${template_market_obj.rest_args.endpoint}/template/import-as-page`, 
         {
             method: 'POST',
@@ -124,8 +114,6 @@ const Popup = (props) => {
                 builder: builder,
             }),
         });
-
-        console.log('Import Response: ', response)
     
         if (!response.ok) {
             throw new Error('Error Occurred');
@@ -133,10 +121,8 @@ const Popup = (props) => {
     
         const data = await response.json();
 
-        console.log('Data Response: ', data); 
-
-        if(data.success) {
-            console.log('Imported Data ', data);
+        if(data.post_id) {
+            setImportedData(data) 
         }
     
     }; 
@@ -146,71 +132,84 @@ const Popup = (props) => {
         <RequiredPluginStyle className="templatiq__modal templatiq__modal--required">
             <form className="templatiq__modal__form" onSubmit={handlePopUpForm}>
                 <div className="templatiq__modal__content">
-                    <h2 className="templatiq__modal__title">Required Plugins</h2>
-                    <p className="templatiq__modal__desc">To import this item you need to install all the Plugin listed below.</p>
-                    <div className="templatiq__modal__plugins">
-                        {
-                            !allPluginsInstalled ?
-                            installable_plugins && installable_plugins.map((plugin, index) => {
-                                const isInstalling = installingPlugins[plugin.slug];
-                                const isInstalled = installedPlugins[plugin.slug];
-                        
-                                let installStatus = '';
-                                if (isInstalled) {
-                                    installStatus = 'Installed';
-                                } else if (isInstalling) {
-                                    installStatus = 'Installing';
-                                }
-        
-                                return (
-                                    <div key={index} className="templatiq__modal__plugin templatiq__checkbox">
+                    {!importedData ? 
+                        <>
+                            <h2 className="templatiq__modal__title">Required Plugins</h2>
+                            <p className="templatiq__modal__desc">To import this item you need to install all the Plugin listed below.</p>
+                            <div className="templatiq__modal__plugins">
+                                {
+                                    !allPluginsInstalled ?
+                                    installable_plugins && installable_plugins.map((plugin, index) => {
+                                        const isInstalling = installingPlugins[plugin.slug];
+                                        const isInstalled = installedPlugins[plugin.slug];
+                                
+                                        let installStatus = '';
+                                        if (isInstalled) {
+                                            installStatus = 'Installed';
+                                        } else if (isInstalling) {
+                                            installStatus = 'Installing';
+                                        }
+                
+                                        return (
+                                            <div key={index} className="templatiq__modal__plugin templatiq__checkbox">
+                                                <input 
+                                                    id={slug + '_' + plugin.slug}
+                                                    name={slug + '_' + plugin.slug}
+                                                    type="checkbox" 
+                                                    className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
+                                                    onChange={() => handlePluginChange(plugin)}
+                                                    disabled = {plugin.is_pro}
+                                                />
+
+                                                <label 
+                                                    htmlFor={slug + '_' + plugin.slug}
+                                                    className="templatiq__modal__plugin__label templatiq__checkbox__label"
+                                                >
+                                                    <a href="#" className="templatiq__modal__plugin__link">{plugin.name}</a>
+                                                </label>
+                                                
+                                                <span className="templatiq__modal__plugin__status">{installStatus}</span>
+                                                
+                                            </div>
+                                        );
+                                    }) : 
+                                    <div className="templatiq__modal__page">
                                         <input 
-                                            id={slug + '_' + plugin.slug}
-                                            name={slug + '_' + plugin.slug}
-                                            type="checkbox" 
-                                            className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
-                                            onChange={() => handlePluginChange(plugin)}
-                                            disabled = {plugin.is_pro}
+                                            type="text" 
+                                            className="templatiq__modal__page__title" 
+                                            placeholder="Enter Page Title" 
+                                            onChange={(e) => handlePageTitle(e)}
                                         />
-
-                                        <label 
-                                            htmlFor={slug + '_' + plugin.slug}
-                                            className="templatiq__modal__plugin__label templatiq__checkbox__label"
+                                        <button 
+                                            onClick={() => importData(pageTitle, template_id, builder)} 
+                                            className="templatiq__modal__page__button templatiq-btn templatiq-btn-primary"
                                         >
-                                            <a href="#" className="templatiq__modal__plugin__link">{plugin.name}</a>
-                                        </label>
-                                        
-                                        <span className="templatiq__modal__plugin__status">{installStatus}</span>
-                                        
+                                            Create a Page
+                                        </button>
                                     </div>
-                                );
-                            }) : 
-                            <div className="templatiq__modal__page">
-                                <input 
-                                    type="text" 
-                                    className="templatiq__modal__page__title" 
-                                    placeholder="Enter Page Title" 
-                                    onChange={(e) => handlePageTitle(e)}
-                                />
-                                <button 
-                                    onClick={() => importData(pageTitle, template_id, builder)} 
-                                    className="templatiq__modal__page__button templatiq-btn templatiq-btn-primary"
-                                >
-                                    Create a Page
-                                </button>
-                            </div>
-                        }
+                                }
 
-                    </div>
-                    <p className="templatiq__modal__desc"><strong>Note:</strong> Make sure you have manually installed & activated the Pro Plugin listed above.</p>
-                </div>
-                <div className="templatiq__modal__actions">
-                    {
-                        !allPluginsInstalled ? 
-                        <button type="submit" className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-primary">Install and Proceed to Import</button> : ''
+                            </div>
+                            <p className="templatiq__modal__desc"><strong>Note:</strong> Make sure you have manually installed & activated the Pro Plugin listed above.</p>
+                            <div className="templatiq__modal__actions">
+                                {
+                                    !allPluginsInstalled ? 
+                                    <button type="submit" className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-primary">Install and Proceed to Import</button> : ''
+                                }
+                                <button className="templatiq__modal__action templatiq__modal__action--cancel templatiq-btn" onClick={closeModal}>Cancel</button>
+                            </div>
+                        </> :
+                        <>
+                            <h2 className="templatiq__modal__title">Imported Successfully</h2>
+                            <p className="templatiq__modal__desc">You can edit or preview the template or you can push it to Templatiq cloud to share with your team.</p>
+                            <div className="templatiq__modal__actions">
+                                <a href={importedData.elementor_edit_link} target='_blank' className="templatiq-btn templatiq-btn-primary">Edit Template with Elementor</a>
+                                <a href={importedData.visit} target='_blank' className="templatiq-btn templatiq-btn-primary">View Template</a>
+                            </div>
+                        </> 
                     }
-                    <button className="templatiq__modal__action templatiq__modal__action--cancel templatiq-btn" onClick={closeModal}>Cancel</button>
                 </div>
+
             </form>
             
             <button className="templatiq__modal__cancel__button" onClick={closeModal}>

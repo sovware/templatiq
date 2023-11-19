@@ -15,11 +15,11 @@ class Library {
 
 	public function data() {
 
-		$data = Cache::get( ['library'] );
+		// $data = Cache::get( ['library'] );
 
-		if ( $data ) {
-			return $data;
-		}
+		// if ( $data ) {
+		// 	return $data;
+		// }
 
 		$http     = new Http( TEMPLATIQ_CLOUD_BASE . '/template/library' );
 		$response = $http->get()->response();
@@ -38,7 +38,7 @@ class Library {
 			$data = isset( $response['body'] ) ? (array) $response['body'] : [];
 		}
 
-		Cache::set( ['library'], $data );
+		// Cache::set( ['library'], $data );
 
 		return $data;
 	}

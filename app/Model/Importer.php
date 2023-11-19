@@ -71,7 +71,7 @@ class Importer {
 			$data = isset( $response['body'] ) ? (array) $response['body'] : [];
 		}
 
-		$data['type'] = strtolower( $data['type'] );
+		$data['type'] = 'page';
 
 		return $data;
 	}

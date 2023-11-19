@@ -27,11 +27,10 @@ const SingleTemplate = (item) => {
     const templateRef = useRef(null);
 
     // dispatch( store ).setFav( slug, '10');
+    // const favCountList = resolveSelect( store ).getFav( slug).then( console.log('getFav Resolved') );
 
-    // const favCountList = select( store ).getFav( slug);
-
-    // console.log('favCountList: ', favCountList)
-    resolveSelect( store ).getFav( slug ).then( console.log('Check: ', slug) );
+    const favCountList = select( store ).getFav( slug);
+    console.log('favCountList: ', favCountList)
 
     let addModal = async (e) => {
         e.preventDefault();
@@ -54,8 +53,6 @@ const SingleTemplate = (item) => {
     let handleFavorite = ( e ) => {
 		e.preventDefault();
 		addFavorite( ! addedToFavorite );
-
-        dispatch( store ).setFav( slug, addedToFavorite ? Number(currentFavoriteCount) + 1 : number_of_bookmarks);
 	}
 
     useEffect(() => {
@@ -63,6 +60,7 @@ const SingleTemplate = (item) => {
 
         // This will be triggered whenever addedToFavorite changes
         setCurrentFavoriteCount(addedToFavorite ? Number(currentFavoriteCount) + 1 : number_of_bookmarks);
+        dispatch( store ).setFav( slug, addedToFavorite ? Number(currentFavoriteCount) + 1 : number_of_bookmarks);
     }, [addedToFavorite, setModalOpen]);
 
 	const handlePlugins = async (plugins) => {
@@ -82,8 +80,6 @@ const SingleTemplate = (item) => {
         }
     
         const data = await response.json();
-    
-        // console.log('Response: ', data);  
         setInstallablePlugins(data);
     }; 
 

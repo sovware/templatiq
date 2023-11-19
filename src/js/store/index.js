@@ -56,20 +56,20 @@ const store = createReduxStore( 'my-shop', {
 		},
 	},
 
-	controls: {
-		FETCH_FROM_API( action ) {
-			return apiFetch( { path: action.path } );
-		},
-	},
+	// controls: {
+	// 	FETCH_FROM_API( action ) {
+	// 		return apiFetch( { path: action.path } );
+	// 	},
+	// },
 
-	resolvers: {
-		*getFav( item ) {
-			const path = '/wp/v2/favCounts/' + item;
-			// const favCount = yield actions.fetchFromAPI( path );
-			const favCount = actions.item;
-			return actions.setFav( item, favCount );
-		},
-	},
+	// resolvers: {
+	// 	*getFav( item ) {
+	// 		const path = '/wp/v2/favCounts/' + item;
+	// 		// const favCount = yield actions.fetchFromAPI( path );
+	// 		const favCount = actions.item;
+	// 		return actions.setFav( item, favCount );
+	// 	},
+	// },
 } );
 
 register( store ); 
