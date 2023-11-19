@@ -208,9 +208,6 @@ const SingleTemplateStyle = Styled.div`
                 }
             }
         }
-        &:before {
-            min-width: 120px;
-        }
     }
 
     .templatiq-tooltip {
@@ -221,7 +218,7 @@ const SingleTemplateStyle = Styled.div`
             top: -45px;
             left: 50%;
             transform: translateX(-50%);
-            min-width: 100px;
+            min-width: 120px;
             text-align: center;
             color: var(--templatiq-white-color);
             font-size: 13px;

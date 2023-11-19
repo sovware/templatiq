@@ -63,7 +63,6 @@ export default function TemplatePackModule() {
 
 	return (
         <>
-            {/* <Popup /> */}
             <Tabs className="templatiq__content__tab">
                 <div className="templatiq__content__top">
                     <div className="templatiq__content__top__filter">
@@ -115,42 +114,46 @@ export default function TemplatePackModule() {
                         ))
                     }
                     </TabPanel>
-                    <TabPanel className="templatiq__content__tab-panel">
+                    <TabPanel className="templatiq-row templatiq__content__tab-panel">
                     {freeTemplates
                         .map(template => (
-                            <SingleTemplate 
-                                template_id = {template.template_id}
-                                builder = {template.builder}
-                                thumbnail = {template.thumbnail} 
-                                slug = {template.slug}
-                                title = {template.title} 
-                                number_of_downloads = {template.number_of_downloads} 
-                                number_of_bookmarks = {template.number_of_bookmarks} 
-                                required_plugins = {template.required_plugins}
-                                categories = {template.categories}
-                                purchase_url = {template.purchase_url}
-                                preview_link = {template.preview_link}
-                            />
+                            <div className="templatiq-col-4">
+                                <SingleTemplate 
+                                    template_id = {template.template_id}
+                                    builder = {template.builder}
+                                    thumbnail = {template.thumbnail} 
+                                    slug = {template.slug}
+                                    title = {template.title} 
+                                    number_of_downloads = {template.number_of_downloads} 
+                                    number_of_bookmarks = {template.number_of_bookmarks} 
+                                    required_plugins = {template.required_plugins}
+                                    categories = {template.categories}
+                                    purchase_url = {template.purchase_url}
+                                    preview_link = {template.preview_link}
+                                />
+                            </div>
                         ))
                     }
                     </TabPanel>
-                    <TabPanel className="templatiq__content__tab-panel">
+                    <TabPanel className="templatiq-row templatiq__content__tab-panel">
                     {proTemplates
                         .map(template => (
-                            <SingleTemplate 
-                                template_id = {template.template_id}
-                                builder = {template.builder}
-                                thumbnail = {template.thumbnail} 
-                                slug = {template.slug}
-                                title = {template.title} 
-                                price = {template.price} 
-                                number_of_downloads = {template.number_of_downloads} 
-                                number_of_bookmarks = {template.number_of_bookmarks} 
-                                required_plugins = {template.required_plugins}
-                                categories = {template.categories}
-                                purchase_url = {template.purchase_url}
-                                preview_link = {template.preview_link}
-                            />
+                            <div className="templatiq-col-4">
+                                <SingleTemplate 
+                                    template_id = {template.template_id}
+                                    builder = {template.builder}
+                                    thumbnail = {template.thumbnail} 
+                                    slug = {template.slug}
+                                    title = {template.title} 
+                                    price = {template.price} 
+                                    number_of_downloads = {template.number_of_downloads} 
+                                    number_of_bookmarks = {template.number_of_bookmarks} 
+                                    required_plugins = {template.required_plugins}
+                                    categories = {template.categories}
+                                    purchase_url = {template.purchase_url}
+                                    preview_link = {template.preview_link}
+                                />
+                            </div>
                         ))
                     }
                     </TabPanel>

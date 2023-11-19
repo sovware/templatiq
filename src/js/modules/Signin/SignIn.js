@@ -1,5 +1,5 @@
 import { useState } from '@wordpress/element';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthStyle } from "@root/style";
 
 import { useMutation } from '@tanstack/react-query';
@@ -28,6 +28,7 @@ const login = async (credentials) => {
 
 export default function SignInContent () {
 
+	const navigate = useNavigate();
 	const mutation = useMutation(login);
 
 	const [formData, setFormData] = useState({
@@ -58,6 +59,8 @@ export default function SignInContent () {
 
 			if (result.body.token) {
 				console.log('Login successful');
+				navigate('/');
+
 			} else {
 				console.error('Login failed', result.message);
 			}
