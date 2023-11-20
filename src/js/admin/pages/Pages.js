@@ -1,11 +1,12 @@
 import TemplatePackModule from '@modules/TemplatePack';
 
-export default function Pages() {
-	let isLoggedIn = false;
+const Pages = () => {
 
 	return (
-		<>
-			<TemplatePackModule type="page" />
-		</>
+		<TemplatePackModule 
+			type="pages" 
+		/>
 	);
 }
+
+export default Pages;

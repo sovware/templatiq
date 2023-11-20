@@ -37,6 +37,8 @@ import downloadIcon from "@icon/download-alt.svg";
 const Header = (props) =>  {
 	const { type } = props;
 
+	console.log('Header Type: ', props, type)
+
 	const { isLoggedIn, userDisplayName } = select( store ).getUserInfo();
 	console.log('Header LoggedIn Status: ', isLoggedIn, userDisplayName)
 

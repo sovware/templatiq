@@ -64,8 +64,6 @@ export default function App() {
 				const responseData = await response.json();
 				const data = responseData.data;
 
-				console.log('Initial User Info: ', response)
-
 				const updatedUserInfo = {
 					isLoggedIn: data.user_email ? true : false,
 					userName: data.user_nicename,
@@ -82,12 +80,9 @@ export default function App() {
 		}
 	};
 
-	useEffect(() => {
-		console.log('App.js UseEffect')
-        getUserInfo();
-    }, []);
-
 	useEffect( () => {
+		getUserInfo();
+
 		if ( document.documentElement.getAttribute( 'dir' ) === 'rtl' ) {
 			setDir( 'rtl' );
 		} else {

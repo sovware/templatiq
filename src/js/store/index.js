@@ -27,7 +27,7 @@ const loadStateFromStorage = () => {
 
 const store = createReduxStore('templatiq-stores', {
 	reducer(state = loadStateFromStorage(), action) {
-		console.log('Initial State: ', state)
+		// console.log('Initial State: ', state)
 		switch (action.type) {
 			case 'SET_FAV':
 				const favState = {
@@ -106,7 +106,6 @@ const store = createReduxStore('templatiq-stores', {
 		},
 
 		getUserInfo(state) {
-			console.log('Get User Info: ', state, state.userInfo)
 			const { userInfo } = state;
 
 			return userInfo;
