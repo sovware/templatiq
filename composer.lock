@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "wpth/utils",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wptownhall/Utils.git",
-                "reference": "a9bb0228c8d6cc82e46ccf4a4fd2f69f1336d38d"
+                "reference": "1f725d3a7641336d184e29bbc24cb104f340fd4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wptownhall/Utils/zipball/a9bb0228c8d6cc82e46ccf4a4fd2f69f1336d38d",
-                "reference": "a9bb0228c8d6cc82e46ccf4a4fd2f69f1336d38d",
+                "url": "https://api.github.com/repos/wptownhall/Utils/zipball/1f725d3a7641336d184e29bbc24cb104f340fd4c",
+                "reference": "1f725d3a7641336d184e29bbc24cb104f340fd4c",
                 "shasum": ""
             },
             "require": {
@@ -26,7 +26,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Wpth\\Utils\\": "src/"
+                    "WPTH\\Utils\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -36,7 +36,7 @@
             "authors": [
                 {
                     "name": "HeyMehedi",
-                    "email": "meehdi.2800@gmail.com"
+                    "email": "mehedi.2800@gmail.com"
                 }
             ],
             "description": "Collections of Some Utilities",
@@ -49,9 +49,9 @@
             ],
             "support": {
                 "issues": "https://github.com/wptownhall/Utils/issues",
-                "source": "https://github.com/wptownhall/Utils/tree/v1.0.0"
+                "source": "https://github.com/wptownhall/Utils/tree/v1.0.1"
             },
-            "time": "2023-10-04T01:43:17+00:00"
+            "time": "2023-11-20T04:36:00+00:00"
         }
     ],
     "packages-dev": [
@@ -425,5 +425,5 @@
         "php": ">=7.4"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }

@@ -19,4 +19,10 @@ class Transient {
 
 		return get_transient( $key );
 	}
+
+	public static function delete( string $key ) {
+		$key = Key::get( $key );
+
+		return delete_transient( $key );
+	}
 }

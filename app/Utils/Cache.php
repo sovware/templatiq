@@ -20,18 +20,25 @@ class Cache {
 		return [];
 	}
 
+	public static function set( array $args, array $data ): bool {
+		$key = self::key( ...$args );
+
+		return Transient::set( $key, $data, WEEK_IN_SECONDS );
+	}
+
+	public static function clear( array $args ): bool {
+		$key = self::key( ...$args );
+
+		return Transient::delete( $key );
+	}
+
 	private static function key( string...$items ): string {
-		$single = "demo_data_";
+		$single = "library_data_";
 
 		foreach ( $items as $item ) {
 			$single .= $item . "_";
 		}
 
 		return trim( $single );
-	}
-
-	public static function set( array $args, array $data ): void {
-		$key = self::key( ...$args );
-		Transient::set( $key, $data, 0 );
 	}
 }
