@@ -14,7 +14,9 @@ import crownIcon from '@icon/crown.svg';
 import arrowLeft from '@icon/angle-left.svg';
 import arrowRight from '@icon/angle-right.svg';
 
-export default function TemplatePackModule() {
+const TemplatePackModule = (props) => {
+    console.log('Page Type: ', props)
+    const { type } = props;
 
 	let total = 6;
 	let perPage = 4;
@@ -55,11 +57,15 @@ export default function TemplatePackModule() {
         </div>
     );
 
-    console.log('Templates: ', data);
 	let allTemplates = data.templates;
 
 	let proTemplates = allTemplates.filter(template => template.price > 0);
 	let freeTemplates = allTemplates.filter(template => template.price <= 0);
+    let pageTypeTemplates = allTemplates.filter(template => template.type === 'page');
+    let blockTypeTemplates = allTemplates.filter(template => template.type === 'block');
+
+    console.log('pageTypeTemplates: ', pageTypeTemplates)
+    console.log('blockTypeTemplates: ', blockTypeTemplates)
 
 	return (
         <>
@@ -182,3 +188,5 @@ export default function TemplatePackModule() {
         </>
 	);
 }
+
+export default TemplatePackModule;

@@ -6,8 +6,11 @@ import checkedClickedOutside from '@helper/checkClickedOutside';
 import {
 	Link,
 	NavLink,
-	useNavigate
+	useNavigate,
 } from 'react-router-dom';
+
+import { select, dispatch } from '@wordpress/data';
+import store from '../../store';
 
 import { HeaderStyle, HeaderNavStyle, HeaderActionStyle } from "./style";
 
@@ -33,9 +36,39 @@ import downloadIcon from "@icon/download-alt.svg";
 
 const Header = (props) =>  {
 	const { type } = props;
+
+	const { isLoggedIn, userDisplayName } = select( store ).getUserInfo();
+	console.log('Header LoggedIn Status: ', isLoggedIn, userDisplayName)
+
 	const [isAuthorInfoVisible, setAuthorInfoVisible] = useState(false);
 
-	let isLoggedIn = false;
+	const handleLogOut = async () => {
+		console.log('Logout Clicked')
+		try {
+			const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/logout`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-WP-Nonce': template_market_obj.rest_args.nonce,
+				},
+			});
+	
+			if (!response.ok) {
+				throw new Error('Error Occurred');
+			}
+			console.log('Resonse: ', response)
+	
+			if (response.ok) {
+				console.log('Logout Success')
+				// Dispatch the action to update the login status in the store
+				dispatch(store).logOut();
+				navigate('/');
+			}
+		} catch (error) {
+			// Handle error if needed
+			console.error('Error in Logout:', error);
+		}
+	}
 
 	let editorItems = [
 		{
@@ -129,37 +162,41 @@ const Header = (props) =>  {
 									onClick={handleToggleAuthorInfo}
 								>
 									<img src={avatar} alt="Avatar" />
-									Adam
+									{userDisplayName}
 								</a>
 								{
 									isAuthorInfoVisible &&
 									<div className="templatiq__header__author__info">
 										<div className="templatiq__header__author__info__item">
-											<a href="#" className="templatiq__header__author__info__link active">
+											<NavLink activeClassName="active" to="/dashboard/favorites" className="templatiq__header__author__info__link">
 												<ReactSVG src={ heartIcon } width={14} height={14} />
 												My Favorites
-											</a>
+											</NavLink>
 										</div>
 										<div className="templatiq__header__author__info__item">
-											<a href="#" className="templatiq__header__author__info__link">
+											<NavLink activeClassName="active" to="/dashboard/downloads" className="templatiq__header__author__info__link">
 												<ReactSVG src={ downloadIcon } width={14} height={14} />
 												My Downloads
-											</a>
+											</NavLink>
 										</div>
 										<div className="templatiq__header__author__info__item">
-											<a href="#" className="templatiq__header__author__info__link">
+											<NavLink activeClassName="active" to="/dashboard/purchase" className="templatiq__header__author__info__link">
 												<ReactSVG src={ cartIcon } width={14} height={14} />
 												My Purchase
-											</a>
+											</NavLink>
 										</div>
 										<div className="templatiq__header__author__info__item">
-											<a href="#" className="templatiq__header__author__info__link">
+											<NavLink activeClassName="active" to="/dashboard/account" className="templatiq__header__author__info__link">
 												<ReactSVG src={ settingsIcon } width={14} height={14} />
 												Manage Account
-											</a>
+											</NavLink>
 										</div>
 										<div className="templatiq__header__author__info__item templatiq__header__author__info__item--logout">
-											<a href="#" className="templatiq__header__author__info__link">
+											<a 
+												href="#" 
+												className="templatiq__header__author__info__link templatiq__logout"
+												onClick={handleLogOut}	
+											>
 												<ReactSVG src={ logoutIcon } width={14} height={14} />
 												Log Out
 											</a>

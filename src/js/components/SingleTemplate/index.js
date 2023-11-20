@@ -11,26 +11,24 @@ import downloadIcon from "@icon/download-alt.svg";
 import templateImg1 from "@images/template/1.svg";
 import Popup from '@components/Popup';
 
-import { select, useSelect, withSelect, resolveSelect, dispatch } from '@wordpress/data';
+import { select, dispatch } from '@wordpress/data';
 
 import store from '../../store';
-console.log('Store: ', store)
 
 const SingleTemplate = (item) => {
     let { slug, preview_link, purchase_url, thumbnail, title, price, number_of_downloads, number_of_bookmarks, categories, required_plugins } = item;
 
     const [isModalOpen, setModalOpen] = useState(false);
-	const [addedToFavorite, addFavorite] = useState(false);
-    const [currentFavoriteCount, setCurrentFavoriteCount] = useState(number_of_bookmarks);
     const [installablePlugins, setInstallablePlugins] = useState([]);
 
-    const templateRef = useRef(null);
-
-    // dispatch( store ).setFav( slug, '10');
-    // const favCountList = resolveSelect( store ).getFav( slug).then( console.log('getFav Resolved') );
-
     const favCountList = select( store ).getFav(slug);
-    console.log('favCountList: ', favCountList, )
+    const isTemplateActive = select( store ).getTemplateStatus(slug);
+
+	const [addedToFavorite, addFavorite] = useState(isTemplateActive ? isTemplateActive : false);
+    const [currentFavoriteCount, setCurrentFavoriteCount] = useState(favCountList ? favCountList : '');
+
+
+    const templateRef = useRef(null);
 
     let addModal = async (e) => {
         e.preventDefault();
@@ -50,17 +48,32 @@ const SingleTemplate = (item) => {
         }
     }
 
-    let handleFavorite = ( e ) => {
-		e.preventDefault();
-		addFavorite( ! addedToFavorite );
-	}
+    let handleFavorite = (e) => {
+        e.preventDefault();
+        addFavorite((prevAddedToFavorite) => {
+            const newAddedToFavorite = !prevAddedToFavorite;
+        
+            // Use the updated state immediately in the dispatch
+            dispatch(store).setFav(
+                slug,
+                newAddedToFavorite
+                    ? Number(currentFavoriteCount) + 1
+                    : favCountList
+                );
+
+            dispatch(store).toggleTemplateStatus(slug, newAddedToFavorite);
+        
+            // Return the new value to update the state
+            return newAddedToFavorite;
+        });
+    };
+      
 
     useEffect(() => {
         setModalOpen(false);
 
         // This will be triggered whenever addedToFavorite changes
-        setCurrentFavoriteCount(addedToFavorite ? Number(currentFavoriteCount) + 1 : number_of_bookmarks);
-        dispatch( store ).setFav( slug, addedToFavorite ? Number(currentFavoriteCount) + 1 : number_of_bookmarks);
+        setCurrentFavoriteCount(addedToFavorite ? Number(currentFavoriteCount) + 1 : Number(currentFavoriteCount));
     }, [addedToFavorite, setModalOpen]);
 
 	const handlePlugins = async (plugins) => {

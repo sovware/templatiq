@@ -5,7 +5,7 @@ export default function Blocks() {
 
 	return (
 		<>
-			<TemplatePackModule />
+			<TemplatePackModule type="block" />
 		</>
 	);
 }

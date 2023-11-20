@@ -14,7 +14,9 @@ import {
 import { updateGlobalState } from '@helper/utils';
 import { ThemeProvider } from 'styled-components';
 
-// import Store from '../store';
+
+import { dispatch } from '@wordpress/data';
+import store from '../store';
 
 
 import TemplatePack from './pages/TemplatePack';
@@ -33,9 +35,57 @@ import MyAccount from "./pages/dashboard/Account";
 export default function App() {
 	const [ dir, setDir ] = useState( 'ltr' );
 
+	const userInfo = {
+		isLoggedIn: '',
+		userName: '',
+		userEmail: '',
+		userDisplayName: '',
+	}
+
 	const theme = {
 		direction: dir,
 	};
+
+	const getUserInfo = async () => {
+		try {
+			const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/data`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-WP-Nonce': template_market_obj.rest_args.nonce,
+				},
+			});
+	
+			if (!response.ok) {
+				throw new Error('Error Occurred');
+			}
+	
+			if (response.ok) {
+				const responseData = await response.json();
+				const data = responseData.data;
+
+				console.log('Initial User Info: ', response)
+
+				const updatedUserInfo = {
+					isLoggedIn: data.user_email ? true : false,
+					userName: data.user_nicename,
+					userEmail: data.user_email,
+					userDisplayName: data.user_display_name,
+				};
+	
+				// Dispatch the action to update the login status in the store
+				dispatch(store).setUserInfo(updatedUserInfo);
+			}
+		} catch (error) {
+			// Handle error if needed
+			console.error('Error in getUserInfo:', error);
+		}
+	};
+
+	useEffect(() => {
+		console.log('App.js UseEffect')
+        getUserInfo();
+    }, []);
 
 	useEffect( () => {
 		if ( document.documentElement.getAttribute( 'dir' ) === 'rtl' ) {
@@ -50,6 +100,8 @@ export default function App() {
 			paramsHook: useParams,
 			locationHook: { useLocation },
 		} );
+
+
 	}, [] );
 
 	const templateRoutes = [

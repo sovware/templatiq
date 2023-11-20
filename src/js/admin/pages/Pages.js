@@ -5,7 +5,7 @@ export default function Pages() {
 
 	return (
 		<>
-			<TemplatePackModule />
+			<TemplatePackModule type="page" />
 		</>
 	);
 }
