@@ -8,9 +8,17 @@ const actions = {
     },
   
     setUserInfo(userInfo) {
+		console.log('Set User Info: ', userInfo)
         return {
 			type: 'SET_USER_INFO',
 			userInfo,
+        };
+    },
+  
+    logOut() {
+		console.log('LogOut Called ')
+        return {
+			type: 'LOG_OUT',
         };
     },
   

@@ -33,7 +33,7 @@ export default function SignInContent () {
 	const navigate = useNavigate();
 	const mutation = useMutation(login);
 
-	const isLoggedIn = select( store ).getLoggedInStatus();
+	const isLoggedIn = select( store ).getUserInfo();
 
 	console.log('Logged In? : ', isLoggedIn)
 
@@ -64,8 +64,19 @@ export default function SignInContent () {
 			console.log('Result: ', result);
 
 			if (result.body.token) {
-				console.log('Login successful');
-				dispatch(store).toggleLoginStatus(true);
+				const data = result.body;
+				console.log('Login successful', result.body);
+
+				const updatedUserInfo = {
+					isLoggedIn: true,
+					userName: data.user_nicename,
+					userEmail: data.user_email,
+					userDisplayName: data.user_display_name,
+				};
+	
+				// Dispatch the action to update the login status in the store
+				dispatch(store).setUserInfo(updatedUserInfo);
+
 				navigate('/');
 
 			} else {

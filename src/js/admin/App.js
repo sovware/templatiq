@@ -34,13 +34,9 @@ import MyAccount from "./pages/dashboard/Account";
 
 export default function App() {
 	const [ dir, setDir ] = useState( 'ltr' );
-	// const [ isLoggedIn, setLoggedIn ] = useState( false );
-	// const [ userName, setUserName ] = useState( '' );
-	// const [ userEmail, setUserEmail ] = useState( '' );
-	// const [ userDisplayName, setUserDisplayName ] = useState( '' );
 
 	const userInfo = {
-		isLoggedIn: false,
+		isLoggedIn: '',
 		userName: '',
 		userEmail: '',
 		userDisplayName: '',
@@ -50,7 +46,7 @@ export default function App() {
 		direction: dir,
 	};
 
-	const loggedInStatus = async () => {
+	const getUserInfo = async () => {
 		try {
 			const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/data`, {
 				method: 'GET',
@@ -60,33 +56,35 @@ export default function App() {
 				},
 			});
 	
-			const data = await response.json();
-	
-			if (!data.status === 'success') {
+			if (!response.ok) {
 				throw new Error('Error Occurred');
 			}
 	
-			if (data.status === 'success') {
+			if (response.ok) {
+				const responseData = await response.json();
+				const data = responseData.data;
+
+				console.log('Initial User Info: ', response)
+
 				const updatedUserInfo = {
-					isLoggedIn: true,
-					userName: data.data.user_nicename,
-					userEmail: data.data.user_email,
-					userDisplayName: data.data.user_display_name,
+					isLoggedIn: data.user_email ? true : false,
+					userName: data.user_nicename,
+					userEmail: data.user_email,
+					userDisplayName: data.user_display_name,
 				};
-	
-				console.log('updatedUserInfo: ', updatedUserInfo);
 	
 				// Dispatch the action to update the login status in the store
 				dispatch(store).setUserInfo(updatedUserInfo);
 			}
 		} catch (error) {
 			// Handle error if needed
-			console.error('Error in loggedInStatus:', error);
+			console.error('Error in getUserInfo:', error);
 		}
 	};
 
 	useEffect(() => {
-        loggedInStatus();
+		console.log('App.js UseEffect')
+        getUserInfo();
     }, []);
 
 	useEffect( () => {

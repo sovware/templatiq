@@ -6,10 +6,10 @@ import checkedClickedOutside from '@helper/checkClickedOutside';
 import {
 	Link,
 	NavLink,
-	useNavigate
+	useNavigate,
 } from 'react-router-dom';
 
-import { select } from '@wordpress/data';
+import { select, dispatch } from '@wordpress/data';
 import store from '../../store';
 
 import { HeaderStyle, HeaderNavStyle, HeaderActionStyle } from "./style";
@@ -41,6 +41,34 @@ const Header = (props) =>  {
 	console.log('Header LoggedIn Status: ', isLoggedIn, userDisplayName)
 
 	const [isAuthorInfoVisible, setAuthorInfoVisible] = useState(false);
+
+	const handleLogOut = async () => {
+		console.log('Logout Clicked')
+		try {
+			const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/logout`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-WP-Nonce': template_market_obj.rest_args.nonce,
+				},
+			});
+	
+			if (!response.ok) {
+				throw new Error('Error Occurred');
+			}
+			console.log('Resonse: ', response)
+	
+			if (response.ok) {
+				console.log('Logout Success')
+				// Dispatch the action to update the login status in the store
+				dispatch(store).logOut();
+				navigate('/');
+			}
+		} catch (error) {
+			// Handle error if needed
+			console.error('Error in Logout:', error);
+		}
+	}
 
 	let editorItems = [
 		{
@@ -164,7 +192,11 @@ const Header = (props) =>  {
 											</NavLink>
 										</div>
 										<div className="templatiq__header__author__info__item templatiq__header__author__info__item--logout">
-											<a href="#" className="templatiq__header__author__info__link templatiq__logout">
+											<a 
+												href="#" 
+												className="templatiq__header__author__info__link templatiq__logout"
+												onClick={handleLogOut}	
+											>
 												<ReactSVG src={ logoutIcon } width={14} height={14} />
 												Log Out
 											</a>

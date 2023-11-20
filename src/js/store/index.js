@@ -4,7 +4,7 @@ import actions from './actions';
 
 const DEFAULT_STATE = {
 	userInfo: {
-		loggedIn: false,
+		loggedIn: '',
 		userName: '',
 		userEmail: '',
 		userDisplayName: '',
@@ -67,6 +67,22 @@ const store = createReduxStore('templatiq-stores', {
 				localStorage.setItem('templatiq-stores', JSON.stringify(userData));
 		
 				return userData;
+
+			case 'LOG_OUT':
+				const updatedState = {
+					...state,
+					userInfo: {
+						isLoggedIn: false,
+						userName: '',
+						userEmail: '',
+						userDisplayName: '',
+					},
+				};
+			
+				// Save state to localStorage whenever it changes
+				localStorage.setItem('templatiq-stores', JSON.stringify(updatedState));
+		
+				return updatedState;
 		}
 	
 		return state;
@@ -90,6 +106,7 @@ const store = createReduxStore('templatiq-stores', {
 		},
 
 		getUserInfo(state) {
+			console.log('Get User Info: ', state, state.userInfo)
 			const { userInfo } = state;
 
 			return userInfo;
