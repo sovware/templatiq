@@ -23,7 +23,7 @@ class Cache {
 	public static function set( array $args, array $data ): bool {
 		$key = self::key( ...$args );
 
-		return Transient::set( $key, $data, 0 );
+		return Transient::set( $key, $data, WEEK_IN_SECONDS );
 	}
 
 	public static function clear( array $args ): bool {
