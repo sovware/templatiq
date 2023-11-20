@@ -1,4 +1,7 @@
 
+import { select } from '@wordpress/data';
+import store from '../store';
+
 import Header from '@layout/Header';
 import Sidebar from '@layout/Sidebar';
 import AdminSidebar from '@layout/Sidebar/AdminSidebar';
@@ -6,7 +9,7 @@ import AdminSidebar from '@layout/Sidebar/AdminSidebar';
 import { LayoutStyle } from './style.js';
 
 const AppLayout = ({ children }) => {
-	let isLoggedIn = false;
+	const { isLoggedIn } = select( store ).getUserInfo();
 
 	return (
 		<div className="templatiq">

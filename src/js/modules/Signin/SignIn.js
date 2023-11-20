@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthStyle } from "@root/style";
 
 import { useMutation } from '@tanstack/react-query';
+import { select, dispatch } from '@wordpress/data';
+import store from '../../store';
 
 // api.js - a file to store your API functions
 const login = async (credentials) => {
@@ -30,6 +32,10 @@ export default function SignInContent () {
 
 	const navigate = useNavigate();
 	const mutation = useMutation(login);
+
+	const isLoggedIn = select( store ).getLoggedInStatus();
+
+	console.log('Logged In? : ', isLoggedIn)
 
 	const [formData, setFormData] = useState({
 		authorEmail: "riaz",
@@ -59,6 +65,7 @@ export default function SignInContent () {
 
 			if (result.body.token) {
 				console.log('Login successful');
+				dispatch(store).toggleLoginStatus(true);
 				navigate('/');
 
 			} else {

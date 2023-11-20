@@ -14,7 +14,6 @@ import Popup from '@components/Popup';
 import { select, dispatch } from '@wordpress/data';
 
 import store from '../../store';
-console.log('Store: ', store)
 
 const SingleTemplate = (item) => {
     let { slug, preview_link, purchase_url, thumbnail, title, price, number_of_downloads, number_of_bookmarks, categories, required_plugins } = item;
@@ -25,8 +24,8 @@ const SingleTemplate = (item) => {
     const favCountList = select( store ).getFav(slug);
     const isTemplateActive = select( store ).getTemplateStatus(slug);
 
-	const [addedToFavorite, addFavorite] = useState(isTemplateActive);
-    const [currentFavoriteCount, setCurrentFavoriteCount] = useState(favCountList);
+	const [addedToFavorite, addFavorite] = useState(isTemplateActive ? isTemplateActive : false);
+    const [currentFavoriteCount, setCurrentFavoriteCount] = useState(favCountList ? favCountList : '');
 
 
     const templateRef = useRef(null);

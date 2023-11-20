@@ -130,6 +130,7 @@ const HeaderActionStyle = Styled.div`
         padding: 12px 8px;
         border-radius: 8px;
         box-sizing: border-box;
+        z-index: 1;
         background: var(--templatiq-white-color);
         box-shadow: 0 15px 40px -5px var(--templatiq-dark-color)1;
     }

@@ -14,7 +14,9 @@ import {
 import { updateGlobalState } from '@helper/utils';
 import { ThemeProvider } from 'styled-components';
 
-// import Store from '../store';
+
+import { dispatch } from '@wordpress/data';
+import store from '../store';
 
 
 import TemplatePack from './pages/TemplatePack';
@@ -32,10 +34,60 @@ import MyAccount from "./pages/dashboard/Account";
 
 export default function App() {
 	const [ dir, setDir ] = useState( 'ltr' );
+	// const [ isLoggedIn, setLoggedIn ] = useState( false );
+	// const [ userName, setUserName ] = useState( '' );
+	// const [ userEmail, setUserEmail ] = useState( '' );
+	// const [ userDisplayName, setUserDisplayName ] = useState( '' );
+
+	const userInfo = {
+		isLoggedIn: false,
+		userName: '',
+		userEmail: '',
+		userDisplayName: '',
+	}
 
 	const theme = {
 		direction: dir,
 	};
+
+	const loggedInStatus = async () => {
+		try {
+			const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/data`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-WP-Nonce': template_market_obj.rest_args.nonce,
+				},
+			});
+	
+			const data = await response.json();
+	
+			if (!data.status === 'success') {
+				throw new Error('Error Occurred');
+			}
+	
+			if (data.status === 'success') {
+				const updatedUserInfo = {
+					isLoggedIn: true,
+					userName: data.data.user_nicename,
+					userEmail: data.data.user_email,
+					userDisplayName: data.data.user_display_name,
+				};
+	
+				console.log('updatedUserInfo: ', updatedUserInfo);
+	
+				// Dispatch the action to update the login status in the store
+				dispatch(store).setUserInfo(updatedUserInfo);
+			}
+		} catch (error) {
+			// Handle error if needed
+			console.error('Error in loggedInStatus:', error);
+		}
+	};
+
+	useEffect(() => {
+        loggedInStatus();
+    }, []);
 
 	useEffect( () => {
 		if ( document.documentElement.getAttribute( 'dir' ) === 'rtl' ) {
@@ -50,6 +102,8 @@ export default function App() {
 			paramsHook: useParams,
 			locationHook: { useLocation },
 		} );
+
+
 	}, [] );
 
 	const templateRoutes = [

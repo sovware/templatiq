@@ -9,6 +9,9 @@ import {
 	useNavigate
 } from 'react-router-dom';
 
+import { select } from '@wordpress/data';
+import store from '../../store';
+
 import { HeaderStyle, HeaderNavStyle, HeaderActionStyle } from "./style";
 
 import Logo from "@images/logo.svg";
@@ -33,9 +36,11 @@ import downloadIcon from "@icon/download-alt.svg";
 
 const Header = (props) =>  {
 	const { type } = props;
-	const [isAuthorInfoVisible, setAuthorInfoVisible] = useState(false);
 
-	let isLoggedIn = false;
+	const { isLoggedIn, userDisplayName } = select( store ).getUserInfo();
+	console.log('Header LoggedIn Status: ', isLoggedIn, userDisplayName)
+
+	const [isAuthorInfoVisible, setAuthorInfoVisible] = useState(false);
 
 	let editorItems = [
 		{
@@ -129,37 +134,37 @@ const Header = (props) =>  {
 									onClick={handleToggleAuthorInfo}
 								>
 									<img src={avatar} alt="Avatar" />
-									Adam
+									{userDisplayName}
 								</a>
 								{
 									isAuthorInfoVisible &&
 									<div className="templatiq__header__author__info">
 										<div className="templatiq__header__author__info__item">
-											<a href="#" className="templatiq__header__author__info__link active">
+											<NavLink activeClassName="active" to="/dashboard/favorites" className="templatiq__header__author__info__link">
 												<ReactSVG src={ heartIcon } width={14} height={14} />
 												My Favorites
-											</a>
+											</NavLink>
 										</div>
 										<div className="templatiq__header__author__info__item">
-											<a href="#" className="templatiq__header__author__info__link">
+											<NavLink activeClassName="active" to="/dashboard/downloads" className="templatiq__header__author__info__link">
 												<ReactSVG src={ downloadIcon } width={14} height={14} />
 												My Downloads
-											</a>
+											</NavLink>
 										</div>
 										<div className="templatiq__header__author__info__item">
-											<a href="#" className="templatiq__header__author__info__link">
+											<NavLink activeClassName="active" to="/dashboard/purchase" className="templatiq__header__author__info__link">
 												<ReactSVG src={ cartIcon } width={14} height={14} />
 												My Purchase
-											</a>
+											</NavLink>
 										</div>
 										<div className="templatiq__header__author__info__item">
-											<a href="#" className="templatiq__header__author__info__link">
+											<NavLink activeClassName="active" to="/dashboard/account" className="templatiq__header__author__info__link">
 												<ReactSVG src={ settingsIcon } width={14} height={14} />
 												Manage Account
-											</a>
+											</NavLink>
 										</div>
 										<div className="templatiq__header__author__info__item templatiq__header__author__info__item--logout">
-											<a href="#" className="templatiq__header__author__info__link">
+											<a href="#" className="templatiq__header__author__info__link templatiq__logout">
 												<ReactSVG src={ logoutIcon } width={14} height={14} />
 												Log Out
 											</a>

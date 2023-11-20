@@ -3,19 +3,31 @@ import { createReduxStore, register } from '@wordpress/data';
 import actions from './actions';
 
 const DEFAULT_STATE = {
-  favCounts: {},
-  templateStatus: {},
+	userInfo: {
+		loggedIn: false,
+		userName: '',
+		userEmail: '',
+		userDisplayName: '',
+	},
+	favCounts: {},
+	templateStatus: {},
 };
 
 // Load state from localStorage on store initialization
 const loadStateFromStorage = () => {
-	const storedState = localStorage.getItem('templatiq-stores');
-	return storedState ? JSON.parse(storedState) : DEFAULT_STATE;
+	try {
+		const storedState = localStorage.getItem('templatiq-stores');
+		return storedState ? JSON.parse(storedState) : DEFAULT_STATE;
+	} catch (error) {
+		console.error('Error parsing stored state:', error);
+		return DEFAULT_STATE;
+	}
 };
   
 
 const store = createReduxStore('templatiq-stores', {
 	reducer(state = loadStateFromStorage(), action) {
+		console.log('Initial State: ', state)
 		switch (action.type) {
 			case 'SET_FAV':
 				const favState = {
@@ -44,6 +56,17 @@ const store = createReduxStore('templatiq-stores', {
 				localStorage.setItem('templatiq-stores', JSON.stringify(favStatus));
 		
 				return favStatus;
+
+			case 'SET_USER_INFO':
+				const userData = {
+					...state,
+					userInfo: action.userInfo,
+				};
+
+				// Save state to localStorage whenever it changes
+				localStorage.setItem('templatiq-stores', JSON.stringify(userData));
+		
+				return userData;
 		}
 	
 		return state;
@@ -64,6 +87,12 @@ const store = createReduxStore('templatiq-stores', {
 			const activeStatus = templateStatus[item];
 
 			return activeStatus;
+		},
+
+		getUserInfo(state) {
+			const { userInfo } = state;
+
+			return userInfo;
 		},
 	},
 
