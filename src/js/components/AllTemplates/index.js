@@ -56,6 +56,7 @@ export default function TemplatePackModule() {
     );
 
     console.log('Templates: ', data);
+    console.log('Library: ', data)
 	let allTemplates = data.templates;
 
 	let proTemplates = allTemplates.filter(template => template.price > 0);

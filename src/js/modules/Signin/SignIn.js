@@ -1,39 +1,16 @@
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthStyle } from "@root/style";
 
 import { useMutation } from '@tanstack/react-query';
 import { select, dispatch } from '@wordpress/data';
 import store from '../../store';
-
-// api.js - a file to store your API functions
-const login = async (credentials) => {
-
-	const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/login`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			'X-WP-Nonce': template_market_obj.rest_args.nonce,
-		},
-		body: JSON.stringify(credentials),
-	});
-
-	console.log("Response: ", response);
-  
-	if (!response.ok) {
-	  	throw new Error('Login failed');
-	}
-  
-	return response.json();
-};
   
 
 export default function SignInContent () {
-
 	const navigate = useNavigate();
-	const mutation = useMutation(login);
-
-	const isLoggedIn = select( store ).getUserInfo();
+	
+	const { isLoggedIn } = select( store ).getUserInfo();
 
 	console.log('Logged In? : ', isLoggedIn)
 
@@ -54,19 +31,34 @@ export default function SignInContent () {
 		handleLogin({ username: authorEmail.value, password: authorPassword.value, expiration: 20 });
 	};
 
+	// Login API
+	const login = async (credentials) => {
+		console.log('Login Credentials: ', credentials)
+		const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/login`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': template_market_obj.rest_args.nonce,
+			},
+			body: JSON.stringify(credentials),
+		});
+	
+		if (!response.ok) {
+			throw new Error('Login failed');
+		}
+	
+		return response.json();
+	};
+
+	const mutation = useMutation(login);
+
 	const handleLogin = async (credentials) => {
-		console.log('Credentials: ', credentials)
 		try {
 			// Call the mutation function with the user's credentials
-
 			const result = await mutation.mutateAsync(credentials);
-
-			console.log('Result: ', result);
 
 			if (result.body.token) {
 				const data = result.body;
-				console.log('Login successful', result.body);
-
 				const updatedUserInfo = {
 					isLoggedIn: true,
 					userName: data.user_nicename,
@@ -86,6 +78,10 @@ export default function SignInContent () {
 		  	console.error('Error', error); // Handle error
 		}
 	};
+
+	useEffect( () => {
+		isLoggedIn && navigate('/');
+	}, [ ] );
 	
 
 	return (
