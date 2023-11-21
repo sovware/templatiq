@@ -4,8 +4,6 @@ import AllTemplates from "@components/AllTemplates";
 
 export default function TemplatePackModule(props) {
     const { type } = props;
-    
-    console.log('Page Type: ', props, type)
 
 	return (
 		<AppLayout>

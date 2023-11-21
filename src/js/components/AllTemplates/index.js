@@ -17,14 +17,13 @@ import arrowRight from '@icon/angle-right.svg';
 
 export default function AllTemplates (props) {
     const { templateType } = props;
-    console.log('AllTemplates Type: ', props, templateType)
     const [allTemplates, setAllTemplates] = useState([]);
 
 	const total = 6;
 	const perPage = 4;
 
-	const handlePageClick = ( data ) => {
-		return data;
+	const handlePageClick = ( elm ) => {
+		return elm;
 	}
 
 	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
@@ -37,6 +36,18 @@ export default function AllTemplates (props) {
             }
         }).then(res => res.json() )
     );
+
+    useEffect(() => {
+        if (data) {
+            data && templateType === 'page' ? setAllTemplates(data.templates.filter(template => template.type === 'page')) : templateType === 'blocks' ? setAllTemplates(data.templates.filter(template => template.type === 'block')): setAllTemplates(data.templates);
+        } else {
+            setAllTemplates([]);
+        }
+    }, [isLoading]);
+
+    // Other state variables for proTemplates, freeTemplates, etc.
+	const proTemplates = allTemplates.filter(template => template.price > 0);
+	const freeTemplates = allTemplates.filter(template => template.price <= 0);
 
     // const { isLoading, error, data } = useQuery(['templates'], () => templatesData);
     
@@ -57,31 +68,6 @@ export default function AllTemplates (props) {
             </div>
         </div>
     );
-    
-	const defaultTemplates = data.templates;
-    const pageTypeTemplates = defaultTemplates.filter(template => template.type === 'page');
-    const blockTypeTemplates = defaultTemplates.filter(template => template.type === 'block');
-
-    console.log('defaultTemplates: ', defaultTemplates)
-    console.log('pageTypeTemplates: ', pageTypeTemplates)
-    console.log('blockTypeTemplates: ', blockTypeTemplates)
-
-
-    // useEffect(() => {
-    //     if (templateType === 'page') {
-    //         setAllTemplates(pageTypeTemplates);
-    //     } else if (templateType === 'block') {
-    //         setAllTemplates(blockTypeTemplates);
-    //     } else {
-    //         setAllTemplates(defaultTemplates);
-    //     }
-    // }, [templateType, data]);
-
-    // console.log('allTemplates: ', allTemplates)
-
-    // Other state variables for proTemplates, freeTemplates, etc.
-	const proTemplates = defaultTemplates.filter(template => template.price > 0);
-	const freeTemplates = defaultTemplates.filter(template => template.price <= 0);
 
 
 	return (
@@ -94,7 +80,7 @@ export default function AllTemplates (props) {
                     <TemplatePackFilterStyle className="templatiq__content__top__filter__wrapper">
                         <TabList className="templatiq__content__top__filter__tablist">
                             <Tab className="templatiq__content__top__filter__item">
-                                <a href="#" className="templatiq__content__top__filter__link">All ({defaultTemplates.length})</a>
+                                <a href="#" className="templatiq__content__top__filter__link">All ({allTemplates.length})</a>
                             </Tab>
                             <Tab className="templatiq__content__top__filter__item">
                                 <a href="#" className="templatiq__content__top__filter__link">Free ({freeTemplates.length})</a>
@@ -115,7 +101,7 @@ export default function AllTemplates (props) {
 
             <div className="templatiq__content__wrapper">
                 <TabPanel className="templatiq-row templatiq__content__tab-panel">
-                {defaultTemplates
+                {allTemplates
                     .map(template => (
                         <div className="templatiq-col-4">
                             <SingleTemplate 
