@@ -86,18 +86,15 @@ class Account {
 		return $_response;
 	}
 
-	public function create( string $user_login, string $user_email ) {
+	public function create( string $user_email, string $name = '' ) {
 		$errors    = [];
 		$_ip       = Helper::get_ip();
 		$_site_url = home_url( '/' );
 
-		if ( empty( $user_login ) ) {
-			$errors['user_login'] = __( 'Username cannot be empty.', 'templatiq' );
-		}
-
 		if ( empty( $user_email ) ) {
 			$errors['user_login'] = __( 'Email cannot be empty.', 'templatiq' );
 		}
+
 		if ( $user_email && ! filter_var( $user_email, FILTER_VALIDATE_EMAIL ) ) {
 			$errors['user_login'] = __( 'Make sure you have given a valid email address.', 'templatiq' );
 		}
@@ -110,13 +107,12 @@ class Account {
 
 		$response = $http->body(
 			[
-				'user_login' => $user_login,
 				'user_email' => $user_email,
+				'name'       => $name,
 				'site_url'   => $_site_url,
 				'ip'         => $_ip,
 			] )
 			->post()
-			->log()
 			->response();
 
 		if ( is_wp_error( $response ) ) {
