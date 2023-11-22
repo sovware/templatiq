@@ -1,16 +1,15 @@
 import { useState, useEffect } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg'; 
+import ReactPaginate from 'react-paginate';
+import { useQuery } from '@tanstack/react-query';
+
 import { TemplatePackFilterStyle } from '@root/style';
 import Searchform from "@components/Searchform";
 import SingleTemplate from "@components/SingleTemplate";
 
-// import templatesData from "@data/template.json";
-
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
-import ReactPaginate from 'react-paginate';
-import { useQuery } from '@tanstack/react-query';
 import crownIcon from '@icon/crown.svg';
 import arrowLeft from '@icon/angle-left.svg';
 import arrowRight from '@icon/angle-right.svg';
@@ -48,8 +47,6 @@ export default function AllTemplates (props) {
     // Other state variables for proTemplates, freeTemplates, etc.
 	const proTemplates = allTemplates.filter(template => template.price > 0);
 	const freeTemplates = allTemplates.filter(template => template.price <= 0);
-
-    // const { isLoading, error, data } = useQuery(['templates'], () => templatesData);
     
 	if (isLoading) 
     return (
@@ -68,6 +65,8 @@ export default function AllTemplates (props) {
             </div>
         </div>
     );
+
+    console.log('All Templates: ', allTemplates);
 
 
 	return (

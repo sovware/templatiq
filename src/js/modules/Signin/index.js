@@ -1,5 +1,4 @@
 import AuthLayout from "@layout/AuthLayout";
-
 import SignInContent from "./SignIn";
 
 export default function SignInModule() {

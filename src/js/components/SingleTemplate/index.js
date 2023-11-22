@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef } from '@wordpress/element';
+import { select, dispatch } from '@wordpress/data';
 import ReactSVG from 'react-inlinesvg';
 import { Link } from 'react-router-dom';
+
+import store from '../../store';
+import Popup from '@components/Popup';
 import { SingleTemplateStyle } from './style';
 
 import crownIcon from "@icon/crown.svg";
@@ -9,14 +13,9 @@ import heartIcon from "@icon/heart.svg";
 import heartSolidIcon from "@icon/heart-solid.svg";
 import downloadIcon from "@icon/download-alt.svg";
 import templateImg1 from "@images/template/1.svg";
-import Popup from '@components/Popup';
-
-import { select, dispatch } from '@wordpress/data';
-
-import store from '../../store';
 
 const SingleTemplate = (item) => {
-    let { slug, preview_link, purchase_url, thumbnail, title, price, number_of_downloads, number_of_bookmarks, categories, required_plugins } = item;
+    let { slug, preview_link, purchase_url, thumbnail, title, price, number_of_downloads, categories, required_plugins } = item;
 
     const [isModalOpen, setModalOpen] = useState(false);
     const [installablePlugins, setInstallablePlugins] = useState([]);

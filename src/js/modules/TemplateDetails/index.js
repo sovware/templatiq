@@ -48,7 +48,6 @@ export default function TemplateDetailsModule(props) {
 
 	return (
 		<TemplateDetailsLayout>
-			<Popup item={templateDetails} />
 			<TemplateDetailsStyle className="templatiq__details">
 				<TemplateDetailsHeader 
 					item={templateDetails} 

@@ -1,12 +1,11 @@
 import { useState, useEffect } from '@wordpress/element';
+import { select, dispatch } from '@wordpress/data';
+import { useMutation } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthStyle } from "@root/style";
 
-import { useMutation } from '@tanstack/react-query';
-import { select, dispatch } from '@wordpress/data';
 import store from '../../store';
   
-
 export default function SignInContent () {
 	const navigate = useNavigate();
 	
@@ -81,7 +80,7 @@ export default function SignInContent () {
 
 	useEffect( () => {
 		isLoggedIn && navigate('/');
-	}, [ ] );
+	}, [] );
 	
 
 	return (
