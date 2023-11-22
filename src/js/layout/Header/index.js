@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import Dropdown from '@components/Dropdown';
+import CacheClearBtn from '@components/CacheClearBtn';
 import checkedClickedOutside from '@helper/checkClickedOutside';
 
 import {
@@ -14,19 +15,19 @@ import store from '../../store';
 
 import { HeaderStyle, HeaderNavStyle, HeaderActionStyle } from "./style";
 
-import Logo from "@images/logo.svg";
 import Fav from "@images/fav.svg";
-
-import userIcon from "@icon/user-alt.svg";
-import fileIcon from "@icon/file-solid.svg";
-import pagesIcon from "@icon/pages.svg";
-import blocksIcon from "@icon/blocks.svg";
+import Logo from "@images/logo.svg";
 import avatar from "@images/avatar.svg";
 
-import chevronIcon from "@icon/chevron-down-solid.svg";
+import pagesIcon from "@icon/pages.svg";
+import blocksIcon from "@icon/blocks.svg";
+import userIcon from "@icon/user-alt.svg";
+import fileIcon from "@icon/file-solid.svg";
+
 import backIcon from "@icon/arrow-left.svg";
 import elementorIcon from "@icon/elementor.svg";
 import directoristIcon from "@icon/directorist.svg";
+import chevronIcon from "@icon/chevron-down-solid.svg";
 
 import cartIcon from "@icon/cart.svg";
 import heartIcon from "@icon/heart.svg";
@@ -38,7 +39,6 @@ const Header = (props) =>  {
 	const { type } = props;
 
 	const { isLoggedIn, userDisplayName } = select( store ).getUserInfo();
-	console.log('Header LoggedIn Status: ', isLoggedIn, userDisplayName)
 
 	const [isAuthorInfoVisible, setAuthorInfoVisible] = useState(false);
 
@@ -143,6 +143,10 @@ const Header = (props) =>  {
 				</HeaderNavStyle>
 				
 				<HeaderActionStyle className="templatiq__header__action">
+					<div className="templatiq__header__action__item">
+						<CacheClearBtn />
+					</div>
+
 					<div className="templatiq__header__action__item">
 						<Dropdown
 							className="templatiq__dropdown"

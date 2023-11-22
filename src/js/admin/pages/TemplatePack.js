@@ -1,12 +1,13 @@
 
 import TemplatePackModule from '@modules/TemplatePack';
 
-export default function TemplatePack() {
-	let isLoggedIn = false;
+const TemplatePack = () => {
 
 	return (
-		<>
-			<TemplatePackModule />
-		</>
+		<TemplatePackModule 
+			type="all" 
+		/>
 	);
 }
+
+export default TemplatePack;

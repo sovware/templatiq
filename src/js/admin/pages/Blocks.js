@@ -1,11 +1,12 @@
 import TemplatePackModule from '@modules/TemplatePack';
 
-export default function Blocks() {
-	let isLoggedIn = false;
+const Blocks = () => {
 
 	return (
-		<>
-			<TemplatePackModule type="block" />
-		</>
+		<TemplatePackModule 
+			type="blocks" 
+		/>
 	);
 }
+
+export default Blocks;

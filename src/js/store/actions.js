@@ -8,7 +8,6 @@ const actions = {
     },
   
     setUserInfo(userInfo) {
-		console.log('Set User Info: ', userInfo)
         return {
 			type: 'SET_USER_INFO',
 			userInfo,
