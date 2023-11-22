@@ -32,7 +32,7 @@ import MyDownloads from "./pages/dashboard/Downloads";
 import MyPurchase from "./pages/dashboard/Purchase";
 import MyAccount from "./pages/dashboard/Account";
 
-export default function App() {
+export default function App() { 
 	const [ dir, setDir ] = useState( 'ltr' );
 
 	const userInfo = {

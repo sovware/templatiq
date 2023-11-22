@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from '@wordpress/element';
+import { useQuery } from '@tanstack/react-query';
 import ReactSVG from 'react-inlinesvg';
 import Dropdown from '@components/Dropdown';
 import checkedClickedOutside from '@helper/checkClickedOutside';
@@ -21,6 +22,7 @@ import userIcon from "@icon/user-alt.svg";
 import fileIcon from "@icon/file-solid.svg";
 import pagesIcon from "@icon/pages.svg";
 import blocksIcon from "@icon/blocks.svg";
+import cacheClearIcon from "@icon/loading-spin.svg";
 import avatar from "@images/avatar.svg";
 
 import chevronIcon from "@icon/chevron-down-solid.svg";
@@ -36,6 +38,7 @@ import downloadIcon from "@icon/download-alt.svg";
 
 const Header = (props) =>  {
 	const { type } = props;
+	const [isLoading, setIsLoading] = useState(false);
 
 	const { isLoggedIn, userDisplayName } = select( store ).getUserInfo();
 
@@ -86,6 +89,32 @@ const Header = (props) =>  {
 
 	const handleGoBack = () => {
 		navigate(-1);
+	};
+
+	const handleCacheClear = async () => {
+		setIsLoading(true);
+		const response = await fetch(`${template_market_obj.rest_args.endpoint}/cache/clear`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': template_market_obj.rest_args.nonce,
+			},
+		});
+	
+		if (response.ok) {
+			setIsLoading(false);
+			console.log('Cache Cleared')
+		}
+
+		if (!response.ok) {
+			setIsLoading(false);
+			throw new Error('Cache Clear failed');
+		}
+
+		const data = response.json();
+		console.log('Cache Clear Response: ', data)
+	
+		return data;
 	};
 
 	const ref = useRef( null );
@@ -142,6 +171,17 @@ const Header = (props) =>  {
 				</HeaderNavStyle>
 				
 				<HeaderActionStyle className="templatiq__header__action">
+					<div className="templatiq__header__action__item">
+						<a 
+							href="#" 
+							className="templatiq__header__action__link templatiq-btn" 
+							onClick={handleCacheClear}
+						>
+							{isLoading ? 'Clearing...' : <ReactSVG src={ cacheClearIcon } width={14} height={14} />}
+							
+						</a>
+					</div>
+
 					<div className="templatiq__header__action__item">
 						<Dropdown
 							className="templatiq__dropdown"
