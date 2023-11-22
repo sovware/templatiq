@@ -2,7 +2,7 @@ import { useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { CacheClearBtnStyle } from './style';
 
-import cacheClearIcon from "@icon/loading-spin.svg";
+import cacheClearIcon from "@icon/fire.svg";
 
 const CacheClearBtn = (props) => {
 	const [isLoading, setIsLoading] = useState(false);

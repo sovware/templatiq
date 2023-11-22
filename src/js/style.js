@@ -445,6 +445,16 @@ const AuthStyle = Styled.div`
             color: var(--templatiq-primary-color);
         }
     }
+    .templatiq__auth__btn_wrapper {
+        display: flex;
+        gap: 10px;
+    }
+    .notification-wrapper {
+        text-align: center;
+        .templatiq__auth__btn_wrapper {
+            justify-content: center;
+        }
+    }
 `;
 
 export {

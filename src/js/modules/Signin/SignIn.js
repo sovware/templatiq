@@ -55,6 +55,7 @@ export default function SignInContent () {
 		try {
 			// Call the mutation function with the user's credentials
 			const result = await mutation.mutateAsync(credentials);
+			console.log('Login Result Handle: ', result)
 
 			if (result.body.token) {
 				const data = result.body;
