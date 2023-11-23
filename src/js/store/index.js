@@ -1,6 +1,7 @@
 // import apiFetch from '@wordpress/api-fetch';
 import { createReduxStore, register } from '@wordpress/data';
 import actions from './actions';
+import selectors from './selectors';
 
 const DEFAULT_STATE = {
 	userInfo: {
@@ -90,27 +91,7 @@ const store = createReduxStore('templatiq-stores', {
 
 	actions,
 
-	selectors: {
-		getFav(state, item) {
-			const { favCounts } = state;
-			const favCount = favCounts[item];
-
-			return favCount;
-		},
-
-		getTemplateStatus(state, item) {
-			const { templateStatus } = state;
-			const activeStatus = templateStatus[item];
-
-			return activeStatus;
-		},
-
-		getUserInfo(state) {
-			const { userInfo } = state;
-
-			return userInfo;
-		},
-	},
+	selectors,
 
 	controls: {
 		FETCH_FROM_API( action ) {
