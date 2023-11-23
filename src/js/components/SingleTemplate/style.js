@@ -55,7 +55,6 @@ const SingleTemplateStyle = Styled.div`
         .templatiq__template__single__overlay,
         .templatiq__template__single__info__action,
         .templatiq__template__single__info__required {
-            opacity: 1;
             visibility: visible;
         }
     }
@@ -81,7 +80,6 @@ const SingleTemplateStyle = Styled.div`
         display: flex;
         gap: 8px;
         justify-content: center;
-        opacity: 0;
         visibility: hidden;
         transition: opacity 0.3s ease, visibility 0.3s ease;
         .templatiq__template__single__info__action__link {

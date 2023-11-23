@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import { select, dispatch } from '@wordpress/data';
 import ReactSVG from 'react-inlinesvg';
-import Popup from '@components/Popup';
+import InsertTemplate from '@components/InsertTemplate';
 import { TemplateDetailsHeaderStyle } from './style';
 import store from '../../store';
 
@@ -9,7 +9,6 @@ import crownIcon from '@icon/crown.svg';
 import cartIcon from "@icon/cart.svg";
 import heartIcon from "@icon/heart.svg";
 import heartSolidIcon from "@icon/heart-solid.svg";
-import downloadIcon from "@icon/download.svg";
 import downloadAltIcon from "@icon/download-alt.svg";
 
 const TemplateDetailsHeader = (props) => {
@@ -19,14 +18,10 @@ const TemplateDetailsHeader = (props) => {
 		price,
 		number_of_downloads,
 		number_of_bookmarks,
-		required_plugins,
 		purchase_url,
 		preview_link,
 	} = props.item;
 
-
-    const [isModalOpen, setModalOpen] = useState(false);
-    const [installablePlugins, setInstallablePlugins] = useState([]);
 
     const favCountList = select( store ).getFav(slug);
     const isTemplateActive = select( store ).getTemplateStatus(slug);
@@ -58,55 +53,8 @@ const TemplateDetailsHeader = (props) => {
         setCurrentFavoriteCount(addedToFavorite ? Number(currentFavoriteCount) + 1 : Number(currentFavoriteCount));
     }, [addedToFavorite]);
 
-    const templateRef = useRef(null);
-	let addModal = async (e) => {
-        e.preventDefault();
-        document.querySelector(".templatiq").classList.add("templatiq-overlay-enable");
-    
-        // Add the class to the root div using templateRef
-        if (templateRef.current) {
-            templateRef.current.classList.add('modal-open');
-        }
-    
-        try {
-            await handlePlugins(required_plugins);
-            setModalOpen(true);
-        } catch (error) {
-            // Handle error if needed
-            console.error('Error fetching installable plugins:', error);
-        }
-    }
-	
-	const handlePlugins = async (plugins) => {
-        const response = await fetch(`${template_market_obj.rest_args.endpoint}/dependency/check`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-WP-Nonce': template_market_obj.rest_args.nonce,
-            },
-            body: JSON.stringify({
-                plugins: plugins
-            }),
-        });
-    
-        if (!response.ok) {
-            throw new Error('Error Occurred');
-        }
-    
-        const data = await response.json();
-        setInstallablePlugins(data);
-    }; 
-
-    useEffect(() => {
-        handlePlugins(required_plugins);
-    }, [required_plugins]);
-
-
 	return (
 		<TemplateDetailsHeaderStyle className="templatiq__details__header">
-			{isModalOpen && installablePlugins && (
-                <Popup item={props.item} installable_plugins={installablePlugins} onClose={() => setModalOpen(false)} />
-            )}
 			<div className="templatiq__details__header__info">
 				<h2 className="templatiq__details__header__title">{title}</h2>
 				<div className="templatiq__details__header__meta">
@@ -150,10 +98,11 @@ const TemplateDetailsHeader = (props) => {
 						<ReactSVG src={ cartIcon } width={16} height={16} />
 						Buy this item  ${price}
 					</a> :
-					<a href="#" className="templatiq__details__header__action__link insert-btn templatiq-btn templatiq-btn-success" onClick={addModal}>
-						<ReactSVG src={ downloadIcon } width={16} height={16} />
-						Insert
-					</a>
+					<InsertTemplate
+						item={props.item} 
+						innerText={'Insert'}
+						className={'templatiq__details__header__action__link insert-btn templatiq-btn templatiq-btn-success'}
+					/>
 				}
 				
 				

@@ -2,10 +2,9 @@ import { useState, useEffect, useRef } from '@wordpress/element';
 import { select, dispatch } from '@wordpress/data';
 import ReactSVG from 'react-inlinesvg';
 import { Link } from 'react-router-dom';
-
-import store from '../../store';
-import Popup from '@components/Popup';
+import InsertTemplate from '@components/InsertTemplate';
 import { SingleTemplateStyle } from './style';
+import store from '../../store';
 
 import crownIcon from "@icon/crown.svg";
 import cartIcon from "@icon/cart.svg";
@@ -17,9 +16,6 @@ import templateImg1 from "@images/template/1.svg";
 const SingleTemplate = (item) => {
     let { slug, preview_link, purchase_url, thumbnail, title, price, number_of_downloads, categories, required_plugins } = item;
 
-    const [isModalOpen, setModalOpen] = useState(false);
-    const [installablePlugins, setInstallablePlugins] = useState([]);
-
     const favCountList = select( store ).getFav(slug);
     const isTemplateActive = select( store ).getTemplateStatus(slug);
 
@@ -28,24 +24,6 @@ const SingleTemplate = (item) => {
 
 
     const templateRef = useRef(null);
-
-    let addModal = async (e) => {
-        e.preventDefault();
-        document.querySelector(".templatiq").classList.add("templatiq-overlay-enable");
-    
-        // Add the class to the root div using templateRef
-        if (templateRef.current) {
-            templateRef.current.classList.add('modal-open');
-        }
-    
-        try {
-            await handlePlugins(required_plugins);
-            setModalOpen(true);
-        } catch (error) {
-            // Handle error if needed
-            console.error('Error fetching installable plugins:', error);
-        }
-    }
 
     let handleFavorite = (e) => {
         e.preventDefault();
@@ -66,48 +44,15 @@ const SingleTemplate = (item) => {
             return newAddedToFavorite;
         });
     };
-      
-
+    
     useEffect(() => {
-        setModalOpen(false);
-
         // This will be triggered whenever addedToFavorite changes
         setCurrentFavoriteCount(addedToFavorite ? Number(currentFavoriteCount) + 1 : Number(currentFavoriteCount));
-    }, [addedToFavorite, setModalOpen]);
-
-	const handlePlugins = async (plugins) => {
-        const response = await fetch(`${template_market_obj.rest_args.endpoint}/dependency/check`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-WP-Nonce': template_market_obj.rest_args.nonce,
-            },
-            body: JSON.stringify({
-                plugins: plugins
-            }),
-        });
-    
-        if (!response.ok) {
-            throw new Error('Error Occurred');
-        }
-    
-        const data = await response.json();
-        setInstallablePlugins(data);
-    }; 
-
-
-    useEffect(() => {
-        handlePlugins(required_plugins);
-    }, [required_plugins]);
+    }, [addedToFavorite]);
 
 
     return (
         <SingleTemplateStyle className="templatiq__template__single" ref={templateRef}>
-
-            {isModalOpen && installablePlugins && (
-                <Popup item={item} installable_plugins={installablePlugins} onClose={() => setModalOpen(false)} />
-            )}
-
             <div className="templatiq__template__single__img">
                 <img src={thumbnail ? thumbnail : templateImg1} alt={title} />
                 <div className="templatiq__template__single__overlay"></div>
@@ -132,15 +77,11 @@ const SingleTemplate = (item) => {
                                 <ReactSVG src={ cartIcon } width={14} height={14} />
                                 Purchase
                             </a> :
-                            <a 
-                                href="#" 
-                                className="templatiq__template__single__info__action__link insert-btn" 
-                                onClick={(e) => addModal(e)}
-                            >
-                                <ReactSVG src={ downloadIcon } width={14} height={14} />
-                                Insert
-                            </a>
-
+                            <InsertTemplate
+                                item={item} 
+                                templateRef={templateRef} 
+                                className={'templatiq__template__single__info__action__link insert-btn'}
+                            />
                         }
                     </div>
                     <div className="templatiq__template__single__info__required">
