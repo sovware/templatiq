@@ -55,6 +55,7 @@ const SingleTemplateStyle = Styled.div`
         .templatiq__template__single__overlay,
         .templatiq__template__single__info__action,
         .templatiq__template__single__info__required {
+            opacity: 1;
             visibility: visible;
         }
     }
@@ -250,7 +251,7 @@ const SingleTemplateStyle = Styled.div`
         }
     }
 
-    &.modal-open {
+    &.insert-modal-open {
         .templatiq__modal {
             opacity: 1;
             visibility: visible;

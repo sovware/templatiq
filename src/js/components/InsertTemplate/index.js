@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 
-import Popup from '@components/Popup';
+import InsertTemplateModal from '@components/Popup/InsertTemplateModal';
 import downloadIcon from "@icon/download-alt.svg";
 
 const InsertTemplate = ({item, templateRef, className, innerText}) => {
@@ -16,7 +16,7 @@ const InsertTemplate = ({item, templateRef, className, innerText}) => {
         
         // Add the class to the root div using templateRef
         if (templateRef && templateRef.current) {
-            templateRef.current.classList.add('modal-open');
+            templateRef.current.classList.add('insert-modal-open');
         }
     
         try {
@@ -62,7 +62,7 @@ const InsertTemplate = ({item, templateRef, className, innerText}) => {
     return (
         <>
             {isModalOpen && installablePlugins && (
-                <Popup item={item} installable_plugins={installablePlugins} onClose={() => setModalOpen(false)} />
+                <InsertTemplateModal item={item} installable_plugins={installablePlugins} onClose={() => setModalOpen(false)} />
             )}
 
             
