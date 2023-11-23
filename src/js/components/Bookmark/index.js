@@ -17,7 +17,7 @@ const Bookmark = ( item ) => {
 	const [authModalOpen, setAuthModalOpen] = useState(false);
 
 	const [addedToFavorite, addFavorite] = useState(isTemplateActive ? isTemplateActive : false);
-    const [currentFavoriteCount, setCurrentFavoriteCount] = useState(favCountList ? favCountList : '');
+    const [currentFavoriteCount, setCurrentFavoriteCount] = useState(favCountList);
     
     const addAuthModal = (e) => {
         e.preventDefault();
@@ -34,17 +34,14 @@ const Bookmark = ( item ) => {
         e.preventDefault();
         addFavorite((prevAddedToFavorite) => {
             const newAddedToFavorite = !prevAddedToFavorite;
+            const updatedCount = newAddedToFavorite ? Number(currentFavoriteCount) + 1 : Number(favCountList - 1);
         
             // Use the updated state immediately in the dispatch
-            dispatch(store).setFav(
-                slug,
-                newAddedToFavorite
-                    ? Number(currentFavoriteCount) + 1
-                    : favCountList
-                );
-
+            dispatch(store).setFav(slug, updatedCount);
             dispatch(store).toggleTemplateStatus(slug, newAddedToFavorite);
-        
+            
+            setCurrentFavoriteCount(updatedCount)
+
             // Return the new value to update the state
             return newAddedToFavorite;
         });
@@ -52,8 +49,14 @@ const Bookmark = ( item ) => {
     
     useEffect(() => {
         // This will be triggered whenever addedToFavorite changes
-        setCurrentFavoriteCount(addedToFavorite ? Number(currentFavoriteCount) + 1 : Number(currentFavoriteCount));
+        setCurrentFavoriteCount(addedToFavorite ? currentFavoriteCount : favCountList );
     }, [addedToFavorite]);
+    
+    useEffect(() => {
+        // This will be triggered once when the component mounts
+        setCurrentFavoriteCount(favCountList);
+    }, []);  // Add favCountList to the dependency array
+
 
     return (
         <>
