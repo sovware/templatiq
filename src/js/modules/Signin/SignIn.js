@@ -11,8 +11,6 @@ export default function SignInContent () {
 	
 	const { isLoggedIn } = select( store ).getUserInfo();
 
-	console.log('Logged In? : ', isLoggedIn)
-
 	const [formData, setFormData] = useState({
 		authorEmail: "riaz",
 		authorPassword: "fffffffffddddd",
@@ -32,7 +30,6 @@ export default function SignInContent () {
 
 	// Login API
 	const login = async (credentials) => {
-		console.log('Login Credentials: ', credentials)
 		const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/login`, {
 			method: 'POST',
 			headers: {
@@ -55,7 +52,6 @@ export default function SignInContent () {
 		try {
 			// Call the mutation function with the user's credentials
 			const result = await mutation.mutateAsync(credentials);
-			console.log('Login Result Handle: ', result)
 
 			if (result.body.token) {
 				const data = result.body;
