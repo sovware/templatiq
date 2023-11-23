@@ -4,7 +4,7 @@ const Blocks = () => {
 
 	return (
 		<TemplatePackModule 
-			type="blocks" 
+			type="section" 
 		/>
 	);
 }

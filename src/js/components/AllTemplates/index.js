@@ -38,7 +38,7 @@ export default function AllTemplates (props) {
 
     useEffect(() => {
         if (data) {
-            data && templateType === 'page' ? setAllTemplates(data.templates.filter(template => template.type === 'page')) : templateType === 'blocks' ? setAllTemplates(data.templates.filter(template => template.type === 'block')): setAllTemplates(data.templates);
+            data && templateType ? setAllTemplates(data.templates.filter(template => template.type === templateType)) : setAllTemplates(data.templates);
         } else {
             setAllTemplates([]);
         }
@@ -66,6 +66,7 @@ export default function AllTemplates (props) {
         </div>
     );
 
+    console.log('All Templates: ', allTemplates);
     console.log('All Templates: ', allTemplates);
 
 

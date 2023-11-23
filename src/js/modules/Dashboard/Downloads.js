@@ -1,4 +1,4 @@
-import AppLayout from '@layout/AppLayout';
+import DashboardLayout from '@layout/DashboardLayout';
 import Searchform from "@components/Searchform";
 
 import { TemplatePackStyle } from "@root/style";
@@ -8,7 +8,7 @@ import templateImg1 from "@images/template/1.svg";
 
 export default function MyDownloadsModule() {
 	return (
-		<AppLayout>
+		<DashboardLayout>
 			<div className="templatiq__content templatiq__content--dashboard"> 
 				<TemplatePackStyle className="templatiq__content__dashboard">
 					<div className="templatiq__content__top">
@@ -116,6 +116,6 @@ export default function MyDownloadsModule() {
 					</DashboardItemsStyle>
 				</TemplatePackStyle>
 			</div>
-		</AppLayout>
+		</DashboardLayout>
 	);
 }

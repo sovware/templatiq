@@ -2,8 +2,8 @@ import Styled from 'styled-components';
 import chevronIcon from '@icon/chevron-down-solid.svg';
 
 const SidebarStyle = Styled.div`
-    min-width: 256px;
-    min-height: 100vh;
+    width: 256px;
+    height: 100dvh;
     background: var(--templatiq-white-color);
     box-shadow: 0 7px 20px 5px var(--templatiq-dark-color)05;
     .templatiq__sidebar__top {

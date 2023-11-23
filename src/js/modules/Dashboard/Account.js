@@ -1,4 +1,4 @@
-import AppLayout from '@layout/AppLayout';
+import DashboardLayout from '@layout/DashboardLayout';
 import { useState } from '@wordpress/element';
 import ReactSVG from "react-inlinesvg";
 import { MyAccountStyle } from "./style";
@@ -24,7 +24,7 @@ export default function MyAccountModule() {
 
 
 	return (
-		<AppLayout>
+		<DashboardLayout>
 			<div className="templatiq__content templatiq__content--dashboard"> 
 				<MyAccountStyle className="templatiq__dashboard__account">
 					<h3 className="templatiq__dashboard__account__title">My Account</h3>
@@ -62,6 +62,6 @@ export default function MyAccountModule() {
 					</form>
 				</MyAccountStyle>
 			</div>
-		</AppLayout>
+		</DashboardLayout>
 	);
 }

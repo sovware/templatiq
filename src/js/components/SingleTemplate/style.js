@@ -81,9 +81,8 @@ const SingleTemplateStyle = Styled.div`
         display: flex;
         gap: 8px;
         justify-content: center;
-        opacity: 0;
         visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
+        transition: visibility 0.3s ease;
         .templatiq__template__single__info__action__link {
             display: flex;
             gap: 8px;
@@ -252,7 +251,7 @@ const SingleTemplateStyle = Styled.div`
         }
     }
 
-    &.modal-open {
+    &.insert-modal-open {
         .templatiq__modal {
             opacity: 1;
             visibility: visible;

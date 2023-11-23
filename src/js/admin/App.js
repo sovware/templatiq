@@ -125,6 +125,10 @@ export default function App() {
 			element: <SignUp />,
 		},
 		{
+			path: `/dashboard`,
+			element: <MyFavorites />,
+		},
+		{
 			path: `/dashboard/*`,
 			element: <MyFavorites />,
 		},

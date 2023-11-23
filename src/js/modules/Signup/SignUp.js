@@ -16,8 +16,6 @@ export default function SignUpContent() {
 	
 	const { isLoggedIn } = select( store ).getUserInfo();
 
-	console.log('Logged In - Signup? : ', isLoggedIn)
-
 	const handleChange = (e) => {
 		setFormData({
 		  	...formData,
@@ -32,7 +30,6 @@ export default function SignUpContent() {
 
 	// Signup API
 	const signup = async (credentials) => {
-
 		const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/create`, {
 			method: 'POST',
 			headers: {
@@ -46,7 +43,6 @@ export default function SignUpContent() {
 			throw new Error('Signup failed');
 		}
 		
-		console.log('Signup Response: ', response)
 		return response.json();
 	};
 
@@ -56,17 +52,20 @@ export default function SignUpContent() {
 		try {
 			// Call the mutation function with the user's credentials
 			const result = await mutation.mutateAsync(credentials);
-			console.log('Signup Result Handle: ', result)
 			setIsRegistered(true);
 
 			if(result.body.token) {
 				setIsRegistered(true);
-				console.log('Successfully Registered. Check Email...')
 			}
 		} catch (error) {
 		  	console.error('Error', error); // Handle error
 		}
 	};
+
+	useEffect( () => {
+		isLoggedIn && navigate('/');
+	}, [] );
+	
 
 	return (
 		<AuthStyle className="templatiq__auth">
