@@ -4,56 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "63841f8593e9064a9dac73f31062ee83",
-    "packages": [
-        {
-            "name": "wpth/utils",
-            "version": "v1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/wptownhall/Utils.git",
-                "reference": "1f725d3a7641336d184e29bbc24cb104f340fd4c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/wptownhall/Utils/zipball/1f725d3a7641336d184e29bbc24cb104f340fd4c",
-                "reference": "1f725d3a7641336d184e29bbc24cb104f340fd4c",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "WPTH\\Utils\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "HeyMehedi",
-                    "email": "mehedi.2800@gmail.com"
-                }
-            ],
-            "description": "Collections of Some Utilities",
-            "keywords": [
-                "boilerplate",
-                "helpers",
-                "utilities",
-                "utils",
-                "wordpress"
-            ],
-            "support": {
-                "issues": "https://github.com/wptownhall/Utils/issues",
-                "source": "https://github.com/wptownhall/Utils/tree/v1.0.1"
-            },
-            "time": "2023-11-20T04:36:00+00:00"
-        }
-    ],
+    "content-hash": "9c707a232c80710b4885d0bc979e751a",
+    "packages": [],
     "packages-dev": [
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
