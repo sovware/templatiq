@@ -65,7 +65,7 @@ export default function SignInContent () {
 				// Dispatch the action to update the login status in the store
 				dispatch(store).setUserInfo(updatedUserInfo);
 
-				navigate('/');
+				navigate('/dashboard');
 
 			} else {
 				console.error('Login failed', result.message);

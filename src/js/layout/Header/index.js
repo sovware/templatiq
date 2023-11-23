@@ -1,16 +1,11 @@
 import { useState, useRef, useEffect } from '@wordpress/element';
+import { select, dispatch } from '@wordpress/data';
 import ReactSVG from 'react-inlinesvg';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+
 import Dropdown from '@components/Dropdown';
 import CacheClearBtn from '@components/CacheClearBtn';
 import checkedClickedOutside from '@helper/checkClickedOutside';
-
-import {
-	Link,
-	NavLink,
-	useNavigate,
-} from 'react-router-dom';
-
-import { select, dispatch } from '@wordpress/data';
 import store from '../../store';
 
 import { HeaderStyle, HeaderNavStyle, HeaderActionStyle } from "./style";
@@ -43,7 +38,6 @@ const Header = (props) =>  {
 	const [isAuthorInfoVisible, setAuthorInfoVisible] = useState(false);
 
 	const handleLogOut = async () => {
-		console.log('Logout Clicked')
 		try {
 			const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/logout`, {
 				method: 'POST',
@@ -56,10 +50,8 @@ const Header = (props) =>  {
 			if (!response.ok) {
 				throw new Error('Error Occurred');
 			}
-			console.log('Resonse: ', response)
 	
 			if (response.ok) {
-				console.log('Logout Success')
 				// Dispatch the action to update the login status in the store
 				dispatch(store).logOut();
 				navigate('/');

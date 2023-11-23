@@ -1,4 +1,4 @@
-import AppLayout from '@layout/AppLayout';
+import DashboardLayout from '@layout/DashboardLayout';
 import ReactSVG from 'react-inlinesvg';
 import Searchform from "@components/Searchform";
 
@@ -10,7 +10,7 @@ import downloadIcon from "@icon/download.svg";
 
 export default function MyPurchaseModule() {
 	return (
-		<AppLayout>
+		<DashboardLayout>
 			<div className="templatiq__content templatiq__content--dashboard"> 
 				<TemplatePackStyle className="templatiq__content__dashboard">
 					<div className="templatiq__content__top">
@@ -123,6 +123,6 @@ export default function MyPurchaseModule() {
 					</DashboardItemsStyle>
 				</TemplatePackStyle>
 			</div>
-		</AppLayout>
+		</DashboardLayout>
 	);
 }
