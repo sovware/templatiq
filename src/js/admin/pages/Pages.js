@@ -4,7 +4,7 @@ const Pages = () => {
 
 	return (
 		<TemplatePackModule 
-			type="pages" 
+			type="page" 
 		/>
 	);
 }

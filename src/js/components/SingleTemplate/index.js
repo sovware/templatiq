@@ -1,55 +1,19 @@
-import { useState, useEffect, useRef } from '@wordpress/element';
-import { select, dispatch } from '@wordpress/data';
+import { useRef } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { Link } from 'react-router-dom';
+import Bookmark from '@components/Bookmark';
 import InsertTemplate from '@components/InsertTemplate';
 import { SingleTemplateStyle } from './style';
-import store from '../../store';
 
 import crownIcon from "@icon/crown.svg";
 import cartIcon from "@icon/cart.svg";
-import heartIcon from "@icon/heart.svg";
-import heartSolidIcon from "@icon/heart-solid.svg";
 import downloadIcon from "@icon/download-alt.svg";
 import templateImg1 from "@images/template/1.svg";
 
 const SingleTemplate = (item) => {
     let { slug, preview_link, purchase_url, thumbnail, title, price, number_of_downloads, categories, required_plugins } = item;
 
-    const favCountList = select( store ).getFav(slug);
-    const isTemplateActive = select( store ).getTemplateStatus(slug);
-
-	const [addedToFavorite, addFavorite] = useState(isTemplateActive ? isTemplateActive : false);
-    const [currentFavoriteCount, setCurrentFavoriteCount] = useState(favCountList ? favCountList : '');
-
-
-    const templateRef = useRef(null);
-
-    let handleFavorite = (e) => {
-        e.preventDefault();
-        addFavorite((prevAddedToFavorite) => {
-            const newAddedToFavorite = !prevAddedToFavorite;
-        
-            // Use the updated state immediately in the dispatch
-            dispatch(store).setFav(
-                slug,
-                newAddedToFavorite
-                    ? Number(currentFavoriteCount) + 1
-                    : favCountList
-                );
-
-            dispatch(store).toggleTemplateStatus(slug, newAddedToFavorite);
-        
-            // Return the new value to update the state
-            return newAddedToFavorite;
-        });
-    };
-    
-    useEffect(() => {
-        // This will be triggered whenever addedToFavorite changes
-        setCurrentFavoriteCount(addedToFavorite ? Number(currentFavoriteCount) + 1 : Number(currentFavoriteCount));
-    }, [addedToFavorite]);
-
+    const templateRef = useRef(null)
 
     return (
         <SingleTemplateStyle className="templatiq__template__single" ref={templateRef}>
@@ -114,10 +78,9 @@ const SingleTemplate = (item) => {
                         <ReactSVG src={ downloadIcon } width={14} height={14} />
                         {number_of_downloads ? number_of_downloads : ''}
                     </span>
-                    <a href="#" className={`templatiq__template__single__quickmeta__item favorite-btn templatiq-tooltip ${addedToFavorite ? 'active' : ''}`} data-info={addedToFavorite ? 'Added to Favourite' : 'Add to Favourite'} onClick={handleFavorite}>
-                        <ReactSVG src={ addedToFavorite ? heartSolidIcon : heartIcon } width={14} height={14} />
-                        {currentFavoriteCount ? currentFavoriteCount : ''}
-                    </a>
+                    
+                    <Bookmark item={item} />
+                    
                 </div>
             </div>
         </SingleTemplateStyle>

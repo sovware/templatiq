@@ -82,7 +82,7 @@ const SingleTemplateStyle = Styled.div`
         gap: 8px;
         justify-content: center;
         visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
+        transition: visibility 0.3s ease;
         .templatiq__template__single__info__action__link {
             display: flex;
             gap: 8px;
