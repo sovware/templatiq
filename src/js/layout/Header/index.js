@@ -21,7 +21,7 @@ import fileIcon from "@icon/file-solid.svg";
 
 import backIcon from "@icon/arrow-left.svg";
 import elementorIcon from "@icon/elementor.svg";
-import directoristIcon from "@icon/directorist.svg";
+import blockEditorIcon from "@icon/directorist.svg";
 import chevronIcon from "@icon/chevron-down-solid.svg";
 
 import cartIcon from "@icon/cart.svg";
@@ -69,8 +69,8 @@ const Header = (props) =>  {
 			url: '#',
 		},
 		{
-			icon: directoristIcon,
-			text: 'Direrctorist',
+			icon: blockEditorIcon,
+			text: 'Block Editor',
 			url: '#',
 		},
 	];

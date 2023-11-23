@@ -5,7 +5,7 @@ import closeIcon from "@icon/close.svg";
 
 const Popup = (props) => {
 
-    let closeModal = () => {
+    let closePopupModal = () => {
         let templatiqRoot = document.querySelector(".templatiq");
         let templatiqModalOpen = document.querySelector(".body.modal-open");
 
@@ -32,7 +32,7 @@ const Popup = (props) => {
 
             </form>
             
-            <button className="templatiq__modal__cancel__button" onClick={closeModal}>
+            <button className="templatiq__modal__cancel__button" onClick={closePopupModal}>
                 <ReactSVG src={ closeIcon } width={20} height={20} />
             </button>
         </PopupStyle>

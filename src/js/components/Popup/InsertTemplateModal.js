@@ -16,7 +16,7 @@ const InsertTemplateModal = ({item, installable_plugins, onClose}) => {
     const [allPluginsInstalled, setAllPluginsInstalled] = useState(false);
     const [importedData, setImportedData] = useState(false);
 
-    let closeModal = (e) => {
+    let closeInsertTemplateModal = (e) => {
         e.preventDefault();
         let templatiqRoot = document.querySelector(".templatiq");
 
@@ -196,7 +196,7 @@ const InsertTemplateModal = ({item, installable_plugins, onClose}) => {
                                         !allPluginsInstalled ? 
                                         <button type="submit" className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-primary">Install and Proceed to Import</button> : ''
                                     }
-                                    <button className="templatiq__modal__action templatiq__modal__action--cancel templatiq-btn" onClick={closeModal}>Cancel</button>
+                                    <button className="templatiq__modal__action templatiq__modal__action--cancel templatiq-btn" onClick={closeInsertTemplateModal}>Cancel</button>
                                 </div>
                             </> :
                             <>
@@ -212,7 +212,7 @@ const InsertTemplateModal = ({item, installable_plugins, onClose}) => {
 
                 </form>
                 
-                <button className="templatiq__modal__cancel__button" onClick={closeModal}>
+                <button className="templatiq__modal__cancel__button" onClick={closeInsertTemplateModal}>
                     <ReactSVG src={ closeIcon } width={20} height={20} />
                 </button>
             </InsertTemplateModalStyle>
