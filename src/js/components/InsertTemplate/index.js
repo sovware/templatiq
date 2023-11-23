@@ -1,16 +1,21 @@
-import { useState, useEffect, useRef } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
+import { select } from '@wordpress/data';
 import ReactSVG from 'react-inlinesvg';
+import AuthModal from '@components/Popup/AuthModal';
+import store from '../../store';
 
 import InsertTemplateModal from '@components/Popup/InsertTemplateModal';
 import downloadIcon from "@icon/download-alt.svg";
 
 const InsertTemplate = ({item, templateRef, className, innerText}) => {
     let { required_plugins } = item;
-
-    const [isModalOpen, setModalOpen] = useState(false);
+    
+	const { isLoggedIn } = select( store ).getUserInfo();
+    const [insertModalOpen, setInsertModalOpen] = useState(false);
+	const [authModalOpen, setAuthModalOpen] = useState(false);
     const [installablePlugins, setInstallablePlugins] = useState([]);
 
-    let addModal = async (e) => {
+    const addInsertModal = async (e) => {
         e.preventDefault();
         document.querySelector(".templatiq").classList.add("templatiq-overlay-enable");
         
@@ -21,17 +26,34 @@ const InsertTemplate = ({item, templateRef, className, innerText}) => {
     
         try {
             await handlePlugins(required_plugins);
-            setModalOpen(true);
+            setInsertModalOpen(true);
         } catch (error) {
             // Handle error if needed
             console.error('Error fetching installable plugins:', error);
         }
     }
 
-    useEffect(() => {
-        setModalOpen(false);
+    const addAuthModal = (e) => {
+        e.preventDefault();
+        document.querySelector(".templatiq").classList.add("templatiq-overlay-enable");
+        setAuthModalOpen(true);
+    }
 
-    }, [ setModalOpen]);
+    const handleInsertModalClose = () => {
+        // Callback function to update the state when the modal is closed
+        setInsertModalOpen(false);
+    };
+
+    const handleAuthModalClose = () => {
+        // Callback function to update the state when the modal is closed
+        setAuthModalOpen(false);
+    };
+
+    useEffect(() => {
+        // setInsertModalOpen(false);
+
+    }, [ setInsertModalOpen]);
+
 
 	const handlePlugins = async (plugins) => {
         const response = await fetch(`${template_market_obj.rest_args.endpoint}/dependency/check`, {
@@ -53,7 +75,6 @@ const InsertTemplate = ({item, templateRef, className, innerText}) => {
         setInstallablePlugins(data);
     }; 
 
-
     useEffect(() => {
         handlePlugins(required_plugins);
     }, [required_plugins]);
@@ -61,15 +82,14 @@ const InsertTemplate = ({item, templateRef, className, innerText}) => {
 
     return (
         <>
-            {isModalOpen && installablePlugins && (
-                <InsertTemplateModal item={item} installable_plugins={installablePlugins} onClose={() => setModalOpen(false)} />
+            {insertModalOpen && installablePlugins && (
+                <InsertTemplateModal item={item} installable_plugins={installablePlugins}  onClose={handleInsertModalClose} />
             )}
-
-            
+            {authModalOpen && <AuthModal modalEnable={true} onClose={handleAuthModalClose} />}
             <a 
                 href="#" 
                 className={ className ? className : 'templatiq__template__single__info__action__link insert-btn'} 
-                onClick={(e) => addModal(e)}
+                onClick={(e) => !isLoggedIn ? addAuthModal(e) : addInsertModal(e)}
             >
                 <ReactSVG src={ downloadIcon } width={14} height={14} />
                 {innerText ? innerText : 'Insert'}
