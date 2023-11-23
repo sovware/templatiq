@@ -5,7 +5,7 @@ const TemplatePack = () => {
 
 	return (
 		<TemplatePackModule 
-			type="all" 
+			type="pack" 
 		/>
 	);
 }
