@@ -10,8 +10,7 @@ namespace Templatiq\Utils;
 class Cache {
 
 	public static function get( array $args ): array {
-		$key  = self::key( ...$args );
-		$data = Transient::get( $key );
+		$data = Transient::get( self::key( $args ) );
 
 		if ( $data ) {
 			return $data;
@@ -21,18 +20,14 @@ class Cache {
 	}
 
 	public static function set( array $args, array $data ): bool {
-		$key = self::key( ...$args );
-
-		return Transient::set( $key, $data, WEEK_IN_SECONDS );
+		return Transient::set( self::key( $args ), $data, WEEK_IN_SECONDS );
 	}
 
 	public static function clear( array $args ): bool {
-		$key = self::key( ...$args );
-
-		return Transient::delete( $key );
+		return Transient::delete( self::key( $args ) );
 	}
 
-	private static function key( string...$items ): string {
+	private static function key( array $items ): string {
 		$single = "library_data_";
 
 		foreach ( $items as $item ) {
