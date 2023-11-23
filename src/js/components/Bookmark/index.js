@@ -15,9 +15,8 @@ const Bookmark = ( item ) => {
     const isTemplateActive = select( store ).getTemplateStatus(slug);
 
 	const [authModalOpen, setAuthModalOpen] = useState(false);
-
-	const [addedToFavorite, addFavorite] = useState(isTemplateActive ? isTemplateActive : false);
     const [currentFavoriteCount, setCurrentFavoriteCount] = useState(favCountList);
+	const [addedToFavorite, addFavorite] = useState(isTemplateActive ? isTemplateActive : false);
     
     const addAuthModal = (e) => {
         e.preventDefault();
@@ -39,7 +38,7 @@ const Bookmark = ( item ) => {
             // Use the updated state immediately in the dispatch
             dispatch(store).setFav(slug, updatedCount);
             dispatch(store).toggleTemplateStatus(slug, newAddedToFavorite);
-            
+
             setCurrentFavoriteCount(updatedCount)
 
             // Return the new value to update the state
