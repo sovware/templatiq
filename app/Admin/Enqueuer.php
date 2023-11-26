@@ -63,7 +63,7 @@ class Enqueuer extends EnqueuerBase {
 
 		wp_enqueue_script(
 			'templatiq-elementor-editor',
-			TEMPLATIQ_ASSETS . '/js/elementor-editor.js',
+			TEMPLATIQ_URL . '/assets-vendor/elementor-editor.js',
 			['elementor-editor', 'jquery'],
 			TEMPLATIQ_VERSION,
 			true
