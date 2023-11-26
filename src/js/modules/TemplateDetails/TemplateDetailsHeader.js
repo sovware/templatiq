@@ -70,7 +70,7 @@ const TemplateDetailsHeader = (props) => {
 						number_of_bookmarks ? 
 						<span className="templatiq__details__header__meta__item">
 							<ReactSVG src={ heartIcon } width={16} height={16} />
-							Loved by {currentFavoriteCount ? currentFavoriteCount : ''} people
+							Loved by {currentFavoriteCount ? currentFavoriteCount : '0'} people
 						</span> :
 						''
 					}

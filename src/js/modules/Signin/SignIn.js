@@ -10,6 +10,8 @@ export default function SignInContent () {
 	const navigate = useNavigate();
 	
 	const { isLoggedIn } = select( store ).getUserInfo();
+	const userInfo = select( store ).getUserInfo();
+	console.log('User Info: ', userInfo);
 
 	const [formData, setFormData] = useState({
 		authorEmail: "riaz",
@@ -65,7 +67,7 @@ export default function SignInContent () {
 				// Dispatch the action to update the login status in the store
 				dispatch(store).setUserInfo(updatedUserInfo);
 
-				navigate('/dashboard');
+				navigate('/dashboard/favorites');
 
 			} else {
 				console.error('Login failed', result.message);

@@ -5,10 +5,14 @@ import { useQuery } from '@tanstack/react-query';
 
 import { TemplatePackFilterStyle } from '@root/style';
 import Searchform from "@components/Searchform";
+import ContentLoading from '@components/ContentLoading';
+import Preloader from '@components/Preloader';
+
 import SingleTemplate from "@components/SingleTemplate";
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+
 
 import crownIcon from '@icon/crown.svg';
 import arrowLeft from '@icon/angle-left.svg';
@@ -16,6 +20,8 @@ import arrowRight from '@icon/angle-right.svg';
 
 export default function AllTemplates (props) {
     const { templateType } = props;
+    const [loading, setLoading] = useState(true);
+
     const [allTemplates, setAllTemplates] = useState([]);
 
 	const total = 6;
@@ -47,12 +53,15 @@ export default function AllTemplates (props) {
     // Other state variables for proTemplates, freeTemplates, etc.
 	const proTemplates = allTemplates.filter(template => template.price > 0);
 	const freeTemplates = allTemplates.filter(template => template.price <= 0);
-    
+
+
 	if (isLoading) 
     return (
         <div className="templatiq-loader">
-            <div className="templatiq-loader__spinner">
-                Loading..
+            <div 
+                className="templatiq-loader__spinner"
+            >
+                <Preloader />
             </div>
         </div>
     );
@@ -67,8 +76,6 @@ export default function AllTemplates (props) {
     );
 
     console.log('All Templates: ', allTemplates);
-    console.log('All Templates: ', allTemplates);
-
 
 	return (
         <Tabs className="templatiq__content__tab">
@@ -77,6 +84,7 @@ export default function AllTemplates (props) {
                     <h3 className="templatiq__content__top__filter__title">
                         Template Pack
                     </h3>
+                    
                     <TemplatePackFilterStyle className="templatiq__content__top__filter__wrapper">
                         <TabList className="templatiq__content__top__filter__tablist">
                             <Tab className="templatiq__content__top__filter__item">
@@ -126,19 +134,21 @@ export default function AllTemplates (props) {
                 {freeTemplates
                     .map(template => (
                         <div className="templatiq-col-4">
-                            <SingleTemplate 
-                                template_id = {template.template_id}
-                                builder = {template.builder}
-                                thumbnail = {template.thumbnail} 
-                                slug = {template.slug}
-                                title = {template.title} 
-                                number_of_downloads = {template.number_of_downloads} 
-                                number_of_bookmarks = {template.number_of_bookmarks} 
-                                required_plugins = {template.required_plugins}
-                                categories = {template.categories}
-                                purchase_url = {template.purchase_url}
-                                preview_link = {template.preview_link}
-                            />
+                            {isLoading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
+                                <SingleTemplate 
+                                    template_id = {template.template_id}
+                                    builder = {template.builder}
+                                    thumbnail = {template.thumbnail} 
+                                    slug = {template.slug}
+                                    title = {template.title} 
+                                    number_of_downloads = {template.number_of_downloads} 
+                                    number_of_bookmarks = {template.number_of_bookmarks} 
+                                    required_plugins = {template.required_plugins}
+                                    categories = {template.categories}
+                                    purchase_url = {template.purchase_url}
+                                    preview_link = {template.preview_link}
+                                />
+                            }
                         </div>
                     ))
                 }
