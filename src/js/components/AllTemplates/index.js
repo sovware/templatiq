@@ -13,23 +13,25 @@ import SingleTemplate from "@components/SingleTemplate";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
-
 import crownIcon from '@icon/crown.svg';
 import arrowLeft from '@icon/angle-left.svg';
 import arrowRight from '@icon/angle-right.svg';
 
 export default function AllTemplates (props) {
     const { templateType } = props;
-    const [loading, setLoading] = useState(true);
+	const paginatePerPage = 4;
 
     const [allTemplates, setAllTemplates] = useState([]);
+    const [proTemplates, setProTemplates] = useState([]);
+    const [freeTemplates, setFreeTemplates] = useState([]);
+    const [templatesToDisplay, setTemplatesToDisplay] = useState([]);
+    const [proTemplatesToDisplay, setProTemplatesToDisplay] = useState([]);
+    const [freeTemplatesToDisplay, setFreeTemplatesToDisplay] = useState([]);
 
-	const total = 6;
-	const perPage = 4;
-
-	const handlePageClick = ( elm ) => {
-		return elm;
-	}
+    const [totalPaginate, setTotalPaginate] = useState([]);
+    const [ startItemCount, setStartItemCount ] = useState(0);
+    const [ endItemCount, setEndItemCount ] = useState(4);
+    const [forcePage, setForcePage]=useState(0);
 
 	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
         `${template_market_obj.rest_args.endpoint}/template/library`, 
@@ -42,37 +44,74 @@ export default function AllTemplates (props) {
         }).then(res => res.json() )
     );
 
+    const changePaginate = () => {
+        setStartItemCount(0);
+        setEndItemCount(paginatePerPage);
+        setForcePage(0);
+
+        console.log('Paginate changed, ' + forcePage)
+    }
+
+    const handlePageClick = (event) => {
+        const selectedPage = event.selected + 1;
+        setStartItemCount((selectedPage * paginatePerPage) - paginatePerPage);
+        setEndItemCount((selectedPage * paginatePerPage));
+    };
+
     useEffect(() => {
         if (data) {
             data && templateType ? setAllTemplates(data.templates.filter(template => template.type === templateType)) : setAllTemplates(data.templates);
         } else {
             setAllTemplates([]);
         }
+
     }, [isLoading]);
 
-    // Other state variables for proTemplates, freeTemplates, etc.
-	const proTemplates = allTemplates.filter(template => template.price > 0);
-	const freeTemplates = allTemplates.filter(template => template.price <= 0);
+    useEffect(() => {
+        setProTemplates(allTemplates.filter(template => template.price > 0));
+	    setFreeTemplates(allTemplates.filter(template => template.price <= 0));
 
+        // Initially set the allTemplates to display based on start and end item counts
+        setTemplatesToDisplay(allTemplates.slice(startItemCount, endItemCount));
+
+        setTotalPaginate(allTemplates.length)
+
+    }, [allTemplates]);
+
+    useEffect(() => {
+        // Initially set the Pro/Free templates to display based on start and end item counts
+        setProTemplatesToDisplay(proTemplates.slice(startItemCount, endItemCount));
+        setFreeTemplatesToDisplay(freeTemplates.slice(startItemCount, endItemCount));
+    }, [proTemplates, freeTemplates]);
+
+    useEffect(() => {
+        // Initially set the allTemplates to display based on start and end item counts
+        const initialTemplates = allTemplates.slice(startItemCount, endItemCount);
+        setTemplatesToDisplay(initialTemplates);
+        
+        // Slice the proTemplates based on the start and end item counts
+        const initialProTemplate = proTemplates.slice(startItemCount, endItemCount);
+        setProTemplatesToDisplay(initialProTemplate);
+        
+        // Slice the freeTemplates based on the start and end item counts
+        const initialFreeTemplate = freeTemplates.slice(startItemCount, endItemCount);
+        setFreeTemplatesToDisplay(initialFreeTemplate);
+
+
+    }, [startItemCount, endItemCount]);
+
+    console.log('Template to Display: ', templatesToDisplay)
 
 	if (isLoading) 
     return (
-        <div className="templatiq-loader">
-            <div 
-                className="templatiq-loader__spinner"
-            >
-                <Preloader />
-            </div>
-        </div>
+        <Preloader />
     );
 
 	if (error) 
     return (
-        <div className="templatiq-loader">
-            <div className="templatiq-loader__spinner">
-                {error.message}
-            </div>
-        </div>
+        <>
+            {error.message}
+        </>
     );
 
     console.log('All Templates: ', allTemplates);
@@ -87,13 +126,22 @@ export default function AllTemplates (props) {
                     
                     <TemplatePackFilterStyle className="templatiq__content__top__filter__wrapper">
                         <TabList className="templatiq__content__top__filter__tablist">
-                            <Tab className="templatiq__content__top__filter__item">
+                            <Tab 
+                                className="templatiq__content__top__filter__item"
+                                onClick={changePaginate}
+                            >
                                 <a href="#" className="templatiq__content__top__filter__link">All ({allTemplates.length})</a>
                             </Tab>
-                            <Tab className="templatiq__content__top__filter__item">
+                           <Tab 
+                                className="templatiq__content__top__filter__item"
+                                onClick={changePaginate}
+                            >
                                 <a href="#" className="templatiq__content__top__filter__link">Free ({freeTemplates.length})</a>
                             </Tab>
-                            <Tab className="templatiq__content__top__filter__item">
+                           <Tab 
+                                className="templatiq__content__top__filter__item"
+                                onClick={changePaginate}
+                            >
                                 <a href="#" className="templatiq__content__top__filter__link">
                                     <ReactSVG src={crownIcon} width={12} height={12} />
                                     Pro ({proTemplates.length})
@@ -109,7 +157,7 @@ export default function AllTemplates (props) {
 
             <div className="templatiq__content__wrapper">
                 <TabPanel className="templatiq-row templatiq__content__tab-panel">
-                {allTemplates
+                {templatesToDisplay
                     .map(template => (
                         <div className="templatiq-col-4">
                             <SingleTemplate 
@@ -131,7 +179,7 @@ export default function AllTemplates (props) {
                 }
                 </TabPanel>
                 <TabPanel className="templatiq-row templatiq__content__tab-panel">
-                {freeTemplates
+                {freeTemplatesToDisplay
                     .map(template => (
                         <div className="templatiq-col-4">
                             {isLoading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
@@ -154,7 +202,7 @@ export default function AllTemplates (props) {
                 }
                 </TabPanel>
                 <TabPanel className="templatiq-row templatiq__content__tab-panel">
-                {proTemplates
+                {proTemplatesToDisplay
                     .map(template => (
                         <div className="templatiq-col-4">
                             <SingleTemplate 
@@ -176,14 +224,15 @@ export default function AllTemplates (props) {
                 }
                 </TabPanel>
 
-                { total > perPage && (
+                { totalPaginate > paginatePerPage && (
                     <ReactPaginate
                         breakLabel="..."
                         onPageChange={ handlePageClick }
                         nextLabel={ <ReactSVG src={ arrowRight } /> }
                         previousLabel={ <ReactSVG src={ arrowLeft } /> }
                         pageRangeDisplayed={ 3 }
-                        pageCount={ Math.ceil( total / perPage ) }
+                        page={forcePage}
+                        pageCount={ Math.ceil( totalPaginate / paginatePerPage ) }
                         previousClassName="templatiq-pagination__item"
                         previousLinkClassName="templatiq-pagination__link templatiq-pagination__control"
                         nextClassName="templatiq-pagination__item"
@@ -193,6 +242,7 @@ export default function AllTemplates (props) {
                         pageLinkClassName="templatiq-pagination__link"
                         activeLinkClassName="templatiq-pagination__active"
                         renderOnZeroPageCount={ null }
+                        
                     />
                 ) }
             </div>
