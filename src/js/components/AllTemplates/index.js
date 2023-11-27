@@ -19,7 +19,7 @@ import arrowRight from '@icon/angle-right.svg';
 
 export default function AllTemplates (props) {
     const { templateType } = props;
-	const paginatePerPage = 4;
+	const paginatePerPage = 6;
 
     const [activeTab, setActiveTab] = useState('all');
 
@@ -94,7 +94,8 @@ export default function AllTemplates (props) {
             setTotalPaginate(freeTemplates.length)
         }
 
-    }, [activeTab]);
+    }, [activeTab, startItemCount, endItemCount]);
+
 
 	if (isLoading) 
     return (
@@ -124,22 +125,22 @@ export default function AllTemplates (props) {
                                 className="templatiq__content__top__filter__item"
                                 onClick={() => changeTemplateTab('all')}
                             >
-                                <a href="#" className="templatiq__content__top__filter__link">All ({allTemplates.length})</a>
+                                <button className="templatiq__content__top__filter__link">All ({allTemplates.length})</button>
                             </Tab>
                            <Tab 
                                 className="templatiq__content__top__filter__item"
                                 onClick={() => changeTemplateTab('free')}
                             >
-                                <a href="#" className="templatiq__content__top__filter__link">Free ({freeTemplates.length})</a>
+                                <button className="templatiq__content__top__filter__link">Free ({freeTemplates.length})</button>
                             </Tab>
                            <Tab 
                                 className="templatiq__content__top__filter__item"
                                 onClick={() => changeTemplateTab('pro')}
                             >
-                                <a href="#" className="templatiq__content__top__filter__link">
+                                <button className="templatiq__content__top__filter__link">
                                     <ReactSVG src={crownIcon} width={12} height={12} />
                                     Pro ({proTemplates.length})
-                                </a>
+                                </button>
                             </Tab>
                         </TabList>
                     </TemplatePackFilterStyle>
@@ -225,7 +226,7 @@ export default function AllTemplates (props) {
                         onPageChange={ handlePageClick }
                         nextLabel={ <ReactSVG src={ arrowRight } /> }
                         previousLabel={ <ReactSVG src={ arrowLeft } /> }
-                        pageRangeDisplayed={ 5 }
+                        pageRangeDisplayed={ 3 }
                         forcePage={forcePage}
                         pageCount={ Math.ceil( totalPaginate / paginatePerPage ) }
                         previousClassName="templatiq-pagination__item"
