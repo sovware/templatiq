@@ -4,7 +4,10 @@ export default function MyFavorites() {
 
 	return (
 		<>
-			<MyFavoritesModule />
+			<MyFavoritesModule
+				type="pack"
+				status="favorites"
+			/>
 		</>
 	);
 }

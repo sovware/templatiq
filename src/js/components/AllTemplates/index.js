@@ -18,8 +18,10 @@ import arrowLeft from '@icon/angle-left.svg';
 import arrowRight from '@icon/angle-right.svg';
 
 export default function AllTemplates (props) {
-    const { templateType } = props;
+    const { templateType, templateStatus, user } = props;
 	const paginatePerPage = 6;
+
+    console.log('Props User: ', templateStatus, user)
 
     const [activeTab, setActiveTab] = useState('all');
 
@@ -61,7 +63,7 @@ export default function AllTemplates (props) {
 
     useEffect(() => {
         if (data) {
-            data && templateType ?
+            templateType ?
             setAllTemplates(data.templates.filter(template => template.type === templateType)) : 
             setAllTemplates(data.templates);
             
