@@ -23,6 +23,9 @@ export default function AllTemplates (props) {
 
     console.log('Props User: ', templateStatus, user)
 
+    // const userFav = [ '127333', '127334', '127335', '127336' ]
+    const userFav = user.bookmarks;
+
     const [activeTab, setActiveTab] = useState('all');
 
     const [allTemplates, setAllTemplates] = useState([]);
@@ -63,9 +66,15 @@ export default function AllTemplates (props) {
 
     useEffect(() => {
         if (data) {
-            templateType ?
-            setAllTemplates(data.templates.filter(template => template.type === templateType)) : 
-            setAllTemplates(data.templates);
+            const templateData = data.templates;
+            if (templateType) {
+                user && templateStatus === 'favorites' ? 
+                setAllTemplates(templateData.filter(template => template.type === templateType && userFav.includes(String(template.template_id)))) :
+                setAllTemplates(templateData.filter(template => template.type === templateType))
+
+            } else {
+                setAllTemplates(templateData);
+            }
             
         } else {
             setAllTemplates([]);

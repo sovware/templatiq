@@ -9,8 +9,6 @@ export default function MyFavoritesModule(props) {
 	const { type, status } = props;
 	const user = select( store ).getUserInfo();
 
-	console.log( 'User: ', user.bookmarked, type, status)
-
 	return (
 		<DashboardLayout>
 			<div className="templatiq__content templatiq__content--dashboard"> 

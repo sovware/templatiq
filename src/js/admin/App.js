@@ -68,12 +68,11 @@ export default function App() {
 					isLoggedIn: data.token ? true : false,
 					userEmail: data.user_email,
 					userDisplayName: data.user_display_name,
-					bookmarked: data.bookmarks,
+					bookmarks: data.bookmarks,
 				};
 	
 				// Dispatch the action to update the login status in the store
 				dispatch(store).setUserInfo(updatedUserInfo);
-				console.log('User Info', data)
 			}
 		} catch (error) {
 			// Handle error if needed
