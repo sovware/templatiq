@@ -13,11 +13,13 @@ const Bookmark = ( props) => {
 
 	const { isLoggedIn } = select( store ).getUserInfo();
     const favCountList = select( store ).getFav(template_id);
-    const isTemplateActive = select( store ).getTemplateStatus(template_id);
+    // const isTemplateActive = select( store ).getTemplateStatus(template_id);
 
 	const [authModalOpen, setAuthModalOpen] = useState(false);
-    const [currentFavoriteCount, setCurrentFavoriteCount] = useState(number_of_bookmarks);
-	const [addedToFavorite, addFavorite] = useState(isTemplateActive ? isTemplateActive : false);
+    const [currentFavoriteCount, setCurrentFavoriteCount] = useState(favCountList);
+	const [addedToFavorite, addFavorite] = useState(select( store ).getTemplateStatus(template_id));
+
+    console.log('Init Fav: ', favCountList, currentFavoriteCount, addedToFavorite);
     
     const addAuthModal = (e) => {
         e.preventDefault();
@@ -30,22 +32,73 @@ const Bookmark = ( props) => {
         setAuthModalOpen(false);
     };
 
+    let favAdd = async (template_id) => {
+        console.log('Click to Add Favorite')
+        const response = await fetch(`${template_market_obj.rest_args.endpoint}/bookmark/add`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': template_market_obj.rest_args.nonce,
+            },
+            body: JSON.stringify({
+                template_id: template_id
+            }),
+        });
+    
+        if (!response.ok) {
+            throw new Error('Error Occurred');
+        }
+    
+        const data = await response.json();
+        console.log('Add to Favorite Response: ', data);
+
+        return data;
+    }
+    let favRemove = async (template_id) => {
+        console.log('Click to Remove Favorite')
+        const response = await fetch(`${template_market_obj.rest_args.endpoint}/bookmark/remove`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': template_market_obj.rest_args.nonce,
+            },
+            body: JSON.stringify({
+                template_id: template_id
+            }),
+        });
+    
+        if (!response.ok) {
+            throw new Error('Error Occurred');
+        }
+    
+        const data = await response.json();
+        console.log('Remove to Favorite Response: ', data);
+
+        return data;
+    }
+
     let handleFavorite = (e) => {
         e.preventDefault();
-        addFavorite((prevAddedToFavorite) => {
-            const newAddedToFavorite = !prevAddedToFavorite;
-            const updatedCount = newAddedToFavorite ? Number(currentFavoriteCount) + 1 : Number(number_of_bookmarks);
-        
-            // Use the updated state immediately in the dispatch
-            dispatch(store).setFav(template_id, updatedCount);
-            dispatch(store).toggleTemplateStatus(template_id, newAddedToFavorite);
+        if (!addedToFavorite) {
+            favAdd(template_id);
+            const addedCount = Number(currentFavoriteCount) + 1;
+            addFavorite(true);
+            dispatch(store).toggleTemplateStatus(template_id, true)
+            setCurrentFavoriteCount(addedCount)
+            dispatch(store).setFav(template_id, addedCount);
 
-            setCurrentFavoriteCount(updatedCount)
+            console.log('Added Fav: ', favCountList, currentFavoriteCount)
 
-            props.onFavoriteCountUpdate?.();
-            // Return the new value to update the state
-            return newAddedToFavorite;
-        });
+        } else {
+            favRemove(template_id);
+            const removedCount = Number(currentFavoriteCount) - 1;
+            setCurrentFavoriteCount(removedCount)
+            addFavorite(false);
+            dispatch(store).toggleTemplateStatus(template_id, false)
+            dispatch(store).setFav(template_id, removedCount);
+
+            console.log('Removed Fav: ', favCountList, currentFavoriteCount)
+        }
     };
     
     useEffect(() => {
