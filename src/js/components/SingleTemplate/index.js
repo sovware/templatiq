@@ -33,12 +33,12 @@ const SingleTemplate = (item) => {
                         
                     </div>
                     <div className="templatiq__template__single__info__action">
-                        <a href={preview_link} className="templatiq__template__single__info__action__link">
+                        <a href={preview_link} target="_blank" className="templatiq__template__single__info__action__link">
                             Live Demo
                         </a>
                         {
                             price > 0 ? 
-                            <a href={purchase_url} className="templatiq__template__single__info__action__link purchase-btn">
+                            <a href={purchase_url} target="_blank" className="templatiq__template__single__info__action__link purchase-btn">
                                 <ReactSVG src={ cartIcon } width={14} height={14} />
                                 Purchase
                             </a> :
