@@ -9,6 +9,7 @@ namespace Templatiq;
 
 use Templatiq\Admin\Admin;
 use Templatiq\Routes\Account;
+use Templatiq\Routes\Bookmark;
 use Templatiq\Routes\Cache;
 use Templatiq\Routes\Dependency;
 use Templatiq\Routes\Template;
@@ -36,5 +37,6 @@ class App {
 		Dependency::init();
 		Template::init();
 		Cache::init();
+		Bookmark::init();
 	}
 }
