@@ -213,8 +213,9 @@ const TemplateDetailsWidgetStyle = Styled.div`
         gap: 8px;
         align-items: center;
     }
-    .templatiq__details__widget__content__required-plugins__link svg {
-        max-width: 30px;
+    .templatiq__details__widget__content__required-plugins__link img {
+        width: 30px;
+        height: 30px;
         border-radius: 50%;
     }
 `;

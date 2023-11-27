@@ -9,8 +9,8 @@ const DropdownStyle = Styled.div`
         gap: 10px;
         align-items: center;
         height: 36px;
-        min-width: 150px;
-        padding: 0 12px;
+        min-width: 160px;
+        padding: 0 30px 0 12px;
         border-radius: 8px;
         color: var(--templatiq-body-color);
         font-size: 14px;
@@ -64,8 +64,9 @@ const DropdownStyle = Styled.div`
         padding: 5px 15px;
         color: var(--templatiq-body-color);
         pointer-events: none;
-        svg {
-            min-width: 20px;
+        img {
+            width: 24px;
+            height: 24px;
         }
     }
     .templatiq-dropdown__content__item {
