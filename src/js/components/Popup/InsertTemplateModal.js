@@ -134,7 +134,7 @@ const InsertTemplateModal = ({item, installable_plugins, onClose}) => {
                     <div className="templatiq__modal__content">
                         {!importedData ? 
                             <>
-                                <h2 className="templatiq__modal__title">Required Plugins</h2>
+                                <h2 className="templatiq__modal__title">{!allPluginsInstalled ? 'Required Plugins' : 'Enter Page Title'}</h2>
                                 <p className="templatiq__modal__desc">To import this item you need to install all the Plugin listed below.</p>
                                 <div className="templatiq__modal__plugins">
                                     {
