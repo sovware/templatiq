@@ -1,5 +1,5 @@
 
-import Popup from "@components/Popup";
+import Preloader from "@components/Preloader";
 import { useQuery } from '@tanstack/react-query';
 import { TemplateDetailsStyle } from './style';
 
@@ -27,7 +27,7 @@ export default function TemplateDetailsModule(props) {
     return (
         <div className="templatiq-loader">
             <div className="templatiq-loader__spinner">
-                Loading..
+				<Preloader />
             </div>
         </div>
     );

@@ -1,5 +1,5 @@
 import { lazy, Suspense, useState, useEffect } from '@wordpress/element';
-// import { applyFilters } from '@wordpress/hooks';
+import { applyFilters } from '@wordpress/hooks';
 import {
 	HashRouter,
 	Routes,
@@ -99,6 +99,53 @@ export default function App() {
 
 	}, [] );
 
+	const adminRoutes = applyFilters( 'templatiq_admin_routes', [
+		{
+			path: `/*`,
+			element: <TemplatePack />,
+		},
+		{
+			path: '/pages',
+			element: <Pages />,
+		},
+		{
+			path: `/blocks`,
+			element: <Blocks />,
+		},
+		{
+			path: `/template/:slug`,
+			element: <TemplateDetails />,
+		},
+		{
+			path: `/signin`,
+			element: <SignIn />,
+		},
+		{
+			path: `/signup`,
+			element: <SignUp />,
+		},
+		{
+			path: `/dashboard`,
+			element: <MyFavorites />,
+		},
+		{
+			path: `/dashboard/favorites`,
+			element: <MyFavorites />,
+		},
+		{
+			path: `/dashboard/downloads`,
+			element: <MyDownloads />,
+		},
+		{
+			path: '/dashboard/purchase',
+			element: <MyPurchase />,
+		},
+		{
+			path: `/dashboard/account`,
+			element: <MyAccount />,
+		},
+	] );
+
 	const templateRoutes = [
 		{
 			path: `/*`,
@@ -129,7 +176,7 @@ export default function App() {
 			element: <MyFavorites />,
 		},
 		{
-			path: `/dashboard/*`,
+			path: `/dashboard/favorites`,
 			element: <MyFavorites />,
 		},
 		{
@@ -152,7 +199,7 @@ export default function App() {
 				<Suspense fallback={ <></> }>
 					<ThemeProvider theme={ theme }>
 						<Routes>
-							{ templateRoutes.map( ( routeItem, index ) => {
+							{ adminRoutes.map( ( routeItem, index ) => {
 								return (
 									<Route
 										key={ index }

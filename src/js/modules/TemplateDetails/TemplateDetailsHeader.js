@@ -1,6 +1,8 @@
-import { useState, useEffect } from '@wordpress/element';
-import { select, dispatch } from '@wordpress/data';
+import { useState } from '@wordpress/element';
+import { select } from '@wordpress/data';
 import ReactSVG from 'react-inlinesvg';
+
+import Bookmark from '@components/Bookmark';
 import InsertTemplate from '@components/InsertTemplate';
 import { TemplateDetailsHeaderStyle } from './style';
 import store from '../../store';
@@ -8,12 +10,11 @@ import store from '../../store';
 import crownIcon from '@icon/crown.svg';
 import cartIcon from "@icon/cart.svg";
 import heartIcon from "@icon/heart.svg";
-import heartSolidIcon from "@icon/heart-solid.svg";
 import downloadAltIcon from "@icon/download-alt.svg";
 
 const TemplateDetailsHeader = (props) => {
 	const {
-		slug,
+		template_id,
 		title,
 		price,
 		number_of_downloads,
@@ -23,35 +24,12 @@ const TemplateDetailsHeader = (props) => {
 	} = props.item;
 
 
-    const favCountList = select( store ).getFav(slug);
-    const isTemplateActive = select( store ).getTemplateStatus(slug);
-	const [addedToFavorite, addFavorite] = useState(isTemplateActive ? isTemplateActive : false);
+    const favCountList = select( store ).getFav(template_id);
     const [currentFavoriteCount, setCurrentFavoriteCount] = useState(favCountList ? favCountList : '');
 
-	let handleFavorite = (e) => {
-        e.preventDefault();
-        addFavorite((prevAddedToFavorite) => {
-            const newAddedToFavorite = !prevAddedToFavorite;
-        
-            // Use the updated state immediately in the dispatch
-            dispatch(store).setFav(
-                slug,
-                newAddedToFavorite
-                    ? Number(currentFavoriteCount) + 1
-                    : favCountList
-                );
-
-            dispatch(store).toggleTemplateStatus(slug, newAddedToFavorite);
-        
-            // Return the new value to update the state
-            return newAddedToFavorite;
-        });
+	let countFavorite = () => {
+        setCurrentFavoriteCount(select( store ).getFav(template_id))
     };
-
-    useEffect(() => {
-        // This will be triggered whenever addedToFavorite changes
-        setCurrentFavoriteCount(addedToFavorite ? Number(currentFavoriteCount) + 1 : Number(currentFavoriteCount));
-    }, [addedToFavorite]);
 
 	return (
 		<TemplateDetailsHeaderStyle className="templatiq__details__header">
@@ -70,7 +48,7 @@ const TemplateDetailsHeader = (props) => {
 						number_of_bookmarks ? 
 						<span className="templatiq__details__header__meta__item">
 							<ReactSVG src={ heartIcon } width={16} height={16} />
-							Loved by {currentFavoriteCount ? currentFavoriteCount : ''} people
+							Loved by {currentFavoriteCount ? currentFavoriteCount : '0'} people
 						</span> :
 						''
 					}
@@ -86,9 +64,9 @@ const TemplateDetailsHeader = (props) => {
 					</span> :
 					''
 				}
-				<a href="#" className={`templatiq__details__header__action__link add-to-favorite templatiq-btn templatiq-btn-white ${addedToFavorite ? 'active' : ''}`} onClick={(e) => handleFavorite(e, number_of_bookmarks)}>
-					<ReactSVG src={ addedToFavorite ? heartSolidIcon : heartIcon } width={16} height={16} />
-				</a>
+
+				<Bookmark item={props.item} type="single" onFavoriteCountUpdate={countFavorite}  />
+
 				<a href={preview_link} className="templatiq__details__header__action__link live-demo-btn templatiq-btn templatiq-btn-white">
 					Live Demo
 				</a> 
@@ -104,7 +82,6 @@ const TemplateDetailsHeader = (props) => {
 						className={'templatiq__details__header__action__link insert-btn templatiq-btn templatiq-btn-success'}
 					/>
 				}
-				
 				
 			</div>
 		</TemplateDetailsHeaderStyle>

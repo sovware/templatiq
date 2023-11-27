@@ -106,7 +106,7 @@ export default function Dropdown( {
 									}
 								>
 									{ item.icon ? (
-										<ReactSVG src={ item.icon } width={24} height={24} />
+										<img src={ item.icon } alt={ item.text } />
 									) : (
 										''
 									) }
