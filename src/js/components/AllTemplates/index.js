@@ -21,16 +21,16 @@ export default function AllTemplates (props) {
     const { templateType } = props;
 	const paginatePerPage = 4;
 
+    const [activeTab, setActiveTab] = useState('all');
+
     const [allTemplates, setAllTemplates] = useState([]);
     const [proTemplates, setProTemplates] = useState([]);
     const [freeTemplates, setFreeTemplates] = useState([]);
     const [templatesToDisplay, setTemplatesToDisplay] = useState([]);
-    const [proTemplatesToDisplay, setProTemplatesToDisplay] = useState([]);
-    const [freeTemplatesToDisplay, setFreeTemplatesToDisplay] = useState([]);
 
     const [totalPaginate, setTotalPaginate] = useState([]);
     const [ startItemCount, setStartItemCount ] = useState(0);
-    const [ endItemCount, setEndItemCount ] = useState(4);
+    const [ endItemCount, setEndItemCount ] = useState(6);
     const [forcePage, setForcePage]=useState(0);
 
 	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
@@ -44,23 +44,27 @@ export default function AllTemplates (props) {
         }).then(res => res.json() )
     );
 
-    const changePaginate = () => {
+    const changeTemplateTab = (type) => {
+        setActiveTab(type);
+
+        setForcePage(0);
         setStartItemCount(0);
         setEndItemCount(paginatePerPage);
-        setForcePage(0);
-
-        console.log('Paginate changed, ' + forcePage)
     }
 
     const handlePageClick = (event) => {
         const selectedPage = event.selected + 1;
         setStartItemCount((selectedPage * paginatePerPage) - paginatePerPage);
         setEndItemCount((selectedPage * paginatePerPage));
+
     };
 
     useEffect(() => {
         if (data) {
-            data && templateType ? setAllTemplates(data.templates.filter(template => template.type === templateType)) : setAllTemplates(data.templates);
+            data && templateType ?
+            setAllTemplates(data.templates.filter(template => template.type === templateType)) : 
+            setAllTemplates(data.templates);
+            
         } else {
             setAllTemplates([]);
         }
@@ -79,28 +83,18 @@ export default function AllTemplates (props) {
     }, [allTemplates]);
 
     useEffect(() => {
-        // Initially set the Pro/Free templates to display based on start and end item counts
-        setProTemplatesToDisplay(proTemplates.slice(startItemCount, endItemCount));
-        setFreeTemplatesToDisplay(freeTemplates.slice(startItemCount, endItemCount));
-    }, [proTemplates, freeTemplates]);
+        if (activeTab === 'all') {
+            setTemplatesToDisplay(allTemplates.slice(startItemCount, endItemCount));
+            setTotalPaginate(allTemplates.length)
+        } else if (activeTab === 'pro') {
+            setTemplatesToDisplay(proTemplates.slice(startItemCount, endItemCount));
+            setTotalPaginate(proTemplates.length)
+        } else if (activeTab === 'free') {
+            setTemplatesToDisplay(freeTemplates.slice(startItemCount, endItemCount));
+            setTotalPaginate(freeTemplates.length)
+        }
 
-    useEffect(() => {
-        // Initially set the allTemplates to display based on start and end item counts
-        const initialTemplates = allTemplates.slice(startItemCount, endItemCount);
-        setTemplatesToDisplay(initialTemplates);
-        
-        // Slice the proTemplates based on the start and end item counts
-        const initialProTemplate = proTemplates.slice(startItemCount, endItemCount);
-        setProTemplatesToDisplay(initialProTemplate);
-        
-        // Slice the freeTemplates based on the start and end item counts
-        const initialFreeTemplate = freeTemplates.slice(startItemCount, endItemCount);
-        setFreeTemplatesToDisplay(initialFreeTemplate);
-
-
-    }, [startItemCount, endItemCount]);
-
-    console.log('Template to Display: ', templatesToDisplay)
+    }, [activeTab]);
 
 	if (isLoading) 
     return (
@@ -128,19 +122,19 @@ export default function AllTemplates (props) {
                         <TabList className="templatiq__content__top__filter__tablist">
                             <Tab 
                                 className="templatiq__content__top__filter__item"
-                                onClick={changePaginate}
+                                onClick={() => changeTemplateTab('all')}
                             >
                                 <a href="#" className="templatiq__content__top__filter__link">All ({allTemplates.length})</a>
                             </Tab>
                            <Tab 
                                 className="templatiq__content__top__filter__item"
-                                onClick={changePaginate}
+                                onClick={() => changeTemplateTab('free')}
                             >
                                 <a href="#" className="templatiq__content__top__filter__link">Free ({freeTemplates.length})</a>
                             </Tab>
                            <Tab 
                                 className="templatiq__content__top__filter__item"
-                                onClick={changePaginate}
+                                onClick={() => changeTemplateTab('pro')}
                             >
                                 <a href="#" className="templatiq__content__top__filter__link">
                                     <ReactSVG src={crownIcon} width={12} height={12} />
@@ -179,7 +173,7 @@ export default function AllTemplates (props) {
                 }
                 </TabPanel>
                 <TabPanel className="templatiq-row templatiq__content__tab-panel">
-                {freeTemplatesToDisplay
+                {templatesToDisplay
                     .map(template => (
                         <div className="templatiq-col-4">
                             {isLoading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
@@ -202,7 +196,7 @@ export default function AllTemplates (props) {
                 }
                 </TabPanel>
                 <TabPanel className="templatiq-row templatiq__content__tab-panel">
-                {proTemplatesToDisplay
+                {templatesToDisplay
                     .map(template => (
                         <div className="templatiq-col-4">
                             <SingleTemplate 
@@ -226,12 +220,13 @@ export default function AllTemplates (props) {
 
                 { totalPaginate > paginatePerPage && (
                     <ReactPaginate
+                        key={activeTab}
                         breakLabel="..."
                         onPageChange={ handlePageClick }
                         nextLabel={ <ReactSVG src={ arrowRight } /> }
                         previousLabel={ <ReactSVG src={ arrowLeft } /> }
-                        pageRangeDisplayed={ 3 }
-                        page={forcePage}
+                        pageRangeDisplayed={ 5 }
+                        forcePage={forcePage}
                         pageCount={ Math.ceil( totalPaginate / paginatePerPage ) }
                         previousClassName="templatiq-pagination__item"
                         previousLinkClassName="templatiq-pagination__link templatiq-pagination__control"
