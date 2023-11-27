@@ -121,7 +121,6 @@ final class Templatiq {
 		define( 'TEMPLATIQ_VERSION', $this->version );
 		define( 'TEMPLATIQ_FILE', __FILE__ );
 		define( 'TEMPLATIQ_PATH', dirname( TEMPLATIQ_FILE ) );
-		define( 'TEMPLATIQ_ELEMENTS', TEMPLATIQ_PATH . 'App/Elements' );
 		define( 'TEMPLATIQ_URL', plugins_url( '', TEMPLATIQ_FILE ) );
 		define( 'TEMPLATIQ_ASSETS', TEMPLATIQ_URL . '/assets' );
 		define( 'TEMPLATIQ_ASSETS_PATH', TEMPLATIQ_PATH . '/assets' );

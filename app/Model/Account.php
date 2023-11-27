@@ -41,6 +41,9 @@ class Account {
 
 		if ( ! empty( $response['body'] ) ) {
 			$response['body'] = json_decode( $response['body'], true );
+
+			$response['body']['last_updated'] = time();
+
 			Options::set( 'token', $response['body']['token'] ?? '' );
 			Options::set( 'account_data', $response['body'] ?? [] );
 		}
@@ -61,29 +64,53 @@ class Account {
 	}
 
 	public function data() {
-		$_response = ['status' => 'success'];
-		$data      = Options::get( 'account_data' );
+		$response = ['status' => 'success'];
+		$data     = Options::get( 'account_data' );
+		$token    = Options::get( 'token' );
 
-		if ( '' === $data ) {
-			$_response['status'] = 'error';
+		if ( '' === $data || ! $token ) {
+			$response['status'] = 'error';
 		}
 
-		$_response['data'] = $data;
+		if ( $data['last_updated'] < ( time() - 60 * 5 ) ) {
 
-		return $_response;
+			$http     = new Http( $this->cloud_endpoint . '/account/data' );
+			$response = $http->body(
+				[
+					'token' => $token,
+				] )
+				->post()
+				->response();
+
+			if ( is_wp_error( $response ) ) {
+				return Response::error( 'invalid_data', $response->get_error_message(), 'account_data', 404 );
+			}
+
+			if ( ! empty( $response['body'] ) ) {
+				$response['body'] = json_decode( $response['body'], true );
+
+				$response['body']['last_updated'] = time();
+
+				Options::set( 'account_data', $response['body'] ?? [] );
+			}
+		} else {
+			$response['body'] = $data;
+		}
+
+		return $response;
 	}
 
 	public static function is_logged_in() {
-		$_response = ['status' => 'success'];
-		$token     = Options::get( 'token' );
+		$response = ['status' => 'success'];
+		$token    = Options::get( 'token' );
 
 		if ( '' === $token ) {
-			$_response['status'] = 'error';
+			$response['status'] = 'error';
 		}
 
-		$_response['token'] = $token;
+		$response['token'] = $token;
 
-		return $_response;
+		return $response;
 	}
 
 	public function create( string $user_email, string $name = '' ) {
@@ -117,10 +144,6 @@ class Account {
 
 		if ( is_wp_error( $response ) ) {
 			return $response;
-		}
-
-		if ( ! empty( $response['user']['token'] ) ) {
-			Options::set( 'token', $response['token'] );
 		}
 
 		return $response;

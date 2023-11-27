@@ -56,14 +56,14 @@ class Enqueuer extends EnqueuerBase {
 	public function elementor_editor_enqueue() {
 		wp_enqueue_style(
 			'templatiq-elementor-editor',
-			TEMPLATIQ_ASSETS . '/css/elementor-editor.css',
+			TEMPLATIQ_ASSETS . '/assets-vendor/elementor-editor.css',
 			[],
 			TEMPLATIQ_VERSION,
 		);
 
 		wp_enqueue_script(
 			'templatiq-elementor-editor',
-			TEMPLATIQ_ASSETS . '/js/elementor-editor.js',
+			TEMPLATIQ_URL . '/assets-vendor/elementor-editor.js',
 			['elementor-editor', 'jquery'],
 			TEMPLATIQ_VERSION,
 			true
