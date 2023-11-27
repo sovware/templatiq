@@ -47,7 +47,7 @@ const InsertTemplateModal = ({item, installable_plugins, onClose}) => {
             // Set installing status for the current plugin
             setInstallingPlugins((prevStatus) => {
                 const updatedStatus = { ...prevStatus };
-                updatedStatus[plugin.slug] = true;
+                updatedStatus[plugin.template_id] = true;
                 return updatedStatus;
             });
     
@@ -81,13 +81,13 @@ const InsertTemplateModal = ({item, installable_plugins, onClose}) => {
         // Update the status for the plugin
         setInstallingPlugins((prevStatus) => {
             const updatedStatus = { ...prevStatus };
-            updatedStatus[plugin.slug] = true;
+            updatedStatus[plugin.template_id] = true;
             return updatedStatus;
         });
 
 
         if(data.success) {
-            let installed = data.slug;
+            let installed = data.template_id;
 
             // Update the status for the plugin
             setInstalledPlugins((prevStatus) => {
@@ -140,8 +140,8 @@ const InsertTemplateModal = ({item, installable_plugins, onClose}) => {
                                     {
                                         !allPluginsInstalled ?
                                         installable_plugins && installable_plugins.map((plugin, index) => {
-                                            const isInstalling = installingPlugins[plugin.slug];
-                                            const isInstalled = installedPlugins[plugin.slug];
+                                            const isInstalling = installingPlugins[plugin.template_id];
+                                            const isInstalled = installedPlugins[plugin.template_id];
                                     
                                             let installStatus = '';
                                             if (isInstalled) {
@@ -153,8 +153,8 @@ const InsertTemplateModal = ({item, installable_plugins, onClose}) => {
                                             return (
                                                 <div key={index} className="templatiq__modal__plugin templatiq__checkbox">
                                                     <input 
-                                                        id={slug + '_' + plugin.slug}
-                                                        name={slug + '_' + plugin.slug}
+                                                        id={template_id + '_' + plugin.template_id}
+                                                        name={template_id + '_' + plugin.template_id}
                                                         type="checkbox" 
                                                         className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
                                                         onChange={() => handlePluginChange(plugin)}
@@ -162,7 +162,7 @@ const InsertTemplateModal = ({item, installable_plugins, onClose}) => {
                                                     />
 
                                                     <label 
-                                                        htmlFor={slug + '_' + plugin.slug}
+                                                        htmlFor={template_id + '_' + plugin.template_id}
                                                         className="templatiq__modal__plugin__label templatiq__checkbox__label"
                                                     >
                                                         <a href="#" className="templatiq__modal__plugin__link">{plugin.name}</a>

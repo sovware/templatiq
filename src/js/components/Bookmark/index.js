@@ -7,15 +7,15 @@ import store from '../../store';
 import heartIcon from "@icon/heart.svg";
 import heartSolidIcon from "@icon/heart-solid.svg";
 
-const Bookmark = ( item ) => {
-    let { slug } = item;
+const Bookmark = ( props ) => {
+    let { template_id, number_of_bookmarks } = props.item;
 
 	const { isLoggedIn } = select( store ).getUserInfo();
-    const favCountList = select( store ).getFav(slug);
-    const isTemplateActive = select( store ).getTemplateStatus(slug);
+    const favCountList = select( store ).getFav(template_id);
+    const isTemplateActive = select( store ).getTemplateStatus(template_id);
 
 	const [authModalOpen, setAuthModalOpen] = useState(false);
-    const [currentFavoriteCount, setCurrentFavoriteCount] = useState(favCountList);
+    const [currentFavoriteCount, setCurrentFavoriteCount] = useState(number_of_bookmarks);
 	const [addedToFavorite, addFavorite] = useState(isTemplateActive ? isTemplateActive : false);
     
     const addAuthModal = (e) => {
@@ -33,11 +33,11 @@ const Bookmark = ( item ) => {
         e.preventDefault();
         addFavorite((prevAddedToFavorite) => {
             const newAddedToFavorite = !prevAddedToFavorite;
-            const updatedCount = newAddedToFavorite ? Number(currentFavoriteCount) + 1 : Number(favCountList - 1);
+            const updatedCount = newAddedToFavorite ? Number(currentFavoriteCount) + 1 : Number(number_of_bookmarks);
         
             // Use the updated state immediately in the dispatch
-            dispatch(store).setFav(slug, updatedCount);
-            dispatch(store).toggleTemplateStatus(slug, newAddedToFavorite);
+            dispatch(store).setFav(template_id, updatedCount);
+            dispatch(store).toggleTemplateStatus(template_id, newAddedToFavorite);
 
             setCurrentFavoriteCount(updatedCount)
 
@@ -48,7 +48,7 @@ const Bookmark = ( item ) => {
     
     useEffect(() => {
         // This will be triggered whenever addedToFavorite changes
-        setCurrentFavoriteCount(addedToFavorite ? currentFavoriteCount : favCountList );
+        setCurrentFavoriteCount(addedToFavorite ? currentFavoriteCount : number_of_bookmarks );
     }, [addedToFavorite]);
     
     useEffect(() => {
