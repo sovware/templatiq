@@ -49,11 +49,6 @@ const InsertTemplate = ({item, templateRef, className, innerText}) => {
         setAuthModalOpen(false);
     };
 
-    useEffect(() => {
-        // setInsertModalOpen(false);
-
-    }, [ setInsertModalOpen]);
-
 
 	const handlePlugins = async (plugins) => {
         const response = await fetch(`${template_market_obj.rest_args.endpoint}/dependency/check`, {
@@ -72,6 +67,7 @@ const InsertTemplate = ({item, templateRef, className, innerText}) => {
         }
     
         const data = await response.json();
+
         setInstallablePlugins(data);
     }; 
 
@@ -79,11 +75,10 @@ const InsertTemplate = ({item, templateRef, className, innerText}) => {
         handlePlugins(required_plugins);
     }, [required_plugins]);
 
-
     return (
         <>
             {insertModalOpen && installablePlugins && (
-                <InsertTemplateModal item={item} installable_plugins={installablePlugins}  onClose={handleInsertModalClose} />
+                <InsertTemplateModal item={item} installable_plugins={installablePlugins} onClose={handleInsertModalClose} />
             )}
             {authModalOpen && <AuthModal modalEnable={true} onClose={handleAuthModalClose} />}
             <a 

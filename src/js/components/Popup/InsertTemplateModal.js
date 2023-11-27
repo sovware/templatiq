@@ -5,8 +5,8 @@ import { InsertTemplateModalStyle } from './style';
 import closeIcon from "@icon/close.svg";
 
 const InsertTemplateModal = ({item, installable_plugins, onClose}) => {
-    const { template_id, builder, slug } = item;
-    
+    const { template_id, builder } = item;
+
 	let [selectedPlugins, setSelectedPlugins] = useState([]);
 	let [pageTitle, setPageTitle] = useState('');
 	
@@ -149,20 +149,20 @@ const InsertTemplateModal = ({item, installable_plugins, onClose}) => {
                                             } else if (isInstalling) {
                                                 installStatus = 'Installing';
                                             }
-                    
+                                            
                                             return (
                                                 <div key={index} className="templatiq__modal__plugin templatiq__checkbox">
                                                     <input 
-                                                        id={template_id + '_' + plugin.template_id}
-                                                        name={template_id + '_' + plugin.template_id}
+                                                        id={template_id + '_' + index}
+                                                        name={template_id + '_' + index}
                                                         type="checkbox" 
                                                         className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
                                                         onChange={() => handlePluginChange(plugin)}
-                                                        disabled = {plugin.is_pro}
+                                                        disabled = {plugin.is_pro =="true"}
                                                     />
 
                                                     <label 
-                                                        htmlFor={template_id + '_' + plugin.template_id}
+                                                        htmlFor={template_id + '_' + index}
                                                         className="templatiq__modal__plugin__label templatiq__checkbox__label"
                                                     >
                                                         <a href="#" className="templatiq__modal__plugin__link">{plugin.name}</a>

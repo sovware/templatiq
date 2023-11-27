@@ -67,7 +67,7 @@ const TemplateDetailsHeader = (props) => {
 
 				<Bookmark item={props.item} type="single" onFavoriteCountUpdate={countFavorite}  />
 
-				<a href={preview_link} className="templatiq__details__header__action__link live-demo-btn templatiq-btn templatiq-btn-white">
+				<a href={preview_link} target="_blank" className="templatiq__details__header__action__link live-demo-btn templatiq-btn templatiq-btn-white">
 					Live Demo
 				</a> 
 				{
