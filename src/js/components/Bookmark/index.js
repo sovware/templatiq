@@ -8,10 +8,12 @@ import heartIcon from "@icon/heart.svg";
 import heartSolidIcon from "@icon/heart-solid.svg";
 
 const Bookmark = ( props) => {
-    let { template_id, number_of_bookmarks } = props.item;
-    const [ type, setType ] = useState(props.type ? props.type : '');
-
 	const { isLoggedIn } = select( store ).getUserInfo();
+
+    let { template_id, number_of_bookmarks } = props.item;
+    let { onUserFavChange } = props;
+
+    const [ type, setType ] = useState(props.type ? props.type : '');
 
 	const [authModalOpen, setAuthModalOpen] = useState(false);
 	const [userFav, setUserFav] = useState([]);
@@ -31,7 +33,6 @@ const Bookmark = ( props) => {
         setAuthModalOpen(false);
     };
 
-
     const getUserBookmark = async () => {
 		try {
 			const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/data`, {
@@ -49,7 +50,8 @@ const Bookmark = ( props) => {
 			if (response.ok) {
 				const responseData = await response.json();
 				const data = responseData.body;
-                console.log('getUserInfo: ', data, typeof(data))
+                console.log('Get User Info: ', data, data.body)
+                console.log('Get User Bookmark: ', data.bookmarks, typeof(data.bookmarks))
                 setUserFav(data.bookmarks);
 
                 // Check if template_id is in the fetched bookmarks
@@ -66,7 +68,6 @@ const Bookmark = ( props) => {
 	};
 
     let favAdd = async (template_id) => {
-        
         const response = await fetch(`${template_market_obj.rest_args.endpoint}/bookmark/add`, {
             method: 'POST',
             headers: {
@@ -84,9 +85,11 @@ const Bookmark = ( props) => {
     
         const data = await response.json();
 
-        const addedBookmark = JSON.parse(data.body);
+        const responseData = JSON.parse(data.body);
+        const addedBookmark = responseData.bookmarks;
 
-        console.log('Add to Favorite Response Array: ', addedBookmark, typeof(addedBookmark));
+        console.log('Add to Favorite Response: ', data, data.body);
+        console.log('Add to Favorite Value Array: ', addedBookmark, typeof(addedBookmark));
         setUserFav(addedBookmark);
 
         return data;
@@ -110,10 +113,17 @@ const Bookmark = ( props) => {
     
         const data = await response.json();
 
-        const removedBookmark = JSON.parse(data.body);
+        const removedBookmark = data.body.bookmarks;
 
-        console.log('Remove to Favorite Response Array: ', removedBookmark);
+        console.log('Remove to Favorite Response: ', data, data.body);
+        console.log('Remove to Favorite Value Array: ', removedBookmark, typeof(removedBookmark));
         setUserFav(removedBookmark);
+
+
+        if (onUserFavChange) {
+            console.log('onUserFavChange: ', removedBookmark)
+            onUserFavChange(removedBookmark);
+        }
 
         return data;
     }

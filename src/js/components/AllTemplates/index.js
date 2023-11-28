@@ -21,8 +21,9 @@ export default function AllTemplates (props) {
     const { templateType, templateStatus, user } = props;
 	const paginatePerPage = 10;
 
-    const userFavInit = [ 127333, 127334, 127335, 127336, 127337 ];
+    const [ userFavInit, setUserInit] = useState([ 127333, 127334, 127335, 127336, 127337 ]);
 	const [userFav, setUserFav] = useState([]);
+	const [updatedUserFav, setUpdatedUserFav] = useState([]);
     console.log('Props User: ', templateStatus, user, userFav, userFavInit)
 
     const [activeTab, setActiveTab] = useState('all');
@@ -90,13 +91,22 @@ export default function AllTemplates (props) {
 		}
 	};
 
+    const handleTotalFavCountChange = (newFavCount) => {
+        // Update the total favorite count in the state of AllTemplate
+        console.log('Updated totalFavCount in AllTemplate:', newFavCount);
+        setUpdatedUserFav(newFavCount);
+        setUserInit(newFavCount);
+
+    };
+
     useEffect(() => {
+        console.log('ReArrange', userFavInit)
         getUserBookmark();
         if (data) {
             const templateData = data.templates ? data.templates : [];
             if (templateType) {
                 user && templateStatus === 'favorites' ? 
-                setAllTemplates(templateData.filter(template => template.type === templateType && userFav.includes(template.template_id))) :
+                setAllTemplates(templateData.filter(template => template.type === templateType && userFavInit.includes(template.template_id))) :
                 setAllTemplates(templateData.filter(template => template.type === templateType))
 
             } else {
@@ -107,7 +117,7 @@ export default function AllTemplates (props) {
             setAllTemplates([]);
         }
 
-    }, [isLoading]);
+    }, [isLoading, userFavInit]);
 
     useEffect(() => {
         setProTemplates(allTemplates.filter(template => template.price > 0));
@@ -206,6 +216,7 @@ export default function AllTemplates (props) {
                                 categories = {template.categories}
                                 purchase_url = {template.purchase_url}
                                 preview_link = {template.preview_link}
+                                onFavCountChange={handleTotalFavCountChange}
                             />
                         </div>
                     ))
@@ -228,6 +239,7 @@ export default function AllTemplates (props) {
                                     categories = {template.categories}
                                     purchase_url = {template.purchase_url}
                                     preview_link = {template.preview_link}
+                                    onFavCountChange={handleTotalFavCountChange}
                                 />
                             }
                         </div>
@@ -251,6 +263,7 @@ export default function AllTemplates (props) {
                                 categories = {template.categories}
                                 purchase_url = {template.purchase_url}
                                 preview_link = {template.preview_link}
+                                onFavCountChange={handleTotalFavCountChange}
                             />
                         </div>
                     ))

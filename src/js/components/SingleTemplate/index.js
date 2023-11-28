@@ -16,6 +16,11 @@ const SingleTemplate = (item) => {
 
     const templateRef = useRef(null)
 
+    const handleUserFavChange = (newUserFav) => {
+        // Handle the updated userFav value in the parent component
+        console.log('Updated userFav in parent component:', newUserFav);
+    };
+
     return (
         <SingleTemplateStyle className="templatiq__template__single" ref={templateRef}>
             <div className="templatiq__template__single__img">
@@ -80,7 +85,7 @@ const SingleTemplate = (item) => {
                         {number_of_downloads ? number_of_downloads : ''}
                     </span>
                     
-                    <Bookmark item={item} />
+                    <Bookmark item={item} onUserFavChange={handleUserFavChange} />
                     
                 </div>
             </div>
