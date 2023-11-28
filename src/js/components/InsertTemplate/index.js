@@ -13,7 +13,7 @@ const InsertTemplate = ({item, templateRef, className, innerText}) => {
 	const { isLoggedIn } = select( store ).getUserInfo();
     const [insertModalOpen, setInsertModalOpen] = useState(false);
 	const [authModalOpen, setAuthModalOpen] = useState(false);
-    const [installablePlugins, setInstallablePlugins] = useState([]);
+    const [requiredPlugins, setRequiredPlugins] = useState([]);
 
     const addInsertModal = async (e) => {
         e.preventDefault();
@@ -68,17 +68,19 @@ const InsertTemplate = ({item, templateRef, className, innerText}) => {
     
         const data = await response.json();
 
-        setInstallablePlugins(data);
+        setRequiredPlugins(data);
     }; 
 
     useEffect(() => {
         handlePlugins(required_plugins);
     }, [required_plugins]);
 
+    console.log('requiredPlugins', requiredPlugins)
+
     return (
         <>
-            {insertModalOpen && installablePlugins && (
-                <InsertTemplateModal item={item} installable_plugins={installablePlugins} onClose={handleInsertModalClose} />
+            {insertModalOpen && requiredPlugins && (
+                <InsertTemplateModal item={item} required_plugins={requiredPlugins} onClose={handleInsertModalClose} />
             )}
             {authModalOpen && <AuthModal modalEnable={true} onClose={handleAuthModalClose} />}
             <a 

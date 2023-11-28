@@ -1,17 +1,21 @@
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { InsertTemplateModalStyle } from './style';
 
 import closeIcon from "@icon/close.svg";
 
-const InsertTemplateModal = ({item, installable_plugins, onClose}) => {
+const InsertTemplateModal = ({item, required_plugins, onClose}) => {
     const { template_id, builder } = item;
+
+    const installablePlugins = required_plugins.filter(plugin => plugin.is_pro === "false");
+    const proPlugins = required_plugins.filter(plugin => plugin.is_pro === "true");
 
 	let [selectedPlugins, setSelectedPlugins] = useState([]);
 	let [pageTitle, setPageTitle] = useState('');
 	
-    const [installingPlugins, setInstallingPlugins] = useState({});
-    const [installedPlugins, setInstalledPlugins] = useState({});
+    const [isInstalling, setIsInstalling] = useState(false);
+    const [installingPlugins, setInstallingPlugins] = useState([]);
+    const [installedPlugins, setInstalledPlugins] = useState([]);
 
     const [allPluginsInstalled, setAllPluginsInstalled] = useState(false);
     const [importedData, setImportedData] = useState(false);
@@ -43,23 +47,17 @@ const InsertTemplateModal = ({item, installable_plugins, onClose}) => {
     
         // Set the installing status for each selected plugin
         for (const plugin of selectedPlugins) {
-            
             // Set installing status for the current plugin
-            setInstallingPlugins((prevStatus) => {
-                const updatedStatus = { ...prevStatus };
-                updatedStatus[plugin.template_id] = true;
-                return updatedStatus;
-            });
-    
+            setInstallingPlugins((prevInstalling) => [...prevInstalling, plugin.slug]);
+
             // Install the current plugin
             await installPlugin(plugin);
         }
 
-        // Set the state to indicate that all plugins are installed
-        setAllPluginsInstalled(true);
     };
 
     const installPlugin = async (plugin) => {
+        setIsInstalling(true);
         const response = await fetch(`${template_market_obj.rest_args.endpoint}/dependency/install`, 
         {
             method: 'POST',
@@ -78,26 +76,12 @@ const InsertTemplateModal = ({item, installable_plugins, onClose}) => {
     
         const data = await response.json();
 
-        // Update the status for the plugin
-        setInstallingPlugins((prevStatus) => {
-            const updatedStatus = { ...prevStatus };
-            updatedStatus[plugin.template_id] = true;
-            return updatedStatus;
-        });
-
-
         if(data.success) {
-            let installed = data.template_id;
-
+            console.log('Plugin Installed Successfully', plugin.name);
             // Update the status for the plugin
-            setInstalledPlugins((prevStatus) => {
-                const updatedStatus = { ...prevStatus };
-                updatedStatus[installed] = true;
-                return updatedStatus;
-            });
+            setInstalledPlugins((prevInstalled) => [...prevInstalled, plugin.slug]);
+            setIsInstalling(false);
         }
-
-    
     }; 
 
     const importData = async (pageTitle, template_id, builder) => {
@@ -127,6 +111,18 @@ const InsertTemplateModal = ({item, installable_plugins, onClose}) => {
     
     }; 
 
+    // Check if all required plugins are available in installedPlugins
+    useEffect(() => {
+        const allRequiredPluginsInstalled = installablePlugins.every((plugin) =>
+            installedPlugins.includes(plugin.slug)
+        );
+
+        if (allRequiredPluginsInstalled) {
+            setAllPluginsInstalled(true);
+            console.log('All Plugins Installed');
+        }
+    }, [installedPlugins, installablePlugins]);
+
     return (
         <> 
             <InsertTemplateModalStyle className="templatiq__modal templatiq__modal--required">
@@ -139,40 +135,70 @@ const InsertTemplateModal = ({item, installable_plugins, onClose}) => {
                                 <div className="templatiq__modal__plugins">
                                     {
                                         !allPluginsInstalled ?
-                                        installable_plugins && installable_plugins.map((plugin, index) => {
-                                            const isInstalling = installingPlugins[plugin.template_id];
-                                            const isInstalled = installedPlugins[plugin.template_id];
-                                    
-                                            let installStatus = '';
-                                            if (isInstalled) {
-                                                installStatus = 'Installed';
-                                            } else if (isInstalling) {
-                                                installStatus = 'Installing';
-                                            }
-                                            
-                                            return (
-                                                <div key={index} className="templatiq__modal__plugin templatiq__checkbox">
-                                                    <input 
-                                                        id={template_id + '_' + index}
-                                                        name={template_id + '_' + index}
-                                                        type="checkbox" 
-                                                        className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
-                                                        onChange={() => handlePluginChange(plugin)}
-                                                        disabled = {plugin.is_pro =="true"}
-                                                    />
+                                        <>
+                                            {
+                                                installablePlugins && installablePlugins.map((plugin, index) => {
+                                                    const isInstalling = installingPlugins.includes(plugin.slug);
+                                                    const isInstalled = installedPlugins.includes(plugin.slug);
 
-                                                    <label 
-                                                        htmlFor={template_id + '_' + index}
-                                                        className="templatiq__modal__plugin__label templatiq__checkbox__label"
-                                                    >
-                                                        <a href="#" className="templatiq__modal__plugin__link">{plugin.name}</a>
-                                                    </label>
-                                                    
-                                                    <span className="templatiq__modal__plugin__status">{installStatus}</span>
-                                                    
-                                                </div>
-                                            );
-                                        }) : 
+                                                    let installStatus = '';
+                                                    if (isInstalled) {
+                                                        installStatus = 'Installed';
+                                                    } else if (isInstalling) {
+                                                        installStatus = 'Installing';
+                                                    }
+                                                    return (
+                                                        <div key={index} className="templatiq__modal__plugin templatiq__checkbox">
+                                                            <input 
+                                                                id={template_id + '_' + index}
+                                                                name={template_id + '_' + index}
+                                                                type="checkbox" 
+                                                                className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
+                                                                onChange={() => handlePluginChange(plugin)}
+                                                                disabled = {installStatus !== ''}
+                                                            />
+
+                                                            <label 
+                                                                htmlFor={template_id + '_' + index}
+                                                                className="templatiq__modal__plugin__label templatiq__checkbox__label"
+                                                            >
+                                                                <a href="#" className="templatiq__modal__plugin__link">{plugin.name}</a>
+                                                            </label>
+                                                            
+                                                            <span className="templatiq__modal__plugin__status">{installStatus}</span>
+                                                            
+                                                        </div>
+                                                    );
+                                                }) 
+                                                
+                                            }
+                                            {
+                                                proPlugins && proPlugins.map((plugin, index) => {
+                                                    return (
+                                                        <div key={index} className="templatiq__modal__plugin templatiq__checkbox">
+                                                            <input 
+                                                                id={template_id + '_' + index}
+                                                                name={template_id + '_' + index}
+                                                                type="checkbox" 
+                                                                className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
+                                                                disabled = {true}
+                                                            />
+
+                                                            <label 
+                                                                htmlFor={template_id + '_' + index}
+                                                                className="templatiq__modal__plugin__label templatiq__checkbox__label"
+                                                            >
+                                                                <a href="#" className="templatiq__modal__plugin__link">{plugin.name}</a>
+                                                            </label>
+                                                            
+                                                            <span className="templatiq__modal__plugin__status">It's Pro Plugin</span>
+                                                            
+                                                        </div>
+                                                    );
+                                                }) 
+                                                
+                                            }
+                                        </>: 
                                         <div className="templatiq__modal__page">
                                             <input 
                                                 type="text" 
@@ -194,7 +220,13 @@ const InsertTemplateModal = ({item, installable_plugins, onClose}) => {
                                 <div className="templatiq__modal__actions">
                                     {
                                         !allPluginsInstalled ? 
-                                        <button type="submit" className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-primary">Install and Proceed to Import</button> : ''
+                                        <button 
+                                            type="submit" 
+                                            disabled={isInstalling}
+                                            className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-primary"
+                                        >
+                                            Install and Proceed to Import
+                                        </button> : ''
                                     }
                                     <button className="templatiq__modal__action templatiq__modal__action--cancel templatiq-btn" onClick={closeInsertTemplateModal}>Cancel</button>
                                 </div>
