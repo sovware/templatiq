@@ -8,15 +8,13 @@ import heartIcon from "@icon/heart.svg";
 import heartSolidIcon from "@icon/heart-solid.svg";
 
 const Bookmark = ( props) => {
-	const { isLoggedIn } = select( store ).getUserInfo();
-
     let { template_id, number_of_bookmarks } = props.item;
-    let { onUserFavChange } = props;
-
     const [ type, setType ] = useState(props.type ? props.type : '');
 
+	const { isLoggedIn } = select( store ).getUserInfo();
+
 	const [authModalOpen, setAuthModalOpen] = useState(false);
-	const [userFav, setUserFav] = useState([]);
+	// const [userFav, setUserFav] = useState([]);
     // const isActive = userFav.includes(template_id);
     const [currentFavoriteCount, setCurrentFavoriteCount] = useState(number_of_bookmarks);
 	const [addedToFavorite, addFavorite] = useState(false);
@@ -50,9 +48,7 @@ const Bookmark = ( props) => {
 			if (response.ok) {
 				const responseData = await response.json();
 				const data = responseData.body;
-                console.log('Get User Info: ', data, data.body)
-                console.log('Get User Bookmark: ', data.bookmarks, typeof(data.bookmarks))
-                setUserFav(data.bookmarks);
+                // setUserFav(data.bookmarks);
 
                 // Check if template_id is in the fetched bookmarks
                 const isActive = data.bookmarks.includes(template_id);
@@ -85,13 +81,6 @@ const Bookmark = ( props) => {
     
         const data = await response.json();
 
-        const responseData = JSON.parse(data.body);
-        const addedBookmark = responseData.bookmarks;
-
-        console.log('Add to Favorite Response: ', data, data.body);
-        console.log('Add to Favorite Value Array: ', addedBookmark, typeof(addedBookmark));
-        setUserFav(addedBookmark);
-
         return data;
     }
 
@@ -113,18 +102,6 @@ const Bookmark = ( props) => {
     
         const data = await response.json();
 
-        const removedBookmark = data.body.bookmarks;
-
-        console.log('Remove to Favorite Response: ', data, data.body);
-        console.log('Remove to Favorite Value Array: ', removedBookmark, typeof(removedBookmark));
-        setUserFav(removedBookmark);
-
-
-        if (onUserFavChange) {
-            console.log('onUserFavChange: ', removedBookmark)
-            onUserFavChange(removedBookmark);
-        }
-
         return data;
     }
 
@@ -137,14 +114,10 @@ const Bookmark = ( props) => {
             setCurrentFavoriteCount(addedCount)
             addFavorite(true);
 
-            console.log('Added Fav: ', number_of_bookmarks, currentFavoriteCount)
-
         } else {
             favRemove(template_id);
             setCurrentFavoriteCount(number_of_bookmarks)
             addFavorite(false);
-
-            console.log('Removed Fav: ', number_of_bookmarks, currentFavoriteCount)
         }
     };
     
@@ -154,13 +127,10 @@ const Bookmark = ( props) => {
     // }, addedToFavorite);  // Add favCountList to the dependency array
     
     useEffect(() => {
-        console.log('Initialized')
         getUserBookmark();
         setCurrentFavoriteCount(addedToFavorite ? Number(number_of_bookmarks) + 1 : number_of_bookmarks );
     }, []);  // Add favCountList to the dependency array
 
-
-    console.log('userFav: ', template_id, userFav, addedToFavorite, number_of_bookmarks, currentFavoriteCount);
 
     return (
         <>
@@ -179,7 +149,7 @@ const Bookmark = ( props) => {
                         </> :
                         <a href="#" className={`templatiq__template__single__quickmeta__item favorite-btn templatiq-tooltip ${addedToFavorite ? 'active' : ''}`} data-info={addedToFavorite ? 'Added to Favourite' : 'Add to Favourite'} onClick={handleFavorite}>
                             <ReactSVG src={ addedToFavorite ? heartSolidIcon : heartIcon } width={14} height={14} />
-                            {currentFavoriteCount ? currentFavoriteCount : ''} + {template_id}
+                            {currentFavoriteCount ? currentFavoriteCount : ''}
                         </a>
             }
         </>

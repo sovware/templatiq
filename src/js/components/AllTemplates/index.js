@@ -19,13 +19,9 @@ import arrowRight from '@icon/angle-right.svg';
 
 export default function AllTemplates (props) {
     const { templateType, templateStatus, user } = props;
-	const paginatePerPage = 10;
+	const paginatePerPage = 6;
 
-    const [ userFavInit, setUserInit] = useState([ 127333, 127334, 127335, 127336, 127337 ]);
 	const [userFav, setUserFav] = useState([]);
-	const [updatedUserFav, setUpdatedUserFav] = useState([]);
-    console.log('Props User: ', templateStatus, user, userFav, userFavInit)
-
     const [activeTab, setActiveTab] = useState('all');
 
     const [allTemplates, setAllTemplates] = useState([]);
@@ -35,7 +31,7 @@ export default function AllTemplates (props) {
 
     const [totalPaginate, setTotalPaginate] = useState([]);
     const [ startItemCount, setStartItemCount ] = useState(0);
-    const [ endItemCount, setEndItemCount ] = useState(10);
+    const [ endItemCount, setEndItemCount ] = useState(6);
     const [forcePage, setForcePage]=useState(0);
 
 	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
@@ -81,7 +77,6 @@ export default function AllTemplates (props) {
 			if (response.ok) {
 				const responseData = await response.json();
 				const data = responseData.body;
-                console.log('User Bookmarks: ', data.bookmarks, typeof(data.bookmarks))
                 setUserFav(data.bookmarks);
 
 			}
@@ -91,22 +86,13 @@ export default function AllTemplates (props) {
 		}
 	};
 
-    const handleTotalFavCountChange = (newFavCount) => {
-        // Update the total favorite count in the state of AllTemplate
-        console.log('Updated totalFavCount in AllTemplate:', newFavCount);
-        setUpdatedUserFav(newFavCount);
-        setUserInit(newFavCount);
-
-    };
-
     useEffect(() => {
-        console.log('ReArrange', userFavInit)
         getUserBookmark();
         if (data) {
             const templateData = data.templates ? data.templates : [];
             if (templateType) {
                 user && templateStatus === 'favorites' ? 
-                setAllTemplates(templateData.filter(template => template.type === templateType && userFavInit.includes(template.template_id))) :
+                setAllTemplates(templateData.filter(template => template.type === templateType && userFav.includes(template.template_id))) :
                 setAllTemplates(templateData.filter(template => template.type === templateType))
 
             } else {
@@ -117,7 +103,7 @@ export default function AllTemplates (props) {
             setAllTemplates([]);
         }
 
-    }, [isLoading, userFavInit]);
+    }, [isLoading]);
 
     useEffect(() => {
         setProTemplates(allTemplates.filter(template => template.price > 0));
@@ -216,7 +202,6 @@ export default function AllTemplates (props) {
                                 categories = {template.categories}
                                 purchase_url = {template.purchase_url}
                                 preview_link = {template.preview_link}
-                                onFavCountChange={handleTotalFavCountChange}
                             />
                         </div>
                     ))
@@ -239,7 +224,6 @@ export default function AllTemplates (props) {
                                     categories = {template.categories}
                                     purchase_url = {template.purchase_url}
                                     preview_link = {template.preview_link}
-                                    onFavCountChange={handleTotalFavCountChange}
                                 />
                             }
                         </div>
@@ -263,7 +247,6 @@ export default function AllTemplates (props) {
                                 categories = {template.categories}
                                 purchase_url = {template.purchase_url}
                                 preview_link = {template.preview_link}
-                                onFavCountChange={handleTotalFavCountChange}
                             />
                         </div>
                     ))
