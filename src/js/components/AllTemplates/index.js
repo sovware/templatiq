@@ -3,6 +3,8 @@ import ReactSVG from 'react-inlinesvg';
 import ReactPaginate from 'react-paginate';
 import { useQuery } from '@tanstack/react-query';
 
+import { useLocation } from 'react-router-dom';
+
 import { TemplatePackFilterStyle } from '@root/style';
 import Searchform from "@components/Searchform";
 import ContentLoading from '@components/ContentLoading';
@@ -78,16 +80,25 @@ export default function AllTemplates (props) {
 				const responseData = await response.json();
 				const data = responseData.body;
                 setUserFav(data.bookmarks);
-
+                return data.bookmarks;
 			}
 		} catch (error) {
 			// Handle error if needed
 			console.error('Error in getUserInfo:', error);
+            return [];
 		}
 	};
 
     useEffect(() => {
         getUserBookmark();
+    }, []);  
+
+    useEffect(() => {
+        if (userFav.length === 0) {
+            // The userFav list is empty, which means getUserBookmark hasn't been called yet.
+            console.log('No UserFav')
+            return;
+        }
         if (data) {
             const templateData = data.templates ? data.templates : [];
             if (templateType) {
@@ -100,10 +111,11 @@ export default function AllTemplates (props) {
             }
             
         } else {
+            console.log('No Data')
             setAllTemplates([]);
         }
 
-    }, [isLoading]);
+    }, [isLoading, userFav]);
 
     useEffect(() => {
         setProTemplates(allTemplates.filter(template => template.price > 0));

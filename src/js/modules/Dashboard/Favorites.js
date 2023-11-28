@@ -29,7 +29,6 @@ export default function MyFavoritesModule(props) {
 			if (response.ok) {
 				const responseData = await response.json();
 				const data = responseData.body;
-                console.log('User Bookmarks in Favorite: ', data.bookmarks, typeof(data.bookmarks))
                 setUserFav(data.bookmarks);
 			}
 		} catch (error) {
@@ -39,7 +38,6 @@ export default function MyFavoritesModule(props) {
 	};
 
 	useEffect(() => {
-        console.log('My Favorite Templates: ', user)
         getUserInfo();
 
     }, []);
