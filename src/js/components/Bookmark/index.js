@@ -49,7 +49,7 @@ const Bookmark = ( props) => {
 			if (response.ok) {
 				const responseData = await response.json();
 				const data = responseData.body;
-                console.log('getUserInfo bookmarks: ', data.bookmarks, typeof(data.bookmarks))
+                console.log('getUserInfo: ', data, typeof(data))
                 setUserFav(data.bookmarks);
 
                 // Check if template_id is in the fetched bookmarks
@@ -112,7 +112,7 @@ const Bookmark = ( props) => {
 
         const removedBookmark = JSON.parse(data.body);
 
-        console.log('Remove to Favorite Response Array: ', removedBookmark, typeof(removedBookmark));
+        console.log('Remove to Favorite Response Array: ', removedBookmark);
         setUserFav(removedBookmark);
 
         return data;
