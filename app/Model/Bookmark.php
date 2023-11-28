@@ -53,11 +53,11 @@ class Bookmark {
 			->post()
 			->response();
 
-		if ( is_wp_error( $response ) && isset( $response['body']['token'] ) ) {
+		if ( is_wp_error( $response ) ) {
 			return Response::error( 'invalid_data', $response->get_error_message(), 'bookmark_add', 404 );
 		}
 
-		if ( ! empty( $response['body'] ) ) {
+		if ( ! empty( $response['body'] ) && isset( $response['body']['token'] ) ) {
 			$response['body'] = json_decode( $response['body'], true );
 
 			$response['body']['last_updated'] = time();
