@@ -19,10 +19,10 @@ import arrowRight from '@icon/angle-right.svg';
 
 export default function AllTemplates (props) {
     const { templateType, templateStatus, user } = props;
-	const paginatePerPage = 6;
+	const paginatePerPage = 10;
 
-    const userFavInit = [ '127333', '127334', '127335', '127336' ]
-    const userFav = user && user.bookmarks;
+    const userFavInit = [ 127333, 127334, 127335, 127336, 127337 ];
+	const [userFav, setUserFav] = useState([]);
     console.log('Props User: ', templateStatus, user, userFav, userFavInit)
 
     const [activeTab, setActiveTab] = useState('all');
@@ -34,7 +34,7 @@ export default function AllTemplates (props) {
 
     const [totalPaginate, setTotalPaginate] = useState([]);
     const [ startItemCount, setStartItemCount ] = useState(0);
-    const [ endItemCount, setEndItemCount ] = useState(6);
+    const [ endItemCount, setEndItemCount ] = useState(10);
     const [forcePage, setForcePage]=useState(0);
 
 	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
@@ -63,7 +63,35 @@ export default function AllTemplates (props) {
 
     };
 
+    const getUserBookmark = async () => {
+		try {
+			const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/data`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-WP-Nonce': template_market_obj.rest_args.nonce,
+				},
+			});
+	
+			if (!response.ok) {
+				throw new Error('Error Occurred');
+			}
+	
+			if (response.ok) {
+				const responseData = await response.json();
+				const data = responseData.body;
+                console.log('User Bookmarks: ', data.bookmarks, typeof(data.bookmarks))
+                setUserFav(data.bookmarks);
+
+			}
+		} catch (error) {
+			// Handle error if needed
+			console.error('Error in getUserInfo:', error);
+		}
+	};
+
     useEffect(() => {
+        getUserBookmark();
         if (data) {
             const templateData = data.templates ? data.templates : [];
             if (templateType) {

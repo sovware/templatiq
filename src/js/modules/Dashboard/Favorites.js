@@ -1,9 +1,9 @@
+import { select } from '@wordpress/data';
+import store from '../../store';
+
 import DashboardLayout from '@layout/DashboardLayout';
 import { TemplatePackStyle } from "@root/style";
 import AllTemplates from "@components/AllTemplates";
-
-import { select } from '@wordpress/data';
-import store from '../../store';
 
 export default function MyFavoritesModule(props) {
 	const { type, status } = props;
