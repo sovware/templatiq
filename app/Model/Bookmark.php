@@ -32,6 +32,14 @@ class Bookmark {
 			return Response::error( 'invalid_data', $response->get_error_message(), 'bookmark_add', 404 );
 		}
 
+		if ( ! empty( $response['body'] ) && isset( $response['body']['token'] ) ) {
+			$response['body'] = json_decode( $response['body'], true );
+
+			$response['body']['last_updated'] = time();
+
+			Options::set( 'account_data', $response['body'] ?? [] );
+		}
+
 		return $response;
 	}
 
@@ -45,8 +53,16 @@ class Bookmark {
 			->post()
 			->response();
 
-		if ( is_wp_error( $response ) ) {
+		if ( is_wp_error( $response ) && isset( $response['body']['token'] ) ) {
 			return Response::error( 'invalid_data', $response->get_error_message(), 'bookmark_add', 404 );
+		}
+
+		if ( ! empty( $response['body'] ) ) {
+			$response['body'] = json_decode( $response['body'], true );
+
+			$response['body']['last_updated'] = time();
+
+			Options::set( 'account_data', $response['body'] ?? [] );
 		}
 
 		return $response;
