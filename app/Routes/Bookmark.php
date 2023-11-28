@@ -22,7 +22,7 @@ class Bookmark extends RouteBase {
 	public function add() {
 		$template_id = $this->get_param( 'template_id', 0, 'intval' );
 		if ( 0 === $template_id ) {
-			return Response::error( 'invalid_template_id', __( 'Invalid ID is provided.', 'templatiq' ), 'import/page', 404 );
+			return Response::error( 'invalid_template_id', __( 'Invalid ID is provided.', 'templatiq' ), 'bookmark/add', 404 );
 		}
 
 		return ( new ModelBookmark )->add( $template_id );
@@ -31,7 +31,7 @@ class Bookmark extends RouteBase {
 	public function remove() {
 		$template_id = $this->get_param( 'template_id', 0, 'intval' );
 		if ( 0 === $template_id ) {
-			return Response::error( 'invalid_template_id', __( 'Invalid ID is provided.', 'templatiq' ), 'import/page', 404 );
+			return Response::error( 'invalid_template_id', __( 'Invalid ID is provided.', 'templatiq' ), 'bookmark/remove', 404 );
 		}
 
 		return ( new ModelBookmark )->remove( $template_id );
