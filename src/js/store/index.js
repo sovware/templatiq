@@ -8,6 +8,7 @@ const DEFAULT_STATE = {
 		loggedIn: '',
 		userName: '',
 		userEmail: '',
+		bookmarks: [],
 		userDisplayName: '',
 	},
 	favCounts: {},

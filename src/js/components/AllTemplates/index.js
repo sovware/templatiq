@@ -3,6 +3,8 @@ import ReactSVG from 'react-inlinesvg';
 import ReactPaginate from 'react-paginate';
 import { useQuery } from '@tanstack/react-query';
 
+import { useLocation } from 'react-router-dom';
+
 import { TemplatePackFilterStyle } from '@root/style';
 import Searchform from "@components/Searchform";
 import ContentLoading from '@components/ContentLoading';
@@ -18,9 +20,10 @@ import arrowLeft from '@icon/angle-left.svg';
 import arrowRight from '@icon/angle-right.svg';
 
 export default function AllTemplates (props) {
-    const { templateType } = props;
+    const { templateType, templateStatus, user } = props;
 	const paginatePerPage = 6;
 
+	const [userFav, setUserFav] = useState([]);
     const [activeTab, setActiveTab] = useState('all');
 
     const [allTemplates, setAllTemplates] = useState([]);
@@ -59,17 +62,60 @@ export default function AllTemplates (props) {
 
     };
 
+    const getUserBookmark = async () => {
+		try {
+			const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/data`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-WP-Nonce': template_market_obj.rest_args.nonce,
+				},
+			});
+	
+			if (!response.ok) {
+				throw new Error('Error Occurred');
+			}
+	
+			if (response.ok) {
+				const responseData = await response.json();
+				const data = responseData.body;
+                setUserFav(data.bookmarks);
+                return data.bookmarks;
+			}
+		} catch (error) {
+			// Handle error if needed
+			console.error('Error in getUserInfo:', error);
+            return [];
+		}
+	};
+
     useEffect(() => {
+        getUserBookmark();
+    }, []);  
+
+    useEffect(() => {
+        if (userFav.length === 0) {
+            // The userFav list is empty, which means getUserBookmark hasn't been called yet.
+            console.log('No UserFav')
+            return;
+        }
         if (data) {
-            data && templateType ?
-            setAllTemplates(data.templates.filter(template => template.type === templateType)) : 
-            setAllTemplates(data.templates);
+            const templateData = data.templates ? data.templates : [];
+            if (templateType) {
+                user && templateStatus === 'favorites' ? 
+                setAllTemplates(templateData.filter(template => template.type === templateType && userFav.includes(template.template_id))) :
+                setAllTemplates(templateData.filter(template => template.type === templateType))
+
+            } else {
+                setAllTemplates(templateData);
+            }
             
         } else {
+            console.log('No Data')
             setAllTemplates([]);
         }
 
-    }, [isLoading]);
+    }, [isLoading, userFav]);
 
     useEffect(() => {
         setProTemplates(allTemplates.filter(template => template.price > 0));

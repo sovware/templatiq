@@ -12,12 +12,13 @@ const Bookmark = ( props) => {
     const [ type, setType ] = useState(props.type ? props.type : '');
 
 	const { isLoggedIn } = select( store ).getUserInfo();
-    const favCountList = select( store ).getFav(template_id);
-    const isTemplateActive = select( store ).getTemplateStatus(template_id);
 
 	const [authModalOpen, setAuthModalOpen] = useState(false);
+	// const [userFav, setUserFav] = useState([]);
+    // const isActive = userFav.includes(template_id);
     const [currentFavoriteCount, setCurrentFavoriteCount] = useState(number_of_bookmarks);
-	const [addedToFavorite, addFavorite] = useState(isTemplateActive ? isTemplateActive : false);
+	const [addedToFavorite, addFavorite] = useState(false);
+
     
     const addAuthModal = (e) => {
         e.preventDefault();
@@ -30,33 +31,106 @@ const Bookmark = ( props) => {
         setAuthModalOpen(false);
     };
 
+    const getUserBookmark = async () => {
+		try {
+			const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/data`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-WP-Nonce': template_market_obj.rest_args.nonce,
+				},
+			});
+	
+			if (!response.ok) {
+				throw new Error('Error Occurred');
+			}
+	
+			if (response.ok) {
+				const responseData = await response.json();
+				const data = responseData.body;
+                // setUserFav(data.bookmarks);
+
+                // Check if template_id is in the fetched bookmarks
+                const isActive = data.bookmarks.includes(template_id);
+                addFavorite(isActive);
+
+                // Set the current favorite count based on isActive
+                setCurrentFavoriteCount(isActive ? Number(currentFavoriteCount) + 1 : currentFavoriteCount);
+			}
+		} catch (error) {
+			// Handle error if needed
+			console.error('Error in getUserInfo:', error);
+		}
+	};
+
+    let favAdd = async (template_id) => {
+        const response = await fetch(`${template_market_obj.rest_args.endpoint}/bookmark/add`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': template_market_obj.rest_args.nonce,
+            },
+            body: JSON.stringify({
+                template_id: template_id
+            }),
+        });
+    
+        if (!response.ok) {
+            throw new Error('Error Occurred');
+        }
+    
+        const data = await response.json();
+
+        return data;
+    }
+
+    let favRemove = async (template_id) => {
+        const response = await fetch(`${template_market_obj.rest_args.endpoint}/bookmark/remove`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': template_market_obj.rest_args.nonce,
+            },
+            body: JSON.stringify({
+                template_id: template_id
+            }),
+        });
+    
+        if (!response.ok) {
+            throw new Error('Error Occurred');
+        }
+    
+        const data = await response.json();
+
+        return data;
+    }
+
     let handleFavorite = (e) => {
         e.preventDefault();
-        addFavorite((prevAddedToFavorite) => {
-            const newAddedToFavorite = !prevAddedToFavorite;
-            const updatedCount = newAddedToFavorite ? Number(currentFavoriteCount) + 1 : Number(number_of_bookmarks);
         
-            // Use the updated state immediately in the dispatch
-            dispatch(store).setFav(template_id, updatedCount);
-            dispatch(store).toggleTemplateStatus(template_id, newAddedToFavorite);
+        if (!addedToFavorite) {
+            favAdd(template_id);
+            const addedCount = Number(currentFavoriteCount) + 1;
+            setCurrentFavoriteCount(addedCount)
+            addFavorite(true);
 
-            setCurrentFavoriteCount(updatedCount)
-
-            props.onFavoriteCountUpdate?.();
-            // Return the new value to update the state
-            return newAddedToFavorite;
-        });
+        } else {
+            favRemove(template_id);
+            setCurrentFavoriteCount(number_of_bookmarks)
+            addFavorite(false);
+        }
     };
     
-    useEffect(() => {
-        // This will be triggered whenever addedToFavorite changes
-        setCurrentFavoriteCount(addedToFavorite ? currentFavoriteCount : number_of_bookmarks );
-    }, [addedToFavorite]);
+    // useEffect(() => {
+    //     console.log('addedToFavorite')
+    //     setCurrentFavoriteCount(addedToFavorite ? Number(number_of_bookmarks) + 1 : number_of_bookmarks );
+    // }, addedToFavorite);  // Add favCountList to the dependency array
     
     useEffect(() => {
-        // This will be triggered once when the component mounts
-        setCurrentFavoriteCount(favCountList);
+        getUserBookmark();
+        setCurrentFavoriteCount(addedToFavorite ? Number(number_of_bookmarks) + 1 : number_of_bookmarks );
     }, []);  // Add favCountList to the dependency array
+
 
     return (
         <>
@@ -70,7 +144,7 @@ const Bookmark = ( props) => {
                             {authModalOpen ? <AuthModal modalEnable={true} onClose={handleAuthModalClose} /> : ''}
                             <a href="#" className='templatiq__template__single__quickmeta__item favorite-btn templatiq-tooltip' data-info='Add to Favourite' onClick={addAuthModal}>
                                 <ReactSVG src={ heartIcon } width={14} height={14} />
-                                {favCountList ? favCountList : ''}
+                                {number_of_bookmarks ? number_of_bookmarks : ''}
                             </a>
                         </> :
                         <a href="#" className={`templatiq__template__single__quickmeta__item favorite-btn templatiq-tooltip ${addedToFavorite ? 'active' : ''}`} data-info={addedToFavorite ? 'Added to Favourite' : 'Add to Favourite'} onClick={handleFavorite}>

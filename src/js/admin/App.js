@@ -37,9 +37,9 @@ export default function App() {
 
 	const userInfo = {
 		isLoggedIn: '',
-		userName: '',
 		userEmail: '',
 		userDisplayName: '',
+		bookmarked: [],
 	}
 
 	const theme = {
@@ -62,13 +62,13 @@ export default function App() {
 	
 			if (response.ok) {
 				const responseData = await response.json();
-				const data = responseData.data;
+				const data = responseData.body;
 
 				const updatedUserInfo = {
-					isLoggedIn: data.user_email ? true : false,
-					userName: data.user_nicename,
+					isLoggedIn: data.token ? true : false,
 					userEmail: data.user_email,
 					userDisplayName: data.user_display_name,
+					bookmarks: data.bookmarks,
 				};
 	
 				// Dispatch the action to update the login status in the store
