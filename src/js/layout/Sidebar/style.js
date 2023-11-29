@@ -26,8 +26,14 @@ const SidebarStyle = Styled.div`
         .templatiq__sidebar__top__clear {
             font-size: 13px;
             font-weight: 500;
+            background: transparent;
             color: var(--templatiq-primary-color);
             box-shadow: none;
+            cursor: pointer;
+            &:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
         }
     }
 

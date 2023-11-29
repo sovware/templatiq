@@ -75,8 +75,6 @@ const InsertTemplate = ({item, templateRef, className, innerText}) => {
         handlePlugins(required_plugins);
     }, [required_plugins]);
 
-    console.log('requiredPlugins', requiredPlugins)
-
     return (
         <>
             {insertModalOpen && requiredPlugins && (

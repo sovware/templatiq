@@ -344,9 +344,8 @@ const TemplatePackFilterStyle = Styled.div`
 `;
 
 const AuthStyle = Styled.div`
-    height: 100vh;
     display: flex;
-    padding-top: 100px;
+    padding: 100px 0;
     flex-direction: column;
     .templatiq__auth__title {
         font-size: 21px;

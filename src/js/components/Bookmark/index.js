@@ -113,18 +113,16 @@ const Bookmark = ( props) => {
             const addedCount = Number(currentFavoriteCount) + 1;
             setCurrentFavoriteCount(addedCount)
             addFavorite(true);
-
+            console.log('addedCount:', addedCount)
         } else {
             favRemove(template_id);
             setCurrentFavoriteCount(number_of_bookmarks)
             addFavorite(false);
         }
+        
+        // Trigger the callback function from the parent component if it exists
+        props.onFavoriteCountUpdate?.(addedToFavorite);
     };
-    
-    // useEffect(() => {
-    //     console.log('addedToFavorite')
-    //     setCurrentFavoriteCount(addedToFavorite ? Number(number_of_bookmarks) + 1 : number_of_bookmarks );
-    // }, addedToFavorite);  // Add favCountList to the dependency array
     
     useEffect(() => {
         getUserBookmark();

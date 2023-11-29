@@ -57,8 +57,6 @@ const TemplateDetailsWidget = (props) => {
 					<span className="templatiq__details__widget__content__title">Required Plugins:</span>
 					<div className="templatiq__details__widget__content__required-plugins">
 						{required_plugins && required_plugins.map((plugin, index) => {
-							console.log({ plugin }); // Removed the extra comma
-
 							return (
 								<a key={index} href="#" className="templatiq__details__widget__content__required-plugins__link templatiq-tooltip" data-info={plugin.name}>
 									<img src={`${template_market_obj.assets_url}/svg/icon/${plugin.slug}.svg`} alt={plugin.name} />
