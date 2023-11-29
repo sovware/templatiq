@@ -15,7 +15,6 @@ const actions = {
     },
   
     logOut() {
-		console.log('LogOut Called ')
         return {
 			type: 'LOG_OUT',
         };

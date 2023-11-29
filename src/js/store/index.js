@@ -94,20 +94,20 @@ const store = createReduxStore('templatiq-stores', {
 
 	selectors,
 
-	controls: {
-		FETCH_FROM_API( action ) {
-			return apiFetch( { path: action.path } );
-		},
-	},
+	// controls: {
+	// 	FETCH_FROM_API( action ) {
+	// 		return apiFetch( { path: action.path } );
+	// 	},
+	// },
 
-	resolvers: {
-		*getFav( item ) {
-			const path = item;
-			const favCount = yield actions.fetchFromAPI( path );
+	// resolvers: {
+	// 	*getFav( item ) {
+	// 		const path = item;
+	// 		const favCount = yield actions.fetchFromAPI( path );
 
-			return actions.setFav( item, favCount );
-		},
-	},
+	// 		return actions.setFav( item, favCount );
+	// 	},
+	// },
 });
 
 

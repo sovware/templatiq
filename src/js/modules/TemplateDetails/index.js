@@ -46,6 +46,8 @@ export default function TemplateDetailsModule(props) {
   
   	if (!templateDetails) return 'Template not found';
 
+	console.log('TemplateDetailsModule templateDetails:', templateDetails);
+
 	return (
 		<TemplateDetailsLayout>
 			<TemplateDetailsStyle className="templatiq__details">
