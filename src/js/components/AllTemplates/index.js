@@ -3,8 +3,6 @@ import ReactSVG from 'react-inlinesvg';
 import ReactPaginate from 'react-paginate';
 import { useQuery } from '@tanstack/react-query';
 
-import { useLocation } from 'react-router-dom';
-
 import { TemplatePackFilterStyle } from '@root/style';
 import Searchform from "@components/Searchform";
 import ContentLoading from '@components/ContentLoading';
@@ -23,18 +21,19 @@ export default function AllTemplates (props) {
     const { templateType, templateStatus, user } = props;
 	const paginatePerPage = 6;
 
-	const [userFav, setUserFav] = useState([]);
-    const [activeTab, setActiveTab] = useState('all');
+	const [ userFav, setUserFav ] = useState([]);
+	const [ loading, setLoading ] = useState(false);
+    const [ activeTab, setActiveTab ] = useState('all');
 
-    const [allTemplates, setAllTemplates] = useState([]);
-    const [proTemplates, setProTemplates] = useState([]);
-    const [freeTemplates, setFreeTemplates] = useState([]);
-    const [templatesToDisplay, setTemplatesToDisplay] = useState([]);
+    const [ allTemplates, setAllTemplates ] = useState([]);
+    const [ proTemplates, setProTemplates ] = useState([]);
+    const [ freeTemplates, setFreeTemplates ] = useState([]);
+    const [ templatesToDisplay, setTemplatesToDisplay ] = useState([]);
 
-    const [totalPaginate, setTotalPaginate] = useState([]);
+    const [ totalPaginate, setTotalPaginate ] = useState([]);
     const [ startItemCount, setStartItemCount ] = useState(0);
     const [ endItemCount, setEndItemCount ] = useState(6);
-    const [forcePage, setForcePage]=useState(0);
+    const [ forcePage, setForcePage ]=useState(0);
 
 	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
         `${template_market_obj.rest_args.endpoint}/template/library`, 
@@ -90,6 +89,8 @@ export default function AllTemplates (props) {
 	};
 
     useEffect(() => {
+        console.log('Data Loading...')
+        setLoading(true);
         getUserBookmark();
     }, []);  
 
@@ -100,6 +101,7 @@ export default function AllTemplates (props) {
             return;
         }
         if (data) {
+            setLoading(false);
             const templateData = data.templates ? data.templates : [];
             if (templateType) {
                 user && templateStatus === 'favorites' ? 
@@ -197,96 +199,101 @@ export default function AllTemplates (props) {
             </div>
 
             <div className="templatiq__content__wrapper">
-                <TabPanel className="templatiq-row templatiq__content__tab-panel">
-                {templatesToDisplay
-                    .map(template => (
-                        <div className="templatiq-col-4">
-                            <SingleTemplate 
-                                template_id = {template.template_id}
-                                builder = {template.builder}
-                                thumbnail = {template.thumbnail} 
-                                slug = {template.slug}
-                                title = {template.title} 
-                                price = {template.price} 
-                                number_of_downloads = {template.number_of_downloads} 
-                                number_of_bookmarks = {template.number_of_bookmarks} 
-                                required_plugins = {template.required_plugins}
-                                categories = {template.categories}
-                                purchase_url = {template.purchase_url}
-                                preview_link = {template.preview_link}
-                            />
-                        </div>
-                    ))
-                }
-                </TabPanel>
-                <TabPanel className="templatiq-row templatiq__content__tab-panel">
-                {templatesToDisplay
-                    .map(template => (
-                        <div className="templatiq-col-4">
-                            {isLoading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
-                                <SingleTemplate 
-                                    template_id = {template.template_id}
-                                    builder = {template.builder}
-                                    thumbnail = {template.thumbnail} 
-                                    slug = {template.slug}
-                                    title = {template.title} 
-                                    number_of_downloads = {template.number_of_downloads} 
-                                    number_of_bookmarks = {template.number_of_bookmarks} 
-                                    required_plugins = {template.required_plugins}
-                                    categories = {template.categories}
-                                    purchase_url = {template.purchase_url}
-                                    preview_link = {template.preview_link}
-                                />
-                            }
-                        </div>
-                    ))
-                }
-                </TabPanel>
-                <TabPanel className="templatiq-row templatiq__content__tab-panel">
-                {templatesToDisplay
-                    .map(template => (
-                        <div className="templatiq-col-4">
-                            <SingleTemplate 
-                                template_id = {template.template_id}
-                                builder = {template.builder}
-                                thumbnail = {template.thumbnail} 
-                                slug = {template.slug}
-                                title = {template.title} 
-                                price = {template.price} 
-                                number_of_downloads = {template.number_of_downloads} 
-                                number_of_bookmarks = {template.number_of_bookmarks} 
-                                required_plugins = {template.required_plugins}
-                                categories = {template.categories}
-                                purchase_url = {template.purchase_url}
-                                preview_link = {template.preview_link}
-                            />
-                        </div>
-                    ))
-                }
-                </TabPanel>
+                { loading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
+                    <>
+                        <TabPanel className="templatiq-row templatiq__content__tab-panel">
+                        {templatesToDisplay
+                            .map(template => (
+                                <div className="templatiq-col-4">
+                                    <SingleTemplate 
+                                        template_id = {template.template_id}
+                                        builder = {template.builder}
+                                        thumbnail = {template.thumbnail} 
+                                        slug = {template.slug}
+                                        title = {template.title} 
+                                        price = {template.price} 
+                                        number_of_downloads = {template.number_of_downloads} 
+                                        number_of_bookmarks = {template.number_of_bookmarks} 
+                                        required_plugins = {template.required_plugins}
+                                        categories = {template.categories}
+                                        purchase_url = {template.purchase_url}
+                                        preview_link = {template.preview_link}
+                                    />
+                                </div>
+                            ))
+                        }
+                        </TabPanel>
+                        <TabPanel className="templatiq-row templatiq__content__tab-panel">
+                        {templatesToDisplay
+                            .map(template => (
+                                <div className="templatiq-col-4">
+                                    {isLoading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
+                                        <SingleTemplate 
+                                            template_id = {template.template_id}
+                                            builder = {template.builder}
+                                            thumbnail = {template.thumbnail} 
+                                            slug = {template.slug}
+                                            title = {template.title} 
+                                            number_of_downloads = {template.number_of_downloads} 
+                                            number_of_bookmarks = {template.number_of_bookmarks} 
+                                            required_plugins = {template.required_plugins}
+                                            categories = {template.categories}
+                                            purchase_url = {template.purchase_url}
+                                            preview_link = {template.preview_link}
+                                        />
+                                    }
+                                </div>
+                            ))
+                        }
+                        </TabPanel>
+                        <TabPanel className="templatiq-row templatiq__content__tab-panel">
+                        {templatesToDisplay
+                            .map(template => (
+                                <div className="templatiq-col-4">
+                                    <SingleTemplate 
+                                        template_id = {template.template_id}
+                                        builder = {template.builder}
+                                        thumbnail = {template.thumbnail} 
+                                        slug = {template.slug}
+                                        title = {template.title} 
+                                        price = {template.price} 
+                                        number_of_downloads = {template.number_of_downloads} 
+                                        number_of_bookmarks = {template.number_of_bookmarks} 
+                                        required_plugins = {template.required_plugins}
+                                        categories = {template.categories}
+                                        purchase_url = {template.purchase_url}
+                                        preview_link = {template.preview_link}
+                                    />
+                                </div>
+                            ))
+                        }
+                        </TabPanel>
 
-                { totalPaginate > paginatePerPage && (
-                    <ReactPaginate
-                        key={activeTab}
-                        breakLabel="..."
-                        onPageChange={ handlePageClick }
-                        nextLabel={ <ReactSVG src={ arrowRight } /> }
-                        previousLabel={ <ReactSVG src={ arrowLeft } /> }
-                        pageRangeDisplayed={ 3 }
-                        forcePage={forcePage}
-                        pageCount={ Math.ceil( totalPaginate / paginatePerPage ) }
-                        previousClassName="templatiq-pagination__item"
-                        previousLinkClassName="templatiq-pagination__link templatiq-pagination__control"
-                        nextClassName="templatiq-pagination__item"
-                        nextLinkClassName="templatiq-pagination__link templatiq-pagination__control"
-                        containerClassName="templatiq-pagination"
-                        pageClassName="templatiq-pagination__item"
-                        pageLinkClassName="templatiq-pagination__link"
-                        activeLinkClassName="templatiq-pagination__active"
-                        renderOnZeroPageCount={ null }
-                        
-                    />
-                ) }
+                        { totalPaginate > paginatePerPage && (
+                            <ReactPaginate
+                                key={activeTab}
+                                breakLabel="..."
+                                onPageChange={ handlePageClick }
+                                nextLabel={ <ReactSVG src={ arrowRight } /> }
+                                previousLabel={ <ReactSVG src={ arrowLeft } /> }
+                                pageRangeDisplayed={ 3 }
+                                forcePage={forcePage}
+                                pageCount={ Math.ceil( totalPaginate / paginatePerPage ) }
+                                previousClassName="templatiq-pagination__item"
+                                previousLinkClassName="templatiq-pagination__link templatiq-pagination__control"
+                                nextClassName="templatiq-pagination__item"
+                                nextLinkClassName="templatiq-pagination__link templatiq-pagination__control"
+                                containerClassName="templatiq-pagination"
+                                pageClassName="templatiq-pagination__item"
+                                pageLinkClassName="templatiq-pagination__link"
+                                activeLinkClassName="templatiq-pagination__active"
+                                renderOnZeroPageCount={ null }
+                                
+                            />
+                        ) }
+                    </>
+                }
+                
             </div>
         </Tabs>
 	);
