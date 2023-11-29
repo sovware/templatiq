@@ -145,7 +145,7 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
                                                     if (isInstalled) {
                                                         installStatus = 'Installed';
                                                     } else if (isInstalling) {
-                                                        installStatus = 'Installing';
+                                                        installStatus = 'Installing...';
                                                     }
                                                     return (
                                                         <div key={index} className="templatiq__modal__plugin templatiq__checkbox">

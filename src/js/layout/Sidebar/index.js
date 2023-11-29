@@ -1,23 +1,30 @@
 import { useState, useEffect } from '@wordpress/element';
+import { useQuery } from '@tanstack/react-query';
 import ReactSVG from 'react-inlinesvg';
 import { SidebarStyle, SidebarItemStyle } from './style';
 
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import ContentLoading from '@components/ContentLoading';
 
 import filterIcon from '@icon/filter.svg';
 
 const Sidebar = () => {
-	let [selectedCategories, setSelectedCategories] = useState([]);
+	const [ categories, setCategories] = useState([]);
+	const [ pluginCategories, setPluginCategories] = useState([]);
+	const [ pluginMaps, setPluginMaps] = useState([]);
 
-	let categories = {
-		homepage: "Homepage",
-		directory: "Directory",
-		woocommerce: "WooCommerce",
-		helpgent: "HelpGent",
-		legal_pages: "Legal Pages",
-	}
+	const [ countCategories, setCountCategories] = useState();
+	const [ countPluginCategories, setCountPluginCategories] = useState();
+	const [ countPluginMaps, setCountPluginMaps] = useState();
+
+	const [selectedCategories, setSelectedCategories] = useState([]);
+	const [selectedPluginCategories, setSelectedPluginCategories] = useState([]);
+	const [selectedPluginMaps, setSelectedPluginMaps] = useState([]);
+
+	const templateType = 'pack'
+
 
 	const handleCategoryChange = (category) => {
 		console.log('Category: ', category)
@@ -30,8 +37,96 @@ const Sidebar = () => {
 		console.log('Selected category: ', updatedCategories);
 	};
 
+	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
+        `${template_market_obj.rest_args.endpoint}/template/library`, 
+            {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': template_market_obj.rest_args.nonce,
+            }
+        }).then(res => res.json() )
+    );
+
+	function getSidebarData(data) {
+		console.log('Data: ', data)
+		setCategories(data.categories);
+		setPluginCategories(data.plugins_cats);
+		setPluginMaps(data.plugins_map);
+
+		// Filter templates based on type
+		const templatesOfType = data.templates.filter(template => template.type === templateType);
+
+		// Count for categories based on templates of the specific type
+		const categoryCount = {};
+		templatesOfType.forEach(template => {
+			template.categories.forEach(category => {
+				if (categoryCount[category]) {
+					categoryCount[category]++;
+				} else {
+					categoryCount[category] = 1;
+				}
+			});
+		});
+		setCountCategories(categoryCount);
+
+		// Count for plugin categories based on templates of the specific type
+		const pluginCategoryCount = {};
+		Object.keys(data.plugins_cats).forEach(pluginCategory => {
+			pluginCategoryCount[pluginCategory] = templatesOfType.filter(template => template.categories.includes(pluginCategory)).length;
+		});
+		setCountPluginCategories(pluginCategoryCount);
+	
+		// Count for plugin maps based on templates of the specific type
+		const pluginMapCount = {};
+		Object.keys(data.plugins_map).forEach(pluginMap => {
+				pluginMapCount[pluginMap] = templatesOfType.filter(template => template.categories.includes(pluginMap)).length;
+		});
+		setCountPluginMaps(pluginMapCount);
+	
+	}
+
+	useEffect(() => {
+        if (data) {
+           getSidebarData(data);
+            
+        } else {
+            console.log('No Data')
+        }
+
+    }, [isLoading]);
+
+
+	// if (isLoading) 
+    // return (
+    //     <>
+
+	// 	</>
+    // );
+
+	// if (error) 
+    // return (
+    //     <>
+    //         {error.message}
+    //     </>
+    // );
+
+    // console.log('All Data: ', data);
+
+
+	console.log('Categories: ', categories)
+	console.log('Plugin Categories: ', pluginCategories)
+	console.log('Plugin Maps: ', pluginMaps)
+
+	console.log('Count Categories: ', countCategories)
+	console.log('Count Plugin Categories: ', countPluginCategories)
+	console.log('Count Plugin Maps: ', countPluginMaps)
+
 	return (
 		<SidebarStyle className="templatiq__sidebar">
+			{
+				isLoading && <ContentLoading style={ { margin: 0, width: '256px' } } />
+			}
 			<div className="templatiq__sidebar__top">
 				<h3 className="templatiq__sidebar__top__title">
 					<ReactSVG src={ filterIcon } width={18} height={18} />
@@ -181,7 +276,7 @@ const Sidebar = () => {
 											onChange={() => handleCategoryChange(key)}
 										/>
 										<label for={key} className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">{categories[key]}</label>
-										<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
+										<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">{countCategories[key] || 0}</span>
 									</div>
 								))}
 							</div>
