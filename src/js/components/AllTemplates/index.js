@@ -26,6 +26,8 @@ export default function AllTemplates (props) {
     const [ activeTab, setActiveTab ] = useState('all');
 
     const [ allTemplates, setAllTemplates ] = useState([]);
+    const [ filteredTemplates, setFilteredTemplates ] = useState(allTemplates);
+    const [ defaultTemplates, setDefaultTemplates ] = useState([]);
     const [ proTemplates, setProTemplates ] = useState([]);
     const [ freeTemplates, setFreeTemplates ] = useState([]);
     const [ templatesToDisplay, setTemplatesToDisplay ] = useState([]);
@@ -34,6 +36,13 @@ export default function AllTemplates (props) {
     const [ startItemCount, setStartItemCount ] = useState(0);
     const [ endItemCount, setEndItemCount ] = useState(6);
     const [ forcePage, setForcePage ]=useState(0);
+
+    // Add a state for search value
+    const [searchValue, setSearchValue] = useState('');
+    const updateSearchValue = (newSearchValue) => {
+        // Update the search value state
+        setSearchValue(newSearchValue);
+    };
 
 	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
         `${template_market_obj.rest_args.endpoint}/template/library`, 
@@ -120,6 +129,8 @@ export default function AllTemplates (props) {
     }, [isLoading, userFav]);
 
     useEffect(() => {
+        setDefaultTemplates(allTemplates);
+        setFilteredTemplates(allTemplates);
         setProTemplates(allTemplates.filter(template => template.price > 0));
 	    setFreeTemplates(allTemplates.filter(template => template.price <= 0));
 
@@ -131,9 +142,33 @@ export default function AllTemplates (props) {
     }, [allTemplates]);
 
     useEffect(() => {
+        setDefaultTemplates(filteredTemplates);
+        setProTemplates(filteredTemplates.filter(template => template.price > 0));
+	    setFreeTemplates(filteredTemplates.filter(template => template.price <= 0));
+
+        // Initially set the filteredTemplates to display based on start and end item counts
+        setTemplatesToDisplay(filteredTemplates.slice(startItemCount, endItemCount));
+
+        setTotalPaginate(filteredTemplates.length)
+
+    }, [filteredTemplates]);
+
+    useEffect(() => {
+        // Filter allTemplates based on the search value
+        const newFilteredTemplates = allTemplates.filter((template) =>
+          template.title.toLowerCase().includes(searchValue.toLowerCase())
+        );
+    
+        // Update the state with the filtered templates
+        setFilteredTemplates(newFilteredTemplates);
+    
+    }, [searchValue]);
+    
+
+    useEffect(() => {
         if (activeTab === 'all') {
-            setTemplatesToDisplay(allTemplates.slice(startItemCount, endItemCount));
-            setTotalPaginate(allTemplates.length)
+            setTemplatesToDisplay(defaultTemplates.slice(startItemCount, endItemCount));
+            setTotalPaginate(defaultTemplates.length)
         } else if (activeTab === 'pro') {
             setTemplatesToDisplay(proTemplates.slice(startItemCount, endItemCount));
             setTotalPaginate(proTemplates.length)
@@ -142,7 +177,7 @@ export default function AllTemplates (props) {
             setTotalPaginate(freeTemplates.length)
         }
 
-    }, [activeTab, startItemCount, endItemCount]);
+    }, [activeTab, startItemCount, endItemCount, filteredTemplates, proTemplates, freeTemplates]);
 
 
 	if (isLoading) 
@@ -158,6 +193,7 @@ export default function AllTemplates (props) {
     );
 
     console.log('All Templates: ', allTemplates);
+    console.log('Filtered allTemplate: ', filteredTemplates)
 
 	return (
         <Tabs className="templatiq__content__tab">
@@ -173,7 +209,7 @@ export default function AllTemplates (props) {
                                 className="templatiq__content__top__filter__item"
                                 onClick={() => changeTemplateTab('all')}
                             >
-                                <button className="templatiq__content__top__filter__link">All ({allTemplates.length})</button>
+                                <button className="templatiq__content__top__filter__link">All ({defaultTemplates.length})</button>
                             </Tab>
                            <Tab 
                                 className="templatiq__content__top__filter__item"
@@ -194,7 +230,7 @@ export default function AllTemplates (props) {
                     </TemplatePackFilterStyle>
                 </div>
                 <div className="templatiq__content__top__search">
-                    <Searchform templates={allTemplates} />
+                    <Searchform updateSearchValue={updateSearchValue} />
                 </div>
             </div>
 
