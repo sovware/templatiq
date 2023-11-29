@@ -12,29 +12,39 @@ import filterIcon from '@icon/filter.svg';
 
 const Sidebar = () => {
 	const [ categories, setCategories] = useState([]);
-	const [ pluginCategories, setPluginCategories] = useState([]);
-	const [ pluginMaps, setPluginMaps] = useState([]);
+	const [ plugins, setPlugins] = useState([]);
+	const [ pluginGroups, setPluginGroups] = useState([]);
 
 	const [ countCategories, setCountCategories] = useState();
-	const [ countPluginCategories, setCountPluginCategories] = useState();
-	const [ countPluginMaps, setCountPluginMaps] = useState();
+	const [ countPlugins, setCountPlugins] = useState();
 
-	const [selectedCategories, setSelectedCategories] = useState([]);
-	const [selectedPluginCategories, setSelectedPluginCategories] = useState([]);
-	const [selectedPluginMaps, setSelectedPluginMaps] = useState([]);
+	const [selectedFilters, setSelectedFilters] = useState([]);
 
 	const templateType = 'pack'
 
+	const handleFilter = (key, type) => {
+		// Copy the existing selectedFilters array to avoid mutating state directly
+		const updatedSelectedFilters = [...selectedFilters];
+	  
+		// Find the index of the selected item in the selectedFilters array
+		const index = updatedSelectedFilters.findIndex(filter => filter.key === key && filter.type === type);
+	  
+		if (index !== -1) {
+		  // If the item is already selected, remove it from the array
+		  updatedSelectedFilters.splice(index, 1);
+		} else {
+		  // If the item is not selected, add it to the array
+		  updatedSelectedFilters.push({ key, type });
+		}
+	  
+		// Update the state with the new selectedFilters array
+		setSelectedFilters(updatedSelectedFilters);
+	};
 
-	const handleCategoryChange = (category) => {
-		console.log('Category: ', category)
-		const updatedCategories = selectedCategories.includes(category)
-			? selectedCategories.filter((c) => c !== category)
-			: [...selectedCategories, category];
-
-    	setSelectedCategories(updatedCategories);
-
-		console.log('Selected category: ', updatedCategories);
+	const clearFilters = (e) => {
+		e.preventDefault();
+		setSelectedFilters([]);
+		console.log('Cleard Filters: ', selectedFilters);
 	};
 
 	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
@@ -51,8 +61,8 @@ const Sidebar = () => {
 	function getSidebarData(data) {
 		console.log('Data: ', data)
 		setCategories(data.categories);
-		setPluginCategories(data.plugins_cats);
-		setPluginMaps(data.plugins_map);
+		setPlugins(data.plugins);
+		setPluginGroups(data.plugins_groups);
 
 		// Filter templates based on type
 		const templatesOfType = data.templates.filter(template => template.type === templateType);
@@ -69,22 +79,25 @@ const Sidebar = () => {
 			});
 		});
 		setCountCategories(categoryCount);
-
-		// Count for plugin categories based on templates of the specific type
-		const pluginCategoryCount = {};
-		Object.keys(data.plugins_cats).forEach(pluginCategory => {
-			pluginCategoryCount[pluginCategory] = templatesOfType.filter(template => template.categories.includes(pluginCategory)).length;
-		});
-		setCountPluginCategories(pluginCategoryCount);
 	
 		// Count for plugin maps based on templates of the specific type
-		const pluginMapCount = {};
-		Object.keys(data.plugins_map).forEach(pluginMap => {
-				pluginMapCount[pluginMap] = templatesOfType.filter(template => template.categories.includes(pluginMap)).length;
+		const pluginCount = {};
+		Object.keys(data.plugins).forEach(plugin => {
+			pluginCount[plugin] = templatesOfType.filter(template => template.required_plugins.some(reqPlugin => reqPlugin.slug === plugin)).length;
 		});
-		setCountPluginMaps(pluginMapCount);
-	
+		setCountPlugins(pluginCount);
 	}
+
+	// Group plugins by their group
+	const groupedPlugins = {};
+	Object.keys(plugins).forEach(plugin => {
+		const group = plugins[plugin].group;
+		if (!groupedPlugins[group]) {
+			groupedPlugins[group] = [];
+		}
+		groupedPlugins[group].push(plugin);
+	});
+
 
 	useEffect(() => {
         if (data) {
@@ -96,194 +109,93 @@ const Sidebar = () => {
 
     }, [isLoading]);
 
-
-	// if (isLoading) 
-    // return (
-    //     <>
-
-	// 	</>
-    // );
-
-	// if (error) 
-    // return (
-    //     <>
-    //         {error.message}
-    //     </>
-    // );
-
-    // console.log('All Data: ', data);
-
-
-	console.log('Categories: ', categories)
-	console.log('Plugin Categories: ', pluginCategories)
-	console.log('Plugin Maps: ', pluginMaps)
-
-	console.log('Count Categories: ', countCategories)
-	console.log('Count Plugin Categories: ', countPluginCategories)
-	console.log('Count Plugin Maps: ', countPluginMaps)
-
 	return (
 		<SidebarStyle className="templatiq__sidebar">
 			{
-				isLoading && <ContentLoading style={ { margin: 0, width: '256px' } } />
+				isLoading ? <ContentLoading style={ { margin: 0, width: '256px' } } /> : 
+				<>
+					<div className="templatiq__sidebar__top">
+						<h3 className="templatiq__sidebar__top__title">
+							<ReactSVG src={ filterIcon } width={18} height={18} />
+							Filter
+						</h3>
+						<button 
+							href="#" 
+							className="templatiq__sidebar__top__clear"
+							onClick = {clearFilters}
+							disabled={selectedFilters.length === 0}
+						>
+							Clear
+						</button>
+					</div>
+					<div className="templatiq__sidebar__wrapper">
+						<Tabs>
+							<TabList className="templatiq__sidebar__nav">
+								<Tab className="templatiq__sidebar__nav__item">
+									<a href="#" className="templatiq__sidebar__nav__link">Plugins</a>
+								</Tab>
+								<Tab className="templatiq__sidebar__nav__item">
+									<a href="#" className="templatiq__sidebar__nav__link">Categories</a>
+								</Tab>
+							</TabList>
+							<TabPanel>
+								<SidebarItemStyle className="templatiq__sidebar__filter templatiq__sidebar__plugins">
+									<Accordion transition transitionTimeout={250} className="templatiq__sidebar__accordion">
+										{Object.keys(groupedPlugins).map((group, index) => (
+											<AccordionItem
+												key={group}
+												header={pluginGroups[group]}
+												className="templatiq__sidebar__accordion__single"
+												initialEntered={index === 0} // Set initialEntered to true for the first item
+											>
+												<div className="templatiq__sidebar__accordion__item">
+												{groupedPlugins[group].map(pluginKey => (
+													<div key={pluginKey} className="templatiq__sidebar__filter__single templatiq__checkbox">
+														<input
+															type="checkbox"
+															id={pluginKey}
+															className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input"
+															onChange={() => handleFilter(pluginKey, 'plugins')}
+															checked={selectedFilters.some(filter => filter.key === pluginKey && filter.type === 'plugins')}
+														/>
+														<label
+															htmlFor={pluginKey}
+															className="templatiq__sidebar__filter__single__label templatiq__checkbox__label"
+														>
+															{data.plugins[pluginKey].name}
+														</label>
+														<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">
+															{countPlugins[pluginKey] || 0}
+														</span>
+													</div>
+												))}
+												</div>
+											</AccordionItem>
+										))}
+									</Accordion>
+								</SidebarItemStyle>
+							</TabPanel>
+							<TabPanel>
+								<SidebarItemStyle className="templatiq__sidebar__filter templatiq__sidebar__categories">
+									<div className="templatiq__sidebar__categories__wrapper">
+										{Object.keys(categories).map((categoryKey) => (
+											<div className="templatiq__sidebar__filter__single templatiq__checkbox">
+												<input 
+													type="checkbox" id={categoryKey} className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input"
+													onChange={() => handleFilter(categoryKey, 'categories')}
+													checked={selectedFilters.some(filter => filter.key === categoryKey && filter.type === 'categories')}
+												/>
+												<label for={categoryKey} className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">{categories[categoryKey]}</label>
+												<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">{countCategories[categoryKey] || 0}</span>
+											</div>
+										))}
+									</div>
+								</SidebarItemStyle>
+							</TabPanel>
+						</Tabs>
+					</div>
+				</>
 			}
-			<div className="templatiq__sidebar__top">
-				<h3 className="templatiq__sidebar__top__title">
-					<ReactSVG src={ filterIcon } width={18} height={18} />
-					Filter
-				</h3>
-				<a href="#" className="templatiq__sidebar__top__clear">Clear</a>
-			</div>
-			<div className="templatiq__sidebar__wrapper">
-				<Tabs>
-					<TabList className="templatiq__sidebar__nav">
-						<Tab className="templatiq__sidebar__nav__item">
-							<a href="#" className="templatiq__sidebar__nav__link">Plugins</a>
-						</Tab>
-						<Tab className="templatiq__sidebar__nav__item">
-							<a href="#" className="templatiq__sidebar__nav__link">Categories</a>
-						</Tab>
-					</TabList>
-					<TabPanel>
-						<SidebarItemStyle className="templatiq__sidebar__filter templatiq__sidebar__plugins">
-							<Accordion transition transitionTimeout={250} className="templatiq__sidebar__accordion">
-								<AccordionItem initialEntered header="Directorist" className="templatiq__sidebar__accordion__single">
-									<div className="templatiq__sidebar__accordion__item">
-										<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-											<input type="checkbox" id="1" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-											<label for="1" className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">Pricing Plan</label>
-											<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-										</div>
-										<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-											<input id="2" type="checkbox" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-											<label for="2" className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">WooCommerce Pricing Plans</label>
-											<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-										</div>
-										<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-											<input id="3" type="checkbox" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-											<label for="3" className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">Business Directory</label>
-											<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-										</div>
-										<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-											<input type="checkbox" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-											<label className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">Marketplace</label>
-											<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-										</div>
-										<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-											<input type="checkbox" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-											<label className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">Claim Listing</label>
-											<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-										</div>
-									</div>
-								</AccordionItem>
-								<AccordionItem header="WooCommerce" className="templatiq__sidebar__accordion__single">
-									<div className="templatiq__sidebar__accordion__item">
-										<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-											<input type="checkbox" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-											<label className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">Pricing Plan</label>
-											<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-										</div>
-										<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-											<input type="checkbox" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-											<label className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">WooCommerce Pricing Plans</label>
-											<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-										</div>
-										<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-											<input type="checkbox" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-											<label className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">Business Directory</label>
-											<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-										</div>
-										<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-											<input type="checkbox" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-											<label className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">Marketplace</label>
-											<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-										</div>
-										<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-											<input type="checkbox" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-											<label className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">Claim Listing</label>
-											<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-										</div>
-									</div>
-								</AccordionItem>
-								<AccordionItem header="HelpGent" className="templatiq__sidebar__accordion__single">
-									<div className="templatiq__sidebar__accordion__item">
-										<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-											<input type="checkbox" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-											<label className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">Pricing Plan</label>
-											<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-										</div>
-										<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-											<input type="checkbox" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-											<label className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">WooCommerce Pricing Plans</label>
-											<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-										</div>
-										<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-											<input type="checkbox" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-											<label className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">Business Directory</label>
-											<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-										</div>
-										<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-											<input type="checkbox" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-											<label className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">Marketplace</label>
-											<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-										</div>
-										<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-											<input type="checkbox" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-											<label className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">Claim Listing</label>
-											<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-										</div>
-									</div>
-								</AccordionItem>
-								<AccordionItem header="Legal Pages" className="templatiq__sidebar__accordion__single">
-									<div className="templatiq__sidebar__accordion__item">
-										<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-											<input type="checkbox" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-											<label className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">Pricing Plan</label>
-											<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-										</div>
-										<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-											<input type="checkbox" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-											<label className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">WooCommerce Pricing Plans</label>
-											<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-										</div>
-										<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-											<input type="checkbox" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-											<label className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">Business Directory</label>
-											<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-										</div>
-										<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-											<input type="checkbox" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-											<label className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">Marketplace</label>
-											<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-										</div>
-										<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-											<input type="checkbox" className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input" />
-											<label className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">Claim Listing</label>
-											<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">12</span>
-										</div>
-									</div>
-								</AccordionItem>
-							</Accordion>
-						</SidebarItemStyle>
-					</TabPanel>
-					<TabPanel>
-						<SidebarItemStyle className="templatiq__sidebar__filter templatiq__sidebar__categories">
-							<div className="templatiq__sidebar__categories__wrapper">
-								{Object.keys(categories).map((key) => (
-									<div className="templatiq__sidebar__filter__single templatiq__checkbox">
-										<input 
-											type="checkbox" id={key} className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input"
-											onChange={() => handleCategoryChange(key)}
-										/>
-										<label for={key} className="templatiq__sidebar__filter__single__label templatiq__checkbox__label">{categories[key]}</label>
-										<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">{countCategories[key] || 0}</span>
-									</div>
-								))}
-							</div>
-						</SidebarItemStyle>
-					</TabPanel>
-				</Tabs>
-			</div>
 		</SidebarStyle>
 	);
 }
