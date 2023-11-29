@@ -5,14 +5,27 @@ import { SearchformStyle } from './style';
 
 import searchIcon from "@icon/search.svg";
 
-export default function Searchform() {
+export default function Searchform({templates}) {
 	const [searchQuery, setSearchQuery] = useState('');
+	const [filteredTemplates, setFilteredTemplates] = useState([]);
 
 	const handleSearchChange = (e) => {
 		setSearchQuery(e.target.value);
 		console.log('Search Query: ', e.target.value, searchQuery);
-		// onFilterChange({ categories: selectedCategories, searchQuery: e.target.value });
 	};
+
+	useEffect(() => {
+		// Filter templates based on searchQuery
+		const newFilteredTemplates = templates.filter(template =>
+		  template.title.toLowerCase().includes(searchQuery.toLowerCase())
+		);
+	
+		// Update the state with the filtered templates
+		setFilteredTemplates(newFilteredTemplates);
+	}, [searchQuery, templates]);
+
+	console.log('Templates Searchform: ', templates);
+	console.log('filteredTemplates Searchform: ', filteredTemplates);
 	
 	return (
 		<SearchformStyle className="templatiq__content__top__searchbox">

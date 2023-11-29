@@ -157,7 +157,7 @@ export default function AllTemplates (props) {
         </>
     );
 
-    // console.log('All Templates: ', allTemplates);
+    console.log('All Templates: ', allTemplates);
 
 	return (
         <Tabs className="templatiq__content__tab">
@@ -194,7 +194,7 @@ export default function AllTemplates (props) {
                     </TemplatePackFilterStyle>
                 </div>
                 <div className="templatiq__content__top__search">
-                    <Searchform />
+                    <Searchform templates={allTemplates} />
                 </div>
             </div>
 
