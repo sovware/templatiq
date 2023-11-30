@@ -388,4 +388,29 @@ button {
 	}
 }
 
+.templatiq__content__empty {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+	text-align: center;
+	padding: 50px 0;
+	.templatiq__content__empty__icon {
+		width: 100px;
+		height: 100px;
+	}
+	.templatiq__content__empty__title {
+		font-size: 18px;
+		font-weight: 600;
+		margin: 0;
+	}
+	.templatiq__content__empty__desc {
+		font-size: 14px;
+		font-weight: 400;
+		margin: 0;
+		color: var(--templatiq-placeholder-color);
+	}
+}
+
  

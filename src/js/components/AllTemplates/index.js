@@ -25,6 +25,7 @@ export default function AllTemplates (props) {
 
 	const [ userFav, setUserFav ] = useState([]);
 	const [ loading, setLoading ] = useState(false);
+	const [ isEmpty, setIsEmpty ] = useState(false);
     const [ activeTab, setActiveTab ] = useState('all');
 
     const [ allTemplates, setAllTemplates ] = useState([]);
@@ -182,6 +183,8 @@ export default function AllTemplates (props) {
 
         setTotalPaginate(filteredTemplates.length)
 
+        filteredTemplates.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
+
     }, [filteredTemplates]);
 
     useEffect(() => {
@@ -278,6 +281,13 @@ export default function AllTemplates (props) {
             </div>
 
             <div className="templatiq__content__wrapper">
+                { 
+                    isEmpty && 
+                    <div className="templatiq__content__empty">
+                        <h3 className="templatiq__content__empty__title">No Template Found</h3>
+                        <h3 className="templatiq__content__empty__desc">Search Other Templates</h3>
+                    </div>
+                }
                 { loading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
                     <>
                         <TabPanel className="templatiq-row templatiq__content__tab-panel">
@@ -372,7 +382,6 @@ export default function AllTemplates (props) {
                         ) }
                     </>
                 }
-                
             </div>
         </Tabs>
 	);
