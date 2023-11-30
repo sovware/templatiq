@@ -14,10 +14,10 @@ export default function MyDownloadsModule() {
 	const [ loading, setLoading ] = useState(false);
 	const [ isEmpty, setIsEmpty ] = useState(false);
 	const [ downloadedData, setDownloadedData ] = useState([]);
+    const [ defaultTemplates, setDefaultTemplates ] = useState([]);
 	const [ downloadedTemplates, setDownloadedTemplates ] = useState([]);
 
     const [searchValue, setSearchValue] = useState('');
-    const [ allTemplates, setAllTemplates ] = useState([]);
     const [ filteredTemplates, setFilteredTemplates ] = useState([]);
 
 	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
@@ -59,7 +59,7 @@ export default function MyDownloadsModule() {
 	};
 
 	const searchFilteredTemplates = () => {
-        const newFilteredTemplates = allTemplates.filter((template) =>
+        const newFilteredTemplates = defaultTemplates.filter((template) =>
           template.title.toLowerCase().includes(searchValue.toLowerCase())
         );
 
@@ -73,12 +73,12 @@ export default function MyDownloadsModule() {
         if (data) {
             setLoading(false);
             const templateData = data.templates ? data.templates : [];
-			setAllTemplates(templateData);
 
 			const downloadedTemplate = templateData.filter(template => downloadedData.includes(template.template_id));
 
 			setDownloadedTemplates(downloadedTemplate);
 			setFilteredTemplates(downloadedTemplate);
+			setDefaultTemplates(downloadedTemplate);
 			
         } else {
             console.log('No Data')
@@ -89,12 +89,14 @@ export default function MyDownloadsModule() {
 	useEffect(() => {
         searchFilteredTemplates();
 
-		const filteredDownloadedTemplate = filteredTemplates.filter(template => downloadedData.includes(template.template_id));
-
-		setDownloadedTemplates(filteredDownloadedTemplate);
-		filteredDownloadedTemplate.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
-
     }, [searchValue]);
+
+	useEffect(() => {
+        setDownloadedTemplates(filteredTemplates);
+
+        filteredTemplates.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
+
+    }, [filteredTemplates]);
 
 	useEffect(() => {
         setLoading(true);

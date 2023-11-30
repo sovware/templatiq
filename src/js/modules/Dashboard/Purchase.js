@@ -18,7 +18,7 @@ export default function MyPurchaseModule() {
 	const [ purchasedTemplates, setPurchasedTemplates ] = useState([]);
 
     const [searchValue, setSearchValue] = useState('');
-    const [ allTemplates, setAllTemplates ] = useState([]);
+    const [ defaultTemplates, setDefaultTemplates ] = useState([]);
     const [ filteredTemplates, setFilteredTemplates ] = useState([]);
 
 	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
@@ -60,7 +60,7 @@ export default function MyPurchaseModule() {
 	};
 
 	const searchFilteredTemplates = () => {
-        const newFilteredTemplates = allTemplates.filter((template) =>
+        const newFilteredTemplates = defaultTemplates.filter((template) =>
           template.title.toLowerCase().includes(searchValue.toLowerCase())
         );
 
@@ -74,14 +74,12 @@ export default function MyPurchaseModule() {
         if (data) {
             setLoading(false);
             const templateData = data.templates ? data.templates : [];
-			setAllTemplates(templateData);
 			
 			const purchasedTemplate = templateData.filter(template => purchasedData.includes(template.template_id));
 
 			setPurchasedTemplates(purchasedTemplate);
 			setFilteredTemplates(purchasedTemplate);
-
-			console.log('Filtered Templates: ', filteredTemplates, templateData, allTemplates);
+			setDefaultTemplates(purchasedTemplate);
 			
         } else {
             console.log('No Data')
@@ -92,12 +90,14 @@ export default function MyPurchaseModule() {
 	useEffect(() => {
         searchFilteredTemplates();
 
-		const filteredPurchasedTemplate = filteredTemplates.filter(template => purchasedData.includes(template.template_id));
-
-		setPurchasedTemplates(filteredPurchasedTemplate);
-		filteredPurchasedTemplate.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
-
     }, [searchValue]);
+
+	useEffect(() => {
+        setPurchasedTemplates(filteredTemplates);
+
+        filteredTemplates.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
+
+    }, [filteredTemplates]);
 
 	useEffect(() => {
         setLoading(true);
