@@ -8,7 +8,6 @@ import ContentLoading from '@components/ContentLoading';
 import Searchform from "@components/Searchform";
 import store from '../../store';
 
-
 import { TemplatePackStyle } from "@root/style";
 import { DashboardItemsStyle } from "./style"
 
