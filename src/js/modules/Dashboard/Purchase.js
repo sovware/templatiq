@@ -1,3 +1,4 @@
+import { useState, useEffect } from '@wordpress/element';
 import DashboardLayout from '@layout/DashboardLayout';
 import ReactSVG from 'react-inlinesvg';
 import Searchform from "@components/Searchform";
@@ -9,6 +10,40 @@ import templateImg1 from "@images/template/1.svg";
 import downloadIcon from "@icon/download.svg";
 
 export default function MyPurchaseModule() {
+	const [userPurchased, setUserPurchased] = useState([]);
+
+	const getUserInfo = async () => {
+		try {
+			const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/data`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-WP-Nonce': template_market_obj.rest_args.nonce,
+				},
+			});
+	
+			if (!response.ok) {
+				throw new Error('Error Occurred');
+			}
+	
+			if (response.ok) {
+				const responseData = await response.json();
+				const data = responseData.body;
+                console.log('Purchased Data: ', data.purchased)
+
+				setUserPurchased(data.purchased);
+			}
+		} catch (error) {
+			// Handle error if needed
+			console.error('Error in Download:', error);
+		}
+	};
+
+	useEffect(() => {
+        getUserInfo();
+
+    }, []);
+
 	return (
 		<DashboardLayout>
 			<div className="templatiq__content templatiq__content--dashboard"> 
@@ -47,6 +82,11 @@ export default function MyPurchaseModule() {
 							</div>
 						</div>
 						<div className="templatiq__content__dashboard__items">
+							{
+								userPurchased.forEach((item) => {
+									console.log('Purchased Item: ', item)
+								})
+							}
 							<div className="templatiq__content__dashboard__single">
 								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name">
 									<img src={templateImg1} alt="Template Image" className="templatiq__content__dashboard__item__img" />

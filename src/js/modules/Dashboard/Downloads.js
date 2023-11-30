@@ -1,3 +1,5 @@
+import { useState, useEffect } from '@wordpress/element';
+
 import DashboardLayout from '@layout/DashboardLayout';
 import Searchform from "@components/Searchform";
 
@@ -7,6 +9,40 @@ import { DashboardItemsStyle } from "./style"
 import templateImg1 from "@images/template/1.svg";
 
 export default function MyDownloadsModule() {
+	const [userDownloads, setUserDownloads] = useState([]);
+
+	const getUserInfo = async () => {
+		try {
+			const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/data`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-WP-Nonce': template_market_obj.rest_args.nonce,
+				},
+			});
+	
+			if (!response.ok) {
+				throw new Error('Error Occurred');
+			}
+	
+			if (response.ok) {
+				const responseData = await response.json();
+				const data = responseData.body;
+                console.log('Download Data: ', data.downloads)
+
+				setUserDownloads(data.downloads);
+			}
+		} catch (error) {
+			// Handle error if needed
+			console.error('Error in Download:', error);
+		}
+	};
+
+	useEffect(() => {
+        getUserInfo();
+
+    }, []);
+
 	return (
 		<DashboardLayout>
 			<div className="templatiq__content templatiq__content--dashboard"> 
@@ -40,6 +76,11 @@ export default function MyDownloadsModule() {
 							</div>
 						</div>
 						<div className="templatiq__content__dashboard__items">
+							{
+								userDownloads.forEach((item) => {
+									console.log('Downloaded Item: ', item)
+								})
+							}
 							<div className="templatiq__content__dashboard__single">
 								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name">
 									<img src={templateImg1} alt="Template Image" className="templatiq__content__dashboard__item__img" />
