@@ -244,7 +244,7 @@ const TemplatePackStyle = Styled.div`
     }
     .templatiq__content__tab {
         display: flex;
-        gap: 24px;
+        gap: 8px;
         flex-direction: column;
     }
     
@@ -332,6 +332,7 @@ const TemplatePackFilterStyle = Styled.div`
         color: var(--templatiq-body-color);
         font-size: 12px;
         line-height: 1;
+        cursor: pointer;
         text-transform: uppercase;
         background: transparent;
         transition: background 0.3s ease, color 0.3s ease;

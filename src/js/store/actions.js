@@ -28,10 +28,18 @@ const actions = {
 		};
     },
   
-    fetchFromAPI(path) {
+    setSearchQuery(searchQuery) {
 		return {
-			type: 'FETCH_FROM_API',
-			path,
+			type: 'SET_SEARCH_QUERY',
+			searchQuery,
+		};
+    },
+  
+    setFilterSearch(filterSearch) {
+		console.log('filterSearch Action: ', filterSearch)
+		return {
+			type: 'SET_FILTER_SEARCH',
+			filterSearch,
 		};
     },
 };

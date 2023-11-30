@@ -11,6 +11,8 @@ const DEFAULT_STATE = {
 		bookmarks: [],
 		userDisplayName: '',
 	},
+	searchQuery: '',
+	filterData: [],
 	favCounts: {},
 	templateStatus: {},
 };
@@ -29,7 +31,7 @@ const loadStateFromStorage = () => {
 
 const store = createReduxStore('templatiq-stores', {
 	reducer(state = loadStateFromStorage(), action) {
-		// console.log('Initial State: ', state)
+		console.log('Initial State: ', state)
 		switch (action.type) {
 			case 'SET_FAV':
 				const favState = {
@@ -70,6 +72,28 @@ const store = createReduxStore('templatiq-stores', {
 		
 				return userData;
 
+			case 'SET_SEARCH_QUERY':
+				const searchData = {
+					...state,
+					searchQuery: action.searchQuery,
+				};
+
+				// Save state to localStorage whenever it changes
+				localStorage.setItem('templatiq-stores', JSON.stringify(searchData));
+		
+				return searchData;
+
+			case 'SET_FILTER_SEARCH':
+				const filterData = {
+					...state,
+					filterSearch: action.filterSearch,
+				};
+
+				// Save state to localStorage whenever it changes
+				localStorage.setItem('templatiq-stores', JSON.stringify(filterData));
+		
+				return filterData;
+
 			case 'LOG_OUT':
 				const updatedState = {
 					...state,
@@ -93,21 +117,6 @@ const store = createReduxStore('templatiq-stores', {
 	actions,
 
 	selectors,
-
-	// controls: {
-	// 	FETCH_FROM_API( action ) {
-	// 		return apiFetch( { path: action.path } );
-	// 	},
-	// },
-
-	// resolvers: {
-	// 	*getFav( item ) {
-	// 		const path = item;
-	// 		const favCount = yield actions.fetchFromAPI( path );
-
-	// 		return actions.setFav( item, favCount );
-	// 	},
-	// },
 });
 
 

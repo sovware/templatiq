@@ -18,6 +18,18 @@ const selectors = {
 
 		return userInfo;
 	},
+
+	getSearchQuery(state) {
+		const { searchQuery } = state;
+
+		return searchQuery;
+	},
+
+	getFilterSearch(state) {
+		const { filterSearch } = state;
+
+		return filterSearch;
+	}
 };
   
 export default selectors;

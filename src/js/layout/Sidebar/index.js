@@ -1,6 +1,10 @@
 import { useState, useEffect } from '@wordpress/element';
+import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import ReactSVG from 'react-inlinesvg';
+import { dispatch } from '@wordpress/data';
+
+import store from '../../store';
 import { SidebarStyle, SidebarItemStyle } from './style';
 
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
@@ -11,6 +15,10 @@ import ContentLoading from '@components/ContentLoading';
 import filterIcon from '@icon/filter.svg';
 
 const Sidebar = () => {
+	const location = useLocation();
+	const pathType = location.pathname.split('/').pop();
+	
+	const [ templates, setTemplates] = useState([]);
 	const [ categories, setCategories] = useState([]);
 	const [ plugins, setPlugins] = useState([]);
 	const [ pluginGroups, setPluginGroups] = useState([]);
@@ -19,8 +27,8 @@ const Sidebar = () => {
 	const [ countPlugins, setCountPlugins] = useState();
 
 	const [selectedFilters, setSelectedFilters] = useState([]);
-
-	const templateType = 'pack'
+	const [filteredTemplates, setFilteredTemplates] = useState([]);
+	const [ templateType, setTemplateType] = useState(pathType ? pathType : 'pack');
 
 	const handleFilter = (key, type) => {
 		// Copy the existing selectedFilters array to avoid mutating state directly
@@ -39,12 +47,17 @@ const Sidebar = () => {
 	  
 		// Update the state with the new selectedFilters array
 		setSelectedFilters(updatedSelectedFilters);
+
+		// Dispatch the action to update the filter search in the store
+		dispatch(store).setFilterSearch(updatedSelectedFilters);
 	};
 
 	const clearFilters = (e) => {
 		e.preventDefault();
 		setSelectedFilters([]);
-		console.log('Cleard Filters: ', selectedFilters);
+
+		// Dispatch the action to update the filter search in the store
+		dispatch(store).setFilterSearch([]);
 	};
 
 	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
@@ -60,6 +73,7 @@ const Sidebar = () => {
 
 	function getSidebarData(data) {
 		console.log('Data: ', data)
+		setTemplates(data.templates);
 		setCategories(data.categories);
 		setPlugins(data.plugins);
 		setPluginGroups(data.plugins_groups);
@@ -98,7 +112,30 @@ const Sidebar = () => {
 		groupedPlugins[group].push(plugin);
 	});
 
-
+	const filterTemplates = (templateType) => {
+		// Filter templates based on selectedFilters and templateType
+		const newFilteredTemplates = templates.filter(template => {
+			// Check if the template type matches the specified templateType
+			if (template.type !== templateType) {
+				return false;
+			}
+		
+			return selectedFilters.some(filter => {
+				if (filter.type === 'plugins') {
+					// Check if any required plugin matches the selected plugin
+					return template.required_plugins.some(requiredPlugin => requiredPlugin.slug === filter.key);
+				} else if (filter.type === 'categories') {
+					// Check if the template includes the selected category
+					return template.categories.includes(filter.key);
+				}
+				return false;
+			});
+		});
+	  
+		// Update the state with the filtered templates
+		setFilteredTemplates(newFilteredTemplates);
+	};
+	  
 	useEffect(() => {
         if (data) {
            getSidebarData(data);
@@ -108,6 +145,19 @@ const Sidebar = () => {
         }
 
     }, [isLoading]);
+
+	useEffect(() => {
+        filterTemplates(templateType);
+
+    }, [selectedFilters]);
+
+	useEffect(() => {
+		// Clear Stored Filters
+		dispatch(store).setFilterSearch([]);
+	}, []);
+
+	// console.log('Selected Filters: ', selectedFilters);
+	console.log('filteredTemplates: ', filteredTemplates);
 
 	return (
 		<SidebarStyle className="templatiq__sidebar">

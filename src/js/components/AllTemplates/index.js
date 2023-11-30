@@ -2,6 +2,8 @@ import { useState, useEffect } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg'; 
 import ReactPaginate from 'react-paginate';
 import { useQuery } from '@tanstack/react-query';
+import { select, subscribe } from '@wordpress/data';
+import store from '../../store';
 
 import { TemplatePackFilterStyle } from '@root/style';
 import Searchform from "@components/Searchform";
@@ -23,9 +25,12 @@ export default function AllTemplates (props) {
 
 	const [ userFav, setUserFav ] = useState([]);
 	const [ loading, setLoading ] = useState(false);
+	const [ isEmpty, setIsEmpty ] = useState(false);
     const [ activeTab, setActiveTab ] = useState('all');
 
     const [ allTemplates, setAllTemplates ] = useState([]);
+    const [ filteredTemplates, setFilteredTemplates ] = useState(allTemplates);
+    const [ defaultTemplates, setDefaultTemplates ] = useState([]);
     const [ proTemplates, setProTemplates ] = useState([]);
     const [ freeTemplates, setFreeTemplates ] = useState([]);
     const [ templatesToDisplay, setTemplatesToDisplay ] = useState([]);
@@ -34,6 +39,9 @@ export default function AllTemplates (props) {
     const [ startItemCount, setStartItemCount ] = useState(0);
     const [ endItemCount, setEndItemCount ] = useState(6);
     const [ forcePage, setForcePage ]=useState(0);
+
+    const [searchValue, setSearchValue] = useState('');
+    const [filterValue, setFilterValue] = useState([]);
 
 	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
         `${template_market_obj.rest_args.endpoint}/template/library`, 
@@ -88,11 +96,44 @@ export default function AllTemplates (props) {
 		}
 	};
 
-    useEffect(() => {
-        console.log('Data Loading...')
-        setLoading(true);
-        getUserBookmark();
-    }, []);  
+    const searchFilteredTemplates = () => {
+        const newFilteredTemplates = allTemplates.filter((template) =>
+          template.title.toLowerCase().includes(searchValue.toLowerCase())
+        );
+
+        // Update the state with the filtered templates
+        setFilteredTemplates(newFilteredTemplates);
+
+        return newFilteredTemplates;
+    } 
+
+    const filterPluginTemplates = () => {
+		// Filter templates based on filterValue and templateType
+		const newFilteredTemplates = allTemplates.filter(template => {
+			// Check if the template type matches the specified templateType
+			if (template.type !== templateType) {
+				return false;
+			}
+		
+			return filterValue.some(filter => {
+				if (filter.type === 'plugins') {
+					// Check if any required plugin matches the selected plugin
+					return template.required_plugins.some(requiredPlugin => requiredPlugin.slug === filter.key);
+				} else if (filter.type === 'categories') {
+					// Check if the template includes the selected category
+					return template.categories.includes(filter.key);
+				}
+				return false;
+			});
+		});
+	  
+		// Update the state with the filtered templates
+		setFilteredTemplates(newFilteredTemplates);
+	};
+
+	useEffect(() => {
+        filterValue.length > 0 ? filterPluginTemplates() : searchFilteredTemplates();
+    }, [filterValue]);
 
     useEffect(() => {
         if (userFav.length === 0) {
@@ -120,6 +161,8 @@ export default function AllTemplates (props) {
     }, [isLoading, userFav]);
 
     useEffect(() => {
+        setDefaultTemplates(allTemplates);
+        setFilteredTemplates(allTemplates);
         setProTemplates(allTemplates.filter(template => template.price > 0));
 	    setFreeTemplates(allTemplates.filter(template => template.price <= 0));
 
@@ -131,9 +174,47 @@ export default function AllTemplates (props) {
     }, [allTemplates]);
 
     useEffect(() => {
+        setDefaultTemplates(filteredTemplates);
+        setProTemplates(filteredTemplates.filter(template => template.price > 0));
+	    setFreeTemplates(filteredTemplates.filter(template => template.price <= 0));
+
+        // Initially set the filteredTemplates to display based on start and end item counts
+        setTemplatesToDisplay(filteredTemplates.slice(startItemCount, endItemCount));
+
+        setTotalPaginate(filteredTemplates.length)
+
+        filteredTemplates.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
+
+    }, [filteredTemplates]);
+
+    useEffect(() => {
+        searchFilteredTemplates();
+    }, [searchValue]);
+    
+    useEffect(() => {
+        console.log('Data Loading...')
+        setLoading(true);
+        getUserBookmark();
+
+
+		// Subscribe to changes in the store's data
+		const filterChange = subscribe(() => {
+			const searchQuery = select( store ).getSearchQuery();
+            const filterSearch = select( store ).getFilterSearch();
+
+            setSearchValue(searchQuery);
+            setFilterValue(filterSearch);
+		});
+
+		// filterChange when the component is unmounted
+		return () => filterChange();
+	}, []);
+    
+
+    useEffect(() => {
         if (activeTab === 'all') {
-            setTemplatesToDisplay(allTemplates.slice(startItemCount, endItemCount));
-            setTotalPaginate(allTemplates.length)
+            setTemplatesToDisplay(defaultTemplates.slice(startItemCount, endItemCount));
+            setTotalPaginate(defaultTemplates.length)
         } else if (activeTab === 'pro') {
             setTemplatesToDisplay(proTemplates.slice(startItemCount, endItemCount));
             setTotalPaginate(proTemplates.length)
@@ -142,7 +223,7 @@ export default function AllTemplates (props) {
             setTotalPaginate(freeTemplates.length)
         }
 
-    }, [activeTab, startItemCount, endItemCount]);
+    }, [activeTab, startItemCount, endItemCount, filteredTemplates, proTemplates, freeTemplates]);
 
 
 	if (isLoading) 
@@ -158,6 +239,7 @@ export default function AllTemplates (props) {
     );
 
     // console.log('All Templates: ', allTemplates);
+    // console.log('Filtered allTemplate: ', filteredTemplates)
 
 	return (
         <Tabs className="templatiq__content__tab">
@@ -173,7 +255,7 @@ export default function AllTemplates (props) {
                                 className="templatiq__content__top__filter__item"
                                 onClick={() => changeTemplateTab('all')}
                             >
-                                <button className="templatiq__content__top__filter__link">All ({allTemplates.length})</button>
+                                <button className="templatiq__content__top__filter__link">All ({defaultTemplates.length})</button>
                             </Tab>
                            <Tab 
                                 className="templatiq__content__top__filter__item"
@@ -199,6 +281,13 @@ export default function AllTemplates (props) {
             </div>
 
             <div className="templatiq__content__wrapper">
+                { 
+                    isEmpty && 
+                    <div className="templatiq__content__empty">
+                        <h3 className="templatiq__content__empty__title">No Template Found</h3>
+                        <h3 className="templatiq__content__empty__desc">Search Other Templates</h3>
+                    </div>
+                }
                 { loading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
                     <>
                         <TabPanel className="templatiq-row templatiq__content__tab-panel">
@@ -293,7 +382,6 @@ export default function AllTemplates (props) {
                         ) }
                     </>
                 }
-                
             </div>
         </Tabs>
 	);

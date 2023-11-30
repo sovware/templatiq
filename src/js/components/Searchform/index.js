@@ -1,5 +1,8 @@
 import { useState, useEffect } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
+import { dispatch } from '@wordpress/data';
+
+import store from '../../store';
 
 import { SearchformStyle } from './style';
 
@@ -9,10 +12,17 @@ export default function Searchform() {
 	const [searchQuery, setSearchQuery] = useState('');
 
 	const handleSearchChange = (e) => {
-		setSearchQuery(e.target.value);
-		console.log('Search Query: ', e.target.value, searchQuery);
-		// onFilterChange({ categories: selectedCategories, searchQuery: e.target.value });
+		const newSearchQuery = e.target.value;
+		setSearchQuery(newSearchQuery);
+
+		// Dispatch the action to update the login status in the store
+		dispatch(store).setSearchQuery(newSearchQuery);
 	};
+
+	useEffect(() => {
+		// Dispatch the action to update the query Value in the store
+		dispatch(store).setSearchQuery('');
+	}, []);
 	
 	return (
 		<SearchformStyle className="templatiq__content__top__searchbox">
