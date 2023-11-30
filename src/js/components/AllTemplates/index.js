@@ -136,7 +136,7 @@ export default function AllTemplates (props) {
     }, [filterValue]);
 
     useEffect(() => {
-        if (userFav.length === 0) {
+        if (userFav && userFav.length === 0) {
             // The userFav list is empty, which means getUserBookmark hasn't been called yet.
             console.log('No UserFav')
             return;

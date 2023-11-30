@@ -48,7 +48,7 @@ export default function MyDownloadsModule() {
 			if (response.ok) {
 				const responseData = await response.json();
 				const data = responseData.body;
-                console.log('Download Data: ', data.downloads)
+                console.log('Download Data: ', data)
 
 				setDownloadedData(data.downloads);
 			}
