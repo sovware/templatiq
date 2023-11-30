@@ -1,16 +1,30 @@
 import { useState, useEffect } from '@wordpress/element';
 import DashboardLayout from '@layout/DashboardLayout';
-import ReactSVG from 'react-inlinesvg';
+import { useQuery } from '@tanstack/react-query';
+import InsertTemplate from '@components/InsertTemplate'
+import Preloader from '@components/Preloader';
+import ContentLoading from '@components/ContentLoading';
 import Searchform from "@components/Searchform";
 
 import { TemplatePackStyle } from "@root/style";
 import { DashboardItemsStyle } from "./style"
 
-import templateImg1 from "@images/template/1.svg";
-import downloadIcon from "@icon/download.svg";
-
 export default function MyPurchaseModule() {
-	const [userPurchased, setUserPurchased] = useState([]);
+	const [ loading, setLoading ] = useState(false);
+	const [ isEmpty, setIsEmpty ] = useState(false);
+	const [ purchasedData, setPurchasedData ] = useState([]);
+	const [ purchasedTemplates, setPurchasedTemplates ] = useState([]);
+
+	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
+        `${template_market_obj.rest_args.endpoint}/template/library`, 
+            {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': template_market_obj.rest_args.nonce,
+            }
+        }).then(res => res.json() )
+    );
 
 	const getUserInfo = async () => {
 		try {
@@ -29,9 +43,9 @@ export default function MyPurchaseModule() {
 			if (response.ok) {
 				const responseData = await response.json();
 				const data = responseData.body;
-                console.log('Purchased Data: ', data.purchased)
+                console.log('Purchased Data: ', data)
 
-				setUserPurchased(data.purchased);
+				setPurchasedData(data.purchased);
 			}
 		} catch (error) {
 			// Handle error if needed
@@ -40,9 +54,37 @@ export default function MyPurchaseModule() {
 	};
 
 	useEffect(() => {
+        if (data) {
+            setLoading(false);
+            const templateData = data.templates ? data.templates : [];
+			const purchasedTemplate = templateData.filter(template => purchasedData.includes(template.template_id));
+
+			setPurchasedTemplates(purchasedTemplate);
+			
+        } else {
+            console.log('No Data')
+        }
+
+    }, [isLoading, purchasedData]);
+
+	useEffect(() => {
+        setLoading(true);
         getUserInfo();
+		purchasedData.length > 0 ? setIsEmpty(true) : setIsEmpty(false);
 
     }, []);
+
+	if (isLoading) 
+    return (
+        <Preloader />
+    );
+
+	if (error) 
+    return (
+        <>
+            {error.message}
+        </>
+    );
 
 	return (
 		<DashboardLayout>
@@ -82,83 +124,45 @@ export default function MyPurchaseModule() {
 							</div>
 						</div>
 						<div className="templatiq__content__dashboard__items">
-							{
-								userPurchased.forEach((item) => {
-									console.log('Purchased Item: ', item)
-								})
+							{loading ? (
+								<ContentLoading style={{ margin: 0, minHeight: 'unset' }} />
+								) : isEmpty ? (
+									<div className="templatiq__content__empty">
+										<h3 className="templatiq__content__empty__title">No Template Found</h3>
+										<h3 className="templatiq__content__empty__desc">Search Other Templates</h3>
+									</div>
+								) : (
+									purchasedTemplates.map(item => (
+										<div className="templatiq__content__dashboard__single">
+											<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name">
+												<img src={item.thumbnail} alt={item.title} className="templatiq__content__dashboard__item__img" />
+												<span className="templatiq__content__dashboard__item__title">
+													{item.title} 
+												</span>
+											</div>
+											<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--type">
+												<span className="templatiq__content__dashboard__item__text">
+													{item.type}
+												</span>
+											</div>
+											<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
+												<span className="templatiq__content__dashboard__item__text">
+													14 May, 2023 7.23pm
+												</span>
+											</div>
+											
+											<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
+												<InsertTemplate
+													solidIcon
+													item={item} 
+													innerText={'Insert'}
+													className={'templatiq__content__dashboard__item__btn templatiq-btn templatiq-btn-success'}
+												/>
+											</div>
+										</div>
+									))
+								)
 							}
-							<div className="templatiq__content__dashboard__single">
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name">
-									<img src={templateImg1} alt="Template Image" className="templatiq__content__dashboard__item__img" />
-									<span className="templatiq__content__dashboard__item__title">
-										Directorist Plugin
-									</span>
-								</div>
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--type">
-									<span className="templatiq__content__dashboard__item__text">
-										Template Pack
-									</span>
-								</div>
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
-									<span className="templatiq__content__dashboard__item__text">
-										14 May, 2023 7.23pm
-									</span>
-								</div>	
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
-									<a href="#" className="templatiq__content__dashboard__item__btn templatiq-btn templatiq-btn-success">
-										<ReactSVG src={ downloadIcon } width={14} height={14} />
-										Insert
-									</a>
-								</div>	
-							</div>
-							<div className="templatiq__content__dashboard__single">
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name">
-									<img src={templateImg1} alt="Template Image" className="templatiq__content__dashboard__item__img" />
-									<span className="templatiq__content__dashboard__item__title">
-										Directorist Plugin
-									</span>
-								</div>
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--type">
-									<span className="templatiq__content__dashboard__item__text">
-										Template Pack
-									</span>
-								</div>
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
-									<span className="templatiq__content__dashboard__item__text">
-										14 May, 2023 7.23pm
-									</span>
-								</div>	
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
-									<a href="#" className="templatiq__content__dashboard__item__btn templatiq-btn templatiq-btn-success">
-										<ReactSVG src={ downloadIcon } width={14} height={14} />
-										Insert
-									</a>
-								</div>	
-							</div>
-							<div className="templatiq__content__dashboard__single">
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name">
-									<img src={templateImg1} alt="Template Image" className="templatiq__content__dashboard__item__img" />
-									<span className="templatiq__content__dashboard__item__title">
-										Directorist Plugin
-									</span>
-								</div>
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--type">
-									<span className="templatiq__content__dashboard__item__text">
-										Template Pack
-									</span>
-								</div>
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
-									<span className="templatiq__content__dashboard__item__text">
-										14 May, 2023 7.23pm
-									</span>
-								</div>	
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
-									<a href="#" className="templatiq__content__dashboard__item__btn templatiq-btn templatiq-btn-success">
-										<ReactSVG src={ downloadIcon } width={14} height={14} />
-										Insert
-									</a>
-								</div>	
-							</div>
 						</div>
 					</DashboardItemsStyle>
 				</TemplatePackStyle>

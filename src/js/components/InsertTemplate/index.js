@@ -5,9 +5,10 @@ import AuthModal from '@components/Popup/AuthModal';
 import store from '../../store';
 
 import InsertTemplateModal from '@components/Popup/InsertTemplateModal';
-import downloadIcon from "@icon/download-alt.svg";
+import downloadIcon from "@icon/download.svg";
+import downloadAltIcon from "@icon/download-alt.svg";
 
-const InsertTemplate = ({item, templateRef, className, innerText}) => {
+const InsertTemplate = ({item, templateRef, className, innerText, solidIcon}) => {
     let { required_plugins } = item;
     
 	const { isLoggedIn } = select( store ).getUserInfo();
@@ -86,7 +87,7 @@ const InsertTemplate = ({item, templateRef, className, innerText}) => {
                 className={ className ? className : 'templatiq__template__single__info__action__link insert-btn'} 
                 onClick={(e) => !isLoggedIn ? addAuthModal(e) : addInsertModal(e)}
             >
-                <ReactSVG src={ downloadIcon } width={14} height={14} />
+                <ReactSVG src={ !solidIcon ? downloadAltIcon : downloadIcon } width={14} height={14} />
                 {innerText ? innerText : 'Insert'}
             </a>
         </>
