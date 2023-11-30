@@ -11,7 +11,7 @@ import ContentLoading from '@components/ContentLoading';
 
 import filterIcon from '@icon/filter.svg';
 
-const Sidebar = () => {
+const Sidebar = ({ updateSelectedFilters }) => {
 	const location = useLocation();
 	const pathType = location.pathname.split('/').pop();
 	
@@ -44,11 +44,17 @@ const Sidebar = () => {
 	  
 		// Update the state with the new selectedFilters array
 		setSelectedFilters(updatedSelectedFilters);
+
+		// Update the selected filters in the AppLayout component
+		updateSelectedFilters(updatedSelectedFilters);
 	};
 
 	const clearFilters = (e) => {
 		e.preventDefault();
 		setSelectedFilters([]);
+
+		// Update the selected filters in the AppLayout component
+		updateSelectedFilters([]);
 	};
 
 	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
@@ -127,7 +133,6 @@ const Sidebar = () => {
 		setFilteredTemplates(newFilteredTemplates);
 	};
 	  
-	  
 
 	useEffect(() => {
         if (data) {
@@ -144,8 +149,8 @@ const Sidebar = () => {
 
     }, [selectedFilters]);
 
-	console.log('Selected Filters: ', selectedFilters);
-	console.log('filteredTemplates: ', filteredTemplates);
+	// console.log('Selected Filters: ', selectedFilters);
+	// console.log('filteredTemplates: ', filteredTemplates);
 
 	return (
 		<SidebarStyle className="templatiq__sidebar">

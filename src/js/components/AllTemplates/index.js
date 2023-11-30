@@ -2,6 +2,8 @@ import { useState, useEffect } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg'; 
 import ReactPaginate from 'react-paginate';
 import { useQuery } from '@tanstack/react-query';
+import { select } from '@wordpress/data';
+import store from '../../store';
 
 import { TemplatePackFilterStyle } from '@root/style';
 import Searchform from "@components/Searchform";
@@ -21,6 +23,9 @@ export default function AllTemplates (props) {
     const { templateType, templateStatus, user } = props;
 	const paginatePerPage = 6;
 
+	const searchQuery = select( store ).getSearchQuery();
+    const [searchValue, setSearchValue] = useState(searchQuery);
+
 	const [ userFav, setUserFav ] = useState([]);
 	const [ loading, setLoading ] = useState(false);
     const [ activeTab, setActiveTab ] = useState('all');
@@ -38,8 +43,8 @@ export default function AllTemplates (props) {
     const [ forcePage, setForcePage ]=useState(0);
 
     // Add a state for search value
-    const [searchValue, setSearchValue] = useState('');
     const updateSearchValue = (newSearchValue) => {
+        console.log('updateSearchValue', newSearchValue)
         // Update the search value state
         setSearchValue(newSearchValue);
     };
@@ -192,8 +197,8 @@ export default function AllTemplates (props) {
         </>
     );
 
-    console.log('All Templates: ', allTemplates);
-    console.log('Filtered allTemplate: ', filteredTemplates)
+    // console.log('All Templates: ', allTemplates);
+    // console.log('Filtered allTemplate: ', filteredTemplates)
 
 	return (
         <Tabs className="templatiq__content__tab">
