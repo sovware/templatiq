@@ -1,15 +1,29 @@
 import { useState, useEffect } from '@wordpress/element';
-
 import DashboardLayout from '@layout/DashboardLayout';
+import { useQuery } from '@tanstack/react-query';
+import Preloader from '@components/Preloader';
+import ContentLoading from '@components/ContentLoading';
 import Searchform from "@components/Searchform";
 
 import { TemplatePackStyle } from "@root/style";
 import { DashboardItemsStyle } from "./style"
 
-import templateImg1 from "@images/template/1.svg";
-
 export default function MyDownloadsModule() {
-	const [userDownloads, setUserDownloads] = useState([]);
+	const [ loading, setLoading ] = useState(false);
+	const [ isEmpty, setIsEmpty ] = useState(false);
+	const [ downloadedData, setDownloadedData ] = useState([]);
+	const [ downloadedTemplates, setDownloadedTemplates ] = useState([]);
+
+	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
+        `${template_market_obj.rest_args.endpoint}/template/library`, 
+            {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': template_market_obj.rest_args.nonce,
+            }
+        }).then(res => res.json() )
+    );
 
 	const getUserInfo = async () => {
 		try {
@@ -30,7 +44,7 @@ export default function MyDownloadsModule() {
 				const data = responseData.body;
                 console.log('Download Data: ', data.downloads)
 
-				setUserDownloads(data.downloads);
+				setDownloadedData(data.downloads);
 			}
 		} catch (error) {
 			// Handle error if needed
@@ -39,9 +53,37 @@ export default function MyDownloadsModule() {
 	};
 
 	useEffect(() => {
+        if (data) {
+            setLoading(false);
+            const templateData = data.templates ? data.templates : [];
+			const downloadedTemplate = templateData.filter(template => downloadedData.includes(template.template_id));
+
+			setDownloadedTemplates(downloadedTemplate);
+			
+        } else {
+            console.log('No Data')
+        }
+
+    }, [isLoading, downloadedData]);
+
+	useEffect(() => {
+        setLoading(true);
         getUserInfo();
+		downloadedData.length > 0 ? setIsEmpty(true) : setIsEmpty(false);
 
     }, []);
+
+	if (isLoading) 
+    return (
+        <Preloader />
+    );
+
+	if (error) 
+    return (
+        <>
+            {error.message}
+        </>
+    );
 
 	return (
 		<DashboardLayout>
@@ -76,83 +118,36 @@ export default function MyDownloadsModule() {
 							</div>
 						</div>
 						<div className="templatiq__content__dashboard__items">
-							{
-								userDownloads.forEach((item) => {
-									console.log('Downloaded Item: ', item)
-								})
+							{loading ? (
+								<ContentLoading style={{ margin: 0, minHeight: 'unset' }} />
+								) : isEmpty ? (
+									<div className="templatiq__content__empty">
+										<h3 className="templatiq__content__empty__title">No Downloads Found</h3>
+										<h3 className="templatiq__content__empty__desc">Search Other Templates</h3>
+									</div>
+								) : (
+									downloadedTemplates.map(item => (
+										<div className="templatiq__content__dashboard__single">
+											<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name">
+												<img src={item.thumbnail} alt={item.title} className="templatiq__content__dashboard__item__img" />
+												<span className="templatiq__content__dashboard__item__title">
+													{item.title}
+												</span>
+											</div>
+											<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--type">
+												<span className="templatiq__content__dashboard__item__text">
+													{item.type} 
+												</span>
+											</div>
+											<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
+												<span className="templatiq__content__dashboard__item__text">
+													14 May, 2023 7.23pm
+												</span>
+											</div>	
+										</div>
+									))
+								)
 							}
-							<div className="templatiq__content__dashboard__single">
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name">
-									<img src={templateImg1} alt="Template Image" className="templatiq__content__dashboard__item__img" />
-									<span className="templatiq__content__dashboard__item__title">
-										Directorist Plugin
-									</span>
-								</div>
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--type">
-									<span className="templatiq__content__dashboard__item__text">
-										Template Pack
-									</span>
-								</div>
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
-									<span className="templatiq__content__dashboard__item__text">
-										14 May, 2023 7.23pm
-									</span>
-								</div>	
-							</div>
-							<div className="templatiq__content__dashboard__single">
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name">
-									<img src={templateImg1} alt="Template Image" className="templatiq__content__dashboard__item__img" />
-									<span className="templatiq__content__dashboard__item__title">
-										Directorist Plugin
-									</span>
-								</div>
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--type">
-									<span className="templatiq__content__dashboard__item__text">
-										Template Pack
-									</span>
-								</div>
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
-									<span className="templatiq__content__dashboard__item__text">
-										14 May, 2023 7.23pm
-									</span>
-								</div>	
-							</div>
-							<div className="templatiq__content__dashboard__single">
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name">
-									<img src={templateImg1} alt="Template Image" className="templatiq__content__dashboard__item__img" />
-									<span className="templatiq__content__dashboard__item__title">
-										Directorist Plugin
-									</span>
-								</div>
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--type">
-									<span className="templatiq__content__dashboard__item__text">
-										Template Pack
-									</span>
-								</div>
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
-									<span className="templatiq__content__dashboard__item__text">
-										14 May, 2023 7.23pm
-									</span>
-								</div>	
-							</div>
-							<div className="templatiq__content__dashboard__single">
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name">
-									<img src={templateImg1} alt="Template Image" className="templatiq__content__dashboard__item__img" />
-									<span className="templatiq__content__dashboard__item__title">
-										Directorist Plugin
-									</span>
-								</div>
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--type">
-									<span className="templatiq__content__dashboard__item__text">
-										Template Pack
-									</span>
-								</div>
-								<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
-									<span className="templatiq__content__dashboard__item__text">
-										14 May, 2023 7.23pm
-									</span>
-								</div>	
-							</div>
 						</div>
 					</DashboardItemsStyle>
 				</TemplatePackStyle>

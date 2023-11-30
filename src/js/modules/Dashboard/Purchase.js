@@ -128,7 +128,7 @@ export default function MyPurchaseModule() {
 								<ContentLoading style={{ margin: 0, minHeight: 'unset' }} />
 								) : isEmpty ? (
 									<div className="templatiq__content__empty">
-										<h3 className="templatiq__content__empty__title">No Template Found</h3>
+										<h3 className="templatiq__content__empty__title">No Purchase Found</h3>
 										<h3 className="templatiq__content__empty__desc">Search Other Templates</h3>
 									</div>
 								) : (
