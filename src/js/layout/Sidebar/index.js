@@ -2,6 +2,9 @@ import { useState, useEffect } from '@wordpress/element';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import ReactSVG from 'react-inlinesvg';
+import { dispatch } from '@wordpress/data';
+
+import store from '../../store';
 import { SidebarStyle, SidebarItemStyle } from './style';
 
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
@@ -11,7 +14,7 @@ import ContentLoading from '@components/ContentLoading';
 
 import filterIcon from '@icon/filter.svg';
 
-const Sidebar = ({ updateSelectedFilters }) => {
+const Sidebar = () => {
 	const location = useLocation();
 	const pathType = location.pathname.split('/').pop();
 	
@@ -45,16 +48,16 @@ const Sidebar = ({ updateSelectedFilters }) => {
 		// Update the state with the new selectedFilters array
 		setSelectedFilters(updatedSelectedFilters);
 
-		// Update the selected filters in the AppLayout component
-		updateSelectedFilters(updatedSelectedFilters);
+		// Dispatch the action to update the filter search in the store
+		dispatch(store).setFilterSearch(updatedSelectedFilters);
 	};
 
 	const clearFilters = (e) => {
 		e.preventDefault();
 		setSelectedFilters([]);
 
-		// Update the selected filters in the AppLayout component
-		updateSelectedFilters([]);
+		// Dispatch the action to update the filter search in the store
+		dispatch(store).setFilterSearch([]);
 	};
 
 	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
@@ -133,7 +136,6 @@ const Sidebar = ({ updateSelectedFilters }) => {
 		setFilteredTemplates(newFilteredTemplates);
 	};
 	  
-
 	useEffect(() => {
         if (data) {
            getSidebarData(data);
@@ -149,8 +151,13 @@ const Sidebar = ({ updateSelectedFilters }) => {
 
     }, [selectedFilters]);
 
+	useEffect(() => {
+		// Clear Stored Filters
+		dispatch(store).setFilterSearch([]);
+	}, []);
+
 	// console.log('Selected Filters: ', selectedFilters);
-	// console.log('filteredTemplates: ', filteredTemplates);
+	console.log('filteredTemplates: ', filteredTemplates);
 
 	return (
 		<SidebarStyle className="templatiq__sidebar">

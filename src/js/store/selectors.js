@@ -23,6 +23,12 @@ const selectors = {
 		const { searchQuery } = state;
 
 		return searchQuery;
+	},
+
+	getFilterSearch(state) {
+		const { filterSearch } = state;
+
+		return filterSearch;
 	}
 };
   

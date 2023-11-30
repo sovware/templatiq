@@ -34,6 +34,14 @@ const actions = {
 			searchQuery,
 		};
     },
+  
+    setFilterSearch(filterSearch) {
+		console.log('filterSearch Action: ', filterSearch)
+		return {
+			type: 'SET_FILTER_SEARCH',
+			filterSearch,
+		};
+    },
 };
   
 export default actions;

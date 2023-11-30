@@ -23,7 +23,7 @@ const TemplateDetailsHeader = (props) => {
 		preview_link,
 	} = props.item;
 
-	console.log('TemplateDetailsHeader number_of_bookmarks:', number_of_bookmarks)
+	// console.log('TemplateDetailsHeader number_of_bookmarks:', number_of_bookmarks)
 
 
     // const favCountList = select( store ).getFav(template_id);
@@ -31,12 +31,12 @@ const TemplateDetailsHeader = (props) => {
 
 	const countFavorite = (addedToFavorite) => {
 		const isAddedToFavorite = !addedToFavorite ? true : false;
-		console.log('countFavorite triggered with addedToFavorite:', addedToFavorite, isAddedToFavorite);
+		// console.log('countFavorite triggered with addedToFavorite:', addedToFavorite, isAddedToFavorite);
 		setCurrentFavoriteCount(isAddedToFavorite ? Number(number_of_bookmarks) + 1 : number_of_bookmarks);
 		// Rest of the function logic
 	};
 
-	console.log('TemplateDetailsHeader rendered with currentFavoriteCount:', currentFavoriteCount);
+	// console.log('TemplateDetailsHeader rendered with currentFavoriteCount:', currentFavoriteCount);
 
 	return (
 		<TemplateDetailsHeaderStyle className="templatiq__details__header">

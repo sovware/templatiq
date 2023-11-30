@@ -12,6 +12,7 @@ const DEFAULT_STATE = {
 		userDisplayName: '',
 	},
 	searchQuery: '',
+	filterData: [],
 	favCounts: {},
 	templateStatus: {},
 };
@@ -81,6 +82,17 @@ const store = createReduxStore('templatiq-stores', {
 				localStorage.setItem('templatiq-stores', JSON.stringify(searchData));
 		
 				return searchData;
+
+			case 'SET_FILTER_SEARCH':
+				const filterData = {
+					...state,
+					filterSearch: action.filterSearch,
+				};
+
+				// Save state to localStorage whenever it changes
+				localStorage.setItem('templatiq-stores', JSON.stringify(filterData));
+		
+				return filterData;
 
 			case 'LOG_OUT':
 				const updatedState = {

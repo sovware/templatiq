@@ -2,7 +2,7 @@ import { useState, useEffect } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg'; 
 import ReactPaginate from 'react-paginate';
 import { useQuery } from '@tanstack/react-query';
-import { select } from '@wordpress/data';
+import { select, subscribe } from '@wordpress/data';
 import store from '../../store';
 
 import { TemplatePackFilterStyle } from '@root/style';
@@ -23,9 +23,6 @@ export default function AllTemplates (props) {
     const { templateType, templateStatus, user } = props;
 	const paginatePerPage = 6;
 
-	const searchQuery = select( store ).getSearchQuery();
-    const [searchValue, setSearchValue] = useState(searchQuery);
-
 	const [ userFav, setUserFav ] = useState([]);
 	const [ loading, setLoading ] = useState(false);
     const [ activeTab, setActiveTab ] = useState('all');
@@ -42,12 +39,8 @@ export default function AllTemplates (props) {
     const [ endItemCount, setEndItemCount ] = useState(6);
     const [ forcePage, setForcePage ]=useState(0);
 
-    // Add a state for search value
-    const updateSearchValue = (newSearchValue) => {
-        console.log('updateSearchValue', newSearchValue)
-        // Update the search value state
-        setSearchValue(newSearchValue);
-    };
+    const [searchValue, setSearchValue] = useState('');
+    const [filterValue, setFilterValue] = useState([]);
 
 	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
         `${template_market_obj.rest_args.endpoint}/template/library`, 
@@ -102,11 +95,44 @@ export default function AllTemplates (props) {
 		}
 	};
 
-    useEffect(() => {
-        console.log('Data Loading...')
-        setLoading(true);
-        getUserBookmark();
-    }, []);  
+    const searchFilteredTemplates = () => {
+        const newFilteredTemplates = allTemplates.filter((template) =>
+          template.title.toLowerCase().includes(searchValue.toLowerCase())
+        );
+
+        // Update the state with the filtered templates
+        setFilteredTemplates(newFilteredTemplates);
+
+        return newFilteredTemplates;
+    } 
+
+    const filterPluginTemplates = () => {
+		// Filter templates based on filterValue and templateType
+		const newFilteredTemplates = allTemplates.filter(template => {
+			// Check if the template type matches the specified templateType
+			if (template.type !== templateType) {
+				return false;
+			}
+		
+			return filterValue.some(filter => {
+				if (filter.type === 'plugins') {
+					// Check if any required plugin matches the selected plugin
+					return template.required_plugins.some(requiredPlugin => requiredPlugin.slug === filter.key);
+				} else if (filter.type === 'categories') {
+					// Check if the template includes the selected category
+					return template.categories.includes(filter.key);
+				}
+				return false;
+			});
+		});
+	  
+		// Update the state with the filtered templates
+		setFilteredTemplates(newFilteredTemplates);
+	};
+
+	useEffect(() => {
+        filterValue.length > 0 ? filterPluginTemplates() : searchFilteredTemplates();
+    }, [filterValue]);
 
     useEffect(() => {
         if (userFav.length === 0) {
@@ -159,15 +185,27 @@ export default function AllTemplates (props) {
     }, [filteredTemplates]);
 
     useEffect(() => {
-        // Filter allTemplates based on the search value
-        const newFilteredTemplates = allTemplates.filter((template) =>
-          template.title.toLowerCase().includes(searchValue.toLowerCase())
-        );
-    
-        // Update the state with the filtered templates
-        setFilteredTemplates(newFilteredTemplates);
-    
+        searchFilteredTemplates();
     }, [searchValue]);
+    
+    useEffect(() => {
+        console.log('Data Loading...')
+        setLoading(true);
+        getUserBookmark();
+
+
+		// Subscribe to changes in the store's data
+		const filterChange = subscribe(() => {
+			const searchQuery = select( store ).getSearchQuery();
+            const filterSearch = select( store ).getFilterSearch();
+
+            setSearchValue(searchQuery);
+            setFilterValue(filterSearch);
+		});
+
+		// filterChange when the component is unmounted
+		return () => filterChange();
+	}, []);
     
 
     useEffect(() => {
@@ -235,7 +273,7 @@ export default function AllTemplates (props) {
                     </TemplatePackFilterStyle>
                 </div>
                 <div className="templatiq__content__top__search">
-                    <Searchform updateSearchValue={updateSearchValue} />
+                    <Searchform />
                 </div>
             </div>
 

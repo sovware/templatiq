@@ -8,24 +8,21 @@ import { SearchformStyle } from './style';
 
 import searchIcon from "@icon/search.svg";
 
-export default function Searchform({updateSearchValue}) {
+export default function Searchform() {
 	const [searchQuery, setSearchQuery] = useState('');
 
 	const handleSearchChange = (e) => {
 		const newSearchQuery = e.target.value;
 		setSearchQuery(newSearchQuery);
-		
-		// Pass the search value to the parent component
-		updateSearchValue(newSearchQuery);
 
 		// Dispatch the action to update the login status in the store
-		// dispatch(store).setSearchQuery(newSearchQuery);
+		dispatch(store).setSearchQuery(newSearchQuery);
 	};
 
-	// useEffect(() => {
-	// 	// Dispatch the action to update the query Value in the store
-	// 	dispatch(store).setSearchQuery('');
-	// }, []);
+	useEffect(() => {
+		// Dispatch the action to update the query Value in the store
+		dispatch(store).setSearchQuery('');
+	}, []);
 	
 	return (
 		<SearchformStyle className="templatiq__content__top__searchbox">
