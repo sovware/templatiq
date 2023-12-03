@@ -48,9 +48,6 @@ const Bookmark = ( props) => {
 			if (response.ok) {
 				const responseData = await response.json();
 				const data = responseData.body;
-                // setUserFav(data.bookmarks);
-
-                console.log('Bookmark Data: ', responseData)
 
                 // Check if template_id is in the fetched bookmarks
                 const isActive = data.bookmarks.includes(template_id);

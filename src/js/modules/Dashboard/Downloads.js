@@ -74,7 +74,14 @@ export default function MyDownloadsModule() {
             setLoading(false);
             const templateData = data.templates ? data.templates : [];
 
-			const downloadedTemplate = templateData.filter(template => downloadedData.includes(template.template_id));
+			const downloadedTemplateIds = downloadedData
+				.filter(item => typeof item === 'object' && !Array.isArray(item))
+				.map(obj => Object.keys(obj))
+				.flat()
+				.map(Number);
+
+			// Find template data for downloaded template_ids
+			const downloadedTemplate = templateData.filter(template => downloadedTemplateIds.includes(template.template_id));
 
 			setDownloadedTemplates(downloadedTemplate);
 			setFilteredTemplates(downloadedTemplate);

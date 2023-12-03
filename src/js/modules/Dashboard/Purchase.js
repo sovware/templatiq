@@ -75,7 +75,16 @@ export default function MyPurchaseModule() {
             setLoading(false);
             const templateData = data.templates ? data.templates : [];
 			
-			const purchasedTemplate = templateData.filter(template => purchasedData.includes(template.template_id));
+			// const purchasedTemplate = templateData.filter(template => purchasedData.includes(template.template_id));
+
+			const purchasedTemplateIds = purchasedData
+				.filter(item => typeof item === 'object' && !Array.isArray(item))
+				.map(obj => Object.keys(obj))
+				.flat()
+				.map(Number);
+
+			// Find template data for purchased template_ids
+			const purchasedTemplate = templateData.filter(template => purchasedTemplateIds.includes(template.template_id));
 
 			setPurchasedTemplates(purchasedTemplate);
 			setFilteredTemplates(purchasedTemplate);
