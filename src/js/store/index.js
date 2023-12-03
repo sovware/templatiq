@@ -44,6 +44,17 @@ const store = createReduxStore('templatiq-stores', {
 		
 				return templateState;
 
+			case 'SET_LIBRARY':
+				const libraryState = {
+					...state,
+					libraryData: action.data,
+				};
+		
+				// Save state to localStorage whenever it changes
+				localStorage.setItem('templatiq-stores', JSON.stringify(libraryState));
+		
+				return libraryState;
+
 			case 'SET_BOOKMARK':
 				const favState = {
 					...state,

@@ -1,8 +1,6 @@
 import { useState, useEffect } from '@wordpress/element';
 import { select, subscribe } from '@wordpress/data';
 import DashboardLayout from '@layout/DashboardLayout';
-import { useQuery } from '@tanstack/react-query';
-import Preloader from '@components/Preloader';
 import ContentLoading from '@components/ContentLoading';
 import Searchform from "@components/Searchform";
 import store from '../../store';
@@ -13,50 +11,16 @@ import { DashboardItemsStyle } from "./style"
 export default function MyDownloadsModule() {
 	const [ loading, setLoading ] = useState(false);
 	const [ isEmpty, setIsEmpty ] = useState(false);
+
+	const templateData = select( store ).getTemplates();
+    const { downloads } = select( store ).getUserInfo();
+
 	const [ downloadedData, setDownloadedData ] = useState([]);
     const [ defaultTemplates, setDefaultTemplates ] = useState([]);
 	const [ downloadedTemplates, setDownloadedTemplates ] = useState([]);
 
     const [searchValue, setSearchValue] = useState('');
     const [ filteredTemplates, setFilteredTemplates ] = useState([]);
-
-	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
-        `${template_market_obj.rest_args.endpoint}/template/library`, 
-            {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-WP-Nonce': template_market_obj.rest_args.nonce,
-            }
-        }).then(res => res.json() )
-    );
-
-	const getUserInfo = async () => {
-		try {
-			const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/data`, {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					'X-WP-Nonce': template_market_obj.rest_args.nonce,
-				},
-			});
-	
-			if (!response.ok) {
-				throw new Error('Error Occurred');
-			}
-	
-			if (response.ok) {
-				const responseData = await response.json();
-				const data = responseData.body;
-                console.log('Download Data: ', data)
-
-				setDownloadedData(data.downloads);
-			}
-		} catch (error) {
-			// Handle error if needed
-			console.error('Error in Download:', error);
-		}
-	};
 
 	const searchFilteredTemplates = () => {
         const newFilteredTemplates = defaultTemplates.filter((template) =>
@@ -70,9 +34,25 @@ export default function MyDownloadsModule() {
     } 
 
 	useEffect(() => {
-        if (data) {
+        setLoading(true);
+		downloadedData.length > 0 ? setIsEmpty(true) : setIsEmpty(false);
+
+		// Subscribe to changes in the store's data
+		const downloadSearch = subscribe(() => {
+			const searchQuery = select( store ).getSearchQuery();
+
+            setSearchValue(searchQuery);
+		});
+
+		// purchaseSearch when the component is unmounted
+		return () => downloadSearch();
+
+    }, []);
+
+	useEffect(() => {
+        if (downloads) {
+			setDownloadedData(downloads);
             setLoading(false);
-            const templateData = data.templates ? data.templates : [];
 
 			const downloadedTemplateIds = downloadedData
 				.filter(item => typeof item === 'object' && !Array.isArray(item))
@@ -91,7 +71,7 @@ export default function MyDownloadsModule() {
             console.log('No Data')
         }
 
-    }, [isLoading, downloadedData]);
+    }, [downloadedData]);
 
 	useEffect(() => {
         searchFilteredTemplates();
@@ -104,35 +84,6 @@ export default function MyDownloadsModule() {
         filteredTemplates.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
 
     }, [filteredTemplates]);
-
-	useEffect(() => {
-        setLoading(true);
-        getUserInfo();
-		downloadedData.length > 0 ? setIsEmpty(true) : setIsEmpty(false);
-
-		// Subscribe to changes in the store's data
-		const downloadSearch = subscribe(() => {
-			const searchQuery = select( store ).getSearchQuery();
-
-            setSearchValue(searchQuery);
-		});
-
-		// purchaseSearch when the component is unmounted
-		return () => downloadSearch();
-
-    }, []);
-
-	if (isLoading) 
-    return (
-        <Preloader />
-    );
-
-	if (error) 
-    return (
-        <>
-            {error.message}
-        </>
-    );
 
 	return (
 		<DashboardLayout>

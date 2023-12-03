@@ -64,6 +64,8 @@ export default function App() {
 					userEmail: data.user_email,
 					userDisplayName: data.user_display_name,
 					bookmarks: data.bookmarks,
+					downloads: data.downloads,
+					purchased: data.purchased,
 				};
 	
 				// Dispatch the action to update the login status in the store
@@ -92,10 +94,12 @@ export default function App() {
             const templateData = data.templates ? data.templates : [];
 			// Dispatch the action to update data in the store
 			dispatch(store).setTemplates(templateData);
+			dispatch(store).setLibraryData(data);
         } else {
 			setLoading(true)
             console.log('Initially No Data')
             dispatch(store).setTemplates([]);
+            dispatch(store).setLibraryData({});
         }
 
     }, [isLoading]);

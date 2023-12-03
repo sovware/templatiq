@@ -1,4 +1,10 @@
 const selectors = {
+	getLibraryData(state) {
+		const { libraryData } = state;
+
+		return libraryData;
+	},
+
 	getTemplates(state) {
 		const { templates } = state;
 

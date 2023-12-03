@@ -12,7 +12,7 @@ const Bookmark = ( props) => {
     const [ type, setType ] = useState(props.type ? props.type : '');
 
 	const { isLoggedIn, bookmarks } = select( store ).getUserInfo();
-    const isActive = bookmarks.includes(template_id);
+    const isActive = bookmarks && bookmarks.includes(template_id);
 
 	const [authModalOpen, setAuthModalOpen] = useState(false);
     const [currentFavoriteCount, setCurrentFavoriteCount] = useState(number_of_bookmarks);
@@ -88,7 +88,6 @@ const Bookmark = ( props) => {
             const addedCount = Number(currentFavoriteCount) + 1;
             setCurrentFavoriteCount(addedCount)
             addFavorite(true);
-            console.log('addedCount:', addedCount)
         } else {
             favRemove(template_id);
             setCurrentFavoriteCount(number_of_bookmarks)

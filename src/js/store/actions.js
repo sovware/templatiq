@@ -1,4 +1,11 @@
 const actions = {
+    setLibraryData(data) {
+		return {
+			type: 'SET_LIBRARY',
+			data,
+		};
+    },
+
     setTemplates(templates) {
 		return {
 			type: 'SET_TEMPLATES',

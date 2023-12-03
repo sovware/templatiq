@@ -77,7 +77,6 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
         const data = await response.json();
 
         if(data.success) {
-            console.log('Plugin Installed Successfully', plugin.name);
             // Update the status for the plugin
             setInstalledPlugins((prevInstalled) => [...prevInstalled, plugin.slug]);
             setIsInstalling(false);
@@ -119,7 +118,6 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
 
         if (allRequiredPluginsInstalled) {
             setAllPluginsInstalled(true);
-            console.log('All Plugins Installed');
         }
     }, [installedPlugins, installablePlugins]);
 

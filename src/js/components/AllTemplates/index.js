@@ -19,7 +19,7 @@ import arrowLeft from '@icon/angle-left.svg';
 import arrowRight from '@icon/angle-right.svg';
 
 export default function AllTemplates (props) {
-    const { templateType, templateStatus, user } = props;
+    const { templateType, templateStatus } = props;
 	const paginatePerPage = 6;
 
 	const [ loading, setLoading ] = useState(false);
@@ -33,6 +33,7 @@ export default function AllTemplates (props) {
     const [ freeTemplates, setFreeTemplates ] = useState([]);
     const [ templatesToDisplay, setTemplatesToDisplay ] = useState([]);
 
+	const user = select( store ).getUserInfo();
     const { bookmarks } = select( store ).getUserInfo();
 	const [ userFav, setUserFav ] = useState(bookmarks);
 

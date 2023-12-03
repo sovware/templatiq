@@ -1,8 +1,7 @@
 import { useState, useEffect } from '@wordpress/element';
 import { useLocation } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 import ReactSVG from 'react-inlinesvg';
-import { dispatch } from '@wordpress/data';
+import { select, dispatch } from '@wordpress/data';
 
 import store from '../../store';
 import { SidebarStyle, SidebarItemStyle } from './style';
@@ -17,7 +16,10 @@ import filterIcon from '@icon/filter.svg';
 const Sidebar = () => {
 	const location = useLocation();
 	const pathType = location.pathname.split('/').pop();
+
+	const libraryData = select( store ).getLibraryData();
 	
+	const [ loading, setLoading] = useState(false);
 	const [ templates, setTemplates] = useState([]);
 	const [ categories, setCategories] = useState([]);
 	const [ plugins, setPlugins] = useState([]);
@@ -59,17 +61,6 @@ const Sidebar = () => {
 		// Dispatch the action to update the filter search in the store
 		dispatch(store).setFilterSearch([]);
 	};
-
-	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
-        `${template_market_obj.rest_args.endpoint}/template/library`, 
-            {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-WP-Nonce': template_market_obj.rest_args.nonce,
-            }
-        }).then(res => res.json() )
-    );
 
 	function getSidebarData(data) {
 		setTemplates(data.templates);
@@ -136,14 +127,16 @@ const Sidebar = () => {
 	};
 	  
 	useEffect(() => {
-        if (data) {
-           getSidebarData(data);
+		setLoading(true);
+        if (libraryData) {
+			setLoading(false);
+           getSidebarData(libraryData);
             
         } else {
             console.log('No Data')
         }
 
-    }, [isLoading]);
+    }, []);
 
 	useEffect(() => {
         filterTemplates(templateType);
@@ -158,7 +151,7 @@ const Sidebar = () => {
 	return (
 		<SidebarStyle className="templatiq__sidebar">
 			{
-				isLoading ? <ContentLoading style={ { margin: 0, width: '256px' } } /> : 
+				loading ? <ContentLoading style={ { margin: 0, width: '256px' } } /> : 
 				<>
 					<div className="templatiq__sidebar__top">
 						<h3 className="templatiq__sidebar__top__title">
@@ -208,7 +201,7 @@ const Sidebar = () => {
 															htmlFor={pluginKey}
 															className="templatiq__sidebar__filter__single__label templatiq__checkbox__label"
 														>
-															{data.plugins[pluginKey].name}
+															{libraryData.plugins[pluginKey].name}
 														</label>
 														<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">
 															{countPlugins[pluginKey] || 0}

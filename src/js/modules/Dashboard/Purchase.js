@@ -1,9 +1,7 @@
 import { useState, useEffect } from '@wordpress/element';
 import { select, subscribe } from '@wordpress/data';
 import DashboardLayout from '@layout/DashboardLayout';
-import { useQuery } from '@tanstack/react-query';
 import InsertTemplate from '@components/InsertTemplate'
-import Preloader from '@components/Preloader';
 import ContentLoading from '@components/ContentLoading';
 import Searchform from "@components/Searchform";
 import store from '../../store';
@@ -14,50 +12,16 @@ import { DashboardItemsStyle } from "./style"
 export default function MyPurchaseModule() {
 	const [ loading, setLoading ] = useState(false);
 	const [ isEmpty, setIsEmpty ] = useState(false);
+
+	const templateData = select( store ).getTemplates();
+    const { purchased } = select( store ).getUserInfo();
+
 	const [ purchasedData, setPurchasedData ] = useState([]);
 	const [ purchasedTemplates, setPurchasedTemplates ] = useState([]);
 
     const [searchValue, setSearchValue] = useState('');
     const [ defaultTemplates, setDefaultTemplates ] = useState([]);
     const [ filteredTemplates, setFilteredTemplates ] = useState([]);
-
-	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
-        `${template_market_obj.rest_args.endpoint}/template/library`, 
-            {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-WP-Nonce': template_market_obj.rest_args.nonce,
-            }
-        }).then(res => res.json() )
-    );
-
-	const getUserInfo = async () => {
-		try {
-			const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/data`, {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					'X-WP-Nonce': template_market_obj.rest_args.nonce,
-				},
-			});
-	
-			if (!response.ok) {
-				throw new Error('Error Occurred');
-			}
-	
-			if (response.ok) {
-				const responseData = await response.json();
-				const data = responseData.body;
-                console.log('Purchased Data: ', data)
-
-				setPurchasedData(data.purchased);
-			}
-		} catch (error) {
-			// Handle error if needed
-			console.error('Error in Download:', error);
-		}
-	};
 
 	const searchFilteredTemplates = () => {
         const newFilteredTemplates = defaultTemplates.filter((template) =>
@@ -71,11 +35,9 @@ export default function MyPurchaseModule() {
     } 
 
 	useEffect(() => {
-        if (data) {
+        if (purchased) {
             setLoading(false);
-            const templateData = data.templates ? data.templates : [];
-			
-			// const purchasedTemplate = templateData.filter(template => purchasedData.includes(template.template_id));
+			setPurchasedData(purchased);
 
 			const purchasedTemplateIds = purchasedData
 				.filter(item => typeof item === 'object' && !Array.isArray(item))
@@ -94,7 +56,7 @@ export default function MyPurchaseModule() {
             console.log('No Data')
         }
 
-    }, [isLoading, purchasedData]);
+    }, [purchasedData]);
 
 	useEffect(() => {
         searchFilteredTemplates();
@@ -110,7 +72,6 @@ export default function MyPurchaseModule() {
 
 	useEffect(() => {
         setLoading(true);
-        getUserInfo();
 		purchasedData.length > 0 ? setIsEmpty(true) : setIsEmpty(false);
 
 		// Subscribe to changes in the store's data
@@ -124,18 +85,6 @@ export default function MyPurchaseModule() {
 		return () => purchaseSearch();
 
     }, []);
-
-	if (isLoading) 
-    return (
-        <Preloader />
-    );
-
-	if (error) 
-    return (
-        <>
-            {error.message}
-        </>
-    );
 
 	return (
 		<DashboardLayout>
