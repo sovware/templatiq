@@ -1,16 +1,8 @@
 const selectors = {
-	getFav(state, item) {
-		const { favCounts } = state;
-		const favCount = favCounts[item];
+	getTemplates(state) {
+		const { templates } = state;
 
-		return favCount;
-	},
-
-	getTemplateStatus(state, item) {
-		const { templateStatus } = state;
-		const activeStatus = templateStatus[item];
-
-		return activeStatus;
+		return templates;
 	},
 
 	getUserInfo(state) {

@@ -1,12 +1,12 @@
-import { lazy, Suspense, useState, useEffect } from '@wordpress/element';
+import { Suspense, useState, useEffect } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
+import { useQuery } from '@tanstack/react-query';
 import {
 	HashRouter,
 	Routes,
 	Route,
 	Link,
 	NavLink,
-	Switch,
 	useNavigate,
 	useParams,
 	useLocation,
@@ -14,10 +14,10 @@ import {
 import { updateGlobalState } from '@helper/utils';
 import { ThemeProvider } from 'styled-components';
 
-
 import { dispatch } from '@wordpress/data';
 import store from '../store';
 
+import Preloader from '@components/Preloader';
 
 import TemplatePack from './pages/TemplatePack';
 import TemplateDetails from './pages/TemplateDetails';
@@ -34,13 +34,6 @@ import MyAccount from "./pages/dashboard/Account";
 
 export default function App() { 
 	const [ dir, setDir ] = useState( 'ltr' );
-
-	const userInfo = {
-		isLoggedIn: '',
-		userEmail: '',
-		userDisplayName: '',
-		bookmarked: [],
-	}
 
 	const theme = {
 		direction: dir,
@@ -80,6 +73,29 @@ export default function App() {
 		}
 	};
 
+	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
+        `${template_market_obj.rest_args.endpoint}/template/library`, 
+            {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': template_market_obj.rest_args.nonce,
+            }
+        }).then(res => res.json() )
+    );
+
+	useEffect(() => {
+        if (data) {
+            const templateData = data.templates ? data.templates : [];
+			// Dispatch the action to update data in the store
+			dispatch(store).setTemplates(templateData);
+        } else {
+            console.log('Initially No Data')
+            dispatch(store).setTemplates([]);
+        }
+
+    }, [isLoading]);
+
 	useEffect( () => {
 		getUserInfo();
 
@@ -98,6 +114,18 @@ export default function App() {
 
 
 	}, [] );
+	
+	if (isLoading) 
+    return (
+        <Preloader />
+    );
+
+	if (error) 
+    return (
+        <>
+            {error.message}
+        </>
+    );
 
 	const adminRoutes = applyFilters( 'templatiq_admin_routes', [
 		{

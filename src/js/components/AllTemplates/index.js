@@ -1,7 +1,6 @@
 import { useState, useEffect } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg'; 
 import ReactPaginate from 'react-paginate';
-import { useQuery } from '@tanstack/react-query';
 import { select, subscribe } from '@wordpress/data';
 import store from '../../store';
 
@@ -23,7 +22,6 @@ export default function AllTemplates (props) {
     const { templateType, templateStatus, user } = props;
 	const paginatePerPage = 6;
 
-	const [ userFav, setUserFav ] = useState([]);
 	const [ loading, setLoading ] = useState(false);
 	const [ isEmpty, setIsEmpty ] = useState(false);
     const [ activeTab, setActiveTab ] = useState('all');
@@ -35,24 +33,16 @@ export default function AllTemplates (props) {
     const [ freeTemplates, setFreeTemplates ] = useState([]);
     const [ templatesToDisplay, setTemplatesToDisplay ] = useState([]);
 
-    const [ totalPaginate, setTotalPaginate ] = useState([]);
-    const [ startItemCount, setStartItemCount ] = useState(0);
-    const [ endItemCount, setEndItemCount ] = useState(6);
-    const [ forcePage, setForcePage ]=useState(0);
+    const { bookmarks } = select( store ).getUserInfo();
+	const [ userFav, setUserFav ] = useState(bookmarks);
 
     const [searchValue, setSearchValue] = useState('');
     const [filterValue, setFilterValue] = useState([]);
 
-	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
-        `${template_market_obj.rest_args.endpoint}/template/library`, 
-            {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-WP-Nonce': template_market_obj.rest_args.nonce,
-            }
-        }).then(res => res.json() )
-    );
+    const [ totalPaginate, setTotalPaginate ] = useState([]);
+    const [ startItemCount, setStartItemCount ] = useState(0);
+    const [ endItemCount, setEndItemCount ] = useState(6);
+    const [ forcePage, setForcePage ]=useState(0);
 
     const changeTemplateTab = (type) => {
         setActiveTab(type);
@@ -68,33 +58,6 @@ export default function AllTemplates (props) {
         setEndItemCount((selectedPage * paginatePerPage));
 
     };
-
-    const getUserBookmark = async () => {
-		try {
-			const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/data`, {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					'X-WP-Nonce': template_market_obj.rest_args.nonce,
-				},
-			});
-	
-			if (!response.ok) {
-				throw new Error('Error Occurred');
-			}
-	
-			if (response.ok) {
-				const responseData = await response.json();
-				const data = responseData.body;
-                setUserFav(data.bookmarks);
-                return data.bookmarks;
-			}
-		} catch (error) {
-			// Handle error if needed
-			console.error('Error in getUserInfo:', error);
-            return [];
-		}
-	};
 
     const searchFilteredTemplates = () => {
         const newFilteredTemplates = allTemplates.filter((template) =>
@@ -136,29 +99,44 @@ export default function AllTemplates (props) {
     }, [filterValue]);
 
     useEffect(() => {
+        // setLoading(true);
+        // setLoading(false);
+
+		const templateData = select( store ).getTemplates();
+        console.log('Store Template Data: ', templateData)
+
+        if (templateType) {
+            user && templateStatus === 'favorites' ? 
+            setAllTemplates(templateData.filter(template => template.type === templateType && userFav.includes(template.template_id))) :
+            setAllTemplates(templateData.filter(template => template.type === templateType))
+
+        } else {
+            setAllTemplates(templateData);
+        }
+
         if (userFav && userFav.length === 0) {
             // The userFav list is empty, which means getUserBookmark hasn't been called yet.
             console.log('No UserFav')
             return;
         }
-        if (data) {
-            setLoading(false);
-            const templateData = data.templates ? data.templates : [];
-            if (templateType) {
-                user && templateStatus === 'favorites' ? 
-                setAllTemplates(templateData.filter(template => template.type === templateType && userFav.includes(template.template_id))) :
-                setAllTemplates(templateData.filter(template => template.type === templateType))
 
-            } else {
-                setAllTemplates(templateData);
-            }
-            
-        } else {
-            console.log('No Data')
-            setAllTemplates([]);
-        }
+		// Subscribe to changes in the store's data
+		const storeUpdate = subscribe(() => {
+			const templates = select( store ).getTemplates();
+            const { bookmark } = select( store ).getUserInfo();
+			const searchQuery = select( store ).getSearchQuery();
+            const filterSearch = select( store ).getFilterSearch();
 
-    }, [isLoading, userFav]);
+            setUserFav(bookmark);
+            setAllTemplates(templates);
+            setSearchValue(searchQuery);
+            setFilterValue(filterSearch);
+		});
+
+		// storeUpdate when the component is unmounted
+		return () => storeUpdate();
+
+    }, []);
 
     useEffect(() => {
         setDefaultTemplates(allTemplates);
@@ -192,26 +170,6 @@ export default function AllTemplates (props) {
     }, [searchValue]);
     
     useEffect(() => {
-        console.log('Data Loading...')
-        setLoading(true);
-        getUserBookmark();
-
-
-		// Subscribe to changes in the store's data
-		const filterChange = subscribe(() => {
-			const searchQuery = select( store ).getSearchQuery();
-            const filterSearch = select( store ).getFilterSearch();
-
-            setSearchValue(searchQuery);
-            setFilterValue(filterSearch);
-		});
-
-		// filterChange when the component is unmounted
-		return () => filterChange();
-	}, []);
-    
-
-    useEffect(() => {
         if (activeTab === 'all') {
             setTemplatesToDisplay(defaultTemplates.slice(startItemCount, endItemCount));
             setTotalPaginate(defaultTemplates.length)
@@ -226,17 +184,17 @@ export default function AllTemplates (props) {
     }, [activeTab, startItemCount, endItemCount, filteredTemplates, proTemplates, freeTemplates]);
 
 
-	if (isLoading) 
-    return (
-        <Preloader />
-    );
+	// if (isLoading) 
+    // return (
+    //     <Preloader />
+    // );
 
-	if (error) 
-    return (
-        <>
-            {error.message}
-        </>
-    );
+	// if (error) 
+    // return (
+    //     <>
+    //         {error.message}
+    //     </>
+    // );
 
     // console.log('All Templates: ', allTemplates);
     // console.log('Filtered allTemplate: ', filteredTemplates)
@@ -294,20 +252,22 @@ export default function AllTemplates (props) {
                         {templatesToDisplay
                             .map(template => (
                                 <div className="templatiq-col-4">
-                                    <SingleTemplate 
-                                        template_id = {template.template_id}
-                                        builder = {template.builder}
-                                        thumbnail = {template.thumbnail} 
-                                        slug = {template.slug}
-                                        title = {template.title} 
-                                        price = {template.price} 
-                                        number_of_downloads = {template.number_of_downloads} 
-                                        number_of_bookmarks = {template.number_of_bookmarks} 
-                                        required_plugins = {template.required_plugins}
-                                        categories = {template.categories}
-                                        purchase_url = {template.purchase_url}
-                                        preview_link = {template.preview_link}
-                                    />
+                                    {loading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
+                                        <SingleTemplate 
+                                            template_id = {template.template_id}
+                                            builder = {template.builder}
+                                            thumbnail = {template.thumbnail} 
+                                            slug = {template.slug}
+                                            title = {template.title} 
+                                            price = {template.price} 
+                                            number_of_downloads = {template.number_of_downloads} 
+                                            number_of_bookmarks = {template.number_of_bookmarks} 
+                                            required_plugins = {template.required_plugins}
+                                            categories = {template.categories}
+                                            purchase_url = {template.purchase_url}
+                                            preview_link = {template.preview_link}
+                                        />
+                                    }
                                 </div>
                             ))
                         }
@@ -316,7 +276,7 @@ export default function AllTemplates (props) {
                         {templatesToDisplay
                             .map(template => (
                                 <div className="templatiq-col-4">
-                                    {isLoading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
+                                    {loading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
                                         <SingleTemplate 
                                             template_id = {template.template_id}
                                             builder = {template.builder}
@@ -339,20 +299,22 @@ export default function AllTemplates (props) {
                         {templatesToDisplay
                             .map(template => (
                                 <div className="templatiq-col-4">
-                                    <SingleTemplate 
-                                        template_id = {template.template_id}
-                                        builder = {template.builder}
-                                        thumbnail = {template.thumbnail} 
-                                        slug = {template.slug}
-                                        title = {template.title} 
-                                        price = {template.price} 
-                                        number_of_downloads = {template.number_of_downloads} 
-                                        number_of_bookmarks = {template.number_of_bookmarks} 
-                                        required_plugins = {template.required_plugins}
-                                        categories = {template.categories}
-                                        purchase_url = {template.purchase_url}
-                                        preview_link = {template.preview_link}
-                                    />
+                                    {loading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
+                                        <SingleTemplate 
+                                            template_id = {template.template_id}
+                                            builder = {template.builder}
+                                            thumbnail = {template.thumbnail} 
+                                            slug = {template.slug}
+                                            title = {template.title} 
+                                            price = {template.price} 
+                                            number_of_downloads = {template.number_of_downloads} 
+                                            number_of_bookmarks = {template.number_of_bookmarks} 
+                                            required_plugins = {template.required_plugins}
+                                            categories = {template.categories}
+                                            purchase_url = {template.purchase_url}
+                                            preview_link = {template.preview_link}
+                                        />
+                                    }
                                 </div>
                             ))
                         }

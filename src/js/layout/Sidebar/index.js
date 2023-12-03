@@ -157,7 +157,7 @@ const Sidebar = () => {
 	}, []);
 
 	// console.log('Selected Filters: ', selectedFilters);
-	console.log('filteredTemplates: ', filteredTemplates);
+	// console.log('filteredTemplates: ', filteredTemplates);
 
 	return (
 		<SidebarStyle className="templatiq__sidebar">

@@ -1,5 +1,5 @@
 import { useState, useEffect } from '@wordpress/element';
-import { select } from '@wordpress/data';
+import { select, dispatch } from '@wordpress/data';
 import ReactSVG from 'react-inlinesvg';
 import AuthModal from '@components/Popup/AuthModal';
 import store from '../../store';
@@ -11,11 +11,12 @@ const Bookmark = ( props) => {
     let { template_id, number_of_bookmarks } = props.item;
     const [ type, setType ] = useState(props.type ? props.type : '');
 
-	const { isLoggedIn } = select( store ).getUserInfo();
+	const { isLoggedIn, bookmarks } = select( store ).getUserInfo();
+    const isActive = bookmarks.includes(template_id);
 
 	const [authModalOpen, setAuthModalOpen] = useState(false);
     const [currentFavoriteCount, setCurrentFavoriteCount] = useState(number_of_bookmarks);
-	const [addedToFavorite, addFavorite] = useState(false);
+	const [addedToFavorite, addFavorite] = useState(isActive);
 
     
     const addAuthModal = (e) => {
@@ -28,37 +29,6 @@ const Bookmark = ( props) => {
         // Callback function to update the state when the modal is closed
         setAuthModalOpen(false);
     };
-
-    const getUserBookmark = async () => {
-		try {
-			const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/data`, {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					'X-WP-Nonce': template_market_obj.rest_args.nonce,
-				},
-			});
-	
-			if (!response.ok) {
-				throw new Error('Error Occurred');
-			}
-	
-			if (response.ok) {
-				const responseData = await response.json();
-				const data = responseData.body;
-
-                // Check if template_id is in the fetched bookmarks
-                const isActive = data.bookmarks.includes(template_id);
-                addFavorite(isActive);
-
-                // Set the current favorite count based on isActive
-                setCurrentFavoriteCount(isActive ? Number(currentFavoriteCount) + 1 : currentFavoriteCount);
-			}
-		} catch (error) {
-			// Handle error if needed
-			console.error('Error in getUserInfo:', error);
-		}
-	};
 
     let favAdd = async (template_id) => {
         const response = await fetch(`${template_market_obj.rest_args.endpoint}/bookmark/add`, {
@@ -75,8 +45,12 @@ const Bookmark = ( props) => {
         if (!response.ok) {
             throw new Error('Error Occurred');
         }
-    
+
         const data = await response.json();
+
+        if (data) {
+            dispatch( store ).setBookmark( data.body.bookmarks );
+        }
 
         return data;
     }
@@ -98,6 +72,10 @@ const Bookmark = ( props) => {
         }
     
         const data = await response.json();
+
+        if (data) {
+            dispatch( store ).setBookmark( data.body.bookmarks );
+        }
 
         return data;
     }
@@ -122,7 +100,7 @@ const Bookmark = ( props) => {
     };
     
     useEffect(() => {
-        getUserBookmark();
+        // Set the current favorite count based on addedToFavorite
         setCurrentFavoriteCount(addedToFavorite ? Number(number_of_bookmarks) + 1 : number_of_bookmarks );
     }, []);  
 
@@ -144,7 +122,7 @@ const Bookmark = ( props) => {
                         </> :
                         <a href="#" className={`templatiq__template__single__quickmeta__item favorite-btn templatiq-tooltip ${addedToFavorite ? 'active' : ''}`} data-info={addedToFavorite ? 'Added to Favourite' : 'Add to Favourite'} onClick={handleFavorite}>
                             <ReactSVG src={ addedToFavorite ? heartSolidIcon : heartIcon } width={14} height={14} />
-                            {currentFavoriteCount ? currentFavoriteCount : ''}
+                            {currentFavoriteCount ? currentFavoriteCount : ''} + {template_id}
                         </a>
             }
         </>
