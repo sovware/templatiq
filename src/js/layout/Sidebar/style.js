@@ -64,11 +64,14 @@ const SidebarStyle = Styled.div`
             display: flex;
             gap: 8px;
             align-items: center;
+            padding: 0;
+            background: transparent;
             font-size: 14px;
             font-weight: 500;
             color: var(--templatiq-body-color);
             height: 50px;
             box-shadow: none;
+            cursor: pointer;
             text-decoration: none;
             &:before {
                 content: '';

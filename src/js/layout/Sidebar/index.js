@@ -72,7 +72,6 @@ const Sidebar = () => {
     );
 
 	function getSidebarData(data) {
-		console.log('Data: ', data)
 		setTemplates(data.templates);
 		setCategories(data.categories);
 		setPlugins(data.plugins);
@@ -156,9 +155,6 @@ const Sidebar = () => {
 		dispatch(store).setFilterSearch([]);
 	}, []);
 
-	// console.log('Selected Filters: ', selectedFilters);
-	// console.log('filteredTemplates: ', filteredTemplates);
-
 	return (
 		<SidebarStyle className="templatiq__sidebar">
 			{
@@ -182,10 +178,10 @@ const Sidebar = () => {
 						<Tabs>
 							<TabList className="templatiq__sidebar__nav">
 								<Tab className="templatiq__sidebar__nav__item">
-									<a href="#" className="templatiq__sidebar__nav__link">Plugins</a>
+									<button className="templatiq__sidebar__nav__link">Plugins</button>
 								</Tab>
 								<Tab className="templatiq__sidebar__nav__item">
-									<a href="#" className="templatiq__sidebar__nav__link">Categories</a>
+									<button className="templatiq__sidebar__nav__link">Categories</button>
 								</Tab>
 							</TabList>
 							<TabPanel>

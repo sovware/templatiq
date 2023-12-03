@@ -32,7 +32,6 @@ const loadStateFromStorage = () => {
 
 const store = createReduxStore('templatiq-stores', {
 	reducer(state = loadStateFromStorage(), action) {
-		console.log('Initial State: ', state)
 		switch (action.type) {
 			case 'SET_TEMPLATES':
 				const templateState = {
@@ -42,8 +41,6 @@ const store = createReduxStore('templatiq-stores', {
 		
 				// Save state to localStorage whenever it changes
 				localStorage.setItem('templatiq-stores', JSON.stringify(templateState));
-
-				console.log('Template State: ', templateState)
 		
 				return templateState;
 

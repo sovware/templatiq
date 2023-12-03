@@ -18,6 +18,7 @@ import { dispatch } from '@wordpress/data';
 import store from '../store';
 
 import Preloader from '@components/Preloader';
+import ContentLoading from '@components/ContentLoading';
 
 import TemplatePack from './pages/TemplatePack';
 import TemplateDetails from './pages/TemplateDetails';
@@ -34,6 +35,7 @@ import MyAccount from "./pages/dashboard/Account";
 
 export default function App() { 
 	const [ dir, setDir ] = useState( 'ltr' );
+	const [ loading, setLoading ] = useState(false);
 
 	const theme = {
 		direction: dir,
@@ -86,10 +88,12 @@ export default function App() {
 
 	useEffect(() => {
         if (data) {
+			setLoading(false)
             const templateData = data.templates ? data.templates : [];
 			// Dispatch the action to update data in the store
 			dispatch(store).setTemplates(templateData);
         } else {
+			setLoading(true)
             console.log('Initially No Data')
             dispatch(store).setTemplates([]);
         }
@@ -114,6 +118,11 @@ export default function App() {
 
 
 	}, [] );
+	
+	if (loading) 
+    return (
+        <ContentLoading />
+    );
 	
 	if (isLoading) 
     return (

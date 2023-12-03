@@ -94,31 +94,25 @@ export default function AllTemplates (props) {
 		setFilteredTemplates(newFilteredTemplates);
 	};
 
-	useEffect(() => {
-        filterValue.length > 0 ? filterPluginTemplates() : searchFilteredTemplates();
-    }, [filterValue]);
-
-    useEffect(() => {
-        // setLoading(true);
-        // setLoading(false);
-
-		const templateData = select( store ).getTemplates();
-        console.log('Store Template Data: ', templateData)
-
+    const checkTemplateType = (templates) => {
+        let typeChecked = '';
         if (templateType) {
             user && templateStatus === 'favorites' ? 
-            setAllTemplates(templateData.filter(template => template.type === templateType && userFav.includes(template.template_id))) :
-            setAllTemplates(templateData.filter(template => template.type === templateType))
+            typeChecked = templates.filter(template => template.type === templateType && userFav.includes(template.template_id)) :
+            typeChecked = templates.filter(template => template.type === templateType);
+
+            setAllTemplates(typeChecked);
 
         } else {
-            setAllTemplates(templateData);
+            setAllTemplates(templates);
         }
+        
+    }
 
-        if (userFav && userFav.length === 0) {
-            // The userFav list is empty, which means getUserBookmark hasn't been called yet.
-            console.log('No UserFav')
-            return;
-        }
+    useEffect(() => {
+        setLoading(true);
+        const templateData = select( store ).getTemplates();
+        checkTemplateType(templateData);
 
 		// Subscribe to changes in the store's data
 		const storeUpdate = subscribe(() => {
@@ -128,9 +122,10 @@ export default function AllTemplates (props) {
             const filterSearch = select( store ).getFilterSearch();
 
             setUserFav(bookmark);
-            setAllTemplates(templates);
             setSearchValue(searchQuery);
             setFilterValue(filterSearch);
+
+            checkTemplateType(templates);
 		});
 
 		// storeUpdate when the component is unmounted
@@ -151,6 +146,14 @@ export default function AllTemplates (props) {
 
     }, [allTemplates]);
 
+	useEffect(() => {
+        filterValue.length > 0 ? filterPluginTemplates() : searchFilteredTemplates();
+    }, [filterValue]);
+
+    useEffect(() => {
+        searchFilteredTemplates();
+    }, [searchValue]);
+
     useEffect(() => {
         setDefaultTemplates(filteredTemplates);
         setProTemplates(filteredTemplates.filter(template => template.price > 0));
@@ -162,12 +165,9 @@ export default function AllTemplates (props) {
         setTotalPaginate(filteredTemplates.length)
 
         filteredTemplates.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
+        setLoading(false);
 
     }, [filteredTemplates]);
-
-    useEffect(() => {
-        searchFilteredTemplates();
-    }, [searchValue]);
     
     useEffect(() => {
         if (activeTab === 'all') {
@@ -182,22 +182,6 @@ export default function AllTemplates (props) {
         }
 
     }, [activeTab, startItemCount, endItemCount, filteredTemplates, proTemplates, freeTemplates]);
-
-
-	// if (isLoading) 
-    // return (
-    //     <Preloader />
-    // );
-
-	// if (error) 
-    // return (
-    //     <>
-    //         {error.message}
-    //     </>
-    // );
-
-    // console.log('All Templates: ', allTemplates);
-    // console.log('Filtered allTemplate: ', filteredTemplates)
 
 	return (
         <Tabs className="templatiq__content__tab">
