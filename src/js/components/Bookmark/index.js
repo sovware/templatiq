@@ -1,5 +1,5 @@
 import { useState, useEffect } from '@wordpress/element';
-import { select, dispatch } from '@wordpress/data';
+import { select } from '@wordpress/data';
 import ReactSVG from 'react-inlinesvg';
 import AuthModal from '@components/Popup/AuthModal';
 import store from '../../store';
@@ -14,8 +14,6 @@ const Bookmark = ( props) => {
 	const { isLoggedIn } = select( store ).getUserInfo();
 
 	const [authModalOpen, setAuthModalOpen] = useState(false);
-	// const [userFav, setUserFav] = useState([]);
-    // const isActive = userFav.includes(template_id);
     const [currentFavoriteCount, setCurrentFavoriteCount] = useState(number_of_bookmarks);
 	const [addedToFavorite, addFavorite] = useState(false);
 
@@ -126,7 +124,7 @@ const Bookmark = ( props) => {
     useEffect(() => {
         getUserBookmark();
         setCurrentFavoriteCount(addedToFavorite ? Number(number_of_bookmarks) + 1 : number_of_bookmarks );
-    }, []);  // Add favCountList to the dependency array
+    }, []);  
 
 
     return (
