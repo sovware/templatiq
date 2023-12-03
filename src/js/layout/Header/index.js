@@ -115,7 +115,7 @@ const Header = (props) =>  {
 			<div className="templatiq__header__content">
 				<HeaderNavStyle className="templatiq__header__nav">
 					<li className="templatiq__header__item">
-						<NavLink to="/pack" className={`templatiq__header__link`} activeClassName="active">
+						<NavLink to="/" className={`templatiq__header__link`} activeClassName="active">
 							<ReactSVG src={ fileIcon } width={18} height={18} />
 							Template Pack
 						</NavLink>
