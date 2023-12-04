@@ -11,6 +11,7 @@ const DEFAULT_STATE = {
 		bookmarks: [],
 		userDisplayName: '',
 	},
+	allTemplates: [],
 	searchQuery: '',
 	filterData: [],
 	favCounts: {},
@@ -31,15 +32,37 @@ const loadStateFromStorage = () => {
 
 const store = createReduxStore('templatiq-stores', {
 	reducer(state = loadStateFromStorage(), action) {
-		console.log('Initial State: ', state)
+		console.log('Initial Store Data: ', state)
 		switch (action.type) {
-			case 'SET_FAV':
+			case 'SET_TEMPLATES':
+				const templateState = {
+					...state,
+					templates: action.templates,
+				};
+		
+				// Save state to localStorage whenever it changes
+				localStorage.setItem('templatiq-stores', JSON.stringify(templateState));
+		
+				return templateState;
+
+			case 'SET_LIBRARY':
+				const libraryState = {
+					...state,
+					libraryData: action.data,
+				};
+		
+				// Save state to localStorage whenever it changes
+				localStorage.setItem('templatiq-stores', JSON.stringify(libraryState));
+		
+				return libraryState;
+
+			case 'SET_BOOKMARK':
 				const favState = {
 					...state,
-					favCounts: {
-						...state.favCounts,
-						[action.item]: action.favCount,
-					},
+					userInfo: {
+						...state.userInfo,
+						bookmarks: action.bookmark,
+					}
 				};
 		
 				// Save state to localStorage whenever it changes

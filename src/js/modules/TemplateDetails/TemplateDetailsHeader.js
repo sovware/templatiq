@@ -1,11 +1,9 @@
 import { useState } from '@wordpress/element';
-import { select } from '@wordpress/data';
 import ReactSVG from 'react-inlinesvg';
 
 import Bookmark from '@components/Bookmark';
 import InsertTemplate from '@components/InsertTemplate';
 import { TemplateDetailsHeaderStyle } from './style';
-import store from '../../store';
 
 import crownIcon from '@icon/crown.svg';
 import cartIcon from "@icon/cart.svg";
@@ -14,7 +12,6 @@ import downloadAltIcon from "@icon/download-alt.svg";
 
 const TemplateDetailsHeader = (props) => {
 	const {
-		template_id,
 		title,
 		price,
 		number_of_downloads,
@@ -23,20 +20,12 @@ const TemplateDetailsHeader = (props) => {
 		preview_link,
 	} = props.item;
 
-	// console.log('TemplateDetailsHeader number_of_bookmarks:', number_of_bookmarks)
-
-
-    // const favCountList = select( store ).getFav(template_id);
     const [currentFavoriteCount, setCurrentFavoriteCount] = useState(number_of_bookmarks ? Number(number_of_bookmarks) + 1 : '');
 
 	const countFavorite = (addedToFavorite) => {
 		const isAddedToFavorite = !addedToFavorite ? true : false;
-		// console.log('countFavorite triggered with addedToFavorite:', addedToFavorite, isAddedToFavorite);
 		setCurrentFavoriteCount(isAddedToFavorite ? Number(number_of_bookmarks) + 1 : number_of_bookmarks);
-		// Rest of the function logic
 	};
-
-	// console.log('TemplateDetailsHeader rendered with currentFavoriteCount:', currentFavoriteCount);
 
 	return (
 		<TemplateDetailsHeaderStyle className="templatiq__details__header">
