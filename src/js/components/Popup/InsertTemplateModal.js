@@ -19,6 +19,7 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
 
     const [allPluginsInstalled, setAllPluginsInstalled] = useState(false);
     const [importedData, setImportedData] = useState(false);
+    const [elementorEditorEnabled, setElementorEditorEnabled] = useState(false);
 
     let closeInsertTemplateModal = (e) => {
         e.preventDefault();
@@ -110,6 +111,10 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
     
     }; 
 
+    const importElementorData = () => {
+        console.log('importElementorData Called')
+    }
+
     // Check if all required plugins are available in installedPlugins
     useEffect(() => {
         const allRequiredPluginsInstalled = installablePlugins.every((plugin) =>
@@ -118,8 +123,17 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
 
         if (allRequiredPluginsInstalled) {
             setAllPluginsInstalled(true);
+            importElementorData();
         }
     }, [installedPlugins, installablePlugins]);
+
+    useEffect(() => {
+        // Check if the 'elementor-editor-active' class is present on the body element
+        const isElementorEditorActive = document.body.classList.contains('elementor-editor-active');
+
+        // Set the state variable based on the presence of the class
+        setElementorEditorEnabled(isElementorEditorActive);
+    }, []); // The empty dependency array ensures that the effect runs only once
 
     return (
         <> 
@@ -128,8 +142,12 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
                     <div className="templatiq__modal__content">
                         {!importedData ? 
                             <>
-                                <h2 className="templatiq__modal__title">{!allPluginsInstalled ? 'Required Plugins' : 'Enter Page Title'}</h2>
-                                <p className="templatiq__modal__desc">To import this item you need to install all the Plugin listed below.</p>
+                                <h2 className="templatiq__modal__title">{!allPluginsInstalled ? 'Required Plugins' : !elementorEditorEnabled ? 'Enter Page Title' : 'Importing...'}</h2>
+                                {
+                                    allPluginsInstalled && !elementorEditorEnabled ?
+                                    <p className="templatiq__modal__desc">To import this item you need to install all the Plugin listed below.</p> :
+                                    ''
+                                }
                                 <div className="templatiq__modal__plugins">
                                     {
                                         !allPluginsInstalled ?
@@ -198,23 +216,34 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
                                             }
                                         </>: 
                                         <div className="templatiq__modal__page">
-                                            <input 
-                                                type="text" 
-                                                className="templatiq__modal__page__title" 
-                                                placeholder="Enter Page Title" 
-                                                onChange={(e) => handlePageTitle(e)}
-                                            />
-                                            <button 
-                                                onClick={() => importData(pageTitle, template_id, builder)} 
-                                                className="templatiq__modal__page__button templatiq-btn templatiq-btn-primary"
-                                            >
-                                                Create a Page
-                                            </button>
+                                            {
+                                                !elementorEditorEnabled ?  
+                                                <>
+                                                    <input 
+                                                        type="text" 
+                                                        className="templatiq__modal__page__title" 
+                                                        placeholder="Enter Page Title" 
+                                                        onChange={(e) => handlePageTitle(e)}
+                                                    />
+                                                    <button 
+                                                        onClick={() => importData(pageTitle, template_id, builder)} 
+                                                        className="templatiq__modal__page__button templatiq-btn templatiq-btn-primary"
+                                                    >
+                                                        Create a Page
+                                                    </button>
+                                                </> : 
+                                                <p className="templatiq__modal__desc">Elementor Imported</p>
+                                            }
+                                            
                                         </div>
                                     }
 
                                 </div>
-                                <p className="templatiq__modal__desc"><strong>Note:</strong> Make sure you have manually installed & activated the Pro Plugin listed above.</p>
+                                {
+                                    allPluginsInstalled && !elementorEditorEnabled ? 
+                                    <p className="templatiq__modal__desc"><strong>Note:</strong> Make sure you have manually installed & activated the Pro Plugin listed above.</p> :
+                                    ''
+                                }
                                 <div className="templatiq__modal__actions">
                                     {
                                         !allPluginsInstalled ? 

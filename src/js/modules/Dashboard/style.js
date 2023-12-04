@@ -208,6 +208,7 @@ const MyAccountStyle = Styled.div`
         color; var(--templatiq-dark-color);
     }
     .templatiq__dashboard__account__wrapper {
+        width: 100%;
         max-width: 500px;
         margin: 0 auto;
         padding: 40px 32px;
