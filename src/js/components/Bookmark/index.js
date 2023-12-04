@@ -121,7 +121,7 @@ const Bookmark = ( props) => {
                         </> :
                         <a href="#" className={`templatiq__template__single__quickmeta__item favorite-btn templatiq-tooltip ${addedToFavorite ? 'active' : ''}`} data-info={addedToFavorite ? 'Added to Favourite' : 'Add to Favourite'} onClick={handleFavorite}>
                             <ReactSVG src={ addedToFavorite ? heartSolidIcon : heartIcon } width={14} height={14} />
-                            {currentFavoriteCount ? currentFavoriteCount : ''} + {template_id}
+                            {currentFavoriteCount ? currentFavoriteCount : ''}
                         </a>
             }
         </>
