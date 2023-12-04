@@ -14,9 +14,9 @@
 			return {
 				id: 'tmTemplateLibrary__modal',
 				hide: {
-					onOutsideClick: false,
+					onOutsideClick: true,
 					onEscKeyPress: true,
-					onBackgroundClick: false,
+					onBackgroundClick: true,
 				}
 			};
 		},
