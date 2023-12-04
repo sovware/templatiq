@@ -302,6 +302,7 @@ button {
 		font-size: 13px;
 		font-weight: 500;
 		position: relative;
+		color: var(--templatiq-gray-color);
 		padding-inline-start: 33px;
 		&:before {
 			content: '';
@@ -331,6 +332,7 @@ button {
 	}
 	.templatiq__checkbox__count {
 		text-align: end;
+		color: var(--templatiq-gray-color);
 	}
 
 	&:not(:last-child) {

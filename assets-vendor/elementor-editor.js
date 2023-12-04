@@ -134,11 +134,11 @@
 
 		this.showTemplatesView = function () {
 			self.getModal().showLoadingView.bind(self.getModal())
-			var containerDiv = document.querySelector('.dialog-message');
+			var containerDiv = document.querySelector('.elementor-templates-modal .dialog-message');
 			var rootDiv = document.createElement('div');
 			const script = document.createElement('script');
-			const loadingDiv = document.querySelector('.dialog-loading');
-			const blankDiv = document.querySelector('.dialog-content ');
+			const loadingDiv = document.querySelector('.elementor-templates-modal .dialog-loading');
+			const blankDiv = document.querySelector('.elementor-templates-modal .dialog-content ');
 
 			// Append the new element to the containerDiv
 			rootDiv.className = 'templatiq-root';

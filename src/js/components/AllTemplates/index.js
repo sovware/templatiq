@@ -98,7 +98,7 @@ export default function AllTemplates (props) {
     const checkTemplateType = (templates) => {
         let typeChecked = '';
         if (templateType) {
-            user && templateStatus === 'favorites' ? 
+            user && userFav && templateStatus === 'favorites' ? 
             typeChecked = templates.filter(template => template.type === templateType && userFav.includes(template.template_id)) :
             typeChecked = templates.filter(template => template.type === templateType);
 
