@@ -1,7 +1,9 @@
-import { createRoot } from '@wordpress/element';
+import { createRoot, lazy, Suspense } from '@wordpress/element';
 import { QueryClientProvider } from '@tanstack/react-query';
 import queryStore from '../queryStore';
-import App from './App';
+const App = lazy( () => import( './App' ) );
+
+
 
 function initializeApp() {
 	console.log('initializeApp');
@@ -15,13 +17,17 @@ function initializeApp() {
 
 		root.render(
 			<QueryClientProvider client={queryStore}>
-				<App />
+				<Suspense fallback={ <></> }>
+					<App />
+				</Suspense>
 			</QueryClientProvider>
 		);
 	} else {
 		render(
 			<QueryClientProvider client={queryStore}>
-				<App />
+				<Suspense fallback={ <></> }>
+					<App />
+				</Suspense>
 			</QueryClientProvider>,
 			container
 		);

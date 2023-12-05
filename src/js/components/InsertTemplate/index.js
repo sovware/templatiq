@@ -9,7 +9,7 @@ import downloadIcon from "@icon/download.svg";
 import downloadAltIcon from "@icon/download-alt.svg";
 
 const InsertTemplate = ({item, templateRef, className, innerText, solidIcon}) => {
-    let { required_plugins } = item;
+    let { template_id, required_plugins } = item;
     
 	const { isLoggedIn } = select( store ).getUserInfo();
     const [insertModalOpen, setInsertModalOpen] = useState(false);
@@ -84,7 +84,8 @@ const InsertTemplate = ({item, templateRef, className, innerText, solidIcon}) =>
             {authModalOpen && <AuthModal modalEnable={true} onClose={handleAuthModalClose} />}
             <a 
                 href="#" 
-                className={ className ? className : 'templatiq__template__single__info__action__link insert-btn'} 
+                id={template_id}
+                className={ className ? className : 'templatiq__template__single__info__action__link insert-btn tmTemplateLibrary__insert-button'} 
                 onClick={(e) => !isLoggedIn ? addAuthModal(e) : addInsertModal(e)}
             >
                 <ReactSVG src={ !solidIcon ? downloadAltIcon : downloadIcon } width={14} height={14} />

@@ -45,7 +45,7 @@ const SingleTemplate = (item) => {
                             <InsertTemplate
                                 item={item} 
                                 templateRef={templateRef} 
-                                className={'templatiq__template__single__info__action__link insert-btn'}
+                                className={'templatiq__template__single__info__action__link insert-btn tmTemplateLibrary__insert-button'}
                             />
                         }
                     </div>
