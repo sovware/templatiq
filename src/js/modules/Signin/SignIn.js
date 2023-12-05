@@ -11,7 +11,6 @@ export default function SignInContent () {
 	
 	const { isLoggedIn } = select( store ).getUserInfo();
 	const userInfo = select( store ).getUserInfo();
-	console.log('User Info: ', userInfo);
 
 	const [formData, setFormData] = useState({
 		authorEmail: "riaz",
@@ -62,6 +61,9 @@ export default function SignInContent () {
 					userName: data.user_nicename,
 					userEmail: data.user_email,
 					userDisplayName: data.user_display_name,
+					bookmarks: data.bookmarks,
+					downloads: data.downloads,
+					purchased: data.purchased,
 				};
 	
 				// Dispatch the action to update the login status in the store

@@ -143,15 +143,14 @@ const SidebarItemStyle = Styled.div`
         gap: 25px;
         flex-direction: column;
     }
-    .szh-accordion__item-heading {
-        font-size: 14px;
-        font-weight: 500;
-    }
     .szh-accordion__item-btn {
         position: relative;
         width: 100%;
         padding: 0;
         text-align: start;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--templatiq-body-color);
         background: transparent;
         cursor: pointer;
         &:before {

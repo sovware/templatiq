@@ -9,6 +9,8 @@ const DEFAULT_STATE = {
 		userName: '',
 		userEmail: '',
 		bookmarks: [],
+		downloads: [],
+		purchased: [],
 		userDisplayName: '',
 	},
 	allTemplates: [],
