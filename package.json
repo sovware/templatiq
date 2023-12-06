@@ -45,6 +45,7 @@
 		"@wordpress/data": "^9.16.0",
 		"@wordpress/element": "^5.21.0",
 		"@wordpress/hooks": "^3.45.0",
+		"backbone": "^1.5.0",
 		"prop-types": "^15.8.1",
 		"react-beautiful-dnd": "^13.1.1",
 		"react-csv": "^2.2.2",
