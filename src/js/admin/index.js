@@ -2,7 +2,7 @@ import { createRoot, lazy, Suspense } from '@wordpress/element';
 import { addAction } from '@wordpress/hooks';
 import { QueryClientProvider } from '@tanstack/react-query';
 import queryStore from '../queryStore';
-const App = lazy( () => import( './App' ) );
+const App = lazy( () => import( './App' ) ); 
 
 function initializeApp( container ) {
 	console.log('initializeApp');

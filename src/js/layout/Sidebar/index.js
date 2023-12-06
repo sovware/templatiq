@@ -8,7 +8,6 @@ import { SidebarStyle, SidebarItemStyle } from './style';
 
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
 import ContentLoading from '@components/ContentLoading';
 
 import filterIcon from '@icon/filter.svg';
