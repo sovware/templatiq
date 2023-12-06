@@ -20,14 +20,8 @@ class Enqueuer extends EnqueuerBase {
 
 		//Enqueue editor scripts
 		$this->action( 'elementor/editor/after_enqueue_scripts', 'elementor_editor_enqueue' );
-		add_action('wp_head', [$this, 'add_header']);
-		add_action('admin_head', [$this, 'add_header']);
 	}
 
-	public function add_header( ) {
-		echo '<div id="templatiq-root" class="templatiq-root">Hello World</div>';
-		echo '<div id="templatiq-roott" class="templatiq-roott">Hello World</div>';
-	}
 	public function admin_enqueue_scripts( $hook ) {
 		if ( ! isset( $_GET['page'] ) || 'templatiq' !== $_GET['page'] ) {
 			return;
