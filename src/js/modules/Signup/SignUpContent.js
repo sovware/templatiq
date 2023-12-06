@@ -54,14 +54,13 @@ export default function SignUpContent() {
 		try {
 			// Call the mutation function with the user's credentials
 			const result = await mutation.mutateAsync(credentials);
-			console.log('Result: ', result);
+			const signUpData = await JSON.parse(result.body);
 
-			if(result.body.token) {
+			if(signUpData.token) {
 				setIsRegistered(true);
 			} else {
-				const errorMessage = await JSON.parse(result.body).message;
-				console.log('Error: ', errorMessage.user_email, result);
-				setErrorMessage(errorMessage.user_email);
+				const errorMessage = signUpData.message?.user_email;
+				setErrorMessage(errorMessage);
 			}
 		} catch (error) {	
 		  	console.error('Error', error); // Handle error
@@ -79,7 +78,7 @@ export default function SignUpContent() {
 			<h3 className="templatiq__auth__title">Sign up your account</h3>
 			{
 				!isRegistered ? 
-				<form className={`templatiq__auth__wrapper ${loading ? 'templatiq__loading' : ''}`} onSubmit={handleData}>
+				<form className='templatiq__auth__wrapper' onSubmit={handleData}>
 					<div className="templatiq__auth__info">
 						<div className="templatiq__auth__info__single">
 							<label htmlFor="authorFullName">Full Name</label>
@@ -106,12 +105,12 @@ export default function SignUpContent() {
 						<button 
 							type="submit" 
 							onClick={() => {setLoading(true)}}
-							className="templatiq__auth__btn templatiq-btn templatiq-btn-primary"
+							className={`templatiq__auth__btn templatiq-btn templatiq-btn-primary ${loading ? 'templatiq__loading templatiq__loading--btn' : ''}`}
 						>
 							Sign Up
 						</button>
 						{
-							errorMessage && <p className="templatiq__auth__error">{errorMessage}</p>
+							errorMessage && <p className="text-danger">{errorMessage}</p>
 						}
 						<span className="templatiq__auth__desc">
 							Already have an account?
