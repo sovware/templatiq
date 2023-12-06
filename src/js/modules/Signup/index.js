@@ -1,6 +1,5 @@
 import AuthLayout from "@layout/AuthLayout";
-
-import SignUpContent from "./SignUp";
+import SignUpContent from "@modules/SignUp/SignUpContent"; // Fix import statement
 
 export default function SignUpModule() {
 	return (

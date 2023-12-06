@@ -3,6 +3,8 @@
 	  "baseUrl": ".",
 	  "paths": {
 		"@components/*": ["./src/js/components/*"],
+		"@modules/*": ["./src/js/modules/*"],
+		"@layout/*": ["./src/js/layout/*"],
 	  }
 	},
 	"exclude": [".git", "app", "node_modules", "vendor", "vendor-src"]

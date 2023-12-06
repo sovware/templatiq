@@ -9,6 +9,7 @@ import store from '../../store';
 export default function SignUpContent() {
 	const [isRegistered, setIsRegistered] = useState(false);
 	let [loading, setLoading] = useState(false);
+	let [errorMessage, setErrorMessage] = useState('');
 
 	const [formData, setFormData] = useState({
 		authorFullName: "Ibrahim Riaz",
@@ -53,12 +54,14 @@ export default function SignUpContent() {
 		try {
 			// Call the mutation function with the user's credentials
 			const result = await mutation.mutateAsync(credentials);
+			console.log('Result: ', result);
 
 			if(result.body.token) {
 				setIsRegistered(true);
 			} else {
 				const errorMessage = await JSON.parse(result.body).message;
-				console.log('Error: ', {errorMessage});
+				console.log('Error: ', errorMessage.user_email, result);
+				setErrorMessage(errorMessage.user_email);
 			}
 		} catch (error) {	
 		  	console.error('Error', error); // Handle error
@@ -107,6 +110,9 @@ export default function SignUpContent() {
 						>
 							Sign Up
 						</button>
+						{
+							errorMessage && <p className="templatiq__auth__error">{errorMessage}</p>
+						}
 						<span className="templatiq__auth__desc">
 							Already have an account?
 							<Link to="/signin" className="templatiq__auth__link">Sign in</Link>

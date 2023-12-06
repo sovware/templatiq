@@ -24,8 +24,8 @@ import TemplatePack from './pages/TemplatePack';
 import TemplateDetails from './pages/TemplateDetails';
 
 import Pages from './pages/Pages'; 
-import Blocks from './pages/Blocks'; 
-import SignIn from './pages/SIgnin';
+import Blocks from './pages/Blocks';
+import SignIn from './pages/Signin';
 import SignUp from './pages/Signup';
 
 import MyFavorites from "./pages/dashboard/Favorites";

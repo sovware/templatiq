@@ -12,7 +12,6 @@ import Preloader from '@components/Preloader';
 import SingleTemplate from "@components/SingleTemplate";
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
 
 import crownIcon from '@icon/crown.svg';
 import arrowLeft from '@icon/angle-left.svg';
