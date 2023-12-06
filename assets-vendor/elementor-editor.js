@@ -220,8 +220,7 @@
 		}
 	});
 
-	Library.Views.TemplateCollection = Marionette.CompositeView.extend(
-		console.log('Library Template Collection: ', ), {
+	Library.Views.TemplateCollection = Marionette.CompositeView.extend({
 		template: '#tmpl-tmTemplateLibrary__templates',
 
 		id: 'tmTemplateLibrary__templates',
@@ -694,62 +693,57 @@
 				options.onBeforeUpdate();
 			}
 
+			const containerDiv = document.querySelector('.elementor-templates-modal .dialog-message');
+			const rootDiv      = document.createElement('div');
+
+			rootDiv.className = 'templatiq-root';
+			rootDiv.id = 'templatiq-root';
+
+			containerDiv.appendChild(rootDiv);
+
+			wp.hooks.doAction('templatiq_load_admin_app', rootDiv)
+
 			var ajaxOptions = {
 				data: {},
 				success: function (data) {
 					templatesCollection = new Library.Collections.Template(data.templates);
-					const rootDiv = document.querySelector('.templatiq-root');
+					// const rootDiv = document.querySelector('.templatiq-root');
 
-					console.log('rootDiv Data: ', rootDiv, data, templatesCollection);
+					// if (data.templates) {
+					// 	const loadingDiv = document.querySelector('.elementor-templates-modal .dialog-loading');
+					// 	const blankDiv = document.querySelector('.elementor-templates-modal .dialog-content ');
 
-					if (data.templates) {
-						// const containerDiv = document.querySelector('.elementor-templates-modal .dialog-message');
-						// const rootDiv = document.createElement('div');
-						// const script = document.createElement('script');
-						// const loadingDiv = document.querySelector('.elementor-templates-modal .dialog-loading');
-						// const blankDiv = document.querySelector('.elementor-templates-modal .dialog-content ');
+					// 	if (loadingDiv) {
+					// 		loadingDiv.remove();
+					// 	}
+					// 	if (blankDiv) {
+					// 		blankDiv.remove();
+					// 	}
 					
-						// // Append the new element to the containerDiv
-						// rootDiv.className = 'templatiq-root';
-						// rootDiv.id = 'templatiq-root'; 
+					// 	// console.log('Appended: ', rootDiv, script, containerDiv, loadingDiv, blankDiv);
 					
-						// containerDiv.appendChild(rootDiv);
-					
-						// // Load additional JavaScript (replace 'your-script.js' with the actual script file)
-						// script.src = '../wp-content/plugins/template-market/assets/js/admin.js';
-						// document.head.appendChild(script);
-					
-						// if (loadingDiv) {
-						// 	loadingDiv.remove();
-						// }
-						// if (blankDiv) {
-						// 	blankDiv.remove();
-						// }
-					
-						// console.log('Appended: ', rootDiv, script, containerDiv, loadingDiv, blankDiv);
-					
-						// containerDiv.addEventListener('click', function(event) {
-						// 	const insertButton = event.target.closest('.tmTemplateLibrary__insert-button');
-						// 	if (insertButton) {
-						// 		// The button was clicked, handle the event
-						// 		console.log('Insert button clicked from dynamic content: ', insertButton.id);
-						// 		// Additional logic here
+					// 	containerDiv.addEventListener('click', function(event) {
+					// 		const insertButton = event.target.closest('.tmTemplateLibrary__insert-button');
+					// 		if (insertButton) {
+					// 			// The button was clicked, handle the event
+					// 			console.log('Insert button clicked from dynamic content: ', insertButton.id);
+					// 			// Additional logic here
 								
-						// 	}
-						// });
-					}
+					// 		}
+					// 	});
+					// }
 
-					if (data.categories) {
-						tags = data.categories;
-					}
+					// if (data.categories) {
+					// 	tags = data.categories;
+					// }
 
-					if (data.plugins) {
-						typeTags = data.plugins;
-					}
+					// if (data.plugins) {
+					// 	typeTags = data.plugins;
+					// }
 
-					if (options.onUpdate) {
-						options.onUpdate();
-					}
+					// if (options.onUpdate) {
+					// 	options.onUpdate();
+					// }
 				},
 			};
 
@@ -778,7 +772,7 @@
 		};
 
 		this.insertTemplate = function (args) {
-			console.log('Insert Template: ', args)
+			// console.log('Insert Template: ', args)
 			var model = args.model,
 				self = this;
 
