@@ -152,7 +152,7 @@ const SingleTemplateStyle = Styled.div`
         &:hover {
             color: var(--templatiq-primary-color);
         }
-        &:not(:last-child) {
+        &:not(:last-of-type) {
             position: relative;
             padding-inline-end: 12px;
             &:after {
@@ -166,6 +166,31 @@ const SingleTemplateStyle = Styled.div`
                 top: 9px;
             }
         }
+    }
+
+    .templatiq__template__single__cat__dropdown {
+        position: relative;
+        .templatiq__template__single__cat__link::after {
+            display: none;
+        }
+    }
+    .templatiq__template__single__cat__button {
+        padding: 0;
+        line-height: 1;
+        cursor: pointer;
+        background: transparent;
+    }
+    .templatiq__template__single__cat__dropdown-content {
+        position: absolute;
+        bottom: 100%;
+        right: 0;
+        padding: 10px 15px;
+        background: var(--templatiq-white-color);
+        box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+        min-width: 120px;
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
     }
 
     .templatiq__template__single__quickmeta {

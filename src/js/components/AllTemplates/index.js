@@ -183,6 +183,8 @@ export default function AllTemplates (props) {
 
     }, [activeTab, startItemCount, endItemCount, filteredTemplates, proTemplates, freeTemplates]);
 
+    console.log('Templates to Display: ', templatesToDisplay)
+
 	return (
         <Tabs className="templatiq__content__tab">
             <div className="templatiq__content__top">

@@ -233,8 +233,10 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
                                                         onChange={(e) => handlePageTitle(e)}
                                                     />
                                                     <button 
-                                                        onClick={() => importData(pageTitle, template_id, builder)} 
+                                                        type="submit"
                                                         className="templatiq__modal__page__button templatiq-btn templatiq-btn-primary"
+                                                        onClick={() => importData(pageTitle, template_id, builder)} 
+                                                        disabled={pageTitle === ''}
                                                     >
                                                         Create a Page
                                                     </button>

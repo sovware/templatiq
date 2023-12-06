@@ -91,7 +91,7 @@ export default function SignInContent () {
 	return (
 		<AuthStyle className='templatiq__auth'>
 			<h3 className="templatiq__auth__title">Sign in to your account</h3>
-			<form className={`templatiq__auth__wrapper ${loading ? 'templatiq__loading' : ''}`} onSubmit={handleData}>
+			<form className='templatiq__auth__wrapper' onSubmit={handleData}>
 				<div className="templatiq__auth__info">
 					<div className="templatiq__auth__info__single">
 						<label htmlFor="authorEmail">Email Address</label>
@@ -127,7 +127,7 @@ export default function SignInContent () {
 					<button 
                         type="submit" 
 						onClick={() => {setLoading(true)}}
-                        className="templatiq__auth__btn templatiq-btn templatiq-btn-primary"
+                        className={`templatiq__auth__btn templatiq-btn templatiq-btn-primary ${loading ? 'templatiq__loading templatiq__loading--btn' : ''}`}
                     >
                         Sign In
                     </button>

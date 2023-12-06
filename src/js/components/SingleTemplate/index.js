@@ -1,3 +1,4 @@
+import { select } from '@wordpress/data';
 import { useState, useEffect, useRef } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { Link } from 'react-router-dom';
@@ -5,6 +6,7 @@ import Bookmark from '@components/Bookmark';
 import InsertTemplate from '@components/InsertTemplate';
 import ContentLoading from '@components/ContentLoading';
 import { SingleTemplateStyle } from './style';
+import store from '../../store';
 
 import crownIcon from "@icon/crown.svg";
 import cartIcon from "@icon/cart.svg";
@@ -14,7 +16,27 @@ import templateImg1 from "@images/template/1.svg";
 const SingleTemplate = (item) => {
     let { slug, preview_link, purchase_url, thumbnail, title, price, number_of_downloads, categories, required_plugins } = item;
 
-    const templateRef = useRef(null)
+    const [ isDropdownOpen, setDropdownOpen ] = useState(false);
+    const [ displayedCategories, setDisplayedCategories ] = useState([]);
+    const [ dropdownCategories, setDropdownCategories ] = useState([]);
+
+    const templateRef = useRef(null);
+
+    useEffect(() => {
+
+        const libraryData = select( store ).getLibraryData();
+
+        const availableCategories = categories.map(key => libraryData.categories[key]);
+
+        const visibleCategories = availableCategories.length < 3 ? availableCategories : availableCategories.slice(0, 2);
+
+        // Categories for the dropdown (if any)
+        const hiddenCategories = availableCategories.slice(2);
+
+        setDisplayedCategories(visibleCategories);
+        setDropdownCategories(hiddenCategories);
+
+    }, []);
 
     return (
         <SingleTemplateStyle className="templatiq__template__single" ref={templateRef}>
@@ -63,9 +85,33 @@ const SingleTemplate = (item) => {
                     <Link to={`/template/${slug}`}>{title ? title : 'DDoctors'}</Link>
                 </h3>
                 <div className="templatiq__template__single__cat">
-                    {categories && categories.map((category, index) => (
+                    {/* {templateCategories && templateCategories.map((category, index) => (
                         <a key={index} href="#" className="templatiq__template__single__cat__link">{category}</a>
+                    ))} */}
+                    {displayedCategories.map((category, index) => (
+                        <a key={index} href="#" className="templatiq__template__single__cat__link">
+                            {category}
+                        </a>
                     ))}
+                    {dropdownCategories.length > 0 && (
+                        <div className="templatiq__template__single__cat__dropdown">
+                            <button
+                                className={`templatiq__template__single__cat__button`}
+                                onClick={() => setDropdownOpen(!isDropdownOpen)}
+                            >
+                                ...
+                            </button>
+                            {isDropdownOpen && (
+                                <div className="templatiq__template__single__cat__dropdown-content">
+                                    {dropdownCategories.map((category, index) => (
+                                        <a key={index} href="#" className="templatiq__template__single__cat__link">
+                                            {category}
+                                        </a>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
                 <div className="templatiq__template__single__quickmeta">
                     {
