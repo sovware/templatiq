@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+	  "baseUrl": ".",
+	  "paths": {
+		"@components/*": ["./src/js/components/*"],
+	  }
+	},
+	"exclude": [".git", "app", "node_modules", "vendor", "vendor-src"]
+  }
+  

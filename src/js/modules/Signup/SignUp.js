@@ -8,6 +8,7 @@ import store from '../../store';
 
 export default function SignUpContent() {
 	const [isRegistered, setIsRegistered] = useState(false);
+	let [loading, setLoading] = useState(false);
 
 	const [formData, setFormData] = useState({
 		authorFullName: "Ibrahim Riaz",
@@ -52,14 +53,17 @@ export default function SignUpContent() {
 		try {
 			// Call the mutation function with the user's credentials
 			const result = await mutation.mutateAsync(credentials);
-			setIsRegistered(true);
 
 			if(result.body.token) {
 				setIsRegistered(true);
+			} else {
+				const errorMessage = await JSON.parse(result.body).message;
+				console.log('Error: ', {errorMessage});
 			}
-		} catch (error) {
+		} catch (error) {	
 		  	console.error('Error', error); // Handle error
 		}
+		setLoading(false);
 	};
 
 	useEffect( () => {
@@ -72,7 +76,7 @@ export default function SignUpContent() {
 			<h3 className="templatiq__auth__title">Sign up your account</h3>
 			{
 				!isRegistered ? 
-				<form className="templatiq__auth__wrapper" onSubmit={handleData}>
+				<form className={`templatiq__auth__wrapper ${loading ? 'templatiq__loading' : ''}`} onSubmit={handleData}>
 					<div className="templatiq__auth__info">
 						<div className="templatiq__auth__info__single">
 							<label htmlFor="authorFullName">Full Name</label>
@@ -98,6 +102,7 @@ export default function SignUpContent() {
 					<div className="templatiq__auth__actions">
 						<button 
 							type="submit" 
+							onClick={() => {setLoading(true)}}
 							className="templatiq__auth__btn templatiq-btn templatiq-btn-primary"
 						>
 							Sign Up

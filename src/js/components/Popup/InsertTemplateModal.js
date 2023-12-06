@@ -12,6 +12,7 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
 
 	let [selectedPlugins, setSelectedPlugins] = useState([]);
 	let [pageTitle, setPageTitle] = useState('');
+	let [loading, setLoading] = useState(false);
 	
     const [isInstalling, setIsInstalling] = useState(false);
     const [installingPlugins, setInstallingPlugins] = useState([]);
@@ -19,6 +20,7 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
 
     const [allPluginsInstalled, setAllPluginsInstalled] = useState(false);
     const [importedData, setImportedData] = useState(false);
+    const [elementorEditorEnabled, setElementorEditorEnabled] = useState(false);
 
     let closeInsertTemplateModal = (e) => {
         e.preventDefault();
@@ -84,6 +86,7 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
     }; 
 
     const importData = async (pageTitle, template_id, builder) => {
+        setLoading(true);
         const response = await fetch(`${template_market_obj.rest_args.endpoint}/template/import-as-page`, 
         {
             method: 'POST',
@@ -99,16 +102,25 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
         });
     
         if (!response.ok) {
+            setLoading(false);
             throw new Error('Error Occurred');
         }
+        if (response.ok) {
+            setLoading(false);
+            
+            const data = await response.json();
     
-        const data = await response.json();
-
-        if(data.post_id) {
-            setImportedData(data) 
+            if(data.post_id) {
+                setImportedData(data) 
+            }
         }
     
+    
     }; 
+
+    const importElementorData = () => {
+        console.log('importElementorData Called')
+    }
 
     // Check if all required plugins are available in installedPlugins
     useEffect(() => {
@@ -118,18 +130,31 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
 
         if (allRequiredPluginsInstalled) {
             setAllPluginsInstalled(true);
+            importElementorData();
         }
     }, [installedPlugins, installablePlugins]);
 
+    useEffect(() => {
+        // Check if the 'elementor-editor-active' class is present on the body element
+        const isElementorEditorActive = document.body.classList.contains('elementor-editor-active');
+
+        // Set the state variable based on the presence of the class
+        setElementorEditorEnabled(isElementorEditorActive);
+    }, []); // The empty dependency array ensures that the effect runs only once
+
     return (
         <> 
-            <InsertTemplateModalStyle className="templatiq__modal templatiq__modal--required">
+            <InsertTemplateModalStyle className={`templatiq__modal templatiq__modal--required ${loading ? 'templatiq__loading' : ''}`}>
                 <form className="templatiq__modal__form" onSubmit={handlePopUpForm}>
                     <div className="templatiq__modal__content">
                         {!importedData ? 
                             <>
-                                <h2 className="templatiq__modal__title">{!allPluginsInstalled ? 'Required Plugins' : 'Enter Page Title'}</h2>
-                                <p className="templatiq__modal__desc">To import this item you need to install all the Plugin listed below.</p>
+                                <h2 className="templatiq__modal__title">{!allPluginsInstalled ? 'Required Plugins' : !elementorEditorEnabled ? 'Enter Page Title' : 'Importing...'}</h2>
+                                {
+                                    allPluginsInstalled && !elementorEditorEnabled ?
+                                    <p className="templatiq__modal__desc">To import this item you need to install all the Plugin listed below.</p> :
+                                    ''
+                                }
                                 <div className="templatiq__modal__plugins">
                                     {
                                         !allPluginsInstalled ?
@@ -198,23 +223,34 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
                                             }
                                         </>: 
                                         <div className="templatiq__modal__page">
-                                            <input 
-                                                type="text" 
-                                                className="templatiq__modal__page__title" 
-                                                placeholder="Enter Page Title" 
-                                                onChange={(e) => handlePageTitle(e)}
-                                            />
-                                            <button 
-                                                onClick={() => importData(pageTitle, template_id, builder)} 
-                                                className="templatiq__modal__page__button templatiq-btn templatiq-btn-primary"
-                                            >
-                                                Create a Page
-                                            </button>
+                                            {
+                                                !elementorEditorEnabled ?  
+                                                <>
+                                                    <input 
+                                                        type="text" 
+                                                        className="templatiq__modal__page__title" 
+                                                        placeholder="Enter Page Title" 
+                                                        onChange={(e) => handlePageTitle(e)}
+                                                    />
+                                                    <button 
+                                                        onClick={() => importData(pageTitle, template_id, builder)} 
+                                                        className="templatiq__modal__page__button templatiq-btn templatiq-btn-primary"
+                                                    >
+                                                        Create a Page
+                                                    </button>
+                                                </> : 
+                                                <p className="templatiq__modal__desc">Elementor Imported</p>
+                                            }
+                                            
                                         </div>
                                     }
 
                                 </div>
-                                <p className="templatiq__modal__desc"><strong>Note:</strong> Make sure you have manually installed & activated the Pro Plugin listed above.</p>
+                                {
+                                    allPluginsInstalled && !elementorEditorEnabled ? 
+                                    <p className="templatiq__modal__desc"><strong>Note:</strong> Make sure you have manually installed & activated the Pro Plugin listed above.</p> :
+                                    ''
+                                }
                                 <div className="templatiq__modal__actions">
                                     {
                                         !allPluginsInstalled ? 

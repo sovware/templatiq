@@ -1,6 +1,7 @@
 import Styled from 'styled-components';
 
 const PopupStyle = Styled.div`
+    width: 100%;
     max-width: 500px;
     border-radius: 12px;
     padding: 26px 32px 32px;

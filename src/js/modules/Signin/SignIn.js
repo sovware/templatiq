@@ -8,6 +8,8 @@ import store from '../../store';
   
 export default function SignInContent () {
 	const navigate = useNavigate();
+
+	let [loading, setLoading] = useState(false);
 	
 	const { isLoggedIn } = select( store ).getUserInfo();
 	const userInfo = select( store ).getUserInfo();
@@ -25,6 +27,7 @@ export default function SignInContent () {
 	};
 
 	const handleData = (e) => {
+		setLoading(true);
 		e.preventDefault(); 
 		handleLogin({ username: authorEmail.value, password: authorPassword.value, expiration: 20 });
 	};
@@ -77,6 +80,7 @@ export default function SignInContent () {
 		} catch (error) {
 		  	console.error('Error', error); // Handle error
 		}
+		setLoading(false);
 	};
 
 	useEffect( () => {
@@ -85,9 +89,9 @@ export default function SignInContent () {
 	
 
 	return (
-		<AuthStyle className="templatiq__auth">
+		<AuthStyle className='templatiq__auth'>
 			<h3 className="templatiq__auth__title">Sign in to your account</h3>
-			<form className="templatiq__auth__wrapper" onSubmit={handleData}>
+			<form className={`templatiq__auth__wrapper ${loading ? 'templatiq__loading' : ''}`} onSubmit={handleData}>
 				<div className="templatiq__auth__info">
 					<div className="templatiq__auth__info__single">
 						<label htmlFor="authorEmail">Email Address</label>
@@ -122,6 +126,7 @@ export default function SignInContent () {
                     </div>
 					<button 
                         type="submit" 
+						onClick={() => {setLoading(true)}}
                         className="templatiq__auth__btn templatiq-btn templatiq-btn-primary"
                     >
                         Sign In

@@ -1,6 +1,6 @@
 import AuthLayout from "@layout/AuthLayout";
 
-import SignUpContent from "./Signup";
+import SignUpContent from "./SignUp";
 
 export default function SignUpModule() {
 	return (
