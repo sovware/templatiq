@@ -72,7 +72,7 @@ class Account {
 			$response['status'] = 'error';
 		}
 
-		if ( $data['last_updated'] < ( time() - 60 * 5 ) ) {
+		if ( isset( $data['last_updated'] ) && $data['last_updated'] < ( time() - 60 * 5 ) ) {
 
 			$http     = new Http( $this->cloud_endpoint . '/account/data' );
 			$response = $http->body(
