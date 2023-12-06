@@ -12,6 +12,7 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
 
 	let [selectedPlugins, setSelectedPlugins] = useState([]);
 	let [pageTitle, setPageTitle] = useState('');
+	let [loading, setLoading] = useState(false);
 	
     const [isInstalling, setIsInstalling] = useState(false);
     const [installingPlugins, setInstallingPlugins] = useState([]);
@@ -85,6 +86,7 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
     }; 
 
     const importData = async (pageTitle, template_id, builder) => {
+        setLoading(true);
         const response = await fetch(`${template_market_obj.rest_args.endpoint}/template/import-as-page`, 
         {
             method: 'POST',
@@ -100,14 +102,19 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
         });
     
         if (!response.ok) {
+            setLoading(false);
             throw new Error('Error Occurred');
         }
+        if (response.ok) {
+            setLoading(false);
+            
+            const data = await response.json();
     
-        const data = await response.json();
-
-        if(data.post_id) {
-            setImportedData(data) 
+            if(data.post_id) {
+                setImportedData(data) 
+            }
         }
+    
     
     }; 
 
@@ -137,7 +144,7 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
 
     return (
         <> 
-            <InsertTemplateModalStyle className="templatiq__modal templatiq__modal--required">
+            <InsertTemplateModalStyle className={`templatiq__modal templatiq__modal--required ${loading ? 'templatiq__loading' : ''}`}>
                 <form className="templatiq__modal__form" onSubmit={handlePopUpForm}>
                     <div className="templatiq__modal__content">
                         {!importedData ? 
