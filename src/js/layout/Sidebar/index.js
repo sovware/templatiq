@@ -16,6 +16,8 @@ const Sidebar = () => {
 	const location = useLocation();
 	const pathType = location.pathname.split('/').pop();
 
+	const templateType = pathType == 'pages' ? 'page' : pathType == 'blocks' ? 'section' : 'pack'
+
 	const libraryData = select( store ).getLibraryData();
 	
 	const [ loading, setLoading] = useState(false);
@@ -29,7 +31,7 @@ const Sidebar = () => {
 
 	const [selectedFilters, setSelectedFilters] = useState([]);
 	const [filteredTemplates, setFilteredTemplates] = useState([]);
-	const [ templateType, setTemplateType] = useState(pathType ? pathType : 'pack');
+	// const [ templateType, setTemplateType] = useState(pathType ? pathType : 'pack');
 
 	const handleFilter = (key, type) => {
 		// Copy the existing selectedFilters array to avoid mutating state directly
@@ -139,7 +141,6 @@ const Sidebar = () => {
 
 	useEffect(() => {
         filterTemplates(templateType);
-
     }, [selectedFilters]);
 
 	useEffect(() => {
