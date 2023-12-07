@@ -12,6 +12,7 @@ const SingleTemplateStyle = Styled.div`
         display: flex;
         position: relative;
         border-radius: 12px;
+        min-height: 150px;
         img {
             width: 100%;
         }

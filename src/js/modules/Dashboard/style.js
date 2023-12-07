@@ -162,6 +162,7 @@ const DashboardItemsStyle = Styled.div`
     .templatiq__content__dashboard__item__text {
         font-size: 14px;
         font-weight: 400;
+        text-transform: capitalize;
         color: var(--templatiq-gray-color);
     }
     .templatiq__content__dashboard__item {

@@ -4,7 +4,7 @@ import { AuthStyle } from "@root/style";
 
 import { useMutation } from '@tanstack/react-query';
 import { select } from '@wordpress/data';
-import store from '../../store';
+import store from '@store/index';
 
 export default function SignUpContent() {
 	const [isRegistered, setIsRegistered] = useState(false);

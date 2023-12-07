@@ -1,4 +1,5 @@
 import { Suspense, useState, useEffect } from '@wordpress/element';
+import apiFetch from '@wordpress/api-fetch';
 import { applyFilters } from '@wordpress/hooks';
 import { useQuery } from '@tanstack/react-query';
 import {
@@ -15,7 +16,7 @@ import { updateGlobalState } from '@helper/utils';
 import { ThemeProvider } from 'styled-components';
 
 import { dispatch } from '@wordpress/data';
-import store from '../store';
+import store from '@store/index';
 
 import Preloader from '@components/Preloader';
 import ContentLoading from '@components/ContentLoading';
@@ -36,6 +37,7 @@ import MyAccount from "./pages/dashboard/Account";
 export default function App() { 
 	const [ dir, setDir ] = useState( 'ltr' );
 	const [ loading, setLoading ] = useState(false);
+	const [ data, setData ] = useState(null);
 
 	const theme = {
 		direction: dir,
@@ -77,68 +79,33 @@ export default function App() {
 		}
 	};
 
-	const { isLoading, error, data } = useQuery(['templates'], () => fetch(
-        `${template_market_obj.rest_args.endpoint}/template/library`, 
-            {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-WP-Nonce': template_market_obj.rest_args.nonce,
-            }
-        }).then(res => res.json() )
-    );
+	const getTemplates = async () => {
+		try {
+			const libraryData = await apiFetch({
+				path: 'templatiq/template/library',
+				method: 'GET',
+			});
 
-	useEffect(() => {
-        if (data) {
-			setLoading(false)
-            const templateData = data.templates ? data.templates : [];
-			// Dispatch the action to update data in the store
-			dispatch(store).setTemplates(templateData);
-			dispatch(store).setLibraryData(data);
-        } else {
-			setLoading(true)
-            console.log('Initially No Data')
-            dispatch(store).setTemplates([]);
-            dispatch(store).setLibraryData({});
-        }
-
-    }, [isLoading]);
+			dispatch(store).setTemplates(libraryData.templates);
+			dispatch(store).setLibraryData(libraryData);
+	
+			return libraryData;
+		} catch (error) {
+			// Handle errors here
+			console.error('Error fetching data:', error);
+			throw error; // rethrow the error if needed
+		}
+	};
 
 	useEffect( () => {
+		setLoading(true);
 		getUserInfo();
 
-		if ( document.documentElement.getAttribute( 'dir' ) === 'rtl' ) {
-			setDir( 'rtl' );
-		} else {
-			setDir( 'ltr' );
-		}
-		updateGlobalState( 'templatiq_router_references', {
-			navigationHook: useNavigate,
-			routeLink: Link,
-			routerNavLink: NavLink,
-			paramsHook: useParams,
-			locationHook: { useLocation },
-		} );
-
+		getTemplates().then(libraryData => {
+			setLoading(false);
+		});
 
 	}, [] );
-	
-	if (loading) 
-    return (
-        <ContentLoading />
-    );
-	
-	if (isLoading) 
-    return (
-        <Preloader />
-    );
-
-	if (error) 
-    return (
-        <>
-            {error.message}
-        </>
-    );
 
 	const adminRoutes = applyFilters( 'templatiq_admin_routes', [
 		{

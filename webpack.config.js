@@ -58,21 +58,18 @@ module.exports = {
 	],
 	resolve: {
 		alias: {
-			'@templatiq/queryStore': path.resolve(
-				__dirname,
-				'src/js/queryStore'
-			),
-			'@modules': path.resolve( __dirname, 'src/js/modules' ),
-			'@constants': path.resolve( __dirname, 'src/js/constants.js' ),
-			'@lib': path.resolve( __dirname, 'src/js/lib' ),
-			'@root/style': path.resolve( __dirname, 'src/js/style.js' ),
+			// '@templatiq/queryStore': path.resolve( __dirname, 'src/js/queryStore'),
+			// '@constants': path.resolve( __dirname, 'src/js/constants.js' ),
+			// '@lib': path.resolve( __dirname, 'src/js/lib' ),
 			// '@context': path.resolve( __dirname, 'src/js/Context' ),
+			'@root/style': path.resolve( __dirname, 'src/js/style.js' ),
 			'@components': path.resolve( __dirname, 'src/js/components' ),
+			'@modules': path.resolve( __dirname, 'src/js/modules' ),
 			'@layout': path.resolve( __dirname, 'src/js/layout' ),
+			'@data': path.resolve( __dirname, 'src/js/data' ),
+			'@store': path.resolve( __dirname, 'src/js/store' ),
 			'@hooks': path.resolve( __dirname, 'src/js/hooks' ),
 			'@helper': path.resolve( __dirname, 'src/js/helper' ),
-			'@store': path.resolve( __dirname, 'src/js/store' ),
-			'@data': path.resolve( __dirname, 'src/js/data' ),
 			'@icon': path.resolve( __dirname, 'src/svg/icon' ),
 			'@images': path.resolve( __dirname, 'src/images' ),
 			'@assets': path.resolve( __dirname, 'assets' ),

@@ -2,7 +2,7 @@ import { useState, useEffect } from '@wordpress/element';
 import { select } from '@wordpress/data';
 import ReactSVG from 'react-inlinesvg';
 import AuthModal from '@components/Popup/AuthModal';
-import store from '../../store';
+import store from '@store/index';
 
 import InsertTemplateModal from '@components/Popup/InsertTemplateModal';
 import downloadIcon from "@icon/download.svg";

@@ -6,7 +6,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import Dropdown from '@components/Dropdown';
 import CacheClearBtn from '@components/CacheClearBtn';
 import checkedClickedOutside from '@helper/checkClickedOutside';
-import store from '../../store';
+import store from '@store/index';
 
 import { HeaderStyle, HeaderNavStyle, HeaderActionStyle } from "./style";
 

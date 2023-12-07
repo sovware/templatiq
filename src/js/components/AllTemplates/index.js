@@ -2,12 +2,11 @@ import { useState, useEffect } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg'; 
 import ReactPaginate from 'react-paginate';
 import { select, subscribe } from '@wordpress/data';
-import store from '../../store';
+import store from '@store/index';
 
 import { TemplatePackFilterStyle } from '@root/style';
 import Searchform from "@components/Searchform";
 import ContentLoading from '@components/ContentLoading';
-import Preloader from '@components/Preloader';
 
 import SingleTemplate from "@components/SingleTemplate";
 
@@ -60,7 +59,7 @@ export default function AllTemplates (props) {
     };
 
     const searchFilteredTemplates = () => {
-        const newFilteredTemplates = allTemplates.filter((template) =>
+        const newFilteredTemplates = allTemplates && allTemplates.filter((template) =>
           template.title.toLowerCase().includes(searchValue.toLowerCase())
         );
 
@@ -96,9 +95,9 @@ export default function AllTemplates (props) {
 
     const checkTemplateType = (templates) => {
         let typeChecked = '';
-        if (templateType) {
+        if (templates && templateType) {
             user && userFav && templateStatus === 'favorites' ? 
-            typeChecked = templates.filter(template => template.type === templateType && userFav.includes(template.template_id)) :
+            typeChecked = templates.filter(template => userFav.includes(template.template_id)) :
             typeChecked = templates.filter(template => template.type === templateType);
 
             setAllTemplates(typeChecked);
@@ -112,7 +111,8 @@ export default function AllTemplates (props) {
     useEffect(() => {
         setLoading(true);
         const templateData = select( store ).getTemplates();
-        checkTemplateType(templateData);
+
+        templateData && checkTemplateType(templateData);
 
 		// Subscribe to changes in the store's data
 		const storeUpdate = subscribe(() => {
@@ -136,13 +136,13 @@ export default function AllTemplates (props) {
     useEffect(() => {
         setDefaultTemplates(allTemplates);
         setFilteredTemplates(allTemplates);
-        setProTemplates(allTemplates.filter(template => template.price > 0));
-	    setFreeTemplates(allTemplates.filter(template => template.price <= 0));
+        setProTemplates(allTemplates && allTemplates.filter(template => template.price > 0));
+	    setFreeTemplates(allTemplates && allTemplates.filter(template => template.price <= 0));
 
         // Initially set the allTemplates to display based on start and end item counts
-        setTemplatesToDisplay(allTemplates.slice(startItemCount, endItemCount));
+        setTemplatesToDisplay(allTemplates && allTemplates.slice(startItemCount, endItemCount));
 
-        setTotalPaginate(allTemplates.length)
+        setTotalPaginate(allTemplates && allTemplates.length)
 
     }, [allTemplates]);
 
@@ -156,34 +156,38 @@ export default function AllTemplates (props) {
 
     useEffect(() => {
         setDefaultTemplates(filteredTemplates);
-        setProTemplates(filteredTemplates.filter(template => template.price > 0));
-	    setFreeTemplates(filteredTemplates.filter(template => template.price <= 0));
+        if (filteredTemplates) {
+            setProTemplates(filteredTemplates.filter(template => template.price > 0));
+            setFreeTemplates(filteredTemplates.filter(template => template.price <= 0));
 
-        // Initially set the filteredTemplates to display based on start and end item counts
-        setTemplatesToDisplay(filteredTemplates.slice(startItemCount, endItemCount));
+            // Initially set the filteredTemplates to display based on start and end item counts
+            setTemplatesToDisplay(filteredTemplates.slice(startItemCount, endItemCount));
 
-        setTotalPaginate(filteredTemplates.length)
+            setTotalPaginate(filteredTemplates.length)
 
-        filteredTemplates.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
-        setLoading(false);
+            filteredTemplates.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
+            setLoading(false);
+        }
 
     }, [filteredTemplates]);
+
+    useEffect(() => {
+        templatesToDisplay && templatesToDisplay.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
+    }, [templatesToDisplay]);
     
     useEffect(() => {
         if (activeTab === 'all') {
-            setTemplatesToDisplay(defaultTemplates.slice(startItemCount, endItemCount));
-            setTotalPaginate(defaultTemplates.length)
+            setTemplatesToDisplay(defaultTemplates && defaultTemplates.slice(startItemCount, endItemCount));
+            setTotalPaginate(defaultTemplates && defaultTemplates.length)
         } else if (activeTab === 'pro') {
-            setTemplatesToDisplay(proTemplates.slice(startItemCount, endItemCount));
-            setTotalPaginate(proTemplates.length)
+            setTemplatesToDisplay(proTemplates && proTemplates.slice(startItemCount, endItemCount));
+            setTotalPaginate(proTemplates && proTemplates.length)
         } else if (activeTab === 'free') {
-            setTemplatesToDisplay(freeTemplates.slice(startItemCount, endItemCount));
-            setTotalPaginate(freeTemplates.length)
+            setTemplatesToDisplay(freeTemplates && freeTemplates.slice(startItemCount, endItemCount));
+            setTotalPaginate(freeTemplates && freeTemplates.length)
         }
 
     }, [activeTab, startItemCount, endItemCount, filteredTemplates, proTemplates, freeTemplates]);
-
-    console.log('Templates to Display: ', templatesToDisplay)
 
 	return (
         <Tabs className="templatiq__content__tab">
@@ -199,13 +203,13 @@ export default function AllTemplates (props) {
                                 className="templatiq__content__top__filter__item"
                                 onClick={() => changeTemplateTab('all')}
                             >
-                                <button className="templatiq__content__top__filter__link">All ({defaultTemplates.length})</button>
+                                <button className="templatiq__content__top__filter__link">All ({defaultTemplates && defaultTemplates.length})</button>
                             </Tab>
                            <Tab 
                                 className="templatiq__content__top__filter__item"
                                 onClick={() => changeTemplateTab('free')}
                             >
-                                <button className="templatiq__content__top__filter__link">Free ({freeTemplates.length})</button>
+                                <button className="templatiq__content__top__filter__link">Free ({freeTemplates && freeTemplates.length})</button>
                             </Tab>
                            <Tab 
                                 className="templatiq__content__top__filter__item"
@@ -213,7 +217,7 @@ export default function AllTemplates (props) {
                             >
                                 <button className="templatiq__content__top__filter__link">
                                     <ReactSVG src={crownIcon} width={12} height={12} />
-                                    Pro ({proTemplates.length})
+                                    Pro ({proTemplates && proTemplates.length})
                                 </button>
                             </Tab>
                         </TabList>
@@ -235,7 +239,7 @@ export default function AllTemplates (props) {
                 { loading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
                     <>
                         <TabPanel className="templatiq-row templatiq__content__tab-panel">
-                        {templatesToDisplay
+                        {templatesToDisplay && templatesToDisplay
                             .map(template => (
                                 <div className="templatiq-col-4">
                                     {loading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
@@ -259,7 +263,7 @@ export default function AllTemplates (props) {
                         }
                         </TabPanel>
                         <TabPanel className="templatiq-row templatiq__content__tab-panel">
-                        {templatesToDisplay
+                        {templatesToDisplay && templatesToDisplay
                             .map(template => (
                                 <div className="templatiq-col-4">
                                     {loading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
@@ -282,7 +286,7 @@ export default function AllTemplates (props) {
                         }
                         </TabPanel>
                         <TabPanel className="templatiq-row templatiq__content__tab-panel">
-                        {templatesToDisplay
+                        {templatesToDisplay && templatesToDisplay
                             .map(template => (
                                 <div className="templatiq-col-4">
                                     {loading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :

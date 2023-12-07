@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { select, subscribe } from '@wordpress/data';
-import store from '../store/index.js';
+import store from '@store/index';
 
 import Header from '@layout/Header';
 import AdminSidebar from '@layout/Sidebar/AdminSidebar';
