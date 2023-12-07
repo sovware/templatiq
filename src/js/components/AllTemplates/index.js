@@ -2,12 +2,11 @@ import { useState, useEffect } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg'; 
 import ReactPaginate from 'react-paginate';
 import { select, subscribe } from '@wordpress/data';
-import store from '../../store';
+import store from '@store/index';
 
 import { TemplatePackFilterStyle } from '@root/style';
 import Searchform from "@components/Searchform";
 import ContentLoading from '@components/ContentLoading';
-import Preloader from '@components/Preloader';
 
 import SingleTemplate from "@components/SingleTemplate";
 
@@ -168,6 +167,11 @@ export default function AllTemplates (props) {
         setLoading(false);
 
     }, [filteredTemplates]);
+
+    useEffect(() => {
+        templatesToDisplay.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
+        console.log('Templates to Display Changed: ', templatesToDisplay)
+    }, [templatesToDisplay]);
     
     useEffect(() => {
         if (activeTab === 'all') {

@@ -15,7 +15,7 @@ import { updateGlobalState } from '@helper/utils';
 import { ThemeProvider } from 'styled-components';
 
 import { dispatch } from '@wordpress/data';
-import store from '../store';
+import store from '@store/index';
 
 import Preloader from '@components/Preloader';
 import ContentLoading from '@components/ContentLoading';

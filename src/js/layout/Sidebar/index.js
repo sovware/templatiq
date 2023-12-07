@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import ReactSVG from 'react-inlinesvg';
 import { select, dispatch } from '@wordpress/data';
 
-import store from '../../store';
+import store from '@store/index';
 import { SidebarStyle, SidebarItemStyle } from './style';
 
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';

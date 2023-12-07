@@ -5,6 +5,9 @@
 		"@components/*": ["./src/js/components/*"],
 		"@modules/*": ["./src/js/modules/*"],
 		"@layout/*": ["./src/js/layout/*"],
+		"@store/*": ["./src/js/store/*"],
+		"@icon/*": ["./src/js/icon/*"],
+		"@images/*": ["./src/js/images/*"],
 	  }
 	},
 	"exclude": [".git", "app", "node_modules", "vendor", "vendor-src"]

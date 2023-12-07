@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthStyle } from "@root/style";
 
-import store from '../../store';
+import store from '@store/index';
   
 export default function SignInContent () {
 	const navigate = useNavigate();

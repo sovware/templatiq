@@ -3,7 +3,7 @@ import { select, subscribe } from '@wordpress/data';
 import DashboardLayout from '@layout/DashboardLayout';
 import ContentLoading from '@components/ContentLoading';
 import Searchform from "@components/Searchform";
-import store from '../../store';
+import store from '@store/index';
 
 import { TemplatePackStyle } from "@root/style";
 import { DashboardItemsStyle } from "./style"

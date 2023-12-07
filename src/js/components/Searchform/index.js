@@ -2,7 +2,7 @@ import { useState, useEffect } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { dispatch } from '@wordpress/data';
 
-import store from '../../store';
+import store from '@store/index';
 
 import { SearchformStyle } from './style';
 

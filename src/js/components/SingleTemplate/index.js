@@ -6,7 +6,7 @@ import Bookmark from '@components/Bookmark';
 import InsertTemplate from '@components/InsertTemplate';
 import ContentLoading from '@components/ContentLoading';
 import { SingleTemplateStyle } from './style';
-import store from '../../store';
+import store from '@store/index';
 
 import crownIcon from "@icon/crown.svg";
 import cartIcon from "@icon/cart.svg";

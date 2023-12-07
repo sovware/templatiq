@@ -1,5 +1,5 @@
 import { select } from '@wordpress/data';
-import store from '../../store';
+import store from '@store/index';
 import { TemplateDetailsStyle } from './style';
 
 import TemplateDetailsLayout from './TemplateDetailsLayout';
