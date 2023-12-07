@@ -41,7 +41,11 @@ const SingleTemplate = (item) => {
     return (
         <SingleTemplateStyle className="templatiq__template__single" ref={templateRef}>
             <div className="templatiq__template__single__img">
-                <img src={thumbnail ? thumbnail : templateImg1} alt={title} />
+                {
+                    thumbnail ? 
+                    <img src={thumbnail} alt={title} /> : 
+                    <ContentLoading style={ { margin: 0, minHeight: 'unset' } } />
+                }
                 <div className="templatiq__template__single__overlay"></div>
                 <div className="templatiq__template__single__info">
                     <div className="templatiq__template__single__info__meta">
