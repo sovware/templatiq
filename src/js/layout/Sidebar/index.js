@@ -1,7 +1,7 @@
 import { useState, useEffect } from '@wordpress/element';
 import { useLocation } from 'react-router-dom';
 import ReactSVG from 'react-inlinesvg';
-import { select, dispatch } from '@wordpress/data';
+import { select, dispatch, subscribe } from '@wordpress/data';
 
 import store from '@store/index';
 import { SidebarStyle, SidebarItemStyle } from './style';
@@ -17,10 +17,9 @@ const Sidebar = () => {
 	const pathType = location.pathname.split('/').pop();
 
 	const templateType = pathType == 'pages' ? 'page' : pathType == 'blocks' ? 'section' : 'pack'
-
-	const libraryData = select( store ).getLibraryData();
 	
 	const [ loading, setLoading] = useState(false);
+	const [ libraryData, setLibraryData] = useState(false);
 	const [ categories, setCategories] = useState([]);
 	const [ plugins, setPlugins] = useState([]);
 	const [ pluginGroups, setPluginGroups] = useState([]);
@@ -101,9 +100,12 @@ const Sidebar = () => {
 	  
 	useEffect(() => {
 		setLoading(true);
+		const data = select( store ).getLibraryData();
+
         if (libraryData) {
 			setLoading(false);
-           	getSidebarData(libraryData);
+           	getSidebarData(data);
+			setLibraryData(data);
             
         } else {
             console.log('No Data')
@@ -111,6 +113,19 @@ const Sidebar = () => {
 
 		// Clear Stored Filters
 		dispatch(store).setFilterSearch([]);
+
+		// Subscribe to changes in the store's data
+		const storeUpdate = subscribe(() => {
+			const data = select( store ).getLibraryData();
+			if (data) {
+				setLoading(false);
+				getSidebarData(data);
+				setLibraryData(data);
+			}
+		});
+
+		// storeUpdate when the component is unmounted
+		return () => storeUpdate();
 
     }, []);
 

@@ -11,19 +11,19 @@ function initializeApp( container ) {
 		const root = createRoot(container);
 
 		root.render(
-			<QueryClientProvider client={queryStore}>
+			<div>
 				<Suspense fallback={ <></> }>
 					<App />
 				</Suspense>
-			</QueryClientProvider>
+			</div>
 		);
 	} else {
 		render(
-			<QueryClientProvider client={queryStore}>
+			<div>
 				<Suspense fallback={ <></> }>
 					<App />
 				</Suspense>
-			</QueryClientProvider>,
+			</div>,
 			container
 		);
 	}

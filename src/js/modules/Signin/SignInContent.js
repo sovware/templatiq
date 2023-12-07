@@ -1,4 +1,5 @@
 import { useState, useEffect } from '@wordpress/element';
+import apiFetch from '@wordpress/api-fetch';
 import { select, dispatch } from '@wordpress/data';
 import { useMutation } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
@@ -34,6 +35,14 @@ export default function SignInContent () {
 
 	// Login API
 	const login = async (credentials) => {
+		apiFetch( { 
+			path: 'templatiq/account/login',
+			method: 'POST',
+			data: credentials,
+		}).then( ( info ) => {
+			console.log( 'APIFetch User Info: ', info );
+		} );
+
 		const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/login`, {
 			method: 'POST',
 			headers: {
@@ -46,6 +55,7 @@ export default function SignInContent () {
 		if (!response.ok) {
 			throw new Error('Login failed');
 		}
+		console.log( 'Fetch User Info: ', response );
 	
 		return response.json();
 	};
@@ -53,6 +63,7 @@ export default function SignInContent () {
 	const mutation = useMutation(login);
 
 	const handleLogin = async (credentials) => {
+		console.log('credintial: ', credentials)
 		try {
 			// Call the mutation function with the user's credentials
 			const result = await mutation.mutateAsync(credentials);

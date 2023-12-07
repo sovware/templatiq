@@ -1,5 +1,6 @@
 const actions = {
     setLibraryData(data) {
+		console.log('Store Library: ', data)
 		return {
 			type: 'SET_LIBRARY',
 			data,
@@ -7,6 +8,7 @@ const actions = {
     },
 
     setTemplates(templates) {
+		console.log('Store Templates: ', templates)
 		return {
 			type: 'SET_TEMPLATES',
 			templates,
