@@ -33,14 +33,6 @@ const actions = {
         };
     },
   
-    toggleTemplateStatus(item, activeStatus) {
-		return {
-			type: 'TOGGLE_TEMPLATE_STATUS',
-			item,
-			activeStatus,
-		};
-    },
-  
     setSearchQuery(searchQuery) {
 		return {
 			type: 'SET_SEARCH_QUERY',

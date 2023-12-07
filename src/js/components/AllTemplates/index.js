@@ -170,7 +170,6 @@ export default function AllTemplates (props) {
 
     useEffect(() => {
         templatesToDisplay.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
-        console.log('Templates to Display Changed: ', templatesToDisplay)
     }, [templatesToDisplay]);
     
     useEffect(() => {
@@ -186,8 +185,6 @@ export default function AllTemplates (props) {
         }
 
     }, [activeTab, startItemCount, endItemCount, filteredTemplates, proTemplates, freeTemplates]);
-
-    console.log('Templates to Display: ', templatesToDisplay)
 
 	return (
         <Tabs className="templatiq__content__tab">

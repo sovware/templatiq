@@ -1,4 +1,3 @@
-// import apiFetch from '@wordpress/api-fetch';
 import { createReduxStore, register } from '@wordpress/data';
 import actions from './actions';
 import selectors from './selectors';
@@ -20,20 +19,8 @@ const DEFAULT_STATE = {
 	templateStatus: {},
 };
 
-// Load state from localStorage on store initialization
-const loadStateFromStorage = () => {
-	try {
-		const storedState = localStorage.getItem('templatiq-stores');
-		return storedState ? JSON.parse(storedState) : DEFAULT_STATE;
-	} catch (error) {
-		console.error('Error parsing stored state:', error);
-		return DEFAULT_STATE;
-	}
-};
-  
-
 const store = createReduxStore('templatiq-stores', {
-	reducer(state = loadStateFromStorage(), action) {
+	reducer(state = DEFAULT_STATE, action) {
 		console.log('Initial Store Data: ', state)
 		switch (action.type) {
 			case 'SET_TEMPLATES':
@@ -71,20 +58,6 @@ const store = createReduxStore('templatiq-stores', {
 				localStorage.setItem('templatiq-stores', JSON.stringify(favState));
 		
 				return favState;
-
-			case 'TOGGLE_TEMPLATE_STATUS':
-				const favStatus = {
-					...state,
-					templateStatus: {
-						...state.templateStatus,
-						[action.item]: action.activeStatus,
-					},
-				};
-		
-				// Save state to localStorage whenever it changes
-				localStorage.setItem('templatiq-stores', JSON.stringify(favStatus));
-		
-				return favStatus;
 
 			case 'SET_USER_INFO':
 				const userData = {
