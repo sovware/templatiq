@@ -1,5 +1,5 @@
 
-import SignUpModule from '@modules/Signup';
+import SignUpModule from '@modules/SignUp';
 
 export default function SignUp() {
 

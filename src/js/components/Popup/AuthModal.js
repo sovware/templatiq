@@ -1,7 +1,7 @@
 import { useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
-import SignInContent from '@modules/SignIn/SignInContent'; // Fix import statement
-import SignUpContent from '@modules/SignUp/SignUpContent'; // Fix import statement
+import SignInContent from '@modules/SignIn/SignInContent';
+import SignUpContent from '@modules/SignUp/SignUpContent';
 import { AuthModalStyle } from './style';
 
 import closeIcon from "@icon/close.svg";

@@ -1,5 +1,5 @@
 
-import SignInModule from '@modules/Signin';
+import SignInModule from '@modules/SignIn';
 
 export default function SignIn() {
 

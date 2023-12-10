@@ -147,7 +147,7 @@ export default function AllTemplates (props) {
     }, [allTemplates]);
 
 	useEffect(() => {
-        filterValue.length > 0 ? filterPluginTemplates() : searchFilteredTemplates();
+        filterValue && filterValue.length > 0 ? filterPluginTemplates() : searchFilteredTemplates();
     }, [filterValue]);
 
     useEffect(() => {
