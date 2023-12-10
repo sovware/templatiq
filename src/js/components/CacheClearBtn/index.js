@@ -1,4 +1,5 @@
 import { useState } from '@wordpress/element';
+import apiFetch from '@wordpress/api-fetch';
 import ReactSVG from 'react-inlinesvg';
 import { CacheClearBtnStyle } from './style';
 
@@ -7,32 +8,23 @@ import cacheClearIcon from "@icon/fire.svg";
 const CacheClearBtn = (props) => {
 	const [isLoading, setIsLoading] = useState(false);
 
-    const handleCacheClear = async () => {
+	const handleCacheClear = async (e) => {
+		e.preventDefault();
 		setIsLoading(true);
-		const response = await fetch(`${template_market_obj.rest_args.endpoint}/cache/clear`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				'X-WP-Nonce': template_market_obj.rest_args.nonce,
-			},
-		});
-	
-		if (response.ok) {
-			setIsLoading(false);
-			console.log('Cache Cleared')
+		try {
+			const cacheData = await apiFetch({
+				path: 'templatiq/cache/clear',
+				method: 'POST',
+			}).then( ( res ) => {
+                setIsLoading(false);
+            } );
+            return cacheData;
+		} catch (error) {
+			// Handle errors here
+			console.error('Error fetching data:', error);
+			throw error; // rethrow the error if needed
 		}
-
-		if (!response.ok) {
-			setIsLoading(false);
-			throw new Error('Cache Clear failed');
-		}
-
-		const data = response.json();
-		console.log('Cache Clear Response: ', data)
-	
-		return data;
 	};
-    
 
     return (
         <CacheClearBtnStyle className="templatiq__cache-clear">
