@@ -59,8 +59,6 @@ const InsertTemplate = ({item, templateRef, className, innerText, solidIcon}) =>
                 plugins: plugins
             },
 		}).then( ( res ) => { 
-			console.log( 'APIFetch Handle Plugin data: ', res );
-
             setRequiredPlugins(res);
 		} );
         
@@ -68,7 +66,7 @@ const InsertTemplate = ({item, templateRef, className, innerText, solidIcon}) =>
 
     useEffect(() => {
         handlePlugins(required_plugins);
-    }, [required_plugins]);
+    }, []);
 
     return (
         <>
