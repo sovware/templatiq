@@ -105,6 +105,8 @@ export default function AllTemplates (props) {
         } else {
             setAllTemplates(templates);
         }
+
+        setLoading(false);
         
     }
 
@@ -117,11 +119,11 @@ export default function AllTemplates (props) {
 		// Subscribe to changes in the store's data
 		const storeUpdate = subscribe(() => {
 			const templates = select( store ).getTemplates();
-            const { bookmark } = select( store ).getUserInfo();
+            const { bookmarks } = select( store ).getUserInfo();
 			const searchQuery = select( store ).getSearchQuery();
             const filterSearch = select( store ).getFilterSearch();
 
-            setUserFav(bookmark);
+            setUserFav(bookmarks);
             setSearchValue(searchQuery);
             setFilterValue(filterSearch);
 
@@ -131,7 +133,7 @@ export default function AllTemplates (props) {
 		// storeUpdate when the component is unmounted
 		return () => storeUpdate();
 
-    }, []);
+    }, [userFav ? userFav : null]);
 
     useEffect(() => {
         setDefaultTemplates(allTemplates);
@@ -148,7 +150,7 @@ export default function AllTemplates (props) {
 
 	useEffect(() => {
         filterValue && filterValue.length > 0 ? filterPluginTemplates() : searchFilteredTemplates();
-    }, [filterValue]);
+    }, [filterValue, userFav]);
 
     useEffect(() => {
         searchFilteredTemplates();
@@ -166,7 +168,7 @@ export default function AllTemplates (props) {
             setTotalPaginate(filteredTemplates.length)
 
             filteredTemplates.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
-            setLoading(false);
+            // setLoading(false);
         }
 
     }, [filteredTemplates]);
@@ -203,13 +205,13 @@ export default function AllTemplates (props) {
                                 className="templatiq__content__top__filter__item"
                                 onClick={() => changeTemplateTab('all')}
                             >
-                                <button className="templatiq__content__top__filter__link">All ({defaultTemplates && defaultTemplates.length})</button>
+                                <button className="templatiq__content__top__filter__link">All ({defaultTemplates ? defaultTemplates.length : '0'})</button>
                             </Tab>
                            <Tab 
                                 className="templatiq__content__top__filter__item"
                                 onClick={() => changeTemplateTab('free')}
                             >
-                                <button className="templatiq__content__top__filter__link">Free ({freeTemplates && freeTemplates.length})</button>
+                                <button className="templatiq__content__top__filter__link">Free ({freeTemplates ? freeTemplates.length : '0'})</button>
                             </Tab>
                            <Tab 
                                 className="templatiq__content__top__filter__item"
@@ -217,7 +219,7 @@ export default function AllTemplates (props) {
                             >
                                 <button className="templatiq__content__top__filter__link">
                                     <ReactSVG src={crownIcon} width={12} height={12} />
-                                    Pro ({proTemplates && proTemplates.length})
+                                    Pro ({proTemplates ? proTemplates.length : '0'})
                                 </button>
                             </Tab>
                         </TabList>
@@ -229,15 +231,15 @@ export default function AllTemplates (props) {
             </div>
 
             <div className="templatiq__content__wrapper">
-                { 
-                    isEmpty && 
-                    <div className="templatiq__content__empty">
-                        <h3 className="templatiq__content__empty__title">No Template Found</h3>
-                        <h3 className="templatiq__content__empty__desc">Search Other Templates</h3>
-                    </div>
-                }
                 { loading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
                     <>
+                        { 
+                            isEmpty &&
+                            <div className="templatiq__content__empty">
+                                <h3 className="templatiq__content__empty__title">No Template Found</h3>
+                                <h3 className="templatiq__content__empty__desc">Search Other Templates</h3>
+                            </div>
+                        }
                         <TabPanel className="templatiq-row templatiq__content__tab-panel">
                         {templatesToDisplay && templatesToDisplay
                             .map(template => (
