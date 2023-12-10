@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from '@wordpress/element';
+import apiFetch from '@wordpress/api-fetch';
 import { select, dispatch } from '@wordpress/data';
 import ReactSVG from 'react-inlinesvg';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
@@ -38,29 +39,16 @@ const Header = (props) =>  {
 	const [isAuthorInfoVisible, setAuthorInfoVisible] = useState(false);
 
 	const handleLogOut = async () => {
-		try {
-			const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/logout`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					'X-WP-Nonce': template_market_obj.rest_args.nonce,
-				},
-			});
-	
-			if (!response.ok) {
-				throw new Error('Error Occurred');
-			}
-	
-			if (response.ok) {
-				// Dispatch the action to update the login status in the store
-				dispatch(store).logOut();
-				navigate('/');
-			}
-		} catch (error) {
-			// Handle error if needed
-			console.error('Error in Logout:', error);
-		}
-	}
+		apiFetch( { 
+			path: 'templatiq/account/logout',
+			method: 'POST',
+		}).then( ( res ) => { 
+			console.log( 'APIFetch Logout data: ', res );
+			// Dispatch the action to update the login status in the store
+			dispatch(store).logOut();
+			navigate('/');
+		} );
+	};
 
 	let editorItems = [
 		{

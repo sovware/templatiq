@@ -30,26 +30,6 @@ export default function SignUpContent() {
 		handleSignup({ name: authorFullName.value, user_email: authorEmail.value });
 	};
 
-	// Signup API
-	// const signup = async (credentials) => {
-	// 	const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/create`, {
-	// 		method: 'POST',
-	// 		headers: {
-	// 			'Content-Type': 'application/json',
-	// 			'X-WP-Nonce': template_market_obj.rest_args.nonce,
-	// 		},
-	// 		body: JSON.stringify(credentials),
-	// 	});
-	
-	// 	if (!response.ok) {
-	// 		throw new Error('Signup failed');
-	// 	}
-		
-	// 	return response.json();
-	// };
-
-	// const mutation = useMutation(signup);
-
 	const handleSignup = async (credentials) => {
 		apiFetch( { 
 			path: 'templatiq/account/create',
@@ -66,20 +46,6 @@ export default function SignUpContent() {
 			}
 		} );
 
-		// try {
-		// 	// Call the mutation function with the user's credentials
-		// 	const result = await mutation.mutateAsync(credentials);
-		// 	const signUpData = await JSON.parse(result.body);
-
-		// 	if(signUpData.token) {
-		// 		setIsRegistered(true);
-		// 	} else {
-		// 		const errorMessage = signUpData.message?.user_email;
-		// 		setErrorMessage(errorMessage);
-		// 	}
-		// } catch (error) {	
-		//   	console.error('Error', error); // Handle error
-		// }
 		setLoading(false);
 	};
 

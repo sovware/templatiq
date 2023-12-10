@@ -1,4 +1,5 @@
 import { useState, useEffect } from '@wordpress/element';
+import apiFetch from '@wordpress/api-fetch';
 import ReactSVG from 'react-inlinesvg';
 import { InsertTemplateModalStyle } from './style';
 
@@ -6,9 +7,14 @@ import closeIcon from "@icon/close.svg";
 
 const InsertTemplateModal = ({item, required_plugins, onClose}) => {
     const { template_id, builder } = item;
+    // const installablePlugins = required_plugins.filter(plugin => plugin.is_pro === "false");
+    // const proPlugins = required_plugins.filter(plugin => plugin.is_pro === "true");
+   
+    const installablePlugins = required_plugins.filter(plugin => !plugin.hasOwnProperty("is_pro") || plugin.is_pro === "false");
+    const proPlugins = required_plugins.filter(plugin => plugin.hasOwnProperty("is_pro") && plugin.is_pro === "true");
 
-    const installablePlugins = required_plugins.filter(plugin => plugin.is_pro === "false");
-    const proPlugins = required_plugins.filter(plugin => plugin.is_pro === "true");
+
+    console.log('required_plugins: ', required_plugins, installablePlugins, proPlugins)
 
 	let [selectedPlugins, setSelectedPlugins] = useState([]);
 	let [pageTitle, setPageTitle] = useState('');
@@ -46,6 +52,8 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
 
     const handlePopUpForm = async (e) => {
         e.preventDefault();
+
+        console.log('selectedPlugins: ', selectedPlugins)
     
         // Set the installing status for each selected plugin
         for (const plugin of selectedPlugins) {
@@ -59,76 +67,62 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
     };
 
     const installPlugin = async (plugin) => {
-        setIsInstalling(true);
-        const response = await fetch(`${template_market_obj.rest_args.endpoint}/dependency/install`, 
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-WP-Nonce': template_market_obj.rest_args.nonce,
+        setLoading(true);
+		apiFetch( { 
+			path: 'templatiq/dependency/install',
+			method: 'POST',
+			data: {
+                plugin: plugin,
             },
-            body: JSON.stringify({
-                plugin: plugin
-            }),
-        });
-    
-        if (!response.ok) {
-            throw new Error('Error Occurred');
-        }
-    
-        const data = await response.json();
+		}).then( ( res ) => { 
+			setLoading(false)
+			console.log( 'APIFetch Install data: ', res );
 
-        if(data.success) {
-            // Update the status for the plugin
-            setInstalledPlugins((prevInstalled) => [...prevInstalled, plugin.slug]);
-            setIsInstalling(false);
-        }
-    }; 
+            if(res.success) {
+                setInstalledPlugins((prevInstalled) => [...prevInstalled, plugin.slug]);
+                setIsInstalling(false);
+            }
+		} );
+	};
 
     const importData = async (pageTitle, template_id, builder) => {
         setLoading(true);
-        const response = await fetch(`${template_market_obj.rest_args.endpoint}/template/import-as-page`, 
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-WP-Nonce': template_market_obj.rest_args.nonce,
-            },
-            body: JSON.stringify({
+		apiFetch( { 
+			path: 'templatiq/template/import-as-page',
+			method: 'POST',
+			data: {
                 title: pageTitle,
                 template_id: template_id,
                 builder: builder,
-            }),
-        });
-    
-        if (!response.ok) {
-            setLoading(false);
-            throw new Error('Error Occurred');
-        }
-        if (response.ok) {
-            setLoading(false);
-            
-            const data = await response.json();
-    
-            if(data.post_id) {
-                setImportedData(data) 
+            },
+		}).then( ( res ) => { 
+			setLoading(false)
+			console.log( 'APIFetch Import data: ', res );
+
+            if(res.post_id) {
+                setImportedData(res) 
             }
-        }
-    
-    
-    }; 
+		} );
+	};
 
     const importElementorData = () => {
         console.log('importElementorData Called')
     }
 
+    console.log('installablePlugins: ', required_plugins, installablePlugins)
+
     // Check if all required plugins are available in installedPlugins
     useEffect(() => {
+        console.log('installedPlugins: ', installablePlugins, installedPlugins)
+        
         const allRequiredPluginsInstalled = installablePlugins.every((plugin) =>
             installedPlugins.includes(plugin.slug)
         );
 
+        console.log('allRequiredPluginsInstalled: ', allRequiredPluginsInstalled)
+
         if (allRequiredPluginsInstalled) {
+            console.log('All Plugins Installed')
             setAllPluginsInstalled(true);
             importElementorData();
         }

@@ -1,4 +1,5 @@
 import { useState, useEffect } from '@wordpress/element';
+import apiFetch from '@wordpress/api-fetch';
 import { select } from '@wordpress/data';
 import ReactSVG from 'react-inlinesvg';
 import AuthModal from '@components/Popup/AuthModal';
@@ -50,27 +51,20 @@ const InsertTemplate = ({item, templateRef, className, innerText, solidIcon}) =>
         setAuthModalOpen(false);
     };
 
-
-	const handlePlugins = async (plugins) => {
-        const response = await fetch(`${template_market_obj.rest_args.endpoint}/dependency/check`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-WP-Nonce': template_market_obj.rest_args.nonce,
-            },
-            body: JSON.stringify({
+    const handlePlugins = async (plugins) => {
+		apiFetch( { 
+			path: 'templatiq/dependency/check',
+			method: 'POST',
+			data: {
                 plugins: plugins
-            }),
-        });
-    
-        if (!response.ok) {
-            throw new Error('Error Occurred');
-        }
-    
-        const data = await response.json();
+            },
+		}).then( ( res ) => { 
+			console.log( 'APIFetch Handle Plugin data: ', res );
 
-        setRequiredPlugins(data);
-    }; 
+            setRequiredPlugins(res);
+		} );
+        
+	};
 
     useEffect(() => {
         handlePlugins(required_plugins);

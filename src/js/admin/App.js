@@ -43,39 +43,25 @@ export default function App() {
 	};
 
 	const getUserInfo = async () => {
-		try {
-			const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/data`, {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					'X-WP-Nonce': template_market_obj.rest_args.nonce,
-				},
-			});
-	
-			if (!response.ok) {
-				throw new Error('Error Occurred');
-			}
-	
-			if (response.ok) {
-				const responseData = await response.json();
-				const data = responseData.body;
+		apiFetch( { 
+			path: 'templatiq/account/data',
+			method: 'GET',
+		}).then( ( res ) => { 
+			console.log( 'APIFetch User data Init: ', res );
+			const data = res.body;
 
-				const updatedUserInfo = {
-					isLoggedIn: data.token ? true : false,
-					userEmail: data.user_email,
-					userDisplayName: data.user_display_name,
-					bookmarks: data.bookmarks,
-					downloads: data.downloads,
-					purchased: data.purchased,
-				};
-	
-				// Dispatch the action to update the login status in the store
-				dispatch(store).setUserInfo(updatedUserInfo);
-			}
-		} catch (error) {
-			// Handle error if needed
-			console.error('Error in getUserInfo:', error);
-		}
+			const updatedUserInfo = {
+				isLoggedIn: data.token ? true : false,
+				userEmail: data.user_email,
+				userDisplayName: data.user_display_name,
+				bookmarks: data.bookmarks,
+				downloads: data.downloads,
+				purchased: data.purchased,
+			};
+
+			// Dispatch the action to update the login status in the store
+			dispatch(store).setUserInfo(updatedUserInfo);
+		} );
 	};
 
 	const getTemplates = async () => {
