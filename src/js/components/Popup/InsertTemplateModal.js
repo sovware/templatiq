@@ -7,9 +7,14 @@ import closeIcon from "@icon/close.svg";
 
 const InsertTemplateModal = ({item, required_plugins, onClose}) => {
     const { template_id, builder } = item;
+    // const installablePlugins = required_plugins.filter(plugin => plugin.is_pro === "false");
+    // const proPlugins = required_plugins.filter(plugin => plugin.is_pro === "true");
+   
+    const installablePlugins = required_plugins.filter(plugin => !plugin.hasOwnProperty("is_pro") || plugin.is_pro === "false");
+    const proPlugins = required_plugins.filter(plugin => plugin.hasOwnProperty("is_pro") && plugin.is_pro === "true");
 
-    const installablePlugins = required_plugins.filter(plugin => plugin.is_pro === "false");
-    const proPlugins = required_plugins.filter(plugin => plugin.is_pro === "true");
+
+    console.log('required_plugins: ', required_plugins, installablePlugins, proPlugins)
 
 	let [selectedPlugins, setSelectedPlugins] = useState([]);
 	let [pageTitle, setPageTitle] = useState('');
@@ -47,6 +52,8 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
 
     const handlePopUpForm = async (e) => {
         e.preventDefault();
+
+        console.log('selectedPlugins: ', selectedPlugins)
     
         // Set the installing status for each selected plugin
         for (const plugin of selectedPlugins) {
@@ -102,13 +109,20 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
         console.log('importElementorData Called')
     }
 
+    console.log('installablePlugins: ', required_plugins, installablePlugins)
+
     // Check if all required plugins are available in installedPlugins
     useEffect(() => {
+        console.log('installedPlugins: ', installablePlugins, installedPlugins)
+        
         const allRequiredPluginsInstalled = installablePlugins.every((plugin) =>
             installedPlugins.includes(plugin.slug)
         );
 
+        console.log('allRequiredPluginsInstalled: ', allRequiredPluginsInstalled)
+
         if (allRequiredPluginsInstalled) {
+            console.log('All Plugins Installed')
             setAllPluginsInstalled(true);
             importElementorData();
         }
