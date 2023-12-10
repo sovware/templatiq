@@ -1,4 +1,5 @@
 import { useState, useEffect } from '@wordpress/element';
+import apiFetch from '@wordpress/api-fetch';
 import ReactSVG from 'react-inlinesvg';
 import { InsertTemplateModalStyle } from './style';
 
@@ -59,64 +60,43 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
     };
 
     const installPlugin = async (plugin) => {
-        setIsInstalling(true);
-        const response = await fetch(`${template_market_obj.rest_args.endpoint}/dependency/install`, 
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-WP-Nonce': template_market_obj.rest_args.nonce,
+        setLoading(true);
+		apiFetch( { 
+			path: 'templatiq/dependency/install',
+			method: 'POST',
+			data: {
+                plugin: plugin,
             },
-            body: JSON.stringify({
-                plugin: plugin
-            }),
-        });
-    
-        if (!response.ok) {
-            throw new Error('Error Occurred');
-        }
-    
-        const data = await response.json();
+		}).then( ( res ) => { 
+			setLoading(false)
+			console.log( 'APIFetch Install data: ', res );
 
-        if(data.success) {
-            // Update the status for the plugin
-            setInstalledPlugins((prevInstalled) => [...prevInstalled, plugin.slug]);
-            setIsInstalling(false);
-        }
-    }; 
+            if(res.success) {
+                setInstalledPlugins((prevInstalled) => [...prevInstalled, plugin.slug]);
+                setIsInstalling(false);
+            }
+		} );
+	};
 
     const importData = async (pageTitle, template_id, builder) => {
         setLoading(true);
-        const response = await fetch(`${template_market_obj.rest_args.endpoint}/template/import-as-page`, 
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-WP-Nonce': template_market_obj.rest_args.nonce,
-            },
-            body: JSON.stringify({
+		apiFetch( { 
+			path: 'templatiq/template/import-as-page',
+			method: 'POST',
+			data: {
                 title: pageTitle,
                 template_id: template_id,
                 builder: builder,
-            }),
-        });
-    
-        if (!response.ok) {
-            setLoading(false);
-            throw new Error('Error Occurred');
-        }
-        if (response.ok) {
-            setLoading(false);
-            
-            const data = await response.json();
-    
-            if(data.post_id) {
-                setImportedData(data) 
+            },
+		}).then( ( res ) => { 
+			setLoading(false)
+			console.log( 'APIFetch Import data: ', res );
+
+            if(res.post_id) {
+                setImportedData(res) 
             }
-        }
-    
-    
-    }; 
+		} );
+	};
 
     const importElementorData = () => {
         console.log('importElementorData Called')
