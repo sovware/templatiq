@@ -1,7 +1,6 @@
 import { useState, useEffect } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 import { select, dispatch } from '@wordpress/data';
-import { useMutation } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthStyle } from "@root/style";
 
@@ -30,68 +29,37 @@ export default function SignInContent () {
 	const handleData = (e) => {
 		setLoading(true);
 		e.preventDefault(); 
-		handleLogin({ username: authorEmail.value, password: authorPassword.value, expiration: 20 });
+		handleLogin({ username: authorEmail.value, password: authorPassword.value });
 	};
 
 	// Login API
-	const login = async (credentials) => {
+	const handleLogin = async (credentials) => {
 		apiFetch( { 
 			path: 'templatiq/account/login',
 			method: 'POST',
 			data: credentials,
-		}).then( ( info ) => {
-			console.log( 'APIFetch User Info: ', info );
-		} );
-
-		const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/login`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				'X-WP-Nonce': template_market_obj.rest_args.nonce,
-			},
-			body: JSON.stringify(credentials),
-		});
-	
-		if (!response.ok) {
-			throw new Error('Login failed');
-		}
-		console.log( 'Fetch User Info: ', response );
-	
-		return response.json();
-	};
-
-	const mutation = useMutation(login);
-
-	const handleLogin = async (credentials) => {
-		console.log('credintial: ', credentials)
-		try {
-			// Call the mutation function with the user's credentials
-			const result = await mutation.mutateAsync(credentials);
-
-			if (result.body.token) {
-				const data = result.body;
+		}).then( ( res ) => {
+			console.log( 'APIFetch User data: ', res );
+			const info = res.body;
+			if (info.token) {
 				const updatedUserInfo = {
 					isLoggedIn: true,
-					userName: data.user_nicename,
-					userEmail: data.user_email,
-					userDisplayName: data.user_display_name,
-					bookmarks: data.bookmarks,
-					downloads: data.downloads,
-					purchased: data.purchased,
+					userName: info.user_nicename,
+					userEmail: info.user_email,
+					userDisplayName: info.user_display_name,
+					bookmarks: info.bookmarks,
+					downloads: info.downloads,
+					purchased: info.purchased,
 				};
 	
 				// Dispatch the action to update the login status in the store
 				dispatch(store).setUserInfo(updatedUserInfo);
-
+	
 				navigate('/dashboard/favorites');
-
 			} else {
-				console.error('Login failed', result.message);
+				setLoading(false);
 			}
-		} catch (error) {
-		  	console.error('Error', error); // Handle error
-		}
-		setLoading(false);
+		} );
 	};
 
 	useEffect( () => {

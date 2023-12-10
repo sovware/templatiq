@@ -1,7 +1,6 @@
 import { Suspense, useState, useEffect } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 import { applyFilters } from '@wordpress/hooks';
-import { useQuery } from '@tanstack/react-query';
 import {
 	HashRouter,
 	Routes,

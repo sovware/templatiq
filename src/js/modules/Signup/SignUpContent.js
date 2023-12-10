@@ -1,8 +1,8 @@
 import { useState, useEffect } from '@wordpress/element';
+import apiFetch from '@wordpress/api-fetch';
 import { Link } from 'react-router-dom';
 import { AuthStyle } from "@root/style";
 
-import { useMutation } from '@tanstack/react-query';
 import { select } from '@wordpress/data';
 import store from '@store/index';
 
@@ -31,40 +31,55 @@ export default function SignUpContent() {
 	};
 
 	// Signup API
-	const signup = async (credentials) => {
-		const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/create`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				'X-WP-Nonce': template_market_obj.rest_args.nonce,
-			},
-			body: JSON.stringify(credentials),
-		});
+	// const signup = async (credentials) => {
+	// 	const response = await fetch(`${template_market_obj.rest_args.endpoint}/account/create`, {
+	// 		method: 'POST',
+	// 		headers: {
+	// 			'Content-Type': 'application/json',
+	// 			'X-WP-Nonce': template_market_obj.rest_args.nonce,
+	// 		},
+	// 		body: JSON.stringify(credentials),
+	// 	});
 	
-		if (!response.ok) {
-			throw new Error('Signup failed');
-		}
+	// 	if (!response.ok) {
+	// 		throw new Error('Signup failed');
+	// 	}
 		
-		return response.json();
-	};
+	// 	return response.json();
+	// };
 
-	const mutation = useMutation(signup);
+	// const mutation = useMutation(signup);
 
 	const handleSignup = async (credentials) => {
-		try {
-			// Call the mutation function with the user's credentials
-			const result = await mutation.mutateAsync(credentials);
-			const signUpData = await JSON.parse(result.body);
-
+		apiFetch( { 
+			path: 'templatiq/account/create',
+			method: 'POST',
+			data: credentials,
+		}).then( ( res ) => {
+			const signUpData = JSON.parse(res.body);
+			console.log( 'Register User data: ', signUpData );
 			if(signUpData.token) {
 				setIsRegistered(true);
 			} else {
 				const errorMessage = signUpData.message?.user_email;
 				setErrorMessage(errorMessage);
 			}
-		} catch (error) {	
-		  	console.error('Error', error); // Handle error
-		}
+		} );
+
+		// try {
+		// 	// Call the mutation function with the user's credentials
+		// 	const result = await mutation.mutateAsync(credentials);
+		// 	const signUpData = await JSON.parse(result.body);
+
+		// 	if(signUpData.token) {
+		// 		setIsRegistered(true);
+		// 	} else {
+		// 		const errorMessage = signUpData.message?.user_email;
+		// 		setErrorMessage(errorMessage);
+		// 	}
+		// } catch (error) {	
+		//   	console.error('Error', error); // Handle error
+		// }
 		setLoading(false);
 	};
 
