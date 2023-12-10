@@ -1,5 +1,6 @@
 import { useState, useEffect } from '@wordpress/element';
 import { select, dispatch } from '@wordpress/data';
+import apiFetch from '@wordpress/api-fetch';
 import ReactSVG from 'react-inlinesvg';
 import AuthModal from '@components/Popup/AuthModal';
 import store from '@store/index';
@@ -18,7 +19,6 @@ const Bookmark = ( props) => {
     const [currentFavoriteCount, setCurrentFavoriteCount] = useState(number_of_bookmarks);
 	const [addedToFavorite, addFavorite] = useState(isActive);
 
-    
     const addAuthModal = (e) => {
         e.preventDefault();
         document.querySelector(".templatiq").classList.add("templatiq-overlay-enable");
@@ -30,66 +30,50 @@ const Bookmark = ( props) => {
         setAuthModalOpen(false);
     };
 
-    let favAdd = async (template_id) => {
-        const response = await fetch(`${template_market_obj.rest_args.endpoint}/bookmark/add`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-WP-Nonce': template_market_obj.rest_args.nonce,
-            },
-            body: JSON.stringify({
-                template_id: template_id
-            }),
-        });
-    
-        if (!response.ok) {
-            throw new Error('Error Occurred');
-        }
+    const addBookmark = async (template_id) => {
+		try {
+			const favData = await apiFetch({
+				path: 'templatiq/bookmark/add',
+				method: 'POST',
+                data: { template_id: template_id },
+			}).then( ( data ) => {
+                dispatch( store ).setBookmark( data.body.bookmarks );
+            } );
+            return favData;
+		} catch (error) {
+			// Handle errors here
+			console.error('Error fetching data:', error);
+			throw error; // rethrow the error if needed
+		}
+	};
 
-        const data = await response.json();
-
-        if (data) {
-            dispatch( store ).setBookmark( data.body.bookmarks );
-        }
-
-        return data;
-    }
-
-    let favRemove = async (template_id) => {
-        const response = await fetch(`${template_market_obj.rest_args.endpoint}/bookmark/remove`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-WP-Nonce': template_market_obj.rest_args.nonce,
-            },
-            body: JSON.stringify({
-                template_id: template_id
-            }),
-        });
-    
-        if (!response.ok) {
-            throw new Error('Error Occurred');
-        }
-    
-        const data = await response.json();
-
-        if (data) {
-            dispatch( store ).setBookmark( data.body.bookmarks );
-        }
-
-        return data;
-    }
+    const removeBookmark = async (template_id) => {
+		try {
+			const favData = await apiFetch({
+				path: 'templatiq/bookmark/remove',
+				method: 'POST',
+                data: { template_id: template_id },
+			}).then( ( data ) => {
+                dispatch( store ).setBookmark( data.body.bookmarks );
+            } );
+            return favData;
+		} catch (error) {
+			// Handle errors here
+			console.error('Error fetching data:', error);
+			throw error; // rethrow the error if needed
+		}
+	};
 
     let handleFavorite = (e) => {
         e.preventDefault();
         
         if (!addedToFavorite) {
-            favAdd(template_id);
+            addBookmark(template_id);
             const addedCount = Number(currentFavoriteCount) + 1;
             setCurrentFavoriteCount(addedCount)
             addFavorite(true);
         } else {
-            favRemove(template_id);
+            removeBookmark(template_id);
             setCurrentFavoriteCount(number_of_bookmarks)
             addFavorite(false);
         }
