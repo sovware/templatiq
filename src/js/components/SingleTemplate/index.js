@@ -89,9 +89,6 @@ const SingleTemplate = (item) => {
                     <Link to={`/template/${slug}`}>{title ? title : 'DDoctors'}</Link>
                 </h3>
                 <div className="templatiq__template__single__cat">
-                    {/* {templateCategories && templateCategories.map((category, index) => (
-                        <a key={index} href="#" className="templatiq__template__single__cat__link">{category}</a>
-                    ))} */}
                     {displayedCategories.map((category, index) => (
                         <a key={index} href="#" className="templatiq__template__single__cat__link">
                             {category}

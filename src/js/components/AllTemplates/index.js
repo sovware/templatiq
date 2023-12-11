@@ -55,7 +55,6 @@ export default function AllTemplates (props) {
         const selectedPage = event.selected + 1;
         setStartItemCount((selectedPage * paginatePerPage) - paginatePerPage);
         setEndItemCount((selectedPage * paginatePerPage));
-
     };
 
     const searchFilteredTemplates = () => {
@@ -106,8 +105,7 @@ export default function AllTemplates (props) {
             setAllTemplates(templates);
         }
 
-        setLoading(false);
-        
+        setLoading(false); 
     }
 
     useEffect(() => {
