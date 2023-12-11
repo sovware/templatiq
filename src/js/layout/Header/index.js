@@ -43,7 +43,6 @@ const Header = (props) =>  {
 			path: 'templatiq/account/logout',
 			method: 'POST',
 		}).then( ( res ) => { 
-			console.log( 'APIFetch Logout data: ', res );
 			// Dispatch the action to update the login status in the store
 			dispatch(store).logOut();
 			navigate('/');
