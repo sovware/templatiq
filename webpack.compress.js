@@ -31,8 +31,8 @@ module.exports = async () => {
 		'assets',
 		'vendor',
 		'templates',
-		'templates',
-		'src',
+		'src/svg',
+		'src/images',
 		`${ pluginRootFile }.php`,
 	].map( transformBuildPaths );
 
@@ -83,8 +83,12 @@ module.exports = async () => {
 						{
 							copy: [
 								{
-									source: `${dist}/zip/${pluginRootFile}/src/**/*`,
-									destination: `${dist}/zip/${pluginRootFile}/assets/`,
+									source: `${dist}/zip/${pluginRootFile}/src/svg`,
+									destination: `${dist}/zip/${pluginRootFile}/assets/svg`,
+								},
+								{
+									source: `${dist}/zip/${pluginRootFile}/src/images`,
+									destination: `${dist}/zip/${pluginRootFile}/assets/images`,
 								},
 							],
 						},
