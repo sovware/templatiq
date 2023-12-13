@@ -41,7 +41,7 @@ class Dependency extends RouteBase {
 		if ( empty( $plugin ) ) {
 			return Response::error(
 				'invalid_plugin',
-				__( 'You have supplied an invalid requirements. Please reload the page and try again.' ),
+				__( 'You have supplied an invalid requirements. Please reload the page and try again.', 'templatiq' ),
 				'/install',
 				400
 			);

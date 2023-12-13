@@ -81,20 +81,11 @@ class Enqueuer extends EnqueuerBase {
 		wp_localize_script( 'templatiq-app', 'template_market_obj', $obj );
 
 		
-		wp_enqueue_style(
-			'templatiq-elementor-editor',
-			TEMPLATIQ_ASSETS . '/assets-vendor/elementor-editor.css',
-			[],
-			TEMPLATIQ_VERSION,
-		);
+		$this->enqueue_style( 'templatiq-elementor-editor', '/vendor/elementor-style.css', [] );
 
-		wp_enqueue_script(
-			'templatiq-elementor-editor',
-			TEMPLATIQ_URL . '/assets-vendor/elementor-editor.js',
-			['elementor-editor', 'jquery'],
-			TEMPLATIQ_VERSION,
-			true
-		);
+		$this->enqueue_script( 'templatiq-elementor-editor', '/vendor/elementor-script.js', 
+		['elementor-editor', 'jquery'] );
+
 
 		$obj = [
 			'rest_args' => [

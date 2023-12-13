@@ -29,13 +29,8 @@ module.exports = async () => {
 	const buildFiles = [
 		'app',
 		'assets',
-		'config',
-		'database',
-		'enqueues',
-		'languages',
-		'routes',
 		'vendor',
-		'readme.txt',
+		'templates',
 		`${ pluginRootFile }.php`,
 	].map( transformBuildPaths );
 

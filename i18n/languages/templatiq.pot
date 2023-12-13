@@ -1,0 +1,127 @@
+# Copyright (C) 2023 wpWax
+# This file is distributed under the GPL2.
+msgid ""
+msgstr ""
+"Project-Id-Version: Templatiq 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/template-market\n"
+"POT-Creation-Date: 2023-12-13 04:19:09+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
+
+#: app/Abstracts/RouteBase.php:43
+msgid "Sorry, you are not logged in."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Templatiq"
+msgstr ""
+
+#: app/Admin/AdminMenu.php:34 app/Admin/AdminMenu.php:35
+msgid "Dashboard"
+msgstr ""
+
+#: app/Model/Account.php:33
+msgid "Make sure you have given a valid token, or email address & password."
+msgstr ""
+
+#: app/Model/Account.php:60
+msgid "Logged out."
+msgstr ""
+
+#: app/Model/Account.php:122
+msgid "Email cannot be empty."
+msgstr ""
+
+#: app/Model/Account.php:126
+msgid "Make sure you have given a valid email address."
+msgstr ""
+
+#: app/Model/Importer.php:31
+msgid "Builder not specified"
+msgstr ""
+
+#: app/Routes/Bookmark.php:25 app/Routes/Bookmark.php:34
+#: app/Routes/Template.php:47
+msgid "Invalid ID is provided."
+msgstr ""
+
+#: app/Routes/Dependency.php:44
+msgid ""
+"You have supplied an invalid requirements. Please reload the page and try "
+"again."
+msgstr ""
+
+#: app/Routes/Template.php:56
+msgid "Import Failed"
+msgstr ""
+
+#: app/Routes/Template.php:84
+msgid "Post not found."
+msgstr ""
+
+#: app/Utils/Plugin.php:71
+msgid "You have the plugin installed."
+msgstr ""
+
+#: app/Utils/Plugin.php:151
+msgid "Unable to connect to the filesystem. Please confirm your credentials."
+msgstr ""
+
+#: app/Utils/Singleton.php:14 app/Utils/Singleton.php:18
+msgid "Something wen't wrong."
+msgstr ""
+
+#: templates/template-library/templates.php:4
+msgid "Insert"
+msgstr ""
+
+#: templatiq.php:95
+msgid "<h1>An Error Occurred</h1>"
+msgstr ""
+
+#: templatiq.php:96
+msgid "<h2>Your installed PHP Version is: "
+msgstr ""
+
+#: templatiq.php:97
+msgid "<p>The <strong>Wax Elements</strong> plugin requires PHP version <strong>"
+msgstr ""
+
+#: templatiq.php:97
+msgid "</strong> or greater"
+msgstr ""
+
+#: templatiq.php:98
+msgid "<p>The version of your PHP is "
+msgstr ""
+
+#: templatiq.php:98
+msgid "unsupported and old"
+msgstr ""
+
+#: templatiq.php:99
+msgid ""
+"You should update your PHP software or contact your host regarding this "
+"matter.</p>"
+msgstr ""
+
+#: templatiq.php:102
+msgid "Plugin Activation Error"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Complete Elementor Widgets"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "wpWax"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://wpwax.com"
+msgstr ""

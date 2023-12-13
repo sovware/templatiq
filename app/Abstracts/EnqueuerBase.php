@@ -15,8 +15,8 @@ abstract class EnqueuerBase {
 	use Hookable;
 	use Singleton;
 
-	public function enqueue_script( string $handle, string $src, array $deps = [] ) {
-		wp_enqueue_script( $handle, TEMPLATIQ_ASSETS . $src, $deps, $this->version );
+	public function enqueue_script( string $handle, string $src, array $deps = [], $in_footer = true ) {
+		wp_enqueue_script( $handle, TEMPLATIQ_ASSETS . $src, $deps, $this->version, $in_footer );
 	}
 
 	public function enqueue_style( string $handle, string $src, array $deps = [] ) {
