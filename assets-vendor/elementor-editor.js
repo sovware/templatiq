@@ -136,22 +136,24 @@
 		};
 		
 		this.loadTemplates = function (onUpdate) {
-			const containerDiv = document.querySelector('.elementor-templates-modal .dialog-message');
-			const loadingDiv = document.querySelector('.elementor-templates-modal .dialog-message .dialog-content');
-			const rootDiv      = document.createElement('div');
+			const containerDiv = document.querySelector('.elementor-templates-modal .dialog-content');
+			const templatiqRoot = document.querySelector('.templatiq-root');
+			
+			if (!templatiqRoot) {
+				const rootDiv = document.createElement('div');
+				rootDiv.className = 'templatiq-root';
+				rootDiv.id = 'templatiq-root';
 
-			rootDiv.className = 'templatiq-root';
-			rootDiv.id = 'templatiq-root';
-
-			containerDiv.appendChild(rootDiv);
-			containerDiv.removeChild(loadingDiv);
-
-			wp.hooks.doAction('templatiq_load_admin_app', rootDiv)
+				containerDiv.appendChild(rootDiv);
+				wp.hooks.doAction('templatiq_load_admin_app', rootDiv);
+			} else {
+				// console.log('Root div already exists in containerDiv');
+			}
 		};
 
 		this.requestTemplateData = function (template_id, ajaxOptions) {
 			var options = {
-				unique_id: template_id, 
+				unique_id: template_id,
 				data: {
 					edit_mode: true,
 					display: true,
