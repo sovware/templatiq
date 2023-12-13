@@ -91,6 +91,11 @@ button {
 		transition: opacity 0.3s ease, visibility 0.3s ease;
 	}
 }
+.elementor-editor-active  {
+	.templatiq {
+		margin: 0;
+	}
+}
 
 .templatiq-overlay-enable {
 	&:after,
@@ -275,6 +280,7 @@ button {
 .templatiq__checkbox {
 	display: flex;
 	gap: 12px;
+	text-align: left;
 	.templatiq__checkbox__input {
 		display: none;
 		&:checked {
