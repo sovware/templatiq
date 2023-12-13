@@ -31,6 +31,8 @@ module.exports = async () => {
 		'assets',
 		'vendor',
 		'templates',
+		'templates',
+		'src',
 		`${ pluginRootFile }.php`,
 	].map( transformBuildPaths );
 
@@ -72,9 +74,26 @@ module.exports = async () => {
 			new FileManagerPlugin( {
 				events: {
 					onEnd: [
-						{ delete: [ dist ] },
-						{ copy: buildFiles },
-						{ delete: buildIgnoreFiles },
+						{ 
+							delete: [ dist ] 
+						},
+						{ 
+							copy: buildFiles 
+						},
+						{
+							copy: [
+								{
+									source: `${dist}/zip/${pluginRootFile}/src/**/*`,
+									destination: `${dist}/zip/${pluginRootFile}/assets/`,
+								},
+							],
+						},
+						{
+						  	delete: [`${dist}/zip/${pluginRootFile}/src`], 
+						},
+						{ 
+							delete: buildIgnoreFiles 
+						},
 						{
 							archive: [
 								{

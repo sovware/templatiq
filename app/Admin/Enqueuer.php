@@ -86,14 +86,6 @@ class Enqueuer extends EnqueuerBase {
 		$this->enqueue_script( 'templatiq-elementor-editor', '/vendor/elementor-script.js', 
 		['elementor-editor', 'jquery'] );
 
-
-		$obj = [
-			'rest_args' => [
-				'nonce'    => wp_create_nonce( 'wp_rest' ),
-				'endpoint' => get_rest_url( null, 'templatiq' ),
-			],
-		];
-
 		wp_localize_script( 'templatiq-elementor-editor', 'template_market_obj', $obj );
 	}
 }

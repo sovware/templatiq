@@ -19,6 +19,7 @@
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^26.3.0",
+		"copy-webpack-plugin": "^11.0.0",
 		"css-loader": "^6.8.1",
 		"filemanager-webpack-plugin": "^8.0.0",
 		"grunt": "^1.6.1",

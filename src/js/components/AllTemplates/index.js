@@ -241,7 +241,7 @@ export default function AllTemplates (props) {
                         <TabPanel className="templatiq-row templatiq__content__tab-panel">
                         {templatesToDisplay && templatesToDisplay
                             .map(template => (
-                                <div className="templatiq-col-4">
+                                <div className="templatiq-col-6">
                                     {loading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
                                         <SingleTemplate 
                                             template_id = {template.template_id}
@@ -265,7 +265,7 @@ export default function AllTemplates (props) {
                         <TabPanel className="templatiq-row templatiq__content__tab-panel">
                         {templatesToDisplay && templatesToDisplay
                             .map(template => (
-                                <div className="templatiq-col-4">
+                                <div className="templatiq-col-6">
                                     {loading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
                                         <SingleTemplate 
                                             template_id = {template.template_id}
@@ -288,7 +288,7 @@ export default function AllTemplates (props) {
                         <TabPanel className="templatiq-row templatiq__content__tab-panel">
                         {templatesToDisplay && templatesToDisplay
                             .map(template => (
-                                <div className="templatiq-col-4">
+                                <div className="templatiq-col-6">
                                     {loading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
                                         <SingleTemplate 
                                             template_id = {template.template_id}
