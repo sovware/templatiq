@@ -35,9 +35,7 @@ module.exports = ( grunt ) => {
 		checktextdomain: {
 			standard: {
 				options: {
-					text_domain:
-						'<%= grunt.config.get("screen.begin.options.data.textDomain") %>', //Specify allowed domain(s)
-					// correct_domain: true, // don't use it, it has bugs
+					text_domain: 'templatiq',
 					keywords: [
 						//List keyword specifications
 						'__:1,2d',

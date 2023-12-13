@@ -151,7 +151,7 @@
 
 		this.requestTemplateData = function (template_id, ajaxOptions) {
 			var options = {
-				unique_id: template_id,
+				unique_id: template_id, 
 				data: {
 					edit_mode: true,
 					display: true,

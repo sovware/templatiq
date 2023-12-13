@@ -25,6 +25,8 @@ module.exports = {
 		'js/admin': './src/js/admin/index.js',
 		'js/index': './src/js/frontend/index.js',
 		'css/global': './src/sass/global.scss',
+		'vendor/elementor-style': './assets-vendor/elementor-editor.css',
+		'vendor/elementor-script': './assets-vendor/elementor-editor.js',
 	},
 	output: {
 		path: path.resolve( __dirname, './assets' ),
@@ -58,10 +60,6 @@ module.exports = {
 	],
 	resolve: {
 		alias: {
-			// '@templatiq/queryStore': path.resolve( __dirname, 'src/js/queryStore'),
-			// '@constants': path.resolve( __dirname, 'src/js/constants.js' ),
-			// '@lib': path.resolve( __dirname, 'src/js/lib' ),
-			// '@context': path.resolve( __dirname, 'src/js/Context' ),
 			'@root/style': path.resolve( __dirname, 'src/js/style.js' ),
 			'@components': path.resolve( __dirname, 'src/js/components' ),
 			'@modules': path.resolve( __dirname, 'src/js/modules' ),
