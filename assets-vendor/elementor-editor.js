@@ -137,12 +137,14 @@
 		
 		this.loadTemplates = function (onUpdate) {
 			const containerDiv = document.querySelector('.elementor-templates-modal .dialog-message');
+			const loadingDiv = document.querySelector('.elementor-templates-modal .dialog-message .dialog-content');
 			const rootDiv      = document.createElement('div');
 
 			rootDiv.className = 'templatiq-root';
 			rootDiv.id = 'templatiq-root';
 
 			containerDiv.appendChild(rootDiv);
+			containerDiv.removeChild(loadingDiv);
 
 			wp.hooks.doAction('templatiq_load_admin_app', rootDiv)
 		};
