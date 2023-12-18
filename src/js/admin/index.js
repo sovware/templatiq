@@ -3,7 +3,6 @@ import { addAction } from '@wordpress/hooks';
 const App = lazy( () => import( './App' ) ); 
 
 function initializeApp( container ) {
-	console.log('initializeApp');
 
 	if (createRoot) {
 		const root = createRoot(container);

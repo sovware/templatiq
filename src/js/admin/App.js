@@ -5,20 +5,11 @@ import {
 	HashRouter,
 	Routes,
 	Route,
-	Link,
-	NavLink,
-	useNavigate,
-	useParams,
-	useLocation,
 } from 'react-router-dom';
-import { updateGlobalState } from '@helper/utils';
 import { ThemeProvider } from 'styled-components';
 
 import { dispatch } from '@wordpress/data';
 import store from '@store/index';
-
-import Preloader from '@components/Preloader';
-import ContentLoading from '@components/ContentLoading';
 
 import TemplatePack from './pages/TemplatePack';
 import TemplateDetails from './pages/TemplateDetails';
