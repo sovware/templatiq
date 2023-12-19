@@ -4,7 +4,6 @@ import ReactSVG from 'react-inlinesvg';
 import { Link } from 'react-router-dom';
 import Bookmark from '@components/Bookmark';
 import InsertTemplate from '@components/InsertTemplate';
-import ContentLoading from '@components/ContentLoading';
 import { SingleTemplateStyle } from './style';
 import store from '@store/index';
 

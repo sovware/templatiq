@@ -1,5 +1,4 @@
 import { lazy, Suspense, useState, useEffect } from '@wordpress/element';
-import apiFetch from '@wordpress/api-fetch';
 import { applyFilters } from '@wordpress/hooks';
 import {
 	HashRouter,
@@ -7,6 +6,7 @@ import {
 	Route,
 } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
+import fetchData from '@helper/fetchData';
 import ContentLoading from '@components/ContentLoading';
 
 import { dispatch } from '@wordpress/data';
@@ -25,18 +25,14 @@ const MyAccount = lazy(() => import('./pages/dashboard/Account'));
 
 export default function App() { 
 	const [ dir, setDir ] = useState( 'ltr' );
-	const [ loading, setLoading ] = useState(false);
-	const [ data, setData ] = useState(null);
 
 	const theme = {
 		direction: dir,
 	};
 
-	const getUserInfo = async () => {
-		apiFetch( { 
-			path: 'templatiq/account/data',
-			method: 'GET',
-		}).then( ( res ) => { 
+	useEffect( () => {
+		fetchData( 'templatiq/account/data' ).then( ( res ) => {
+			console.log('getUserInfo Info: ', res);
 			const data = res.body;
 
 			const updatedUserInfo = {
@@ -50,25 +46,13 @@ export default function App() {
 
 			// Dispatch the action to update the login status in the store
 			dispatch(store).setUserInfo(updatedUserInfo);
-		} );
-	};
-
-	const getTemplates = async () => {
-		const libraryData = await apiFetch({
-			path: 'templatiq/template/library',
-			method: 'GET',
 		});
 
-		dispatch(store).setTemplates(libraryData.templates);
-		dispatch(store).setLibraryData(libraryData);
-
-		return libraryData;
-	};
-
-	useEffect( () => {
-		getUserInfo();
-		getTemplates();
-
+		fetchData( 'templatiq/template/library' ).then( ( res ) => {
+			console.log('getTemplates Info: ', res);
+			dispatch(store).setTemplates(res.templates);
+			dispatch(store).setLibraryData(res)
+		});
 	}, [] );
 
 	const adminRoutes = applyFilters( 'templatiq_admin_routes', [
