@@ -1,5 +1,6 @@
 import { createRoot, lazy, Suspense } from '@wordpress/element';
 import { addAction } from '@wordpress/hooks';
+import Preloader from '@components/Preloader';
 const App = lazy( () => import( './App' ) ); 
 
 function initializeApp( container ) {
@@ -9,7 +10,7 @@ function initializeApp( container ) {
 
 		root.render(
 			<div>
-				<Suspense fallback={ <></> }>
+				<Suspense fallback={ <Preloader /> }>
 					<App />
 				</Suspense>
 			</div>
@@ -17,7 +18,7 @@ function initializeApp( container ) {
 	} else {
 		render(
 			<div>
-				<Suspense fallback={ <></> }>
+				<Suspense fallback={ <Preloader /> }>
 					<App />
 				</Suspense>
 			</div>,
