@@ -1,5 +1,5 @@
 import { useState, useEffect } from '@wordpress/element';
-import apiFetch from '@wordpress/api-fetch';
+import postData from '@helper/postData';
 import ReactSVG from 'react-inlinesvg';
 import { InsertTemplateModalStyle } from './style';
 
@@ -7,6 +7,9 @@ import closeIcon from "@icon/close.svg";
 
 const InsertTemplateModal = ({item, required_plugins, onClose}) => {
     const { template_id, builder } = item;
+
+	const installPluginEndPoint = 'templatiq/dependency/install';
+	const importAsPageEndPoint = 'templatiq/template/import-as-page';
    
     const installablePlugins = required_plugins.filter(plugin => !plugin.hasOwnProperty("is_pro") || plugin.is_pro === "false");
     const proPlugins = required_plugins.filter(plugin => plugin.hasOwnProperty("is_pro") && plugin.is_pro === "true");
@@ -64,13 +67,7 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
         setInstallingPlugins((prevInstalling) => [...prevInstalling, plugin.slug]);
         try {
             const res = await new Promise((resolve, reject) => {
-                apiFetch({
-                    path: 'templatiq/dependency/install',
-                    method: 'POST',
-                    data: {
-                        plugin: plugin,
-                    },
-                }).then((res) => {
+                postData(installPluginEndPoint, { plugin }).then((res) => {
                     setLoading(false);
                     if (res.success) {
                         setInstalledPlugins((prevInstalled) => [...prevInstalled, plugin.slug]);
@@ -89,21 +86,17 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
 
     const importData = async ( pageTitle, template_id, builder ) => {
         setLoading(true);
-		apiFetch( { 
-			path: 'templatiq/template/import-as-page',
-			method: 'POST',
-			data: {
-                title: pageTitle,
-                template_id: template_id,
-                builder: builder,
-            },
-		}).then( ( res ) => { 
-			setLoading(false)
+        postData( importAsPageEndPoint, {
+            title: pageTitle,
+            template_id: template_id,
+            builder: builder,
+        }).then( ( res ) => {
+            setLoading(false)
 
             if(res.post_id) {
                 setImportedData(res) 
             }
-		} );
+        })
 	};
 
     // const importElementorData = () => {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from '@wordpress/element';
-import apiFetch from '@wordpress/api-fetch';
+import postData from '@helper/postData';
 import { select } from '@wordpress/data';
 import ReactSVG from 'react-inlinesvg';
 import AuthModal from '@components/Popup/AuthModal';
@@ -11,6 +11,8 @@ import downloadAltIcon from "@icon/download-alt.svg";
 
 const InsertTemplate = ({item, templateRef, className, innerText, solidIcon}) => {
     let { template_id, required_plugins } = item;
+
+    const dependencyCheckEndPoint = 'templatiq/dependency/check';
     
 	const { isLoggedIn } = select( store ).getUserInfo();
     const [insertModalOpen, setInsertModalOpen] = useState(false);
@@ -52,15 +54,9 @@ const InsertTemplate = ({item, templateRef, className, innerText, solidIcon}) =>
     };
 
     const handlePlugins = async (plugins) => {
-		apiFetch( { 
-			path: 'templatiq/dependency/check',
-			method: 'POST',
-			data: {
-                plugins: plugins
-            },
-		}).then( ( res ) => { 
-            setRequiredPlugins(res);
-		} );
+        postData( dependencyCheckEndPoint, { plugins } ).then( ( data ) => {
+            setRequiredPlugins(data);
+        })
         
 	};
 

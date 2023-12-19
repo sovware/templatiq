@@ -1,6 +1,6 @@
 import { useState, useEffect } from '@wordpress/element';
 import { select, dispatch } from '@wordpress/data';
-import apiFetch from '@wordpress/api-fetch';
+import postData from '@helper/postData';
 import ReactSVG from 'react-inlinesvg';
 import AuthModal from '@components/Popup/AuthModal';
 import store from '@store/index';
@@ -11,6 +11,9 @@ import heartSolidIcon from "@icon/heart-solid.svg";
 const Bookmark = ( props) => {
     let { template_id, number_of_bookmarks } = props.item;
     const [ type, setType ] = useState(props.type ? props.type : '');
+
+    const addBookmarkEndPoint = 'templatiq/bookmark/add';
+    const removeBookmarkEndPoint = 'templatiq/bookmark/remove';
 
 	const { isLoggedIn, bookmarks } = select( store ).getUserInfo();
     const isActive = bookmarks && bookmarks.includes(template_id);
@@ -25,46 +28,26 @@ const Bookmark = ( props) => {
         setAuthModalOpen(true);
     }
 
+    // Update the state when the modal is closed
     const handleAuthModalClose = () => {
-        // Callback function to update the state when the modal is closed
         setAuthModalOpen(false);
     };
 
-    const addBookmark = async (template_id) => {
-		try {
-			const favData = await apiFetch({
-				path: 'templatiq/bookmark/add',
-				method: 'POST',
-                data: { template_id: template_id },
-			}).then( ( data ) => {
-                dispatch( store ).setBookmark( data.body.bookmarks );
-            } );
-            return favData;
-		} catch (error) {
-			// Handle errors here
-			console.error('Error fetching data:', error);
-			throw error; // rethrow the error if needed
-		}
-	};
+    // Add Bookmark
+    const addBookmark = (template_id) => {
+        postData( addBookmarkEndPoint, { template_id } ).then( ( data ) => {
+            dispatch( store ).setBookmark( data.body.bookmarks );
+        });
+    }
 
-    const removeBookmark = async (template_id) => {
-		try {
-			const favData = await apiFetch({
-				path: 'templatiq/bookmark/remove',
-				method: 'POST',
-                data: { template_id: template_id },
-			}).then( ( data ) => {
-                dispatch( store ).setBookmark( data.body.bookmarks );
-            } );
-            return favData;
-		} catch (error) {
-			// Handle errors here
-			console.error('Error fetching data:', error);
-			throw error; // rethrow the error if needed
-		}
-	};
-
-    let handleFavorite = (e) => {
+    // Remove Bookmark
+    const removeBookmark = (template_id) => {
+        postData( removeBookmarkEndPoint, { template_id } ).then( ( data ) => {
+            dispatch( store ).setBookmark( data.body.bookmarks );
+        });
+    }
+    
+    const handleFavorite = (e) => {
         e.preventDefault();
         
         if (!addedToFavorite) {

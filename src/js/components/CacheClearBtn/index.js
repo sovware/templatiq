@@ -1,5 +1,5 @@
 import { useState } from '@wordpress/element';
-import apiFetch from '@wordpress/api-fetch';
+import postData from '@helper/postData';
 import ReactSVG from 'react-inlinesvg';
 import { CacheClearBtnStyle } from './style';
 
@@ -8,22 +8,15 @@ import cacheClearIcon from "@icon/fire.svg";
 const CacheClearBtn = (props) => {
 	const [isLoading, setIsLoading] = useState(false);
 
+	const cacheClearEndPoint = 'templatiq/cache/clear';
+
+	// Cache Clear
 	const handleCacheClear = async (e) => {
 		e.preventDefault();
 		setIsLoading(true);
-		try {
-			const cacheData = await apiFetch({
-				path: 'templatiq/cache/clear',
-				method: 'POST',
-			}).then( ( res ) => {
-                setIsLoading(false);
-            } );
-            return cacheData;
-		} catch (error) {
-			// Handle errors here
-			console.error('Error fetching data:', error);
-			throw error; // rethrow the error if needed
-		}
+		postData( cacheClearEndPoint ).then( ( data ) => {
+			setIsLoading(false);
+		})
 	};
 
     return (
