@@ -1,15 +1,19 @@
 import { useState, useEffect } from '@wordpress/element';
-import apiFetch from '@wordpress/api-fetch';
-import { Link } from 'react-router-dom';
+import postData from '@helper/postData';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthStyle } from "@root/style";
 
 import { select } from '@wordpress/data';
 import store from '@store/index';
 
 export default function SignUpContent() {
-	const [isRegistered, setIsRegistered] = useState(false);
+	const navigate = useNavigate();
+
 	let [loading, setLoading] = useState(false);
+	const [isRegistered, setIsRegistered] = useState(false);
 	let [errorMessage, setErrorMessage] = useState('');
+
+	const singUpEndPoint = 'templatiq/account/create';
 
 	const [formData, setFormData] = useState({
 		authorFullName: "Ibrahim Riaz",
@@ -31,26 +35,23 @@ export default function SignUpContent() {
 	};
 
 	const handleSignup = async (credentials) => {
-		apiFetch( { 
-			path: 'templatiq/account/create',
-			method: 'POST',
-			data: credentials,
-		}).then( ( res ) => {
-			const signUpData = JSON.parse(res.body);
-			console.log( 'Register User data: ', signUpData );
-			if(signUpData.token) {
+		postData( singUpEndPoint, credentials ).then( ( data ) => {
+			console.log( 'Register User data: ', data );
+			if(data.body.token) {
 				setIsRegistered(true);
+				navigate('/login');
+				console.log('Registered Successfully');
 			} else {
-				const errorMessage = signUpData.message?.user_email;
+				const errorMessage = data.message?.user_email;
 				setErrorMessage(errorMessage);
 			}
-		} );
 
-		setLoading(false);
+			setLoading(false);
+		});
 	};
 
 	useEffect( () => {
-		isLoggedIn && navigate('/');
+		isLoggedIn && navigate('/dashboard/favorites');
 	}, [] );
 	
 
