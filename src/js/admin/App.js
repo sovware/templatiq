@@ -1,53 +1,38 @@
-import { Suspense, useState, useEffect } from '@wordpress/element';
-import apiFetch from '@wordpress/api-fetch';
+import { lazy, Suspense, useState, useEffect } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import {
 	HashRouter,
 	Routes,
 	Route,
-	Link,
-	NavLink,
-	useNavigate,
-	useParams,
-	useLocation,
 } from 'react-router-dom';
-import { updateGlobalState } from '@helper/utils';
 import { ThemeProvider } from 'styled-components';
+import fetchData from '@helper/fetchData';
+import ContentLoading from '@components/ContentLoading';
 
 import { dispatch } from '@wordpress/data';
 import store from '@store/index';
 
-import Preloader from '@components/Preloader';
-import ContentLoading from '@components/ContentLoading';
-
-import TemplatePack from './pages/TemplatePack';
-import TemplateDetails from './pages/TemplateDetails';
-
-import Pages from './pages/Pages'; 
-import Blocks from './pages/Blocks';
-import SignIn from './pages/Signin';
-import SignUp from './pages/Signup';
-
-import MyFavorites from "./pages/dashboard/Favorites";
-import MyDownloads from "./pages/dashboard/Downloads";
-import MyPurchase from "./pages/dashboard/Purchase";
-import MyAccount from "./pages/dashboard/Account";
+const TemplatePack = lazy(() => import('./pages/TemplatePack'));
+const TemplateDetails = lazy(() => import('./pages/TemplateDetails'));
+const Pages = lazy(() => import('./pages/Pages'));
+const Blocks = lazy(() => import('./pages/Blocks'));
+const SignIn = lazy(() => import('./pages/Signin'));
+const SignUp = lazy(() => import('./pages/Signup'));
+const MyFavorites = lazy(() => import('./pages/dashboard/Favorites'));
+const MyDownloads = lazy(() => import('./pages/dashboard/Downloads'));
+const MyPurchase = lazy(() => import('./pages/dashboard/Purchase'));
+const MyAccount = lazy(() => import('./pages/dashboard/Account'));
 
 export default function App() { 
 	const [ dir, setDir ] = useState( 'ltr' );
-	const [ loading, setLoading ] = useState(false);
-	const [ data, setData ] = useState(null);
 
 	const theme = {
 		direction: dir,
 	};
 
-	const getUserInfo = async () => {
-		apiFetch( { 
-			path: 'templatiq/account/data',
-			method: 'GET',
-		}).then( ( res ) => { 
-			console.log( 'APIFetch User data Init: ', res );
+	useEffect( () => {
+		fetchData( 'templatiq/account/data' ).then( ( res ) => {
+			console.log('getUserInfo Info: ', res);
 			const data = res.body;
 
 			const updatedUserInfo = {
@@ -61,35 +46,13 @@ export default function App() {
 
 			// Dispatch the action to update the login status in the store
 			dispatch(store).setUserInfo(updatedUserInfo);
-		} );
-	};
-
-	const getTemplates = async () => {
-		try {
-			const libraryData = await apiFetch({
-				path: 'templatiq/template/library',
-				method: 'GET',
-			});
-
-			dispatch(store).setTemplates(libraryData.templates);
-			dispatch(store).setLibraryData(libraryData);
-	
-			return libraryData;
-		} catch (error) {
-			// Handle errors here
-			console.error('Error fetching data:', error);
-			throw error; // rethrow the error if needed
-		}
-	};
-
-	useEffect( () => {
-		setLoading(true);
-		getUserInfo();
-
-		getTemplates().then(libraryData => {
-			setLoading(false);
 		});
 
+		fetchData( 'templatiq/template/library' ).then( ( res ) => {
+			console.log('getTemplates Info: ', res);
+			dispatch(store).setTemplates(res.templates);
+			dispatch(store).setLibraryData(res)
+		});
 	}, [] );
 
 	const adminRoutes = applyFilters( 'templatiq_admin_routes', [
@@ -189,7 +152,7 @@ export default function App() {
 	return (
 		<>
 			<HashRouter>
-				<Suspense fallback={ <></> }>
+				<Suspense fallback={ <ContentLoading /> }>
 					<ThemeProvider theme={ theme }>
 						<Routes>
 							{ adminRoutes.map( ( routeItem, index ) => {

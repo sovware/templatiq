@@ -1,29 +1,22 @@
 import { useState } from '@wordpress/element';
-import apiFetch from '@wordpress/api-fetch';
+import postData from '@helper/postData';
 import ReactSVG from 'react-inlinesvg';
 import { CacheClearBtnStyle } from './style';
 
-import cacheClearIcon from "@icon/fire.svg";
+import cacheClearIcon from "@icon/sync.svg";
 
 const CacheClearBtn = (props) => {
 	const [isLoading, setIsLoading] = useState(false);
 
+	const cacheClearEndPoint = 'templatiq/cache/clear';
+
+	// Cache Clear
 	const handleCacheClear = async (e) => {
 		e.preventDefault();
 		setIsLoading(true);
-		try {
-			const cacheData = await apiFetch({
-				path: 'templatiq/cache/clear',
-				method: 'POST',
-			}).then( ( res ) => {
-                setIsLoading(false);
-            } );
-            return cacheData;
-		} catch (error) {
-			// Handle errors here
-			console.error('Error fetching data:', error);
-			throw error; // rethrow the error if needed
-		}
+		postData( cacheClearEndPoint ).then( ( data ) => {
+			setIsLoading(false);
+		})
 	};
 
     return (
@@ -33,8 +26,7 @@ const CacheClearBtn = (props) => {
                 className="templatiq__header__action__link templatiq-btn" 
                 onClick={handleCacheClear}
             >
-                {isLoading ? 'Clearing...' : <ReactSVG src={ cacheClearIcon } width={14} height={14} />}
-                
+                <ReactSVG src={ cacheClearIcon } width={14} height={14} className={isLoading ? 'cache-clearing' : ''} />                
             </a>
         </CacheClearBtnStyle>
     )

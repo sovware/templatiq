@@ -1,4 +1,4 @@
-import { useState, useEffect } from '@wordpress/element';
+import { lazy, Suspense, useState, useEffect } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg'; 
 import ReactPaginate from 'react-paginate';
 import { select, subscribe } from '@wordpress/data';
@@ -8,7 +8,8 @@ import { TemplatePackFilterStyle } from '@root/style';
 import Searchform from "@components/Searchform";
 import ContentLoading from '@components/ContentLoading';
 
-import SingleTemplate from "@components/SingleTemplate";
+// import SingleTemplate from "@components/SingleTemplate";
+const SingleTemplate = lazy(() => import('@components/SingleTemplate'));
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
@@ -20,7 +21,6 @@ export default function AllTemplates (props) {
     const { templateType, templateStatus } = props;
 	const paginatePerPage = 6;
 
-	const [ loading, setLoading ] = useState(false);
 	const [ isEmpty, setIsEmpty ] = useState(false);
     const [ activeTab, setActiveTab ] = useState('all');
 
@@ -104,12 +104,9 @@ export default function AllTemplates (props) {
         } else {
             setAllTemplates(templates);
         }
-
-        setLoading(false); 
     }
 
     useEffect(() => {
-        setLoading(true);
         const templateData = select( store ).getTemplates();
 
         templateData && checkTemplateType(templateData);
@@ -165,14 +162,38 @@ export default function AllTemplates (props) {
 
             setTotalPaginate(filteredTemplates.length)
 
-            filteredTemplates.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
-            // setLoading(false);
+            // filteredTemplates.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
+
+            if (filteredTemplates.length > 0) {
+                setIsEmpty(false);
+            } else {
+                // Delay updating isEmpty to false after 1 second
+                const delayTimeoutId = setTimeout(() => {
+                    setIsEmpty(true);
+                }, 200);
+        
+                // Cleanup the delay timeout
+                return () => clearTimeout(delayTimeoutId);
+            }
         }
 
     }, [filteredTemplates]);
 
     useEffect(() => {
-        templatesToDisplay && templatesToDisplay.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
+        // templatesToDisplay && templatesToDisplay.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
+
+        if (templatesToDisplay && templatesToDisplay.length > 0) {
+            setIsEmpty(false);
+        } else {
+            // Delay updating isEmpty to false after 1 second
+            const delayTimeoutId = setTimeout(() => {
+                setIsEmpty(true);
+            }, 200);
+    
+            // Cleanup the delay timeout
+            return () => clearTimeout(delayTimeoutId);
+        }
+
     }, [templatesToDisplay]);
     
     useEffect(() => {
@@ -205,13 +226,13 @@ export default function AllTemplates (props) {
                             >
                                 <button className="templatiq__content__top__filter__link">All ({defaultTemplates ? defaultTemplates.length : '0'})</button>
                             </Tab>
-                           <Tab 
+                            <Tab 
                                 className="templatiq__content__top__filter__item"
                                 onClick={() => changeTemplateTab('free')}
                             >
                                 <button className="templatiq__content__top__filter__link">Free ({freeTemplates ? freeTemplates.length : '0'})</button>
                             </Tab>
-                           <Tab 
+                            <Tab 
                                 className="templatiq__content__top__filter__item"
                                 onClick={() => changeTemplateTab('pro')}
                             >
@@ -229,20 +250,19 @@ export default function AllTemplates (props) {
             </div>
 
             <div className="templatiq__content__wrapper">
-                { loading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
-                    <>
-                        { 
-                            isEmpty &&
-                            <div className="templatiq__content__empty">
-                                <h3 className="templatiq__content__empty__title">No Template Found</h3>
-                                <h3 className="templatiq__content__empty__desc">Search Other Templates</h3>
-                            </div>
-                        }
-                        <TabPanel className="templatiq-row templatiq__content__tab-panel">
+                <>
+                    { 
+                        isEmpty &&
+                        <div className="templatiq__content__empty">
+                            <h3 className="templatiq__content__empty__title">No Template Found</h3>
+                            <h3 className="templatiq__content__empty__desc">Search Other Templates</h3>
+                        </div>
+                    }
+                    <TabPanel className="templatiq-row templatiq__content__tab-panel">
                         {templatesToDisplay && templatesToDisplay
                             .map(template => (
                                 <div className="templatiq-col-6">
-                                    {loading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
+                                    <Suspense fallback={ <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> }>
                                         <SingleTemplate 
                                             template_id = {template.template_id}
                                             builder = {template.builder}
@@ -257,16 +277,16 @@ export default function AllTemplates (props) {
                                             purchase_url = {template.purchase_url}
                                             preview_link = {template.preview_link}
                                         />
-                                    }
+                                    </Suspense>
                                 </div>
                             ))
                         }
-                        </TabPanel>
-                        <TabPanel className="templatiq-row templatiq__content__tab-panel">
+                    </TabPanel>
+                    <TabPanel className="templatiq-row templatiq__content__tab-panel">
                         {templatesToDisplay && templatesToDisplay
                             .map(template => (
                                 <div className="templatiq-col-6">
-                                    {loading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
+                                    <Suspense fallback={ <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> }>
                                         <SingleTemplate 
                                             template_id = {template.template_id}
                                             builder = {template.builder}
@@ -280,16 +300,16 @@ export default function AllTemplates (props) {
                                             purchase_url = {template.purchase_url}
                                             preview_link = {template.preview_link}
                                         />
-                                    }
+                                    </Suspense>
                                 </div>
                             ))
                         }
-                        </TabPanel>
-                        <TabPanel className="templatiq-row templatiq__content__tab-panel">
+                    </TabPanel>
+                    <TabPanel className="templatiq-row templatiq__content__tab-panel">
                         {templatesToDisplay && templatesToDisplay
                             .map(template => (
                                 <div className="templatiq-col-6">
-                                    {loading ? <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> :
+                                    <Suspense fallback={ <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> }>
                                         <SingleTemplate 
                                             template_id = {template.template_id}
                                             builder = {template.builder}
@@ -304,36 +324,36 @@ export default function AllTemplates (props) {
                                             purchase_url = {template.purchase_url}
                                             preview_link = {template.preview_link}
                                         />
-                                    }
+                                    </Suspense>
                                 </div>
                             ))
                         }
-                        </TabPanel>
+                    </TabPanel>
 
-                        { totalPaginate > paginatePerPage && (
-                            <ReactPaginate
-                                key={activeTab}
-                                breakLabel="..."
-                                onPageChange={ handlePageClick }
-                                nextLabel={ <ReactSVG src={ arrowRight } /> }
-                                previousLabel={ <ReactSVG src={ arrowLeft } /> }
-                                pageRangeDisplayed={ 3 }
-                                forcePage={forcePage}
-                                pageCount={ Math.ceil( totalPaginate / paginatePerPage ) }
-                                previousClassName="templatiq-pagination__item"
-                                previousLinkClassName="templatiq-pagination__link templatiq-pagination__control"
-                                nextClassName="templatiq-pagination__item"
-                                nextLinkClassName="templatiq-pagination__link templatiq-pagination__control"
-                                containerClassName="templatiq-pagination"
-                                pageClassName="templatiq-pagination__item"
-                                pageLinkClassName="templatiq-pagination__link"
-                                activeLinkClassName="templatiq-pagination__active"
-                                renderOnZeroPageCount={ null }
-                                
-                            />
-                        ) }
-                    </>
-                }
+                    { totalPaginate > paginatePerPage && (
+                        <ReactPaginate
+                            key={activeTab}
+                            breakLabel="..."
+                            onPageChange={ handlePageClick }
+                            nextLabel={ <ReactSVG src={ arrowRight } /> }
+                            previousLabel={ <ReactSVG src={ arrowLeft } /> }
+                            pageRangeDisplayed={ 3 }
+                            forcePage={forcePage}
+                            pageCount={ Math.ceil( totalPaginate / paginatePerPage ) }
+                            previousClassName="templatiq-pagination__item"
+                            previousLinkClassName="templatiq-pagination__link templatiq-pagination__control"
+                            nextClassName="templatiq-pagination__item"
+                            nextLinkClassName="templatiq-pagination__link templatiq-pagination__control"
+                            containerClassName="templatiq-pagination"
+                            pageClassName="templatiq-pagination__item"
+                            pageLinkClassName="templatiq-pagination__link"
+                            activeLinkClassName="templatiq-pagination__active"
+                            renderOnZeroPageCount={ null }
+                            
+                        />
+                    ) }
+                    
+                </>
             </div>
         </Tabs>
 	);

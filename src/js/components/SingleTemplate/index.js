@@ -4,14 +4,12 @@ import ReactSVG from 'react-inlinesvg';
 import { Link } from 'react-router-dom';
 import Bookmark from '@components/Bookmark';
 import InsertTemplate from '@components/InsertTemplate';
-import ContentLoading from '@components/ContentLoading';
 import { SingleTemplateStyle } from './style';
 import store from '@store/index';
 
 import crownIcon from "@icon/crown.svg";
 import cartIcon from "@icon/cart.svg";
 import downloadIcon from "@icon/download-alt.svg";
-import templateImg1 from "@images/template/1.svg";
 
 const SingleTemplate = (item) => {
     let { slug, preview_link, purchase_url, thumbnail, title, price, number_of_downloads, categories, required_plugins } = item;
@@ -41,11 +39,7 @@ const SingleTemplate = (item) => {
     return (
         <SingleTemplateStyle className="templatiq__template__single" ref={templateRef}>
             <div className="templatiq__template__single__img">
-                {
-                    thumbnail ? 
-                    <img src={thumbnail} alt={title} /> : 
-                    <ContentLoading style={ { margin: 0, minHeight: 'unset' } } />
-                }
+                <img src={thumbnail} alt={title} />
                 <div className="templatiq__template__single__overlay"></div>
                 <div className="templatiq__template__single__info">
                     <div className="templatiq__template__single__info__meta">

@@ -21,7 +21,7 @@ const DEFAULT_STATE = {
 
 const store = createReduxStore('templatiq-stores', {
 	reducer(state = DEFAULT_STATE, action) {
-		console.log('Initial Store Data: ', state)
+		// console.log('Initial Store Data: ', state)
 		switch (action.type) {
 			case 'SET_TEMPLATES':
 				const templateState = {

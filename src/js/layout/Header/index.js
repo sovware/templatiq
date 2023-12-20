@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from '@wordpress/element';
-import apiFetch from '@wordpress/api-fetch';
+import postData from '@helper/postData';
 import { select, dispatch } from '@wordpress/data';
 import ReactSVG from 'react-inlinesvg';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
@@ -38,15 +38,16 @@ const Header = (props) =>  {
 
 	const [isAuthorInfoVisible, setAuthorInfoVisible] = useState(false);
 
+	const logOutEndPoint = 'templatiq/account/logout';
+
+	// Log Out
 	const handleLogOut = async () => {
-		apiFetch( { 
-			path: 'templatiq/account/logout',
-			method: 'POST',
-		}).then( ( res ) => { 
+		postData( logOutEndPoint ).then( ( data ) => {
 			// Dispatch the action to update the login status in the store
 			dispatch(store).logOut();
 			navigate('/');
-		} );
+		});
+		
 	};
 
 	let editorItems = [

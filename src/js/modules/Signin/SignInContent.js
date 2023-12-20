@@ -1,5 +1,5 @@
 import { useState, useEffect } from '@wordpress/element';
-import apiFetch from '@wordpress/api-fetch';
+import postData from '@helper/postData';
 import { select, dispatch } from '@wordpress/data';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthStyle } from "@root/style";
@@ -8,6 +8,8 @@ import store from '@store/index';
   
 export default function SignInContent () {
 	const navigate = useNavigate();
+	
+	const singInEndPoint = 'templatiq/account/login';
 
 	let [loading, setLoading] = useState(false);
 	
@@ -27,20 +29,14 @@ export default function SignInContent () {
 	};
 
 	const handleData = (e) => {
-		setLoading(true);
 		e.preventDefault(); 
 		handleLogin({ username: authorEmail.value, password: authorPassword.value });
 	};
 
 	// Login API
 	const handleLogin = async (credentials) => {
-		apiFetch( { 
-			path: 'templatiq/account/login',
-			method: 'POST',
-			data: credentials,
-		}).then( ( res ) => {
-			console.log( 'APIFetch User data: ', res );
-			const info = res.body;
+		postData( singInEndPoint, credentials ).then( ( data ) => {
+			const info = data.body;
 			if (info.token) {
 				const updatedUserInfo = {
 					isLoggedIn: true,
@@ -59,7 +55,7 @@ export default function SignInContent () {
 			} else {
 				setLoading(false);
 			}
-		} );
+		})
 	};
 
 	useEffect( () => {
