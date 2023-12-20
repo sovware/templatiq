@@ -146,6 +146,10 @@ class Account {
 			return $response;
 		}
 
+		if ( ! empty( $response['body'] ) ) {
+			$response['body'] = json_decode( $response['body'], true );
+		}
+
 		return $response;
 	}
 }
