@@ -3,7 +3,7 @@ import postData from '@helper/postData';
 import ReactSVG from 'react-inlinesvg';
 import { CacheClearBtnStyle } from './style';
 
-import cacheClearIcon from "@icon/fire.svg";
+import cacheClearIcon from "@icon/sync.svg";
 
 const CacheClearBtn = (props) => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -26,8 +26,7 @@ const CacheClearBtn = (props) => {
                 className="templatiq__header__action__link templatiq-btn" 
                 onClick={handleCacheClear}
             >
-                {isLoading ? 'Clearing...' : <ReactSVG src={ cacheClearIcon } width={14} height={14} />}
-                
+                <ReactSVG src={ cacheClearIcon } width={14} height={14} className={isLoading ? 'cache-clearing' : ''} />                
             </a>
         </CacheClearBtnStyle>
     )

@@ -36,11 +36,9 @@ export default function SignUpContent() {
 
 	const handleSignup = async (credentials) => {
 		postData( singUpEndPoint, credentials ).then( ( data ) => {
-			console.log( 'Register User data: ', data );
 			if(data.body.token) {
 				setIsRegistered(true);
-				navigate('/login');
-				console.log('Registered Successfully');
+				navigate('/signin');
 			} else {
 				const errorMessage = data.message?.user_email;
 				setErrorMessage(errorMessage);
