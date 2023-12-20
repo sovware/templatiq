@@ -25,7 +25,7 @@ export default function AllTemplates (props) {
     const [ activeTab, setActiveTab ] = useState('all');
 
     const [ allTemplates, setAllTemplates ] = useState([]);
-    const [ filteredTemplates, setFilteredTemplates ] = useState(allTemplates);
+    const [ filteredTemplates, setFilteredTemplates ] = useState([]);
     const [ defaultTemplates, setDefaultTemplates ] = useState([]);
     const [ proTemplates, setProTemplates ] = useState([]);
     const [ freeTemplates, setFreeTemplates ] = useState([]);
@@ -109,7 +109,9 @@ export default function AllTemplates (props) {
     useEffect(() => {
         const templateData = select( store ).getTemplates();
 
-        templateData && checkTemplateType(templateData);
+        if (templateData) {
+            checkTemplateType(templateData);
+        } 
 
 		// Subscribe to changes in the store's data
 		const storeUpdate = subscribe(() => {
@@ -117,12 +119,11 @@ export default function AllTemplates (props) {
             const { bookmarks } = select( store ).getUserInfo();
 			const searchQuery = select( store ).getSearchQuery();
             const filterSearch = select( store ).getFilterSearch();
-
             setUserFav(bookmarks);
             setSearchValue(searchQuery);
             setFilterValue(filterSearch);
 
-            checkTemplateType(templates);
+            // checkTemplateType(templates);
 		});
 
 		// storeUpdate when the component is unmounted
@@ -164,10 +165,10 @@ export default function AllTemplates (props) {
 
             // filteredTemplates.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
 
-            if (filteredTemplates.length > 0) {
+            if (filteredTemplates.length) {
                 setIsEmpty(false);
             } else {
-                // Delay updating isEmpty to false after 1 second
+                // Delay updating isEmpty to false after .2 second
                 const delayTimeoutId = setTimeout(() => {
                     setIsEmpty(true);
                 }, 200);
@@ -182,10 +183,10 @@ export default function AllTemplates (props) {
     useEffect(() => {
         // templatesToDisplay && templatesToDisplay.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
 
-        if (templatesToDisplay && templatesToDisplay.length > 0) {
+        if (templatesToDisplay.length) {
             setIsEmpty(false);
         } else {
-            // Delay updating isEmpty to false after 1 second
+            // Delay updating isEmpty to false after .2 second
             const delayTimeoutId = setTimeout(() => {
                 setIsEmpty(true);
             }, 200);

@@ -25,35 +25,42 @@ const MyAccount = lazy(() => import('./pages/dashboard/Account'));
 
 export default function App() { 
 	const [ dir, setDir ] = useState( 'ltr' );
+	const [dataFetched, setDataFetched] = useState(false);
 
 	const theme = {
 		direction: dir,
 	};
 
-	useEffect( () => {
-		fetchData( 'templatiq/account/data' ).then( ( res ) => {
-			console.log('getUserInfo Info: ', res);
-			const data = res.body;
-
-			const updatedUserInfo = {
-				isLoggedIn: data.token ? true : false,
-				userEmail: data.user_email,
-				userDisplayName: data.user_display_name,
-				bookmarks: data.bookmarks,
-				downloads: data.downloads,
-				purchased: data.purchased,
-			};
-
-			// Dispatch the action to update the login status in the store
-			dispatch(store).setUserInfo(updatedUserInfo);
-		});
-
-		fetchData( 'templatiq/template/library' ).then( ( res ) => {
-			console.log('getTemplates Info: ', res);
+	useEffect(() => {
+		
+		fetchData('templatiq/template/library')
+		.then((res) => {
+			console.log('getTemplates Info: ', res, res.templates);
 			dispatch(store).setTemplates(res.templates);
-			dispatch(store).setLibraryData(res)
-		});
-	}, [] );
+			dispatch(store).setLibraryData(res);
+		})
+		.then(() => {
+			fetchData('templatiq/account/data').then((res) => {
+				console.log('getUserInfo Info: ', res);
+				const data = res.body;
+		
+				const updatedUserInfo = {
+					isLoggedIn: data.token ? true : false,
+					userEmail: data.user_email,
+					userDisplayName: data.user_display_name,
+					bookmarks: data.bookmarks,
+					downloads: data.downloads,
+					purchased: data.purchased,
+				};
+		
+				// Dispatch the action to update the login status in the store
+				dispatch(store).setUserInfo(updatedUserInfo);
+
+				setDataFetched(true);
+			});
+		})
+		
+	}, []);
 
 	const adminRoutes = applyFilters( 'templatiq_admin_routes', [
 		{
@@ -153,19 +160,23 @@ export default function App() {
 		<>
 			<HashRouter>
 				<Suspense fallback={ <ContentLoading /> }>
-					<ThemeProvider theme={ theme }>
-						<Routes>
-							{ adminRoutes.map( ( routeItem, index ) => {
-								return (
-									<Route
-										key={ index }
-										path={ routeItem.path }
-										element={ routeItem.element }
-									></Route>
-								);
-							} ) }
-						</Routes>
-					</ThemeProvider>
+					{dataFetched ? (
+						<ThemeProvider theme={ theme }>
+							<Routes>
+								{ adminRoutes.map( ( routeItem, index ) => {
+									return (
+										<Route
+											key={ index }
+											path={ routeItem.path }
+											element={ routeItem.element }
+										></Route>
+									);
+								} ) }
+							</Routes>
+						</ThemeProvider>
+					): (
+						<ContentLoading />
+					)}
 				</Suspense>
 			</HashRouter>
 		</>
