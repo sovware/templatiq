@@ -86,7 +86,7 @@ const Sidebar = () => {
 			pluginCount[plugin] = templatesOfType.filter(template => template.required_plugins.some(reqPlugin => reqPlugin.slug === plugin)).length;
 		});
 		setCountPlugins(pluginCount);
-	}
+	};
 
 	// Group plugins by their group
 	const groupedPlugins = {};
@@ -108,7 +108,7 @@ const Sidebar = () => {
 			setLibraryData(data);
             
         } else {
-            console.log('No Data')
+            console.log('No Data');
         }
 
 		// Clear Stored Filters
