@@ -165,7 +165,7 @@
 				jQuery.extend(true, options, ajaxOptions);
 			}
 
-			elementorCommon.ajax.addRequest('get_tm_template_data', options);
+			elementorCommon.ajax.addRequest('get_templatiq_template_data', options);
 		};
 
 		this.insertTemplate = function (args, template_id) {

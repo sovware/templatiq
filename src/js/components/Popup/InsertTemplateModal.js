@@ -59,6 +59,39 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
             // Install current plugin
             await installPlugin(plugin);
         }
+
+        console.log('Installed Successfully');
+        elementorEditorEnabled ? 
+        await requestTemplateData(template_id,{
+            success: function (data) {
+
+                console.log(data)
+                // self.getModal().hideLoadingView();
+                // self.getModal().hideModal();
+
+                var options = {}
+
+                if (self.atIndex !== -1) {
+                    options.at = self.atIndex;
+                }
+
+                $e.run('document/elements/import', {
+                    model: model,
+                    data: data,
+                    options: options
+                });
+
+                self.atIndex = -1;
+            },
+            error: function (data) {
+                console.log( 'Error: ', data );
+            },
+            complete: function (data) {
+                console.log( 'Complete: ', data );
+                // self.getModal().hideLoadingView();
+                // window.elementor.$previewContents.find('.elementor-add-section .elementor-add-section-close').click();
+            },
+        }) : ''
     };
 
     const installPlugin = async (plugin) => {
@@ -83,6 +116,24 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
             setLoading(false);
         }
 	};
+
+    const requestTemplateData = async (template_id, ajaxOptions) => {
+        console.log('Requested Template: ', template_id)
+        var options = {
+            unique_id: template_id,
+            data: {
+                edit_mode: true,
+                display: true,
+                template_id: template_id,
+            },
+        };
+
+        if (ajaxOptions) {
+            jQuery.extend(true, options, ajaxOptions);
+        }
+
+        elementorCommon.ajax.addRequest('get_templatiq_template_data', options);
+    };
 
     const importData = async ( pageTitle, template_id, builder ) => {
         setLoading(true);
@@ -224,7 +275,7 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
                                                         Create a Page
                                                     </button>
                                                 </> : 
-                                                <p className="templatiq__modal__desc">Elementor Imported</p>
+                                                <p className="templatiq__modal__desc">Elementor Content Importing</p>
                                             }
                                             
                                         </div>

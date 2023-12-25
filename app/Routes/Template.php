@@ -92,7 +92,7 @@ class Template extends RouteBase {
 			return $result;
 		} );
 
-		$ajax->register_ajax_action( 'get_tm_template_data', function ( $data ) {
+		$ajax->register_ajax_action( 'get_templatiq_template_data', function ( $data ) {
 
 			if ( ! current_user_can( 'edit_posts' ) ) {
 				throw new \Exception( 'Access Denied' );
