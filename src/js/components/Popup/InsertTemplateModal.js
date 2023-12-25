@@ -59,39 +59,10 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
             // Install current plugin
             await installPlugin(plugin);
         }
-
-        console.log('Installed Successfully');
-        elementorEditorEnabled ? 
-        await requestTemplateData(template_id,{
-            success: function (data) {
-
-                console.log(data)
-                // self.getModal().hideLoadingView();
-                // self.getModal().hideModal();
-
-                var options = {}
-
-                if (self.atIndex !== -1) {
-                    options.at = self.atIndex;
-                }
-
-                $e.run('document/elements/import', {
-                    model: model,
-                    data: data,
-                    options: options
-                });
-
-                self.atIndex = -1;
-            },
-            error: function (data) {
-                console.log( 'Error: ', data );
-            },
-            complete: function (data) {
-                console.log( 'Complete: ', data );
-                // self.getModal().hideLoadingView();
-                // window.elementor.$previewContents.find('.elementor-add-section .elementor-add-section-close').click();
-            },
-        }) : ''
+        
+        if (elementorEditorEnabled) {
+            importElementorData(template_id);
+        }
     };
 
     const installPlugin = async (plugin) => {
@@ -150,9 +121,38 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
         })
 	};
 
-    // const importElementorData = () => {
-    //     console.log('importElementorData Called')
-    // }
+    const importElementorData = async (template_id) => {
+        await requestTemplateData(template_id,{
+            success: function (data) {
+
+                console.log(data)
+                // self.getModal().hideLoadingView();
+                // self.getModal().hideModal();
+
+                // var options = {}
+
+                // if (self.atIndex !== -1) {
+                //     options.at = self.atIndex;
+                // }
+
+                // $e.run('document/elements/import', {
+                //     model: model,
+                //     data: data,
+                //     options: options
+                // });
+
+                // self.atIndex = -1;
+            },
+            error: function (data) {
+                console.log( 'Error: ', data );
+            },
+            complete: function (data) {
+                console.log( 'Complete: ', data );
+                // self.getModal().hideLoadingView();
+                // window.elementor.$previewContents.find('.elementor-add-section .elementor-add-section-close').click();
+            },
+        })
+    }
 
     // Check if all requiredPlugins are available in installedPlugins
     useEffect(() => {
@@ -163,7 +163,6 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
         if (allRequiredPluginsInstalled) {
             setAllPluginsInstalled(true);
             setSelectedPlugins([]);
-            // importElementorData();
         }
     }, [installedPlugins, installablePlugins]);
 
@@ -173,6 +172,10 @@ const InsertTemplateModal = ({item, required_plugins, onClose}) => {
 
         // Set the state variable based on the presence of Elementor Editor
         setElementorEditorEnabled(isElementorEditorActive);
+
+        if(isElementorEditorActive && !installablePlugins.length) {
+            importElementorData(template_id);
+        }
     }, []); 
 
 
