@@ -9,7 +9,7 @@ import { ThemeProvider } from 'styled-components';
 import fetchData from '@helper/fetchData';
 import ContentLoading from '@components/ContentLoading';
 
-import { dispatch } from '@wordpress/data';
+import { dispatch, useSelect } from '@wordpress/data';
 import store from '@store/index';
 
 const TemplatePack = lazy(() => import('./pages/TemplatePack'));
@@ -25,7 +25,8 @@ const MyAccount = lazy(() => import('./pages/dashboard/Account'));
 
 export default function App() { 
 	const [ dir, setDir ] = useState( 'ltr' );
-	const [dataFetched, setDataFetched] = useState(false);
+	const [ dataFetched, setDataFetched ] = useState(false);
+    const [ elementorEditorEnabled, setElementorEditorEnabled ] = useState(false);
 
 	const theme = {
 		direction: dir,
@@ -43,7 +44,7 @@ export default function App() {
 			fetchData('templatiq/account/data').then((res) => {
 				console.log('getUserInfo Info: ', res);
 				const data = res.body;
-		
+
 				const updatedUserInfo = {
 					isLoggedIn: data.token ? true : false,
 					userEmail: data.user_email,
@@ -59,13 +60,22 @@ export default function App() {
 				setDataFetched(true);
 			});
 		})
+
+
+		// Check if the 'elementor-editor-active' class is present on the body element
+		const isElementorEditorActive = document.body.classList.contains('elementor-editor-active');
+
+		// Set the state variable based on the presence of Elementor Editor
+		setElementorEditorEnabled(isElementorEditorActive);
+	
+		console.log('App.js: isElementorEditorActive: ', isElementorEditorActive);
 		
 	}, []);
 
 	const adminRoutes = applyFilters( 'templatiq_admin_routes', [
 		{
 			path: `/*`,
-			element: <TemplatePack />,
+			element: !elementorEditorEnabled ? <TemplatePack /> : <Pages />,
 		},
 		{
 			path: '/pages',

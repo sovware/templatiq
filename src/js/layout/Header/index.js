@@ -111,8 +111,7 @@ const Header = (props) =>  {
 			<div className="templatiq__header__content">
 				<HeaderNavStyle className="templatiq__header__nav">
 					{
-						isLoggedIn && elementorEditorEnabled ? 
-						null :
+						!elementorEditorEnabled &&
 						<li className="templatiq__header__item">
 							<NavLink to="/" className={`templatiq__header__link`} activeClassName="active">
 								<ReactSVG src={ fileIcon } width={18} height={18} />
