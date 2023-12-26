@@ -55,7 +55,7 @@ const TemplateDetailsStyle = Styled.div`
         font-size: 16px;
         line-height: 1.7;
         font-weight: 400;
-        color: var(--templatiq-dark-color);
+        color: var(--templatiq-body-color);
     }
 
 `;
