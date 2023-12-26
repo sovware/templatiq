@@ -72,6 +72,14 @@ button {
 	color: var(--templatiq-danger-color) !important;
 }
 
+.uppercase {
+	text-transform: uppercase;
+}
+
+.capitalize {
+	text-transform: capitalize;
+}
+
 
 .templatiq {
 	margin-inline-start: -20px;

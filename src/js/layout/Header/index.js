@@ -35,8 +35,8 @@ const Header = (props) =>  {
 	const { type } = props;
 
 	const { isLoggedIn, userDisplayName } = select( store ).getUserInfo();
-
 	const [isAuthorInfoVisible, setAuthorInfoVisible] = useState(false);
+    const [elementorEditorEnabled, setElementorEditorEnabled] = useState(false);
 
 	const logOutEndPoint = 'templatiq/account/logout';
 
@@ -80,6 +80,14 @@ const Header = (props) =>  {
 		checkedClickedOutside( isAuthorInfoVisible, setAuthorInfoVisible, ref );
 	}, [ isAuthorInfoVisible ] );
 
+	useEffect(() => {
+        // Check if the 'elementor-editor-active' class is present on the body element
+        const isElementorEditorActive = document.body.classList.contains('elementor-editor-active');
+
+        // Set the state variable based on the presence of Elementor Editor
+        setElementorEditorEnabled(isElementorEditorActive);
+    }, []); 
+
 	return (
 		<HeaderStyle className="templatiq__header">
 			{
@@ -102,12 +110,16 @@ const Header = (props) =>  {
 				
 			<div className="templatiq__header__content">
 				<HeaderNavStyle className="templatiq__header__nav">
-					<li className="templatiq__header__item">
-						<NavLink to="/" className={`templatiq__header__link`} activeClassName="active">
-							<ReactSVG src={ fileIcon } width={18} height={18} />
-							Template Pack
-						</NavLink>
-					</li>
+					{
+						isLoggedIn && elementorEditorEnabled ? 
+						null :
+						<li className="templatiq__header__item">
+							<NavLink to="/" className={`templatiq__header__link`} activeClassName="active">
+								<ReactSVG src={ fileIcon } width={18} height={18} />
+								Template Pack
+							</NavLink>
+						</li>
+					}
 					<li className="templatiq__header__item">
 						<NavLink to="/pages" className={`templatiq__header__link`} activeClassName="active">
 							<ReactSVG src={ pagesIcon } width={18} height={18} />
@@ -157,24 +169,29 @@ const Header = (props) =>  {
 												My Favorites
 											</NavLink>
 										</div>
-										<div className="templatiq__header__author__info__item">
-											<NavLink activeClassName="active" to="/dashboard/downloads" className="templatiq__header__author__info__link">
-												<ReactSVG src={ downloadIcon } width={14} height={14} />
-												My Downloads
-											</NavLink>
-										</div>
-										<div className="templatiq__header__author__info__item">
-											<NavLink activeClassName="active" to="/dashboard/purchase" className="templatiq__header__author__info__link">
-												<ReactSVG src={ cartIcon } width={14} height={14} />
-												My Purchase
-											</NavLink>
-										</div>
-										<div className="templatiq__header__author__info__item">
-											<NavLink activeClassName="active" to="/dashboard/account" className="templatiq__header__author__info__link">
-												<ReactSVG src={ settingsIcon } width={14} height={14} />
-												Manage Account
-											</NavLink>
-										</div>
+										{
+											!elementorEditorEnabled &&
+											<>
+												<div className="templatiq__header__author__info__item">
+													<NavLink activeClassName="active" to="/dashboard/downloads" className="templatiq__header__author__info__link">
+														<ReactSVG src={ downloadIcon } width={14} height={14} />
+														My Downloads
+													</NavLink>
+												</div>
+												<div className="templatiq__header__author__info__item">
+													<NavLink activeClassName="active" to="/dashboard/purchase" className="templatiq__header__author__info__link">
+														<ReactSVG src={ cartIcon } width={14} height={14} />
+														My Purchase
+													</NavLink>
+												</div>
+												<div className="templatiq__header__author__info__item">
+													<NavLink activeClassName="active" to="/dashboard/account" className="templatiq__header__author__info__link">
+														<ReactSVG src={ settingsIcon } width={14} height={14} />
+														Manage Account
+													</NavLink>
+												</div>
+											</>
+										}
 										<div className="templatiq__header__author__info__item templatiq__header__author__info__item--logout">
 											<a 
 												href="#" 

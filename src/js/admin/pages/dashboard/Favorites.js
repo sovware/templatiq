@@ -5,7 +5,7 @@ export default function MyFavorites() {
 	return (
 		<>
 			<MyFavoritesModule
-				type="pack"
+				type="favorite"
 				status="favorites"
 			/>
 		</>
