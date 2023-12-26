@@ -133,6 +133,7 @@ const SingleTemplateStyle = Styled.div`
         line-height: 22px;
         font-weight: 600;
         margin: 0 0 4px;
+        text-align: start;
         a {
             color: var(--templatiq-dark-color);
             &:hover {
@@ -243,7 +244,7 @@ const SingleTemplateStyle = Styled.div`
             top: -45px;
             left: 50%;
             transform: translateX(-50%);
-            min-width: 120px;
+            min-width: 135px;
             text-align: center;
             color: var(--templatiq-white-color);
             font-size: 13px;

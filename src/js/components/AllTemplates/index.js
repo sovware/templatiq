@@ -8,7 +8,6 @@ import { TemplatePackFilterStyle } from '@root/style';
 import Searchform from "@components/Searchform";
 import ContentLoading from '@components/ContentLoading';
 
-// import SingleTemplate from "@components/SingleTemplate";
 const SingleTemplate = lazy(() => import('@components/SingleTemplate'));
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -115,15 +114,12 @@ export default function AllTemplates (props) {
 
 		// Subscribe to changes in the store's data
 		const storeUpdate = subscribe(() => {
-			const templates = select( store ).getTemplates();
             const { bookmarks } = select( store ).getUserInfo();
 			const searchQuery = select( store ).getSearchQuery();
             const filterSearch = select( store ).getFilterSearch();
             setUserFav(bookmarks);
             setSearchValue(searchQuery);
             setFilterValue(filterSearch);
-
-            // checkTemplateType(templates);
 		});
 
 		// storeUpdate when the component is unmounted
@@ -215,8 +211,8 @@ export default function AllTemplates (props) {
         <Tabs className="templatiq__content__tab">
             <div className="templatiq__content__top">
                 <div className="templatiq__content__top__filter">
-                    <h3 className="templatiq__content__top__filter__title">
-                        Template Pack
+                    <h3 className="templatiq__content__top__filter__title capitalize">
+                        Template {templateType}
                     </h3>
                     
                     <TemplatePackFilterStyle className="templatiq__content__top__filter__wrapper">
