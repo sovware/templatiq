@@ -468,6 +468,10 @@ button {
 	}
 } 
 
+.elementor-templates-modal .dialog-message {
+	background: var(--templatiq-white-color);
+}
+
 @keyframes rotate360 {
     0% {
         transform: rotate(0deg);
