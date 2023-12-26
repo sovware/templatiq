@@ -19,6 +19,7 @@ const PopupStyle = Styled.div`
         line-height: 25px;
         font-weight: 600;
         margin: 0 0 20px;
+        text-align: start;
         color: var(--templatiq-black-color);
     }
     .templatiq__modal__desc {

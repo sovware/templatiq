@@ -163,6 +163,8 @@ const HeaderActionStyle = Styled.div`
         }
     }
     .templatiq__header__author__info__item--logout {
+        margin-top: 10px;
+        padding-top: 10px;
         border-top: 1px solid var(--templatiq-sec-color);
     }
 `;

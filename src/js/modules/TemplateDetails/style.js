@@ -29,11 +29,14 @@ const TemplateDetailsStyle = Styled.div`
         margin: 0;
         font-size: 21px;
         font-weight: 600;
+        text-align: start;
+        color: var(--templatiq-dark-color);
     }
     .templatiq__details__content__single__desc {
         margin: 0 0 15px;
         font-size: 16px;
         font-weight: 400;
+        text-align: start;
         color: var(--templatiq-body-color);
         &:last-child {
             margin: 0;
@@ -52,6 +55,7 @@ const TemplateDetailsStyle = Styled.div`
         font-size: 16px;
         line-height: 1.7;
         font-weight: 400;
+        color: var(--templatiq-dark-color);
     }
 
 `;
@@ -66,6 +70,7 @@ const TemplateDetailsHeaderStyle = Styled.div`
         font-weight: 600;
         line-height: 31px;
         margin: 0 0 12px;
+        color: var(--templatiq-dark-color);
     }
     .templatiq__details__header__meta {
         display: flex;
@@ -200,12 +205,16 @@ const TemplateDetailsWidgetStyle = Styled.div`
         font-size: 14px;
         font-weight: 400;
         line-height: 22px;
+        text-align: start;
+        text-transform: capitalize;
         color: var(--templatiq-gray-color);
     }
     .templatiq__details__widget__content__info {
         font-size: 14px;
         font-weight: 500;
         line-height: 22px;
+        text-align: start;
+        text-transform: capitalize;
         color: var(--templatiq-dark-color);
     }
     .templatiq__details__widget__content__required-plugins {

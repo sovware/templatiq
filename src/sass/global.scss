@@ -318,6 +318,7 @@ button {
 		position: relative;
 		color: var(--templatiq-gray-color);
 		padding-inline-start: 33px;
+		cursor: pointer;
 		&:before {
 			content: '';
 			position: absolute;
@@ -421,6 +422,7 @@ button {
 		font-size: 18px;
 		font-weight: 600;
 		margin: 0;
+		color: var(--templatiq-dark-color);
 	}
 	.templatiq__content__empty__desc {
 		font-size: 14px;
