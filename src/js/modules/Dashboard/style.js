@@ -206,7 +206,7 @@ const MyAccountStyle = Styled.div`
         font-weight: 600;
         margin: 0 0 20px;
         text-align: center;
-        color; var(--templatiq-dark-color);
+        color: var(--templatiq-dark-color);
     }
     .templatiq__dashboard__account__wrapper {
         width: 100%;
@@ -246,6 +246,8 @@ const MyAccountStyle = Styled.div`
             font-size: 15px;
             line-height: 24px;
             font-weight: 500;
+            text-align: start;
+            color: var(--templatiq-dark-color);
         }
         input {
             height: 46px;
@@ -253,6 +255,7 @@ const MyAccountStyle = Styled.div`
             border: none;
             box-shadow: none;
             border-radius: 8px;
+            color: var(--templatiq-body-color);
             background: var(--templatiq-sec-color);
         }
     }

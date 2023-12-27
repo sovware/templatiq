@@ -120,7 +120,7 @@ const Header = (props) =>  {
 						</li>
 					}
 					<li className="templatiq__header__item">
-						<NavLink to="/pages" className={`templatiq__header__link`} activeClassName="active">
+						<NavLink to={!elementorEditorEnabled ? "/pages" : "/"} className={`templatiq__header__link`} activeClassName="active">
 							<ReactSVG src={ pagesIcon } width={18} height={18} />
 							Pages
 						</NavLink>

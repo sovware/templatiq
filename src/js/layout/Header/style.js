@@ -11,6 +11,7 @@ const HeaderStyle = Styled.div`
     .templatiq__header__logo {
         flex: 0 0 256px;
         max-width: 256px;
+        text-align: start;
         margin-inline-start: 24px;
         img {
             max-width: 100%;
