@@ -16,8 +16,6 @@ const Popup = ( props ) => {
 
 	const handlePopUpForm = async ( e ) => {
 		e.preventDefault();
-
-		console.log( 'Form submitted' );
 	};
 
 	return (

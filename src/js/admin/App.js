@@ -32,13 +32,11 @@ export default function App() {
 	useEffect( () => {
 		fetchData( 'templatiq/template/library' )
 			.then( ( res ) => {
-				console.log( 'getTemplates Info: ', res, res.templates );
 				dispatch( store ).setTemplates( res.templates );
 				dispatch( store ).setLibraryData( res );
 			} )
 			.then( () => {
 				fetchData( 'templatiq/account/data' ).then( ( res ) => {
-					console.log( 'getUserInfo Info: ', res );
 					const data = res.body;
 
 					const updatedUserInfo = {
@@ -64,11 +62,6 @@ export default function App() {
 
 		// Set the state variable based on the presence of Elementor Editor
 		setElementorEditorEnabled( isElementorEditorActive );
-
-		console.log(
-			'App.js: isElementorEditorActive: ',
-			isElementorEditorActive
-		);
 	}, [] );
 
 	const adminRoutes = applyFilters( 'templatiq_admin_routes', [

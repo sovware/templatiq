@@ -107,7 +107,6 @@ const InsertTemplateModal = ( { item, required_plugins, onClose } ) => {
 	};
 
 	const requestTemplateData = async ( template_id, ajaxOptions ) => {
-		console.log( 'Requested Template: ', template_id );
 		var options = {
 			unique_id: template_id,
 			data: {

@@ -120,7 +120,7 @@ const Sidebar = () => {
 			getSidebarData( data );
 			setLibraryData( data );
 		} else {
-			console.log( 'No Data' );
+			console.log( 'No Data Found' );
 		}
 
 		// Clear Stored Filters
