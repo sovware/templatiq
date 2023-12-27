@@ -1,4 +1,5 @@
 const path = require( 'path' );
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
 const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
 const { log } = require( 'console' );
@@ -57,6 +58,11 @@ module.exports = {
 				}
 			},
 		} ),
+		new CopyWebpackPlugin({
+			patterns: [
+				{ from: 'src/svg', to: 'svg' },
+			],
+		}),
 	],
 	resolve: {
 		alias: {
@@ -69,7 +75,7 @@ module.exports = {
 			'@hooks': path.resolve( __dirname, 'src/js/hooks' ),
 			'@helper': path.resolve( __dirname, 'src/js/helper' ),
 			'@icon': path.resolve( __dirname, 'src/svg/icon' ),
-			'@images': path.resolve( __dirname, 'src/images' ),
+			'@images': path.resolve( __dirname, 'src/svg' ),
 			'@assets': path.resolve( __dirname, 'assets' ),
 		},
 	},

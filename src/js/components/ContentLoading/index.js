@@ -14,6 +14,6 @@ const ContentLoading = ( { style } ) => {
 			<span className="templatiq-shimmer-effect"></span>
 		</ContentLoadingStyle>
 	);
-}
+};
 
 export default ContentLoading;

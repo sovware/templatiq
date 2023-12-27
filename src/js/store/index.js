@@ -19,19 +19,21 @@ const DEFAULT_STATE = {
 	templateStatus: {},
 };
 
-const store = createReduxStore('templatiq-stores', {
-	reducer(state = DEFAULT_STATE, action) {
-		// console.log('Initial Store Data: ', state)
-		switch (action.type) {
+const store = createReduxStore( 'templatiq-stores', {
+	reducer( state = DEFAULT_STATE, action ) {
+		switch ( action.type ) {
 			case 'SET_TEMPLATES':
 				const templateState = {
 					...state,
 					templates: action.templates,
 				};
-		
+
 				// Save state to localStorage whenever it changes
-				localStorage.setItem('templatiq-stores', JSON.stringify(templateState));
-		
+				localStorage.setItem(
+					'templatiq-stores',
+					JSON.stringify( templateState )
+				);
+
 				return templateState;
 
 			case 'SET_LIBRARY':
@@ -39,10 +41,13 @@ const store = createReduxStore('templatiq-stores', {
 					...state,
 					libraryData: action.data,
 				};
-		
+
 				// Save state to localStorage whenever it changes
-				localStorage.setItem('templatiq-stores', JSON.stringify(libraryState));
-		
+				localStorage.setItem(
+					'templatiq-stores',
+					JSON.stringify( libraryState )
+				);
+
 				return libraryState;
 
 			case 'SET_BOOKMARK':
@@ -51,12 +56,15 @@ const store = createReduxStore('templatiq-stores', {
 					userInfo: {
 						...state.userInfo,
 						bookmarks: action.bookmark,
-					}
+					},
 				};
-		
+
 				// Save state to localStorage whenever it changes
-				localStorage.setItem('templatiq-stores', JSON.stringify(favState));
-		
+				localStorage.setItem(
+					'templatiq-stores',
+					JSON.stringify( favState )
+				);
+
 				return favState;
 
 			case 'SET_USER_INFO':
@@ -66,8 +74,11 @@ const store = createReduxStore('templatiq-stores', {
 				};
 
 				// Save state to localStorage whenever it changes
-				localStorage.setItem('templatiq-stores', JSON.stringify(userData));
-		
+				localStorage.setItem(
+					'templatiq-stores',
+					JSON.stringify( userData )
+				);
+
 				return userData;
 
 			case 'SET_SEARCH_QUERY':
@@ -77,8 +88,11 @@ const store = createReduxStore('templatiq-stores', {
 				};
 
 				// Save state to localStorage whenever it changes
-				localStorage.setItem('templatiq-stores', JSON.stringify(searchData));
-		
+				localStorage.setItem(
+					'templatiq-stores',
+					JSON.stringify( searchData )
+				);
+
 				return searchData;
 
 			case 'SET_FILTER_SEARCH':
@@ -88,8 +102,11 @@ const store = createReduxStore('templatiq-stores', {
 				};
 
 				// Save state to localStorage whenever it changes
-				localStorage.setItem('templatiq-stores', JSON.stringify(filterData));
-		
+				localStorage.setItem(
+					'templatiq-stores',
+					JSON.stringify( filterData )
+				);
+
 				return filterData;
 
 			case 'LOG_OUT':
@@ -102,23 +119,24 @@ const store = createReduxStore('templatiq-stores', {
 						userDisplayName: '',
 					},
 				};
-			
+
 				// Save state to localStorage whenever it changes
-				localStorage.setItem('templatiq-stores', JSON.stringify(updatedState));
-		
+				localStorage.setItem(
+					'templatiq-stores',
+					JSON.stringify( updatedState )
+				);
+
 				return updatedState;
 		}
-	
+
 		return state;
 	},
 
 	actions,
 
 	selectors,
-});
+} );
 
-
-
-register(store);
+register( store );
 
 export default store;

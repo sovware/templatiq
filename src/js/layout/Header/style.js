@@ -11,6 +11,7 @@ const HeaderStyle = Styled.div`
     .templatiq__header__logo {
         flex: 0 0 256px;
         max-width: 256px;
+        text-align: start;
         margin-inline-start: 24px;
         img {
             max-width: 100%;
@@ -110,7 +111,7 @@ const HeaderActionStyle = Styled.div`
             max-width: 32px;
         }
         &:after {
-            content: url(${chevronIcon});
+            content: url(${ chevronIcon });
             position: absolute;
             inset-inline-end: 0;
             top: 50%;
@@ -167,7 +168,10 @@ const HeaderActionStyle = Styled.div`
         padding-top: 10px;
         border-top: 1px solid var(--templatiq-sec-color);
     }
+    .templatiq__logout {
+        width: 100%;
+        cursor: pointer;
+    }
 `;
-
 
 export { HeaderStyle, HeaderNavStyle, HeaderActionStyle };

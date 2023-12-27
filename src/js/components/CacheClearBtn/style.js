@@ -6,5 +6,4 @@ const CacheClearBtnStyle = Styled.div`
     }
 `;
 
-
 export { CacheClearBtnStyle };
