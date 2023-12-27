@@ -461,11 +461,11 @@ const AuthStyle = Styled.div`
 `;
 
 export {
-    AuthStyle,
+	AuthStyle,
 	SearchBoxStyle,
 	SingleSelectStyle,
 	MultiSelectStyle,
 	ModalAlertStyle,
-    TemplatePackStyle,
-    TemplatePackFilterStyle,
+	TemplatePackStyle,
+	TemplatePackFilterStyle,
 };

@@ -121,7 +121,7 @@ const SidebarItemStyle = Styled.div`
             top: 2px;
             width: 14px;
             height: 14px;
-            background: url(${chevronIcon}) no-repeat center center;
+            background: url(${ chevronIcon }) no-repeat center center;
             background-size: 14px;
             transition: transform 0.3s ease;
         }
@@ -278,4 +278,11 @@ const MyAccountStyle = Styled.div`
     }
 `;
 
-export { DashboardStyle, DashboardFilterStyle, SidebarStyle, SidebarItemStyle, DashboardItemsStyle, MyAccountStyle };
+export {
+	DashboardStyle,
+	DashboardFilterStyle,
+	SidebarStyle,
+	SidebarItemStyle,
+	DashboardItemsStyle,
+	MyAccountStyle,
+};

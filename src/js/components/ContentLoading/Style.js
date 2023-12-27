@@ -38,7 +38,4 @@ const ContentLoadingStyle = Styled.div`
     }
 `;
 
-
-export {
-    ContentLoadingStyle
-};
+export { ContentLoadingStyle };

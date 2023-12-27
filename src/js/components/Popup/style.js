@@ -185,6 +185,4 @@ const AuthModalStyle = Styled.div`
     }
 `;
 
-
-
 export { PopupStyle, InsertTemplateModalStyle, AuthModalStyle };

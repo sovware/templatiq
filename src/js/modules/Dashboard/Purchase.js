@@ -1,94 +1,94 @@
 import { useState, useEffect } from '@wordpress/element';
 import { select, subscribe } from '@wordpress/data';
 import DashboardLayout from '@layout/DashboardLayout';
-import InsertTemplate from '@components/InsertTemplate'
+import InsertTemplate from '@components/InsertTemplate';
 import ContentLoading from '@components/ContentLoading';
-import Searchform from "@components/Searchform";
+import Searchform from '@components/Searchform';
 import store from '@store/index';
 
-import { TemplatePackStyle } from "@root/style";
-import { DashboardItemsStyle } from "./style"
+import { TemplatePackStyle } from '@root/style';
+import { DashboardItemsStyle } from './style';
 
 export default function MyPurchaseModule() {
-	const [ loading, setLoading ] = useState(false);
-	const [ isEmpty, setIsEmpty ] = useState(false);
+	const [ loading, setLoading ] = useState( false );
+	const [ isEmpty, setIsEmpty ] = useState( false );
 
 	const templateData = select( store ).getTemplates();
-    const { purchased } = select( store ).getUserInfo();
+	const { purchased } = select( store ).getUserInfo();
 
-	const [ purchasedData, setPurchasedData ] = useState([]);
-	const [ purchasedTemplates, setPurchasedTemplates ] = useState([]);
+	const [ purchasedData, setPurchasedData ] = useState( [] );
+	const [ purchasedTemplates, setPurchasedTemplates ] = useState( [] );
 
-    const [searchValue, setSearchValue] = useState('');
-    const [ defaultTemplates, setDefaultTemplates ] = useState([]);
-    const [ filteredTemplates, setFilteredTemplates ] = useState([]);
+	const [ searchValue, setSearchValue ] = useState( '' );
+	const [ defaultTemplates, setDefaultTemplates ] = useState( [] );
+	const [ filteredTemplates, setFilteredTemplates ] = useState( [] );
 
 	const searchFilteredTemplates = () => {
-        const newFilteredTemplates = defaultTemplates.filter((template) =>
-          template.title.toLowerCase().includes(searchValue.toLowerCase())
-        );
+		const newFilteredTemplates = defaultTemplates.filter( ( template ) =>
+			template.title.toLowerCase().includes( searchValue.toLowerCase() )
+		);
 
-        // Update the state with the filtered templates
-        setFilteredTemplates(newFilteredTemplates);
+		// Update the state with the filtered templates
+		setFilteredTemplates( newFilteredTemplates );
 
-        return newFilteredTemplates;
-    } 
+		return newFilteredTemplates;
+	};
 
-	useEffect(() => {
-        if (purchased) {
-            setLoading(false);
-			setPurchasedData(purchased);
+	useEffect( () => {
+		if ( purchased ) {
+			setLoading( false );
+			setPurchasedData( purchased );
 
 			const purchasedTemplateIds = purchasedData
-				.filter(item => typeof item === 'object' && !Array.isArray(item))
-				.map(obj => Object.keys(obj))
+				.filter(
+					( item ) =>
+						typeof item === 'object' && ! Array.isArray( item )
+				)
+				.map( ( obj ) => Object.keys( obj ) )
 				.flat()
-				.map(Number);
+				.map( Number );
 
 			// Find template data for purchased template_ids
-			const purchasedTemplate = templateData.filter(template => purchasedTemplateIds.includes(template.template_id));
+			const purchasedTemplate = templateData.filter( ( template ) =>
+				purchasedTemplateIds.includes( template.template_id )
+			);
 
-			setPurchasedTemplates(purchasedTemplate);
-			setFilteredTemplates(purchasedTemplate);
-			setDefaultTemplates(purchasedTemplate);
-			
-        } else {
-            console.log('No Data')
-        }
+			setPurchasedTemplates( purchasedTemplate );
+			setFilteredTemplates( purchasedTemplate );
+			setDefaultTemplates( purchasedTemplate );
+		} else {
+			console.log( 'No Data' );
+		}
+	}, [ purchasedData ] );
 
-    }, [purchasedData]);
+	useEffect( () => {
+		searchFilteredTemplates();
+	}, [ searchValue ] );
 
-	useEffect(() => {
-        searchFilteredTemplates();
+	useEffect( () => {
+		setPurchasedTemplates( filteredTemplates );
 
-    }, [searchValue]);
+		filteredTemplates.length > 0 ? setIsEmpty( false ) : setIsEmpty( true );
+	}, [ filteredTemplates ] );
 
-	useEffect(() => {
-        setPurchasedTemplates(filteredTemplates);
-
-        filteredTemplates.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
-
-    }, [filteredTemplates]);
-
-	useEffect(() => {
-        setLoading(true);
-		purchasedData.length > 0 ? setIsEmpty(true) : setIsEmpty(false);
+	useEffect( () => {
+		setLoading( true );
+		purchasedData.length > 0 ? setIsEmpty( true ) : setIsEmpty( false );
 
 		// Subscribe to changes in the store's data
-		const purchaseSearch = subscribe(() => {
+		const purchaseSearch = subscribe( () => {
 			const searchQuery = select( store ).getSearchQuery();
 
-            setSearchValue(searchQuery);
-		});
+			setSearchValue( searchQuery );
+		} );
 
 		// purchaseSearch when the component is unmounted
 		return () => purchaseSearch();
-
-    }, []);
+	}, [] );
 
 	return (
 		<DashboardLayout>
-			<div className="templatiq__content templatiq__content--dashboard"> 
+			<div className="templatiq__content templatiq__content--dashboard">
 				<TemplatePackStyle className="templatiq__content__dashboard">
 					<div className="templatiq__content__top">
 						<div className="templatiq__content_top__filter">
@@ -124,45 +124,56 @@ export default function MyPurchaseModule() {
 							</div>
 						</div>
 						<div className="templatiq__content__dashboard__items">
-							{loading ? (
-								<ContentLoading style={{ margin: 0, minHeight: 'unset' }} />
-								) : isEmpty ? (
-									<div className="templatiq__content__empty">
-										<h3 className="templatiq__content__empty__title">No Purchase Found</h3>
-										<h3 className="templatiq__content__empty__desc">Search Other Templates</h3>
-									</div>
-								) : (
-									purchasedTemplates.map(item => (
-										<div className="templatiq__content__dashboard__single">
-											<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name">
-												<img src={item.thumbnail} alt={item.title} className="templatiq__content__dashboard__item__img" />
-												<span className="templatiq__content__dashboard__item__title">
-													{item.title} 
-												</span>
-											</div>
-											<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--type">
-												<span className="templatiq__content__dashboard__item__text">
-													{item.type}
-												</span>
-											</div>
-											<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
-												<span className="templatiq__content__dashboard__item__text">
-													14 May, 2023 7.23pm
-												</span>
-											</div>
-											
-											<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
-												<InsertTemplate
-													solidIcon
-													item={item} 
-													innerText={'Insert'}
-													className={'templatiq__content__dashboard__item__btn templatiq-btn templatiq-btn-success'}
-												/>
-											</div>
+							{ loading ? (
+								<ContentLoading
+									style={ { margin: 0, minHeight: 'unset' } }
+								/>
+							) : isEmpty ? (
+								<div className="templatiq__content__empty">
+									<h3 className="templatiq__content__empty__title">
+										No Purchase Found
+									</h3>
+									<h3 className="templatiq__content__empty__desc">
+										Search Other Templates
+									</h3>
+								</div>
+							) : (
+								purchasedTemplates.map( ( item ) => (
+									<div className="templatiq__content__dashboard__single">
+										<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name">
+											<img
+												src={ item.thumbnail }
+												alt={ item.title }
+												className="templatiq__content__dashboard__item__img"
+											/>
+											<span className="templatiq__content__dashboard__item__title">
+												{ item.title }
+											</span>
 										</div>
-									))
-								)
-							}
+										<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--type">
+											<span className="templatiq__content__dashboard__item__text">
+												{ item.type }
+											</span>
+										</div>
+										<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
+											<span className="templatiq__content__dashboard__item__text">
+												14 May, 2023 7.23pm
+											</span>
+										</div>
+
+										<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
+											<InsertTemplate
+												solidIcon
+												item={ item }
+												innerText={ 'Insert' }
+												className={
+													'templatiq__content__dashboard__item__btn templatiq-btn templatiq-btn-success'
+												}
+											/>
+										</div>
+									</div>
+								) )
+							) }
 						</div>
 					</DashboardItemsStyle>
 				</TemplatePackStyle>

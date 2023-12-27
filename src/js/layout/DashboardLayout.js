@@ -7,21 +7,21 @@ import store from '@store/index';
 
 import { LayoutStyle } from './style.js';
 
-const DashboardLayout = ({ children }) => {
+const DashboardLayout = ( { children } ) => {
 	const navigate = useNavigate();
 	const { isLoggedIn } = select( store ).getUserInfo();
 
-	useEffect(() => {
-		if (!isLoggedIn) {
-			navigate('/');
+	useEffect( () => {
+		if ( ! isLoggedIn ) {
+			navigate( '/' );
 		}
-	}, []);
+	}, [] );
 
 	return (
 		<div className="templatiq">
 			<Header />
 			<LayoutStyle className="templatiq__wrapper">
-				<AdminSidebar /> 
+				<AdminSidebar />
 				{ children }
 			</LayoutStyle>
 		</div>
@@ -29,4 +29,3 @@ const DashboardLayout = ({ children }) => {
 };
 
 export default DashboardLayout;
-

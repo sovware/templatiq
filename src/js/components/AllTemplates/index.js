@@ -1,14 +1,14 @@
 import { lazy, Suspense, useState, useEffect } from '@wordpress/element';
-import ReactSVG from 'react-inlinesvg'; 
+import ReactSVG from 'react-inlinesvg';
 import ReactPaginate from 'react-paginate';
 import { select, subscribe } from '@wordpress/data';
 import store from '@store/index';
 
 import { TemplatePackFilterStyle } from '@root/style';
-import Searchform from "@components/Searchform";
+import Searchform from '@components/Searchform';
 import ContentLoading from '@components/ContentLoading';
 
-const SingleTemplate = lazy(() => import('@components/SingleTemplate'));
+const SingleTemplate = lazy( () => import( '@components/SingleTemplate' ) );
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
@@ -16,343 +16,453 @@ import crownIcon from '@icon/crown.svg';
 import arrowLeft from '@icon/angle-left.svg';
 import arrowRight from '@icon/angle-right.svg';
 
-export default function AllTemplates (props) {
-    const { templateType, templateStatus } = props;
+export default function AllTemplates( props ) {
+	const { templateType, templateStatus } = props;
 	const paginatePerPage = 6;
 
-	const [ isEmpty, setIsEmpty ] = useState(false);
-    const [ activeTab, setActiveTab ] = useState('all');
+	const [ isEmpty, setIsEmpty ] = useState( false );
+	const [ activeTab, setActiveTab ] = useState( 'all' );
 
-    const [ allTemplates, setAllTemplates ] = useState([]);
-    const [ filteredTemplates, setFilteredTemplates ] = useState([]);
-    const [ defaultTemplates, setDefaultTemplates ] = useState([]);
-    const [ proTemplates, setProTemplates ] = useState([]);
-    const [ freeTemplates, setFreeTemplates ] = useState([]);
-    const [ templatesToDisplay, setTemplatesToDisplay ] = useState([]);
+	const [ allTemplates, setAllTemplates ] = useState( [] );
+	const [ filteredTemplates, setFilteredTemplates ] = useState( [] );
+	const [ defaultTemplates, setDefaultTemplates ] = useState( [] );
+	const [ proTemplates, setProTemplates ] = useState( [] );
+	const [ freeTemplates, setFreeTemplates ] = useState( [] );
+	const [ templatesToDisplay, setTemplatesToDisplay ] = useState( [] );
 
 	const user = select( store ).getUserInfo();
-    const { bookmarks } = select( store ).getUserInfo();
-	const [ userFav, setUserFav ] = useState(bookmarks);
+	const { bookmarks } = select( store ).getUserInfo();
+	const [ userFav, setUserFav ] = useState( bookmarks );
 
-    const [searchValue, setSearchValue] = useState('');
-    const [filterValue, setFilterValue] = useState([]);
+	const [ searchValue, setSearchValue ] = useState( '' );
+	const [ filterValue, setFilterValue ] = useState( [] );
 
-    const [ totalPaginate, setTotalPaginate ] = useState([]);
-    const [ startItemCount, setStartItemCount ] = useState(0);
-    const [ endItemCount, setEndItemCount ] = useState(6);
-    const [ forcePage, setForcePage ]=useState(0);
+	const [ totalPaginate, setTotalPaginate ] = useState( [] );
+	const [ startItemCount, setStartItemCount ] = useState( 0 );
+	const [ endItemCount, setEndItemCount ] = useState( 6 );
+	const [ forcePage, setForcePage ] = useState( 0 );
 
-    const changeTemplateTab = (type) => {
-        setActiveTab(type);
+	const changeTemplateTab = ( type ) => {
+		setActiveTab( type );
 
-        setForcePage(0);
-        setStartItemCount(0);
-        setEndItemCount(paginatePerPage);
-    }
-
-    const handlePageClick = (event) => {
-        const selectedPage = event.selected + 1;
-        setStartItemCount((selectedPage * paginatePerPage) - paginatePerPage);
-        setEndItemCount((selectedPage * paginatePerPage));
-    };
-
-    const searchFilteredTemplates = () => {
-        const newFilteredTemplates = allTemplates && allTemplates.filter((template) =>
-          template.title.toLowerCase().includes(searchValue.toLowerCase())
-        );
-
-        // Update the state with the filtered templates
-        setFilteredTemplates(newFilteredTemplates);
-
-        return newFilteredTemplates;
-    } 
-
-    const filterPluginTemplates = () => {
-		// Filter templates based on filterValue and templateType
-		const newFilteredTemplates = allTemplates.filter(template => {
-			// Check if the template type matches the specified templateType
-			if (template.type !== templateType) {
-				return false;
-			}
-		
-			return filterValue.some(filter => {
-				if (filter.type === 'plugins') {
-					// Check if any required plugin matches the selected plugin
-					return template.required_plugins.some(requiredPlugin => requiredPlugin.slug === filter.key);
-				} else if (filter.type === 'categories') {
-					// Check if the template includes the selected category
-					return template.categories.includes(filter.key);
-				}
-				return false;
-			});
-		});
-	  
-		// Update the state with the filtered templates
-		setFilteredTemplates(newFilteredTemplates);
+		setForcePage( 0 );
+		setStartItemCount( 0 );
+		setEndItemCount( paginatePerPage );
 	};
 
-    const checkTemplateType = (templates) => {
-        let typeChecked = '';
-        if (templates && templateType) {
-            user && userFav && templateStatus === 'favorites' ? 
-            typeChecked = templates.filter(template => userFav.includes(template.template_id)) :
-            typeChecked = templates.filter(template => template.type === templateType);
+	const handlePageClick = ( event ) => {
+		const selectedPage = event.selected + 1;
+		setStartItemCount( selectedPage * paginatePerPage - paginatePerPage );
+		setEndItemCount( selectedPage * paginatePerPage );
+	};
 
-            setAllTemplates(typeChecked);
+	const searchFilteredTemplates = () => {
+		const newFilteredTemplates =
+			allTemplates &&
+			allTemplates.filter( ( template ) =>
+				template.title
+					.toLowerCase()
+					.includes( searchValue.toLowerCase() )
+			);
 
-        } else {
-            setAllTemplates(templates);
-        }
-    }
+		// Update the state with the filtered templates
+		setFilteredTemplates( newFilteredTemplates );
 
-    useEffect(() => {
-        const templateData = select( store ).getTemplates();
+		return newFilteredTemplates;
+	};
 
-        if (templateData) {
-            checkTemplateType(templateData);
-        } 
+	const filterPluginTemplates = () => {
+		// Filter templates based on filterValue and templateType
+		const newFilteredTemplates = allTemplates.filter( ( template ) => {
+			// Check if the template type matches the specified templateType
+			if ( template.type !== templateType ) {
+				return false;
+			}
+
+			return filterValue.some( ( filter ) => {
+				if ( filter.type === 'plugins' ) {
+					// Check if any required plugin matches the selected plugin
+					return template.required_plugins.some(
+						( requiredPlugin ) => requiredPlugin.slug === filter.key
+					);
+				} else if ( filter.type === 'categories' ) {
+					// Check if the template includes the selected category
+					return template.categories.includes( filter.key );
+				}
+				return false;
+			} );
+		} );
+
+		// Update the state with the filtered templates
+		setFilteredTemplates( newFilteredTemplates );
+	};
+
+	const checkTemplateType = ( templates ) => {
+		let typeChecked = '';
+		if ( templates && templateType ) {
+			user && userFav && templateStatus === 'favorites'
+				? ( typeChecked = templates.filter( ( template ) =>
+						userFav.includes( template.template_id )
+				  ) )
+				: ( typeChecked = templates.filter(
+						( template ) => template.type === templateType
+				  ) );
+
+			setAllTemplates( typeChecked );
+		} else {
+			setAllTemplates( templates );
+		}
+	};
+
+	useEffect( () => {
+		const templateData = select( store ).getTemplates();
+
+		if ( templateData ) {
+			checkTemplateType( templateData );
+		}
 
 		// Subscribe to changes in the store's data
-		const storeUpdate = subscribe(() => {
-            const { bookmarks } = select( store ).getUserInfo();
+		const storeUpdate = subscribe( () => {
+			const { bookmarks } = select( store ).getUserInfo();
 			const searchQuery = select( store ).getSearchQuery();
-            const filterSearch = select( store ).getFilterSearch();
-            setUserFav(bookmarks);
-            setSearchValue(searchQuery);
-            setFilterValue(filterSearch);
-		});
+			const filterSearch = select( store ).getFilterSearch();
+			setUserFav( bookmarks );
+			setSearchValue( searchQuery );
+			setFilterValue( filterSearch );
+		} );
 
 		// storeUpdate when the component is unmounted
 		return () => storeUpdate();
+	}, [ userFav ? userFav : null ] );
 
-    }, [userFav ? userFav : null]);
+	useEffect( () => {
+		setDefaultTemplates( allTemplates );
+		setFilteredTemplates( allTemplates );
+		setProTemplates(
+			allTemplates &&
+				allTemplates.filter( ( template ) => template.price > 0 )
+		);
+		setFreeTemplates(
+			allTemplates &&
+				allTemplates.filter( ( template ) => template.price <= 0 )
+		);
 
-    useEffect(() => {
-        setDefaultTemplates(allTemplates);
-        setFilteredTemplates(allTemplates);
-        setProTemplates(allTemplates && allTemplates.filter(template => template.price > 0));
-	    setFreeTemplates(allTemplates && allTemplates.filter(template => template.price <= 0));
+		// Initially set the allTemplates to display based on start and end item counts
+		setTemplatesToDisplay(
+			allTemplates && allTemplates.slice( startItemCount, endItemCount )
+		);
 
-        // Initially set the allTemplates to display based on start and end item counts
-        setTemplatesToDisplay(allTemplates && allTemplates.slice(startItemCount, endItemCount));
+		setTotalPaginate( allTemplates && allTemplates.length );
+	}, [ allTemplates ] );
 
-        setTotalPaginate(allTemplates && allTemplates.length)
+	useEffect( () => {
+		filterValue && filterValue.length > 0
+			? filterPluginTemplates()
+			: searchFilteredTemplates();
+	}, [ filterValue, userFav ] );
 
-    }, [allTemplates]);
+	useEffect( () => {
+		searchFilteredTemplates();
+	}, [ searchValue ] );
 
-	useEffect(() => {
-        filterValue && filterValue.length > 0 ? filterPluginTemplates() : searchFilteredTemplates();
-    }, [filterValue, userFav]);
+	useEffect( () => {
+		setDefaultTemplates( filteredTemplates );
+		if ( filteredTemplates ) {
+			setProTemplates(
+				filteredTemplates.filter( ( template ) => template.price > 0 )
+			);
+			setFreeTemplates(
+				filteredTemplates.filter( ( template ) => template.price <= 0 )
+			);
 
-    useEffect(() => {
-        searchFilteredTemplates();
-    }, [searchValue]);
+			// Initially set the filteredTemplates to display based on start and end item counts
+			setTemplatesToDisplay(
+				filteredTemplates.slice( startItemCount, endItemCount )
+			);
 
-    useEffect(() => {
-        setDefaultTemplates(filteredTemplates);
-        if (filteredTemplates) {
-            setProTemplates(filteredTemplates.filter(template => template.price > 0));
-            setFreeTemplates(filteredTemplates.filter(template => template.price <= 0));
+			setTotalPaginate( filteredTemplates.length );
 
-            // Initially set the filteredTemplates to display based on start and end item counts
-            setTemplatesToDisplay(filteredTemplates.slice(startItemCount, endItemCount));
+			// filteredTemplates.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
 
-            setTotalPaginate(filteredTemplates.length)
+			if ( filteredTemplates.length ) {
+				setIsEmpty( false );
+			} else {
+				// Delay updating isEmpty to false after .2 second
+				const delayTimeoutId = setTimeout( () => {
+					setIsEmpty( true );
+				}, 200 );
 
-            // filteredTemplates.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
+				// Cleanup the delay timeout
+				return () => clearTimeout( delayTimeoutId );
+			}
+		}
+	}, [ filteredTemplates ] );
 
-            if (filteredTemplates.length) {
-                setIsEmpty(false);
-            } else {
-                // Delay updating isEmpty to false after .2 second
-                const delayTimeoutId = setTimeout(() => {
-                    setIsEmpty(true);
-                }, 200);
-        
-                // Cleanup the delay timeout
-                return () => clearTimeout(delayTimeoutId);
-            }
-        }
+	useEffect( () => {
+		// templatesToDisplay && templatesToDisplay.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
 
-    }, [filteredTemplates]);
+		if ( templatesToDisplay.length ) {
+			setIsEmpty( false );
+		} else {
+			// Delay updating isEmpty to false after .2 second
+			const delayTimeoutId = setTimeout( () => {
+				setIsEmpty( true );
+			}, 200 );
 
-    useEffect(() => {
-        // templatesToDisplay && templatesToDisplay.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
+			// Cleanup the delay timeout
+			return () => clearTimeout( delayTimeoutId );
+		}
+	}, [ templatesToDisplay ] );
 
-        if (templatesToDisplay.length) {
-            setIsEmpty(false);
-        } else {
-            // Delay updating isEmpty to false after .2 second
-            const delayTimeoutId = setTimeout(() => {
-                setIsEmpty(true);
-            }, 200);
-    
-            // Cleanup the delay timeout
-            return () => clearTimeout(delayTimeoutId);
-        }
-
-    }, [templatesToDisplay]);
-    
-    useEffect(() => {
-        if (activeTab === 'all') {
-            setTemplatesToDisplay(defaultTemplates && defaultTemplates.slice(startItemCount, endItemCount));
-            setTotalPaginate(defaultTemplates && defaultTemplates.length)
-        } else if (activeTab === 'pro') {
-            setTemplatesToDisplay(proTemplates && proTemplates.slice(startItemCount, endItemCount));
-            setTotalPaginate(proTemplates && proTemplates.length)
-        } else if (activeTab === 'free') {
-            setTemplatesToDisplay(freeTemplates && freeTemplates.slice(startItemCount, endItemCount));
-            setTotalPaginate(freeTemplates && freeTemplates.length)
-        }
-
-    }, [activeTab, startItemCount, endItemCount, filteredTemplates, proTemplates, freeTemplates]);
+	useEffect( () => {
+		if ( activeTab === 'all' ) {
+			setTemplatesToDisplay(
+				defaultTemplates &&
+					defaultTemplates.slice( startItemCount, endItemCount )
+			);
+			setTotalPaginate( defaultTemplates && defaultTemplates.length );
+		} else if ( activeTab === 'pro' ) {
+			setTemplatesToDisplay(
+				proTemplates &&
+					proTemplates.slice( startItemCount, endItemCount )
+			);
+			setTotalPaginate( proTemplates && proTemplates.length );
+		} else if ( activeTab === 'free' ) {
+			setTemplatesToDisplay(
+				freeTemplates &&
+					freeTemplates.slice( startItemCount, endItemCount )
+			);
+			setTotalPaginate( freeTemplates && freeTemplates.length );
+		}
+	}, [
+		activeTab,
+		startItemCount,
+		endItemCount,
+		filteredTemplates,
+		proTemplates,
+		freeTemplates,
+	] );
 
 	return (
-        <Tabs className="templatiq__content__tab">
-            <div className="templatiq__content__top">
-                <div className="templatiq__content__top__filter">
-                    <h3 className="templatiq__content__top__filter__title capitalize">
-                        Template {templateType}
-                    </h3>
-                    
-                    <TemplatePackFilterStyle className="templatiq__content__top__filter__wrapper">
-                        <TabList className="templatiq__content__top__filter__tablist">
-                            <Tab 
-                                className="templatiq__content__top__filter__item"
-                                onClick={() => changeTemplateTab('all')}
-                            >
-                                <button className="templatiq__content__top__filter__link">All ({defaultTemplates ? defaultTemplates.length : '0'})</button>
-                            </Tab>
-                            <Tab 
-                                className="templatiq__content__top__filter__item"
-                                onClick={() => changeTemplateTab('free')}
-                            >
-                                <button className="templatiq__content__top__filter__link">Free ({freeTemplates ? freeTemplates.length : '0'})</button>
-                            </Tab>
-                            <Tab 
-                                className="templatiq__content__top__filter__item"
-                                onClick={() => changeTemplateTab('pro')}
-                            >
-                                <button className="templatiq__content__top__filter__link">
-                                    <ReactSVG src={crownIcon} width={12} height={12} />
-                                    Pro ({proTemplates ? proTemplates.length : '0'})
-                                </button>
-                            </Tab>
-                        </TabList>
-                    </TemplatePackFilterStyle>
-                </div>
-                <div className="templatiq__content__top__search">
-                    <Searchform />
-                </div>
-            </div>
+		<Tabs className="templatiq__content__tab">
+			<div className="templatiq__content__top">
+				<div className="templatiq__content__top__filter">
+					<h3 className="templatiq__content__top__filter__title capitalize">
+						Template { templateType }
+					</h3>
 
-            <div className="templatiq__content__wrapper">
-                <>
-                    { 
-                        isEmpty &&
-                        <div className="templatiq__content__empty">
-                            <h3 className="templatiq__content__empty__title">No Template Found</h3>
-                            <h3 className="templatiq__content__empty__desc">Search Other Templates</h3>
-                        </div>
-                    }
-                    <TabPanel className="templatiq-row templatiq__content__tab-panel">
-                        {templatesToDisplay && templatesToDisplay
-                            .map(template => (
-                                <div className="templatiq-col-6">
-                                    <Suspense fallback={ <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> }>
-                                        <SingleTemplate 
-                                            template_id = {template.template_id}
-                                            builder = {template.builder}
-                                            thumbnail = {template.thumbnail} 
-                                            slug = {template.slug}
-                                            title = {template.title} 
-                                            price = {template.price} 
-                                            number_of_downloads = {template.number_of_downloads} 
-                                            number_of_bookmarks = {template.number_of_bookmarks} 
-                                            required_plugins = {template.required_plugins}
-                                            categories = {template.categories}
-                                            purchase_url = {template.purchase_url}
-                                            preview_link = {template.preview_link}
-                                        />
-                                    </Suspense>
-                                </div>
-                            ))
-                        }
-                    </TabPanel>
-                    <TabPanel className="templatiq-row templatiq__content__tab-panel">
-                        {templatesToDisplay && templatesToDisplay
-                            .map(template => (
-                                <div className="templatiq-col-6">
-                                    <Suspense fallback={ <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> }>
-                                        <SingleTemplate 
-                                            template_id = {template.template_id}
-                                            builder = {template.builder}
-                                            thumbnail = {template.thumbnail} 
-                                            slug = {template.slug}
-                                            title = {template.title} 
-                                            number_of_downloads = {template.number_of_downloads} 
-                                            number_of_bookmarks = {template.number_of_bookmarks} 
-                                            required_plugins = {template.required_plugins}
-                                            categories = {template.categories}
-                                            purchase_url = {template.purchase_url}
-                                            preview_link = {template.preview_link}
-                                        />
-                                    </Suspense>
-                                </div>
-                            ))
-                        }
-                    </TabPanel>
-                    <TabPanel className="templatiq-row templatiq__content__tab-panel">
-                        {templatesToDisplay && templatesToDisplay
-                            .map(template => (
-                                <div className="templatiq-col-6">
-                                    <Suspense fallback={ <ContentLoading style={ { margin: 0, minHeight: 'unset' } } /> }>
-                                        <SingleTemplate 
-                                            template_id = {template.template_id}
-                                            builder = {template.builder}
-                                            thumbnail = {template.thumbnail} 
-                                            slug = {template.slug}
-                                            title = {template.title} 
-                                            price = {template.price} 
-                                            number_of_downloads = {template.number_of_downloads} 
-                                            number_of_bookmarks = {template.number_of_bookmarks} 
-                                            required_plugins = {template.required_plugins}
-                                            categories = {template.categories}
-                                            purchase_url = {template.purchase_url}
-                                            preview_link = {template.preview_link}
-                                        />
-                                    </Suspense>
-                                </div>
-                            ))
-                        }
-                    </TabPanel>
+					<TemplatePackFilterStyle className="templatiq__content__top__filter__wrapper">
+						<TabList className="templatiq__content__top__filter__tablist">
+							<Tab
+								className="templatiq__content__top__filter__item"
+								onClick={ () => changeTemplateTab( 'all' ) }
+							>
+								<button className="templatiq__content__top__filter__link">
+									All (
+									{ defaultTemplates
+										? defaultTemplates.length
+										: '0' }
+									)
+								</button>
+							</Tab>
+							<Tab
+								className="templatiq__content__top__filter__item"
+								onClick={ () => changeTemplateTab( 'free' ) }
+							>
+								<button className="templatiq__content__top__filter__link">
+									Free (
+									{ freeTemplates
+										? freeTemplates.length
+										: '0' }
+									)
+								</button>
+							</Tab>
+							<Tab
+								className="templatiq__content__top__filter__item"
+								onClick={ () => changeTemplateTab( 'pro' ) }
+							>
+								<button className="templatiq__content__top__filter__link">
+									<ReactSVG
+										src={ crownIcon }
+										width={ 12 }
+										height={ 12 }
+									/>
+									Pro (
+									{ proTemplates ? proTemplates.length : '0' }
+									)
+								</button>
+							</Tab>
+						</TabList>
+					</TemplatePackFilterStyle>
+				</div>
+				<div className="templatiq__content__top__search">
+					<Searchform />
+				</div>
+			</div>
 
-                    { totalPaginate > paginatePerPage && (
-                        <ReactPaginate
-                            key={activeTab}
-                            breakLabel="..."
-                            onPageChange={ handlePageClick }
-                            nextLabel={ <ReactSVG src={ arrowRight } /> }
-                            previousLabel={ <ReactSVG src={ arrowLeft } /> }
-                            pageRangeDisplayed={ 3 }
-                            forcePage={forcePage}
-                            pageCount={ Math.ceil( totalPaginate / paginatePerPage ) }
-                            previousClassName="templatiq-pagination__item"
-                            previousLinkClassName="templatiq-pagination__link templatiq-pagination__control"
-                            nextClassName="templatiq-pagination__item"
-                            nextLinkClassName="templatiq-pagination__link templatiq-pagination__control"
-                            containerClassName="templatiq-pagination"
-                            pageClassName="templatiq-pagination__item"
-                            pageLinkClassName="templatiq-pagination__link"
-                            activeLinkClassName="templatiq-pagination__active"
-                            renderOnZeroPageCount={ null }
-                            
-                        />
-                    ) }
-                    
-                </>
-            </div>
-        </Tabs>
+			<div className="templatiq__content__wrapper">
+				<>
+					{ isEmpty && (
+						<div className="templatiq__content__empty">
+							<h3 className="templatiq__content__empty__title">
+								No Template Found
+							</h3>
+							<h3 className="templatiq__content__empty__desc">
+								Search Other Templates
+							</h3>
+						</div>
+					) }
+					<TabPanel className="templatiq-row templatiq__content__tab-panel">
+						{ templatesToDisplay &&
+							templatesToDisplay.map( ( template ) => (
+								<div className="templatiq-col-6">
+									<Suspense
+										fallback={
+											<ContentLoading
+												style={ {
+													margin: 0,
+													minHeight: 'unset',
+												} }
+											/>
+										}
+									>
+										<SingleTemplate
+											template_id={ template.template_id }
+											builder={ template.builder }
+											thumbnail={ template.thumbnail }
+											slug={ template.slug }
+											title={ template.title }
+											price={ template.price }
+											number_of_downloads={
+												template.number_of_downloads
+											}
+											number_of_bookmarks={
+												template.number_of_bookmarks
+											}
+											required_plugins={
+												template.required_plugins
+											}
+											categories={ template.categories }
+											purchase_url={
+												template.purchase_url
+											}
+											preview_link={
+												template.preview_link
+											}
+										/>
+									</Suspense>
+								</div>
+							) ) }
+					</TabPanel>
+					<TabPanel className="templatiq-row templatiq__content__tab-panel">
+						{ templatesToDisplay &&
+							templatesToDisplay.map( ( template ) => (
+								<div className="templatiq-col-6">
+									<Suspense
+										fallback={
+											<ContentLoading
+												style={ {
+													margin: 0,
+													minHeight: 'unset',
+												} }
+											/>
+										}
+									>
+										<SingleTemplate
+											template_id={ template.template_id }
+											builder={ template.builder }
+											thumbnail={ template.thumbnail }
+											slug={ template.slug }
+											title={ template.title }
+											number_of_downloads={
+												template.number_of_downloads
+											}
+											number_of_bookmarks={
+												template.number_of_bookmarks
+											}
+											required_plugins={
+												template.required_plugins
+											}
+											categories={ template.categories }
+											purchase_url={
+												template.purchase_url
+											}
+											preview_link={
+												template.preview_link
+											}
+										/>
+									</Suspense>
+								</div>
+							) ) }
+					</TabPanel>
+					<TabPanel className="templatiq-row templatiq__content__tab-panel">
+						{ templatesToDisplay &&
+							templatesToDisplay.map( ( template ) => (
+								<div className="templatiq-col-6">
+									<Suspense
+										fallback={
+											<ContentLoading
+												style={ {
+													margin: 0,
+													minHeight: 'unset',
+												} }
+											/>
+										}
+									>
+										<SingleTemplate
+											template_id={ template.template_id }
+											builder={ template.builder }
+											thumbnail={ template.thumbnail }
+											slug={ template.slug }
+											title={ template.title }
+											price={ template.price }
+											number_of_downloads={
+												template.number_of_downloads
+											}
+											number_of_bookmarks={
+												template.number_of_bookmarks
+											}
+											required_plugins={
+												template.required_plugins
+											}
+											categories={ template.categories }
+											purchase_url={
+												template.purchase_url
+											}
+											preview_link={
+												template.preview_link
+											}
+										/>
+									</Suspense>
+								</div>
+							) ) }
+					</TabPanel>
+
+					{ totalPaginate > paginatePerPage && (
+						<ReactPaginate
+							key={ activeTab }
+							breakLabel="..."
+							onPageChange={ handlePageClick }
+							nextLabel={ <ReactSVG src={ arrowRight } /> }
+							previousLabel={ <ReactSVG src={ arrowLeft } /> }
+							pageRangeDisplayed={ 3 }
+							forcePage={ forcePage }
+							pageCount={ Math.ceil(
+								totalPaginate / paginatePerPage
+							) }
+							previousClassName="templatiq-pagination__item"
+							previousLinkClassName="templatiq-pagination__link templatiq-pagination__control"
+							nextClassName="templatiq-pagination__item"
+							nextLinkClassName="templatiq-pagination__link templatiq-pagination__control"
+							containerClassName="templatiq-pagination"
+							pageClassName="templatiq-pagination__item"
+							pageLinkClassName="templatiq-pagination__link"
+							activeLinkClassName="templatiq-pagination__active"
+							renderOnZeroPageCount={ null }
+						/>
+					) }
+				</>
+			</div>
+		</Tabs>
 	);
 }
-

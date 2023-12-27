@@ -60,7 +60,4 @@ const PreloaderStyle = Styled.div`
 
 `;
 
-
-export {
-    PreloaderStyle
-};
+export { PreloaderStyle };

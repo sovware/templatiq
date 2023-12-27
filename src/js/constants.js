@@ -202,7 +202,6 @@ const mimeTypes = {
 	'application/pdf': 'pdf',
 };
 
-
 const socialIcons = {
 	facebook: <ReactSVG src={ facebook } />,
 	twitter: <ReactSVG src={ twitter } />,

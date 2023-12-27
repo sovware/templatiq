@@ -1,5 +1,4 @@
-
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import TemplateDetailsModule from '@modules/TemplateDetails';
 
 export default function TemplateDetails() {
@@ -9,9 +8,7 @@ export default function TemplateDetails() {
 
 	return (
 		<>
-			<TemplateDetailsModule 
-				templateSlug = { slug }
-			/>
+			<TemplateDetailsModule templateSlug={ slug } />
 		</>
 	);
 }

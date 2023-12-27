@@ -1,10 +1,10 @@
-import AuthLayout from "@layout/AuthLayout";
-import SignInContent from "@modules/SignIn/SignInContent"; // Fix import statement
+import AuthLayout from '@layout/AuthLayout';
+import SignInContent from '@modules/SignIn/SignInContent'; // Fix import statement
 
-export default function SignInModule() { 
+export default function SignInModule() {
 	return (
 		<AuthLayout>
-			<div className="templatiq__content templatiq__content--auth"> 
+			<div className="templatiq__content templatiq__content--auth">
 				<SignInContent />
 			</div>
 		</AuthLayout>

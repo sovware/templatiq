@@ -1,52 +1,51 @@
 const actions = {
-    setLibraryData(data) {
+	setLibraryData( data ) {
 		return {
 			type: 'SET_LIBRARY',
 			data,
 		};
-    },
+	},
 
-    setTemplates(templates) {
+	setTemplates( templates ) {
 		return {
 			type: 'SET_TEMPLATES',
 			templates,
 		};
-    },
+	},
 
-    setBookmark(bookmark) {
+	setBookmark( bookmark ) {
 		return {
 			type: 'SET_BOOKMARK',
 			bookmark,
 		};
-    },
-  
-    setUserInfo(userInfo) {
-        return {
+	},
+
+	setUserInfo( userInfo ) {
+		return {
 			type: 'SET_USER_INFO',
 			userInfo,
-        };
-    },
-  
-    logOut() {
-        return {
+		};
+	},
+
+	logOut() {
+		return {
 			type: 'LOG_OUT',
-        };
-    },
-  
-    setSearchQuery(searchQuery) {
+		};
+	},
+
+	setSearchQuery( searchQuery ) {
 		return {
 			type: 'SET_SEARCH_QUERY',
 			searchQuery,
 		};
-    },
-  
-    setFilterSearch(filterSearch) {
+	},
+
+	setFilterSearch( filterSearch ) {
 		return {
 			type: 'SET_FILTER_SEARCH',
 			filterSearch,
 		};
-    },
+	},
 };
-  
+
 export default actions;
-  

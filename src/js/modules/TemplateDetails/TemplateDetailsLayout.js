@@ -1,16 +1,12 @@
 import Header from '@layout/Header';
 
-const TemplateDetailsLayout = ({ children }) => {
-
+const TemplateDetailsLayout = ( { children } ) => {
 	return (
 		<div className="templatiq">
-			<Header 
-				type="detailsHeader"
-			/>
+			<Header type="detailsHeader" />
 			{ children }
 		</div>
 	);
 };
 
 export default TemplateDetailsLayout;
-

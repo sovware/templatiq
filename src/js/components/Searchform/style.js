@@ -33,5 +33,4 @@ const SearchformStyle = Styled.div`
     }
 `;
 
-
 export { SearchformStyle };

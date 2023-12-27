@@ -1,10 +1,6 @@
 import { lazy, Suspense, useState, useEffect } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
-import {
-	HashRouter,
-	Routes,
-	Route,
-} from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import fetchData from '@helper/fetchData';
 import ContentLoading from '@components/ContentLoading';
@@ -12,70 +8,73 @@ import ContentLoading from '@components/ContentLoading';
 import { dispatch, useSelect } from '@wordpress/data';
 import store from '@store/index';
 
-const TemplatePack = lazy(() => import('./pages/TemplatePack'));
-const TemplateDetails = lazy(() => import('./pages/TemplateDetails'));
-const Pages = lazy(() => import('./pages/Pages'));
-const Blocks = lazy(() => import('./pages/Blocks'));
-const SignIn = lazy(() => import('./pages/Signin'));
-const SignUp = lazy(() => import('./pages/Signup'));
-const MyFavorites = lazy(() => import('./pages/dashboard/Favorites'));
-const MyDownloads = lazy(() => import('./pages/dashboard/Downloads'));
-const MyPurchase = lazy(() => import('./pages/dashboard/Purchase'));
-const MyAccount = lazy(() => import('./pages/dashboard/Account'));
+const TemplatePack = lazy( () => import( './pages/TemplatePack' ) );
+const TemplateDetails = lazy( () => import( './pages/TemplateDetails' ) );
+const Pages = lazy( () => import( './pages/Pages' ) );
+const Blocks = lazy( () => import( './pages/Blocks' ) );
+const SignIn = lazy( () => import( './pages/Signin' ) );
+const SignUp = lazy( () => import( './pages/Signup' ) );
+const MyFavorites = lazy( () => import( './pages/dashboard/Favorites' ) );
+const MyDownloads = lazy( () => import( './pages/dashboard/Downloads' ) );
+const MyPurchase = lazy( () => import( './pages/dashboard/Purchase' ) );
+const MyAccount = lazy( () => import( './pages/dashboard/Account' ) );
 
-export default function App() { 
+export default function App() {
 	const [ dir, setDir ] = useState( 'ltr' );
-	const [ dataFetched, setDataFetched ] = useState(false);
-    const [ elementorEditorEnabled, setElementorEditorEnabled ] = useState(false);
+	const [ dataFetched, setDataFetched ] = useState( false );
+	const [ elementorEditorEnabled, setElementorEditorEnabled ] =
+		useState( false );
 
 	const theme = {
 		direction: dir,
 	};
 
-	useEffect(() => {
-		
-		fetchData('templatiq/template/library')
-		.then((res) => {
-			console.log('getTemplates Info: ', res, res.templates);
-			dispatch(store).setTemplates(res.templates);
-			dispatch(store).setLibraryData(res);
-		})
-		.then(() => {
-			fetchData('templatiq/account/data').then((res) => {
-				console.log('getUserInfo Info: ', res);
-				const data = res.body;
+	useEffect( () => {
+		fetchData( 'templatiq/template/library' )
+			.then( ( res ) => {
+				console.log( 'getTemplates Info: ', res, res.templates );
+				dispatch( store ).setTemplates( res.templates );
+				dispatch( store ).setLibraryData( res );
+			} )
+			.then( () => {
+				fetchData( 'templatiq/account/data' ).then( ( res ) => {
+					console.log( 'getUserInfo Info: ', res );
+					const data = res.body;
 
-				const updatedUserInfo = {
-					isLoggedIn: data.token ? true : false,
-					userEmail: data.user_email,
-					userDisplayName: data.user_display_name,
-					bookmarks: data.bookmarks,
-					downloads: data.downloads,
-					purchased: data.purchased,
-				};
-		
-				// Dispatch the action to update the login status in the store
-				dispatch(store).setUserInfo(updatedUserInfo);
+					const updatedUserInfo = {
+						isLoggedIn: data.token ? true : false,
+						userEmail: data.user_email,
+						userDisplayName: data.user_display_name,
+						bookmarks: data.bookmarks,
+						downloads: data.downloads,
+						purchased: data.purchased,
+					};
 
-				setDataFetched(true);
-			});
-		})
+					// Dispatch the action to update the login status in the store
+					dispatch( store ).setUserInfo( updatedUserInfo );
 
+					setDataFetched( true );
+				} );
+			} );
 
 		// Check if the 'elementor-editor-active' class is present on the body element
-		const isElementorEditorActive = document.body.classList.contains('elementor-editor-active');
+		const isElementorEditorActive = document.body.classList.contains(
+			'elementor-editor-active'
+		);
 
 		// Set the state variable based on the presence of Elementor Editor
-		setElementorEditorEnabled(isElementorEditorActive);
-	
-		console.log('App.js: isElementorEditorActive: ', isElementorEditorActive);
-		
-	}, []);
+		setElementorEditorEnabled( isElementorEditorActive );
+
+		console.log(
+			'App.js: isElementorEditorActive: ',
+			isElementorEditorActive
+		);
+	}, [] );
 
 	const adminRoutes = applyFilters( 'templatiq_admin_routes', [
 		{
 			path: `/*`,
-			element: !elementorEditorEnabled ? <TemplatePack /> : <Pages />,
+			element: ! elementorEditorEnabled ? <TemplatePack /> : <Pages />,
 		},
 		{
 			path: '/pages',
@@ -164,13 +163,13 @@ export default function App() {
 			path: `/dashboard/account`,
 			element: <MyAccount />,
 		},
-	] ;
+	];
 
 	return (
 		<>
 			<HashRouter>
 				<Suspense fallback={ <ContentLoading /> }>
-					{dataFetched ? (
+					{ dataFetched ? (
 						<ThemeProvider theme={ theme }>
 							<Routes>
 								{ adminRoutes.map( ( routeItem, index ) => {
@@ -184,9 +183,9 @@ export default function App() {
 								} ) }
 							</Routes>
 						</ThemeProvider>
-					): (
+					) : (
 						<ContentLoading />
-					)}
+					) }
 				</Suspense>
 			</HashRouter>
 		</>

@@ -1,13 +1,9 @@
-import MyFavoritesModule from "@modules/Dashboard/Favorites";
+import MyFavoritesModule from '@modules/Dashboard/Favorites';
 
 export default function MyFavorites() {
-
 	return (
 		<>
-			<MyFavoritesModule
-				type="favorite"
-				status="favorites"
-			/>
+			<MyFavoritesModule type="favorite" status="favorites" />
 		</>
 	);
 }

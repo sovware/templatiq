@@ -111,7 +111,7 @@ const HeaderActionStyle = Styled.div`
             max-width: 32px;
         }
         &:after {
-            content: url(${chevronIcon});
+            content: url(${ chevronIcon });
             position: absolute;
             inset-inline-end: 0;
             top: 50%;
@@ -173,6 +173,5 @@ const HeaderActionStyle = Styled.div`
         cursor: pointer;
     }
 `;
-
 
 export { HeaderStyle, HeaderNavStyle, HeaderActionStyle };

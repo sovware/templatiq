@@ -3,7 +3,7 @@ import Sidebar from '@layout/Sidebar';
 
 import { LayoutStyle } from './style.js';
 
-const AppLayout = ({ children }) => {
+const AppLayout = ( { children } ) => {
 	return (
 		<div className="templatiq">
 			<Header />
@@ -16,4 +16,3 @@ const AppLayout = ({ children }) => {
 };
 
 export default AppLayout;
-

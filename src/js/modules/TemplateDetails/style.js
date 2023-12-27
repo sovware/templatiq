@@ -229,5 +229,8 @@ const TemplateDetailsWidgetStyle = Styled.div`
     }
 `;
 
-
-export { TemplateDetailsStyle, TemplateDetailsHeaderStyle, TemplateDetailsWidgetStyle };
+export {
+	TemplateDetailsStyle,
+	TemplateDetailsHeaderStyle,
+	TemplateDetailsWidgetStyle,
+};

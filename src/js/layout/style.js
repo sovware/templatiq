@@ -8,6 +8,4 @@ const LayoutStyle = Styled.div`
     }
 `;
 
-
-
 export { LayoutStyle };
