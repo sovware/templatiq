@@ -36,16 +36,20 @@ const Header = (props) =>  {
 
 	const { isLoggedIn, userDisplayName } = select( store ).getUserInfo();
 	const [isAuthorInfoVisible, setAuthorInfoVisible] = useState(false);
+	const [isLoading, setLoading] = useState(false);
     const [elementorEditorEnabled, setElementorEditorEnabled] = useState(false);
 
 	const logOutEndPoint = 'templatiq/account/logout';
 
 	// Log Out
 	const handleLogOut = async () => {
-		postData( logOutEndPoint ).then( ( data ) => {
-			// Dispatch the action to update the login status in the store
-			dispatch(store).logOut();
-			navigate('/');
+		setLoading(true); 
+		postData( logOutEndPoint ).then( ( ) => {
+			setTimeout(() => {
+				dispatch(store).logOut();
+				setLoading(false);
+				navigate('/');
+			}, 300);
 		});
 		
 	};
@@ -192,14 +196,13 @@ const Header = (props) =>  {
 											</>
 										}
 										<div className="templatiq__header__author__info__item templatiq__header__author__info__item--logout">
-											<a 
-												href="#" 
-												className="templatiq__header__author__info__link templatiq__logout"
+											<button 
+												className={`templatiq__header__author__info__link templatiq__logout ${isLoading ? 'templatiq__loading templatiq__loading--btn' : ''}`}
 												onClick={handleLogOut}	
 											>
 												<ReactSVG src={ logoutIcon } width={14} height={14} />
 												Log Out
-											</a>
+											</button>
 										</div>
 									</div>
 								}

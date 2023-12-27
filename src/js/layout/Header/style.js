@@ -168,6 +168,10 @@ const HeaderActionStyle = Styled.div`
         padding-top: 10px;
         border-top: 1px solid var(--templatiq-sec-color);
     }
+    .templatiq__logout {
+        width: 100%;
+        cursor: pointer;
+    }
 `;
 
 
