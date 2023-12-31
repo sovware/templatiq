@@ -329,6 +329,7 @@ export default function AllTemplates( props ) {
 										<SingleTemplate
 											template_id={ template.template_id }
 											builder={ template.builder }
+											type={ template.type }
 											thumbnail={ template.thumbnail }
 											slug={ template.slug }
 											title={ template.title }
@@ -371,6 +372,7 @@ export default function AllTemplates( props ) {
 										<SingleTemplate
 											template_id={ template.template_id }
 											builder={ template.builder }
+											type={ template.type }
 											thumbnail={ template.thumbnail }
 											slug={ template.slug }
 											title={ template.title }
@@ -412,6 +414,7 @@ export default function AllTemplates( props ) {
 										<SingleTemplate
 											template_id={ template.template_id }
 											builder={ template.builder }
+											type={ template.type }
 											thumbnail={ template.thumbnail }
 											slug={ template.slug }
 											title={ template.title }

@@ -95,6 +95,7 @@ const SingleTemplateStyle = Styled.div`
             padding: 0 16px;
             border-radius: 8px;
             box-shadow: none;
+            cursor: pointer;
             color: var(--templatiq-btn-color);
             background-color: var(--templatiq-white-color);
             &.purchase-btn {

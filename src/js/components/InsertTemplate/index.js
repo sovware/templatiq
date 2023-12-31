@@ -16,7 +16,7 @@ const InsertTemplate = ( {
 	innerText,
 	solidIcon,
 } ) => {
-	let { template_id, required_plugins } = item;
+	let { template_id, required_plugins, type } = item;
 
 	const dependencyCheckEndPoint = 'templatiq/dependency/check';
 
@@ -88,25 +88,50 @@ const InsertTemplate = ( {
 					onClose={ handleAuthModalClose }
 				/>
 			) }
-			<a
-				href="#"
-				id={ template_id }
-				className={
-					className
-						? className
-						: 'templatiq__template__single__info__action__link insert-btn tmTemplateLibrary__insert-button'
-				}
-				onClick={ ( e ) =>
-					! isLoggedIn ? addAuthModal( e ) : addInsertModal( e )
-				}
-			>
-				<ReactSVG
-					src={ ! solidIcon ? downloadAltIcon : downloadIcon }
-					width={ 14 }
-					height={ 14 }
-				/>
-				{ innerText ? innerText : 'Insert' }
-			</a>
+			{
+				type !== 'pack' ? (
+					<button
+						id={ template_id }
+						className={
+							className
+								? className
+								: 'templatiq__template__single__info__action__link insert-btn tmTemplateLibrary__insert-button'
+						}
+						onClick={ ( e ) =>
+							! isLoggedIn ? addAuthModal( e ) : addInsertModal( e )
+						}
+					>
+						<ReactSVG
+							src={ ! solidIcon ? downloadAltIcon : downloadIcon }
+							width={ 14 }
+							height={ 14 }
+						/>
+						{ innerText ? innerText : 'Insert' }
+					</button>
+				) :
+				(
+					<a
+						href="#"
+						target='_blank'
+						className={
+							className
+								? className
+								: 'templatiq__template__single__info__action__link insert-btn tmTemplateLibrary__insert-button'
+						}
+						onClick={ ( e ) =>
+							! isLoggedIn ? addAuthModal( e ) : null
+						}
+					>
+						<ReactSVG
+							src={ ! solidIcon ? downloadAltIcon : downloadIcon }
+							width={ 14 }
+							height={ 14 }
+						/>
+						{ innerText ? innerText : 'Insert Full Site' }
+					</a>
+				)
+			}
+			
 		</>
 	);
 };
