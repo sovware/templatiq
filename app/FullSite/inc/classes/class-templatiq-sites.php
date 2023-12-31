@@ -2139,7 +2139,7 @@ if ( ! class_exists( 'Templatiq_Sites' ) ):
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-image-processing.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-wp-cli.php';
 		// require_once TEMPLATIQ_SITES_DIR . 'inc/lib/class-templatiq-sites-ast-block-templates.php';
-		require_once TEMPLATIQ_SITES_DIR . 'inc/lib/onboarding/class-onboarding.php';
+		// require_once TEMPLATIQ_SITES_DIR . 'inc/lib/onboarding/class-onboarding.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/lib/zip-ai/zip-ai.php';
 
 		// Batch Import.

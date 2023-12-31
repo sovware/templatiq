@@ -35,9 +35,6 @@ if ( ! function_exists( 'templatiq_sites_setup' ) ):
 	 */
 	function templatiq_sites_setup() {
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites.php';
-
-		// Admin.
-		require_once TEMPLATIQ_SITES_DIR . 'classes/class-templatiq-sites-admin.php';
 	}
 
 	templatiq_sites_setup();

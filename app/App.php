@@ -8,6 +8,7 @@
 namespace Templatiq;
 
 use Templatiq\Admin\Admin;
+use Templatiq\Onboarding\Onboarding;
 use Templatiq\Routes\Account;
 use Templatiq\Routes\Bookmark;
 use Templatiq\Routes\Cache;
@@ -30,6 +31,7 @@ class App {
 		Admin::init();
 		Enqueuer::init();
 
+
 		/**
 		 * Routes Initialize
 		 */
@@ -38,6 +40,11 @@ class App {
 		Template::init();
 		Cache::init();
 		Bookmark::init();
+
+		/**
+		 * Full Site Import Onboarding
+		 */
+		Onboarding::init();
 
 		include_once TEMPLATIQ_PATH . '/app/FullSite/templatiq-sites.php';
 	}
