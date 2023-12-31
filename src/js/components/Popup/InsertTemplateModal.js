@@ -144,21 +144,29 @@ const InsertTemplateModal = ( { item, required_plugins, onClose } ) => {
 	const importElementorData = async ( template_id ) => {
 		await requestTemplateData( template_id, {
 			success: function ( data ) {
-				console.log( data );
-				// self.getModal().hideLoadingView();
-				// self.getModal().hideModal();
+				console.log( { 'template': data } );
 
-				// var options = {}
+				const templateData = {"content":[{"id":"e0dfda1","settings":[],"elements":[{"id":"69d034ac","settings":{"_column_size":100,"_inline_size":null},"elements":[{"id":"57cf5b33","settings":{"title":"Add Your Heading Text Here"},"elements":[],"isInner":false,"widgetType":"heading","elType":"widget"}],"isInner":false,"elType":"column"}],"isInner":false,"elType":"section"}],"page_settings":[],"version":"0.4","title":"test","type":"section"};
 
 				// if (self.atIndex !== -1) {
 				//     options.at = self.atIndex;
 				// }
+				//
+				const Model = Backbone.Model.extend({
+						defaults: {
+							title: '',
+							type: ''
+						},
+				});
 
-				// $e.run('document/elements/import', {
-				//     model: model,
-				//     data: data,
-				//     options: options
-				// });
+
+				$e.run('document/elements/import', {
+				    model: (new Model),
+				    data: templateData,
+				  //   options: {
+						// 		at: -1 // Set the position after which section you want to add the imported section(s)
+						// }
+				});
 
 				// self.atIndex = -1;
 			},
