@@ -40,7 +40,7 @@ class App {
 		Cache::init();
 		Bookmark::init();
 
-		include_once TEMPLATIQ_PATH . '/app/FullSite/templatiq-sites.php';
+		include_once TEMPLATIQ_PATH . '/app/FullSites/templatiq-sites.php';
 
 
 	}
