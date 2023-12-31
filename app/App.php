@@ -23,6 +23,7 @@ class App {
 	use Singleton;
 
 	public function __construct() {
+
 		$this->setup();
 	}
 
@@ -38,5 +39,9 @@ class App {
 		Template::init();
 		Cache::init();
 		Bookmark::init();
+
+		include_once TEMPLATIQ_PATH . '/app/FullSite/templatiq-sites.php';
+
+
 	}
 }
