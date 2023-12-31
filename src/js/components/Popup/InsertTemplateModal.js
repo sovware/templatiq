@@ -144,9 +144,9 @@ const InsertTemplateModal = ( { item, required_plugins, onClose } ) => {
 	const importElementorData = async ( template_id ) => {
 		await requestTemplateData( template_id, {
 			success: function ( data ) {
-				console.log( { 'template': data } );
+				console.log( data);
 
-				const templateData = {"content":[{"id":"e0dfda1","settings":[],"elements":[{"id":"69d034ac","settings":{"_column_size":100,"_inline_size":null},"elements":[{"id":"57cf5b33","settings":{"title":"Add Your Heading Text Here"},"elements":[],"isInner":false,"widgetType":"heading","elType":"widget"}],"isInner":false,"elType":"column"}],"isInner":false,"elType":"section"}],"page_settings":[],"version":"0.4","title":"test","type":"section"};
+				const templateData = data;
 
 				// if (self.atIndex !== -1) {
 				//     options.at = self.atIndex;
