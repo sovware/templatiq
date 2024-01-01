@@ -5,7 +5,40 @@ import SitePreview from '../../components/site-preview';
 import { useStateValue } from '../../store/store';
 import { CustomizeSteps } from './customize-steps';
 
+
+import { getDemo,
+	checkRequiredPlugins,
+	checkFileSystemPermissions, 
+} from '../import-site/import-utils';
+
+const currentUrlParams = new URLSearchParams( window.location.search );
+const template_id = currentUrlParams.get( 'template_id' ) || '';
+
 const CustomizeSite = () => {
+	useEffect( async () => {
+
+		console.log( template_id );
+		
+		const itemData ={
+			type: 'set',
+			currentIndex: 2,
+			selectedTemplateName: 'hello',
+			selectedTemplateID: template_id,
+			selectedTemplateType: 'free',
+		}
+
+		dispatch( itemData );
+
+		const storedState = useStateValue();
+
+		console.log(storedState);
+
+		await getDemo( template_id );
+		await checkRequiredPlugins( storedState );
+		checkFileSystemPermissions( storedState );
+		
+	}, []);
+
 	const [ { currentCustomizeIndex, currentIndex, builder }, dispatch ] =
 		useStateValue();
 
