@@ -12280,6 +12280,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_site_preview__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/site-preview */ "./assets/src/components/site-preview/index.js");
 /* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../store/store */ "./assets/src/store/store.js");
 /* harmony import */ var _customize_steps__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./customize-steps */ "./assets/src/steps/customize-site/customize-steps/index.js");
+/* harmony import */ var _import_site_import_utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../import-site/import-utils */ "./assets/src/steps/import-site/import-utils.js");
 
 
 
@@ -12287,7 +12288,29 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+const currentUrlParams = new URLSearchParams(window.location.search);
+const template_id = currentUrlParams.get('template_id') || '';
 const CustomizeSite = () => {
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(async () => {
+    console.log(template_id);
+    const itemData = {
+      type: 'set',
+      currentIndex: 2,
+      selectedTemplateName: 'hello',
+      selectedTemplateID: template_id,
+      selectedTemplateType: 'free'
+    };
+    dispatch(itemData);
+
+    // const storedState = useStateValue();
+
+    // console.log(storedState);
+
+    await (0,_import_site_import_utils__WEBPACK_IMPORTED_MODULE_6__.getDemo)(template_id, dispatch);
+    // await checkRequiredPlugins( storedState );
+    // checkFileSystemPermissions( storedState );
+  }, []);
   const [{
     currentCustomizeIndex,
     currentIndex,
@@ -12385,25 +12408,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../store/store */ "./assets/src/store/store.js");
 
 const {
   themeStatus,
   nonce
 } = starterTemplates;
-const getDemo = async (id, storedState) => {
-  const [{
-    currentIndex
-  }, dispatch] = storedState;
+
+const getDemo = async (id, dispatch) => {
   const generateData = new FormData();
   generateData.append('action', 'templatiq-sites-api-request');
-  generateData.append('url', 'astra-sites/' + id);
+  generateData.append('template_id', id);
   generateData.append('_ajax_nonce', templatiqSitesVars._ajax_nonce);
   await fetch(ajaxurl, {
     method: 'post',
     body: generateData
   }).then(response => response.json()).then(response => {
+    console.log(response);
     if (response.success) {
-      starterTemplates.previewUrl = 'https:' + response.data['astra-site-url'];
+      starterTemplates.previewUrl = response.data['astra-site-url'];
+      console.log(starterTemplates.previewUrl);
       dispatch({
         type: 'set',
         templateId: id,
@@ -13917,7 +13941,7 @@ const Steps = () => {
     designStep,
     importError
   } = stateValue;
-  const [settingHistory, setSettinghistory] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [settingHistory, setSettingHistory] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
   const [settingIndex, setSettingIndex] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
   const current = _util__WEBPACK_IMPORTED_MODULE_7__.STEPS[currentIndex];
   const history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_8__.useNavigate)();
@@ -13985,7 +14009,7 @@ const Steps = () => {
     } else {
       localStorage.removeItem('starter-templates-onboarding');
     }
-    setSettinghistory(false);
+    setSettingHistory(false);
   }, [history]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const currentUrlParams = new URLSearchParams(window.location.search);
@@ -15632,11 +15656,11 @@ const SiteGrid = ({
       formData.append('is_favorite', favoriteStatus);
       formData.append('site_id', siteId);
       formData.append('_ajax_nonce', templatiqSitesVars._ajax_nonce);
-      const resonse = await fetch(ajaxurl, {
+      const response = await fetch(ajaxurl, {
         method: 'post',
         body: formData
       });
-      const data = await resonse.json();
+      const data = await response.json();
 
       // Toggle fail so unset favorite.
       if (!data.success) {
@@ -15660,7 +15684,6 @@ const SiteGrid = ({
         selectedTemplateID: item.id,
         selectedTemplateType: item['templatiq-sites-type']
       };
-      console.log(itemData);
       event.stopPropagation();
       dispatch(itemData);
       await (0,_import_site_import_utils__WEBPACK_IMPORTED_MODULE_2__.getDemo)(item.id, storedState);
@@ -16353,7 +16376,7 @@ const STEPS = [{
   content: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_survey__WEBPACK_IMPORTED_MODULE_6__["default"], null),
   class: 'step-survey'
 }, {
-  title: 'We are buiding your website...',
+  title: 'We are building your website...',
   content: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_import_site__WEBPACK_IMPORTED_MODULE_5__["default"], null),
   class: 'step-import-site'
 }];

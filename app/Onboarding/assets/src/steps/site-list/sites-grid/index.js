@@ -63,11 +63,11 @@ const SiteGrid = ( { sites } ) => {
 			formData.append( 'is_favorite', favoriteStatus );
 			formData.append( 'site_id', siteId );
 			formData.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
-			const resonse = await fetch( ajaxurl, {
+			const response = await fetch( ajaxurl, {
 				method: 'post',
 				body: formData,
 			} );
-			const data = await resonse.json();
+			const data = await response.json();
 
 			// Toggle fail so unset favorite.
 			if ( ! data.success ) {
@@ -77,8 +77,6 @@ const SiteGrid = ( { sites } ) => {
 			// Do nothing
 		}
 	};
-
-	
 
 	return (
 		<Grid
@@ -96,8 +94,6 @@ const SiteGrid = ( { sites } ) => {
 					selectedTemplateID: item.id,
 					selectedTemplateType: item[ 'templatiq-sites-type' ],
 				}
-
-console.log(itemData);
 
 				event.stopPropagation();
 				dispatch( itemData );
