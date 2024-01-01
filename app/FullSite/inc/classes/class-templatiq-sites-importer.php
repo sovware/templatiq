@@ -455,7 +455,12 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 		 *
 		 * @return (Array) $templatiq_demo_data demo data for the demo.
 		 */
-		public static function get_single_demo( int $template_id ) {
+		public static function get_single_demo( $demo_api_uri ) {
+
+			if ( is_int( $demo_api_uri ) ) {
+				$demo_api_uri = FullSite::init()->get_api_url() . 'templatiq-sites/' . $demo_api_uri;
+			}
+
 			// default values.
 			$remote_args = array();
 			$defaults    = array(
@@ -500,6 +505,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			// $response = wp_remote_get( $template_id, $api_args );
 			$response = wp_remote_post( $template_id, $api_args );
 
+			return $response;
 
 			if ( is_wp_error( $response ) || ( isset( $response->status ) && 0 === $response->status ) ) {
 				if ( isset( $response->status ) ) {

@@ -7,8 +7,8 @@
 
 namespace Templatiq\Onboarding;
 
+use Templatiq\FullSite\FullSite;
 use Templatiq\Utils\Singleton;
-use Templatiq_Sites;
 use Templatiq_Sites_Page;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -86,7 +86,7 @@ class SitesReporting {
 			],
 		];
 
-		$request = wp_remote_post( Templatiq_Sites::get_instance()->import_analytics_url, $api_args );
+		$request = wp_remote_post( FullSite::init()->import_analytics_url, $api_args );
 
 		if ( is_wp_error( $request ) ) {
 			return [

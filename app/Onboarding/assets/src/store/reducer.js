@@ -13,9 +13,6 @@ if ( templatiqSitesVars.default_page_builder ) {
 }
 
 export const initialState = {
-	// allSitesData: templatiqSitesVars.all_sites || {},
-	// allCategories: templatiqSitesVars.allCategories || [],
-	// allCategoriesAndTags: templatiqSitesVars.allCategoriesAndTags || [],
 	currentIndex: currentIndexKey,
 	currentCustomizeIndex: 0,
 	siteLogo: {
@@ -36,7 +33,6 @@ export const initialState = {
 	siteBusinessType: '',
 	selectedMegaMenu: '',
 	siteSearchTerm: getURLParmsValue( window.location.search, 's' ) || '',
-	// userSubscribed: false,
 	showSidebar: true,
 	tryAgainCount: 0,
 	pluginInstallationAttempts: 0,
@@ -79,20 +75,9 @@ export const initialState = {
 		templatiqSitesVars.default_page_builder === 'fse' ? false : true,
 	themeActivateFlag:
 		templatiqSitesVars.default_page_builder === 'fse' ? false : true,
-	// widgetImportFlag: true,
 	contentImportFlag: true,
 	analyticsFlag: starterTemplates.analytics !== 'yes' ? true : false,
 	shownRequirementOnce: false,
-
-	// Filter Favorites.
-	// onMyFavorite: false,
-
-	// All Sites and Favorites
-	// favoriteSiteIDs: Object.values( templatiqSitesVars.favorite_data ) || [],
-
-	// License.
-	// licenseStatus: templatiqSitesVars.license_status,
-	// validateLicenseStatus: false,
 
 	// Staging connected.
 	stagingConnected:
@@ -100,9 +85,6 @@ export const initialState = {
 			? ''
 			: '&draft=' + templatiqSitesVars.staging_connected,
 
-	// Search.
-	// searchTerms: [],
-	// searchTermsWithCount: [],
 };
 
 const reducer = ( state = initialState, { type, ...rest } ) => {

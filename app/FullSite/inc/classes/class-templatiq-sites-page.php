@@ -6,6 +6,8 @@
  * @package Templatiq Sites
  */
 
+use Templatiq\FullSite\FullSite;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -184,7 +186,7 @@ if ( ! class_exists( 'Templatiq_Sites_Page' ) ) {
 		 * @return array page builder sites.
 		 */
 		public function get_sites_by_page_builder( $default_page_builder = '' ) {
-			$sites_and_pages            = Templatiq_Sites::get_instance()->get_all_sites();
+			$sites_and_pages            = FullSite::init()->get_all_sites();
 			$current_page_builder_sites = array();
 			if ( ! empty( $sites_and_pages ) ) {
 				$page_builder_keys = wp_list_pluck( $sites_and_pages, 'astra-site-page-builder' );
@@ -406,7 +408,7 @@ if ( ! class_exists( 'Templatiq_Sites_Page' ) ) {
 				<div class="section-left">
 					<div class="search-form">
 						<?php
-						$categories = Templatiq_Sites::get_instance()->get_api_option( 'templatiq-sites-all-site-categories' );
+						$categories = FullSite::init()->get_api_option( 'templatiq-sites-all-site-categories' );
 						if ( ! empty( $categories ) ) {
 							?>
 						<div id="templatiq-sites__category-filter" class="dropdown-check-list" tabindex="100">
@@ -461,7 +463,7 @@ if ( ! class_exists( 'Templatiq_Sites_Page' ) ) {
 		public function get_default_page_builder() {
 			$default_page_builder = $this->get_setting( 'page_builder' );
 
-			$page_builders = Templatiq_Sites::get_instance()->get_page_builders();
+			$page_builders = FullSite::init()->get_page_builders();
 
 			foreach ( $page_builders as $key => $page_builder ) {
 				if ( $page_builder['slug'] === $default_page_builder ) {

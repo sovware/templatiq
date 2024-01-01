@@ -9,7 +9,6 @@ namespace Templatiq\Onboarding;
 
 use Templatiq\FullSite\FullSite;
 use Templatiq\Utils\Singleton;
-use Templatiq_Sites;
 use Templatiq_Sites_Helper;
 use Templatiq_Sites_Page;
 

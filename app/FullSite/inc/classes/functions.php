@@ -6,6 +6,8 @@
  * @package Templatiq Sites
  */
 
+use Templatiq\FullSite\FullSite;
+
 if ( ! function_exists( 'templatiq_sites_error_log' ) ) :
 
 	/**
@@ -106,7 +108,7 @@ function templatiq_sites_is_valid_url( $url = '' ) {
 		'pixabay.com',
 	);
 
-	$api_domain_parse_url = wp_parse_url( Templatiq_Sites::get_instance()->get_api_domain() );
+	$api_domain_parse_url = wp_parse_url( FullSite::init()->get_api_domain() );
 	$valid_hosts[] = $api_domain_parse_url['host'];
 
 	// Validate host.

@@ -9,6 +9,8 @@
  * @since 1.4.0
  */
 
+use Templatiq\FullSite\FullSite;
+
 if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Templatiq_Sites_WP_CLI' ) ) :
 
 	/**
@@ -191,7 +193,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Templatiq_Sites_WP_CLI
 			/**
 			 * Check File System permissions.
 			 */
-			$filesystem_permission = Templatiq_Sites::get_instance()->filesystem_permission();
+			$filesystem_permission = FullSite::init()->filesystem_permission();
 
 			/**
 			 * Install & Activate Required Plugins.
@@ -199,7 +201,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Templatiq_Sites_WP_CLI
 			if ( isset( $demo_data['required-plugins'] ) ) {
 				$plugins = (array) $demo_data['required-plugins'];
 				if ( ! empty( $plugins ) ) {
-					$plugin_status = Templatiq_Sites::get_instance()->required_plugin( $plugins, $demo_data['astra-site-options-data'], $demo_data['astra-enabled-extensions'] );
+					$plugin_status = FullSite::init()->required_plugin( $plugins, $demo_data['astra-site-options-data'], $demo_data['astra-enabled-extensions'] );
 
 					// Install Plugins.
 					if ( ! empty( $plugin_status['required_plugins']['notinstalled'] ) ) {
@@ -221,7 +223,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Templatiq_Sites_WP_CLI
 						WP_CLI::line( __( 'Activating Plugins..', 'templatiq-sites' ) );
 						foreach ( $plugin_status['required_plugins']['inactive'] as $key => $plugin ) {
 							if ( isset( $plugin['init'] ) ) {
-								Templatiq_Sites::get_instance()->required_plugin_activate( $plugin['init'], $demo_data['astra-site-options-data'], $demo_data['astra-enabled-extensions'] );
+								FullSite::init()->required_plugin_activate( $plugin['init'], $demo_data['astra-site-options-data'], $demo_data['astra-enabled-extensions'] );
 							}
 						}
 					}
@@ -231,7 +233,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Templatiq_Sites_WP_CLI
 			/**
 			 * Backup Customizer Settings
 			 */
-			Templatiq_Sites::get_instance()->backup_settings();
+			FullSite::init()->backup_settings();
 
 			/**
 			 * Reset Site Data
@@ -367,7 +369,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Templatiq_Sites_WP_CLI
 			}
 
 			// Get tracked data.
-			$reset_data = Templatiq_Sites::get_instance()->get_reset_data();
+			$reset_data = FullSite::init()->get_reset_data();
 
 			// Delete tracked posts.
 			if ( isset( $reset_data['reset_posts'] ) && ! empty( $reset_data['reset_posts'] ) ) {
@@ -537,7 +539,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Templatiq_Sites_WP_CLI
 		 */
 		private function get_site_data( $id ) {
 			if ( empty( $this->current_site_data ) ) {
-				// @todo Use Templatiq_Sites::get_instance()->api_request() instead of below function.
+				// @todo Use FullSite::init()->api_request() instead of below function.
 				$this->current_site_data = Templatiq_Sites_Importer::get_instance()->get_single_demo( $id );
 				update_option( 'templatiq_sites_import_data', $this->current_site_data, 'no' );
 			}
@@ -678,7 +680,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Templatiq_Sites_WP_CLI
 			$success    = false;
 			$terms_data = get_transient( 'templatiq-sites-term-' . $term_slug );
 			if ( empty( $terms_data ) || $force ) {
-				$url = add_query_arg( $args, Templatiq_Sites::get_instance()->get_api_url() . $term_slug );
+				$url = add_query_arg( $args, FullSite::init()->get_api_url() . $term_slug );
 
 				$api_args = array(
 					'timeout' => 60,
@@ -727,7 +729,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Templatiq_Sites_WP_CLI
 			$all_posts = get_transient( 'templatiq-sites-post-' . $post_slug );
 
 			if ( empty( $all_posts ) || $force ) {
-				$url = add_query_arg( $args, Templatiq_Sites::get_instance()->get_api_url() . $post_slug );
+				$url = add_query_arg( $args, FullSite::init()->get_api_url() . $post_slug );
 
 				$api_args = array(
 					'timeout' => 60,

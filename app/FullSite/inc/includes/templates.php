@@ -11,6 +11,8 @@
  * @since 1.0.0
  */
 
+use Templatiq\FullSite\FullSite;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -56,7 +58,7 @@ $suggestion_link = templatiq_sites_get_suggestion_link();
 						<div class="ast-sites-floating-notice-wrap refreshed-notice slide-in">
 							<div class="ast-sites-floating-notice">
 								<div class="templatiq-sites-sync-library-message success templatiq-sites-notice notice notice-success is-dismissible">
-									<?php Templatiq_Sites::get_instance()->get_sync_complete_message( true ); ?> <button type="button" class="notice-dismiss"><span class="screen-reader-text"><?php esc_html_e( 'Dismiss', 'templatiq-sites' ); ?></span></button>
+									<?php FullSite::init()->get_sync_complete_message( true ); ?> <button type="button" class="notice-dismiss"><span class="screen-reader-text"><?php esc_html_e( 'Dismiss', 'templatiq-sites' ); ?></span></button>
 								</div>
 							</div>
 						</div>

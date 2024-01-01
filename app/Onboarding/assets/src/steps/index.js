@@ -13,9 +13,6 @@ const $ = jQuery;
 const Steps = () => {
 	const [ stateValue, dispatch ] = useStateValue();
 	const {
-		builder,
-		searchTerms,
-		searchTermsWithCount,
 		currentIndex,
 		currentCustomizeIndex,
 		templateResponse,
@@ -28,35 +25,13 @@ const Steps = () => {
 	const history = useNavigate();
 
 	useEffect( () => {
-		$( document ).on( 'heartbeat-send', sendHeartbeat );
-		$( document ).on( 'heartbeat-tick', heartbeatDone );
-	}, [ searchTerms, searchTermsWithCount ] );
-
-	const heartbeatDone = ( event, data ) => {
-		// Check for our data, and use it.
-		if ( ! data[ 'ast-sites-search-terms' ] ) {
-			return;
-		}
-		dispatch( {
-			type: 'set',
-			searchTerms: [],
-			searchTermsWithCount: [],
-		} );
-	};
-
-	const sendHeartbeat = ( event, data ) => {
-		// Add additional data to Heartbeat data.
-		if ( searchTerms.length > 0 ) {
-			data[ 'ast-sites-search-terms' ] = searchTermsWithCount;
-			data[ 'ast-sites-builder' ] = builder;
-		}
-	};
-
-	useEffect( () => {
 		const previousIndex = parseInt( currentIndex ) - 1;
 		const nextIndex = parseInt( currentIndex ) + 1;
 
+<<<<<<< HEAD
 		console.log('Index', previousIndex, nextIndex, STEPS.length, currentIndex);
+=======
+>>>>>>> 494767133ecd24d4bbd4a95364c3da6dcd0ef135
 		if ( nextIndex > 0 && nextIndex < STEPS.length ) {
 			document.body.classList.remove( STEPS[ nextIndex ].class );
 		}
@@ -82,17 +57,11 @@ const Steps = () => {
 			localStorage.getItem( 'starter-templates-onboarding' )
 		);
 		const urlIndex = parseInt( currentUrlParams.get( 'ci' ) ) || 0;
-		const designIndex =
-			parseInt( currentUrlParams.get( 'designStep' ) ) || 0;
-		const searchTerm = currentUrlParams.get( 's' ) || '';
+		const designIndex = parseInt( currentUrlParams.get( 'designStep' ) ) || 0;
 
 		if ( urlIndex !== 0 ) {
 			const stateValueUpdates = {};
 			for ( const key in storedStateValue ) {
-				if ( key === 'currentIndex' || key === 'siteSearchTerm' ) {
-					continue;
-				}
-
 				stateValueUpdates[ key ] = storedStateValue[ `${ key }` ];
 			}
 
@@ -100,7 +69,6 @@ const Steps = () => {
 				type: 'set',
 				currentIndex: urlIndex,
 				designStep: designIndex,
-				siteSearchTerm: searchTerm,
 				...stateValueUpdates,
 			} );
 		} else {
@@ -169,37 +137,9 @@ const Steps = () => {
 		} );
 	};
 
-	window.onpopstate = () => {
-		const gridIndex = STEPS.findIndex(
-			( step ) => step.class === 'step-site-list'
-		);
 
-		if ( !! designStep && designStep !== 1 && currentIndex !== gridIndex ) {
-			const surveyIndex = STEPS.findIndex(
-				( step ) => step.class === 'step-survey'
-			);
-
-			if ( currentIndex >= surveyIndex ) {
-				dispatch( {
-					type: 'set',
-					currentIndex: currentIndex - 1,
-				} );
-			} else {
-				dispatch( {
-					type: 'set',
-					designStep: designStep - 1,
-					currentCustomizeIndex: currentCustomizeIndex - 1,
-					currentIndex,
-				} );
-			}
-		}
-		if ( currentIndex > gridIndex && designStep === 1 ) {
-			dispatch( {
-				type: 'set',
-				currentIndex: currentIndex - 1,
-			} );
-		}
-	};
+	console.log(currentIndex)
+	console.log(current)
 
 	return (
 		<div className={ `st-step ${ current.class }` }>

@@ -7,8 +7,8 @@
 
 namespace Templatiq\Onboarding;
 
+use Templatiq\FullSite\FullSite;
 use Templatiq\Utils\Singleton;
-use Templatiq_Sites;
 
 class Setup {
 	use Singleton;
@@ -35,7 +35,7 @@ class Setup {
 	}
 
 	public function report_error() {
-		$api_url = add_query_arg( [], trailingslashit( Templatiq_Sites::get_instance()->get_api_domain() ) . 'wp-json/starter-templates/v2/import-error/' );
+		$api_url = add_query_arg( [], trailingslashit( FullSite::init()::init()->get_api_domain() ) . 'wp-json/starter-templates/v2/import-error/' );
 
 		if ( ! templatiq_sites_is_valid_url( $api_url ) ) {
 			wp_send_json_error(

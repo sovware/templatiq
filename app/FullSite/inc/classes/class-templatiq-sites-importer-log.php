@@ -214,10 +214,10 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 				wp_mkdir_p( $dir_info['path'] );
 
 				// Add an index file for security.
-				Templatiq_Sites::get_instance()->get_filesystem()->put_contents( $dir_info['path'] . 'index.html', '' );
+				FullSite::init()->get_filesystem()->put_contents( $dir_info['path'] . 'index.html', '' );
 
 				// Add an .htaccess for security.
-				Templatiq_Sites::get_instance()->get_filesystem()->put_contents( $dir_info['path'] . '.htaccess', 'deny from all' );
+				FullSite::init()->get_filesystem()->put_contents( $dir_info['path'] . '.htaccess', 'deny from all' );
 			}
 
 			return $dir_info;
@@ -258,13 +258,13 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 
 			$existing_data = '';
 			if ( file_exists( $log_file ) ) {
-				$existing_data = Templatiq_Sites::get_instance()->get_filesystem()->get_contents( $log_file );
+				$existing_data = FullSite::init()->get_filesystem()->get_contents( $log_file );
 			}
 
 			// Style separator.
 			$separator = PHP_EOL;
 
-			Templatiq_Sites::get_instance()->get_filesystem()->put_contents( $log_file, $existing_data . $separator . $content, FS_CHMOD_FILE );
+			FullSite::init()->get_filesystem()->put_contents( $log_file, $existing_data . $separator . $content, FS_CHMOD_FILE );
 		}
 
 		/**

@@ -6,6 +6,8 @@
  * @package Templatiq Addon
  */
 
+use Templatiq\FullSite\FullSite;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -86,7 +88,7 @@ class Templatiq_WXR_Importer {
 		// Set the full width template for the pages.
 		if ( isset( $data['post_type'] ) && 'page' === $data['post_type'] ) {
 			$is_elementor_page = get_post_meta( $post_id, '_elementor_version', true );
-			$theme_status      = Templatiq_Sites::get_instance()->get_theme_status();
+			$theme_status      = FullSite::init()->get_theme_status();
 			if ( 'installed-and-active' !== $theme_status && $is_elementor_page ) {
 				// update_post_meta( $post_id, '_wp_page_template', 'elementor_header_footer' );
 			}

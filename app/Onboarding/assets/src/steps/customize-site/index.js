@@ -21,7 +21,7 @@ const CustomizeSite = () => {
 		
 		const itemData ={
 			type: 'set',
-			currentIndex: 2,
+			currentIndex: 0,
 			selectedTemplateName: 'hello',
 			selectedTemplateID: template_id,
 			selectedTemplateType: 'free',
