@@ -16406,9 +16406,9 @@ if (templatiqSitesVars.default_page_builder) {
   builderKey = templatiqSitesVars.default_page_builder === 'brizy' ? 'gutenberg' : templatiqSitesVars.default_page_builder;
 }
 const initialState = {
-  allSitesData: templatiqSitesVars.all_sites || {},
-  allCategories: templatiqSitesVars.allCategories || [],
-  allCategoriesAndTags: templatiqSitesVars.allCategoriesAndTags || [],
+  // allSitesData: templatiqSitesVars.all_sites || {},
+  // allCategories: templatiqSitesVars.allCategories || [],
+  // allCategoriesAndTags: templatiqSitesVars.allCategoriesAndTags || [],
   currentIndex: currentIndexKey,
   currentCustomizeIndex: 0,
   siteLogo: {
@@ -16422,13 +16422,13 @@ const initialState = {
   typography: {},
   typographyIndex: 0,
   stepsLength: Object.keys(_steps_util__WEBPACK_IMPORTED_MODULE_0__.STEPS).length,
-  builder: builderKey,
+  // builder: builderKey,
   siteType: '',
   siteOrder: 'popular',
   siteBusinessType: '',
   selectedMegaMenu: '',
   siteSearchTerm: (0,_utils_url_params__WEBPACK_IMPORTED_MODULE_1__.getURLParmsValue)(window.location.search, 's') || '',
-  userSubscribed: false,
+  // userSubscribed: false,
   showSidebar: true,
   tryAgainCount: 0,
   pluginInstallationAttempts: 0,
@@ -16466,22 +16466,26 @@ const initialState = {
   importErrorResponse: [],
   customizerImportFlag: templatiqSitesVars.default_page_builder === 'fse' ? false : true,
   themeActivateFlag: templatiqSitesVars.default_page_builder === 'fse' ? false : true,
-  widgetImportFlag: true,
+  // widgetImportFlag: true,
   contentImportFlag: true,
   analyticsFlag: starterTemplates.analytics !== 'yes' ? true : false,
   shownRequirementOnce: false,
   // Filter Favorites.
-  onMyFavorite: false,
+  // onMyFavorite: false,
+
   // All Sites and Favorites
-  favoriteSiteIDs: Object.values(templatiqSitesVars.favorite_data) || [],
+  // favoriteSiteIDs: Object.values( templatiqSitesVars.favorite_data ) || [],
+
   // License.
-  licenseStatus: templatiqSitesVars.license_status,
-  validateLicenseStatus: false,
+  // licenseStatus: templatiqSitesVars.license_status,
+  // validateLicenseStatus: false,
+
   // Staging connected.
-  stagingConnected: templatiqSitesVars.staging_connected !== 'yes' ? '' : '&draft=' + templatiqSitesVars.staging_connected,
+  stagingConnected: templatiqSitesVars.staging_connected !== 'yes' ? '' : '&draft=' + templatiqSitesVars.staging_connected
+
   // Search.
-  searchTerms: [],
-  searchTermsWithCount: []
+  // searchTerms: [],
+  // searchTermsWithCount: [],
 };
 const reducer = (state = initialState, {
   type,
