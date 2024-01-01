@@ -6,6 +6,8 @@
  * @package Templatiq Sites
  */
 
+use Templatiq\FullSite\FullSite;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -449,16 +451,11 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 		 *
 		 * @since  1.0.0
 		 *
-		 * @param  (String) $demo_api_uri API URL of a demo.
+		 * @param  (String) $template_id API URL of a demo.
 		 *
 		 * @return (Array) $templatiq_demo_data demo data for the demo.
 		 */
-		public static function get_single_demo( $demo_api_uri ) {
-
-			if ( is_int( $demo_api_uri ) ) {
-				$demo_api_uri = Templatiq_Sites::get_instance()->get_api_url() . 'templatiq-sites/' . $demo_api_uri;
-			}
-
+		public static function get_single_demo( int $template_id ) {
 			// default values.
 			$remote_args = array();
 			$defaults    = array(
@@ -468,7 +465,6 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				'astra-site-options-data'     => '',
 				'astra-post-data-mapping'     => '',
 				'astra-site-wxr-path'         => '',
-				'astra-site-wpforms-path'     => '',
 				'astra-enabled-extensions'    => '',
 				'astra-custom-404'            => '',
 				'required-plugins'            => '',
@@ -486,30 +482,23 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			);
 
 			// Use this for premium demos.
-			// $request_params = apply_filters(
-			// 	'templatiq_sites_api_params',
-			// 	array(
-			// 		'purchase_key' => '',
-			// 		'site_url'     => '',
-			// 	)
-			// );
-
-			// Use this for premium demos.
 			$request_params = apply_filters(
 				'templatiq_sites_api_params',
 				[
 					'token'       => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3RlbXBsYXRpcS5jb20iLCJpYXQiOjE3MDM2NTYxMjAsIm5iZiI6MTcwMzY1NjEyMCwiZXhwIjoxNzA0MjYwOTIwLCJkYXRhIjp7InVzZXIiOnsiaWQiOiI1MyJ9fX0.fQtfvI1JSE5L8gErtTy4y4oBo94JgszupRtQKpwZbuY',
-					'template_id' => $demo_api_uri,
+					'template_id' => $template_id,
 				]
 			);
 
-			// $demo_api_uri = add_query_arg( $request_params, trailingslashit( $demo_api_uri ) );
-			$demo_api_uri = 'https://templatiq.com/wp-json/tm/template/full-site';
-			$demo_api_uri = add_query_arg( $request_params, trailingslashit( $demo_api_uri ) );
+			error_log( '43434343434');
+
+			// $template_id = add_query_arg( $request_params, trailingslashit( $template_id ) );
+			$template_id = 'https://templatiq.com/wp-json/tm/template/full-site';
+			$template_id = add_query_arg( $request_params, trailingslashit( $template_id ) );
 
 			// API Call.
-			// $response = wp_remote_get( $demo_api_uri, $api_args );
-			$response = wp_remote_post( $demo_api_uri, $api_args );
+			// $response = wp_remote_get( $template_id, $api_args );
+			$response = wp_remote_post( $template_id, $api_args );
 
 
 			if ( is_wp_error( $response ) || ( isset( $response->status ) && 0 === $response->status ) ) {
