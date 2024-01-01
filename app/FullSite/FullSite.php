@@ -8,7 +8,6 @@
 namespace Templatiq\FullSite;
 
 use Templatiq\Utils\Singleton;
-use Templatiq_Sites_White_Label;
 
 /**
  * Set constants.
@@ -209,12 +208,9 @@ class FullSite {
 			'favorites'                     => get_option( 'templatiq-sites-favorites' ),
 		];
 
-		$favorite_data = get_option( 'templatiq-sites-favorites' );
-
 		$data = apply_filters(
 			'templatiq_sites_localize_vars',
 			[
-				'subscribed'                         => get_user_meta( get_current_user_ID(), 'templatiq-sites-subscribed', true ),
 				'debug'                              => defined( 'WP_DEBUG' ) ? true : false,
 				'isPro'                              => defined( 'TEMPLATIQ_PRO_SITES_NAME' ) ? true : false,
 				'ajaxurl'                            => esc_url( admin_url( 'admin-ajax.php' ) ),
@@ -225,7 +221,6 @@ class FullSite {
 				'getUpgradeURL'                      => esc_url( 'https://wpastra.com/starter-templates-plans/?utm_source=demo-import-panel&utm_campaign=templatiq-sites&utm_medium=wp-dashboard' ),
 				'_ajax_nonce'                        => wp_create_nonce( 'templatiq-sites' ),
 				'requiredPlugins'                    => [],
-				'syncLibraryStart'                   => '<span class="message">' . esc_html__( 'Syncing template library in the background. The process can take anywhere between 2 to 3 minutes. We will notify you once done.', 'templatiq-sites' ) . '</span>',
 				'xmlRequiredFilesMissing'            => __( 'Some of the files required during the import process are missing.<br/><br/>Please try again after some time.', 'templatiq-sites' ),
 				'importFailedMessageDueToDebug'      => __( '<p>WordPress debug mode is currently enabled on your website. This has interrupted the import process..</p><p>Kindly disable debug mode and try importing Starter Template again.</p><p>You can add the following code into the wp-config.php file to disable debug mode.</p><p><code>define(\'WP_DEBUG\', false);</code></p>', 'templatiq-sites' ),
 				/* translators: %s is a documentation link. */
@@ -244,19 +239,11 @@ class FullSite {
 				'log'                                => [
 					'bulkInstall'  => __( 'Installing Required Plugins..', 'templatiq-sites' ),
 					/* translators: %s are white label strings. */
-					'themeInstall' => sprintf( __( 'Installing %1$s Theme..', 'templatiq-sites' ), Templatiq_Sites_White_Label::get_instance()->get_option( 'astra', 'name', 'Templatiq' ) ),
+					'themeInstall' => sprintf( __( 'Installing %1$s Theme..', 'templatiq-sites' ), 'Templatiq' ),
 				],
-				'sites'                              => templatiq_sites_get_api_params(),
-				'categories'                         => [],
-				'page-builders'                      => [],
-				'all_sites'                          => $this->get_all_sites(),
-				'all_site_categories'                => get_option( 'templatiq-sites-all-site-categories', [] ),
-				'all_site_categories_and_tags'       => get_option( 'templatiq-sites-all-site-categories-and-tags', [] ),
-				'license_page_builder'               => get_option( 'templatiq-sites-license-page-builder', '' ),
 				'ApiDomain'                          => $this->api_domain,
 				'ApiURL'                             => $this->api_url,
 				'stored_data'                        => $stored_data,
-				'favorite_data'                      => $favorite_data,
 				'category_slug'                      => 'templatiq-sites-site-category',
 				'page_builder'                       => 'astra-site-page-builder',
 				'cpt_slug'                           => 'templatiq-sites',
@@ -269,7 +256,6 @@ class FullSite {
 					'site_import'  => esc_html__( 'Your Selected Website is Being Imported.', 'templatiq-sites' ),
 					'page_import'  => esc_html__( 'Your Selected Template is Being Imported.', 'templatiq-sites' ),
 				],
-				'subscriptionSuccessMessage'         => esc_html__( 'We have sent you a surprise gift on your email address! Please check your inbox!', 'templatiq-sites' ),
 				'first_import_complete'              => get_option( 'templatiq_sites_import_complete' ),
 				'server_import_primary_error'        => __( 'Looks like the template you are importing is temporarily not available.', 'templatiq-sites' ),
 				'client_import_primary_error'        => __( 'We could not start the import process and this is the message from WordPress:', 'templatiq-sites' ),

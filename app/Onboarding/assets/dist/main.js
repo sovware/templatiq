@@ -9532,117 +9532,6 @@ const ChangeTemplate = () => {
 
 /***/ }),
 
-/***/ "./assets/src/components/choose-ecommerce/index.js":
-/*!*********************************************************!*\
-  !*** ./assets/src/components/choose-ecommerce/index.js ***!
-  \*********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _brainstormforce_starter_templates_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @brainstormforce/starter-templates-components */ "./node_modules/@brainstormforce/starter-templates-components/build/index.js");
-/* harmony import */ var _brainstormforce_starter_templates_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_brainstormforce_starter_templates_components__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../store/store */ "./assets/src/store/store.js");
-/* harmony import */ var _icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../icons */ "./assets/icons.js");
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./style.scss */ "./assets/src/components/choose-ecommerce/style.scss");
-/* harmony import */ var _steps_import_site_import_utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../steps/import-site/import-utils */ "./assets/src/steps/import-site/import-utils.js");
-
-
-
-
-
-
-
-
-const {
-  imageDir
-} = starterTemplates;
-const ChooseEcommerce = () => {
-  const storedState = (0,_store_store__WEBPACK_IMPORTED_MODULE_3__.useStateValue)();
-  const [{
-    selectedTemplateID,
-    allSitesData,
-    currentCustomizeIndex
-  }, dispatch] = (0,_store_store__WEBPACK_IMPORTED_MODULE_3__.useStateValue)();
-  const [checkedTemplateID, setCheckedTemplateID] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)();
-  const selectedTemplate = allSitesData[`id-${selectedTemplateID}`];
-  const relatedTemplateID = selectedTemplate?.related_ecommerce_template !== '' && selectedTemplate?.related_ecommerce_template !== undefined ? selectedTemplate.related_ecommerce_template : '';
-  if (!relatedTemplateID) {
-    dispatch({
-      type: 'set',
-      currentCustomizeIndex: currentCustomizeIndex + 1 // Skip 1 step.
-    });
-  }
-  const changeEcommerceTemplate = async event => {
-    event.stopPropagation();
-    const newTemplateId = parseInt(event.target.value);
-    dispatch({
-      type: 'set',
-      templateId: newTemplateId
-    });
-    setCheckedTemplateID(newTemplateId);
-    await (0,_steps_import_site_import_utils__WEBPACK_IMPORTED_MODULE_6__.getDemo)(newTemplateId, storedState);
-    await (0,_steps_import_site_import_utils__WEBPACK_IMPORTED_MODULE_6__.checkRequiredPlugins)(storedState);
-    (0,_steps_import_site_import_utils__WEBPACK_IMPORTED_MODULE_6__.checkFileSystemPermissions)(storedState);
-  };
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    setCheckedTemplateID(selectedTemplateID);
-  }, []);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "customizer-ecommerce-selection"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
-    className: "ist-customizer-heading",
-    htmlFor: "surecart"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "ist-image-section"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-    className: "ist-surecart-icon",
-    alt: "SureCart",
-    src: `${imageDir}surecart-icon.svg`
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('SureCart', 'templatiq-sites')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_brainstormforce_starter_templates_components__WEBPACK_IMPORTED_MODULE_1__.Tooltip, {
-    placement: "top",
-    className: "custom-tooltip",
-    content: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('A simple yet powerful e-commerce platform designed to grow your business with effortlessly selling online.', 'templatiq-sites'))
-  }, _icons__WEBPACK_IMPORTED_MODULE_4__["default"].questionMark)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
-    id: "surecart",
-    type: "radio",
-    name: "ecommerce",
-    value: relatedTemplateID,
-    checked: checkedTemplateID === relatedTemplateID,
-    onClick: changeEcommerceTemplate
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
-    className: "ist-customizer-heading",
-    htmlFor: "woocommerce"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "ist-image-section"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-    className: "ist-woocommerce-icon",
-    alt: "WooCommerce",
-    src: `${imageDir}woocommerce-icon.svg`
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('WooCommerce', 'templatiq-sites')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_brainstormforce_starter_templates_components__WEBPACK_IMPORTED_MODULE_1__.Tooltip, {
-    placement: "bottom",
-    className: "custom-tooltip",
-    content: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('WooCommerce is an open-source e-commerce plugin for WordPress. It is designed for small to large-sized online merchants using WordPress.', 'templatiq-sites'))
-  }, _icons__WEBPACK_IMPORTED_MODULE_4__["default"].questionMark)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
-    id: "woocommerce",
-    type: "radio",
-    name: "ecommerce",
-    value: selectedTemplateID,
-    checked: checkedTemplateID === selectedTemplateID,
-    onClick: changeEcommerceTemplate
-  })));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ChooseEcommerce);
-
-/***/ }),
-
 /***/ "./assets/src/components/color-palettes/color-palettes.js":
 /*!****************************************************************!*\
   !*** ./assets/src/components/color-palettes/color-palettes.js ***!
@@ -11295,111 +11184,6 @@ const BusinessLogo = () => {
 
 /***/ }),
 
-/***/ "./assets/src/steps/customize-site/customize-steps/ecommerce-selections/controls.js":
-/*!******************************************************************************************!*\
-  !*** ./assets/src/steps/customize-site/customize-steps/ecommerce-selections/controls.js ***!
-  \******************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_button_button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../components/button/button */ "./assets/src/components/button/button.js");
-/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../store/store */ "./assets/src/store/store.js");
-/* harmony import */ var _components_util_previous_step_link_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../components/util/previous-step-link/index */ "./assets/src/components/util/previous-step-link/index.js");
-/* harmony import */ var _components_choose_ecommerce__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../components/choose-ecommerce */ "./assets/src/components/choose-ecommerce/index.js");
-
-
-
-
-
-
-
-const EcommerceSelectionsControls = () => {
-  const [{
-    currentCustomizeIndex,
-    currentIndex,
-    templateId
-  }, dispatch] = (0,_store_store__WEBPACK_IMPORTED_MODULE_3__.useStateValue)();
-  const nextStep = () => {
-    dispatch({
-      type: 'set',
-      currentCustomizeIndex: currentCustomizeIndex + 1
-    });
-  };
-  const lastStep = () => {
-    setTimeout(() => {
-      dispatch({
-        type: 'set',
-        currentIndex: currentIndex - 1,
-        currentCustomizeIndex: 0
-      });
-    }, 300);
-  };
-  const disabledClass = templateId === 0 ? 'disabled-btn' : '';
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_choose_ecommerce__WEBPACK_IMPORTED_MODULE_5__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_button_button__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    className: `ist-button ist-next-step ${disabledClass}`,
-    onClick: nextStep,
-    disabled: templateId !== 0 ? false : true,
-    after: true
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Continue', 'templatiq-sites')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_util_previous_step_link_index__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    onClick: lastStep
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Back', 'templatiq-sites')));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EcommerceSelectionsControls);
-
-/***/ }),
-
-/***/ "./assets/src/steps/customize-site/customize-steps/ecommerce-selections/index.js":
-/*!***************************************************************************************!*\
-  !*** ./assets/src/steps/customize-site/customize-steps/ecommerce-selections/index.js ***!
-  \***************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../store/store */ "./assets/src/store/store.js");
-/* harmony import */ var _components_change_template__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../components/change-template */ "./assets/src/components/change-template/index.js");
-
-
-
-
-
-const EcommerceSelections = () => {
-  const [{}, dispatch] = (0,_store_store__WEBPACK_IMPORTED_MODULE_2__.useStateValue)();
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    dispatch({
-      type: 'set',
-      designStep: 1
-    });
-  }, []);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_change_template__WEBPACK_IMPORTED_MODULE_3__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "customizer-header"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "header-name"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
-    className: "ist-customizer-heading"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose eCommerce Platform', 'templatiq-sites')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
-    className: "screen-description"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)(`Choose your preferred e-Commerce platform. Based on your selection, you will receive the account setup and cart options.`, 'templatiq-sites')))));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EcommerceSelections);
-
-/***/ }),
-
 /***/ "./assets/src/steps/customize-site/customize-steps/index.js":
 /*!******************************************************************!*\
   !*** ./assets/src/steps/customize-site/customize-steps/index.js ***!
@@ -11413,12 +11197,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _license_validation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./license-validation */ "./assets/src/steps/customize-site/customize-steps/license-validation/index.js");
 /* harmony import */ var _license_validation_controls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./license-validation/controls */ "./assets/src/steps/customize-site/customize-steps/license-validation/controls.js");
-/* harmony import */ var _ecommerce_selections__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ecommerce-selections */ "./assets/src/steps/customize-site/customize-steps/ecommerce-selections/index.js");
-/* harmony import */ var _ecommerce_selections_controls__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ecommerce-selections/controls */ "./assets/src/steps/customize-site/customize-steps/ecommerce-selections/controls.js");
-/* harmony import */ var _business_logo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./business-logo */ "./assets/src/steps/customize-site/customize-steps/business-logo/index.js");
-/* harmony import */ var _business_logo_controls__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./business-logo/controls */ "./assets/src/steps/customize-site/customize-steps/business-logo/controls.js");
-/* harmony import */ var _site_colors_typography__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./site-colors-typography */ "./assets/src/steps/customize-site/customize-steps/site-colors-typography/index.js");
-/* harmony import */ var _site_colors_typography_controls__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./site-colors-typography/controls */ "./assets/src/steps/customize-site/customize-steps/site-colors-typography/controls.js");
+Object(function webpackMissingModule() { var e = new Error("Cannot find module './ecommerce-selections'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+Object(function webpackMissingModule() { var e = new Error("Cannot find module './ecommerce-selections/controls'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _business_logo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./business-logo */ "./assets/src/steps/customize-site/customize-steps/business-logo/index.js");
+/* harmony import */ var _business_logo_controls__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./business-logo/controls */ "./assets/src/steps/customize-site/customize-steps/business-logo/controls.js");
+/* harmony import */ var _site_colors_typography__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./site-colors-typography */ "./assets/src/steps/customize-site/customize-steps/site-colors-typography/index.js");
+/* harmony import */ var _site_colors_typography_controls__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./site-colors-typography/controls */ "./assets/src/steps/customize-site/customize-steps/site-colors-typography/controls.js");
 
 
 
@@ -11428,16 +11212,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const CustomizeSteps = [{
-  content: _ecommerce_selections__WEBPACK_IMPORTED_MODULE_2__["default"],
-  controls: _ecommerce_selections_controls__WEBPACK_IMPORTED_MODULE_3__["default"],
+  content: Object(function webpackMissingModule() { var e = new Error("Cannot find module './ecommerce-selections'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
+  controls: Object(function webpackMissingModule() { var e = new Error("Cannot find module './ecommerce-selections/controls'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
   class: 'customize-ecommerce-selections'
 }, {
-  content: _business_logo__WEBPACK_IMPORTED_MODULE_4__["default"],
-  controls: _business_logo_controls__WEBPACK_IMPORTED_MODULE_5__["default"],
+  content: _business_logo__WEBPACK_IMPORTED_MODULE_3__["default"],
+  controls: _business_logo_controls__WEBPACK_IMPORTED_MODULE_4__["default"],
   class: 'customize-business-logo'
 }, {
-  content: _site_colors_typography__WEBPACK_IMPORTED_MODULE_6__["default"],
-  controls: _site_colors_typography_controls__WEBPACK_IMPORTED_MODULE_7__["default"],
+  content: _site_colors_typography__WEBPACK_IMPORTED_MODULE_5__["default"],
+  controls: _site_colors_typography_controls__WEBPACK_IMPORTED_MODULE_6__["default"],
   actions: null,
   class: 'customize-typography-colors'
 }
@@ -16373,18 +16157,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const STEPS = [{
-  content: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_page_builder__WEBPACK_IMPORTED_MODULE_1__["default"], null),
-  class: 'step-page-builder'
-}, {
-  header: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_site_list_header__WEBPACK_IMPORTED_MODULE_3__["default"], null),
-  content: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_site_list__WEBPACK_IMPORTED_MODULE_2__["default"], null),
-  class: 'step-site-list'
-}, {
   content: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_customize_site__WEBPACK_IMPORTED_MODULE_4__["default"], null),
   class: 'step-customizer'
-}, {
-  content: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_survey__WEBPACK_IMPORTED_MODULE_6__["default"], null),
-  class: 'step-survey'
 }, {
   title: 'We are building your website...',
   content: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_import_site__WEBPACK_IMPORTED_MODULE_5__["default"], null),
@@ -41406,19 +41180,6 @@ var index = createJss();
 /*!**********************************************************!*\
   !*** ./assets/src/components/change-template/style.scss ***!
   \**********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ "./assets/src/components/choose-ecommerce/style.scss":
-/*!***********************************************************!*\
-  !*** ./assets/src/components/choose-ecommerce/style.scss ***!
-  \***********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
