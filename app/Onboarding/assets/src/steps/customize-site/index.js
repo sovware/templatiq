@@ -29,13 +29,13 @@ const CustomizeSite = () => {
 
 		dispatch( itemData );
 
-		const storedState = useStateValue();
+		// const storedState = useStateValue();
 
-		console.log(storedState);
+		// console.log(storedState);
 
-		await getDemo( template_id );
-		await checkRequiredPlugins( storedState );
-		checkFileSystemPermissions( storedState );
+		await getDemo( template_id, dispatch );
+		// await checkRequiredPlugins( storedState );
+		// checkFileSystemPermissions( storedState );
 		
 	}, []);
 

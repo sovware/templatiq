@@ -12302,11 +12302,14 @@ const CustomizeSite = () => {
       selectedTemplateType: 'free'
     };
     dispatch(itemData);
-    const storedState = (0,_store_store__WEBPACK_IMPORTED_MODULE_4__.useStateValue)();
-    console.log(storedState);
-    await (0,_import_site_import_utils__WEBPACK_IMPORTED_MODULE_6__.getDemo)(template_id);
-    await (0,_import_site_import_utils__WEBPACK_IMPORTED_MODULE_6__.checkRequiredPlugins)(storedState);
-    (0,_import_site_import_utils__WEBPACK_IMPORTED_MODULE_6__.checkFileSystemPermissions)(storedState);
+
+    // const storedState = useStateValue();
+
+    // console.log(storedState);
+
+    await (0,_import_site_import_utils__WEBPACK_IMPORTED_MODULE_6__.getDemo)(template_id, dispatch);
+    // await checkRequiredPlugins( storedState );
+    // checkFileSystemPermissions( storedState );
   }, []);
   const [{
     currentCustomizeIndex,
@@ -12405,25 +12408,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../store/store */ "./assets/src/store/store.js");
 
 const {
   themeStatus,
   nonce
 } = starterTemplates;
-const getDemo = async (id, storedState) => {
-  const [{
-    currentIndex
-  }, dispatch] = storedState;
+
+const getDemo = async (id, dispatch) => {
   const generateData = new FormData();
   generateData.append('action', 'templatiq-sites-api-request');
-  generateData.append('url', 'astra-sites/' + id);
+  generateData.append('template_id', id);
   generateData.append('_ajax_nonce', templatiqSitesVars._ajax_nonce);
   await fetch(ajaxurl, {
     method: 'post',
     body: generateData
   }).then(response => response.json()).then(response => {
+    console.log(response);
     if (response.success) {
-      starterTemplates.previewUrl = 'https:' + response.data['astra-site-url'];
+      starterTemplates.previewUrl = response.data['astra-site-url'];
+      console.log(starterTemplates.previewUrl);
       dispatch({
         type: 'set',
         templateId: id,

@@ -1,12 +1,12 @@
 import { __ } from '@wordpress/i18n';
 const { themeStatus, nonce } = starterTemplates;
+import { useStateValue } from '../../store/store';
 
-export const getDemo = async ( id, storedState ) => {
-	const [ { currentIndex }, dispatch ] = storedState;
-
+export const getDemo = async ( id, dispatch ) => {
+	
 	const generateData = new FormData();
 	generateData.append( 'action', 'templatiq-sites-api-request' );
-	generateData.append( 'url', 'astra-sites/' + id );
+	generateData.append( 'template_id', id );
 	generateData.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
 
 	await fetch( ajaxurl, {
@@ -15,9 +15,12 @@ export const getDemo = async ( id, storedState ) => {
 	} )
 		.then( ( response ) => response.json() )
 		.then( ( response ) => {
+			console.log(response)
 			if ( response.success ) {
-				starterTemplates.previewUrl =
-					'https:' + response.data[ 'astra-site-url' ];
+				starterTemplates.previewUrl = response.data[ 'astra-site-url' ];
+
+				console.log(starterTemplates.previewUrl)
+
 				dispatch( {
 					type: 'set',
 					templateId: id,
@@ -26,6 +29,7 @@ export const getDemo = async ( id, storedState ) => {
 					importErrorResponse: [],
 					importError: false,
 				} );
+
 			} else {
 				let errorMessages = {};
 
