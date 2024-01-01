@@ -10,21 +10,8 @@ import Survey from './survey';
 
 export const STEPS = [
 	{
-		content: <PageBuilder />,
-		class: 'step-page-builder',
-	},
-	{
-		header: <SiteListHeader />,
-		content: <SiteList />,
-		class: 'step-site-list',
-	},
-	{
 		content: <CustomizeSite />,
 		class: 'step-customizer',
-	},
-	{
-		content: <Survey />,
-		class: 'step-survey',
 	},
 	{
 		title: 'We are building your website...',
