@@ -56,7 +56,7 @@ const Steps = () => {
 		const previousIndex = parseInt( currentIndex ) - 1;
 		const nextIndex = parseInt( currentIndex ) + 1;
 
-		console.log('Index', previousIndex, nextIndex);
+		console.log('Index', previousIndex, nextIndex, STEPS.length, currentIndex);
 		if ( nextIndex > 0 && nextIndex < STEPS.length ) {
 			document.body.classList.remove( STEPS[ nextIndex ].class );
 		}
@@ -66,7 +66,7 @@ const Steps = () => {
 		}
 
 		document.body.classList.add( STEPS[ currentIndex ].class );
-	} );
+	}, [] );
 
 	useEffect( () => {
 		if ( importError ) {
@@ -113,8 +113,10 @@ const Steps = () => {
 	useEffect( () => {
 		const currentUrlParams = new URLSearchParams( window.location.search );
 		const urlIndex = parseInt( currentUrlParams.get( 'ci' ) ) || 0;
+		console.log('urlIndex', urlIndex, currentIndex);
 
 		if ( currentIndex === 0 ) {
+			console.log('currentIndex is Zero', currentIndex);
 			currentUrlParams.delete( 'ci' );
 			history(
 				window.location.pathname + '?' + currentUrlParams.toString()
@@ -125,6 +127,7 @@ const Steps = () => {
 			( currentIndex !== 0 && urlIndex !== currentIndex ) ||
 			templateResponse !== null
 		) {
+			console.log('currentIndex is not Zero & urlIndex', currentIndex, urlIndex);
 			storeCurrentState( stateValue );
 			currentUrlParams.set( 'ci', currentIndex );
 			history(
