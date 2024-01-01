@@ -106,7 +106,6 @@ const TemplateDetailsHeader = ( props ) => {
 				) : (
 					<InsertTemplate
 						item={ props.item }
-						innerText={ 'Insert' }
 						className={
 							'templatiq__details__header__action__link insert-btn templatiq-btn templatiq-btn-success'
 						}

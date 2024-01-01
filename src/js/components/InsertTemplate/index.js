@@ -89,7 +89,7 @@ const InsertTemplate = ( {
 				/>
 			) }
 			{
-				type !== 'pack' ? (
+				type !== 'pack' ?
 					<button
 						id={ template_id }
 						className={
@@ -108,28 +108,27 @@ const InsertTemplate = ( {
 						/>
 						{ innerText ? innerText : 'Insert' }
 					</button>
-				) :
-				(
-					<a
-						href="#"
-						target='_blank'
-						className={
-							className
-								? className
-								: 'templatiq__template__single__info__action__link insert-btn tmTemplateLibrary__insert-button'
-						}
-						onClick={ ( e ) =>
-							! isLoggedIn ? addAuthModal( e ) : null
-						}
-					>
-						<ReactSVG
-							src={ ! solidIcon ? downloadAltIcon : downloadIcon }
-							width={ 14 }
-							height={ 14 }
-						/>
-						{ innerText ? innerText : 'Insert Full Site' }
-					</a>
-				)
+				:
+				<a
+					href="#"
+					target='_blank'
+					className={
+						className
+							? className
+							: 'templatiq__template__single__info__action__link insert-btn tmTemplateLibrary__insert-button'
+					}
+					onClick={ ( e ) =>
+						! isLoggedIn ? addAuthModal( e ) : null
+					}
+				>
+					<ReactSVG
+						src={ ! solidIcon ? downloadAltIcon : downloadIcon }
+						width={ 14 }
+						height={ 14 }
+					/>
+					{ innerText ? innerText : 'Insert Full Site' }
+				</a>
+		
 			}
 			
 		</>
