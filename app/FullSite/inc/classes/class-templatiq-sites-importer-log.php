@@ -6,6 +6,8 @@
  * @package Templatiq Sites
  */
 
+use Templatiq\FullSite\FullSite;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -72,7 +74,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 
 			$upload_dir = self::log_dir();
 
-			$file_created = Templatiq_Sites::get_instance()->get_filesystem()->put_contents( $upload_dir['path'] . 'index.html', '' );
+			$file_created = FullSite::init()->get_filesystem()->put_contents( $upload_dir['path'] . 'index.html', '' );
 			if ( ! $file_created ) {
 				add_action( 'admin_notices', array( $this, 'file_permission_notice' ) );
 				return;

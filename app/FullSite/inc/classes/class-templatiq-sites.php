@@ -11,98 +11,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'Templatiq_Sites' ) ):
-
-	/**
-	 * Templatiq_Sites
-	 */
 	class Templatiq_Sites {
+		public string $api_domain;
+		public string $api_url;
+		public string $search_analytics_url;
+		public string $import_analytics_url;
+		public string $pixabay_url;
+		public string $pixabay_api_key;
+		private static $instance        = null;
+		public static array $local_vars = [];
+		public string $wp_upload_url    = '';
+		private array $ajax             = [];
 
-		/**
-		 * API Domain name
-		 *
-		 * @var (String) URL
-		 */
-		public $api_domain;
-
-		/**
-		 * API URL which is used to get the response from.
-		 *
-		 * @since  1.0.0
-		 * @var (String) URL
-		 */
-		public $api_url;
-
-		/**
-		 * Search API URL which is used to get the response from.
-		 *
-		 * @since  2.0.0
-		 * @var (String) URL
-		 */
-		public $search_analytics_url;
-
-		/**
-		 * Import Analytics API URL
-		 *
-		 * @since  3.1.4
-		 * @var (String) URL
-		 */
-		public $import_analytics_url;
-
-		/**
-		 * API URL which is used to get the response from Pixabay.
-		 *
-		 * @since  2.0.0
-		 * @var (String) URL
-		 */
-		public $pixabay_url;
-
-		/**
-		 * API Key which is used to get the response from Pixabay.
-		 *
-		 * @since  2.0.0
-		 * @var (String) URL
-		 */
-		public $pixabay_api_key;
-
-		/**
-		 * Instance of Templatiq_Sites
-		 *
-		 * @since  1.0.0
-		 * @var (Object) Templatiq_Sites
-		 */
-		private static $instance = null;
-
-		/**
-		 * Localization variable
-		 *
-		 * @since  2.0.0
-		 * @var (Array) $local_vars
-		 */
-		public static $local_vars = [];
-
-		/**
-		 * Localization variable
-		 *
-		 * @since  2.0.0
-		 * @var (Array) $wp_upload_url
-		 */
-		public $wp_upload_url = '';
-
-		/**
-		 * Ajax
-		 *
-		 * @since  2.6.20
-		 * @var (Array) $ajax
-		 */
-		private $ajax = [];
-
-		/**
-		 * Instance of Templatiq_Sites.
-		 *
-		 * @since  1.0.0
-		 *
-		 * @return object Class object.
-		 */
 		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
 				self::$instance = new self();
@@ -111,11 +31,6 @@ if ( ! class_exists( 'Templatiq_Sites' ) ):
 			return self::$instance;
 		}
 
-		/**
-		 * Constructor.
-		 *
-		 * @since  1.0.0
-		 */
 		private function __construct() {
 
 			$this->set_api_url();
@@ -127,7 +42,6 @@ if ( ! class_exists( 'Templatiq_Sites' ) ):
 			add_action( 'elementor/editor/footer', [$this, 'insert_templates'] );
 			add_action( 'admin_footer', [$this, 'insert_image_templates'] );
 			add_action( 'customize_controls_print_footer_scripts', [$this, 'insert_image_templates'] );
-			add_action( 'wp_footer', [$this, 'insert_image_templates_bb_and_brizy'] );
 			add_action( 'elementor/editor/footer', [$this, 'register_widget_scripts'], 99 );
 			add_action( 'elementor/editor/before_enqueue_scripts', [$this, 'popup_styles'] );
 			add_action( 'elementor/preview/enqueue_styles', [$this, 'popup_styles'] );
@@ -161,21 +75,8 @@ if ( ! class_exists( 'Templatiq_Sites' ) ):
 				add_action( 'wp_ajax_' . $ajax_hook, [$this, $ajax_callback] );
 			}
 
-			add_action( 'delete_attachment', [$this, 'delete_templatiq_images'] );
-			add_filter( 'heartbeat_received', [$this, 'search_push'], 10, 2 );
-			add_filter( 'status_header', [$this, 'status_header'], 10, 4 );
-			add_filter( 'wp_php_error_message', [$this, 'php_error_message'], 10, 2 );
-			add_filter( 'wp_import_post_data_processed', [$this, 'wp_slash_after_xml_import'], 99, 2 );
-			add_filter( 'ast_block_templates_authorization_url_param', [$this, 'add_auth_url_param'] );
 		}
 
-		/**
-		 * Set plugin param for auth URL.
-		 *
-		 * @param array $url_param url parameters.
-		 *
-		 * @since  3.5.0
-		 */
 		public function add_auth_url_param( $url_param ) {
 
 			$url_param['plugin'] = 'starter-templates';
@@ -547,10 +448,10 @@ if ( ! class_exists( 'Templatiq_Sites' ) ):
 
 		if ( empty( $template_id ) ) {
 			wp_send_json_error(
-				array(
+				[
 					'message' => __( 'Provided template_id URL is empty! Please try again!', 'templatiq-sites' ),
 					'code'    => 'Error',
-				)
+				]
 			);
 		}
 
@@ -831,54 +732,6 @@ if ( ! class_exists( 'Templatiq_Sites' ) ):
 		require_once TEMPLATIQ_SITES_DIR . 'inc/includes/templates.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/includes/image-templates.php';
 		ob_end_flush();
-	}
-
-	/**
-	 * Add/Remove Favorite.
-	 *
-	 * @since  2.0.0
-	 */
-	public function add_to_favorite() {
-
-		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( 'You are not allowed to perform this action', 'templatiq-sites' );
-		}
-		// Verify Nonce.
-		check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
-
-		$new_favorites = [];
-		$site_id       = isset( $_POST['site_id'] ) ? sanitize_key( $_POST['site_id'] ) : '';
-
-		if ( empty( $site_id ) ) {
-			wp_send_json_error();
-		}
-
-		$favorite_settings = get_option( 'templatiq-sites-favorites', [] );
-
-		if ( false !== $favorite_settings && is_array( $favorite_settings ) ) {
-			$new_favorites = $favorite_settings;
-		}
-
-		$is_favorite = isset( $_POST['is_favorite'] ) ? sanitize_key( $_POST['is_favorite'] ) : '';
-
-		if ( 'false' === $is_favorite ) {
-			if ( in_array( $site_id, $new_favorites, true ) ) {
-				$key = array_search( $site_id, $new_favorites, true );
-				unset( $new_favorites[$key] );
-			}
-		} else {
-			if ( ! in_array( $site_id, $new_favorites, true ) ) {
-				array_push( $new_favorites, $site_id );
-			}
-		}
-
-		update_option( 'templatiq-sites-favorites', $new_favorites, 'no' );
-
-		wp_send_json_success(
-			[
-				'all_favorites' => $new_favorites,
-			]
-		);
 	}
 
 	/**
@@ -1203,7 +1056,6 @@ if ( ! class_exists( 'Templatiq_Sites' ) ):
 		}
 	}
 
-
 	/**
 	 * Activate theme
 	 *
@@ -1473,7 +1325,7 @@ if ( ! class_exists( 'Templatiq_Sites' ) ):
 	 * @since  1.0.0
 	 */
 	public static function get_api_domain() {
-		return defined( 'STARTER_TEMPLATES_REMOTE_URL' ) ? STARTER_TEMPLATES_REMOTE_URL : apply_filters( 'templatiq_sites_api_domain', 'https://websitedemos.net/' );
+		return defined( 'STARTER_TEMPLATES_REMOTE_URL' ) ? STARTER_TEMPLATES_REMOTE_URL : apply_filters( 'templatiq_sites_api_domain', 'https://templatiq.com/' );
 	}
 
 	/**

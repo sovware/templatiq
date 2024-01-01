@@ -190,58 +190,6 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing_Importer' ) ) :
 			update_site_option( 'templatiq-sites-batch-status-string', 'Categories Imported Successfully!' );
 		}
 
-
-		/**
-		 * Import Page Builders
-		 *
-		 * @since 2.0.0
-		 * @return void
-		 */
-		public function set_license_page_builder() {
-
-			templatiq_sites_error_log( 'Requesting License Page Builders' );
-
-			$url = add_query_arg(
-				array(
-					'_fields'                  => 'id,name,slug',
-					'site_url'                 => get_site_url(),
-					'purchase_key'             => Templatiq_Sites::get_instance()->get_license_key(),
-					'only_allow_page_builders' => 'true',
-				),
-				trailingslashit( Templatiq_Sites::get_instance()->get_api_domain() ) . 'wp-json/wp/v2/astra-site-page-builder/'
-			);
-
-			$api_args = array(
-				'timeout' => 30,
-			);
-
-			$page_builder_request = wp_remote_get( $url, $api_args );
-			if ( ! is_wp_error( $page_builder_request ) && 200 === (int) wp_remote_retrieve_response_code( $page_builder_request ) ) {
-				$page_builders = json_decode( wp_remote_retrieve_body( $page_builder_request ), true );
-				if ( isset( $page_builders['code'] ) ) {
-					$message = isset( $page_builders['message'] ) ? $page_builders['message'] : '';
-					if ( ! empty( $message ) ) {
-						templatiq_sites_error_log( 'HTTP Request Error: ' . $message );
-					} else {
-						templatiq_sites_error_log( 'HTTP Request Error!' );
-					}
-				} else {
-					// Set mini agency page builder.
-					$page_builder_slugs = wp_list_pluck( $page_builders, 'slug' );
-					if ( in_array( 'elementor', $page_builder_slugs ) && ! in_array( 'beaver-builder', $page_builder_slugs ) ) {
-						update_option( 'templatiq-sites-license-page-builder', 'elementor', 'no' );
-						templatiq_sites_error_log( 'Set "Elementor" as License Page Builder' );
-					} elseif ( in_array( 'beaver-builder', $page_builder_slugs ) && ! in_array( 'elementor', $page_builder_slugs ) ) {
-						update_option( 'templatiq-sites-license-page-builder', 'beaver-builder', 'no' );
-						templatiq_sites_error_log( 'Set "Beaver Builder" as License Page Builder' );
-					} else {
-						update_option( 'templatiq-sites-license-page-builder', '', 'no' );
-						templatiq_sites_error_log( 'Not Set Any License Page Builder' );
-					}
-				}
-			}
-		}
-
 		/**
 		 * Import Page Builders
 		 *

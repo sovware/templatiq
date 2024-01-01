@@ -8,6 +8,7 @@
 namespace Templatiq;
 
 use Templatiq\Admin\Admin;
+use Templatiq\FullSite\FullSite;
 use Templatiq\Onboarding\Onboarding;
 use Templatiq\Routes\Account;
 use Templatiq\Routes\Bookmark;
@@ -31,7 +32,6 @@ class App {
 		Admin::init();
 		Enqueuer::init();
 
-
 		/**
 		 * Routes Initialize
 		 */
@@ -42,10 +42,9 @@ class App {
 		Bookmark::init();
 
 		/**
-		 * Full Site Import Onboarding
+		 * Full Site Importer
 		 */
+		FullSite::init();
 		Onboarding::init();
-
-		include_once TEMPLATIQ_PATH . '/app/FullSite/templatiq-sites.php';
 	}
 }
