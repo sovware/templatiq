@@ -1,3 +1,147 @@
+/*!*************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./assets/src/components/change-template/style.scss ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************/
+.change-template-wrap {
+  padding: 4% 8%;
+  background: var(--st-background-secondary);
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--st-border-color);
+}
+.change-template-wrap .template-name h5 {
+  color: var(--st-color-body);
+  margin-bottom: 5px;
+}
+.change-template-wrap .stc-grid-item-badge {
+  position: unset;
+}
+.change-template-wrap .label {
+  color: var(--st-color-placeholder);
+}
+.change-template-wrap .change-btn-wrap {
+  cursor: pointer;
+}
+.change-template-wrap .change-btn {
+  background: transparent;
+  border: 1px solid #626262;
+  border-radius: var(--st-border-radius-3);
+  padding: 6px;
+  font-weight: var(--st-font-weight-normal);
+  font-size: var(--st-font-size-xs);
+  line-height: var(--st-font-line-height-l);
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+.change-template-wrap .change-btn:hover {
+  border-color: var(--st-color-heading);
+}
+.change-template-wrap .change-btn:hover svg path {
+  fill: var(--st-color-heading);
+}
+/*!************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./assets/src/components/media-uploader/style.scss ***!
+  \************************************************************************************************************************************************************************************************************************************************************************/
+.ist-selected-image {
+  position: relative;
+  margin-top: 20px;
+  display: flex;
+  margin-bottom: 2em;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  min-height: 100px;
+  border: 1px dashed var(--st-color-accent);
+  border-radius: 2px;
+  padding: 20px;
+}
+.ist-selected-image img {
+  max-width: 100%;
+  vertical-align: middle;
+  width: 80%;
+}
+.ist-selected-image:hover .ist-change-logo {
+  opacity: 1;
+  visibility: visible;
+}
+
+.ist-remove-logo {
+  cursor: pointer;
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  background: #FFFFFF;
+  box-shadow: -2px 0px 4px rgba(0, 0, 0, 0.15);
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.ist-change-logo {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  text-align: center;
+  background: #fff;
+  padding: 10px 0;
+  color: #646464;
+  border: 1px dashed var(--st-color-accent);
+  transition: 0.3s all ease-in-out;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  cursor: pointer;
+  border-width: 1px 0 0 0;
+  border-radius: 0;
+}
+
+.ist-logo-preview-wrap {
+  align-self: center;
+  margin: 0 auto;
+}
+
+.ist-logo-wrapper {
+  position: relative;
+}
+
+.templatiq-sites-ai-logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.templatiq-sites-ai-logo-wrap .control-reset {
+  cursor: pointer;
+}
+.templatiq-sites-ai-logo-wrap .control-reset.disabled {
+  cursor: default;
+}
+.templatiq-sites-ai-logo-wrap .control-reset.disabled svg path {
+  fill: var(--st-border-color);
+}
+
+.step-customizer .step-content button {
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+.step-customizer .step-content button.disabled-btn {
+  background-color: var(--st-color-placeholder);
+}
+.step-customizer .step-actions .ist-link:nth-child(2) {
+  color: var(--st-color-accent);
+}
+.step-customizer .step-actions .ist-link:nth-child(2) svg {
+  fill: var(--st-color-accent);
+}
 /*!************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./assets/src/components/color-palettes/style.scss ***!
   \************************************************************************************************************************************************************************************************************************************************************************/
@@ -185,513 +329,6 @@
 }
 .ist-other-fonts .body-font-preview {
   font-size: var(--st-font-size-xl);
-}
-/*!*****************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./assets/src/steps/page-builder/style.scss ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************/
-.page-builder-screen-wrap .page-builder-wrap {
-  margin: 0 auto;
-  max-width: 800px;
-  padding: 0 20px;
-  display: grid;
-  -moz-column-gap: 30px;
-       column-gap: 30px;
-  justify-content: center;
-  grid-auto-columns: minmax(0, 1fr);
-  grid-auto-flow: column;
-  align-items: center;
-}
-.page-builder-screen-wrap .image-wrap {
-  padding-bottom: 15px;
-  display: inline-flex;
-  cursor: pointer;
-  box-sizing: border-box;
-  border-radius: var(--st-border-radius-2);
-  transition: all linear 0.2s;
-}
-.page-builder-screen-wrap .image-wrap img {
-  width: 85px;
-  height: 85px;
-  border-radius: 50%;
-}
-.page-builder-screen-wrap .page-builder-item {
-  padding: 20px;
-  border-radius: var(--st-border-radius-4);
-  cursor: pointer;
-  transition: all linear 0.2s;
-  background: var(--st-background-primary);
-  border: 1px solid var(--st-border-color);
-  flex-direction: column;
-}
-.page-builder-screen-wrap .page-builder-item:hover, .page-builder-screen-wrap .page-builder-item:focus {
-  transform: translateY(-1px);
-  box-shadow: 0px 4px 8px -2px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31);
-  border-color: var(--st-color-white);
-}
-/*!**************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./assets/src/steps/site-list/style.scss ***!
-  \**************************************************************************************************************************************************************************************************************************************************************/
-.step-site-list {
-  --stc-toggle-dropdown-popup-item-cursor: pointer;
-}
-
-.st-other-filters {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #D1D5DB;
-  padding-bottom: 8px;
-}
-
-.st-category-filter {
-  flex: 1;
-}
-
-.stc-category-list-item {
-  border-bottom: 2px solid transparent;
-  padding: 0 !important;
-  margin: 0 0 0 28px;
-  margin-bottom: -26px;
-  margin-top: -20px;
-  font-size: 14px;
-  color: var(--st-color-placeholder);
-  font-weight: var(--stc-font-weight-bold);
-}
-.stc-category-list-item.active {
-  border-color: var(--stc-color-heading);
-}
-
-.st-type-and-order-filters {
-  --stc-toggle-dropdown-popup-item-padding: 5px 17px;
-  --stc-toggle-dropdown-popup-padding: 8px 0px;
-  display: flex;
-}
-
-.st-site-type-filter {
-  margin-left: 30px;
-}
-
-.st-sites-grid {
-  min-height: 100vh;
-  margin-top: 65px;
-  position: relative;
-}
-.st-sites-grid .stc-grid-item-title {
-  font-size: var(--st-font-size-xs);
-  line-height: var(--st-line-height-xs);
-  color: var(--st-color-heading);
-  padding: 0;
-  margin: 0;
-}
-
-.stc-site-order-filter,
-.stc-site-type-filter {
-  width: 110px;
-}
-.stc-site-order-filter .stc-toggle-dropdown-popup,
-.stc-site-type-filter .stc-toggle-dropdown-popup {
-  top: 120%;
-}
-.stc-site-order-filter .stc-toggle-dropdown-popup-item,
-.stc-site-type-filter .stc-toggle-dropdown-popup-item {
-  padding: 9px 17px;
-  font-size: var(--stc-font-size-xs);
-  color: var(--stc-color-body);
-}
-.stc-site-order-filter .stc-toggle-dropdown-popup-item:first-child:hover, .stc-site-order-filter .stc-toggle-dropdown-popup-item.active:first-child, .stc-site-order-filter .stc-toggle-dropdown-popup-item:last-child:hover, .stc-site-order-filter .stc-toggle-dropdown-popup-item.active:last-child,
-.stc-site-type-filter .stc-toggle-dropdown-popup-item:first-child:hover,
-.stc-site-type-filter .stc-toggle-dropdown-popup-item.active:first-child,
-.stc-site-type-filter .stc-toggle-dropdown-popup-item:last-child:hover,
-.stc-site-type-filter .stc-toggle-dropdown-popup-item.active:last-child {
-  border-radius: 0 0 var(--stc-border-radius-4) var(--stc-border-radius-4);
-}
-
-.stc-site-type-filter {
-  margin-left: 15px;
-}
-
-.st-related-site-message,
-.st-suggested-site-message,
-.st-sites-found-message {
-  text-align: right;
-  font-size: var(--st-font-size-xs);
-  color: var(--st-color-heading);
-}
-
-.step-site-list .step-actions p {
-  font-weight: 500;
-  font-size: 22px;
-  color: #3B3F5C;
-}
-.step-site-list #ist-bashcanvas {
-  display: none;
-}
-
-.st-sites-found-message {
-  position: absolute;
-  top: -40px;
-}
-
-.site-loading .site-list-screen-wrap {
-  opacity: 0;
-}
-
-.site-loaded .site-list-loading-skeleton {
-  display: none;
-  transition: opacity 1s ease-out;
-  opacity: 0;
-}
-.site-loaded .site-list-screen-wrap {
-  animation: 300ms ease 0s normal forwards 1 fadein;
-}
-@keyframes fadein {
-  0% {
-    opacity: 0.7;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.cta-strip-right {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  grid-gap: 40px;
-}
-
-@media screen and (min-width: 768px) {
-  .st-other-filters {
-    padding-right: 22px;
-    padding-left: 22px;
-  }
-}
-/*!****************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./assets/src/steps/site-list/search-filter/style.scss ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************/
-/** Extend component styling */
-.st-search-filter {
-  --stc-suggestion-list-max-width: 740px;
-  --stc-suggestion-list-padding: 10px 20px;
-  --stc-suggestion-list-margin: 0 auto;
-  --stc-suggestion-list-position: absolute;
-  --stc-suggestion-list-border-radius: 0 0 4px 4px;
-}
-
-.st-search-box-wrap {
-  min-height: 63px;
-}
-
-.st-search-filter {
-  margin-top: 20px;
-  margin-bottom: 42px;
-  position: relative;
-  display: inline-block;
-}
-.st-search-filter .stc-suggestion-list {
-  border-top: none;
-}
-
-.st-search-box-fixed .st-search-box {
-  --stc-search-input-box-shadow: none;
-  --stc-search-input-height: 56px;
-  --stc-search-input-border: 1px solid var(--st-border-color);
-  --stc-search-input--focus-border: 1px solid var(--st-border-color);
-  position: fixed;
-  top: 9px;
-  right: 0;
-  left: 0;
-  max-width: 742px;
-  margin: 0 auto;
-}
-
-.st-templates-content {
-  margin-top: 10px;
-  --stc-sites-no-results-padding: 45px 30px 40px 0;
-}
-
-.site-list-content {
-  margin-top: 20px;
-}
-/*!********************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./assets/src/steps/site-list/no-favorite-sites/style.scss ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************/
-body {
-  --st-color-accent: #2563EB;
-  --st-color-accent-hover: #1D4ED8;
-  --st-color-heading: #1F2937;
-  --st-color-body: #4B5563;
-  --st-color-light-gray: #E5E7EB;
-  --st-color-placeholder: #6B7280;
-  --st-color-white: #FFFFFF;
-  --st-color-favorite: #E91E63;
-  --st-background-secondary: #F7F7F9;
-  --st-background-primary: #FFFFFF;
-  --st-background-light: #F9FAFB;
-  --st-font-size-xxl: 30px;
-  --st-font-size-xl: 24px;
-  --st-font-size-l: 20px;
-  --st-font-size-m: 18px;
-  --st-font-size-s: 16px;
-  --st-font-size-xs: 14px;
-  --st-font-weight-extra-bold: 600;
-  --st-font-weight-bold: 500;
-  --st-font-weight-normal: 400;
-  --st-font-line-height-xl: 36px;
-  --st-font-line-height-l: 32px;
-  --st-font-line-height-m: 28px;
-  --st-font-line-height-s: 24px;
-  --st-font-line-height-xs: 20px;
-  --st-border-color: #D1D5DB;
-  --st-border-radius-4: 4px;
-  --st-border-radius-3: 3px;
-  --st-border-radius-2: 2px;
-  --st-border-radius-1: 1px;
-}
-
-.st-no-favorites {
-  background: var(--st-background-secondary);
-  border-bottom: 1px solid var(--st-border-color);
-  box-sizing: border-box;
-  padding: 45px 0 40px 30px;
-  text-align: right;
-}
-/*!*********************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./assets/src/steps/site-list/header/style.scss ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************/
-.site-list-header {
-  --stc-toggle-dropdown-border-color: transparent;
-  --stc-toggle-dropdown-popup-item-margin: 0 0 10px 0;
-  --stc-toggle-dropdown-padding: 10px 10px 10px 10px;
-  --stc-toggle-dropdown-selected-padding: 27px 20px 27px 20px;
-  --stc-toggle-dropdown-popup-top: 100%;
-  --stc-toggle-dropdown-popup-left: 10px;
-  --stc-toggle-dropdown-icon-height: 7px;
-  position: relative;
-}
-.step-header .site-list-header.row {
-  padding: 0;
-  position: relative;
-  pointer-events: none;
-  z-index: 1;
-}
-.step-header .site-list-header.row .st-header-left,
-.step-header .site-list-header.row .st-header-right {
-  pointer-events: auto;
-}
-.site-list-header .st-exit-to-dashboard {
-  padding: 26px 30px;
-}
-.site-list-header .st-exit-to-dashboard svg {
-  margin: 0;
-}
-.site-list-header .st-page-builder-filter {
-  border-right: 1px solid var(--st-border-color);
-  border-left: 1px solid var(--st-border-color);
-}
-.site-list-header .st-page-builder-filter .st-page-builder-toggle .stc-toggle-dropdown-selected {
-  width: 195px;
-}
-.site-list-header .st-page-builder-filter .st-page-builder-toggle .stc-toggle-dropdown-popup {
-  border-radius: 0 0 var(--stc-border-radius-4) var(--stc-border-radius-4);
-  width: 195px;
-  right: 0;
-}
-/*!**************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./assets/src/components/logo/style.scss ***!
-  \**************************************************************************************************************************************************************************************************************************************************************/
-.ist-logo {
-  --stc-logo-height: 40px;
-  --stc-logo-width: 40px;
-}
-/*!****************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./assets/src/components/exist-to-dashboard/style.scss ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************/
-
-/*!*********************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./assets/src/steps/site-list/header/my-favorite/style.scss ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************/
-.st-my-favorite {
-  cursor: pointer;
-}
-.st-my-favorite svg {
-  width: 16px;
-  height: 16px;
-  fill: var(--st-color-placeholder);
-}
-.st-my-favorite.active svg,
-.st-my-favorite :hover svg {
-  fill: var(--st-color-favorite);
-}
-.st-my-favorite .stc-tooltip-content {
-  left: 0;
-}
-/*!**********************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./assets/src/steps/site-list/header/sync-library/style.scss ***!
-  \**********************************************************************************************************************************************************************************************************************************************************************************/
-.st-sync-library {
-  cursor: pointer;
-  margin: 0 30px;
-}
-.st-sync-library .stc-tooltip-content {
-  left: 0;
-}
-.st-sync-library.loading svg {
-  animation: rotate 2s infinite linear;
-}
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(-360deg);
-  }
-}
-/*!*************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./assets/src/components/change-template/style.scss ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************/
-.change-template-wrap {
-  padding: 4% 8%;
-  background: var(--st-background-secondary);
-  display: flex;
-  align-items: center;
-  align-content: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--st-border-color);
-}
-.change-template-wrap .template-name h5 {
-  color: var(--st-color-body);
-  margin-bottom: 5px;
-}
-.change-template-wrap .stc-grid-item-badge {
-  position: unset;
-}
-.change-template-wrap .label {
-  color: var(--st-color-placeholder);
-}
-.change-template-wrap .change-btn-wrap {
-  cursor: pointer;
-}
-.change-template-wrap .change-btn {
-  background: transparent;
-  border: 1px solid #626262;
-  border-radius: var(--st-border-radius-3);
-  padding: 6px;
-  font-weight: var(--st-font-weight-normal);
-  font-size: var(--st-font-size-xs);
-  line-height: var(--st-font-line-height-l);
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-}
-.change-template-wrap .change-btn:hover {
-  border-color: var(--st-color-heading);
-}
-.change-template-wrap .change-btn:hover svg path {
-  fill: var(--st-color-heading);
-}
-/*!************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./assets/src/components/media-uploader/style.scss ***!
-  \************************************************************************************************************************************************************************************************************************************************************************/
-.ist-selected-image {
-  position: relative;
-  margin-top: 20px;
-  display: flex;
-  margin-bottom: 2em;
-  width: 100%;
-  text-align: center;
-  cursor: pointer;
-  min-height: 100px;
-  border: 1px dashed var(--st-color-accent);
-  border-radius: 2px;
-  padding: 20px;
-}
-.ist-selected-image img {
-  max-width: 100%;
-  vertical-align: middle;
-  width: 80%;
-}
-.ist-selected-image:hover .ist-change-logo {
-  opacity: 1;
-  visibility: visible;
-}
-
-.ist-remove-logo {
-  cursor: pointer;
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  background: #FFFFFF;
-  box-shadow: -2px 0px 4px rgba(0, 0, 0, 0.15);
-  border-radius: 50%;
-  height: 20px;
-  width: 20px;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-}
-
-.ist-change-logo {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  text-align: center;
-  background: #fff;
-  padding: 10px 0;
-  color: #646464;
-  border: 1px dashed var(--st-color-accent);
-  transition: 0.3s all ease-in-out;
-  margin: 0;
-  opacity: 0;
-  visibility: hidden;
-  cursor: pointer;
-  border-width: 1px 0 0 0;
-  border-radius: 0;
-}
-
-.ist-logo-preview-wrap {
-  align-self: center;
-  margin: 0 auto;
-}
-
-.ist-logo-wrapper {
-  position: relative;
-}
-
-.templatiq-sites-ai-logo-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.templatiq-sites-ai-logo-wrap .control-reset {
-  cursor: pointer;
-}
-.templatiq-sites-ai-logo-wrap .control-reset.disabled {
-  cursor: default;
-}
-.templatiq-sites-ai-logo-wrap .control-reset.disabled svg path {
-  fill: var(--st-border-color);
-}
-
-.step-customizer .step-content button {
-  width: 100%;
-  margin-top: 30px;
-  margin-bottom: 15px;
-}
-.step-customizer .step-content button.disabled-btn {
-  background-color: var(--st-color-placeholder);
-}
-.step-customizer .step-actions .ist-link:nth-child(2) {
-  color: var(--st-color-accent);
-}
-.step-customizer .step-actions .ist-link:nth-child(2) svg {
-  fill: var(--st-color-accent);
 }
 /*!***************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./assets/src/components/error/style.scss ***!
@@ -912,216 +549,12 @@ body {
 .import-done .import-done-section {
   display: block;
 }
-/*!***********************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./assets/src/steps/survey/style.scss ***!
-  \***********************************************************************************************************************************************************************************************************************************************************/
-.survey-container {
-  background: var(--st-background-primary);
-  box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
-  border-radius: var(--st-border-radius-4);
-  width: 600px;
-  padding: 35px;
-  margin: 0 auto;
-  text-align: right;
-}
-.survey-container input[type=checkbox]:checked:before {
-  content: url("data:image/svg+xml;utf8,<svg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27><path%20d%3D%27M14.83%204.89l1.34.94-5.81%208.38H9.02L5.78%209.67l1.34-1.25%202.57%202.4z%27%20fill%3D%27%232563EB%27%2F><%2Fsvg>");
-}
-.survey-container .required-plugins-form h5,
-.survey-container .install-plugins-form h5 {
-  margin-bottom: 22px;
-}
-.survey-container .required-plugins-form p,
-.survey-container .install-plugins-form p {
-  margin-bottom: 26px;
-}
-.survey-container .required-plugins-form .third-party-required-plugins-list,
-.survey-container .required-plugins-form .manual-required-plugins-list,
-.survey-container .install-plugins-form .third-party-required-plugins-list,
-.survey-container .install-plugins-form .manual-required-plugins-list {
-  list-style: auto;
-  margin: 10px 20px;
-}
-.survey-container .required-plugins-form .third-party-required-plugins-list li,
-.survey-container .required-plugins-form .manual-required-plugins-list li,
-.survey-container .install-plugins-form .third-party-required-plugins-list li,
-.survey-container .install-plugins-form .manual-required-plugins-list li {
-  font-size: var(--st-font-size-xs);
-  line-height: var(--st-font-line-height-xl);
-}
-.survey-container h1 {
-  text-align: right;
-  padding-bottom: 35px;
-}
-.survey-container .row-label {
-  margin-bottom: 20px;
-}
-.survey-container .survey-fields-wrap {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 15px;
-  margin-bottom: 20px;
-}
-.survey-container .survey-text-input {
-  background: var(--st-background-primary);
-  border: 1px solid var(--st-border-color);
-  border-radius: var(--st-border-radius-3);
-  padding: 10px 15px;
-  width: 100%;
-}
-.survey-container .survey-text-input::-moz-placeholder {
-  color: var(--st-color-placeholder);
-}
-.survey-container .survey-text-input::placeholder {
-  color: var(--st-color-placeholder);
-}
-.survey-container .survey-text-input:focus {
-  border-color: var(--st-color-accent);
-}
-.survey-container .survey-select-input {
-  border: 1px solid var(--st-border-color);
-  border-radius: var(--st-border-radius-3);
-  padding: 10px 15px;
-  width: 100%;
-  color: #2c3338;
-}
-.survey-container .survey-select-input option:not(:first-of-type) {
-  color: #2c3338;
-}
-.survey-container .survey-select-input::-moz-placeholder {
-  color: var(--st-color-placeholder);
-}
-.survey-container .survey-select-input::placeholder {
-  color: var(--st-color-placeholder);
-}
-.survey-container .survey-select-input:focus {
-  border-color: var(--st-color-accent);
-}
-.survey-container .survey-select-input:hover {
-  color: #2c3338;
-}
-.survey-container .survey-select-input.initial {
-  color: var(--st-color-placeholder);
-}
-.survey-container .hidden-section .survey-advanced-section {
-  visibility: hidden;
-}
-.survey-container .survey-form-advanced-wrapper .advanced-options-icons {
-  cursor: pointer;
-  display: flex;
-}
-.survey-container .survey-form-advanced-wrapper .row-label {
-  display: flex;
-  align-items: center;
-  align-content: center;
-  grid-gap: 10px;
-}
-.survey-container .survey-form-advanced-wrapper ul {
-  margin: 0;
-  padding: 0;
-}
-.survey-container .survey-form-advanced-wrapper li {
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  align-content: stretch;
-  grid-gap: 10px;
-}
-.survey-container .survey-form-advanced-wrapper li:last-child {
-  margin-bottom: 0;
-}
-.survey-container .survey-form-advanced-wrapper li input {
-  margin: 0;
-  border: 1px solid var(--st-color-body);
-  border-radius: var(--st-border-radius-3);
-}
-.survey-container .survey-form-advanced-wrapper li.theme-check {
-  margin-right: 2em;
-}
-.survey-container .survey-form-advanced-wrapper li label {
-  font-size: var(--st-font-size-xs);
-  line-height: var(--st-font-line-height-xs);
-  color: var(--st-color-body);
-}
-.survey-container .survey-form-advanced-wrapper svg {
-  cursor: pointer;
-}
-.survey-container .submit-survey-btn.button-text {
-  padding: 15px 32px;
-  width: 100%;
-  color: var(--st-color-white);
-  background: var(--st-color-accent);
-  border: none;
-  cursor: pointer;
-  margin-top: 3em;
-  align-content: center;
-  grid-gap: 15px;
-  border-radius: var(--st-border-radius-4);
-  font-weight: var(--st-font-weight-bold);
-  font-size: 15px;
-}
-.survey-container .stc-tooltip-content {
-  min-width: 310px;
-  text-align: right;
-  line-height: 1.4;
-}
-.survey-container .requirement-check-wrap .current-php-version,
-.survey-container .requirement-check-wrap .current-file-system-permissions {
-  margin-top: 10px;
-}
-.survey-container .requirement-check-wrap button.submit-survey-btn:disabled {
-  background: var(--st-color-light-gray);
-  color: var(--st-color-placeholder);
-  cursor: not-allowed;
-}
-.survey-container .requirement-check-wrap button.submit-survey-btn:disabled svg path {
-  fill: var(--st-color-placeholder);
-}
-.survey-container .requirement-check-wrap .requirement-check-list {
-  list-style: auto;
-  margin: 10px 20px;
-}
-.survey-container .requirement-check-wrap .requirement-check-list li {
-  font-size: var(--st-font-size-xs);
-  line-height: var(--st-font-line-height-l);
-}
-.survey-container .requirement-check-wrap .requirement-check-list li p {
-  color: var(--st-color-white);
-}
-.survey-container .requirement-check-wrap .requirement-check-list .requirement-list-item {
-  display: flex;
-  align-content: center;
-  align-items: center;
-  grid-gap: 10px;
-}
-.survey-container .requirement-check-wrap .requirement-check-list .requirement-list-item .dashicons-yes {
-  color: var(--st-color-success, #39b54a);
-}
-.survey-container .requirement-check-wrap .requirement-check-list .requirement-list-item .dashicons-no {
-  color: var(--st-color-error, #d72b3f);
-}
-.survey-container .requirement-check-wrap .requirement-check-list .stc-tooltip {
-  display: flex;
-}
-.survey-container .requirement-check-wrap .requirement-check-list .stc-tooltip .stc-tooltip-content {
-  min-width: 400px;
-}
-.survey-container .requirement-check-wrap .requirement-check-list .stc-tooltip .stc-tooltip-content ul {
-  list-style: auto;
-  margin: 6px 17px;
-}
-.survey-container .requirement-check-wrap .requirement-check-list .stc-tooltip .stc-tooltip-content li {
-  line-height: var(--st-font-line-height-s);
-}
-
-.subscription-agreement-checkbox-label {
-  display: block;
-  font-size: var(--st-font-size-xs);
-  margin-bottom: 20px;
-}
-
-input.subscription-agreement-checkbox {
-  margin-left: 10px;
+/*!**************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./assets/src/components/logo/style.scss ***!
+  \**************************************************************************************************************************************************************************************************************************************************************/
+.ist-logo {
+  --stc-logo-height: 40px;
+  --stc-logo-width: 40px;
 }
 /*!**********************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./assets/src/style.scss ***!

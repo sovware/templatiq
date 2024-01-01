@@ -28,10 +28,6 @@ const Steps = () => {
 		const previousIndex = parseInt( currentIndex ) - 1;
 		const nextIndex = parseInt( currentIndex ) + 1;
 
-<<<<<<< HEAD
-		console.log('Index', previousIndex, nextIndex, STEPS.length, currentIndex);
-=======
->>>>>>> 494767133ecd24d4bbd4a95364c3da6dcd0ef135
 		if ( nextIndex > 0 && nextIndex < STEPS.length ) {
 			document.body.classList.remove( STEPS[ nextIndex ].class );
 		}
@@ -40,7 +36,7 @@ const Steps = () => {
 			document.body.classList.remove( STEPS[ previousIndex ].class );
 		}
 
-		document.body.classList.add( STEPS[ currentIndex ].class );
+		document.body.classList.add( STEPS[ currentsIndex ].class );
 	}, [] );
 
 	useEffect( () => {
