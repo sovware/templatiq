@@ -7,6 +7,7 @@
 
 namespace Templatiq\Onboarding;
 
+use Templatiq\FullSite\FullSite;
 use Templatiq\Utils\Singleton;
 use Templatiq_Sites;
 use Templatiq_Sites_Helper;
@@ -67,8 +68,6 @@ class Onboarding {
 
 		// Assets loading.
 		add_action( 'admin_enqueue_scripts', [$this, 'enqueue_scripts'] );
-
-		add_filter( 'admin_init', [$this, 'st_brizy_flag_field'] );
 	}
 
 	/**
@@ -138,7 +137,7 @@ class Onboarding {
 
 		remove_all_actions( 'admin_notices' );
 
-		$data = Templatiq_Sites::get_instance()->get_local_vars();
+		$data = FullSite::init()->get_local_vars();
 
 		wp_localize_script( 'jquery', 'templatiqSitesVars', $data );
 
@@ -195,7 +194,7 @@ class Onboarding {
 		);
 
 		$spectraTheme = 'not-installed';
-		$themeStatus  = Templatiq_Sites::get_instance()->get_theme_status();
+		$themeStatus  = FullSite::init()->get_theme_status();
 		// Theme installed and activate.
 		if ( 'spectra-one' === get_option( 'stylesheet', 'onedirectory' ) ) {
 			$spectraTheme = 'installed-and-active';
@@ -217,10 +216,9 @@ class Onboarding {
 			'restNonce'           => wp_create_nonce( 'wp_rest' ),
 			'retryTimeOut'        => 5000, // 10 Seconds.
 			'siteUrl' => get_site_url(),
-			'searchData'          => Templatiq_Sites::get_instance()->get_api_domain() . 'wp-json/starter-templates/v1/ist-data',
+			'searchData'          => FullSite::init()->get_api_domain() . 'wp-json/starter-templates/v1/ist-data',
 			'firstImportStatus'   => get_option( 'templatiq_sites_import_complete', false ),
 			'supportLink'         => 'https://wpastra.com/starter-templates-support/?ip=' . Templatiq_Sites_Helper::get_client_ip(),
-			'isBrizyEnabled'      => get_option( 'st-brizy-builder-flag' ),
 			'isElementorDisabled' => get_option( 'st-elementor-builder-flag' ),
 			'analytics'           => get_site_option( 'bsf_analytics_optin', false ),
 			'phpVersion'          => PHP_VERSION,
@@ -270,39 +268,4 @@ class Onboarding {
 
 		return $fonts_url;
 	}
-
-	/**
-	 * Register Enable Brizy templates flag.
-	 *
-	 * @return void
-	 */
-	public function st_brizy_flag_field() {
-		register_setting( 'general', 'st-brizy-builder-flag', 'esc_attr' );
-		register_setting( 'general', 'st-elementor-builder-flag', 'esc_attr' );
-		add_settings_field( 'st-brizy-builder-flag', '<label for="st-brizy-builder-flag">' . 'Starter Templates' . '</label>', [$this, 'st_brizy_flag'], 'general' );
-	}
-
-	/**
-	 * Enable Brizy templates flag markup.
-	 *
-	 * @return void
-	 */
-	public function st_brizy_flag() {
-		$value           = get_option( 'st-brizy-builder-flag' );
-		$elementor_value = get_option( 'st-elementor-builder-flag' );
-		ob_start();
-		?>
-			<div style="display:flex;flex-direction:column;gap:15px;padding:10px;">
-				<label>
-					<input id='st-brizy-builder-flag' type='checkbox' name='st-brizy-builder-flag' value='1' <?php checked( 1, $value, true );?>>
-					<?php _e( 'Enable Brizy Page Builder Templates in Starter Templates', 'templatiq-sites' );?>
-				</label>
-				<label>
-					<input id='st-elementor-builder-flag' type='checkbox' name='st-elementor-builder-flag' value='1' <?php checked( 1, $elementor_value, true );?>>
-					<?php _e( 'Disable Elementor Page Builder Templates in Starter Templates', 'templatiq-sites' );?>
-				</label>
-			</div>
-		<?php echo ob_get_clean();
-	}
-
 }

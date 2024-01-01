@@ -15,48 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Reporting error
- */
 class SitesReporting {
 	use Singleton;
 
-	/**
-	 * Member Variable
-	 *
-	 * @var instance
-	 */
-	private static $instance;
-
-	/**
-	 * Initiator
-	 *
-	 * @since 3.1.4
-	 */
-	public static function get_instance() {
-		if ( ! isset( self::$instance ) ) {
-			self::$instance = new self();
-		}
-
-		return self::$instance;
-	}
-
-	/**
-	 * Constructor
-	 *
-	 * @since 3.1.4
-	 */
 	public function __construct() {
 		add_action( 'st_before_start_import_process', [$this, 'schedule_reporting_event'] );
 		add_action( 'generate_analytics_lead', [$this, 'send_analytics_lead'] );
 	}
 
-	/**
-	 * Schedule the reporting of Error.
-	 *
-	 * @since 3.1.4
-	 * @return void
-	 */
 	public function schedule_reporting_event() {
 		$has_sent_error_report = get_option( 'templatiq_sites_has_sent_error_report', 'no' );
 		if ( 'no' === $has_sent_error_report ) {
@@ -66,12 +32,6 @@ class SitesReporting {
 		}
 	}
 
-	/**
-	 * Send Error.
-	 *
-	 * @since 3.1.4
-	 * @return void
-	 */
 	public function send_analytics_lead() {
 		$cached_errors = get_option( 'templatiq_sites_cached_import_error', false );
 
@@ -101,12 +61,6 @@ class SitesReporting {
 		delete_option( 'templatiq_sites_cached_import_error' );
 	}
 
-	/**
-	 * Report Error.
-	 *
-	 * @param array $data Error data.
-	 * @since 3.1.4
-	 */
 	public function report( $data ) {
 		$id                = isset( $data['id'] ) ? absint( $data['id'] ) : 0;
 		$import_attempts   = isset( $data['import_attempts'] ) ? absint( $data['import_attempts'] ) : 0;

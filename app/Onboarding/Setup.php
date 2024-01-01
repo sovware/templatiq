@@ -11,22 +11,10 @@ use Templatiq\Utils\Singleton;
 use Templatiq_Sites;
 
 class Setup {
-
 	use Singleton;
 
-	/**
-	 * FSE logo attributes
-	 *
-	 * @since 3.3.0
-	 * @var (array) fse_logo_attributes
-	 */
 	public static $fse_logo_attributes = [];
 
-	/**
-	 * Constructor
-	 *
-	 * @since 3.0.0-beta.1
-	 */
 	public function __construct() {
 		if ( 'spectra-one' === get_option( 'stylesheet', 'astra' ) ) {
 			add_action( 'wp_ajax_templatiq_sites_set_site_data', [$this, 'set_fse_site_data'] );
@@ -38,32 +26,14 @@ class Setup {
 		add_action( 'st_before_sending_error_report', [$this, 'temporary_cache_errors'], 10, 1 );
 	}
 
-	/**
-	 * Delete transient for import process.
-	 *
-	 * @since 3.1.4
-	 * @return void
-	 */
 	public function temporary_cache_errors( $posted_data ) {
 		update_option( 'templatiq_sites_cached_import_error', $posted_data, 'no' );
 	}
 
-	/**
-	 * Delete transient for import process.
-	 *
-	 * @since 3.1.4
-	 * @return void
-	 */
 	public function delete_transient_for_import_process() {
 		delete_transient( 'templatiq_sites_import_started' );
 	}
 
-	/**
-	 * Report Error.
-	 *
-	 * @since 3.0.0
-	 * @return void
-	 */
 	public function report_error() {
 		$api_url = add_query_arg( [], trailingslashit( Templatiq_Sites::get_instance()->get_api_domain() ) . 'wp-json/starter-templates/v2/import-error/' );
 
@@ -130,12 +100,6 @@ class Setup {
 		wp_send_json_error( $data );
 	}
 
-	/**
-	 * Get full path of the created log file.
-	 *
-	 * @return string File Path.
-	 * @since 3.0.25
-	 */
 	public function get_log_file_path() {
 		$log_file = get_option( 'templatiq_sites_recent_import_log_file', false );
 		if ( ! empty( $log_file ) && isset( $log_file ) ) {
@@ -145,12 +109,6 @@ class Setup {
 		return "";
 	}
 
-	/**
-	 * Get installed PHP version.
-	 *
-	 * @return float PHP version.
-	 * @since 3.0.16
-	 */
 	public function get_php_version() {
 		if ( defined( 'PHP_MAJOR_VERSION' ) && defined( 'PHP_MINOR_VERSION' ) && defined( 'PHP_RELEASE_VERSION' ) ) { // phpcs:ignore
 			return PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION . '.' . PHP_RELEASE_VERSION;
@@ -159,12 +117,6 @@ class Setup {
 		return phpversion();
 	}
 
-	/**
-	 * Set site related data.
-	 *
-	 * @since 3.0.0-beta.1
-	 * @return void
-	 */
 	public function set_site_data() {
 
 		check_ajax_referer( 'templatiq-sites-set-ai-site-data', 'security' );
@@ -303,12 +255,6 @@ class Setup {
 		wp_send_json_success();
 	}
 
-	/**
-	 * Set FSE site related data.
-	 *
-	 * @since 3.3.0
-	 * @return void
-	 */
 	public function set_fse_site_data() {
 
 		check_ajax_referer( 'templatiq-sites-set-ai-site-data', 'security' );
@@ -329,7 +275,6 @@ class Setup {
 		}
 
 		switch ( $param ) {
-
 			case 'site-logo' === $param:
 				$logo       = isset( $_POST['logo'] ) ? absint( $_POST['logo'] ) : 0;
 				$logo_width = isset( $_POST['logo-width'] ) ? sanitize_text_field( $_POST['logo-width'] ) : '';
@@ -359,7 +304,6 @@ class Setup {
 
 						}
 						$colors_content['settings']['color']['palette']['theme'] = $set_colors;
-
 					}
 
 					$update_colors = [
@@ -439,12 +383,6 @@ class Setup {
 		wp_send_json_success();
 	}
 
-	/**
-	 * Set FSE site related data.
-	 *
-	 * @since 3.3.0
-	 * @return void
-	 */
 	public function update_fse_site_logo( $post_name ) {
 		$args = [
 			'orderby'     => 'post_type',
@@ -502,6 +440,5 @@ class Setup {
 			// Update the post into the database
 			wp_update_post( $update_post );
 		}
-
 	}
 }
