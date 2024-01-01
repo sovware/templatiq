@@ -208,6 +208,10 @@ class Ajax {
 		$code      = (int) wp_remote_retrieve_response_code( $request );
 		$demo_data = json_decode( wp_remote_retrieve_body( $request ), true );
 
+		error_log( print_r( $demo_data ,true) );
+		
+		wp_send_json_success( $demo_data );
+
 		if ( 200 === $code ) {
 			error_log( print_r( $demo_data, true ) );
 			update_option( 'templatiq_sites_import_data', $demo_data, 'no' );

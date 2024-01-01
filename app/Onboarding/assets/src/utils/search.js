@@ -18,7 +18,6 @@ const isAnyWordMatching = ( search, content ) => {
 };
 
 export const getSitesBySearchTerm = function (
-	searchTerm,
 	type,
 	category,
 	pageBuilder,
@@ -26,7 +25,6 @@ export const getSitesBySearchTerm = function (
 	allCategories,
 	allCategoriesAndTags
 ) {
-	searchTerm = searchTerm.toLowerCase().trim();
 
 	const result = {
 		tags: [],

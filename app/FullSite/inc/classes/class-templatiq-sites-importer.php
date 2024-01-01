@@ -6,6 +6,8 @@
  * @package Templatiq Sites
  */
 
+use Templatiq\FullSite\FullSite;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -456,7 +458,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 		public static function get_single_demo( $demo_api_uri ) {
 
 			if ( is_int( $demo_api_uri ) ) {
-				$demo_api_uri = Templatiq_Sites::get_instance()->get_api_url() . 'templatiq-sites/' . $demo_api_uri;
+				$demo_api_uri = FullSite::init()->get_api_url() . 'templatiq-sites/' . $demo_api_uri;
 			}
 
 			// default values.
@@ -511,6 +513,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			// $response = wp_remote_get( $demo_api_uri, $api_args );
 			$response = wp_remote_post( $demo_api_uri, $api_args );
 
+			return $response;
 
 			if ( is_wp_error( $response ) || ( isset( $response->status ) && 0 === $response->status ) ) {
 				if ( isset( $response->status ) ) {

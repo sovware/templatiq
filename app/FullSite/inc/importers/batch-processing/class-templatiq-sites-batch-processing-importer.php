@@ -6,6 +6,8 @@
  * @since 2.0.0
  */
 
+use Templatiq\FullSite\FullSite;
+
 if ( ! class_exists( 'Templatiq_Sites_Batch_Processing_Importer' ) ) :
 
 	/**
@@ -58,7 +60,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing_Importer' ) ) :
 			$api_args     = array(
 				'timeout' => 30,
 			);
-			$request = wp_remote_get( trailingslashit( Templatiq_Sites::get_instance()->get_api_domain() ) . 'wp-content/uploads/all-site-categories.json', $api_args );
+			$request = wp_remote_get( trailingslashit( FullSite::init()->get_api_domain() ) . 'wp-content/uploads/all-site-categories.json', $api_args );
 			if ( ! is_wp_error( $request ) && 200 === (int) wp_remote_retrieve_response_code( $request ) ) {
 				$cats = json_decode( wp_remote_retrieve_body( $request ), true );
 
@@ -93,7 +95,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing_Importer' ) ) :
 			$api_args     = array(
 				'timeout' => 30,
 			);
-			$request = wp_remote_get( trailingslashit( Templatiq_Sites::get_instance()->get_api_domain() ) . 'wp-json/wp/v2/templatiq-sites-site-category/?hide_empty=true&_fields=id,name,slug&per_page=100', $api_args );
+			$request = wp_remote_get( trailingslashit( FullSite::init()->get_api_domain() ) . 'wp-json/wp/v2/templatiq-sites-site-category/?hide_empty=true&_fields=id,name,slug&per_page=100', $api_args );
 			if ( ! is_wp_error( $request ) && 200 === (int) wp_remote_retrieve_response_code( $request ) ) {
 				$cats = json_decode( wp_remote_retrieve_body( $request ), true );
 
@@ -128,7 +130,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing_Importer' ) ) :
 			$api_args           = array(
 				'timeout' => 30,
 			);
-			$categories_request = wp_remote_get( trailingslashit( Templatiq_Sites::get_instance()->get_api_domain() ) . 'wp-json/wp/v2/templatiq-sites-site-category/?hide_empty=true&_fields=id,name,slug&per_page=100', $api_args );
+			$categories_request = wp_remote_get( trailingslashit( FullSite::init()->get_api_domain() ) . 'wp-json/wp/v2/templatiq-sites-site-category/?hide_empty=true&_fields=id,name,slug&per_page=100', $api_args );
 			if ( ! is_wp_error( $categories_request ) && 200 === (int) wp_remote_retrieve_response_code( $categories_request ) ) {
 				$categories = json_decode( wp_remote_retrieve_body( $categories_request ), true );
 
@@ -163,7 +165,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing_Importer' ) ) :
 			$api_args     = array(
 				'timeout' => 30,
 			);
-			$tags_request = wp_remote_get( trailingslashit( Templatiq_Sites::get_instance()->get_api_domain() ) . 'wp-json/wp/v2/blocks-category/?_fields=id,name,slug&per_page=100&hide_empty=1', $api_args );
+			$tags_request = wp_remote_get( trailingslashit( FullSite::init()->get_api_domain() ) . 'wp-json/wp/v2/blocks-category/?_fields=id,name,slug&per_page=100&hide_empty=1', $api_args );
 			if ( ! is_wp_error( $tags_request ) && 200 === (int) wp_remote_retrieve_response_code( $tags_request ) ) {
 				$tags = json_decode( wp_remote_retrieve_body( $tags_request ), true );
 
@@ -200,14 +202,14 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing_Importer' ) ) :
 			templatiq_sites_error_log( 'Requesting Page Builders' );
 			update_site_option( 'templatiq-sites-batch-status-string', 'Requesting Page Builders' );
 
-			$purchase_key = Templatiq_Sites::get_instance()->get_license_key();
+			$purchase_key = FullSite::init()->get_license_key();
 			$site_url     = get_site_url();
 
 			$api_args = array(
 				'timeout' => 30,
 			);
 
-			$page_builder_request = wp_remote_get( trailingslashit( Templatiq_Sites::get_instance()->get_api_domain() ) . 'wp-json/wp/v2/astra-site-page-builder/?_fields=id,name,slug&site_url=' . $site_url . '&purchase_key=' . $purchase_key, $api_args );
+			$page_builder_request = wp_remote_get( trailingslashit( FullSite::init()->get_api_domain() ) . 'wp-json/wp/v2/astra-site-page-builder/?_fields=id,name,slug&site_url=' . $site_url . '&purchase_key=' . $purchase_key, $api_args );
 			if ( ! is_wp_error( $page_builder_request ) && 200 === (int) wp_remote_retrieve_response_code( $page_builder_request ) ) {
 				$page_builders = json_decode( wp_remote_retrieve_body( $page_builder_request ), true );
 
@@ -256,7 +258,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing_Importer' ) ) :
 				)
 			);
 
-			$api_url = add_query_arg( $query_args, trailingslashit( Templatiq_Sites::get_instance()->get_api_domain() ) . 'wp-json/astra-blocks/v1/blocks/' );
+			$api_url = add_query_arg( $query_args, trailingslashit( FullSite::init()->get_api_domain() ) . 'wp-json/astra-blocks/v1/blocks/' );
 
 			$response = wp_remote_get( $api_url, $api_args );
 
@@ -311,7 +313,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing_Importer' ) ) :
 				)
 			);
 
-			$api_url = add_query_arg( $query_args, trailingslashit( Templatiq_Sites::get_instance()->get_api_domain() ) . 'wp-json/templatiq-sites/v1/sites-and-pages/' );
+			$api_url = add_query_arg( $query_args, trailingslashit( FullSite::init()->get_api_domain() ) . 'wp-json/templatiq-sites/v1/sites-and-pages/' );
 
 			$response = wp_remote_get( $api_url, $api_args );
 			if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {

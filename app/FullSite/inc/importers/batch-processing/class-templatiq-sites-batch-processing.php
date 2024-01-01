@@ -6,6 +6,8 @@
  * @since 1.0.14
  */
 
+use Templatiq\FullSite\FullSite;
+
 if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 
 	/**
@@ -376,7 +378,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 				'timeout' => 60,
 			);
 
-			$response = wp_remote_get( trailingslashit( Templatiq_Sites::get_instance()->get_api_domain() ) . 'wp-json/templatiq-sites/v1/get-last-export-checksums', $api_args );
+			$response = wp_remote_get( trailingslashit( FullSite::init()->get_api_domain() ) . 'wp-json/templatiq-sites/v1/get-last-export-checksums', $api_args );
 			if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
 				$result = json_decode( wp_remote_retrieve_body( $response ), true );
 
@@ -432,7 +434,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 				$list_files = $this->get_default_assets();
 				foreach ( $list_files as $key => $file_name ) {
 					if ( file_exists( $dir . '/' . $file_name . '.json' ) ) {
-						$data = Templatiq_Sites::get_instance()->get_filesystem()->get_contents( $dir . '/' . $file_name . '.json' );
+						$data = FullSite::init()->get_filesystem()->get_contents( $dir . '/' . $file_name . '.json' );
 						if ( ! empty( $data ) ) {
 							update_site_option( $file_name, json_decode( $data, true ) );
 						}
@@ -709,7 +711,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 				'timeout' => 60,
 			);
 
-			$response = wp_remote_get( trailingslashit( Templatiq_Sites::get_instance()->get_api_domain() ) . 'wp-json/templatiq-sites/v1/get-total-pages/?per_page=15', $api_args );
+			$response = wp_remote_get( trailingslashit( FullSite::init()->get_api_domain() ) . 'wp-json/templatiq-sites/v1/get-total-pages/?per_page=15', $api_args );
 			if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
 				$total_requests = json_decode( wp_remote_retrieve_body( $response ), true );
 
@@ -748,7 +750,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 				'wireframe'    => 'yes',
 			);
 
-			$api_url = add_query_arg( $query_args, trailingslashit( Templatiq_Sites::get_instance()->get_api_domain() ) . 'wp-json/astra-blocks/v1/get-blocks-count/' );
+			$api_url = add_query_arg( $query_args, trailingslashit( FullSite::init()->get_api_domain() ) . 'wp-json/astra-blocks/v1/get-blocks-count/' );
 
 			$response = wp_remote_get( $api_url, $api_args );
 			if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {

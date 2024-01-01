@@ -6,6 +6,8 @@
  * @since 2.5.0
  */
 
+use Templatiq\FullSite\FullSite;
+
 if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 
 	/**
@@ -458,7 +460,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 				$plugins = (array) $demo_data['required-plugins'];
 
 				if ( ! empty( $plugins ) ) {
-					$plugin_status = Templatiq_Sites::get_instance()->required_plugin( $plugins, $demo_data['astra-site-options-data'], $demo_data['astra-enabled-extensions'] );
+					$plugin_status = FullSite::init()->required_plugin( $plugins, $demo_data['astra-site-options-data'], $demo_data['astra-enabled-extensions'] );
 
 					// Install Plugins.
 					if ( ! empty( $plugin_status['required_plugins']['notinstalled'] ) ) {
@@ -470,7 +472,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 								$this->install_plugin( $plugin );
 
 								// Activate plugin.
-								Templatiq_Sites::get_instance()->required_plugin_activate( $plugin['init'], $demo_data['astra-site-options-data'], $demo_data['astra-enabled-extensions'] );
+								FullSite::init()->required_plugin_activate( $plugin['init'], $demo_data['astra-site-options-data'], $demo_data['astra-enabled-extensions'] );
 							}
 						}
 					}
@@ -479,7 +481,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 					if ( ! empty( $plugin_status['required_plugins']['inactive'] ) ) {
 						foreach ( $plugin_status['required_plugins']['inactive'] as $key => $plugin ) {
 							if ( isset( $plugin['init'] ) ) {
-								Templatiq_Sites::get_instance()->required_plugin_activate( $plugin['init'], $demo_data['astra-site-options-data'], $demo_data['astra-enabled-extensions'] );
+								FullSite::init()->required_plugin_activate( $plugin['init'], $demo_data['astra-site-options-data'], $demo_data['astra-enabled-extensions'] );
 							}
 						}
 					}
@@ -546,7 +548,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 		 * Backup Customizer Settings
 		 */
 		public function backup_customizer_settings() {
-			Templatiq_Sites::get_instance()->backup_settings();
+			FullSite::init()->backup_settings();
 		}
 
 		/**
@@ -665,7 +667,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 		public function reset_previously_import_site() {
 
 			// Get tracked data.
-			$reset_data = Templatiq_Sites::get_instance()->get_reset_data();
+			$reset_data = FullSite::init()->get_reset_data();
 
 			// Delete tracked posts.
 			if ( isset( $reset_data['reset_posts'] ) && ! empty( $reset_data['reset_posts'] ) ) {
@@ -706,7 +708,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 		 */
 		public function get_site_data( $id ) {
 			if ( empty( $this->current_site_data ) ) {
-				// @todo Use Templatiq_Sites::get_instance()->api_request() instead of below function.
+				// @todo Use FullSite::init()->api_request() instead of below function.
 				$this->current_site_data = Templatiq_Sites_Importer::get_instance()->get_single_demo( $id );
 				update_option( 'templatiq_sites_import_data', $this->current_site_data, 'no' );
 			}
