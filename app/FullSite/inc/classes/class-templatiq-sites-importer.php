@@ -499,7 +499,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				'templatiq_sites_api_params',
 				[
 					'token'       => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3RlbXBsYXRpcS5jb20iLCJpYXQiOjE3MDM2NTYxMjAsIm5iZiI6MTcwMzY1NjEyMCwiZXhwIjoxNzA0MjYwOTIwLCJkYXRhIjp7InVzZXIiOnsiaWQiOiI1MyJ9fX0.fQtfvI1JSE5L8gErtTy4y4oBo94JgszupRtQKpwZbuY',
-					'template_id' => 127393,
+					'template_id' => $demo_api_uri,
 				]
 			);
 

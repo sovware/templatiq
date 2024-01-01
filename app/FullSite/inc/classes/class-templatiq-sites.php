@@ -543,22 +543,22 @@ if ( ! class_exists( 'Templatiq_Sites' ) ):
 			wp_send_json_error();
 		}
 
-		$demo_data = Templatiq_Sites_Importer::get_instance()->get_single_demo( 12121212212 );
+		$template_id = isset( $_POST['template_id'] ) ? sanitize_text_field( $_POST['template_id'] ) : '';
+
+		if ( empty( $template_id ) ) {
+			wp_send_json_error(
+				array(
+					'message' => __( 'Provided template_id URL is empty! Please try again!', 'templatiq-sites' ),
+					'code'    => 'Error',
+				)
+			);
+		}
+
+		$demo_data = Templatiq_Sites_Importer::get_instance()->get_single_demo( $template_id );
 		update_option( 'templatiq_sites_import_data', $demo_data, 'no' );
 
 		error_log( print_r( $demo_data, true ) );
 		wp_send_json_success( $demo_data );
-
-		// $url = isset( $_POST['url'] ) ? sanitize_text_field( $_POST['url'] ) : '';
-
-		// if ( empty( $url ) ) {
-		// 	wp_send_json_error(
-		// 		array(
-		// 			'message' => __( 'Provided API URL is empty! Please try again!', 'templatiq-sites' ),
-		// 			'code'    => 'Error',
-		// 		)
-		// 	);
-		// }
 
 		// $api_args = apply_filters(
 		// 	'templatiq_sites_api_params', array(
