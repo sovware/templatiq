@@ -56,6 +56,7 @@ const Steps = () => {
 		const previousIndex = parseInt( currentIndex ) - 1;
 		const nextIndex = parseInt( currentIndex ) + 1;
 
+		console.log('Index', previousIndex, nextIndex);
 		if ( nextIndex > 0 && nextIndex < STEPS.length ) {
 			document.body.classList.remove( STEPS[ nextIndex ].class );
 		}

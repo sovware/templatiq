@@ -1433,14 +1433,20 @@ const ImportSite = () => {
 			} );
 		}
 
-		if ( themeActivateFlag && false === themeStatus ) {
-			installTemplatiq( storedState );
-		} else {
-			dispatch( {
-				type: 'set',
-				themeStatus: true,
-			} );
-		}
+		// if ( themeActivateFlag && false === themeStatus ) {
+		// 	installTemplatiq( storedState );
+		// } else {
+		// 	dispatch( {
+		// 		type: 'set',
+		// 		themeStatus: true,
+		// 	} );
+		// }
+		
+		dispatch( {
+			type: 'set',
+			themeStatus: true,
+		} );
+
 		sendReportFlag = false;
 		installRequiredPlugins();
 	}, [ templateResponse ] );
