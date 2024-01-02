@@ -219,8 +219,8 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			foreach ($types as $type) {
 			
 				$term['term_id'] = $type['term_id'];
-				if( ! term_exists( $type['name'] . ' Dummy', 'atbdp_listing_types' ) ) {
-					$term = wp_insert_term( $type['name'] . ' Dummy', 'atbdp_listing_types');
+				if( ! term_exists( $type['name'], 'atbdp_listing_types' ) ) {
+					$term = wp_insert_term( $type['name'], 'atbdp_listing_types');
 					error_log( 'Directory Type Inserted: ' . $term['term_id'] );
 				}
 			
