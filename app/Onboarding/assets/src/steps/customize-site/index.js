@@ -34,8 +34,8 @@ const CustomizeSite = () => {
 		// console.log(storedState);
 
 		await getDemo( template_id, dispatch );
-		// await checkRequiredPlugins( storedState );
-		// checkFileSystemPermissions( storedState );
+		await checkRequiredPlugins( dispatch );
+		checkFileSystemPermissions( dispatch );
 		
 	}, []);
 
@@ -110,6 +110,8 @@ const CustomizeSite = () => {
 		return () =>
 			window.removeEventListener( 'beforeunload', preventRefresh ); // eslint-disable-line
 	} );
+
+	console.log( 'currentCustomizeIndex: ',currentCustomizeIndex);
 
 	return (
 		<DefaultStep

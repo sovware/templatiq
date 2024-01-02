@@ -133,10 +133,6 @@ const Steps = () => {
 		} );
 	};
 
-
-	console.log(currentIndex)
-	console.log(current)
-
 	return (
 		<div className={ `st-step ${ current.class }` }>
 			{ currentIndex !== 2 && (

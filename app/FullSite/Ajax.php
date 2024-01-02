@@ -180,9 +180,9 @@ class Ajax {
 			);
 		}
 
-		$request = Templatiq_Sites_Importer::get_instance()->get_single_demo( $template_id );
+		$demo_data = Templatiq_Sites_Importer::get_instance()->get_single_demo( $template_id );
 
-		if ( is_wp_error( $request ) ) {
+		if ( is_wp_error( $demo_data ) ) {
 			$wp_error_code = $request->get_error_code();
 			switch ( $wp_error_code ) {
 				case 'http_request_not_executed':
@@ -205,12 +205,18 @@ class Ajax {
 			);
 		}
 
-		$code      = (int) wp_remote_retrieve_response_code( $request );
-		$demo_data = json_decode( wp_remote_retrieve_body( $request ), true );
+		update_option( 'templatiq_sites_import_data', $demo_data, 'no' );
 
-		error_log( print_r( $demo_data ,true) );
-		
+		error_log( print_r( $demo_data, true ) );
 		wp_send_json_success( $demo_data );
+
+
+		// $code      = (int) wp_remote_retrieve_response_code( $request );
+		// $demo_data = json_decode( wp_remote_retrieve_body( $request ), true );
+
+		// error_log( print_r( $demo_data ,true) );
+
+		// wp_send_json_success( $demo_data );
 
 		if ( 200 === $code ) {
 			error_log( print_r( $demo_data, true ) );

@@ -130,8 +130,8 @@ export const getDemo = async ( id, dispatch ) => {
 		} );
 };
 
-export const checkRequiredPlugins = async ( storedState ) => {
-	const [ {}, dispatch ] = storedState;
+export const checkRequiredPlugins = async ( dispatch ) => {
+	// const [ {}, dispatch ] = storedState;
 
 	const reqPlugins = new FormData();
 	reqPlugins.append( 'action', 'astra-required-plugins' );
@@ -316,7 +316,7 @@ export const divideIntoChunks = ( chunkSize, inputArray ) => {
 	return final;
 };
 
-export const checkFileSystemPermissions = async ( [ , dispatch ] ) => {
+export const checkFileSystemPermissions = async ( dispatch ) => {
 	try {
 		const formData = new FormData();
 		formData.append( 'action', 'templatiq-sites-filesystem-permission' );
