@@ -166,31 +166,13 @@ const FontSelector = ( { options, onSelect, selected } ) => {
 	} );
 	const defaultFonts = fonts.filter( ( font ) => font.default );
 	const otherFonts = fonts.filter( ( font ) => ! font.default );
-	let premiumTemplate = false;
 
 	const nextStep = () => {
 		if ( ! importError ) {
-			premiumTemplate = 'free' !== templateResponse[ 'astra-site-type' ];
-
-			if ( premiumTemplate && ! licenseStatus ) {
-				if ( templatiqSitesVars.isPro ) {
-					dispatch( {
-						type: 'set',
-						validateLicenseStatus: true,
-						currentCustomizeIndex: currentCustomizeIndex + 1,
-					} );
-				} else {
-					dispatch( {
-						type: 'set',
-						currentCustomizeIndex: currentCustomizeIndex + 1,
-					} );
-				}
-			} else {
-				dispatch( {
-					type: 'set',
-					currentIndex: currentIndex + 1,
-				} );
-			}
+			dispatch( {
+				type: 'set',
+				currentIndex: currentIndex + 1,
+			} );
 		}
 	};
 
@@ -235,7 +217,7 @@ const FontSelector = ( { options, onSelect, selected } ) => {
 				type="other"
 			/>
 
-			<Button className="ist-button" onClick={ nextStep } after>
+			<Button className="ist-button" onClick={ nextStep }>
 				{ __( 'Continue', 'templatiq-sites' ) }
 			</Button>
 			<PreviousStepLink customizeStep={ true } onClick={ lastStep }>

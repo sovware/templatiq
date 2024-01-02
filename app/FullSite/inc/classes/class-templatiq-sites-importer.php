@@ -481,15 +481,6 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			);
 
 			// Use this for premium demos.
-			// $request_params = apply_filters(
-			// 	'templatiq_sites_api_params',
-			// 	array(
-			// 		'purchase_key' => '',
-			// 		'site_url'     => '',
-			// 	)
-			// );
-
-			// Use this for premium demos.
 			$request_params = apply_filters(
 				'templatiq_sites_api_params',
 				[
