@@ -79,7 +79,7 @@ if ( ! class_exists( 'Templatiq_Sites_Page' ) ) {
 
 			if ( 'plugins' === $current_screen->base ) {
 				$processed    = get_option( '_templatiq_sites_gettings_started', 'no' );
-				$product_name = Templatiq_Sites_White_Label::get_instance()->get_white_label_name( 'Templatiq' );
+				$product_name = 'Templatiq';
 
 				if ( 'yes' === $processed ) {
 					return;
@@ -338,11 +338,7 @@ if ( ! class_exists( 'Templatiq_Sites_Page' ) ) {
 								}
 								?>
 								<span class="logo <?php echo esc_attr( $white_label_class ); ?>">
-									<?php if ( ! $white_label ) { ?>
-										<img src="<?php echo esc_url( TEMPLATIQ_SITES_URI . 'inc/assets/images/logo.svg' ); ?>">
-									<?php } else { ?>
-										<?php echo esc_html( Templatiq_Sites_White_Label::get_instance()->get_white_label_name() ); ?>
-									<?php } ?>
+									<img src="<?php echo esc_url( TEMPLATIQ_SITES_URI . 'inc/assets/images/logo.svg' ); ?>">
 									<h3 class="title"><?php esc_html_e( 'Importing Starter Template...', 'templatiq-sites' ); ?></h3>
 								</span>
 							</div>

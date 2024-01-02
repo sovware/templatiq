@@ -659,11 +659,6 @@ class Ajax {
 			return $subscription;
 		}
 
-		// Is WhiteLabel enabled?
-		if ( Templatiq_Sites_White_Label::get_instance()->is_white_labeled() ) {
-			return false;
-		}
-
 		// Is Premium Starter Templates pluign?
 		if ( defined( 'TEMPLATIQ_PRO_SITES_NAME' ) ) {
 			return false;

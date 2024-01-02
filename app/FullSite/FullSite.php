@@ -8,7 +8,6 @@
 namespace Templatiq\FullSite;
 
 use Templatiq\Utils\Singleton;
-use Templatiq_Sites_White_Label;
 
 /**
  * Set constants.
@@ -71,7 +70,6 @@ class FullSite {
 	private function includes() {
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/functions.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-error-handler.php';
-		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-white-label.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-page.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-elementor-pages.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-elementor-images.php';
@@ -223,7 +221,7 @@ class FullSite {
 				'log'                                => [
 					'bulkInstall'  => __( 'Installing Required Plugins..', 'templatiq-sites' ),
 					/* translators: %s are white label strings. */
-					'themeInstall' => sprintf( __( 'Installing %1$s Theme..', 'templatiq-sites' ), Templatiq_Sites_White_Label::get_instance()->get_option( 'astra', 'name', 'Templatiq' ) ),
+					'themeInstall' => sprintf( __( 'Installing %1$s Theme..', 'templatiq-sites' ), 'Templatiq' ),
 				],
 				'sites'                              => templatiq_sites_get_api_params(),
 				'categories'                         => [],

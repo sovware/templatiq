@@ -96,10 +96,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 		public function file_permission_notice() {
 			$upload_dir = self::log_dir();
 			$plugin_name = TEMPLATIQ_SITES_NAME;
-			if ( is_callable( 'Templatiq_Sites_White_Label::get_instance' ) ) {
-				$is_white_label = Templatiq_Sites_White_Label::get_instance()->is_white_labeled();
-				$plugin_name = $is_white_label ? Templatiq_Sites_White_Label::get_instance()->get_white_label_name() : TEMPLATIQ_SITES_NAME;
-			}
+			
 			/* translators: %1$s refers to the plugin name */
 			$notice = sprintf( __( 'Required File Permissions to import the templates from %s are missing.', 'templatiq-sites' ), $plugin_name );
 			?>

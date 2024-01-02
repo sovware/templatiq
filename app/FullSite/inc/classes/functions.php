@@ -44,11 +44,7 @@ if ( ! function_exists( 'templatiq_sites_get_suggestion_link' ) ) :
 	 * @return suggestion link.
 	 */
 	function templatiq_sites_get_suggestion_link() {
-		$white_label_link = Templatiq_Sites_White_Label::get_option( 'astra-agency', 'licence' );
-
-		if ( empty( $white_label_link ) ) {
-			$white_label_link = 'https://wpastra.com/sites-suggestions/?utm_source=demo-import-panel&utm_campaign=templatiq-sites&utm_medium=suggestions';
-		}
+		$white_label_link = 'https://wpastra.com/sites-suggestions/?utm_source=demo-import-panel&utm_campaign=templatiq-sites&utm_medium=suggestions';
 		return apply_filters( 'templatiq_sites_suggestion_link', $white_label_link );
 	}
 endif;
