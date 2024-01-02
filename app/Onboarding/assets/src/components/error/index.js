@@ -39,7 +39,7 @@ const ErrorScreen = () => {
 			notActivatedList: [],
 
 			// Go to previous step.
-			currentIndex: currentIndex - 1,
+			currentIndex: currentIndex,
 		} );
 	};
 

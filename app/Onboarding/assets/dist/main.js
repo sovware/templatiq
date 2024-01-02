@@ -9828,7 +9828,7 @@ const ErrorScreen = () => {
       notInstalledList: [],
       notActivatedList: [],
       // Go to previous step.
-      currentIndex: currentIndex - 1
+      currentIndex: currentIndex
     });
   };
   const solutionHeading = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h5", {
