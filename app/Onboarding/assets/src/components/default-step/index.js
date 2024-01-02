@@ -24,7 +24,7 @@ const DefaultStep = ( { preview, content, controls, actions, stepName } ) => {
 				}
 			}, 200 );
 		} );
-	}, [] );
+	});
 
 	useLayoutEffect( () => {
 		const contentArea = document.querySelector( '.step-content' );

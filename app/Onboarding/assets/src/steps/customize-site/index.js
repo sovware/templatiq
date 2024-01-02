@@ -15,9 +15,7 @@ const currentUrlParams = new URLSearchParams( window.location.search );
 const template_id = currentUrlParams.get( 'template_id' ) || '';
 
 const CustomizeSite = () => {
-	useEffect( async () => {
-
-		console.log( template_id );
+	useEffect( () => {
 		
 		const itemData ={
 			type: 'set',
@@ -33,8 +31,8 @@ const CustomizeSite = () => {
 
 		// console.log(storedState);
 
-		await getDemo( template_id, dispatch );
-		await checkRequiredPlugins( dispatch );
+		getDemo( template_id, dispatch );
+		checkRequiredPlugins( dispatch );
 		checkFileSystemPermissions( dispatch );
 		
 	}, []);
@@ -49,7 +47,7 @@ const CustomizeSite = () => {
 	if ( typeof currentStepObject !== 'undefined' ) {
 		CurrentStepContent = currentStepObject.content;
 		CurrentStepControls = currentStepObject.controls;
-	}
+	} 
 
 	useEffect( () => {
 		const previousIndex = parseInt( currentCustomizeIndex ) - 1;
@@ -66,7 +64,7 @@ const CustomizeSite = () => {
 		}
 
 		document.body.classList.add(
-			CustomizeSteps[ currentCustomizeIndex ].class
+			CustomizeSteps[ currentCustomizeIndex ]?.class
 		);
 	} );
 
@@ -111,12 +109,11 @@ const CustomizeSite = () => {
 			window.removeEventListener( 'beforeunload', preventRefresh ); // eslint-disable-line
 	} );
 
-	console.log( 'currentCustomizeIndex: ',currentCustomizeIndex);
-
 	return (
 		<DefaultStep
-			stepName={ CustomizeSteps[ currentCustomizeIndex ].class }
+			stepName={ CustomizeSteps[ currentCustomizeIndex ]?.class }
 			content={
+				CurrentStepContent &&
 				<CurrentStepContent
 					customizeStep={ true }
 					onNextClick={ setNextStep }
@@ -124,13 +121,13 @@ const CustomizeSite = () => {
 				/>
 			}
 			controls={
-				CurrentStepControls && (
-					<CurrentStepControls
-						customizeStep={ true }
-						onNextClick={ setNextStep }
-						onPreviousClick={ setPreviousStep }
-					/>
-				)
+				CurrentStepControls && 
+				<CurrentStepControls
+					customizeStep={ true }
+					onNextClick={ setNextStep }
+					onPreviousClick={ setPreviousStep }
+				/>
+				
 			}
 			actions={ null }
 			preview={ <SitePreview /> }

@@ -21,8 +21,8 @@ const Steps = () => {
 	} = stateValue;
 	const [ settingHistory, setSettingHistory ] = useState( true );
 	const [ settingIndex, setSettingIndex ] = useState( true );
-	const current = STEPS[ currentIndex ];
 	const history = useNavigate();
+	let current = STEPS[ currentIndex ];
 
 	useEffect( () => {
 		const previousIndex = parseInt( currentIndex ) - 1;
@@ -36,7 +36,7 @@ const Steps = () => {
 			document.body.classList.remove( STEPS[ previousIndex ].class );
 		}
 
-		document.body.classList.add( STEPS[ currentsIndex ].class );
+		document.body.classList.add( STEPS[ currentIndex ].class );
 	}, [] );
 
 	useEffect( () => {
@@ -77,10 +77,7 @@ const Steps = () => {
 	useEffect( () => {
 		const currentUrlParams = new URLSearchParams( window.location.search );
 		const urlIndex = parseInt( currentUrlParams.get( 'ci' ) ) || 0;
-		console.log('urlIndex', urlIndex, currentIndex);
-
 		if ( currentIndex === 0 ) {
-			console.log('currentIndex is Zero', currentIndex);
 			currentUrlParams.delete( 'ci' );
 			history(
 				window.location.pathname + '?' + currentUrlParams.toString()
@@ -91,7 +88,6 @@ const Steps = () => {
 			( currentIndex !== 0 && urlIndex !== currentIndex ) ||
 			templateResponse !== null
 		) {
-			console.log('currentIndex is not Zero & urlIndex', currentIndex, urlIndex);
 			storeCurrentState( stateValue );
 			currentUrlParams.set( 'ci', currentIndex );
 			history(
@@ -106,7 +102,7 @@ const Steps = () => {
 			templateResponse !== null
 		) {
 			storeCurrentState( stateValue );
-			currentUrlParams.set( 'designStep', designStep );
+			// currentUrlParams.set( 'designStep', designStep );
 			history(
 				window.location.pathname + '?' + currentUrlParams.toString()
 			);

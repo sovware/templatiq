@@ -9731,7 +9731,7 @@ const DefaultStep = ({
         }
       }, 200);
     });
-  }, []);
+  });
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect)(() => {
     const contentArea = document.querySelector('.step-content');
     const scrollPosition = localStorage.getItem('st-scroll-position');
@@ -10030,29 +10030,12 @@ const FontSelector = ({
   });
   const defaultFonts = fonts.filter(font => font.default);
   const otherFonts = fonts.filter(font => !font.default);
-  let premiumTemplate = false;
   const nextStep = () => {
     if (!importError) {
-      premiumTemplate = 'free' !== templateResponse['astra-site-type'];
-      if (premiumTemplate && !licenseStatus) {
-        if (templatiqSitesVars.isPro) {
-          dispatch({
-            type: 'set',
-            validateLicenseStatus: true,
-            currentCustomizeIndex: currentCustomizeIndex + 1
-          });
-        } else {
-          dispatch({
-            type: 'set',
-            currentCustomizeIndex: currentCustomizeIndex + 1
-          });
-        }
-      } else {
-        dispatch({
-          type: 'set',
-          currentIndex: currentIndex + 1
-        });
-      }
+      dispatch({
+        type: 'set',
+        currentIndex: currentIndex + 1
+      });
     }
   };
   const lastStep = () => {
@@ -10085,8 +10068,7 @@ const FontSelector = ({
     type: "other"
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_button_button__WEBPACK_IMPORTED_MODULE_3__["default"], {
     className: "ist-button",
-    onClick: nextStep,
-    after: true
+    onClick: nextStep
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Continue', 'templatiq-sites')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_util_previous_step_link_index__WEBPACK_IMPORTED_MODULE_6__["default"], {
     customizeStep: true,
     onClick: lastStep
@@ -11792,8 +11774,7 @@ __webpack_require__.r(__webpack_exports__);
 const currentUrlParams = new URLSearchParams(window.location.search);
 const template_id = currentUrlParams.get('template_id') || '';
 const CustomizeSite = () => {
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(async () => {
-    console.log(template_id);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const itemData = {
       type: 'set',
       currentIndex: 0,
@@ -11807,9 +11788,9 @@ const CustomizeSite = () => {
 
     // console.log(storedState);
 
-    await (0,_import_site_import_utils__WEBPACK_IMPORTED_MODULE_6__.getDemo)(template_id, dispatch);
-    // await checkRequiredPlugins( storedState );
-    // checkFileSystemPermissions( storedState );
+    (0,_import_site_import_utils__WEBPACK_IMPORTED_MODULE_6__.getDemo)(template_id, dispatch);
+    (0,_import_site_import_utils__WEBPACK_IMPORTED_MODULE_6__.checkRequiredPlugins)(dispatch);
+    (0,_import_site_import_utils__WEBPACK_IMPORTED_MODULE_6__.checkFileSystemPermissions)(dispatch);
   }, []);
   const [{
     currentCustomizeIndex,
@@ -11832,7 +11813,7 @@ const CustomizeSite = () => {
     if (previousIndex >= 0) {
       document.body.classList.remove(_customize_steps__WEBPACK_IMPORTED_MODULE_5__.CustomizeSteps[previousIndex].class);
     }
-    document.body.classList.add(_customize_steps__WEBPACK_IMPORTED_MODULE_5__.CustomizeSteps[currentCustomizeIndex].class);
+    document.body.classList.add(_customize_steps__WEBPACK_IMPORTED_MODULE_5__.CustomizeSteps[currentCustomizeIndex]?.class);
   });
   const setNextStep = () => {
     if (_customize_steps__WEBPACK_IMPORTED_MODULE_5__.CustomizeSteps.length - 1 === currentCustomizeIndex) {
@@ -11868,8 +11849,8 @@ const CustomizeSite = () => {
     return () => window.removeEventListener('beforeunload', preventRefresh); // eslint-disable-line
   });
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_default_step__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    stepName: _customize_steps__WEBPACK_IMPORTED_MODULE_5__.CustomizeSteps[currentCustomizeIndex].class,
-    content: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(CurrentStepContent, {
+    stepName: _customize_steps__WEBPACK_IMPORTED_MODULE_5__.CustomizeSteps[currentCustomizeIndex]?.class,
+    content: CurrentStepContent && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(CurrentStepContent, {
       customizeStep: true,
       onNextClick: setNextStep,
       onPreviousClick: setPreviousStep
@@ -12018,8 +11999,9 @@ const getDemo = async (id, dispatch) => {
     });
   });
 };
-const checkRequiredPlugins = async storedState => {
-  const [{}, dispatch] = storedState;
+const checkRequiredPlugins = async dispatch => {
+  // const [ {}, dispatch ] = storedState;
+
   const reqPlugins = new FormData();
   reqPlugins.append('action', 'astra-required-plugins');
   reqPlugins.append('_ajax_nonce', templatiqSitesVars._ajax_nonce);
@@ -12169,7 +12151,7 @@ const divideIntoChunks = (chunkSize, inputArray) => {
   final.push(portion);
   return final;
 };
-const checkFileSystemPermissions = async ([, dispatch]) => {
+const checkFileSystemPermissions = async dispatch => {
   try {
     const formData = new FormData();
     formData.append('action', 'templatiq-sites-filesystem-permission');
@@ -13446,8 +13428,8 @@ const Steps = () => {
   } = stateValue;
   const [settingHistory, setSettingHistory] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
   const [settingIndex, setSettingIndex] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
-  const current = _util__WEBPACK_IMPORTED_MODULE_7__.STEPS[currentIndex];
   const history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_8__.useNavigate)();
+  let current = _util__WEBPACK_IMPORTED_MODULE_7__.STEPS[currentIndex];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const previousIndex = parseInt(currentIndex) - 1;
     const nextIndex = parseInt(currentIndex) + 1;
@@ -13457,7 +13439,7 @@ const Steps = () => {
     if (previousIndex > 0) {
       document.body.classList.remove(_util__WEBPACK_IMPORTED_MODULE_7__.STEPS[previousIndex].class);
     }
-    document.body.classList.add(_util__WEBPACK_IMPORTED_MODULE_7__.STEPS[currentsIndex].class);
+    document.body.classList.add(_util__WEBPACK_IMPORTED_MODULE_7__.STEPS[currentIndex].class);
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (importError) {
@@ -13490,14 +13472,11 @@ const Steps = () => {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const currentUrlParams = new URLSearchParams(window.location.search);
     const urlIndex = parseInt(currentUrlParams.get('ci')) || 0;
-    console.log('urlIndex', urlIndex, currentIndex);
     if (currentIndex === 0) {
-      console.log('currentIndex is Zero', currentIndex);
       currentUrlParams.delete('ci');
       history(window.location.pathname + '?' + currentUrlParams.toString());
     }
     if (currentIndex !== 0 && urlIndex !== currentIndex || templateResponse !== null) {
-      console.log('currentIndex is not Zero & urlIndex', currentIndex, urlIndex);
       (0,_utils_functions__WEBPACK_IMPORTED_MODULE_6__.storeCurrentState)(stateValue);
       currentUrlParams.set('ci', currentIndex);
       history(window.location.pathname + '?' + currentUrlParams.toString());
@@ -13506,7 +13485,7 @@ const Steps = () => {
     // Execute only for the last Customization step.
     if (designStep !== 0 && urlIndex === _util__WEBPACK_IMPORTED_MODULE_7__.STEPS.length - 1 && templateResponse !== null) {
       (0,_utils_functions__WEBPACK_IMPORTED_MODULE_6__.storeCurrentState)(stateValue);
-      currentUrlParams.set('designStep', designStep);
+      // currentUrlParams.set( 'designStep', designStep );
       history(window.location.pathname + '?' + currentUrlParams.toString());
     }
     if (currentIndex === 1) {
@@ -13527,8 +13506,6 @@ const Steps = () => {
       currentCustomizeIndex: 0
     });
   };
-  console.log(currentIndex);
-  console.log(current);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: `st-step ${current.class}`
   }, currentIndex !== 2 && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
