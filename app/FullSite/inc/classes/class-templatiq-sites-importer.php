@@ -6,8 +6,6 @@
  * @package Templatiq Sites
  */
 
-use Templatiq\FullSite\FullSite;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
