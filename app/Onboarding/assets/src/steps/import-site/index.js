@@ -48,7 +48,6 @@ const ImportSite = () => {
 			tryAgainCount,
 			xmlImportDone,
 			templateId,
-			builder,
 			pluginInstallationAttempts,
 		},
 		dispatch,

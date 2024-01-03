@@ -12240,7 +12240,6 @@ const ImportSite = () => {
     tryAgainCount,
     xmlImportDone,
     templateId,
-    builder,
     pluginInstallationAttempts
   }, dispatch] = storedState;
   let percentage = importPercent;
