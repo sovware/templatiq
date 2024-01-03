@@ -8,7 +8,7 @@ import { sendPostMessage } from '../../../../utils/functions';
 
 const BusinessLogoControls = () => {
 	const [
-		{ siteLogo, currentCustomizeIndex, currentIndex, templateId },
+		{ siteLogo, currentCustomizeIndex, currentIndex, designStep, templateId },
 		dispatch,
 	] = useStateValue();
 	const nextStep = () => {
@@ -45,10 +45,12 @@ const BusinessLogoControls = () => {
 					? __( 'Continue', 'templatiq-sites' )
 					: __( 'Skip & Continue', 'templatiq-sites' ) }
 			</Button>
-
-			<PreviousStepLink onClick={ lastStep }>
-				{ __( 'Back', 'templatiq-sites' ) }
-			</PreviousStepLink>
+			{
+				!designStep === 1 &&
+				<PreviousStepLink onClick={ lastStep }>
+					{ __( 'Back', 'templatiq-sites' ) }
+				</PreviousStepLink>
+			}
 		</>
 	);
 };

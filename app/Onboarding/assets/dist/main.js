@@ -11044,6 +11044,7 @@ const BusinessLogoControls = () => {
     siteLogo,
     currentCustomizeIndex,
     currentIndex,
+    designStep,
     templateId
   }, dispatch] = (0,_store_store__WEBPACK_IMPORTED_MODULE_4__.useStateValue)();
   const nextStep = () => {
@@ -11071,7 +11072,7 @@ const BusinessLogoControls = () => {
     onClick: nextStep,
     disabled: templateId !== 0 ? false : true,
     after: true
-  }, '' !== siteLogo.url ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Continue', 'templatiq-sites') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Skip & Continue', 'templatiq-sites')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_util_previous_step_link_index__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }, '' !== siteLogo.url ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Continue', 'templatiq-sites') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Skip & Continue', 'templatiq-sites')), !designStep === 1 && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_util_previous_step_link_index__WEBPACK_IMPORTED_MODULE_5__["default"], {
     onClick: lastStep
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Back', 'templatiq-sites')));
 };
