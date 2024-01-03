@@ -1,6 +1,5 @@
 import { __ } from '@wordpress/i18n';
 const { themeStatus, nonce } = starterTemplates;
-import { useStateValue } from '../../store/store';
 
 export const getDemo = async ( id, dispatch ) => {
 	
@@ -335,24 +334,4 @@ export const checkFileSystemPermissions = async ( dispatch ) => {
 		/* eslint-disable-next-line no-console -- We are displaying errors in the console. */
 		console.error( error );
 	}
-};
-
-export const generateAnalyticsLead = async (
-	tryAgainCount,
-	status,
-	templateId,
-	builder
-) => {
-	const importContent = new FormData();
-	importContent.append( 'action', 'templatiq-sites-generate-analytics-lead' );
-	importContent.append( 'status', status );
-	importContent.append( 'id', templateId );
-	importContent.append( 'try-again-count', tryAgainCount );
-	importContent.append( 'type', 'templatiq-sites' );
-	importContent.append( 'page-builder', builder );
-	importContent.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
-	await fetch( ajaxurl, {
-		method: 'post',
-		body: importContent,
-	} );
 };

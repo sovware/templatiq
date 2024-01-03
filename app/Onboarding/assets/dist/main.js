@@ -11880,7 +11880,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   checkFileSystemPermissions: () => (/* binding */ checkFileSystemPermissions),
 /* harmony export */   checkRequiredPlugins: () => (/* binding */ checkRequiredPlugins),
 /* harmony export */   divideIntoChunks: () => (/* binding */ divideIntoChunks),
-/* harmony export */   generateAnalyticsLead: () => (/* binding */ generateAnalyticsLead),
 /* harmony export */   getDemo: () => (/* binding */ getDemo),
 /* harmony export */   installTemplatiq: () => (/* binding */ installTemplatiq),
 /* harmony export */   saveTypography: () => (/* binding */ saveTypography),
@@ -11889,13 +11888,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../store/store */ "./assets/src/store/store.js");
 
 const {
   themeStatus,
   nonce
 } = starterTemplates;
-
 const getDemo = async (id, dispatch) => {
   const generateData = new FormData();
   generateData.append('action', 'templatiq-sites-api-request');
@@ -12170,20 +12167,6 @@ const checkFileSystemPermissions = async dispatch => {
     console.error(error);
   }
 };
-const generateAnalyticsLead = async (tryAgainCount, status, templateId, builder) => {
-  const importContent = new FormData();
-  importContent.append('action', 'templatiq-sites-generate-analytics-lead');
-  importContent.append('status', status);
-  importContent.append('id', templateId);
-  importContent.append('try-again-count', tryAgainCount);
-  importContent.append('type', 'templatiq-sites');
-  importContent.append('page-builder', builder);
-  importContent.append('_ajax_nonce', templatiqSitesVars._ajax_nonce);
-  await fetch(ajaxurl, {
-    method: 'post',
-    body: importContent
-  });
-};
 
 /***/ }),
 
@@ -12288,9 +12271,6 @@ const ImportSite = () => {
     sendErrorReport(primary, secondary, text, code, solution, stack, tryAgainCount);
   };
   const sendErrorReport = (primary = '', secondary = '', text = '', code = '', solution = '', stack = '') => {
-    if (tryAgainCount >= 2) {
-      (0,_import_utils__WEBPACK_IMPORTED_MODULE_11__.generateAnalyticsLead)(tryAgainCount, false, templateId, builder);
-    }
     if (!sendReportFlag) {
       return;
     }
@@ -12346,9 +12326,6 @@ const ImportSite = () => {
     }
     if (customizationsStatus) {
       finalStepStatus = await importDone();
-    }
-    if (finalStepStatus) {
-      (0,_import_utils__WEBPACK_IMPORTED_MODULE_11__.generateAnalyticsLead)(tryAgainCount, true, templateId, builder);
     }
   };
 
