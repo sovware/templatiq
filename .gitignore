@@ -15,4 +15,6 @@ composer.lock
 phpcs.xml
 __*/
 __build
+dist
 dist/
+dist/**

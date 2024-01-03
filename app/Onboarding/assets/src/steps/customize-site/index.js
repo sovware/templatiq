@@ -26,11 +26,7 @@ const CustomizeSite = () => {
 		}
 
 		dispatch( itemData );
-
-		// const storedState = useStateValue();
-
-		// console.log(storedState);
-
+		
 		getDemo( template_id, dispatch );
 		checkRequiredPlugins( dispatch );
 		checkFileSystemPermissions( dispatch );
