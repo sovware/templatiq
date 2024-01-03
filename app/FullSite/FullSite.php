@@ -47,9 +47,6 @@ class FullSite {
 		$this->includes();
 
 		add_action( 'admin_enqueue_scripts', [$this, 'admin_enqueue'], 99 );
-		add_action( 'elementor/editor/footer', [$this, 'insert_templates'] );
-		add_action( 'admin_footer', [$this, 'insert_image_templates'] );
-		add_action( 'customize_controls_print_footer_scripts', [$this, 'insert_image_templates'] );
 		add_action( 'admin_notices', [$this, 'check_filesystem_access_notice'] );
 
 		Ajax::init();
@@ -73,17 +70,12 @@ class FullSite {
 	private function includes() {
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/functions.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-error-handler.php';
-		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-white-label.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-page.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-elementor-pages.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-elementor-images.php';
-		// require_once TEMPLATIQ_SITES_DIR . 'inc/classes/compatibility/class-templatiq-sites-compatibility.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-importer.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-image-processing.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-wp-cli.php';
-		// require_once TEMPLATIQ_SITES_DIR . 'inc/lib/class-templatiq-sites-ast-block-templates.php';
-		// require_once TEMPLATIQ_SITES_DIR . 'inc/lib/onboarding/class-onboarding.php';
-		require_once TEMPLATIQ_SITES_DIR . 'inc/lib/zip-ai/zip-ai.php';
 
 		// Batch Import.
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/batch-import/class-templatiq-sites-batch-import.php';
@@ -135,19 +127,6 @@ class FullSite {
 		$data = $this->get_local_vars();
 	}
 
-	public function insert_templates() {
-		ob_start();
-		require_once TEMPLATIQ_SITES_DIR . 'inc/includes/templates.php';
-		require_once TEMPLATIQ_SITES_DIR . 'inc/includes/image-templates.php';
-		ob_end_flush();
-	}
-
-	public function insert_image_templates() {
-		ob_start();
-		require_once TEMPLATIQ_SITES_DIR . 'inc/includes/image-templates.php';
-		ob_end_flush();
-	}
-
 	public function check_filesystem_access_notice() {
 		// Check if WP_Filesystem() returns false.
 		if ( ! WP_Filesystem() ) {
@@ -158,7 +137,6 @@ class FullSite {
 
 	//
 	public function delete_templatiq_images( $id ) {
-
 		if ( ! $id ) {
 			return;
 		}

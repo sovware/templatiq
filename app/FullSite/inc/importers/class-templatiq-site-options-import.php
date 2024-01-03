@@ -375,6 +375,7 @@ class Templatiq_Site_Options_Import {
 		if ( $downloaded_image['id'] ) {
 			Templatiq_WXR_Importer::instance()->track_post( $downloaded_image['id'] );
 			set_theme_mod( 'custom_logo', $downloaded_image['id'] );
+			update_option( 'site_logo', $downloaded_image['id'] );
 		}
 
 	}

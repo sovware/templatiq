@@ -8,7 +8,6 @@
 namespace Templatiq\Admin;
 
 use Templatiq\Utils\Singleton;
-use Templatiq_Sites_White_Label;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -26,10 +25,6 @@ class FullSite {
 		$current_screen = get_current_screen();
 
 		if ( 'appearance_page_starter-templates' !== $current_screen->id ) {
-			return;
-		}
-
-		if ( Templatiq_Sites_White_Label::get_instance()->is_white_labeled() ) {
 			return;
 		}
 

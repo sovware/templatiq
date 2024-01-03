@@ -597,7 +597,6 @@ class Ajax {
 	}
 
 	public function backup_settings() {
-
 		if ( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) {
 			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
@@ -611,7 +610,7 @@ class Ajax {
 		$upload_dir   = Templatiq_Sites_Importer_Log::get_instance()->log_dir();
 		$upload_path  = trailingslashit( $upload_dir['path'] );
 		$log_file     = $upload_path . $file_name;
-		$file_system  = self::get_instance()->get_filesystem();
+		$file_system  = $this->get_filesystem();
 
 		// If file system fails? Then take a backup in site option.
 		if ( false === $file_system->put_contents( $log_file, wp_json_encode( $old_settings ), FS_CHMOD_FILE ) ) {
@@ -650,32 +649,6 @@ class Ajax {
 
 	public function get_api_url() {
 		return $this->api_url;
-	}
-
-	public function should_display_subscription_form() {
-
-		$subscription = apply_filters( 'templatiq_sites_should_display_subscription_form', null );
-		if ( null !== $subscription ) {
-			return $subscription;
-		}
-
-		// Is WhiteLabel enabled?
-		if ( Templatiq_Sites_White_Label::get_instance()->is_white_labeled() ) {
-			return false;
-		}
-
-		// Is Premium Starter Templates pluign?
-		if ( defined( 'TEMPLATIQ_PRO_SITES_NAME' ) ) {
-			return false;
-		}
-
-		// User already subscribed?
-		$subscribed = get_user_meta( get_current_user_ID(), 'templatiq-sites-subscribed', true );
-		if ( $subscribed ) {
-			return false;
-		}
-
-		return true;
 	}
 
 	public function required_plugin_activate( $init = '', $options = [], $enabled_extensions = [] ) {

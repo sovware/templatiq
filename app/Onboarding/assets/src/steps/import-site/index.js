@@ -16,7 +16,6 @@ import {
 	setColorPalettes,
 	divideIntoChunks,
 	checkRequiredPlugins,
-	generateAnalyticsLead,
 } from './import-utils';
 const { reportError } = starterTemplates;
 let sendReportFlag = reportError;
@@ -108,9 +107,6 @@ const ImportSite = () => {
 		solution = '',
 		stack = ''
 	) => {
-		if ( tryAgainCount >= 2 ) {
-			generateAnalyticsLead( tryAgainCount, false, templateId, builder );
-		}
 		if ( ! sendReportFlag ) {
 			return;
 		}
@@ -176,10 +172,6 @@ const ImportSite = () => {
 
 		if ( customizationsStatus ) {
 			finalStepStatus = await importDone();
-		}
-
-		if ( finalStepStatus ) {
-			generateAnalyticsLead( tryAgainCount, true, templateId, builder );
 		}
 	};
 
