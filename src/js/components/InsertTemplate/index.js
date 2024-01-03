@@ -110,7 +110,7 @@ const InsertTemplate = ( {
 					</button>
 				:
 				<a
-					href="#"
+					href={`?page=starter-templates&template_id=${template_id}`}
 					target='_blank'
 					className={
 						className
@@ -126,7 +126,7 @@ const InsertTemplate = ( {
 						width={ 14 }
 						height={ 14 }
 					/>
-					{ innerText ? innerText : 'Insert Full Site' }
+					{ innerText ? innerText : `Insert Full Site` }
 				</a>
 		
 			}
