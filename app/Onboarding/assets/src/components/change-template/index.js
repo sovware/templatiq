@@ -44,9 +44,6 @@ const ChangeTemplate = () => {
 					<PremiumBadge />
 				) }
 			</div>
-			<div className="change-btn-wrap" onClick={ goToShowcase }>
-				<span className="change-btn">{ ICONS.cross }</span>
-			</div>
 		</div>
 	);
 };
