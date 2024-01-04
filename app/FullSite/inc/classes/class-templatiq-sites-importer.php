@@ -98,7 +98,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 		 */
 		public function delete_related_transient() {
 			delete_transient( 'templatiq_sites_batch_process_started' );
-			delete_option( 'templatiq_sites_import_data' );
+			// delete_option( 'templatiq_sites_import_data' );
 		}
 
 		/**
