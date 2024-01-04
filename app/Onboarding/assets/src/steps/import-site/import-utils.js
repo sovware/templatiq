@@ -2,7 +2,6 @@ import { __ } from '@wordpress/i18n';
 const { themeStatus, nonce } = starterTemplates;
 
 export const getDemo = async ( id, dispatch ) => {
-	
 	const generateData = new FormData();
 	generateData.append( 'action', 'templatiq-sites-api-request' );
 	generateData.append( 'template_id', id );
@@ -14,11 +13,11 @@ export const getDemo = async ( id, dispatch ) => {
 	} )
 		.then( ( response ) => response.json() )
 		.then( ( response ) => {
-			console.log(response)
+			
+			console.log('getDemo response : ',  response );
+
 			if ( response.success ) {
 				starterTemplates.previewUrl = response.data[ 'astra-site-url' ];
-
-				console.log(starterTemplates.previewUrl)
 
 				dispatch( {
 					type: 'set',
@@ -142,6 +141,7 @@ export const checkRequiredPlugins = async ( dispatch ) => {
 	} )
 		.then( ( response ) => response.json() )
 		.then( ( response ) => {
+			console.log(' checkRequiredPlugins response : ',  response );
 			if ( response.success ) {
 				const rPlugins = response.data?.required_plugins;
 				const notInstalledPlugin = rPlugins.notinstalled || '';
@@ -156,7 +156,7 @@ export const checkRequiredPlugins = async ( dispatch ) => {
 		} );
 };
 
-export const installTemplatiq = ( storedState ) => {
+export const installOneDirectory = ( storedState ) => {
 	const [ { importPercent }, dispatch ] = storedState;
 	const themeSlug = 'onedirectory';
 	let percentage = importPercent;

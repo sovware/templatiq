@@ -15,7 +15,7 @@ const currentUrlParams = new URLSearchParams( window.location.search );
 const template_id = currentUrlParams.get( 'template_id' ) || '';
 
 const CustomizeSite = () => {
-	useEffect( () => {
+	useEffect( async () => {
 		
 		const itemData ={
 			type: 'set',
@@ -27,10 +27,11 @@ const CustomizeSite = () => {
 
 		dispatch( itemData );
 		
-		getDemo( template_id, dispatch );
+		await getDemo( template_id, dispatch );
+		
 		checkRequiredPlugins( dispatch );
 		checkFileSystemPermissions( dispatch );
-		
+
 	}, []);
 
 	const [ { currentCustomizeIndex, currentIndex, builder }, dispatch ] =

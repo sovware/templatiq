@@ -10,7 +10,7 @@ import lottieJson from '../../../images/website-building.json';
 import ICONS from '../../../icons';
 import sseImport from './sse-import';
 import {
-	installTemplatiq,
+	installOneDirectory,
 	saveTypography,
 	setSiteLogo,
 	setColorPalettes,
@@ -155,17 +155,12 @@ const ImportSite = () => {
 	 */
 	const importPart2 = async () => {
 		let optionsStatus = false;
-		let widgetStatus = false;
 		let customizationsStatus = false;
 		let finalStepStatus = false;
 
 		optionsStatus = await importSiteOptions();
 
 		if ( optionsStatus ) {
-			widgetStatus = await importWidgets();
-		}
-
-		if ( widgetStatus ) {
 			customizationsStatus = await customizeWebsite();
 		}
 
@@ -180,6 +175,7 @@ const ImportSite = () => {
 	const installRequiredPlugins = () => {
 		// Install Bulk.
 		if ( notInstalledList.length <= 0 ) {
+			console.log('notInstalledList : ', notInstalledList );
 			return;
 		}
 
@@ -937,71 +933,6 @@ const ImportSite = () => {
 	};
 
 	/**
-	 * 4. Import Customizer JSON.
-	 */
-	const importCustomizerJson = async () => {
-		if ( ! customizerImportFlag ) {
-			percentage += 5;
-			dispatch( {
-				type: 'set',
-				importPercent: percentage >= 65 ? 65 : percentage,
-			} );
-			return true;
-		}
-		dispatch( {
-			type: 'set',
-			importStatus: __( 'Importing forms.', 'templatiq-sites' ),
-		} );
-
-		const forms = new FormData();
-		forms.append( 'action', 'templatiq-sites-import-customizer-settings' );
-		forms.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
-
-		const status = await fetch( ajaxurl, {
-			method: 'post',
-			body: forms,
-		} )
-			.then( ( response ) => response.text() )
-			.then( ( text ) => {
-				try {
-					const data = JSON.parse( text );
-					if ( data.success ) {
-						percentage += 5;
-						dispatch( {
-							type: 'set',
-							importPercent: percentage >= 65 ? 65 : percentage,
-						} );
-						return true;
-					}
-					throw data.data;
-				} catch ( error ) {
-					report(
-						__(
-							'Importing Customizer failed due to parse JSON error.',
-							'templatiq-sites'
-						),
-						'',
-						error,
-						'',
-						'',
-						text
-					);
-					return false;
-				}
-			} )
-			.catch( ( error ) => {
-				report(
-					__( 'Importing Customizer Failed.', 'templatiq-sites' ),
-					'',
-					error
-				);
-				return false;
-			} );
-
-		return status;
-	};
-
-	/**
 	 * 5. Import Site Content XML.
 	 */
 	const importSiteContent = async () => {
@@ -1218,71 +1149,6 @@ const ImportSite = () => {
 	};
 
 	/**
-	 * 7. Import Site Widgets.
-	 */
-	const importWidgets = async () => {
-		if ( ! widgetImportFlag ) {
-			dispatch( {
-				type: 'set',
-				importPercent: 90,
-			} );
-			return true;
-		}
-		dispatch( {
-			type: 'set',
-			importStatus: __( 'Importing Widgets.', 'templatiq-sites' ),
-		} );
-
-		const widgetsData = templateResponse[ 'astra-site-widgets-data' ] || '';
-
-		const widgets = new FormData();
-		widgets.append( 'action', 'templatiq-sites-import-widgets' );
-		widgets.append( 'widgets_data', widgetsData );
-		widgets.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
-
-		const status = await fetch( ajaxurl, {
-			method: 'post',
-			body: widgets,
-		} )
-			.then( ( response ) => response.text() )
-			.then( ( text ) => {
-				try {
-					const data = JSON.parse( text );
-					if ( data.success ) {
-						dispatch( {
-							type: 'set',
-							importPercent: 90,
-						} );
-						return true;
-					}
-					throw data.data;
-				} catch ( error ) {
-					report(
-						__(
-							'Importing Widgets failed due to parse JSON error.',
-							'templatiq-sites'
-						),
-						'',
-						error,
-						'',
-						'',
-						text
-					);
-					return false;
-				}
-			} )
-			.catch( ( error ) => {
-				report(
-					__( 'Importing Widgets Failed.', 'templatiq-sites' ),
-					'',
-					error
-				);
-				return false;
-			} );
-		return status;
-	};
-
-	/**
 	 * 8. Update the website as per the customizations selected by the user.
 	 * The following steps are covered here.
 	 * 		a. Update Logo
@@ -1302,7 +1168,7 @@ const ImportSite = () => {
 	const importDone = async () => {
 		dispatch( {
 			type: 'set',
-			importStatus: __( 'Final finishings.', 'templatiq-sites' ),
+			importStatus: __( 'Final finishing.', 'templatiq-sites' ),
 		} );
 
 		const finalSteps = new FormData();
@@ -1332,7 +1198,7 @@ const ImportSite = () => {
 				} catch ( error ) {
 					report(
 						__(
-							'Final finishings failed due to parse JSON error.',
+							'Final finishing failed due to parse JSON error.',
 							'templatiq-sites'
 						),
 						'',
@@ -1424,14 +1290,14 @@ const ImportSite = () => {
 			} );
 		}
 
-		// if ( themeActivateFlag && false === themeStatus ) {
-		// 	installTemplatiq( storedState );
-		// } else {
-		// 	dispatch( {
-		// 		type: 'set',
-		// 		themeStatus: true,
-		// 	} );
-		// }
+		if ( themeActivateFlag && false === themeStatus ) {
+			installOneDirectory( storedState );
+		} else {
+			dispatch( {
+				type: 'set',
+				themeStatus: true,
+			} );
+		}
 		
 		dispatch( {
 			type: 'set',
