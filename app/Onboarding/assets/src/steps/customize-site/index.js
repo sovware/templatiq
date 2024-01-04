@@ -15,7 +15,26 @@ const currentUrlParams = new URLSearchParams( window.location.search );
 const template_id = currentUrlParams.get( 'template_id' ) || '';
 
 const CustomizeSite = () => {
-	useEffect( async () => {
+	// useEffect( async () => {
+		
+	// 	const itemData ={
+	// 		type: 'set',
+	// 		currentIndex: 0,
+	// 		selectedTemplateName: 'hello',
+	// 		selectedTemplateID: template_id,
+	// 		selectedTemplateType: 'free',
+	// 	}
+
+	// 	dispatch( itemData );
+		
+	// 	await getDemo( template_id, dispatch );
+		
+	// 	checkRequiredPlugins( dispatch );
+	// 	checkFileSystemPermissions( dispatch );
+
+	// }, []);
+
+	useEffect( () => {
 		
 		const itemData ={
 			type: 'set',
@@ -26,13 +45,24 @@ const CustomizeSite = () => {
 		}
 
 		dispatch( itemData );
-		
-		await getDemo( template_id, dispatch );
-		
-		checkRequiredPlugins( dispatch );
-		checkFileSystemPermissions( dispatch );
 
 	}, []);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			// Step 1: getDemo
+			const demoData = await getDemo(template_id, dispatch);
+		
+			// Step 2: checkRequiredPlugins
+			const requiredPluginsData = await checkRequiredPlugins(dispatch);
+
+			// Step 3: checkFileSystemPermissions
+			const fileSystemPermissionsData = await checkFileSystemPermissions(dispatch);
+		};
+		
+		fetchData(); // Call the function to start the chain of async functions
+		
+	}, [template_id]);
 
 	const [ { currentCustomizeIndex, currentIndex, builder }, dispatch ] =
 		useStateValue();
