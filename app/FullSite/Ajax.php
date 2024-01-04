@@ -427,7 +427,7 @@ class Ajax {
 		Templatiq_Sites_Error_Handler::get_instance()->start_error_handler();
 
 		error_log( print_r( 'activate_theme ', true ) );
-		switch_theme( 'onedirectory' );
+		// switch_theme( 'onedirectory' );
 
 		Templatiq_Sites_Error_Handler::get_instance()->stop_error_handler();
 

@@ -71,8 +71,8 @@ class FullSite {
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/functions.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-error-handler.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-page.php';
-		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-elementor-pages.php';
-		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-elementor-images.php';
+		// require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-elementor-pages.php';
+		// require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-elementor-images.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-importer.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-image-processing.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-wp-cli.php';
