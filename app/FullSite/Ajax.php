@@ -182,34 +182,35 @@ class Ajax {
 
 		$demo_data = Templatiq_Sites_Importer::get_instance()->get_single_demo( $template_id );
 
-		if ( is_wp_error( $demo_data ) ) {
-			$wp_error_code = $request->get_error_code();
-			switch ( $wp_error_code ) {
-				case 'http_request_not_executed':
-					/* translators: %s Error Message */
-					$message = sprintf( __( 'API Request could not be performed - %s', 'templatiq-sites' ), $request->get_error_message() );
-					break;
-				case 'http_request_failed':
-				default:
-					/* translators: %s Error Message */
-					$message = sprintf( __( 'API Request has failed - %s', 'templatiq-sites' ), $request->get_error_message() );
-					break;
-			}
+		// if ( is_wp_error( $demo_data ) ) {
+		// 	$wp_error_code = $request->get_error_code();
+		// 	switch ( $wp_error_code ) {
+		// 		case 'http_request_not_executed':
+		// 			/* translators: %s Error Message */
+		// 			$message = sprintf( __( 'API Request could not be performed - %s', 'templatiq-sites' ), $request->get_error_message() );
+		// 			break;
+		// 		case 'http_request_failed':
+		// 		default:
+		// 			/* translators: %s Error Message */
+		// 			$message = sprintf( __( 'API Request has failed - %s', 'templatiq-sites' ), $request->get_error_message() );
+		// 			break;
+		// 	}
 
-			wp_send_json_error(
-				[
-					'message'       => $request->get_error_message(),
-					'code'          => 'WP_Error',
-					'response_code' => $wp_error_code,
-				]
-			);
-		}
+		// 	wp_send_json_error(
+		// 		[
+		// 			'message'       => $request->get_error_message(),
+		// 			'code'          => 'WP_Error',
+		// 			'response_code' => $wp_error_code,
+		// 		]
+		// 	);
+		// }
 
 		update_option( 'templatiq_sites_import_data', $demo_data, 'no' );
 
-		error_log( print_r( $demo_data, true ) );
+		// error_log( print_r( $demo_data, true ) );
 		wp_send_json_success( $demo_data );
 
+		return;
 
 		// $code      = (int) wp_remote_retrieve_response_code( $request );
 		// $demo_data = json_decode( wp_remote_retrieve_body( $request ), true );
@@ -425,7 +426,8 @@ class Ajax {
 
 		Templatiq_Sites_Error_Handler::get_instance()->start_error_handler();
 
-		switch_theme( 'astra' );
+		error_log( print_r( 'activate_theme ', true ) );
+		switch_theme( 'onedirectory' );
 
 		Templatiq_Sites_Error_Handler::get_instance()->stop_error_handler();
 
@@ -651,7 +653,7 @@ class Ajax {
 		return $this->api_url;
 	}
 
-	public function required_plugin_activate( $init = '', $options = [], $enabled_extensions = [] ) {
+	public function required_plugin_activate( $init = '', $options = [] ) {
 
 		if ( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) {
 			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
@@ -686,10 +688,8 @@ class Ajax {
 			}
 		}
 
-		$options            = templatiq_get_site_data( 'astra-site-options-data' );
-		$enabled_extensions = templatiq_get_site_data( 'astra-enabled-extensions' );
-
-		$this->after_plugin_activate( $plugin_init, $options, $enabled_extensions );
+		$options = templatiq_get_site_data( 'astra-site-options-data' );
+		$this->after_plugin_activate( $plugin_init, $options );
 
 		if ( defined( 'WP_CLI' ) ) {
 			WP_CLI::line( 'Plugin Activated!' );
@@ -768,7 +768,7 @@ class Ajax {
 					if ( is_plugin_active( $plugin_pro['init'] ) ) {
 						$response['active'][] = $plugin_pro;
 
-						$this->after_plugin_activate( $plugin['init'], $options, $enabled_extensions );
+						$this->after_plugin_activate( $plugin['init'], $options );
 
 						// Pro - Inactive.
 					} else {
@@ -820,8 +820,8 @@ class Ajax {
 						// Lite - Active.
 					} else {
 						$response['active'][] = $plugin;
-
-						$this->after_plugin_activate( $plugin['init'], $options, $enabled_extensions );
+						$options              = templatiq_get_site_data( 'astra-site-options-data' );
+						$this->after_plugin_activate( $plugin['init'], $options );
 					}
 				}
 			}
@@ -854,7 +854,7 @@ class Ajax {
 		return $data;
 	}
 
-	public function required_plugin( $required_plugins = [], $options = [], $enabled_extensions = [] ) {
+	public function required_plugin( $required_plugins = [], $options = [] ) {
 
 		// Verify Nonce.
 		if ( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) {
@@ -875,7 +875,6 @@ class Ajax {
 
 		if ( 'elementor' === $screen ) {
 			$options            = [];
-			$enabled_extensions = [];
 			$imported_demo_data = get_option( 'templatiq_sites_import_elementor_data_' . $id, [] );
 			if ( 'astra-blocks' === $imported_demo_data['type'] ) {
 				// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
@@ -885,9 +884,8 @@ class Ajax {
 				$required_plugins = isset( $imported_demo_data['site-pages-required-plugins'] ) ? $imported_demo_data['site-pages-required-plugins'] : [];
 			}
 		} else {
-			$options            = templatiq_get_site_data( 'astra-site-options-data' );
-			$enabled_extensions = templatiq_get_site_data( 'astra-enabled-extensions' );
-			$required_plugins   = templatiq_get_site_data( 'required-plugins' );
+			$options          = templatiq_get_site_data( 'astra-site-options-data' );
+			$required_plugins = templatiq_get_site_data( 'required-plugins' );
 		}
 
 		error_log( print_r( $response, true ) );
@@ -901,10 +899,9 @@ class Ajax {
 		}
 	}
 
-	public function after_plugin_activate( $plugin_init = '', $options = [], $enabled_extensions = [] ) {
+	public function after_plugin_activate( $plugin_init = '', $options = [] ) {
 		$data = [
 			'templatiq_site_options' => $options,
-			'enabled_extensions'     => $enabled_extensions,
 		];
 
 		do_action( 'templatiq_sites_after_plugin_activation', $plugin_init, $data );

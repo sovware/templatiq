@@ -343,30 +343,6 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 		 * @param int $site_id  Site ID.
 		 */
 		public function import_queue_2( $site_id = 0 ) {
-
-			$this->update_status(
-				array(
-					'step'    => 'import_contact_forms',
-					'message' => esc_html__( 'Importing Contact Forms', 'templatiq-sites' ),
-				)
-			);
-
-			// Import Flows & Steps.
-			$this->import_flows_and_steps( $site_id );
-
-			// Import WP Forms.
-			$this->import_wp_forms( $site_id );
-
-			$this->update_status(
-				array(
-					'step'    => 'import_customizer_settings',
-					'message' => esc_html__( 'Setting up the Theme', 'templatiq-sites' ),
-				)
-			);
-
-			// Import Customizer Settings.
-			$this->import_customizer_settings( $site_id );
-
 			$this->update_status(
 				array(
 					'step'    => 'import_content',
@@ -562,31 +538,6 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 		}
 
 		/**
-		 * Import WP Forms
-		 */
-		public function import_wp_forms() {
-
-			/** WordPress Post Administration API */
-			require_once ABSPATH . 'wp-admin/includes/post.php';
-
-			$demo_data = get_option( 'templatiq_sites_import_data', array() );
-			/**
-			 * Import WP Forms.
-			 */
-			if ( isset( $demo_data['astra-site-wpforms-path'] ) && ! empty( $demo_data['astra-site-wpforms-path'] ) ) {
-				Templatiq_Sites_Importer::get_instance()->import_wpforms( $demo_data['astra-site-wpforms-path'] );
-			}
-		}
-
-		/**
-		 * Import Customizer Settings.
-		 */
-		public function import_customizer_settings() {
-			$demo_data = get_option( 'templatiq_sites_import_data', array() );
-			Templatiq_Sites_Importer::get_instance()->import_customizer_settings( $demo_data['astra-site-customizer-data'] );
-		}
-
-		/**
 		 * Import Content from XML/WXR.
 		 */
 		public function import_xml() {
@@ -607,17 +558,6 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 
 			if ( isset( $demo_data['astra-site-options-data'] ) && ! empty( $demo_data['astra-site-options-data'] ) ) {
 				Templatiq_Sites_Importer::get_instance()->import_options( $demo_data['astra-site-options-data'] );
-			}
-		}
-
-		/**
-		 * Import Widgets.
-		 */
-		public function import_widgets() {
-			$demo_data = get_option( 'templatiq_sites_import_data', array() );
-
-			if ( isset( $demo_data['astra-site-widgets-data'] ) && ! empty( $demo_data['astra-site-widgets-data'] ) ) {
-				Templatiq_Sites_Importer::get_instance()->import_widgets( $demo_data['astra-site-widgets-data'] );
 			}
 		}
 
@@ -646,10 +586,6 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 			$this->reset_previously_import_site();
 
 			$this->import_flows_and_steps();
-
-			$this->import_wp_forms();
-
-			$this->import_customizer_settings();
 
 			$this->import_xml();
 

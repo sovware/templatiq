@@ -153,30 +153,6 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing_Gutenberg' ) ) :
 			// This replaces the category ID in UAG Post blocks.
 			$site_options = get_option( 'templatiq_sites_import_data', array() );
 
-			if ( isset( $site_options['astra-site-taxonomy-mapping'] ) ) {
-
-				$tax_mapping = $site_options['astra-site-taxonomy-mapping'];
-
-				if ( isset( $tax_mapping['post'] ) ) {
-
-					$category_mapping = ( isset( $tax_mapping['post']['category'] ) ) ? $tax_mapping['post']['category'] : array();
-
-					if ( is_array( $category_mapping ) && ! empty( $category_mapping ) ) {
-
-						foreach ( $category_mapping as $key => $value ) {
-
-							$this_site_term = get_term_by( 'slug', $value['slug'], 'category' );
-							if ( ! is_wp_error( $this_site_term ) && $this_site_term ) {
-								$content = str_replace( '"categories":"' . $value['id'], '"categories":"' . $this_site_term->term_id, $content );
-								$content = str_replace( '{"categories":[{"id":' . $value['id'], '{"categories":[{"id":' . $this_site_term->term_id, $content );
-								$content = str_replace( 'categories/' . $value['id'], 'categories/' . $this_site_term->term_id, $content );
-								$content = str_replace( 'categories=' . $value['id'], 'categories=' . $this_site_term->term_id, $content );
-							}
-						}
-					}
-				}
-			}
-
 			// # Tweak
 			// Gutenberg break block markup from render. Because the '&' is updated in database with '&amp;' and it
 			// expects as 'u0026amp;'. So, Converted '&amp;' with 'u0026amp;'.

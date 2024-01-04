@@ -193,45 +193,6 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing_Importer' ) ) :
 		}
 
 		/**
-		 * Import Page Builders
-		 *
-		 * @since 2.0.0
-		 * @return void
-		 */
-		public function import_page_builders() {
-			templatiq_sites_error_log( 'Requesting Page Builders' );
-			update_site_option( 'templatiq-sites-batch-status-string', 'Requesting Page Builders' );
-
-			$purchase_key = FullSite::init()->get_license_key();
-			$site_url     = get_site_url();
-
-			$api_args = array(
-				'timeout' => 30,
-			);
-
-			$page_builder_request = wp_remote_get( trailingslashit( FullSite::init()->get_api_domain() ) . 'wp-json/wp/v2/astra-site-page-builder/?_fields=id,name,slug&site_url=' . $site_url . '&purchase_key=' . $purchase_key, $api_args );
-			if ( ! is_wp_error( $page_builder_request ) && 200 === (int) wp_remote_retrieve_response_code( $page_builder_request ) ) {
-				$page_builders = json_decode( wp_remote_retrieve_body( $page_builder_request ), true );
-
-				if ( isset( $page_builders['code'] ) ) {
-					$message = isset( $page_builders['message'] ) ? $page_builders['message'] : '';
-					if ( ! empty( $message ) ) {
-						templatiq_sites_error_log( 'HTTP Request Error: ' . $message );
-					} else {
-						templatiq_sites_error_log( 'HTTP Request Error!' );
-					}
-				} else {
-					update_site_option( 'templatiq-sites-page-builders', $page_builders );
-
-					do_action( 'templatiq_sites_sync_page_builders', $page_builders );
-				}
-			}
-
-			templatiq_sites_error_log( 'Page Builders Imported Successfully!' );
-			update_site_option( 'templatiq-sites-batch-status-string', 'Page Builders Imported Successfully!' );
-		}
-
-		/**
 		 * Import Blocks
 		 *
 		 * @since 2.0.0

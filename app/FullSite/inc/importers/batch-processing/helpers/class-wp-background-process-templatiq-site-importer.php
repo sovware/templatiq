@@ -39,12 +39,8 @@ if ( class_exists( 'WP_Background_Process' ) ) :
 
 			$process = $object['instance'];
 			$method  = $object['method'];
-
-			if ( 'import_page_builders' === $method ) {
-				templatiq_sites_error_log( '-------- Importing Page Builders --------' );
-				update_site_option( 'templatiq-sites-batch-status-string', 'Importing Page Builders' );
-				$process->import_page_builders();
-			} elseif ( 'import_all_categories_and_tags' === $method ) {
+			
+			if ( 'import_all_categories_and_tags' === $method ) {
 				templatiq_sites_error_log( '-------- Importing All Categories and Tags --------' );
 				update_site_option( 'templatiq-sites-batch-status-string', 'Importing All Categories and Tags' );
 				$process->import_all_categories_and_tags();

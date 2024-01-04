@@ -96,7 +96,6 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 			add_action( 'wp_ajax_templatiq-sites-import-all-categories-and-tags', array( $this, 'import_all_categories_and_tags' ) );
 			add_action( 'wp_ajax_templatiq-sites-import-all-categories', array( $this, 'import_all_categories' ) );
 			add_action( 'wp_ajax_templatiq-sites-import-block-categories', array( $this, 'import_block_categories' ) );
-			add_action( 'wp_ajax_templatiq-sites-import-page-builders', array( $this, 'import_page_builders' ) );
 			add_action( 'wp_ajax_templatiq-sites-import-blocks', array( $this, 'import_blocks' ) );
 			add_action( 'wp_ajax_templatiq-sites-get-sites-request-count', array( $this, 'sites_requests_count' ) );
 			add_action( 'wp_ajax_templatiq-sites-get-blocks-request-count', array( $this, 'blocks_requests_count' ) );
@@ -204,22 +203,6 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 				wp_send_json_error( 'You are not allowed to perform this action', 'templatiq-sites' );
 			}
 			Templatiq_Sites_Batch_Processing_Importer::get_instance()->import_block_categories();
-			wp_send_json_success();
-		}
-
-		/**
-		 * Import Page Builders
-		 *
-		 * @since 2.0.0
-		 * @return void
-		 */
-		public function import_page_builders() {
-			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
-
-			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_send_json_error( 'You are not allowed to perform this action', 'templatiq-sites' );
-			}
-			Templatiq_Sites_Batch_Processing_Importer::get_instance()->import_page_builders();
 			wp_send_json_success();
 		}
 
@@ -555,20 +538,6 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 					array(
 						'instance' => Templatiq_Sites_Batch_Processing_Importer::get_instance(),
 						'method'   => 'import_all_categories',
-					)
-				);
-			}
-
-			// Added the page_builders.
-			$this->log( 'Added page builders in queue.' );
-
-			if ( defined( 'WP_CLI' ) ) {
-				Templatiq_Sites_Batch_Processing_Importer::get_instance()->import_page_builders();
-			} else {
-				self::$process_site_importer->push_to_queue(
-					array(
-						'instance' => Templatiq_Sites_Batch_Processing_Importer::get_instance(),
-						'method'   => 'import_page_builders',
 					)
 				);
 			}

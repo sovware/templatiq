@@ -243,25 +243,6 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Templatiq_Sites_WP_CLI
 			}
 
 			/**
-			 * Import Flows & Steps for CartFlows.
-			 */
-			if ( isset( $demo_data['templatiq-site-cartflows-path'] ) && ! empty( $demo_data['templatiq-site-cartflows-path'] ) ) {
-				Templatiq_Sites_Importer::get_instance()->import_cartflows( $demo_data['templatiq-site-cartflows-path'] );
-			}
-
-			/**
-			 * Import WP Forms.
-			 */
-			if ( isset( $demo_data['astra-site-wpforms-path'] ) && ! empty( $demo_data['astra-site-wpforms-path'] ) ) {
-				Templatiq_Sites_Importer::get_instance()->import_wpforms( $demo_data['astra-site-wpforms-path'] );
-			}
-
-			/**
-			 * Import Customizer Settings.
-			 */
-			WP_CLI::runcommand( 'templatiq-sites import_customizer_settings ' . $id );
-
-			/**
 			 * Import Content from XML/WXR.
 			 */
 			if ( isset( $demo_data['astra-site-wxr-path'] ) && ! empty( $demo_data['astra-site-wxr-path'] ) ) {
@@ -274,14 +255,6 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Templatiq_Sites_WP_CLI
 			if ( isset( $demo_data['astra-site-options-data'] ) && ! empty( $demo_data['astra-site-options-data'] ) ) {
 				WP_CLI::line( __( 'Importing Site Options..', 'templatiq-sites' ) );
 				Templatiq_Sites_Importer::get_instance()->import_options( $demo_data['astra-site-options-data'] );
-			}
-
-			/**
-			 * Import Widgets.
-			 */
-			if ( isset( $demo_data['astra-site-widgets-data'] ) && ! empty( $demo_data['astra-site-widgets-data'] ) ) {
-				WP_CLI::line( __( 'Importing Widgets..', 'templatiq-sites' ) );
-				Templatiq_Sites_Importer::get_instance()->import_widgets( $demo_data['astra-site-widgets-data'] );
 			}
 
 			/**
@@ -401,39 +374,6 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Templatiq_Sites_WP_CLI
 
 			// Delete Widgets Data.
 			Templatiq_Sites_Importer::get_instance()->reset_widgets_data();
-		}
-
-		/**
-		 * Import Customizer Settings
-		 *
-		 * ## OPTIONS
-		 *
-		 * <id>
-		 * : Site ID.
-		 *
-		 * ## EXAMPLES
-		 *
-		 *      $ wp templatiq-sites import_customizer_settings <id>
-		 *
-		 * @since 1.4.0
-		 *
-		 * @param  array $args        Arguments.
-		 * @param  array $assoc_args Associated Arguments.
-		 * @return void
-		 */
-		public function import_customizer_settings( $args, $assoc_args ) {
-
-			// Valid site ID?
-			$id = isset( $args[0] ) ? absint( $args[0] ) : 0;
-			if ( ! $id ) {
-				WP_CLI::error( __( 'Invalid Site ID,', 'templatiq-sites' ) );
-			}
-
-			$demo_data = $this->get_site_data( $id );
-
-			WP_CLI::line( __( 'Importing customizer settings..', 'templatiq-sites' ) );
-
-			Templatiq_Sites_Importer::get_instance()->import_customizer_settings( $demo_data['astra-site-customizer-data'] );
 		}
 
 		/**
