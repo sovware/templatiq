@@ -148,6 +148,8 @@ class Templatiq_Site_Options_Import {
 				// Is option exist in defined array site_options()?
 				if ( in_array( $option_name, self::site_options(), true ) ) {
 
+					error_log( $option_name );
+					
 					switch ( $option_name ) {
 
 						// Set WooCommerce page ID by page Title.

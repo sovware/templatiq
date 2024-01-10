@@ -52,7 +52,6 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-importer-log.php';
 			require_once TEMPLATIQ_SITES_DIR . 'inc/importers/class-templatiq-sites-helper.php';
 			require_once TEMPLATIQ_SITES_DIR . 'inc/importers/class-templatiq-widget-importer.php';
-			// require_once TEMPLATIQ_SITES_DIR . 'inc/importers/class-templatiq-customizer-import.php';
 			require_once TEMPLATIQ_SITES_DIR . 'inc/importers/class-templatiq-site-options-import.php';
 
 			// Import AJAX.
@@ -76,11 +75,9 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			// Reset Customizer Data.
 			add_action( 'wp_ajax_templatiq-sites-reset-customizer-data', array( $this, 'reset_customizer_data' ) );
 			add_action( 'wp_ajax_templatiq-sites-reset-site-options', array( $this, 'reset_site_options' ) );
-			add_action( 'wp_ajax_templatiq-sites-reset-widgets-data', array( $this, 'reset_widgets_data' ) );
 
 			// Reset Post & Terms.
 			add_action( 'wp_ajax_templatiq-sites-delete-posts', array( $this, 'delete_imported_posts' ) );
-			add_action( 'wp_ajax_templatiq-sites-delete-wp-forms', array( $this, 'delete_imported_wp_forms' ) );
 			add_action( 'wp_ajax_templatiq-sites-delete-terms', array( $this, 'delete_imported_terms' ) );
 
 			if ( version_compare( get_bloginfo( 'version' ), '5.1.0', '>=' ) ) {
@@ -184,20 +181,6 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 		}
 
 		/**
-		 * Track Flow
-		 *
-		 * @since 2.0.0
-		 *
-		 * @param  integer $flow_id Flow ID.
-		 * @return void
-		 */
-		public function track_flows( $flow_id ) {
-			Templatiq_Sites_Importer_Log::add( 'Flow ID ' . $flow_id );
-			Templatiq_WXR_Importer::instance()->track_post( $flow_id );
-		}
-
-
-		/**
 		 * Directory Types
 		 * 
 		 * @return void
@@ -268,7 +251,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			// 	wp_send_json_error( sprintf( __( 'Invalid Request URL - %s', 'templatiq-sites' ), $wxr_url ) );
 			// }
 
-			$wxr_url = 'http://templatiq.com/wp-content/uploads/2023/12/mywordpress.WordPress.2023-12-28-1.xml';
+			$wxr_url = 'http://templatiq.com/wp-content/uploads/2024/01/mywordpress.WordPress.2024-01-08.xml';
 			// error_log( $wxr_url );
 
 			Templatiq_Sites_Importer_Log::add( 'Importing from XML ' . $wxr_url );
@@ -589,67 +572,6 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 		}
 
 		/**
-		 * Reset widgets data
-		 *
-		 * @since 1.3.0
-		 * @return void
-		 */
-		public function reset_widgets_data() {
-
-			if ( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) {
-				// Verify Nonce.
-				check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
-
-				if ( ! current_user_can( 'customize' ) ) {
-					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq-sites' ) );
-				}
-			}
-
-			// Get all old widget ids.
-			$old_widgets_data = (array) get_option( '_templatiq_sites_old_widgets_data', array() );
-			$old_widget_ids = array();
-			foreach ( $old_widgets_data as $old_sidebar_key => $old_widgets ) {
-				if ( ! empty( $old_widgets ) && is_array( $old_widgets ) ) {
-					$old_widget_ids = array_merge( $old_widget_ids, $old_widgets );
-				}
-			}
-
-			// Process if not empty.
-			$sidebars_widgets = get_option( 'sidebars_widgets', array() );
-			if ( ! empty( $old_widget_ids ) && ! empty( $sidebars_widgets ) ) {
-
-				Templatiq_Sites_Importer_Log::add( 'DELETED - WIDGETS ' . wp_json_encode( $old_widget_ids ) );
-
-				foreach ( $sidebars_widgets as $sidebar_id => $widgets ) {
-					$widgets = (array) $widgets;
-
-					if ( ! empty( $widgets ) && is_array( $widgets ) ) {
-						foreach ( $widgets as $widget_id ) {
-
-							if ( in_array( $widget_id, $old_widget_ids, true ) ) {
-								Templatiq_Sites_Importer_Log::add( 'DELETED - WIDGET ' . $widget_id );
-
-								// Move old widget to inacitve list.
-								$sidebars_widgets['wp_inactive_widgets'][] = $widget_id;
-
-								// Remove old widget from sidebar.
-								$sidebars_widgets[ $sidebar_id ] = array_diff( $sidebars_widgets[ $sidebar_id ], array( $widget_id ) );
-							}
-						}
-					}
-				}
-
-				update_option( 'sidebars_widgets', $sidebars_widgets );
-			}
-
-			if ( defined( 'WP_CLI' ) ) {
-				WP_CLI::line( 'Deleted Widgets!' );
-			} elseif ( wp_doing_ajax() ) {
-				wp_send_json_success( __( 'Deleted Widgets!', 'templatiq-sites' ) );
-			}
-		}
-
-		/**
 		 * Delete imported posts
 		 *
 		 * @since 1.3.0
@@ -682,46 +604,6 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 
 				do_action( 'templatiq_sites_before_delete_imported_posts', $post_id, $post_type );
 
-				Templatiq_Sites_Importer_Log::add( $message );
-				wp_delete_post( $post_id, true );
-			}
-
-			if ( defined( 'WP_CLI' ) ) {
-				WP_CLI::line( $message );
-			} elseif ( wp_doing_ajax() ) {
-				wp_send_json_success( $message );
-			}
-		}
-
-		/**
-		 * Delete imported WP forms
-		 *
-		 * @since 1.3.0
-		 * @since 1.4.0 The `$post_id` was added.
-		 * Note: This function can be deleted after a few releases since we are performing the delete operation in chunks.
-		 *
-		 * @param  integer $post_id Post ID.
-		 * @return void
-		 */
-		public function delete_imported_wp_forms( $post_id = 0 ) {
-
-			if ( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) {
-				// Verify Nonce.
-				check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
-
-				if ( ! current_user_can( 'customize' ) ) {
-					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq-sites' ) );
-				}
-			}
-
-			$post_id = isset( $_REQUEST['post_id'] ) ? absint( $_REQUEST['post_id'] ) : $post_id;
-
-			$message = '';
-			if ( $post_id ) {
-
-				do_action( 'templatiq_sites_before_delete_imported_wp_forms', $post_id );
-
-				$message = 'Deleted - Form ID ' . $post_id . ' - ' . get_post_type( $post_id ) . ' - ' . get_the_title( $post_id );
 				Templatiq_Sites_Importer_Log::add( $message );
 				wp_delete_post( $post_id, true );
 			}
@@ -774,7 +656,6 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				wp_send_json_success( $message );
 			}
 		}
-
 	}
 
 	/**

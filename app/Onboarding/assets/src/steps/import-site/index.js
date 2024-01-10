@@ -186,6 +186,8 @@ const ImportSite = () => {
 			importPercent: percentage,
 		} );
 
+		console.log(' installRequiredPlugins : ',  'Installing Required Plugins' );
+
 		notInstalledList.forEach( ( plugin ) => {
 			wp.updates.queue.push( {
 				action: 'install-plugin', // Required action.
@@ -296,6 +298,8 @@ const ImportSite = () => {
 		} )
 			.then( ( response ) => response.text() )
 			.then( ( text ) => {
+
+				console.log(' activatePlugin : ', text );
 				let cloneResponse = [];
 				let errorReported = false;
 				try {
@@ -407,9 +411,10 @@ const ImportSite = () => {
 			importPercent: percentage,
 		} );
 
+		console.log(' resetOldSite : ',  resetOldSite );
+
 		let backupFileStatus = false;
 		let resetCustomizerStatus = false;
-		let resetWidgetStatus = false;
 		let resetOptionsStatus = false;
 		let resetTermsStatus = false;
 		let resetPostsStatus = false;
@@ -434,16 +439,9 @@ const ImportSite = () => {
 		}
 
 		/**
-		 * Reset Widgets.
-		 */
-		if ( resetOptionsStatus ) {
-			resetWidgetStatus = await performResetWidget();
-		}
-
-		/**
 		 * Reset Terms, Forms.
 		 */
-		if ( resetWidgetStatus ) {
+		if ( resetOptionsStatus ) {
 			resetTermsStatus = await performResetTermsAndForms();
 		}
 
@@ -458,7 +456,6 @@ const ImportSite = () => {
 			! (
 				resetCustomizerStatus &&
 				resetOptionsStatus &&
-				resetWidgetStatus &&
 				resetTermsStatus &&
 				resetPostsStatus
 			)
@@ -504,7 +501,8 @@ const ImportSite = () => {
 				let cloneData = [];
 				let errorReported = false;
 
-				console.log(text);
+				// console.log(text);
+				console.log(' performPostsReset : ',  text );
 				
 				try {
 					const result = JSON.parse( text );
@@ -569,6 +567,7 @@ const ImportSite = () => {
 		} )
 			.then( ( response ) => response.text() )
 			.then( ( text ) => {
+				console.log('performSettingsBackup  : ', text  );
 				const response = JSON.parse( text );
 				if ( response.success ) {
 					percentage += 2;
@@ -616,6 +615,8 @@ const ImportSite = () => {
 		} )
 			.then( ( response ) => response.text() )
 			.then( ( text ) => {
+
+				console.log(' performResetCustomizer : ',  text );
 				try {
 					const response = JSON.parse( text );
 					if ( response.success ) {
@@ -673,6 +674,8 @@ const ImportSite = () => {
 		} )
 			.then( ( response ) => response.text() )
 			.then( ( text ) => {
+
+				console.log(' performResetSiteOptions : ', text  );
 				try {
 					const data = JSON.parse( text );
 					if ( data.success ) {
@@ -711,64 +714,6 @@ const ImportSite = () => {
 	};
 
 	/**
-	 * 1.3 Perform Reset for Widgets
-	 */
-	const performResetWidget = async () => {
-		const widgets = new FormData();
-		widgets.append( 'action', 'templatiq-sites-reset-widgets-data' );
-		widgets.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
-
-		dispatch( {
-			type: 'set',
-			importStatus: __( 'Resetting widgets.', 'templatiq-sites' ),
-		} );
-		const status = await fetch( ajaxurl, {
-			method: 'post',
-			body: widgets,
-		} )
-			.then( ( response ) => response.text() )
-			.then( ( text ) => {
-				try {
-					const response = JSON.parse( text );
-					if ( response.success ) {
-						percentage += 2;
-						dispatch( {
-							type: 'set',
-							importPercent: percentage,
-						} );
-						return true;
-					}
-					throw response.data;
-				} catch ( error ) {
-					report(
-						__(
-							'Resetting widgets JSON parse failed.',
-							'templatiq-sites'
-						),
-						'',
-						error,
-						'',
-						'',
-						text
-					);
-					return false;
-				}
-			} )
-			.catch( ( error ) => {
-				report(
-					__( 'Resetting widgets failed.', 'templatiq-sites' ),
-					'',
-					error,
-					'',
-					'',
-					error
-				);
-				return false;
-			} );
-		return status;
-	};
-
-	/**
 	 * 1.4 Reset Terms and Forms.
 	 */
 	const performResetTermsAndForms = async () => {
@@ -787,6 +732,7 @@ const ImportSite = () => {
 		} )
 			.then( ( response ) => response.text() )
 			.then( ( text ) => {
+				console.log( 'Resetting terms and forms.')
 				try {
 					const response = JSON.parse( text );
 					if ( response.success ) {
@@ -848,6 +794,9 @@ const ImportSite = () => {
 		} )
 			.then( ( response ) => response.json() )
 			.then( async ( response ) => {
+
+				console.log('Gathering posts for deletions.', response );
+
 				if ( response.success ) {
 					const chunkArray = divideIntoChunks( 10, response.data );
 					if ( chunkArray.length > 0 ) {
@@ -895,6 +844,9 @@ const ImportSite = () => {
 		} )
 			.then( ( response ) => response.text() )
 			.then( ( text ) => {
+
+				console.log( 'importDirectoryTypes');
+
 				try {
 					const data = JSON.parse( text );
 					if ( data.success ) {
@@ -933,7 +885,7 @@ const ImportSite = () => {
 	};
 
 	/**
-	 * 5. Import Site Content XML.
+	 * 3. Import Site Content XML.
 	 */
 	const importSiteContent = async () => {
 		if ( ! contentImportFlag ) {
@@ -968,6 +920,8 @@ const ImportSite = () => {
 			type: 'set',
 			importStatus: __( 'Importing Site Content.', 'templatiq-sites' ),
 		} );
+
+		console.log( 'importSiteContent: Importing Site Content.' );
 
 		const content = new FormData();
 		content.append( 'action', 'templatiq-sites-import-prepare-xml' );
@@ -1059,6 +1013,7 @@ const ImportSite = () => {
 			}
 		};
 
+		console.log( 'importXML');
 		evtSource.onerror = ( error ) => {
 			evtSource.close();
 			report(
@@ -1092,7 +1047,7 @@ const ImportSite = () => {
 	};
 
 	/**
-	 * 6. Import Site Option table values.
+	 * 4. Import Site Option table values.
 	 */
 	const importSiteOptions = async () => {
 		dispatch( {
@@ -1110,6 +1065,8 @@ const ImportSite = () => {
 		} )
 			.then( ( response ) => response.text() )
 			.then( ( text ) => {
+
+				console.log( 'importSiteOptions : Importing Site Options.', text )
 				try {
 					const data = JSON.parse( text );
 					if ( data.success ) {
@@ -1149,13 +1106,14 @@ const ImportSite = () => {
 	};
 
 	/**
-	 * 8. Update the website as per the customizations selected by the user.
+	 * 5. Update the website as per the customizations selected by the user.
 	 * The following steps are covered here.
 	 * 		a. Update Logo
 	 * 		b. Update Color Palette
 	 * 		c. Update Typography
 	 */
 	const customizeWebsite = async () => {
+		console.log( 'customizeWebsite : ')
 		await setSiteLogo( siteLogo );
 		await setColorPalettes( JSON.stringify( activePalette ) );
 		await saveTypography( typography );
@@ -1163,7 +1121,7 @@ const ImportSite = () => {
 	};
 
 	/**
-	 * 9. Final setup - Invoking Batch process.
+	 * 6. Final setup - Invoking Batch process.
 	 */
 	const importDone = async () => {
 		dispatch( {
@@ -1181,6 +1139,8 @@ const ImportSite = () => {
 		} )
 			.then( ( response ) => response.text() )
 			.then( ( text ) => {
+
+				console.log( 'Final finishing.', text)
 				try {
 					const data = JSON.parse( text );
 					if ( data.success ) {

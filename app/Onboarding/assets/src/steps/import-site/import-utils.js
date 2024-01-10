@@ -141,7 +141,9 @@ export const checkRequiredPlugins = async ( dispatch ) => {
 	} )
 		.then( ( response ) => response.json() )
 		.then( ( response ) => {
+
 			console.log(' checkRequiredPlugins response : ',  response );
+
 			if ( response.success ) {
 				const rPlugins = response.data?.required_plugins;
 				const notInstalledPlugin = rPlugins.notinstalled || '';
@@ -168,6 +170,8 @@ export const installOneDirectory = ( storedState ) => {
 		) {
 			wp.updates.requestFilesystemCredentials();
 		}
+
+		console.log(' not-installed  themeStatus: ',  themeStatus );
 
 		percentage += 5;
 		dispatch( {
@@ -207,6 +211,9 @@ export const installOneDirectory = ( storedState ) => {
 			} )
 				.then( ( response ) => response.json() )
 				.then( ( response ) => {
+
+					console.log(' installed-but-inactive response: ',  response );
+
 					if ( response.success ) {
 						dispatch( {
 							type: 'set',
@@ -242,6 +249,9 @@ export const installOneDirectory = ( storedState ) => {
 	}
 
 	if ( 'installed-and-active' === themeStatus ) {
+
+		console.log(' installed-and-active: ',  themeStatus );
+
 		dispatch( {
 			type: 'set',
 			themeStatus: true,
@@ -264,6 +274,8 @@ export const setSiteLogo = async ( logo ) => {
 		method: 'post',
 		body: data,
 	} );
+
+	console.log('  setSiteLogo ');
 };
 
 export const setColorPalettes = async ( palette ) => {
@@ -281,6 +293,8 @@ export const setColorPalettes = async ( palette ) => {
 		method: 'post',
 		body: data,
 	} );
+
+	console.log('  setColorPalettes ');
 };
 
 export const saveTypography = async ( selectedValue ) => {
@@ -294,6 +308,8 @@ export const saveTypography = async ( selectedValue ) => {
 		method: 'post',
 		body: data,
 	} );
+
+	console.log('  saveTypography ');
 };
 
 export const divideIntoChunks = ( chunkSize, inputArray ) => {
@@ -311,6 +327,8 @@ export const divideIntoChunks = ( chunkSize, inputArray ) => {
 		counter++;
 	}
 	final.push( portion );
+
+	console.log('divideIntoChunks : ', chunkSize, inputArray );
 
 	return final;
 };
@@ -330,6 +348,8 @@ export const checkFileSystemPermissions = async ( dispatch ) => {
 			type: 'set',
 			fileSystemPermissions: data.data,
 		} );
+
+		console.log(' checkFileSystemPermissions : ', data  );
 	} catch ( error ) {
 		/* eslint-disable-next-line no-console -- We are displaying errors in the console. */
 		console.error( error );

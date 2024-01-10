@@ -45,7 +45,6 @@ const CustomizeSite = () => {
 		}
 
 		dispatch( itemData );
-
 	}, []);
 
 	useEffect(() => {

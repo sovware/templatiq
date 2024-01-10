@@ -52,12 +52,10 @@ if ( ! class_exists( 'Templatiq_Sites_Page' ) ) {
 		 * @since 1.3.0
 		 */
 		public function __construct() {
-
 			if ( ! current_user_can( 'edit_posts' ) ) {
 				return;
 			}
 
-			add_action( 'wp_ajax_templatiq-sites-change-page-builder', array( $this, 'save_page_builder_on_ajax' ) );
 			add_action( 'admin_init', array( $this, 'getting_started' ) );
 		}
 
@@ -142,39 +140,6 @@ if ( ! class_exists( 'Templatiq_Sites_Page' ) ) {
 				wp_safe_redirect( admin_url( '/themes.php?page=templatiq-sites' ) );
 				exit;
 			}
-		}
-
-		/**
-		 * Save Page Builder
-		 *
-		 * @return void
-		 */
-		public function save_page_builder_on_ajax() {
-
-			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
-
-			// Only admins can save settings.
-			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_send_json_error();
-			}
-
-			// Stored Settings.
-			$stored_data = $this->get_settings();
-
-			// New settings.
-			$new_data = array(
-				'page_builder' => ( isset( $_REQUEST['page_builder'] ) ) ? sanitize_key( $_REQUEST['page_builder'] ) : '',
-			);
-
-			// Merge settings.
-			$data = wp_parse_args( $new_data, $stored_data );
-
-			// Update settings.
-			update_option( 'templatiq_sites_settings', $data, 'no' );
-
-			$sites = $this->get_sites_by_page_builder( $new_data['page_builder'] );
-
-			wp_send_json_success( $sites );
 		}
 
 		/**
