@@ -14,8 +14,8 @@ const resolvePlugin = relativePath => path.resolve( pluginDir, relativePath )
 // Config after eject: we're in ./config/
 module.exports = {
 	dotenv: resolvePlugin( ".env" ),
-	pluginSrc: resolvePlugin( "inc/assets/js/src" ), // Plugin src folder path.
-	pluginBlocksJs: resolvePlugin( "inc/assets/js/src/index.js" ),
+	pluginSrc: resolvePlugin( "../../../src/js/onboarding" ), // Plugin src folder path.
+	pluginBlocksJs: resolvePlugin( "../../../src/js/onboarding/index.js" ),
 	yarnLockFile: resolvePlugin( "yarn.lock" ),
 	pluginDist: resolvePlugin( "." ), // We are in ./dist folder already so the path '.' resolves to ./dist/.
 }

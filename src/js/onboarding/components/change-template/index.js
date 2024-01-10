@@ -1,0 +1,51 @@
+import React from 'react';
+// import { PremiumBadge } from '@brainstormforce/starter-templates-components';
+import { __ } from '@wordpress/i18n';
+import { decodeEntities } from '@wordpress/html-entities';
+import { useStateValue } from '../../store/store';
+import './style.scss';
+import ICONS from '../../icons';
+import { sendPostMessage } from '../../utils/functions';
+
+const ChangeTemplate = () => {
+	const [
+		{
+			selectedTemplateName,
+			currentIndex,
+			licenseStatus,
+			selectedTemplateType,
+		},
+		dispatch,
+	] = useStateValue();
+
+	const goToShowcase = () => {
+		sendPostMessage( {
+			param: 'clearPreviewAssets',
+			data: {},
+		} );
+
+		setTimeout( () => {
+			dispatch( {
+				type: 'set',
+				currentIndex: currentIndex - 1,
+				currentCustomizeIndex: 0,
+			} );
+		}, 300 );
+	};
+
+	return (
+		<div className="change-template-wrap">
+			<div className="template-name">
+				<p className="label">
+					{ __( 'Selected Template:', 'templatiq-sites' ) }
+				</p>
+				<h5>{ decodeEntities( selectedTemplateName ) }</h5>
+				{ ! licenseStatus && 'free' !== selectedTemplateType && (
+					'Premium'
+					// <PremiumBadge />
+				) }
+			</div>
+		</div>
+	);
+};
+export default ChangeTemplate;
