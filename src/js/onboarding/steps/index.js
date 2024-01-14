@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { Tooltip } from '@brainstormforce/starter-templates-components';
+import { Tooltip } from '@brainstormforce/starter-templates-components';
 import { __ } from '@wordpress/i18n';
 import { useStateValue } from '../store/store';
 import ICONS from '../icons';
@@ -146,15 +146,14 @@ const Steps = () => {
 										className="back-to-main"
 										onClick={ goToShowcase }
 									>
-										{ ICONS.cross }
-										{/* <Tooltip
+										<Tooltip
 											content={ __(
 												'Back to Templates',
 												'templatiq-sites'
 											) }
 										>
 											{ ICONS.cross }
-										</Tooltip> */}
+										</Tooltip>
 									</div>
 								) }
 								<div className="col exit-link">
