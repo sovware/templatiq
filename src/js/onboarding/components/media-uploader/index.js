@@ -1,42 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { __ } from '@wordpress/i18n';
+import Button from '../button/button';
 import { addFilter } from '@wordpress/hooks';
 import { RangeControl } from '@wordpress/components';
-// import { MediaUpload } from '@wordpress/media-utils';
-import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
-import Button from '../button/button';
 import { useStateValue } from '../../store/store';
-import { sendPostMessage, getDataUri } from '../../utils/functions';
 import { initialState } from '../../store/reducer';
-
-// import MediaUpload from './media-upload';
+import { sendPostMessage, getDataUri } from '../../utils/functions';
 
 import './style.scss';
 import ICONS from '../../icons';
-// import handlePictureUpload from '@helper/wpMediaPicker';
-import WPMediaPicker from '@components/WPMediaPicker';
 
 let frame;
 
 
 const MediaUploader = () => {
 	const [ { siteLogo }, dispatch ] = useStateValue();
-	const [logoURL, setLogoURL] = useState();
-
-	const replaceMediaUpload = () => ( 'Test' );
-
-	
-	addFilter(
-		'editor.MediaUpload',
-		'core/edit-post/components/media-upload/replace-media-upload',
-		replaceMediaUpload
-	);
-
-	// const handlePictureUpload = () => {
-	// 	console.log('handlePictureUploaded');
-	// 	handlePictureUpload();
-	// 	// <WPMediaPicker onChange={( attachment ) => { console.log( attachment.url ); setLogoURL(attachment.url); onSelectImage( media ) }} />
-	// }
 
 	const onSelectImage = ( media ) => {
 		const mediaData = {
@@ -103,7 +81,7 @@ const MediaUploader = () => {
 			);
 
 			// Range control slider styling for RTL.
-			const currentValue = rangeControl.children[ 3 ].style.left;
+			const currentValue = RangeControl.children[ 3 ].style.left;
 			rangeControl.children[ 3 ].style.marginRight = '-10px';
 			rangeControl.children[ 3 ].style.removeProperty( 'margin-left' );
 			rangeControl.children[ 3 ].style.right = currentValue;
@@ -117,8 +95,8 @@ const MediaUploader = () => {
 	function handlePictureUpload() {
 		// If the media frame already exists, rehandlePictureUpload it.
 		if (frame && frame.el) {
-		  frame.remove();
-		  frame = undefined;
+			frame.remove();
+			frame = undefined;
 		}
 	
 		// Create a new media frame
@@ -133,27 +111,26 @@ const MediaUploader = () => {
 			multiple: false, // Set to true to allow multiple files to be selected
 			uploader: {
 				params: {
-				type: "image", // Restrict to image files
+					type: "image", // Restrict to image files
 				},
 			},
 		});
 	
 		const isValid = (attachment) => {
-		  return true;
+		  	return true;
 		};
 	
 		frame.on("select", function () {
-		  let attachment =
-			frame.state().get("selection").first() &&
-			frame.state().get("selection").first().toJSON();
-			
-			console.log('Selected Image', attachment)
-			onSelectImage( attachment )
-		  if (!isValid(attachment)) {
-			return;
-		  }
-	
-		  frame = undefined;
+			let attachment =
+				frame.state().get("selection").first() &&
+				frame.state().get("selection").first().toJSON();
+				
+				onSelectImage( attachment )
+			if (!isValid(attachment)) {
+				return;
+			}
+		
+			frame = undefined;
 		});
 	
 		// Finally, handlePictureUpload the modal on click
@@ -163,7 +140,6 @@ const MediaUploader = () => {
 
 	return (
 		<>
-			{/* <WPMediaPicker onChange={( attachment ) => { console.log( attachment.url ); setLogoURL(attachment.url); onSelectImage( media ) }} /> */}
 
 			{ '' !== siteLogo.url && undefined !== siteLogo.url ? (
 				<div className="ist-logo-wrapper">
@@ -187,7 +163,6 @@ const MediaUploader = () => {
 					</div>
 					<div
 						className="ist-selected-image"
-						onClick={ handlePictureUpload }
 					>
 						<div
 							onClick={ handlePictureUpload }
@@ -199,7 +174,6 @@ const MediaUploader = () => {
 							/>
 							<div
 								className="ist-change-logo"
-								onClick={ handlePictureUpload }
 							>
 								{ __( 'Change Logo', 'templatiq-sites' ) }
 							</div>
