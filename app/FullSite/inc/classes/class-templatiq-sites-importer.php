@@ -6,6 +6,7 @@
  * @package Templatiq Sites
  */
 
+use Templatiq\FullSite\OptionsImport;
 use Templatiq\Utils\Options;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -51,41 +52,39 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 
 			require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-importer-log.php';
 			require_once TEMPLATIQ_SITES_DIR . 'inc/importers/class-templatiq-sites-helper.php';
-			require_once TEMPLATIQ_SITES_DIR . 'inc/importers/class-templatiq-widget-importer.php';
-			require_once TEMPLATIQ_SITES_DIR . 'inc/importers/class-templatiq-site-options-import.php';
 
 			// Import AJAX.
-			add_action( 'wp_ajax_templatiq-sites-import-directory-types', array( $this, 'import_directory_types' ) );
+			add_action( 'wp_ajax_templatiq-sites-import-directory-types', [$this, 'import_directory_types'] );
 
-			add_action( 'wp_ajax_templatiq-sites-import-customizer-settings', array( $this, 'import_customizer_settings' ) );
-			add_action( 'wp_ajax_templatiq-sites-import-prepare-xml', array( $this, 'prepare_xml_data' ) );
-			add_action( 'wp_ajax_templatiq-sites-import-options', array( $this, 'import_options' ) );
-			add_action( 'wp_ajax_templatiq-sites-import-end', array( $this, 'import_end' ) );
+			add_action( 'wp_ajax_templatiq-sites-import-customizer-settings', [$this, 'import_customizer_settings'] );
+			add_action( 'wp_ajax_templatiq-sites-import-prepare-xml', [$this, 'prepare_xml_data'] );
+			add_action( 'wp_ajax_templatiq-sites-import-options', [$this, 'import_options'] );
+			add_action( 'wp_ajax_templatiq-sites-import-end', [$this, 'import_end'] );
 
 			// Hooks in AJAX.
-			add_action( 'templatiq_sites_import_complete', array( $this, 'clear_related_cache' ) );
-			add_action( 'init', array( $this, 'load_importer' ) );
+			add_action( 'templatiq_sites_import_complete', [$this, 'clear_related_cache'] );
+			add_action( 'init', [$this, 'load_importer'] );
 
 			require_once TEMPLATIQ_SITES_DIR . 'inc/importers/batch-processing/class-templatiq-sites-batch-processing.php';
 
-			add_action( 'wp_ajax_templatiq-sites-set-start-flag', array( $this, 'set_start_flag' ) );
-			add_action( 'templatiq_sites_batch_process_complete', array( $this, 'clear_related_cache' ) );
-			add_action( 'templatiq_sites_batch_process_complete', array( $this, 'delete_related_transient' ) );
+			add_action( 'wp_ajax_templatiq-sites-set-start-flag', [$this, 'set_start_flag'] );
+			add_action( 'templatiq_sites_batch_process_complete', [$this, 'clear_related_cache'] );
+			add_action( 'templatiq_sites_batch_process_complete', [$this, 'delete_related_transient'] );
 
 			// Reset Customizer Data.
-			add_action( 'wp_ajax_templatiq-sites-reset-customizer-data', array( $this, 'reset_customizer_data' ) );
-			add_action( 'wp_ajax_templatiq-sites-reset-site-options', array( $this, 'reset_site_options' ) );
+			add_action( 'wp_ajax_templatiq-sites-reset-customizer-data', [$this, 'reset_customizer_data'] );
+			add_action( 'wp_ajax_templatiq-sites-reset-site-options', [$this, 'reset_site_options'] );
 
 			// Reset Post & Terms.
-			add_action( 'wp_ajax_templatiq-sites-delete-posts', array( $this, 'delete_imported_posts' ) );
-			add_action( 'wp_ajax_templatiq-sites-delete-terms', array( $this, 'delete_imported_terms' ) );
+			add_action( 'wp_ajax_templatiq-sites-delete-posts', [$this, 'delete_imported_posts'] );
+			add_action( 'wp_ajax_templatiq-sites-delete-terms', [$this, 'delete_imported_terms'] );
 
 			if ( version_compare( get_bloginfo( 'version' ), '5.1.0', '>=' ) ) {
-				add_filter( 'http_request_timeout', array( $this, 'set_timeout_for_images' ), 10, 2 ); //phpcs:ignore WordPressVIPMinimum.Hooks.RestrictedHooks.http_request_timeout -- We need this to avoid timeout on slow servers while installing theme, plugin etc.
+				add_filter( 'http_request_timeout', [$this, 'set_timeout_for_images'], 10, 2 ); //phpcs:ignore WordPressVIPMinimum.Hooks.RestrictedHooks.http_request_timeout -- We need this to avoid timeout on slow servers while installing theme, plugin etc.
 			}
 
-			add_action( 'init', array( $this, 'disable_default_woo_pages_creation' ), 2 );
-			add_filter( 'upgrader_package_options', array( $this, 'plugin_install_clear_directory' ) );
+			add_action( 'init', [$this, 'disable_default_woo_pages_creation'], 2 );
+			add_filter( 'upgrader_package_options', [$this, 'plugin_install_clear_directory'] );
 		}
 
 		/**
@@ -177,15 +176,16 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 		 */
 		public function change_flow_status( $args ) {
 			$args['post_status'] = 'publish';
+
 			return $args;
 		}
 
 		/**
 		 * Directory Types
-		 * 
+		 *
 		 * @return void
 		 */
-		public function import_directory_types( ) {
+		public function import_directory_types() {
 
 			if ( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) {
 				// Verify Nonce.
@@ -196,24 +196,24 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				}
 			}
 
-			$types = get_option( 'templatiq_sites_import_data', true )[ 'directory-types' ];
+			$types       = get_option( 'templatiq_sites_import_data', true )['directory-types'];
 			$ids_mapping = [];
-			foreach ($types as $type) {
-			
+			foreach ( $types as $type ) {
+
 				$term['term_id'] = $type['term_id'];
-				if( ! term_exists( $type['name'], 'atbdp_listing_types' ) ) {
-					$term = wp_insert_term( $type['name'], 'atbdp_listing_types');
+				if ( ! term_exists( $type['name'], 'atbdp_listing_types' ) ) {
+					$term = wp_insert_term( $type['name'], 'atbdp_listing_types' );
 					error_log( 'Directory Type Inserted: ' . $term['term_id'] );
 				}
-			
-				$ids_mapping[ $type['term_id'] ] = $term['term_id'];
-			
-				foreach ($type['meta'] as $key => $value) {
+
+				$ids_mapping[$type['term_id']] = $term['term_id'];
+
+				foreach ( $type['meta'] as $key => $value ) {
 					$value = maybe_unserialize( $value );
 					update_term_meta( $term['term_id'], $key, $value );
 				}
 
-				update_term_meta( $term['term_id'], '_templatiq_sites_imported_term', true);
+				update_term_meta( $term['term_id'], '_templatiq_sites_imported_term', true );
 			}
 
 			update_option( 'templatiq_sites_directory_types_ids_mapping', $ids_mapping, 'no' );
@@ -244,32 +244,24 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				wp_send_json_error( __( 'The XMLReader library is not available. This library is required to import the content for the website.', 'templatiq-sites' ) );
 			}
 
-			// $wxr_url = templatiq_get_site_data( 'astra-site-wxr-path' );
-
-			// if ( ! templatiq_sites_is_valid_url( $wxr_url ) ) {
-			// 	/* Translators: %s is XML URL. */
-			// 	wp_send_json_error( sprintf( __( 'Invalid Request URL - %s', 'templatiq-sites' ), $wxr_url ) );
-			// }
-
-			$wxr_url = 'http://templatiq.com/wp-content/uploads/2024/01/mywordpress.WordPress.2024-01-08.xml';
-			// error_log( $wxr_url );
+			$wxr_url = templatiq_get_site_data( 'astra-site-wxr-path' );
 
 			Templatiq_Sites_Importer_Log::add( 'Importing from XML ' . $wxr_url );
 
-			$overrides = array(
+			$overrides = [
 				'wp_handle_sideload' => 'upload',
-			);
+			];
 
 			// Download XML file.
 			$xml_path = Templatiq_Sites_Helper::download_file( $wxr_url, $overrides );
 
 			if ( $xml_path['success'] ) {
 
-				$post = array(
+				$post = [
 					'post_title'     => basename( $wxr_url ),
 					'guid'           => $xml_path['data']['url'],
 					'post_mime_type' => $xml_path['data']['type'],
-				);
+				];
 
 				Templatiq_Sites_Importer_Log::add( wp_json_encode( $post ) );
 				Templatiq_Sites_Importer_Log::add( wp_json_encode( $xml_path ) );
@@ -304,7 +296,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 		 * @param  array $options_data Site Options.
 		 * @return void
 		 */
-		public function import_options( $options_data = array() ) {
+		public function import_options( $options_data = [] ) {
 
 			if ( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) {
 				// Verify Nonce.
@@ -326,7 +318,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 					update_option( '_templatiq_sites_old_site_options', $options_data, 'no' );
 				}
 
-				$options_importer = Templatiq_Site_Options_Import::instance();
+				$options_importer = OptionsImport::init();
 				$options_importer->import_options( $options_data );
 
 				if ( defined( 'WP_CLI' ) ) {
@@ -361,7 +353,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				}
 			}
 
-			$demo_data = get_option( 'templatiq_sites_import_data', array() );
+			$demo_data = get_option( 'templatiq_sites_import_data', [] );
 
 			do_action( 'templatiq_sites_import_complete', $demo_data );
 
@@ -385,24 +377,24 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 		public static function get_single_demo( $template_id ) {
 
 			// default values.
-			$remote_args = array();
-			$defaults    = array(
-				'id'                          => '',
-				'astra-site-options-data'     => '',
-				'astra-post-data-mapping'     => '',
-				'astra-site-wxr-path'         => '',
-				'astra-enabled-extensions'    => '',
-				'required-plugins'            => '',
-				'license-status'              => '',
-				'site-type'                   => '',
-				'astra-site-url'              => '',
-			);
+			$remote_args = [];
+			$defaults    = [
+				'id'                       => '',
+				'astra-site-options-data'  => '',
+				'astra-post-data-mapping'  => '',
+				'astra-site-wxr-path'      => '',
+				'astra-enabled-extensions' => '',
+				'required-plugins'         => '',
+				'license-status'           => '',
+				'site-type'                => '',
+				'astra-site-url'           => '',
+			];
 
 			$api_args = apply_filters(
 				'templatiq_sites_api_args',
-				array(
+				[
 					'timeout' => 15,
-				)
+				]
 			);
 
 			// Use this for premium demos.
@@ -422,7 +414,6 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			// $response = wp_remote_get( $url, $api_args );
 			$response = wp_remote_post( $url, $api_args );
 
-
 			if ( is_wp_error( $response ) || ( isset( $response->status ) && 0 === $response->status ) ) {
 				if ( isset( $response->status ) ) {
 					$data = json_decode( $response, true );
@@ -440,17 +431,18 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			$data = json_decode( wp_remote_retrieve_body( $response ), true );
 
 			if ( ! isset( $data['code'] ) ) {
-				$remote_args['id']                          = $data['id'];
-				$remote_args['astra-site-options-data']     = $data['astra-site-options-data'];
-				$remote_args['astra-site-wxr-path']         = $data['astra-site-wxr-path'];
-				$remote_args['required-plugins']            = $data['required-plugins'];
-				$remote_args['license-status']              = $data['license-status'];
-				$remote_args['site-type']                   = $data['astra-site-type'];
-				$remote_args['astra-site-url']              = $data['astra-site-url'];
-				$remote_args['directory-types']             = $data['directory-types'];
+				$remote_args['id']                      = $data['id'];
+				$remote_args['astra-site-options-data'] = $data['astra-site-options-data'];
+				$remote_args['astra-site-wxr-path']     = $data['astra-site-wxr-path'];
+				$remote_args['required-plugins']        = $data['required-plugins'];
+				$remote_args['license-status']          = $data['license-status'];
+				$remote_args['site-type']               = $data['astra-site-type'];
+				$remote_args['astra-site-url']          = $data['astra-site-url'];
+				$remote_args['directory-types']         = $data['directory-types'];
 			}
 
 			// Merge remote demo and defaults.
+
 			return wp_parse_args( $remote_args, $defaults );
 		}
 
@@ -526,7 +518,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				}
 			}
 
-			Templatiq_Sites_Importer_Log::add( 'Deleted customizer Settings ' . wp_json_encode( get_option( 'astra-settings', array() ) ) );
+			Templatiq_Sites_Importer_Log::add( 'Deleted customizer Settings ' . wp_json_encode( get_option( 'astra-settings', [] ) ) );
 
 			delete_option( 'astra-settings' );
 
@@ -554,7 +546,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				}
 			}
 
-			$options = get_option( '_templatiq_sites_old_site_options', array() );
+			$options = get_option( '_templatiq_sites_old_site_options', [] );
 
 			Templatiq_Sites_Importer_Log::add( 'Deleted - Site Options ' . wp_json_encode( $options ) );
 

@@ -44,7 +44,7 @@ class App {
 		/**
 		 * Full Site Importer
 		 */
-		FullSite::init();
 		Onboarding::init();
+		FullSite::init();
 	}
 }

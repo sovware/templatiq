@@ -409,7 +409,6 @@ const ImportSite = () => {
 
 		let backupFileStatus = false;
 		let resetCustomizerStatus = false;
-		let resetWidgetStatus = false;
 		let resetOptionsStatus = false;
 		let resetTermsStatus = false;
 		let resetPostsStatus = false;
@@ -434,16 +433,9 @@ const ImportSite = () => {
 		}
 
 		/**
-		 * Reset Widgets.
-		 */
-		if ( resetOptionsStatus ) {
-			resetWidgetStatus = await performResetWidget();
-		}
-
-		/**
 		 * Reset Terms, Forms.
 		 */
-		if ( resetWidgetStatus ) {
+		if ( resetOptionsStatus ) {
 			resetTermsStatus = await performResetTermsAndForms();
 		}
 
@@ -458,7 +450,6 @@ const ImportSite = () => {
 			! (
 				resetCustomizerStatus &&
 				resetOptionsStatus &&
-				resetWidgetStatus &&
 				resetTermsStatus &&
 				resetPostsStatus
 			)
@@ -701,64 +692,6 @@ const ImportSite = () => {
 					__( 'Resetting site options Failed.', 'templatiq-sites' ),
 					'',
 					error?.message,
-					'',
-					'',
-					error
-				);
-				return false;
-			} );
-		return status;
-	};
-
-	/**
-	 * 1.3 Perform Reset for Widgets
-	 */
-	const performResetWidget = async () => {
-		const widgets = new FormData();
-		widgets.append( 'action', 'templatiq-sites-reset-widgets-data' );
-		widgets.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
-
-		dispatch( {
-			type: 'set',
-			importStatus: __( 'Resetting widgets.', 'templatiq-sites' ),
-		} );
-		const status = await fetch( ajaxurl, {
-			method: 'post',
-			body: widgets,
-		} )
-			.then( ( response ) => response.text() )
-			.then( ( text ) => {
-				try {
-					const response = JSON.parse( text );
-					if ( response.success ) {
-						percentage += 2;
-						dispatch( {
-							type: 'set',
-							importPercent: percentage,
-						} );
-						return true;
-					}
-					throw response.data;
-				} catch ( error ) {
-					report(
-						__(
-							'Resetting widgets JSON parse failed.',
-							'templatiq-sites'
-						),
-						'',
-						error,
-						'',
-						'',
-						text
-					);
-					return false;
-				}
-			} )
-			.catch( ( error ) => {
-				report(
-					__( 'Resetting widgets failed.', 'templatiq-sites' ),
-					'',
-					error,
 					'',
 					'',
 					error

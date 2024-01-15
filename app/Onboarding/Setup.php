@@ -16,11 +16,9 @@ class Setup {
 	public static $fse_logo_attributes = [];
 
 	public function __construct() {
-		if ( 'spectra-one' === get_option( 'stylesheet', 'astra' ) ) {
-			add_action( 'wp_ajax_templatiq_sites_set_site_data', [$this, 'set_fse_site_data'] );
-		} else {
-			add_action( 'wp_ajax_templatiq_sites_set_site_data', [$this, 'set_site_data'] );
-		}
+		// add_action( 'wp_ajax_templatiq_sites_set_site_data', [$this, 'set_fse_site_data'] );
+		add_action( 'wp_ajax_templatiq_sites_set_site_data', [$this, 'set_site_data'] );
+
 		add_action( 'wp_ajax_report_error', [$this, 'report_error'] );
 		add_action( 'st_before_sending_error_report', [$this, 'delete_transient_for_import_process'] );
 		add_action( 'st_before_sending_error_report', [$this, 'temporary_cache_errors'], 10, 1 );
@@ -150,6 +148,9 @@ class Setup {
 				$logo_id     = isset( $_POST['logo'] ) ? sanitize_text_field( $_POST['logo'] ) : '';
 				$width_index = 'ast-header-responsive-logo-width';
 				set_theme_mod( 'custom_logo', $logo_id );
+				update_option( 'site_logo', $logo_id );
+
+				error_log( 'Logo Inserted from set_site_data()' );
 
 				if ( ! empty( $logo_id ) ) {
 					// Disable site title when logo is set.
@@ -286,6 +287,8 @@ class Setup {
 					];
 					$this->update_fse_site_logo( 'header' );
 					$this->update_fse_site_logo( 'footer' );
+
+					update_option( 'site_logo', $logo );
 				}
 				break;
 
