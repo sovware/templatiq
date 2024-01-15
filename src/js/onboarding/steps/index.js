@@ -132,54 +132,55 @@ const Steps = () => {
 	return (
 		<div className={ `st-step ${ current.class }` }>
 			{ currentIndex !== 2 && (
-				<div className="step-header">
-					{ current.header ? (
-						current.header
-					) : (
-						<div className="row">
-							<div className="col">
-								<Logo />
-							</div>
-							<div className="right-col">
-								{ currentIndex === 3 && (
-									<div
-										className="back-to-main"
-										onClick={ goToShowcase }
-									>
-										{ ICONS.cross }
-										{/* <Tooltip
-											content={ __(
-												'Back to Templates',
-												'templatiq-sites'
-											) }
-										>
-											{ ICONS.cross }
-										</Tooltip> */}
-									</div>
-								) }
-								<div className="col exit-link">
-									<a href={ adminUrl }>
-										{ ICONS.dashboard }
-										{/* <Tooltip
-											content={ __(
-												'Exit to Dashboard',
-												'templatiq-sites'
-											) }
-										>
-											{ ICONS.dashboard }
-										</Tooltip> */}
-									</a>
-								</div>
-							</div>
-						</div>
-					) }
+				// <div className="step-header">
+				// 	{ current.header ? (
+				// 		current.header
+				// 	) : (
+				// 		<div className="row">
+				// 			<div className="col">
+				// 				<Logo />
+				// 			</div>
+				// 			<div className="right-col">
+				// 				{ currentIndex === 3 && (
+				// 					<div
+				// 						className="back-to-main"
+				// 						onClick={ goToShowcase }
+				// 					>
+				// 						{ ICONS.cross }
+				// 						{/* <Tooltip
+				// 							content={ __(
+				// 								'Back to Templates',
+				// 								'templatiq-sites'
+				// 							) }
+				// 						>
+				// 							{ ICONS.cross }
+				// 						</Tooltip> */}
+				// 					</div>
+				// 				) }
+				// 				<div className="col exit-link">
+				// 					<a href={ adminUrl }>
+				// 						{ ICONS.dashboard }
+				// 						{/* <Tooltip
+				// 							content={ __(
+				// 								'Exit to Dashboard',
+				// 								'templatiq-sites'
+				// 							) }
+				// 						>
+				// 							{ ICONS.dashboard }
+				// 						</Tooltip> */}
+				// 					</a>
+				// 				</div>
+				// 			</div>
+				// 		</div>
+				// 	) }
 
-					<canvas
-						id="ist-bashcanvas"
-						width={ window.innerWidth }
-						height={ window.innerHeight }
-					/>
-				</div>
+				// 	<canvas
+				// 		id="ist-bashcanvas"
+				// 		width={ window.innerWidth }
+				// 		height={ window.innerHeight }
+				// 	/>
+				// </div>
+				null
 			) }
 			{ settingHistory === false && settingIndex === false && current
 				? current.content
