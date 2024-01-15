@@ -5,7 +5,6 @@ import { StateProvider } from './store/store';
 import App from './app';
 
 ReactDOM.render(
-	console.log( 'Hello from the onboarding app' ),
 	<StateProvider reducer={ reducer } initialState={ initialState }>
 		<App />
 	</StateProvider>,

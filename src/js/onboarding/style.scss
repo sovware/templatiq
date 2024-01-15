@@ -100,9 +100,10 @@ a {
 	width: var(--sidebar-width);
 	display: flex;
 	flex-direction: column;
-	height: calc( 100vh - 60px );
+	height: calc( 100vh - 75px );
 	position: absolute;
-	inset: 0;
+	top: 75px;
+	inset-inline-start: 0;
 	transition: transform 350ms linear;
 	transform: translateX(0);
 	box-shadow: 1px 0px 3px rgb(0 0 0 / 10%), 1px 0px 2px rgb(0 0 0 / 6%);
@@ -163,10 +164,6 @@ a {
 		border-radius: 0 0 0 var(--st-border-radius-4);
 		border-top: none;
 		flex-wrap: wrap;
-	}
-	.step-col-left {
-		height: auto;
-
 	}
 	.step-col-right {
 		padding: 0;
