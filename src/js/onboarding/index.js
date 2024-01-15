@@ -1,12 +1,13 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
-import reducer, { initialState } from './store/reducer';
 import { StateProvider } from './store/store';
+import reducer, { initialState } from './store/reducer';
 import App from './app';
 
+const rootElement = document.getElementById('starter-templates-ai-root');
+
 ReactDOM.render(
-	<StateProvider reducer={ reducer } initialState={ initialState }>
+	<StateProvider reducer={reducer} initialState={initialState}>
 		<App />
 	</StateProvider>,
-	document.getElementById( 'starter-templates-ai-root' )
+	rootElement
 );

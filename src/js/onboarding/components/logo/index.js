@@ -1,4 +1,3 @@
-import React from 'react';
 // import { Logo as SiteLogo } from '@brainstormforce/starter-templates-components';
 import { __ } from '@wordpress/i18n';
 import './style.scss';

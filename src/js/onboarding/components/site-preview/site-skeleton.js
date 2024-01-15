@@ -1,10 +1,11 @@
-import React from 'react';
+import Skeleton from '@mui/material/Skeleton';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 
 const SiteSkeleton = () => {
 	return (
 		<div className="site-loading-skeleton">
-			Site Loading...
-			{/* <Grid container>
+			<Grid container>
 				<Grid item xs={ 4 }>
 					<Box p={ '3em 8em' } display="flex">
 						<Skeleton
@@ -134,7 +135,7 @@ const SiteSkeleton = () => {
 						/>
 					</Box>
 				</Grid>
-			</Grid> */}
+			</Grid>
 		</div>
 	);
 };

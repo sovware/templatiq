@@ -1,4 +1,3 @@
-import React from 'react';
 import confetti from 'canvas-confetti';
 import { __, sprintf } from '@wordpress/i18n';
 import { decodeEntities } from '@wordpress/html-entities';

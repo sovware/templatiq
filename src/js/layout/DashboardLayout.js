@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect } from '@wordpress/element';
 import { select } from '@wordpress/data';
 import { useNavigate } from 'react-router-dom';
 import AdminSidebar from '@layout/Sidebar/AdminSidebar';

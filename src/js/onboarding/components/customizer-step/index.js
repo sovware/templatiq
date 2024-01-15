@@ -1,4 +1,3 @@
-import React from 'react';
 import { __ } from '@wordpress/i18n';
 import PreviousStepLink from '../util/previous-step-link/index';
 import NextStepLink from '../util/next-step-link/index';

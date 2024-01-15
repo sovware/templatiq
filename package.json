@@ -42,30 +42,25 @@
 		"webpack": "^5.88.2"
 	},
 	"dependencies": {
-
-		"@brainstormforce/starter-templates-components": "https://git@github.com/brainstormforce/starter-templates-components.git#9135bcd",
+		"@emotion/react": "^11.11.3",
+		"@emotion/styled": "^11.11.0",
+		"@mui/material": "^5.15.4",
 		"@szhsin/react-accordion": "^1.2.3",
 		"@wordpress/api-fetch": "^6.44.0",
-		"@wordpress/block-editor": "^12.16.0",
-		"@wordpress/components": "^22.1.0",
+		"@wordpress/components": "^25.14.0",
 		"@wordpress/data": "^9.16.0",
 		"@wordpress/element": "^5.21.0",
 		"@wordpress/hooks": "^3.45.0",
 		"@wordpress/html-entities": "^3.38.0",
 		"@wordpress/i18n": "^4.41.0",
-		"@wordpress/media-utils": "^4.29.0",
 		"@wordpress/url": "^3.42.0",
 		"canvas-confetti": "^1.9.0",
-		"lodash": "^4.17.21",
 		"qs": "^6.10.2",
-		"react": "^17.0.2",
-		"react-dom": "^17.0.2",
 		"react-inlinesvg": "^3.0.2",
 		"react-lottie-player": "^1.5.4",
 		"react-paginate": "^8.2.0",
 		"react-router-dom": "^6.21.1",
 		"react-tabs": "^6.0.2",
-		"styled-components": "^6.1.0",
-		"underscore": "^1.13.2"
+		"styled-components": "^6.1.0"
 	}
 }

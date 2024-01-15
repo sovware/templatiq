@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from '@wordpress/element';
 import Lottie from 'react-lottie-player';
 import { __, sprintf } from '@wordpress/i18n';
 import PreviousStepLink from '../../components/util/previous-step-link/index';

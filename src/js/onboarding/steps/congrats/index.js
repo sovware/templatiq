@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from '@wordpress/element';
 import confetti from 'canvas-confetti';
 import { __, sprintf } from '@wordpress/i18n';
 import DefaultStep from '../../components/default-step/index';

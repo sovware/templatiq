@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useState } from '@wordpress/element';
 import { sendPostMessage } from '../../utils/functions';
 import { useStateValue } from '../../store/store';
 import { prependHTTPS } from '../../utils/prepend-https';

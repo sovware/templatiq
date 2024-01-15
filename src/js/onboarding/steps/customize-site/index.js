@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import DefaultStep from '../../components/default-step';
 import SitePreview from '../../components/site-preview';
