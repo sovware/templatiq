@@ -183,7 +183,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 				return;
 			}
 
-			wp_enqueue_style( 'templatiq-sites-import-status', TEMPLATIQ_SITES_URI . 'inc/assets/css/import-status.css', null, TEMPLATIQ_SITES_VER, 'all' );
+			wp_enqueue_style( 'templatiq-sites-import-status', TEMPLATIQ_SITES_URI . 'assets/css/import-status.css', null, TEMPLATIQ_SITES_VER, 'all' );
 
 			$status = $this->get_status();
 			if ( ! empty( $status ) && ( isset( $status['step'] ) && 'complete' !== $status['step'] ) ) {

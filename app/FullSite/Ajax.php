@@ -207,7 +207,6 @@ class Ajax {
 
 		update_option( 'templatiq_sites_import_data', $demo_data, 'no' );
 
-		// error_log( print_r( $demo_data, true ) );
 		wp_send_json_success( $demo_data );
 
 		return;
@@ -426,8 +425,9 @@ class Ajax {
 
 		Templatiq_Sites_Error_Handler::get_instance()->start_error_handler();
 
-		error_log( print_r( 'activate_theme ', true ) );
-		// switch_theme( 'onedirectory' );
+		error_log( print_r( 'activate_theme ', true ) )
+		;
+		switch_theme( 'onedirectory' );
 
 		Templatiq_Sites_Error_Handler::get_instance()->stop_error_handler();
 
@@ -512,7 +512,7 @@ class Ajax {
 
 		$posts = json_decode( stripslashes( sanitize_text_field( $_POST['ids'] ) ), true );
 
-		error_log( 'All Posts: ' . print_r( $posts, true ) );
+		error_log( $message );
 
 		if ( ! empty( $posts ) ) {
 			foreach ( $posts as $key => $post_id ) {
@@ -521,17 +521,13 @@ class Ajax {
 					$post_type = get_post_type( $post_id );
 					$message   = 'Deleted - Post ID ' . $post_id . ' - ' . $post_type . ' - ' . get_the_title( $post_id );
 
-					error_log( "Post ID # {$post_id}" );
-
 					if ( 'elementor_library' === $post_type ) {
 						$_GET['force_delete_kit'] = true;
 					}
 
 					// do_action( 'templatiq_sites_before_delete_imported_posts', $post_id, $post_type );
 
-					if ( wp_delete_post( $post_id, true ) ) {
-						error_log( $message );
-					}
+					wp_delete_post( $post_id, true );
 
 					Templatiq_Sites_Importer_Log::add( $message );
 				}
@@ -887,8 +883,6 @@ class Ajax {
 			$options          = templatiq_get_site_data( 'astra-site-options-data' );
 			$required_plugins = templatiq_get_site_data( 'required-plugins' );
 		}
-
-		error_log( print_r( $response, true ) );
 
 		$data = $this->get_required_plugins_data( $response, $required_plugins );
 

@@ -29,7 +29,7 @@ if ( ! defined( 'TEMPLATIQ_SITES_DIR' ) ) {
 }
 
 if ( ! defined( 'TEMPLATIQ_SITES_URI' ) ) {
-	define( 'TEMPLATIQ_SITES_URI', TEMPLATIQ_URL . '/app/FullSite/' );
+	define( 'TEMPLATIQ_SITES_URI', TEMPLATIQ_URL . '/app/FullSite/inc/' );
 }
 
 class FullSite {
@@ -73,7 +73,6 @@ class FullSite {
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-page.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-importer.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-image-processing.php';
-		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-wp-cli.php';
 
 		// Batch Import.
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/batch-import/class-templatiq-sites-batch-import.php';
@@ -87,7 +86,7 @@ class FullSite {
 			return;
 		}
 
-		wp_enqueue_script( 'templatiq-sites-install-theme', TEMPLATIQ_SITES_URI . 'inc/assets/js/install-theme.js', ['jquery', 'updates'], TEMPLATIQ_SITES_VER, true );
+		wp_enqueue_script( 'templatiq-sites-install-theme', TEMPLATIQ_SITES_URI . 'assets/js/install-theme.js', ['jquery', 'updates'], TEMPLATIQ_SITES_VER, true );
 
 		$data = apply_filters(
 			'templatiq_sites_install_theme_localize_vars',
@@ -109,17 +108,17 @@ class FullSite {
 		global $is_IE, $is_edge;
 
 		if ( $is_IE || $is_edge ) {
-			wp_enqueue_script( 'templatiq-sites-eventsource', TEMPLATIQ_SITES_URI . 'inc/assets/js/eventsource.min.js', ['jquery', 'wp-util', 'updates'], TEMPLATIQ_SITES_VER, true );
+			wp_enqueue_script( 'templatiq-sites-eventsource', TEMPLATIQ_SITES_URI . 'assets/js/eventsource.min.js', ['jquery', 'wp-util', 'updates'], TEMPLATIQ_SITES_VER, true );
 		}
 
 		// Fetch.
-		wp_register_script( 'templatiq-sites-fetch', TEMPLATIQ_SITES_URI . 'inc/assets/js/fetch.umd.js', ['jquery'], TEMPLATIQ_SITES_VER, true );
+		wp_register_script( 'templatiq-sites-fetch', TEMPLATIQ_SITES_URI . 'assets/js/fetch.umd.js', ['jquery'], TEMPLATIQ_SITES_VER, true );
 
 		// History.
-		wp_register_script( 'templatiq-sites-history', TEMPLATIQ_SITES_URI . 'inc/assets/js/history.js', ['jquery'], TEMPLATIQ_SITES_VER, true );
+		wp_register_script( 'templatiq-sites-history', TEMPLATIQ_SITES_URI . 'assets/js/history.js', ['jquery'], TEMPLATIQ_SITES_VER, true );
 
 		// Admin Page.
-		wp_enqueue_style( 'templatiq-sites-admin', TEMPLATIQ_SITES_URI . 'inc/assets/css/admin.css', TEMPLATIQ_SITES_VER, true );
+		wp_enqueue_style( 'templatiq-sites-admin', TEMPLATIQ_SITES_URI . 'assets/css/admin.css', TEMPLATIQ_SITES_VER, true );
 		wp_style_add_data( 'templatiq-sites-admin', 'rtl', 'replace' );
 
 		$data = $this->get_local_vars();
