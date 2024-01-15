@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { useStateValue } from '../../../../store/store';
 import ChangeTemplate from '../../../../components/change-template';

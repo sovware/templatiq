@@ -1,4 +1,3 @@
-import React from 'react';
 import CustomizeSite from './customize-site';
 import ImportSite from './import-site';
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect } from '@wordpress/element';
 import ICONS from '../../icons';
 import { useStateValue } from '../../store/store';
 

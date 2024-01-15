@@ -108,12 +108,14 @@ class Enqueuer extends EnqueuerBase {
 
 		wp_enqueue_media();
 
-		$this->enqueue_style(
-			'templatiq-onboarding-google-fonts',
-			$this->google_fonts_url(),
-			['templatiq-onboarding'],
-			'all'
-		);
+		// $this->enqueue_style(
+		// 	'templatiq-onboarding-google-fonts',
+		// 	$this->google_fonts_url(),
+		// 	['templatiq-onboarding'],
+		// 	'all'
+		// );
+
+		wp_enqueue_style( 'templatiq-onboarding-google-fonts', $this->google_fonts_url(), ['templatiq-onboarding'], 'all' );
 	}
 
 	private function get_starter_templates_onboarding_localized_array() {

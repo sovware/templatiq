@@ -1,4 +1,3 @@
-import React from 'react';
 import { useStateValue } from '../../../store/store';
 import { Link } from '../../../ui/style';
 

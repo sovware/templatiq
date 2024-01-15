@@ -1,4 +1,3 @@
-import React from 'react';
 // import { Tooltip } from '@brainstormforce/starter-templates-components';
 import { __ } from '@wordpress/i18n';
 import Button from '../button/button';

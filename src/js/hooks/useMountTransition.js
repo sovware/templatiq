@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from '@wordpress/element';
 
 const useMountTransition = ( isMounted, unmountDelay ) => {
 	const [ isTransitioning, setIsTransitioning ] = useState( false );

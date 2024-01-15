@@ -1,4 +1,3 @@
-import React from 'react';
 import { __ } from '@wordpress/i18n';
 import Button from '../../../../components/button/button';
 import MediaUploader from '../../../../components/media-uploader';

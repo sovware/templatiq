@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import Button from '../button/button';
-import { addFilter } from '@wordpress/hooks';
 import { RangeControl } from '@wordpress/components';
 import { useStateValue } from '../../store/store';
 import { initialState } from '../../store/reducer';

@@ -1,4 +1,3 @@
-import React from 'react';
 // import { PremiumBadge } from '@brainstormforce/starter-templates-components';
 import { __ } from '@wordpress/i18n';
 import { decodeEntities } from '@wordpress/html-entities';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button as Wrap } from '../../ui/style';
 
 const Button = ( {
