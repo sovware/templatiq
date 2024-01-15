@@ -264,6 +264,8 @@ export const setSiteLogo = async ( logo ) => {
 		method: 'post',
 		body: data,
 	} );
+
+	console.log( 'Logo set', logo.id );
 };
 
 export const setColorPalettes = async ( palette ) => {
@@ -281,6 +283,8 @@ export const setColorPalettes = async ( palette ) => {
 		method: 'post',
 		body: data,
 	} );
+
+	console.log( 'setColorPalettes', palette );
 };
 
 export const saveTypography = async ( selectedValue ) => {
@@ -294,6 +298,8 @@ export const saveTypography = async ( selectedValue ) => {
 		method: 'post',
 		body: data,
 	} );
+
+	console.log( 'saveTypography' );
 };
 
 export const divideIntoChunks = ( chunkSize, inputArray ) => {
@@ -311,6 +317,8 @@ export const divideIntoChunks = ( chunkSize, inputArray ) => {
 		counter++;
 	}
 	final.push( portion );
+
+	console.log( 'divideIntoChunks' );
 
 	return final;
 };

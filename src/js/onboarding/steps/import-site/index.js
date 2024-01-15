@@ -384,6 +384,8 @@ const ImportSite = () => {
 					error
 				);
 			} );
+
+			console.log( 'activatePlugin Done');
 	};
 
 	/**
@@ -464,6 +466,7 @@ const ImportSite = () => {
 			importStatus: __( 'Reset for old website is done.', 'templatiq-sites' ),
 		} );
 
+		console.log( 'Reset for old website is done.')
 		return true;
 	};
 
@@ -866,7 +869,7 @@ const ImportSite = () => {
 	};
 
 	/**
-	 * 5. Import Site Content XML.
+	 * 3. Import Site Content XML.
 	 */
 	const importSiteContent = async () => {
 		if ( ! contentImportFlag ) {
@@ -1025,7 +1028,7 @@ const ImportSite = () => {
 	};
 
 	/**
-	 * 6. Import Site Option table values.
+	 * 4. Import Site Option table values.
 	 */
 	const importSiteOptions = async () => {
 		dispatch( {
@@ -1036,6 +1039,8 @@ const ImportSite = () => {
 		const siteOptions = new FormData();
 		siteOptions.append( 'action', 'templatiq-sites-import-options' );
 		siteOptions.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
+
+		console.log( 'Site Options Import Started: ', siteOptions );
 
 		const status = await fetch( ajaxurl, {
 			method: 'post',
@@ -1078,11 +1083,13 @@ const ImportSite = () => {
 				return false;
 			} );
 
+		console.log( 'Site Options Import Ended: ' );
+
 		return status;
 	};
 
 	/**
-	 * 8. Update the website as per the customizations selected by the user.
+	 * 5. Update the website as per the customizations selected by the user.
 	 * The following steps are covered here.
 	 * 		a. Update Logo
 	 * 		b. Update Color Palette
@@ -1096,7 +1103,7 @@ const ImportSite = () => {
 	};
 
 	/**
-	 * 9. Final setup - Invoking Batch process.
+	 * 6. Final setup - Invoking Batch process.
 	 */
 	const importDone = async () => {
 		dispatch( {

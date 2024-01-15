@@ -544,11 +544,10 @@ class Ajax {
 		Templatiq_Sites_Error_Handler::get_instance()->stop_error_handler();
 
 		if ( wp_doing_ajax() ) {
-			error_log( 'log: wp_send_json_success()' );
 			wp_send_json_success();
 		}
 
-		error_log( 'log: wp_send_json_error - hello' );
+		error_log( 'reset_posts done' );
 		wp_send_json_error( 'wp_send_json_error - hello' );
 	}
 

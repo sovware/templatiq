@@ -360,6 +360,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			update_option( 'templatiq_sites_import_complete', 'yes', 'no' );
 			delete_transient( 'templatiq_sites_import_started' );
 
+			error_log( 'Import ended, hello ');
 			if ( wp_doing_ajax() ) {
 				wp_send_json_success();
 			}

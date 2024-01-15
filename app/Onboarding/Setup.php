@@ -116,7 +116,6 @@ class Setup {
 	}
 
 	public function set_site_data() {
-
 		check_ajax_referer( 'templatiq-sites-set-ai-site-data', 'security' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
@@ -134,80 +133,38 @@ class Setup {
 			wp_send_json_error();
 		}
 
+		error_log( "\n" .'***** Updating Site Data ******');
+
 		switch ( $param ) {
 
 			case 'site-title':
 				$business_name = isset( $_POST['business-name'] ) ? sanitize_text_field( stripslashes( $_POST['business-name'] ) ) : '';
 				if ( ! empty( $business_name ) ) {
 					update_option( 'blogname', $business_name );
+					error_log( 'Site Title Added' );
 				}
 
 				break;
 
-			case 'site-logo' === $param && function_exists( 'templatiq_get_option' ):
-				$logo_id     = isset( $_POST['logo'] ) ? sanitize_text_field( $_POST['logo'] ) : '';
-				$width_index = 'ast-header-responsive-logo-width';
-				set_theme_mod( 'custom_logo', $logo_id );
-				update_option( 'site_logo', $logo_id );
+			case 'site-logo' === $param:
+				$logo_id = isset( $_POST['logo'] ) ? sanitize_text_field( $_POST['logo'] ) : '';
 
-				error_log( 'Logo Inserted from set_site_data()' );
-
-				if ( ! empty( $logo_id ) ) {
-					// Disable site title when logo is set.
-					templatiq_update_option( 'display-site-title', false );
-				}
-
-				// Set logo width.
-				$logo_width = isset( $_POST['logo-width'] ) ? sanitize_text_field( $_POST['logo-width'] ) : '';
-				$option     = templatiq_get_option( $width_index );
-
-				if ( isset( $option['desktop'] ) ) {
-					$option['desktop'] = $logo_width;
-				}
-				templatiq_update_option( $width_index, $option );
-
-				// Check if transparent header is used in the demo.
-				$transparent_header = templatiq_get_option( 'transparent-header-logo', false );
-				$inherit_desk_logo  = templatiq_get_option( 'different-transparent-logo', false );
-
-				if ( '' !== $transparent_header && $inherit_desk_logo ) {
-					templatiq_update_option( 'transparent-header-logo', wp_get_attachment_url( $logo_id ) );
-					$width_index = 'transparent-header-logo-width';
-					$option      = templatiq_get_option( $width_index );
-
-					if ( isset( $option['desktop'] ) ) {
-						$option['desktop'] = $logo_width;
-					}
-					templatiq_update_option( $width_index, $option );
-				}
-
-				$retina_logo = templatiq_get_option( 'different-retina-logo', false );
-				if ( '' !== $retina_logo ) {
-					templatiq_update_option( 'ast-header-retina-logo', wp_get_attachment_url( $logo_id ) );
-				}
-
-				$transparent_retina_logo = templatiq_get_option( 'different-transparent-retina-logo', false );
-				if ( '' !== $transparent_retina_logo ) {
-					templatiq_update_option( 'transparent-header-retina-logo', wp_get_attachment_url( $logo_id ) );
+				if ( $logo_id ) {
+					set_theme_mod( 'custom_logo', $logo_id );
+					update_option( 'site_logo', $logo_id );
+					error_log( 'Logo Inserted from set_site_data()' );
 				}
 
 				break;
 
-			case 'site-colors' === $param && function_exists( 'templatiq_get_option' ) && method_exists( 'Templatiq_Global_Palette', 'get_default_color_palette' ):
+			case 'site-colors' === $param:
 				$palette = isset( $_POST['palette'] ) ? (array) json_decode( stripslashes( $_POST['palette'] ) ) : [];
 				$colors  = isset( $palette['colors'] ) ? (array) $palette['colors'] : [];
+
 				if ( ! empty( $colors ) ) {
-					$global_palette = templatiq_get_option( 'global-color-palette' );
-					$color_palettes = get_option( 'astra-color-palettes', Templatiq_Global_Palette::get_default_color_palette() );
-
-					foreach ( $colors as $key => $color ) {
-						$global_palette['palette'][$key]               = $color;
-						$color_palettes['palettes']['palette_1'][$key] = $color;
-					}
-
-					update_option( 'astra-color-palettes', $color_palettes );
-					templatiq_update_option( 'global-color-palette', $global_palette );
+					error_log( 'Site Colors Added  from set_site_data()' );
 				}
+
 				break;
 
 			case 'site-typography' === $param && function_exists( 'templatiq_get_option' ):
@@ -215,43 +172,47 @@ class Setup {
 
 				$font_size_body = isset( $typography['font-size-body'] ) ? (array) $typography['font-size-body'] : '';
 				if ( ! empty( $font_size_body ) && is_array( $font_size_body ) ) {
-					templatiq_update_option( 'font-size-body', $font_size_body );
+					// templatiq_update_option( 'font-size-body', $font_size_body );
 				}
 
 				if ( ! empty( $typography['body-font-family'] ) ) {
-					templatiq_update_option( 'body-font-family', $typography['body-font-family'] );
+					// templatiq_update_option( 'body-font-family', $typography['body-font-family'] );
 				}
 
 				if ( ! empty( $typography['body-font-variant'] ) ) {
-					templatiq_update_option( 'body-font-variant', $typography['body-font-variant'] );
+					// templatiq_update_option( 'body-font-variant', $typography['body-font-variant'] );
 				}
 
 				if ( ! empty( $typography['body-font-weight'] ) ) {
-					templatiq_update_option( 'body-font-weight', $typography['body-font-weight'] );
+					// templatiq_update_option( 'body-font-weight', $typography['body-font-weight'] );
 				}
 
 				if ( ! empty( $typography['body-line-height'] ) ) {
-					templatiq_update_option( 'body-line-height', $typography['body-line-height'] );
+					// templatiq_update_option( 'body-line-height', $typography['body-line-height'] );
 				}
 
 				if ( ! empty( $typography['headings-font-family'] ) ) {
-					templatiq_update_option( 'headings-font-family', $typography['headings-font-family'] );
+					// templatiq_update_option( 'headings-font-family', $typography['headings-font-family'] );
 				}
 
 				if ( ! empty( $typography['headings-font-weight'] ) ) {
-					templatiq_update_option( 'headings-font-weight', $typography['headings-font-weight'] );
+					// templatiq_update_option( 'headings-font-weight', $typography['headings-font-weight'] );
 				}
 
 				if ( ! empty( $typography['headings-line-height'] ) ) {
-					templatiq_update_option( 'headings-line-height', $typography['headings-line-height'] );
+					// templatiq_update_option( 'headings-line-height', $typography['headings-line-height'] );
 				}
 
 				if ( ! empty( $typography['headings-font-variant'] ) ) {
-					templatiq_update_option( 'headings-font-variant', $typography['headings-font-variant'] );
+					// templatiq_update_option( 'headings-font-variant', $typography['headings-font-variant'] );
 				}
+
+				error_log( 'Site Typography Added' );
 
 				break;
 		}
+
+		error_log( "\n" . '**** Ended Site Data ****' . "\n" );
 
 		wp_send_json_success();
 	}

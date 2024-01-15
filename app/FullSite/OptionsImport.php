@@ -58,7 +58,7 @@ class OptionsImport {
 			return;
 		}
 
-		error_log( '**** Options Update Started. ****' );
+		error_log( "\n" . '**** Options Update Started. ****' );
 
 		foreach ( $options as $option_name => $option_value ) {
 
@@ -69,6 +69,7 @@ class OptionsImport {
 				if ( in_array( $option_name, self::site_options(), true ) ) {
 
 					error_log( $option_name );
+					// error_log( print_r( ,true) );
 
 					switch ( $option_name ) {
 
@@ -84,6 +85,7 @@ class OptionsImport {
 
 						// insert logo.
 						case 'custom_logo':
+							error_log( $option_value );
 							$this->insert_logo( $option_value );
 							break;
 
@@ -95,7 +97,7 @@ class OptionsImport {
 			}
 		}
 
-		error_log( '**** Options Update Stopped****' );
+		error_log( "\n" . '**** Options Update Stopped ****' . "\n" );
 	}
 
 	public function get_page_by_title( $post_title, $post_type ) {
@@ -150,18 +152,21 @@ class OptionsImport {
 	}
 
 	private function insert_logo( $image_url = '' ) {
-
 		$downloaded_image = Templatiq_Sites_Image_Importer::get_instance()->import(
 			[
 				'url' => $image_url,
 				'id'  => 0,
 			]
 		);
+		
+		error_log( print_r( $downloaded_image, true ) );
 
 		if ( $downloaded_image['id'] ) {
 			Templatiq_WXR_Importer::instance()->track_post( $downloaded_image['id'] );
 			set_theme_mod( 'custom_logo', $downloaded_image['id'] );
 			update_option( 'site_logo', $downloaded_image['id'] );
+
+			error_log( 'Logo Set from insert_logo()' . $downloaded_image['id'] . $image_url );
 		}
 	}
 }

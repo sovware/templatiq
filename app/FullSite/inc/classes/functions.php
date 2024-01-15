@@ -102,6 +102,8 @@ function templatiq_sites_is_valid_url( $url = '' ) {
 	$valid_hosts = array(
 		'lh3.googleusercontent.com',
 		'pixabay.com',
+		'websitedemos.net',
+		'templatiq.net',
 	);
 
 	$api_domain_parse_url = wp_parse_url( FullSite::init()->get_api_domain() );
