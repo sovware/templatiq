@@ -508,11 +508,7 @@ class Ajax {
 		wp_defer_comment_counting( true );
 		wp_suspend_cache_invalidation( true );
 
-		$all_ids = ( isset( $_POST['ids'] ) ) ? sanitize_text_field( $_POST['ids'] ) : '';
-
 		$posts = json_decode( stripslashes( sanitize_text_field( $_POST['ids'] ) ), true );
-
-		error_log( $message );
 
 		if ( ! empty( $posts ) ) {
 			foreach ( $posts as $key => $post_id ) {

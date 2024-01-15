@@ -24,7 +24,7 @@ class Enqueuer extends EnqueuerBase {
 	];
 
 	public function __construct() {
-		$this->action( 'admin_enqueue_scripts', 'enqueue_scripts' );
+		$this->action( 'admin_enqueue_scripts', 'new_enqueue_scripts' );
 	}
 
 	public function enqueue_scripts( $hook = '' ) {

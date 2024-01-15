@@ -163,6 +163,5 @@ class OptionsImport {
 			set_theme_mod( 'custom_logo', $downloaded_image['id'] );
 			update_option( 'site_logo', $downloaded_image['id'] );
 		}
-
 	}
 }

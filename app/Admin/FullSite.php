@@ -28,7 +28,7 @@ class FullSite {
 			return;
 		}
 
-		wp_enqueue_style( 'templatiq-sites-admin-page', TEMPLATIQ_SITES_URI . 'inc/assets/css/admin.css', TEMPLATIQ_SITES_VER, true );
+		wp_enqueue_style( 'templatiq-sites-admin-page', TEMPLATIQ_SITES_URI . 'assets/css/admin.css', TEMPLATIQ_SITES_VER, true );
 		wp_enqueue_script( 'templatiq-sites-admin-js', TEMPLATIQ_SITES_URI . 'assets/js/admin.js', ['templatiq-sites-admin-page', 'jquery'], TEMPLATIQ_SITES_VER, true );
 	}
 
