@@ -33,18 +33,7 @@ const ChangeTemplate = () => {
 	};
 
 	return (
-		<div className="change-template-wrap">
-			<div className="template-name">
-				<p className="label">
-					{ __( 'Selected Template:', 'templatiq-sites' ) }
-				</p>
-				<h5>{ decodeEntities( selectedTemplateName ) }</h5>
-				{ ! licenseStatus && 'free' !== selectedTemplateType && (
-					'Premium'
-					// <PremiumBadge />
-				) }
-			</div>
-		</div>
+		<></>
 	);
 };
 export default ChangeTemplate;
