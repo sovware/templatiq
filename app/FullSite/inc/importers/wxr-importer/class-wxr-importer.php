@@ -1301,8 +1301,15 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 				if( '_directory_type' === $key ) {
 					$types = get_option( 'templatiq_sites_directory_types_ids_mapping', true );
 					$value = $types[ $meta_item['value'] ] ?? 0; // if no id found then serve the default directory type
-					wp_set_object_terms( $post_id, $value, 'atbdp_listing_types' );
-					error_log( 'Directory Type Changed ' . $meta_item['value']. ' => ' . $value );
+					$_pre_type = get_post_meta( $post_id, '_directory_type', true );
+					
+					if( $_pre_type !== $value ) {
+						update_post_meta( $post_id, '_directory_type', $value );
+						wp_set_object_terms( $post_id, $value, 'atbdp_listing_types' );
+						error_log( '_directory_type changed - post_id ' . $post_id .' from ' . $meta_item['value'] . ' => ' . $value );
+					}
+					
+					continue;
 				}
 
 				if ( '_edit_last' === $key ) {
@@ -1843,6 +1850,9 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 		 * @return boolean
 		 */
 		protected function process_term( $data, $meta ) {
+			if( 'atbdp_listing_types' === $data['taxonomy'] ) {
+				return false;
+			}
 			/**
 			 * Pre-process term data.
 			 *

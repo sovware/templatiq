@@ -138,11 +138,14 @@ const ImportSite = () => {
 	const importPart1 = async () => {
 		let resetStatus = false;
 		let directoryTypes = false;
+		
+		console.log('importPart1 called ');
 
 		resetStatus = await resetOldSite();
 
 		if ( resetStatus ) {
 			directoryTypes = await importDirectoryTypes();
+			console.log( 'directoryTypes', directoryTypes);
 		}
 
 		if ( directoryTypes ) {
@@ -821,13 +824,15 @@ const ImportSite = () => {
 			importStatus: __( 'Importing Directory Types.', 'templatiq-sites' ),
 		} );
 
-		const flows = new FormData();
-		flows.append( 'action', 'templatiq-sites-import-directory-types' );
-		flows.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
+		const types = new FormData();
+		types.append( 'action', 'templatiq-sites-import-directory-types' );
+		types.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
+
+		console.log(' Importing Directory Types : ');
 
 		const status = await fetch( ajaxurl, {
 			method: 'post',
-			body: flows,
+			body: types,
 		} )
 			.then( ( response ) => response.text() )
 			.then( ( text ) => {
@@ -1253,12 +1258,20 @@ const ImportSite = () => {
 	 * 		1. Required plugins are installed and activated.
 	 * 		2. Templatiq Theme is installed
 	 */
+
+	// var themePluginDone = false;
 	useEffect( () => {
 		if ( requiredPluginsDone && themeStatus ) {
 			sendReportFlag = reportError;
 			importPart1();
+			// themePluginDone = true;
 		}
 	}, [ requiredPluginsDone, themeStatus ] );
+
+	// useEffect( () => {
+	// 	importPart1();
+	// 	console.log('Test ImportPart 1')
+	// }, [ themePluginDone ] );
 
 	/**
 	 * Start Part 2 of the import once the XML is imported successfully.

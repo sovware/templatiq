@@ -167,28 +167,12 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 		}
 
 		/**
-		 * Change flow status
-		 *
-		 * @since 2.0.0
-		 *
-		 * @param  array $args Flow query args.
-		 * @return array Flow query args.
-		 */
-		public function change_flow_status( $args ) {
-			$args['post_status'] = 'publish';
-
-			return $args;
-		}
-
-		/**
 		 * Directory Types
 		 *
 		 * @return void
 		 */
 		public function import_directory_types() {
-
-			if ( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) {
-				// Verify Nonce.
+			if ( wp_doing_ajax() ) {
 				check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
 				if ( ! current_user_can( 'customize' ) ) {
@@ -198,31 +182,37 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 
 			$types       = get_option( 'templatiq_sites_import_data', true )['directory-types'];
 			$ids_mapping = [];
+
 			foreach ( $types as $type ) {
 
-				$term['term_id'] = $type['term_id'];
-				if ( ! term_exists( $type['name'], 'atbdp_listing_types' ) ) {
-					$term = wp_insert_term( $type['name'], 'atbdp_listing_types' );
-					error_log( 'Directory Type Inserted: ' . $term['term_id'] );
+				if ( term_exists( $type['name'], 'atbdp_listing_types' ) ) {
+					continue;
 				}
 
-				$ids_mapping[$type['term_id']] = $term['term_id'];
+				$type_id               = (string) $type['term_id'];
+				$term                  = wp_insert_term( $type['name'], 'atbdp_listing_types' );
+				$term_id               = $term['term_id'];
+				$ids_mapping[$type_id] = $term_id;
+
+				update_term_meta( $term_id, '_templatiq_sites_imported_term', true );
 
 				foreach ( $type['meta'] as $key => $value ) {
-					$value = maybe_unserialize( $value );
-					update_term_meta( $term['term_id'], $key, $value );
+					if( '_default' !== $key ){
+						error_log( 'atbdp_listing_types ' .$key );
+						$value = maybe_unserialize( $value );
+						update_term_meta( $term_id, $key, $value );
+					}
 				}
 
-				update_term_meta( $term['term_id'], '_templatiq_sites_imported_term', true );
+				error_log( 'Directory Type Inserted: Name: ' . $type['name'] . ' #ID: ' . $type_id . ' => ' . $term_id );
 			}
 
-			update_option( 'templatiq_sites_directory_types_ids_mapping', $ids_mapping, 'no' );
-
-			if ( defined( 'WP_CLI' ) ) {
-				WP_CLI::line( 'WP Forms Imported.' );
-			} elseif ( wp_doing_ajax() ) {
-				wp_send_json_success( $ids_mapping );
+			if ( $ids_mapping ) {
+				error_log( 'Directory Types ids mapping: ' . print_r( $ids_mapping, true ) );
+				update_option( 'templatiq_sites_directory_types_ids_mapping', $ids_mapping, 'no' );
 			}
+
+			wp_send_json_success( 'true' );
 		}
 
 		/**
@@ -360,7 +350,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			update_option( 'templatiq_sites_import_complete', 'yes', 'no' );
 			delete_transient( 'templatiq_sites_import_started' );
 
-			error_log( 'Import ended, hello ');
+			error_log( 'Import ended, hello ' );
 			if ( wp_doing_ajax() ) {
 				wp_send_json_success();
 			}

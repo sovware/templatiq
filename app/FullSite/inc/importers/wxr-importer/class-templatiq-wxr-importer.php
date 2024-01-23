@@ -85,8 +85,10 @@ class Templatiq_WXR_Importer {
 		update_post_meta( $post_id, '_templatiq_sites_imported_post', true );
 		update_post_meta( $post_id, '_templatiq_sites_enable_for_batch', true );
 
+		error_log( 'Track Post: post_id => ' . $post_id . ' post_type ' . $data['post_type'] );
+
 		if( 'wp_navigation' === $data['post_type'] ) {
-			error_log( print_r( $data ,true) );
+			// error_log( 'Track Post: '. print_r( $data ,true) );
 		}
 
 		// Set the full width template for the pages.
