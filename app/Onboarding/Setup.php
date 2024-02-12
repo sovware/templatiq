@@ -133,7 +133,7 @@ class Setup {
 			wp_send_json_error();
 		}
 
-		error_log( "\n" .'***** Updating Site Data ******');
+		// error_log( "\n" .'***** Updating Site Data ******');
 
 		switch ( $param ) {
 
@@ -212,7 +212,7 @@ class Setup {
 				break;
 		}
 
-		error_log( "\n" . '**** Ended Site Data ****' . "\n" );
+		// error_log( "\n" . '**** Ended Site Data ****' . "\n" );
 
 		wp_send_json_success();
 	}

@@ -59,17 +59,16 @@ class Templatiq_WXR_Importer {
 		require_once TEMPLATIQ_SITES_DIR . 'inc/importers/wxr-importer/class-wxr-importer.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/importers/wxr-importer/class-wxr-import-info.php';
 
-		add_filter( 'upload_mimes', array( $this, 'custom_upload_mimes' ) ); //phpcs:ignore WordPressVIPMinimum.Hooks.RestrictedHooks.upload_mimes -- Added this to allow upload of SVG files.
-		add_action( 'wp_ajax_astra-wxr-import', array( $this, 'sse_import' ) );
+		add_filter( 'upload_mimes', [$this, 'custom_upload_mimes'] ); //phpcs:ignore WordPressVIPMinimum.Hooks.RestrictedHooks.upload_mimes -- Added this to allow upload of SVG files.
+		add_action( 'wp_ajax_astra-wxr-import', [$this, 'sse_import'] );
 		add_filter( 'wxr_importer.pre_process.user', '__return_null' );
-		add_filter( 'wp_import_post_data_processed', array( $this, 'pre_post_data' ), 10, 2 );
-		add_filter( 'wxr_importer.pre_process.post', array( $this, 'pre_process_post' ), 10, 4 );
+		add_filter( 'wp_import_post_data_processed', [$this, 'pre_post_data'], 10, 2 );
+		add_filter( 'wxr_importer.pre_process.post', [$this, 'pre_process_post'], 10, 4 );
 		if ( version_compare( get_bloginfo( 'version' ), '5.1.0', '>=' ) ) {
-			add_filter( 'wp_check_filetype_and_ext', array( $this, 'real_mime_types_5_1_0' ), 10, 5 );
+			add_filter( 'wp_check_filetype_and_ext', [$this, 'real_mime_types_5_1_0'], 10, 5 );
 		} else {
-			add_filter( 'wp_check_filetype_and_ext', array( $this, 'real_mime_types' ), 10, 4 );
+			add_filter( 'wp_check_filetype_and_ext', [$this, 'real_mime_types'], 10, 4 );
 		}
-
 	}
 
 	/**
@@ -79,16 +78,26 @@ class Templatiq_WXR_Importer {
 	 * @param array $data Raw data imported for the post.
 	 * @return void
 	 */
-	public function track_post( $post_id = 0, $data = array() ) {
+	public function track_post( $post_id = 0, $data = [] ) {
 		Templatiq_Sites_Importer_Log::add( 'Inserted - Post ' . $post_id . ' - ' . get_post_type( $post_id ) . ' - ' . get_the_title( $post_id ) );
 
 		update_post_meta( $post_id, '_templatiq_sites_imported_post', true );
 		update_post_meta( $post_id, '_templatiq_sites_enable_for_batch', true );
 
-		error_log( 'Track Post: post_id => ' . $post_id . ' post_type ' . $data['post_type'] );
+		// error_log( 'Track Post: post_id => ' . $post_id . ' post_type ' . $data['post_type'] );
 
-		if( 'wp_navigation' === $data['post_type'] ) {
-			// error_log( 'Track Post: '. print_r( $data ,true) );
+		if ( 'wp_navigation' === $data['post_type'] ) {
+			$_menu_map = get_option( '_templatiq_imported_menu_map', [] );
+			error_log( 'track_post - wp_navigation : ' . $data['post_id'] . ' => ' . $post_id );
+			$_menu_map[$data['post_id']] = $post_id;
+			update_option( '_templatiq_imported_menu_map', $_menu_map );
+		}
+
+		if ( 'wp_template_part' === $data['post_type'] ) {
+			$_template_parts           = get_option( '_templatiq_imported_template_parts', [] );
+			$_template_parts[$post_id] = $post_id;
+			error_log( 'track_post - wp_template_part : ' . $data['post_id'] . ' => ' . $post_id );
+			update_option( '_templatiq_imported_template_parts', $_template_parts );
 		}
 
 		// Set the full width template for the pages.
@@ -240,7 +249,7 @@ class Templatiq_WXR_Importer {
 		}
 
 		// Set EXT and real MIME type only for the file name `wpforms.json` or `wpforms-{page-id}.json`.
-		if ( ( strpos( $filename, 'wpforms' ) !== false ) || ( strpos( $filename, 'cartflows' ) !== false ) || ( strpos( $filename, 'spectra' ) !== false ) ) {
+		if (  ( strpos( $filename, 'wpforms' ) !== false ) || ( strpos( $filename, 'cartflows' ) !== false ) || ( strpos( $filename, 'spectra' ) !== false ) ) {
 			$defaults['ext']  = 'json';
 			$defaults['type'] = 'text/plain';
 		}
@@ -273,8 +282,9 @@ class Templatiq_WXR_Importer {
 	 */
 	public function enable_wp_image_editor_gd( $editors ) {
 		$gd_editor = 'WP_Image_Editor_GD';
-		$editors   = array_diff( $editors, array( $gd_editor ) );
+		$editors   = array_diff( $editors, [$gd_editor] );
 		array_unshift( $editors, $gd_editor );
+
 		return $editors;
 	}
 
@@ -335,30 +345,30 @@ class Templatiq_WXR_Importer {
 		do_action( 'templatiq_sites_before_sse_import' );
 
 		// Enable default GD library.
-		add_filter( 'wp_image_editors', array( $this, 'enable_wp_image_editor_gd' ) );
+		add_filter( 'wp_image_editors', [$this, 'enable_wp_image_editor_gd'] );
 
 		// Change GUID image URL.
-		add_filter( 'wxr_importer.pre_process.post', array( $this, 'fix_image_duplicate_issue' ), 10, 4 );
+		add_filter( 'wxr_importer.pre_process.post', [$this, 'fix_image_duplicate_issue'], 10, 4 );
 
 		// Are we allowed to create users?
 		add_filter( 'wxr_importer.pre_process.user', '__return_null' );
 
 		// Keep track of our progress.
-		add_action( 'wxr_importer.processed.post', array( $this, 'imported_post' ), 10, 2 );
-		add_action( 'wxr_importer.process_failed.post', array( $this, 'imported_post' ), 10, 2 );
-		add_action( 'wxr_importer.process_already_imported.post', array( $this, 'already_imported_post' ), 10, 2 );
-		add_action( 'wxr_importer.process_skipped.post', array( $this, 'already_imported_post' ), 10, 2 );
-		add_action( 'wxr_importer.processed.comment', array( $this, 'imported_comment' ) );
-		add_action( 'wxr_importer.process_already_imported.comment', array( $this, 'imported_comment' ) );
-		add_action( 'wxr_importer.processed.term', array( $this, 'imported_term' ) );
-		add_action( 'wxr_importer.process_failed.term', array( $this, 'imported_term' ) );
-		add_action( 'wxr_importer.process_already_imported.term', array( $this, 'imported_term' ) );
-		add_action( 'wxr_importer.processed.user', array( $this, 'imported_user' ) );
-		add_action( 'wxr_importer.process_failed.user', array( $this, 'imported_user' ) );
+		add_action( 'wxr_importer.processed.post', [$this, 'imported_post'], 10, 2 );
+		add_action( 'wxr_importer.process_failed.post', [$this, 'imported_post'], 10, 2 );
+		add_action( 'wxr_importer.process_already_imported.post', [$this, 'already_imported_post'], 10, 2 );
+		add_action( 'wxr_importer.process_skipped.post', [$this, 'already_imported_post'], 10, 2 );
+		add_action( 'wxr_importer.processed.comment', [$this, 'imported_comment'] );
+		add_action( 'wxr_importer.process_already_imported.comment', [$this, 'imported_comment'] );
+		add_action( 'wxr_importer.processed.term', [$this, 'imported_term'] );
+		add_action( 'wxr_importer.process_failed.term', [$this, 'imported_term'] );
+		add_action( 'wxr_importer.process_already_imported.term', [$this, 'imported_term'] );
+		add_action( 'wxr_importer.processed.user', [$this, 'imported_user'] );
+		add_action( 'wxr_importer.process_failed.user', [$this, 'imported_user'] );
 
 		// Keep track of our progress.
-		add_action( 'wxr_importer.processed.post', array( $this, 'track_post' ), 10, 2 );
-		add_action( 'wxr_importer.processed.term', array( $this, 'track_term' ) );
+		add_action( 'wxr_importer.processed.post', [$this, 'track_post'], 10, 2 );
+		add_action( 'wxr_importer.processed.term', [$this, 'track_term'] );
 
 		// Flush once more.
 		flush();
@@ -367,10 +377,10 @@ class Templatiq_WXR_Importer {
 		$response = $importer->import( $xml_url );
 
 		// Let the browser know we're done.
-		$complete = array(
+		$complete = [
 			'action' => 'complete',
 			'error'  => false,
-		);
+		];
 		if ( is_wp_error( $response ) ) {
 			$complete['error'] = $response->get_error_message();
 		}
@@ -416,29 +426,29 @@ class Templatiq_WXR_Importer {
 	 */
 	public function get_xml_data( $path, $post_id ) {
 
-		$args = array(
+		$args = [
 			'action'      => 'astra-wxr-import',
 			'id'          => '1',
 			'_ajax_nonce' => wp_create_nonce( 'templatiq-sites' ),
 			'xml_id'      => $post_id,
-		);
-		$url  = add_query_arg( urlencode_deep( $args ), admin_url( 'admin-ajax.php', 'relative' ) );
+		];
+		$url = add_query_arg( urlencode_deep( $args ), admin_url( 'admin-ajax.php', 'relative' ) );
 
 		$data = $this->get_data( $path );
 
-		return array(
-			'count'   => array(
+		return [
+			'count'   => [
 				'posts'    => $data->post_count,
 				'media'    => $data->media_count,
 				'users'    => count( $data->users ),
 				'comments' => $data->comment_count,
 				'terms'    => $data->term_count,
-			),
+			],
 			'url'     => $url,
-			'strings' => array(
+			'strings' => [
 				'complete' => __( 'Import complete!', 'templatiq-sites' ),
-			),
-		);
+			],
+		];
 	}
 
 	/**
@@ -454,6 +464,7 @@ class Templatiq_WXR_Importer {
 		if ( is_wp_error( $data ) ) {
 			return $data;
 		}
+
 		return $data;
 	}
 
@@ -466,17 +477,18 @@ class Templatiq_WXR_Importer {
 	public function get_importer() {
 		$options = apply_filters(
 			'templatiq_sites_xml_import_options',
-			array(
+			[
 				'update_attachment_guids' => true,
 				'fetch_attachments'       => true,
 				'default_author'          => get_current_user_id(),
-			)
+			]
 		);
 
 		$importer = new WXR_Importer( $options );
 		$logger   = new WP_Importer_Logger_ServerSentEvents();
 
 		$importer->set_logger( $logger );
+
 		return $importer;
 	}
 
@@ -489,11 +501,11 @@ class Templatiq_WXR_Importer {
 	 */
 	public function imported_post( $id, $data ) {
 		$this->emit_sse_message(
-			array(
+			[
 				'action' => 'updateDelta',
 				'type'   => ( 'attachment' === $data['post_type'] ) ? 'media' : 'posts',
 				'delta'  => 1,
-			)
+			]
 		);
 	}
 
@@ -505,11 +517,11 @@ class Templatiq_WXR_Importer {
 	 */
 	public function already_imported_post( $data ) {
 		$this->emit_sse_message(
-			array(
+			[
 				'action' => 'updateDelta',
 				'type'   => ( 'attachment' === $data['post_type'] ) ? 'media' : 'posts',
 				'delta'  => 1,
-			)
+			]
 		);
 	}
 
@@ -520,11 +532,11 @@ class Templatiq_WXR_Importer {
 	 */
 	public function imported_comment() {
 		$this->emit_sse_message(
-			array(
+			[
 				'action' => 'updateDelta',
 				'type'   => 'comments',
 				'delta'  => 1,
-			)
+			]
 		);
 	}
 
@@ -535,11 +547,11 @@ class Templatiq_WXR_Importer {
 	 */
 	public function imported_term() {
 		$this->emit_sse_message(
-			array(
+			[
 				'action' => 'updateDelta',
 				'type'   => 'terms',
 				'delta'  => 1,
-			)
+			]
 		);
 	}
 
@@ -550,11 +562,11 @@ class Templatiq_WXR_Importer {
 	 */
 	public function imported_user() {
 		$this->emit_sse_message(
-			array(
+			[
 				'action' => 'updateDelta',
 				'type'   => 'users',
 				'delta'  => 1,
-			)
+			]
 		);
 	}
 

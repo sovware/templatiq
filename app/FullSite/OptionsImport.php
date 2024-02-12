@@ -58,7 +58,7 @@ class OptionsImport {
 			return;
 		}
 
-		error_log( "\n" . '**** Options Update Started. ****' );
+		// error_log( "\n" . '**** Options Update Started. ****' );
 
 		foreach ( $options as $option_name => $option_value ) {
 
@@ -68,7 +68,7 @@ class OptionsImport {
 				// Is option exist in defined array site_options()?
 				if ( in_array( $option_name, self::site_options(), true ) ) {
 
-					error_log( $option_name );
+					// error_log( $option_name );
 					// error_log( print_r( ,true) );
 
 					switch ( $option_name ) {
@@ -85,7 +85,7 @@ class OptionsImport {
 
 						// insert logo.
 						case 'custom_logo':
-							error_log( $option_value );
+							// error_log( $option_value );
 							$this->insert_logo( $option_value );
 							break;
 
@@ -97,7 +97,7 @@ class OptionsImport {
 			}
 		}
 
-		error_log( "\n" . '**** Options Update Stopped ****' . "\n" );
+		// error_log( "\n" . '**** Options Update Stopped ****' . "\n" );
 	}
 
 	public function get_page_by_title( $post_title, $post_type ) {

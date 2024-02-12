@@ -197,8 +197,8 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				update_term_meta( $term_id, '_templatiq_sites_imported_term', true );
 
 				foreach ( $type['meta'] as $key => $value ) {
-					if( '_default' !== $key ){
-						error_log( 'atbdp_listing_types ' .$key );
+					if ( '_default' !== $key ) {
+						// error_log( 'atbdp_listing_types ' .$key );
 						$value = maybe_unserialize( $value );
 						update_term_meta( $term_id, $key, $value );
 					}
@@ -350,10 +350,40 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			update_option( 'templatiq_sites_import_complete', 'yes', 'no' );
 			delete_transient( 'templatiq_sites_import_started' );
 
+			$this->update_menu_refs();
 			error_log( 'Import ended, hello ' );
+
 			if ( wp_doing_ajax() ) {
 				wp_send_json_success();
 			}
+		}
+
+		public function update_menu_refs() {
+			$menu_ref  = get_option( '_templatiq_imported_menu_map', [] );
+			$templates = get_option( '_templatiq_imported_template_parts', [] );
+
+			foreach ( $templates as $template_id ) {
+				$post = get_post( $template_id );
+				if ( ! isset( $post->post_content ) ) {
+					error_log( $template_id . 'post content not found' );
+					continue;
+				}
+
+				foreach ( $menu_ref as $old_id => $new_id ) {
+					$post->post_content = $this->menu_id_replace( $post->post_content, $old_id, $new_id );
+					wp_update_post( $post );
+				}
+			}
+		}
+
+		public function menu_id_replace( $data, $old_id, $new_id ) {
+			$find            = sprintf( '\"ref\":%d', $old_id );
+			$replace         = sprintf( '\"ref\":%d', $new_id );
+			$updated_content = str_replace( $find, $replace, $data );
+
+			error_log( 'setting up menu post_id ' . $old_id . ' to ' . $new_id );
+
+			return $updated_content;
 		}
 
 		/**

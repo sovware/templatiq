@@ -147,3 +147,62 @@ function Templatiq() {
 
 // kick it off
 Templatiq();
+
+// $templates = get_option( '_templatiq_imported_template_parts', [] );
+
+// foreach ( $templates as $template_id ) {
+// 	$post = get_post( $template_id );
+// 	error_log( $post->post_content );
+// }
+
+function update_menu_refs() {
+	$menu_ref = get_option( '_templatiq_imported_menu_map', [] );
+	$parts    = get_option( '_templatiq_imported_template_parts', [] );
+
+	if ( $parts && ! empty( $parts ) ) {
+		foreach ( $parts as $id ) {
+			error_log( 'part_id ' . $id );
+			$content = get_the_content( null, false, $id );
+			error_log( print_r( $content, true ) );
+
+			foreach ( $menu_ref as $old_id => $new_id ) {
+				error_log( $old_id . ' ' . $new_id );
+				$content = menu_id_replace( $content, $old_id, $new_id );
+
+				if ( $content ) {
+					error_log( 'menu id updated' );
+				}
+			}
+		}
+	}
+
+	// error_log( print_r( $menu_ref, true ) );
+	error_log( 'parts ' . print_r( $parts, true ) );
+}
+
+function menu_id_replace( $data, $provided_id, $new_id ) {
+	$pattern = '/"ref"\s*:\s*(\d+)/';
+
+	error_log( 'menu_id_replace' );
+	if ( preg_match( $pattern, $data, $matches ) ) {
+		$oldId = intval( $matches[1] );
+		error_log( $oldId . 'oldID' );
+
+		if ( $oldId === $provided_id ) {
+			$updated_data = preg_replace( $pattern, '"ref":' . $new_id, $data );
+			error_log( "Old ID: $oldId\n" );
+			error_log( "New ID: $new_id\n" );
+			error_log( "Updated data: $updated_data\n" );
+
+			return $updated_data;
+
+		} else {
+			error_log( "The extracted 'ref' ID does not match the provided ID.\n" );
+		}
+	} else {
+		error_log( "No 'ref' ID found in the data.\n" );
+	}
+}
+
+// add_action( 'plugins_loaded', 'update_menu_refs');
+// update_menu_refs();

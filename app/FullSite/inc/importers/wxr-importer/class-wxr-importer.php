@@ -1096,6 +1096,9 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 				$this->process_menu_item_meta( $post_id, $data, $meta );
 			}
 
+			// delete_option( '_templatiq_imported_menu_map');
+			delete_option( '_templatiq_imported_template_parts');
+
 			/**
 			 * Post processing completed.
 			 *
@@ -1106,6 +1109,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			 * @param array $terms Raw term data, already processed.
 			 */
 			do_action( 'wxr_importer.processed.post', $post_id, $data, $meta, $comments, $terms ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
+			// error_log( "wxr_importer.processed.post: new post: {$post_id} " . print_r( $data, true) );
 		}
 
 		/**
@@ -1306,7 +1310,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 					if( $_pre_type !== $value ) {
 						update_post_meta( $post_id, '_directory_type', $value );
 						wp_set_object_terms( $post_id, $value, 'atbdp_listing_types' );
-						error_log( '_directory_type changed - post_id ' . $post_id .' from ' . $meta_item['value'] . ' => ' . $value );
+						// error_log( '_directory_type changed - post_id ' . $post_id .' from ' . $meta_item['value'] . ' => ' . $value );
 					}
 					
 					continue;
