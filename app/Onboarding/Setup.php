@@ -38,7 +38,7 @@ class Setup {
 		if ( ! templatiq_sites_is_valid_url( $api_url ) ) {
 			wp_send_json_error(
 				[
-					'message' => sprintf( __( 'Invalid Request URL - %s', 'templatiq-sites' ), $api_url ),
+					'message' => sprintf( __( 'Invalid Request URL - %s', 'templatiq' ), $api_url ),
 					'code'    => 'Error',
 				]
 			);
@@ -50,7 +50,7 @@ class Setup {
 		if ( 0 === $post_id ) {
 			wp_send_json_error(
 				[
-					'message' => sprintf( __( 'Invalid Post ID - %d', 'templatiq-sites' ), $post_id ),
+					'message' => sprintf( __( 'Invalid Post ID - %d', 'templatiq' ), $post_id ),
 					'code'    => 'Error',
 				]
 			);
@@ -122,7 +122,7 @@ class Setup {
 			wp_send_json_error(
 				[
 					'success' => false,
-					'message' => __( 'You are not authorized to perform this action.', 'templatiq-sites' ),
+					'message' => __( 'You are not authorized to perform this action.', 'templatiq' ),
 				]
 			);
 		}
@@ -225,7 +225,7 @@ class Setup {
 			wp_send_json_error(
 				[
 					'success' => false,
-					'message' => __( 'You are not authorized to perform this action.', 'templatiq-sites' ),
+					'message' => __( 'You are not authorized to perform this action.', 'templatiq' ),
 				]
 			);
 		}

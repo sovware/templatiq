@@ -47,7 +47,7 @@ class Onboarding {
 	}
 
 	public function admin_menu() {
-		$page_title = apply_filters( 'templatiq_sites_menu_page_title', esc_html__( 'Starter Templates', 'templatiq-sites' ) );
+		$page_title = apply_filters( 'templatiq_sites_menu_page_title', esc_html__( 'Starter Templates', 'templatiq' ) );
 
 		add_theme_page( $page_title, $page_title, 'manage_options', 'starter-templates', [$this, 'menu_callback'] );
 	}
