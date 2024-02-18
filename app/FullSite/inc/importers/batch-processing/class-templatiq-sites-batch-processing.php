@@ -754,42 +754,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 			templatiq_sites_error_log( '=================== ' . TEMPLATIQ_SITES_NAME . ' - Single Page - Importing Images for Blog name \'' . get_the_title( $page_id ) . '\' (' . $page_id . ') ===================' );
 
 			$default_page_builder = Templatiq_Sites_Page::get_instance()->get_setting( 'page_builder' );
-
-			if ( 'gutenberg' === $default_page_builder ) {
-				// Add "gutenberg" in import [queue].
-				self::$process_single->push_to_queue(
-					array(
-						'page_id'  => $page_id,
-						'instance' => Templatiq_Sites_Batch_Processing_Gutenberg::get_instance(),
-					)
-				);
-			}
-
-			// Add "brizy" in import [queue].
-			if ( 'brizy' === $default_page_builder && is_plugin_active( 'brizy/brizy.php' ) ) {
-				// Add "gutenberg" in import [queue].
-				self::$process_single->push_to_queue(
-					array(
-						'page_id'  => $page_id,
-						'instance' => Templatiq_Sites_Batch_Processing_Brizy::get_instance(),
-					)
-				);
-			}
-
-			// Add "bb-plugin" in import [queue].
-			if (
-				'beaver-builder' === $default_page_builder &&
-				( is_plugin_active( 'beaver-builder-lite-version/fl-builder.php' ) || is_plugin_active( 'bb-plugin/fl-builder.php' ) )
-			) {
-				// Add "gutenberg" in import [queue].
-				self::$process_single->push_to_queue(
-					array(
-						'page_id'  => $page_id,
-						'instance' => Templatiq_Sites_Batch_Processing_Beaver_Builder::get_instance(),
-					)
-				);
-			}
-
+		
 			// Add "elementor" in import [queue].
 			if ( 'elementor' === $default_page_builder ) {
 				// @todo Remove required `allow_url_fopen` support.

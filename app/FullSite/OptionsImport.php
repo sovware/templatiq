@@ -159,7 +159,7 @@ class OptionsImport {
 			]
 		);
 		
-		error_log( print_r( $downloaded_image, true ) );
+		// error_log( print_r( $downloaded_image, true ) );
 
 		if ( $downloaded_image['id'] ) {
 			Templatiq_WXR_Importer::instance()->track_post( $downloaded_image['id'] );

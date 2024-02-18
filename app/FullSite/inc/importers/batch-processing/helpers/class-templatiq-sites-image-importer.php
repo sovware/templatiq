@@ -253,7 +253,7 @@ if ( ! class_exists( 'Templatiq_Sites_Image_Importer' ) ):
 
 			$this->already_imported_ids[] = $post_id;
 
-			error_log( 'new_attachment' . print_r( $new_attachment, true ) );
+			// error_log( 'new_attachment' . print_r( $new_attachment, true ) );
 
 			return $new_attachment;
 		}

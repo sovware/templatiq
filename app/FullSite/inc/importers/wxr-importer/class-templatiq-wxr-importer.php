@@ -63,7 +63,7 @@ class Templatiq_WXR_Importer {
 		add_action( 'wp_ajax_astra-wxr-import', [$this, 'sse_import'] );
 		add_filter( 'wxr_importer.pre_process.user', '__return_null' );
 		add_filter( 'wp_import_post_data_processed', [$this, 'pre_post_data'], 10, 2 );
-		add_filter( 'wxr_importer.pre_process.post', [$this, 'pre_process_post'], 10, 4 );
+		// add_filter( 'wxr_importer.pre_process.post', [$this, 'pre_process_post'], 10, 4 );
 		if ( version_compare( get_bloginfo( 'version' ), '5.1.0', '>=' ) ) {
 			add_filter( 'wp_check_filetype_and_ext', [$this, 'real_mime_types_5_1_0'], 10, 5 );
 		} else {
@@ -93,10 +93,10 @@ class Templatiq_WXR_Importer {
 			update_option( '_templatiq_imported_menu_map', $_menu_map );
 		}
 
-		if ( 'wp_template_part' === $data['post_type'] ) {
+		if ( 'wp_template' === $data['post_type'] || 'wp_template_part' === $data['post_type'] ) {
 			$_template_parts           = get_option( '_templatiq_imported_template_parts', [] );
 			$_template_parts[$post_id] = $post_id;
-			error_log( 'track_post - wp_template_part : ' . $data['post_id'] . ' => ' . $post_id );
+			error_log( 'track_post - ' . $data['post_type']  .  ' : ' . $data['post_id'] . ' => ' . $post_id );
 			update_option( '_templatiq_imported_template_parts', $_template_parts );
 		}
 
@@ -129,6 +129,7 @@ class Templatiq_WXR_Importer {
 		if ( $term ) {
 			Templatiq_Sites_Importer_Log::add( 'Inserted - Term ' . $term_id . ' - ' . wp_json_encode( $term ) );
 		}
+
 		update_term_meta( $term_id, '_templatiq_sites_imported_term', true );
 	}
 
@@ -176,17 +177,6 @@ class Templatiq_WXR_Importer {
 			// If page contain Elementor, Brizy or Beaver Builder meta then skip this page.
 			if ( $disable_post_content ) {
 				$data['post_content'] = '';
-			} else {
-				/**
-				 * Gutenberg Content Data Fix
-				 *
-				 * Gutenberg encode the page content. In import process the encoded characterless e.g. <, > are
-				 * decoded into HTML tag and it break the Gutenberg render markup.
-				 *
-				 * Note: We have not check the post is created with Gutenberg or not. We have imported other sites
-				 * and confirm that this works for every other page builders too.
-				 */
-				$data['post_content'] = wp_slash( $data['post_content'] );
 			}
 		}
 

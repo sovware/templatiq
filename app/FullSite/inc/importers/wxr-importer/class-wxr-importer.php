@@ -579,6 +579,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 						break;
 
 					default:
+						error_log( $reader->name);
 						// Skip this node, probably handled by something already.
 						break;
 				}
@@ -828,6 +829,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 						break;
 				}
 			}
+
 
 			return compact( 'data', 'meta', 'comments', 'terms' );
 		}
@@ -1097,7 +1099,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			}
 
 			// delete_option( '_templatiq_imported_menu_map');
-			delete_option( '_templatiq_imported_template_parts');
+			// delete_option( '_templatiq_imported_template_parts');
 
 			/**
 			 * Post processing completed.

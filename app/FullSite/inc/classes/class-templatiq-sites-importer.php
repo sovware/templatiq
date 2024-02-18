@@ -236,6 +236,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 
 			$wxr_url = templatiq_get_site_data( 'astra-site-wxr-path' );
 
+			error_log( $wxr_url );
 			Templatiq_Sites_Importer_Log::add( 'Importing from XML ' . $wxr_url );
 
 			$overrides = [
@@ -333,7 +334,6 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 		 * @return void
 		 */
 		public function import_end() {
-
 			if ( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) {
 				// Verify Nonce.
 				check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
@@ -351,7 +351,15 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			delete_transient( 'templatiq_sites_import_started' );
 
 			$this->update_menu_refs();
-			error_log( 'Import ended, hello ' );
+
+			error_log(
+				'Import ended, hello '
+				. PHP_EOL . '#############################################'
+				. PHP_EOL . '#############################################'
+				. PHP_EOL . '#############################################'
+				. PHP_EOL . '#############################################'
+				. PHP_EOL . '#############################################'
+				. PHP_EOL . '#############################################' . PHP_EOL );
 
 			if ( wp_doing_ajax() ) {
 				wp_send_json_success();
@@ -377,11 +385,11 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 		}
 
 		public function menu_id_replace( $data, $old_id, $new_id ) {
-			$find            = sprintf( '\"ref\":%d', $old_id );
-			$replace         = sprintf( '\"ref\":%d', $new_id );
+			$find            = sprintf( '"ref":%d', $old_id );
+			$replace         = sprintf( '"ref":%d', $new_id );
 			$updated_content = str_replace( $find, $replace, $data );
 
-			error_log( 'setting up menu post_id ' . $old_id . ' to ' . $new_id );
+			error_log( 'setting up menu post_id ' . $old_id . ' to ' . $new_id . ' ' . $updated_content );
 
 			return $updated_content;
 		}

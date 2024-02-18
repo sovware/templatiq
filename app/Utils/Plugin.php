@@ -168,7 +168,7 @@ class Plugin {
 
 		$response['slug'] = $plugin['slug'];
 
-		error_log( print_r( $response, true ) );
+		// error_log( print_r( $response, true ) );
 
 		return $response;
 	}

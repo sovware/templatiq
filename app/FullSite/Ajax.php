@@ -219,7 +219,7 @@ class Ajax {
 		// wp_send_json_success( $demo_data );
 
 		if ( 200 === $code ) {
-			error_log( print_r( $demo_data, true ) );
+			// error_log( print_r( $demo_data, true ) );
 			update_option( 'templatiq_sites_import_data', $demo_data, 'no' );
 			wp_send_json_success( $demo_data );
 		} else {
