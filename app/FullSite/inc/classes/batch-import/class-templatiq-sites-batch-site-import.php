@@ -163,7 +163,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 
 			$admin_bar->add_menu(
 				array(
-					'title'  => '<a id="templatiq-sites-import-status-admin-bar" href="' . admin_url( 'themes.php?page=starter-templates&action=site-import' ) . '">' . esc_html__( 'Import Status', 'templatiq-sites' ) . '</a>',
+					'title'  => '<a id="templatiq-sites-import-status-admin-bar" href="' . admin_url( 'themes.php?page=starter-templates&action=site-import' ) . '">' . esc_html__( 'Import Status', 'templatiq' ) . '</a>',
 					'id'     => 'templatiq-sites-menu-item',
 					'parent' => false,
 				)
@@ -214,7 +214,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 				$this->update_status(
 					array(
 						'step'     => 'fail',
-						'message'  => esc_html__( 'Invalid site ID.', 'templatiq-sites' ),
+						'message'  => esc_html__( 'Invalid site ID.', 'templatiq' ),
 						'end_time' => time(),
 					)
 				);
@@ -231,12 +231,12 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 					if ( isset( $status['step'] ) && 'complete' === $status['step'] ) {
 						return array(
 							'status'  => 'complete',
-							'message' => esc_html__( 'Site import process is complete.', 'templatiq-sites' ),
+							'message' => esc_html__( 'Site import process is complete.', 'templatiq' ),
 						);
 					} else {
 						return array(
 							'status'  => 'processing',
-							'message' => esc_html__( 'Site import is in process.', 'templatiq-sites' ),
+							'message' => esc_html__( 'Site import is in process.', 'templatiq' ),
 						);
 					}
 				}
@@ -270,7 +270,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 			$this->update_status(
 				array(
 					'step'       => 'preparing',
-					'message'    => esc_html__( 'Preparing Site Import', 'templatiq-sites' ),
+					'message'    => esc_html__( 'Preparing Site Import', 'templatiq' ),
 					'start_time' => time(),
 				)
 			);
@@ -280,7 +280,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 
 			return array(
 				'status'  => 'started',
-				'message' => esc_html__( 'Site import started.', 'templatiq-sites' ),
+				'message' => esc_html__( 'Site import started.', 'templatiq' ),
 			);
 		}
 
@@ -330,7 +330,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 			$this->update_status(
 				array(
 					'step'    => 'install_plugins',
-					'message' => esc_html__( 'Installing Required Plugins', 'templatiq-sites' ),
+					'message' => esc_html__( 'Installing Required Plugins', 'templatiq' ),
 				)
 			);
 			$this->install_required_plugins( $site_id );
@@ -346,7 +346,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 			$this->update_status(
 				array(
 					'step'    => 'import_content',
-					'message' => esc_html__( 'Importing Media, Posts, and Pages', 'templatiq-sites' ),
+					'message' => esc_html__( 'Importing Media, Posts, and Pages', 'templatiq' ),
 				)
 			);
 
@@ -357,7 +357,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 			$this->update_status(
 				array(
 					'step'    => 'import_options',
-					'message' => esc_html__( 'Importing Site Options', 'templatiq-sites' ),
+					'message' => esc_html__( 'Importing Site Options', 'templatiq' ),
 				)
 			);
 			$this->import_site_options( $site_id );
@@ -366,7 +366,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 			$this->update_status(
 				array(
 					'step'    => 'import_widgets',
-					'message' => esc_html__( 'Importing Sidebar and Widgets', 'templatiq-sites' ),
+					'message' => esc_html__( 'Importing Sidebar and Widgets', 'templatiq' ),
 				)
 			);
 			$this->import_widgets( $site_id );
@@ -386,7 +386,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 			$this->update_status(
 				array(
 					'step'     => 'complete',
-					'message'  => esc_html__( 'Import Complete', 'templatiq-sites' ),
+					'message'  => esc_html__( 'Import Complete', 'templatiq' ),
 					'end_time' => time(),
 				)
 			);
@@ -403,7 +403,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 				$this->update_status(
 					array(
 						'step'     => 'fail',
-						'message'  => esc_html__( 'Invalid site ID.', 'templatiq-sites' ),
+						'message'  => esc_html__( 'Invalid site ID.', 'templatiq' ),
 						'end_time' => time(),
 					)
 				);
@@ -473,7 +473,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 		public function install_plugin( $plugin = array() ) {
 
 			if ( ! isset( $plugin['slug'] ) || empty( $plugin['slug'] ) ) {
-				return esc_html__( 'Invalid plugin slug', 'templatiq-sites' );
+				return esc_html__( 'Invalid plugin slug', 'templatiq' );
 			}
 
 			include_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -513,11 +513,11 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 					return esc_html( $wp_filesystem->errors->get_error_message() );
 				}
 
-				return esc_html__( 'Unable to connect to the filesystem. Please confirm your credentials.', 'templatiq-sites' );
+				return esc_html__( 'Unable to connect to the filesystem. Please confirm your credentials.', 'templatiq' );
 			}
 
 			/* translators: %s plugin name. */
-			return sprintf( __( 'Successfully installed "%s" plugin!', 'templatiq-sites' ), $api->name );
+			return sprintf( __( 'Successfully installed "%s" plugin!', 'templatiq' ), $api->name );
 		}
 
 		/**

@@ -92,7 +92,7 @@ if ( ! class_exists( 'Templatiq_Sites_Page' ) ) {
 				?>
 				<div class="notice notice-info is-dismissible templatiq-sites-notice templatiq-sites-getting-started-notice">
 					<?php /* translators: %1$s is the admin page URL, %2$s is product name. */ ?>
-					<p><?php printf( esc_attr__( 'Thank you for choosing %1$s! Check the library of <a class="templatiq-sites-getting-started-btn" href="%2$s">ready starter templates here »</a>', 'templatiq-sites' ), esc_html( $product_name ), esc_url( $url ) ); ?></p>
+					<p><?php printf( esc_attr__( 'Thank you for choosing %1$s! Check the library of <a class="templatiq-sites-getting-started-btn" href="%2$s">ready starter templates here »</a>', 'templatiq' ), esc_html( $product_name ), esc_url( $url ) ); ?></p>
 				</div>
 				<?php
 			}
@@ -273,7 +273,7 @@ if ( ! class_exists( 'Templatiq_Sites_Page' ) ) {
 			// Settings update message.
 			if ( isset( $_REQUEST['message'] ) && ( 'saved' === $_REQUEST['message'] || 'saved_ext' === $_REQUEST['message'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Fetching GET parameter, no nonce associated with this action.
 				?>
-					<span id="message" class="notice templatiq-sites-notice notice-success is-dismissive"><p> <?php esc_html_e( 'Settings saved successfully.', 'templatiq-sites' ); ?> </p></span>
+					<span id="message" class="notice templatiq-sites-notice notice-success is-dismissive"><p> <?php esc_html_e( 'Settings saved successfully.', 'templatiq' ); ?> </p></span>
 				<?php
 			}
 
@@ -304,48 +304,48 @@ if ( ! class_exists( 'Templatiq_Sites_Page' ) ) {
 								?>
 								<span class="logo <?php echo esc_attr( $white_label_class ); ?>">
 									<img src="<?php echo esc_url( TEMPLATIQ_SITES_URI . 'inc/assets/images/logo.svg' ); ?>">
-									<h3 class="title"><?php esc_html_e( 'Importing Starter Template...', 'templatiq-sites' ); ?></h3>
+									<h3 class="title"><?php esc_html_e( 'Importing Starter Template...', 'templatiq' ); ?></h3>
 								</span>
 							</div>
 							<div class="content">
 								<?php if ( 'invalid_site_id' === $import_status ) { ?>
-									<p><?php esc_html_e( 'The demo you are importing seems invalid. The site is not found.', 'templatiq-sites' ); ?></p>
+									<p><?php esc_html_e( 'The demo you are importing seems invalid. The site is not found.', 'templatiq' ); ?></p>
 								<?php } elseif ( 'premium_sites' === $import_status ) { ?>
-									<p><?php esc_html_e( 'The demo you are importing is a premium demo.', 'templatiq-sites' ); ?> <a href="https://wpastra.com/starter-templates-plans/?utm_source=batch-site-import&utm_campaign=templatiq-sites&utm_medium=batch-import" class="" target="_blank"><?php esc_html_e( 'Get Access!', 'templatiq-sites' ); ?><i class="dashicons dashicons-external"></i></a></p>
+									<p><?php esc_html_e( 'The demo you are importing is a premium demo.', 'templatiq' ); ?> <a href="https://wpastra.com/starter-templates-plans/?utm_source=batch-site-import&utm_campaign=templatiq-sites&utm_medium=batch-import" class="" target="_blank"><?php esc_html_e( 'Get Access!', 'templatiq' ); ?><i class="dashicons dashicons-external"></i></a></p>
 								<?php } else { ?>
-									<p><?php esc_html_e( 'The import process can take a few minutes depending on the size of the site and speed of the connection.', 'templatiq-sites' ); ?></p>
+									<p><?php esc_html_e( 'The import process can take a few minutes depending on the size of the site and speed of the connection.', 'templatiq' ); ?></p>
 								<?php } ?>
 								<ul class="import-steps">
 									<li class="import-step <?php echo esc_attr( $step_class ); ?>" data-step="preparing">
-										<?php esc_html_e( 'Preparing Site Import', 'templatiq-sites' ); ?>
+										<?php esc_html_e( 'Preparing Site Import', 'templatiq' ); ?>
 									</li>
 									<li class="import-step <?php echo esc_attr( $step_class ); ?>" data-step="install_plugins">
-										<?php esc_html_e( 'Installing Required Plugins', 'templatiq-sites' ); ?>
+										<?php esc_html_e( 'Installing Required Plugins', 'templatiq' ); ?>
 									</li>
 									<li class="import-step <?php echo esc_attr( $step_class ); ?>" data-step="import_contact_forms">
-										<?php esc_html_e( 'Importing Contact Forms', 'templatiq-sites' ); ?>
+										<?php esc_html_e( 'Importing Contact Forms', 'templatiq' ); ?>
 									</li>
 									<li class="import-step <?php echo esc_attr( $step_class ); ?>" data-step="import_customizer_settings">
-										<?php esc_html_e( 'Setting up the Theme', 'templatiq-sites' ); ?>
+										<?php esc_html_e( 'Setting up the Theme', 'templatiq' ); ?>
 									</li>
 									<li class="import-step <?php echo esc_attr( $step_class ); ?>" data-step="import_content">
-										<?php esc_html_e( 'Importing Media, Posts, and Pages', 'templatiq-sites' ); ?>
+										<?php esc_html_e( 'Importing Media, Posts, and Pages', 'templatiq' ); ?>
 									</li>
 									<li class="import-step <?php echo esc_attr( $step_class ); ?>" data-step="import_options">
-										<?php esc_html_e( 'Importing Site Options', 'templatiq-sites' ); ?>
+										<?php esc_html_e( 'Importing Site Options', 'templatiq' ); ?>
 									</li>
 									<li class="import-step <?php echo esc_attr( $step_class ); ?>" data-step="import_widgets">
-										<?php esc_html_e( 'Importing Sidebar and Widgets', 'templatiq-sites' ); ?>
+										<?php esc_html_e( 'Importing Sidebar and Widgets', 'templatiq' ); ?>
 									</li>
 									<li class="import-step <?php echo esc_attr( $step_class ); ?>" data-step="complete">
-										<?php esc_html_e( 'Import Complete', 'templatiq-sites' ); ?>
+										<?php esc_html_e( 'Import Complete', 'templatiq' ); ?>
 									</li>
 								</ul>
 
 								<?php if ( 'success' === $step_class ) { ?>
 									<p>
-									<?php esc_html_e( 'Site Imported Successfully!', 'templatiq-sites' ); ?>
-									<a class="view-site-button" href="<?php echo esc_url( site_url() ); ?>" target="_blank"><?php esc_html_e( 'Visit Site', 'templatiq-sites' ); ?> <i class="dashicons dashicons-external"></i></a>
+									<?php esc_html_e( 'Site Imported Successfully!', 'templatiq' ); ?>
+									<a class="view-site-button" href="<?php echo esc_url( site_url() ); ?>" target="_blank"><?php esc_html_e( 'Visit Site', 'templatiq' ); ?> <i class="dashicons dashicons-external"></i></a>
 								</p>
 								<?php } ?>
 							</div>
@@ -373,9 +373,9 @@ if ( ! class_exists( 'Templatiq_Sites_Page' ) ) {
 						if ( ! empty( $categories ) ) {
 							?>
 						<div id="templatiq-sites__category-filter" class="dropdown-check-list" tabindex="100">
-							<span class="templatiq-sites__category-filter-anchor" data-slug=""><?php esc_html_e( 'All', 'templatiq-sites' ); ?></span>
+							<span class="templatiq-sites__category-filter-anchor" data-slug=""><?php esc_html_e( 'All', 'templatiq' ); ?></span>
 							<ul class="templatiq-sites__category-filter-items">
-								<li class="ast-sites__filter-wrap category-active" data-slug=""><?php esc_html_e( 'All', 'templatiq-sites' ); ?> </li>
+								<li class="ast-sites__filter-wrap category-active" data-slug=""><?php esc_html_e( 'All', 'templatiq' ); ?> </li>
 							<?php
 							foreach ( $categories as $key => $value ) {
 								if ( 'free' !== $value['slug'] ) {
@@ -387,17 +387,17 @@ if ( ! class_exists( 'Templatiq_Sites_Page' ) ) {
 							?>
 								<li class="ast-sites__filter-wrap-checkbox first-wrap">
 									<label>
-										<input id="radio-all" type="radio" name="ast-sites-radio" class="checkbox active" value="" checked /><?php esc_html_e( 'All', 'templatiq-sites' ); ?>
+										<input id="radio-all" type="radio" name="ast-sites-radio" class="checkbox active" value="" checked /><?php esc_html_e( 'All', 'templatiq' ); ?>
 									</label>
 								</li>
 								<li class="ast-sites__filter-wrap-checkbox">
 									<label>
-										<input id="radio-free" type="radio" name="ast-sites-radio" class="checkbox" value="free" /><?php esc_html_e( 'Free', 'templatiq-sites' ); ?>
+										<input id="radio-free" type="radio" name="ast-sites-radio" class="checkbox" value="free" /><?php esc_html_e( 'Free', 'templatiq' ); ?>
 									</label>
 								</li>
 								<li class="ast-sites__filter-wrap-checkbox">
 									<label>
-										<input id="radio-agency" type="radio" name="ast-sites-radio" class="checkbox" value="agency" /><?php esc_html_e( 'Premium', 'templatiq-sites' ); ?>
+										<input id="radio-agency" type="radio" name="ast-sites-radio" class="checkbox" value="agency" /><?php esc_html_e( 'Premium', 'templatiq' ); ?>
 									</label>
 								</li>
 							</ul>
@@ -405,7 +405,7 @@ if ( ! class_exists( 'Templatiq_Sites_Page' ) ) {
 							<?php
 						}
 						?>
-						<input autocomplete="off" placeholder="<?php esc_attr_e( 'Search...', 'templatiq-sites' ); ?>" type="search" aria-describedby="live-search-desc" id="wp-filter-search-input" class="wp-filter-search">
+						<input autocomplete="off" placeholder="<?php esc_attr_e( 'Search...', 'templatiq' ); ?>" type="search" aria-describedby="live-search-desc" id="wp-filter-search-input" class="wp-filter-search">
 						<span class="ast-icon-search search-icon"></span>
 						<div class="templatiq-sites-autocomplete-result"></div>
 					</div>
@@ -479,23 +479,23 @@ if ( ! class_exists( 'Templatiq_Sites_Page' ) ) {
 			return array(
 				'gutenberg'      => array(
 					'slug'      => 'gutenberg',
-					'name'      => esc_html__( 'Gutenberg', 'templatiq-sites' ),
+					'name'      => esc_html__( 'Gutenberg', 'templatiq' ),
 					'image_url' => TEMPLATIQ_SITES_URI . 'inc/assets/images/block-editor.jpg',
-					'title'     => esc_html__( 'The default WordPress editor', 'templatiq-sites' ),
+					'title'     => esc_html__( 'The default WordPress editor', 'templatiq' ),
 				),
 				'elementor'      => array(
 					'slug'      => 'elementor',
-					'name'      => esc_html__( 'Elementor', 'templatiq-sites' ),
+					'name'      => esc_html__( 'Elementor', 'templatiq' ),
 					'image_url' => TEMPLATIQ_SITES_URI . 'inc/assets/images/elementor.jpg',
 				),
 				'beaver-builder' => array(
 					'slug'      => 'beaver-builder',
-					'name'      => esc_html__( 'Beaver Builder', 'templatiq-sites' ),
+					'name'      => esc_html__( 'Beaver Builder', 'templatiq' ),
 					'image_url' => TEMPLATIQ_SITES_URI . 'inc/assets/images/beaver-builder.jpg',
 				),
 				'brizy'          => array(
 					'slug'      => 'brizy',
-					'name'      => esc_html__( 'Brizy', 'templatiq-sites' ),
+					'name'      => esc_html__( 'Brizy', 'templatiq' ),
 					'image_url' => TEMPLATIQ_SITES_URI . 'inc/assets/images/brizy.jpg',
 				),
 			);
@@ -543,23 +543,23 @@ if ( ! class_exists( 'Templatiq_Sites_Page' ) ) {
 			// Array of time period chunks.
 			$chunks = array(
 				/* translators: 1: The number of years in an interval of time. */
-				array( 60 * 60 * 24 * 365, _n_noop( '%s year', '%s years', 'templatiq-sites' ) ),
+				array( 60 * 60 * 24 * 365, _n_noop( '%s year', '%s years', 'templatiq' ) ),
 				/* translators: 1: The number of months in an interval of time. */
-				array( 60 * 60 * 24 * 30, _n_noop( '%s month', '%s months', 'templatiq-sites' ) ),
+				array( 60 * 60 * 24 * 30, _n_noop( '%s month', '%s months', 'templatiq' ) ),
 				/* translators: 1: The number of weeks in an interval of time. */
-				array( 60 * 60 * 24 * 7, _n_noop( '%s week', '%s weeks', 'templatiq-sites' ) ),
+				array( 60 * 60 * 24 * 7, _n_noop( '%s week', '%s weeks', 'templatiq' ) ),
 				/* translators: 1: The number of days in an interval of time. */
-				array( 60 * 60 * 24, _n_noop( '%s day', '%s days', 'templatiq-sites' ) ),
+				array( 60 * 60 * 24, _n_noop( '%s day', '%s days', 'templatiq' ) ),
 				/* translators: 1: The number of hours in an interval of time. */
-				array( 60 * 60, _n_noop( '%s hour', '%s hours', 'templatiq-sites' ) ),
+				array( 60 * 60, _n_noop( '%s hour', '%s hours', 'templatiq' ) ),
 				/* translators: 1: The number of minutes in an interval of time. */
-				array( 60, _n_noop( '%s minute', '%s minutes', 'templatiq-sites' ) ),
+				array( 60, _n_noop( '%s minute', '%s minutes', 'templatiq' ) ),
 				/* translators: 1: The number of seconds in an interval of time. */
-				array( 1, _n_noop( '%s second', '%s seconds', 'templatiq-sites' ) ),
+				array( 1, _n_noop( '%s second', '%s seconds', 'templatiq' ) ),
 			);
 
 			if ( $since <= 0 ) {
-				return esc_html__( 'now', 'templatiq-sites' );
+				return esc_html__( 'now', 'templatiq' );
 			}
 
 			/**
@@ -613,11 +613,11 @@ if ( ! class_exists( 'Templatiq_Sites_Page' ) ) {
 			global $wp_version;
 
 			if ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON ) {
-				return new WP_Error( 'templatiq_sites_cron_error', esc_html__( 'ERROR! Cron schedules are disabled by setting constant DISABLE_WP_CRON to true.<br/>To start the import process please enable the cron by setting the constant to false. E.g. define( \'DISABLE_WP_CRON\', false );', 'templatiq-sites' ) );
+				return new WP_Error( 'templatiq_sites_cron_error', esc_html__( 'ERROR! Cron schedules are disabled by setting constant DISABLE_WP_CRON to true.<br/>To start the import process please enable the cron by setting the constant to false. E.g. define( \'DISABLE_WP_CRON\', false );', 'templatiq' ) );
 			}
 
 			if ( defined( 'ALTERNATE_WP_CRON' ) && ALTERNATE_WP_CRON ) {
-				return new WP_Error( 'templatiq_sites_cron_error', esc_html__( 'ERROR! Cron schedules are disabled by setting constant ALTERNATE_WP_CRON to true.<br/>To start the import process please enable the cron by setting the constant to false. E.g. define( \'ALTERNATE_WP_CRON\', false );', 'templatiq-sites' ) );
+				return new WP_Error( 'templatiq_sites_cron_error', esc_html__( 'ERROR! Cron schedules are disabled by setting constant ALTERNATE_WP_CRON to true.<br/>To start the import process please enable the cron by setting the constant to false. E.g. define( \'ALTERNATE_WP_CRON\', false );', 'templatiq' ) );
 			}
 
 			$cached_status = get_transient( 'templatiq-sites-cron-test-ok' );
@@ -653,7 +653,7 @@ if ( ! class_exists( 'Templatiq_Sites_Page' ) ) {
 					'unexpected_http_response_code',
 					sprintf(
 						/* translators: 1: The HTTP response code. */
-						__( 'Unexpected HTTP response code: %s', 'templatiq-sites' ),
+						__( 'Unexpected HTTP response code: %s', 'templatiq' ),
 						intval( wp_remote_retrieve_response_code( $result ) )
 					)
 				);

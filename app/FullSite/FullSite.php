@@ -13,7 +13,7 @@ use Templatiq\Utils\Singleton;
  * Set constants.
  */
 if ( ! defined( 'TEMPLATIQ_SITES_NAME' ) ) {
-	define( 'TEMPLATIQ_SITES_NAME', __( 'Templatiq Sites', 'templatiq-sites' ) );
+	define( 'TEMPLATIQ_SITES_NAME', __( 'Templatiq Sites', 'templatiq' ) );
 }
 
 if ( ! defined( 'TEMPLATIQ_SITES_VER' ) ) {
@@ -91,10 +91,10 @@ class FullSite {
 		$data = apply_filters(
 			'templatiq_sites_install_theme_localize_vars',
 			[
-				'installed'   => __( 'Installed! Activating..', 'templatiq-sites' ),
-				'activating'  => __( 'Activating...', 'templatiq-sites' ),
-				'activated'   => __( 'Activated!', 'templatiq-sites' ),
-				'installing'  => __( 'Installing...', 'templatiq-sites' ),
+				'installed'   => __( 'Installed! Activating..', 'templatiq' ),
+				'activating'  => __( 'Activating...', 'templatiq' ),
+				'activated'   => __( 'Activated!', 'templatiq' ),
+				'installing'  => __( 'Installing...', 'templatiq' ),
 				'ajaxurl'     => esc_url( admin_url( 'admin-ajax.php' ) ),
 				'_ajax_nonce' => wp_create_nonce( 'templatiq-sites' ),
 			]
@@ -128,7 +128,7 @@ class FullSite {
 		// Check if WP_Filesystem() returns false.
 		if ( ! WP_Filesystem() ) {
 			// Display a notice on the dashboard.
-			echo '<div class="error"><p>' . esc_html__( 'Required WP_Filesystem Permissions to import the templates from Starter Templates are missing.', 'templatiq-sites' ) . '</p></div>';
+			echo '<div class="error"><p>' . esc_html__( 'Required WP_Filesystem Permissions to import the templates from Starter Templates are missing.', 'templatiq' ) . '</p></div>';
 		}
 	}
 
@@ -190,31 +190,31 @@ class FullSite {
 				'isPro'                              => defined( 'TEMPLATIQ_PRO_SITES_NAME' ) ? true : false,
 				'ajaxurl'                            => esc_url( admin_url( 'admin-ajax.php' ) ),
 				'siteURL'                            => site_url(),
-				'getProText'                         => __( 'Get Access!', 'templatiq-sites' ),
+				'getProText'                         => __( 'Get Access!', 'templatiq' ),
 				'getProURL'                          => esc_url( 'https://wpastra.com/starter-templates-plans/?utm_source=demo-import-panel&utm_campaign=templatiq-sites&utm_medium=wp-dashboard' ),
-				'getUpgradeText'                     => __( 'Upgrade', 'templatiq-sites' ),
+				'getUpgradeText'                     => __( 'Upgrade', 'templatiq' ),
 				'getUpgradeURL'                      => esc_url( 'https://wpastra.com/starter-templates-plans/?utm_source=demo-import-panel&utm_campaign=templatiq-sites&utm_medium=wp-dashboard' ),
 				'_ajax_nonce'                        => wp_create_nonce( 'templatiq-sites' ),
 				'requiredPlugins'                    => [],
-				'xmlRequiredFilesMissing'            => __( 'Some of the files required during the import process are missing.<br/><br/>Please try again after some time.', 'templatiq-sites' ),
-				'importFailedMessageDueToDebug'      => __( '<p>WordPress debug mode is currently enabled on your website. This has interrupted the import process..</p><p>Kindly disable debug mode and try importing Starter Template again.</p><p>You can add the following code into the wp-config.php file to disable debug mode.</p><p><code>define(\'WP_DEBUG\', false);</code></p>', 'templatiq-sites' ),
+				'xmlRequiredFilesMissing'            => __( 'Some of the files required during the import process are missing.<br/><br/>Please try again after some time.', 'templatiq' ),
+				'importFailedMessageDueToDebug'      => __( '<p>WordPress debug mode is currently enabled on your website. This has interrupted the import process..</p><p>Kindly disable debug mode and try importing Starter Template again.</p><p>You can add the following code into the wp-config.php file to disable debug mode.</p><p><code>define(\'WP_DEBUG\', false);</code></p>', 'templatiq' ),
 				/* translators: %s is a documentation link. */
-				'importFailedMessage'                => sprintf( __( '<p>We are facing a temporary issue in importing this template.</p><p>Read <a href="%s" target="_blank">article</a> to resolve the issue and continue importing template.</p>', 'templatiq-sites' ), esc_url( 'https://wpastra.com/docs/fix-starter-template-importing-issues/' ) ),
+				'importFailedMessage'                => sprintf( __( '<p>We are facing a temporary issue in importing this template.</p><p>Read <a href="%s" target="_blank">article</a> to resolve the issue and continue importing template.</p>', 'templatiq' ), esc_url( 'https://wpastra.com/docs/fix-starter-template-importing-issues/' ) ),
 				/* translators: %s is a documentation link. */
-				'importFailedRequiredPluginsMessage' => sprintf( __( '<p>We are facing a temporary issue in installing the required plugins for this template.</p><p>Read&nbsp;<a href="%s" target="_blank">article</a>&nbsp;to resolve the issue and continue importing template.</p>', 'templatiq-sites' ), esc_url( 'https://wpastra.com/docs/plugin-installation-failed-multisite/' ) ),
+				'importFailedRequiredPluginsMessage' => sprintf( __( '<p>We are facing a temporary issue in installing the required plugins for this template.</p><p>Read&nbsp;<a href="%s" target="_blank">article</a>&nbsp;to resolve the issue and continue importing template.</p>', 'templatiq' ), esc_url( 'https://wpastra.com/docs/plugin-installation-failed-multisite/' ) ),
 
 				'strings'                            => [
 					/* translators: %s are white label strings. */
-					'warningBeforeCloseWindow' => sprintf( __( 'Warning! %1$s Import process is not complete. Don\'t close the window until import process complete. Do you still want to leave the window?', 'templatiq-sites' ), 'Templatiq' ),
-					'viewSite'                 => __( 'Done! View Site', 'templatiq-sites' ),
+					'warningBeforeCloseWindow' => sprintf( __( 'Warning! %1$s Import process is not complete. Don\'t close the window until import process complete. Do you still want to leave the window?', 'templatiq' ), 'Templatiq' ),
+					'viewSite'                 => __( 'Done! View Site', 'templatiq' ),
 					'syncCompleteMessage'      => $this->get_sync_complete_message(),
 					/* translators: %s is a template name */
-					'importSingleTemplate'     => __( 'Import "%s" Template', 'templatiq-sites' ),
+					'importSingleTemplate'     => __( 'Import "%s" Template', 'templatiq' ),
 				],
 				'log'                                => [
-					'bulkInstall'  => __( 'Installing Required Plugins..', 'templatiq-sites' ),
+					'bulkInstall'  => __( 'Installing Required Plugins..', 'templatiq' ),
 					/* translators: %s are white label strings. */
-					'themeInstall' => sprintf( __( 'Installing %1$s Theme..', 'templatiq-sites' ), 'Templatiq' ),
+					'themeInstall' => sprintf( __( 'Installing %1$s Theme..', 'templatiq' ), 'Templatiq' ),
 				],
 				'ApiDomain'                          => $this->api_domain,
 				'ApiURL'                             => $this->api_url,
@@ -225,33 +225,33 @@ class FullSite {
 				'parent_category'                    => '',
 				'compatibilities'                    => $this->get_compatibilities(),
 				'compatibilities_data'               => $this->get_compatibilities_data(),
-				'dismiss'                            => __( 'Dismiss this notice.', 'templatiq-sites' ),
+				'dismiss'                            => __( 'Dismiss this notice.', 'templatiq' ),
 				'headings'                           => [
-					'subscription' => esc_html__( 'One Last Step..', 'templatiq-sites' ),
-					'site_import'  => esc_html__( 'Your Selected Website is Being Imported.', 'templatiq-sites' ),
-					'page_import'  => esc_html__( 'Your Selected Template is Being Imported.', 'templatiq-sites' ),
+					'subscription' => esc_html__( 'One Last Step..', 'templatiq' ),
+					'site_import'  => esc_html__( 'Your Selected Website is Being Imported.', 'templatiq' ),
+					'page_import'  => esc_html__( 'Your Selected Template is Being Imported.', 'templatiq' ),
 				],
 				'first_import_complete'              => get_option( 'templatiq_sites_import_complete' ),
-				'server_import_primary_error'        => __( 'Looks like the template you are importing is temporarily not available.', 'templatiq-sites' ),
-				'client_import_primary_error'        => __( 'We could not start the import process and this is the message from WordPress:', 'templatiq-sites' ),
-				'cloudflare_import_primary_error'    => __( 'There was an error connecting to the Starter Templates API.', 'templatiq-sites' ),
-				'xml_import_interrupted_primary'     => __( 'There was an error while importing the content.', 'templatiq-sites' ),
-				'xml_import_interrupted_secondary'   => __( 'To import content, WordPress needs to store XML file in /wp-content/ folder. Please get in touch with your hosting provider.', 'templatiq-sites' ),
-				'xml_import_interrupted_error'       => __( 'Looks like your host probably could not store XML file in /wp-content/ folder.', 'templatiq-sites' ),
+				'server_import_primary_error'        => __( 'Looks like the template you are importing is temporarily not available.', 'templatiq' ),
+				'client_import_primary_error'        => __( 'We could not start the import process and this is the message from WordPress:', 'templatiq' ),
+				'cloudflare_import_primary_error'    => __( 'There was an error connecting to the Starter Templates API.', 'templatiq' ),
+				'xml_import_interrupted_primary'     => __( 'There was an error while importing the content.', 'templatiq' ),
+				'xml_import_interrupted_secondary'   => __( 'To import content, WordPress needs to store XML file in /wp-content/ folder. Please get in touch with your hosting provider.', 'templatiq' ),
+				'xml_import_interrupted_error'       => __( 'Looks like your host probably could not store XML file in /wp-content/ folder.', 'templatiq' ),
 				/* translators: %s HTML tags */
-				'ajax_request_failed_primary'        => sprintf( __( '%1$sWe could not start the import process due to failed AJAX request and this is the message from WordPress:%2$s', 'templatiq-sites' ), '<p>', '</p>' ),
+				'ajax_request_failed_primary'        => sprintf( __( '%1$sWe could not start the import process due to failed AJAX request and this is the message from WordPress:%2$s', 'templatiq' ), '<p>', '</p>' ),
 				/* translators: %s URL to document. */
-				'ajax_request_failed_secondary'      => sprintf( __( '%1$sRead&nbsp;<a href="%2$s" target="_blank">article</a>&nbsp;to resolve the issue and continue importing template.%3$s', 'templatiq-sites' ), '<p>', esc_url( 'https://wpastra.com/docs/internal-server-error-starter-templates/' ), '</p>' ),
+				'ajax_request_failed_secondary'      => sprintf( __( '%1$sRead&nbsp;<a href="%2$s" target="_blank">article</a>&nbsp;to resolve the issue and continue importing template.%3$s', 'templatiq' ), '<p>', esc_url( 'https://wpastra.com/docs/internal-server-error-starter-templates/' ), '</p>' ),
 
 				/* translators: %s URL to document. */
-				'process_failed_primary'             => sprintf( __( '%1$sWe could not complete the import process due to failed AJAX request and this is the message:%2$s', 'templatiq-sites' ), '<p>', '</p>' ),
+				'process_failed_primary'             => sprintf( __( '%1$sWe could not complete the import process due to failed AJAX request and this is the message:%2$s', 'templatiq' ), '<p>', '</p>' ),
 				/* translators: %s URL to document. */
-				'process_failed_secondary'           => sprintf( __( '%1$sPlease report this <a href="%2$s" target="_blank">here</a>.%3$s', 'templatiq-sites' ), '<p>', esc_url( 'https://wpastra.com/starter-templates-support/?url=#DEMO_URL#&subject=#SUBJECT#' ), '</p>' ),
+				'process_failed_secondary'           => sprintf( __( '%1$sPlease report this <a href="%2$s" target="_blank">here</a>.%3$s', 'templatiq' ), '<p>', esc_url( 'https://wpastra.com/starter-templates-support/?url=#DEMO_URL#&subject=#SUBJECT#' ), '</p>' ),
 				'st_page_url'                        => admin_url( 'themes.php?page=starter-templates' ),
 				'staging_connected'                  => apply_filters( 'templatiq_sites_staging_connected', '' ),
 				'isRTLEnabled'                       => is_rtl(),
 				/* translators: %s Anchor link to support URL. */
-				'support_text'                       => sprintf( __( 'Please report this error %1$shere%2$s, so we can fix it.', 'templatiq-sites' ), '<a href="https://wpastra.com/support/open-a-ticket/" target="_blank">', '</a>' ),
+				'support_text'                       => sprintf( __( 'Please report this error %1$shere%2$s, so we can fix it.', 'templatiq' ), '<a href="https://wpastra.com/support/open-a-ticket/" target="_blank">', '</a>' ),
 			]
 		);
 
@@ -261,32 +261,32 @@ class FullSite {
 	public function get_compatibilities_data() {
 		return [
 			'xmlreader'            => [
-				'title'   => esc_html__( 'XMLReader Support Missing', 'templatiq-sites' ),
+				'title'   => esc_html__( 'XMLReader Support Missing', 'templatiq' ),
 				/* translators: %s doc link. */
-				'tooltip' => '<p>' . esc_html__( 'You\'re close to importing the template. To complete the process, enable XMLReader support on your website..', 'templatiq-sites' ) . '</p><p>' . sprintf( __( 'Read an article <a href="%s" target="_blank">here</a> to resolve the issue.', 'templatiq-sites' ), 'https://wpastra.com/docs/xmlreader-missing/' ) . '</p>',
+				'tooltip' => '<p>' . esc_html__( 'You\'re close to importing the template. To complete the process, enable XMLReader support on your website..', 'templatiq' ) . '</p><p>' . sprintf( __( 'Read an article <a href="%s" target="_blank">here</a> to resolve the issue.', 'templatiq' ), 'https://wpastra.com/docs/xmlreader-missing/' ) . '</p>',
 			],
 			'curl'                 => [
-				'title'   => esc_html__( 'cURL Support Missing', 'templatiq-sites' ),
+				'title'   => esc_html__( 'cURL Support Missing', 'templatiq' ),
 				/* translators: %s doc link. */
-				'tooltip' => '<p>' . esc_html__( 'To run a smooth import, kindly enable cURL support on your website.', 'templatiq-sites' ) . '</p><p>' . sprintf( __( 'Read an article <a href="%s" target="_blank">here</a> to resolve the issue.', 'templatiq-sites' ), 'https://wpastra.com/docs/curl-support-missing/' ) . '</p>',
+				'tooltip' => '<p>' . esc_html__( 'To run a smooth import, kindly enable cURL support on your website.', 'templatiq' ) . '</p><p>' . sprintf( __( 'Read an article <a href="%s" target="_blank">here</a> to resolve the issue.', 'templatiq' ), 'https://wpastra.com/docs/curl-support-missing/' ) . '</p>',
 			],
 			'wp-debug'             => [
-				'title'   => esc_html__( 'Disable Debug Mode', 'templatiq-sites' ),
+				'title'   => esc_html__( 'Disable Debug Mode', 'templatiq' ),
 				/* translators: %s doc link. */
-				'tooltip' => '<p>' . esc_html__( 'WordPress debug mode is currently enabled on your website. With this, any errors from third-party plugins might affect the import process.', 'templatiq-sites' ) . '</p><p>' . esc_html__( 'Kindly disable it to continue importing the Starter Template. To do so, you can add the following code into the wp-config.php file.', 'templatiq-sites' ) . '</p><p><code>define(\'WP_DEBUG\', false);</code></p><p>' . sprintf( __( 'Read an article <a href="%s" target="_blank">here</a> to resolve the issue.', 'templatiq-sites' ), 'https://wpastra.com/docs/disable-debug-mode/' ) . '</p>',
+				'tooltip' => '<p>' . esc_html__( 'WordPress debug mode is currently enabled on your website. With this, any errors from third-party plugins might affect the import process.', 'templatiq' ) . '</p><p>' . esc_html__( 'Kindly disable it to continue importing the Starter Template. To do so, you can add the following code into the wp-config.php file.', 'templatiq' ) . '</p><p><code>define(\'WP_DEBUG\', false);</code></p><p>' . sprintf( __( 'Read an article <a href="%s" target="_blank">here</a> to resolve the issue.', 'templatiq' ), 'https://wpastra.com/docs/disable-debug-mode/' ) . '</p>',
 			],
 			'update-available'     => [
-				'title'   => esc_html__( 'Update Plugin', 'templatiq-sites' ),
+				'title'   => esc_html__( 'Update Plugin', 'templatiq' ),
 				/* translators: %s update page link. */
-				'tooltip' => '<p>' . esc_html__( 'Updates are available for plugins used in this starter template.', 'templatiq-sites' ) . '</p>##LIST##<p>' . sprintf( __( 'Kindly <a href="%s" target="_blank">update</a> them for a successful import. Skipping this step might break the template design/feature.', 'templatiq-sites' ), esc_url( network_admin_url( 'update-core.php' ) ) ) . '</p>',
+				'tooltip' => '<p>' . esc_html__( 'Updates are available for plugins used in this starter template.', 'templatiq' ) . '</p>##LIST##<p>' . sprintf( __( 'Kindly <a href="%s" target="_blank">update</a> them for a successful import. Skipping this step might break the template design/feature.', 'templatiq' ), esc_url( network_admin_url( 'update-core.php' ) ) ) . '</p>',
 			],
 			'third-party-required' => [
-				'title'   => esc_html__( 'Required Plugins Missing', 'templatiq-sites' ),
-				'tooltip' => '<p>' . esc_html__( 'This starter template requires premium plugins. As these are third party premium plugins, you\'ll need to purchase, install and activate them first.', 'templatiq-sites' ) . '</p>',
+				'title'   => esc_html__( 'Required Plugins Missing', 'templatiq' ),
+				'tooltip' => '<p>' . esc_html__( 'This starter template requires premium plugins. As these are third party premium plugins, you\'ll need to purchase, install and activate them first.', 'templatiq' ) . '</p>',
 			],
 			'dynamic-page'         => [
-				'title'   => esc_html__( 'Dynamic Page', 'templatiq-sites' ),
-				'tooltip' => '<p>' . esc_html__( 'The page template you are about to import contains a dynamic widget/module. Please note this dynamic data will not be available with the imported page.', 'templatiq-sites' ) . '</p><p>' . esc_html__( 'You will need to add it manually on the page.', 'templatiq-sites' ) . '</p><p>' . esc_html__( 'This dynamic content will be available when you import the entire site.', 'templatiq-sites' ) . '</p>',
+				'title'   => esc_html__( 'Dynamic Page', 'templatiq' ),
+				'tooltip' => '<p>' . esc_html__( 'The page template you are about to import contains a dynamic widget/module. Please note this dynamic data will not be available with the imported page.', 'templatiq' ) . '</p><p>' . esc_html__( 'You will need to add it manually on the page.', 'templatiq' ) . '</p><p>' . esc_html__( 'This dynamic content will be available when you import the entire site.', 'templatiq' ) . '</p>',
 			],
 		];
 	}
@@ -317,7 +317,7 @@ class FullSite {
 
 	public function get_sync_complete_message( $echo = false ) {
 
-		$message = __( 'Template library refreshed!', 'templatiq-sites' );
+		$message = __( 'Template library refreshed!', 'templatiq' );
 
 		if ( $echo ) {
 			echo esc_html( $message );

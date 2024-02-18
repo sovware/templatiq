@@ -176,7 +176,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
 				if ( ! current_user_can( 'customize' ) ) {
-					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq-sites' ) );
+					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 				}
 			}
 
@@ -227,11 +227,11 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'customize' ) ) {
-				wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq-sites' ) );
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 			}
 
 			if ( ! class_exists( 'XMLReader' ) ) {
-				wp_send_json_error( __( 'The XMLReader library is not available. This library is required to import the content for the website.', 'templatiq-sites' ) );
+				wp_send_json_error( __( 'The XMLReader library is not available. This library is required to import the content for the website.', 'templatiq' ) );
 			}
 
 			$wxr_url = templatiq_get_site_data( 'astra-site-wxr-path' );
@@ -263,7 +263,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				Templatiq_Sites_Importer_Log::add( wp_json_encode( $post_id ) );
 
 				if ( is_wp_error( $post_id ) ) {
-					wp_send_json_error( __( 'There was an error downloading the XML file.', 'templatiq-sites' ) );
+					wp_send_json_error( __( 'There was an error downloading the XML file.', 'templatiq' ) );
 				} else {
 
 					update_option( 'templatiq_sites_imported_wxr_id', $post_id, 'no' );
@@ -294,7 +294,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
 				if ( ! current_user_can( 'customize' ) ) {
-					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq-sites' ) );
+					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 				}
 			}
 
@@ -321,7 +321,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				if ( defined( 'WP_CLI' ) ) {
 					WP_CLI::line( 'Site options are empty!' );
 				} elseif ( wp_doing_ajax() ) {
-					wp_send_json_error( __( 'Site options are empty!', 'templatiq-sites' ) );
+					wp_send_json_error( __( 'Site options are empty!', 'templatiq' ) );
 				}
 			}
 
@@ -339,7 +339,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
 				if ( ! current_user_can( 'customize' ) ) {
-					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq-sites' ) );
+					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 				}
 			}
 
@@ -484,7 +484,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
 				if ( ! current_user_can( 'customize' ) ) {
-					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq-sites' ) );
+					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 				}
 			}
 			do_action( 'st_before_start_import_process' );
@@ -543,7 +543,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
 				if ( ! current_user_can( 'customize' ) ) {
-					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq-sites' ) );
+					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 				}
 			}
 
@@ -571,7 +571,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
 				if ( ! current_user_can( 'customize' ) ) {
-					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq-sites' ) );
+					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 				}
 			}
 
@@ -609,7 +609,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
 				if ( ! current_user_can( 'customize' ) ) {
-					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq-sites' ) );
+					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 				}
 			}
 
@@ -652,7 +652,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
 				if ( ! current_user_can( 'customize' ) ) {
-					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq-sites' ) );
+					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 				}
 			}
 

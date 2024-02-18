@@ -8,6 +8,7 @@
 namespace Templatiq;
 
 use Templatiq\Admin\Admin;
+use Templatiq\Compatibility\Elementor;
 use Templatiq\FullSite\FullSite;
 use Templatiq\Onboarding\Onboarding;
 use Templatiq\Routes\Account;
@@ -46,5 +47,10 @@ class App {
 		 */
 		Onboarding::init();
 		FullSite::init();
+
+		/**
+		 * Compatibility
+		 */
+		Elementor::init();
 	}
 }

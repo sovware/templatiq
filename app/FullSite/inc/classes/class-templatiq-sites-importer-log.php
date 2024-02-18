@@ -98,15 +98,15 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 			$plugin_name = TEMPLATIQ_SITES_NAME;
 			
 			/* translators: %1$s refers to the plugin name */
-			$notice = sprintf( __( 'Required File Permissions to import the templates from %s are missing.', 'templatiq-sites' ), $plugin_name );
+			$notice = sprintf( __( 'Required File Permissions to import the templates from %s are missing.', 'templatiq' ), $plugin_name );
 			?>
 			<div class="notice notice-error templatiq-sites-must-notices templatiq-sites-file-permission-issue">
 				<p><?php echo esc_html( $notice ); ?></p>
 				<?php if ( defined( 'FS_METHOD' ) ) { ?>
-					<p><?php esc_html_e( 'This is usually due to inconsistent file permissions.', 'templatiq-sites' ); ?></p>
+					<p><?php esc_html_e( 'This is usually due to inconsistent file permissions.', 'templatiq' ); ?></p>
 					<p><code><?php echo esc_html( $upload_dir['path'] ); ?></code></p>
 				<?php } else { ?>
-					<p><?php esc_html_e( 'You can easily update permissions by adding the following code into the wp-config.php file.', 'templatiq-sites' ); ?></p>
+					<p><?php esc_html_e( 'You can easily update permissions by adding the following code into the wp-config.php file.', 'templatiq' ); ?></p>
 					<p><code>define( 'FS_METHOD', 'direct' );</code></p>
 				<?php } ?>
 			</div>
@@ -272,10 +272,10 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 		 */
 		public static function get_debug_mode() {
 			if ( WP_DEBUG ) {
-				return __( 'Enabled', 'templatiq-sites' );
+				return __( 'Enabled', 'templatiq' );
 			}
 
-			return __( 'Disabled', 'templatiq-sites' );
+			return __( 'Disabled', 'templatiq' );
 		}
 
 		/**
@@ -293,7 +293,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 			if ( $memory_limit_in_bytes_current < $memory_limit_in_bytes_required ) {
 				return sprintf(
 					/* translators: %1$s Memory Limit, %2$s Recommended memory limit. */
-					_x( 'Current memory limit %1$s. We recommend setting memory to at least %2$s.', 'Recommended Memory Limit', 'templatiq-sites' ),
+					_x( 'Current memory limit %1$s. We recommend setting memory to at least %2$s.', 'Recommended Memory Limit', 'templatiq' ),
 					WP_MEMORY_LIMIT,
 					$required_memory
 				);
@@ -360,10 +360,10 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 		public static function get_xmlreader_status() {
 
 			if ( class_exists( 'XMLReader' ) ) {
-				return __( 'Yes', 'templatiq-sites' );
+				return __( 'Yes', 'templatiq' );
 			}
 
-			return __( 'No', 'templatiq-sites' );
+			return __( 'No', 'templatiq' );
 		}
 
 		/**
@@ -374,7 +374,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 		 */
 		public static function get_php_version() {
 			if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
-				return _x( 'We recommend to use php 5.4 or higher', 'PHP Version', 'templatiq-sites' );
+				return _x( 'We recommend to use php 5.4 or higher', 'PHP Version', 'templatiq' );
 			}
 			return PHP_VERSION;
 		}
@@ -417,10 +417,10 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 		 */
 		public static function get_php_extension_gd() {
 			if ( extension_loaded( 'gd' ) ) {
-				return __( 'Yes', 'templatiq-sites' );
+				return __( 'Yes', 'templatiq' );
 			}
 
-			return __( 'No', 'templatiq-sites' );
+			return __( 'No', 'templatiq' );
 		}
 
 		/**
@@ -435,7 +435,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 			$events = array();
 
 			if ( empty( $crons ) ) {
-				esc_html_e( 'You currently have no scheduled cron events.', 'templatiq-sites' );
+				esc_html_e( 'You currently have no scheduled cron events.', 'templatiq' );
 			}
 
 			foreach ( $crons as $time => $cron ) {

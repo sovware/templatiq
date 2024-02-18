@@ -956,14 +956,14 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 		public function get_all_categories() {
 			if ( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) {
 				if ( ! current_user_can( 'customize' ) ) {
-					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq-sites' ) );
+					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 				}
 
 				$all_categories = get_site_option( 'templatiq-sites-all-site-categories', array() );
 				wp_send_json_success( $all_categories );
 			}
 
-			wp_send_json_error( __( 'You are not allowed to perform this action.', 'templatiq-sites' ) );
+			wp_send_json_error( __( 'You are not allowed to perform this action.', 'templatiq' ) );
 		}
 
 		/**
@@ -974,14 +974,14 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 		public function get_all_categories_and_tags() {
 			if ( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) {
 				if ( ! current_user_can( 'customize' ) ) {
-					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq-sites' ) );
+					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 				}
 
 				$all_categories_and_tags = get_site_option( 'templatiq-sites-all-site-categories-and-tags', array() );
 				wp_send_json_success( $all_categories_and_tags );
 			}
 
-			wp_send_json_error( __( 'You are not allowed to perform this action.', 'templatiq-sites' ) );
+			wp_send_json_error( __( 'You are not allowed to perform this action.', 'templatiq' ) );
 		}
 
 	}

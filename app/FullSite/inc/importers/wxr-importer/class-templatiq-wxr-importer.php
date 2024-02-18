@@ -436,7 +436,7 @@ class Templatiq_WXR_Importer {
 			],
 			'url'     => $url,
 			'strings' => [
-				'complete' => __( 'Import complete!', 'templatiq-sites' ),
+				'complete' => __( 'Import complete!', 'templatiq' ),
 			],
 		];
 	}

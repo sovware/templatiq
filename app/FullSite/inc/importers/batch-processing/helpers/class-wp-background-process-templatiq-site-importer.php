@@ -80,7 +80,7 @@ if ( class_exists( 'WP_Background_Process' ) ) :
 		protected function complete() {
 			parent::complete();
 
-			templatiq_sites_error_log( esc_html__( 'All processes are complete', 'templatiq-sites' ) );
+			templatiq_sites_error_log( esc_html__( 'All processes are complete', 'templatiq' ) );
 			update_site_option( 'templatiq-sites-batch-status-string', 'All processes are complete' );
 			delete_site_option( 'templatiq-sites-batch-status' );
 			update_site_option( 'templatiq-sites-batch-is-complete', 'yes' );

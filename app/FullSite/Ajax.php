@@ -136,7 +136,7 @@ class Ajax {
 			wp_send_json_error(
 				[
 					/* translators: %d is the Template ID. */
-					'message' => sprintf( __( 'Invalid Template ID - %d', 'templatiq-sites' ), $id ),
+					'message' => sprintf( __( 'Invalid Template ID - %d', 'templatiq' ), $id ),
 					'code'    => 'Error',
 				]
 			);
@@ -174,7 +174,7 @@ class Ajax {
 		if ( empty( $template_id ) ) {
 			wp_send_json_error(
 				[
-					'message' => __( 'Provided template_id URL is empty! Please try again!', 'templatiq-sites' ),
+					'message' => __( 'Provided template_id URL is empty! Please try again!', 'templatiq' ),
 					'code'    => 'Error',
 				]
 			);
@@ -234,13 +234,13 @@ class Ajax {
 		}
 
 		if ( 500 === $code ) {
-			$message = __( 'Internal Server Error.', 'templatiq-sites' );
+			$message = __( 'Internal Server Error.', 'templatiq' );
 		}
 
 		if ( 200 !== $code && false !== strpos( $message, 'Cloudflare' ) ) {
 			$ip = Templatiq_Sites_Helper::get_client_ip();
 			/* translators: %s IP address. */
-			$message = sprintf( __( 'Client IP: %1$s </br> Error code: %2$s', 'templatiq-sites' ), $ip, $code );
+			$message = sprintf( __( 'Client IP: %1$s </br> Error code: %2$s', 'templatiq' ), $ip, $code );
 			$code    = 'Cloudflare';
 		}
 
@@ -258,7 +258,7 @@ class Ajax {
 		check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
 		if ( ! current_user_can( 'upload_files' ) ) {
-			wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq-sites' ) );
+			wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 		}
 
 		$url      = isset( $_POST['url'] ) ? sanitize_url( $_POST['url'] ) : false; // phpcs:ignore -- We need to remove this ignore once the WPCS has released this issue fix - https://github.com/WordPress/WordPress-Coding-Standards/issues/2189.
@@ -266,7 +266,7 @@ class Ajax {
 		$photo_id = isset( $_POST['id'] ) ? absint( sanitize_key( $_POST['id'] ) ) : 0;
 
 		if ( false === $url ) {
-			wp_send_json_error( __( 'Need to send URL of the image to be downloaded', 'templatiq-sites' ) );
+			wp_send_json_error( __( 'Need to send URL of the image to be downloaded', 'templatiq' ) );
 		}
 
 		$image  = '';
@@ -291,7 +291,7 @@ class Ajax {
 				update_post_meta( $image, '_templatiq_sites_imported_post', true );
 			}
 		} else {
-			wp_send_json_error( __( 'Could not download the image.', 'templatiq-sites' ) );
+			wp_send_json_error( __( 'Could not download the image.', 'templatiq' ) );
 		}
 
 		// Save downloaded image reference to an option.
@@ -420,7 +420,7 @@ class Ajax {
 		check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
 		if ( ! current_user_can( 'customize' ) ) {
-			wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq-sites' ) );
+			wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 		}
 
 		Templatiq_Sites_Error_Handler::get_instance()->start_error_handler();
@@ -434,7 +434,7 @@ class Ajax {
 		wp_send_json_success(
 			[
 				'success' => true,
-				'message' => __( 'Theme Activated', 'templatiq-sites' ),
+				'message' => __( 'Theme Activated', 'templatiq' ),
 			]
 		);
 	}
@@ -444,7 +444,7 @@ class Ajax {
 			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq-sites' ) );
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 			}
 		}
 
@@ -497,7 +497,7 @@ class Ajax {
 			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq-sites' ) );
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 			}
 		}
 
@@ -556,7 +556,7 @@ class Ajax {
 			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq-sites' ) );
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 			}
 		}
 		wp_send_json_success( templatiq_sites_get_reset_post_data() );
@@ -568,7 +568,7 @@ class Ajax {
 			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq-sites' ) );
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 			}
 		}
 
@@ -594,7 +594,7 @@ class Ajax {
 			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_send_json_error( __( 'User does not have permission!', 'templatiq-sites' ) );
+				wp_send_json_error( __( 'User does not have permission!', 'templatiq' ) );
 			}
 		}
 
@@ -653,7 +653,7 @@ class Ajax {
 				wp_send_json_error(
 					[
 						'success' => false,
-						'message' => __( 'Error: You don\'t have the required permissions to install plugins.', 'templatiq-sites' ),
+						'message' => __( 'Error: You don\'t have the required permissions to install plugins.', 'templatiq' ),
 					]
 				);
 			}
@@ -681,14 +681,14 @@ class Ajax {
 
 		$options = templatiq_get_site_data( 'astra-site-options-data' );
 		$this->after_plugin_activate( $plugin_init, $options );
-
+		
 		if ( defined( 'WP_CLI' ) ) {
 			WP_CLI::line( 'Plugin Activated!' );
 		} elseif ( wp_doing_ajax() ) {
 			wp_send_json_success(
 				[
 					'success' => true,
-					'message' => __( 'Plugin Activated', 'templatiq-sites' ),
+					'message' => __( 'Plugin Activated', 'templatiq' ),
 				]
 			);
 		}
@@ -823,7 +823,7 @@ class Ajax {
 		if (
 			( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) &&
 			(  ( ! current_user_can( 'install_plugins' ) && ! empty( $response['notinstalled'] ) ) || ( ! current_user_can( 'activate_plugins' ) && ! empty( $response['inactive'] ) ) ) ) {
-			$message               = __( 'Insufficient Permission. Please contact your Super Admin to allow the install required plugin permissions.', 'templatiq-sites' );
+			$message               = __( 'Insufficient Permission. Please contact your Super Admin to allow the install required plugin permissions.', 'templatiq' );
 			$required_plugins_list = array_merge( $response['notinstalled'], $response['inactive'] );
 			$markup                = $message;
 			$markup .= '<ul>';
@@ -947,7 +947,7 @@ class Ajax {
 			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'customize' ) ) {
-				wp_send_json_error( __( 'You do not have permission to perform this action.', 'templatiq-sites' ) );
+				wp_send_json_error( __( 'You do not have permission to perform this action.', 'templatiq' ) );
 			}
 		}
 		$wp_upload_path = wp_upload_dir();
@@ -967,7 +967,7 @@ class Ajax {
 
 		if ( defined( 'WP_CLI' ) ) {
 			if ( ! $permissions['is_readable'] || ! $permissions['is_writable'] || ! $permissions['is_wp_filesystem'] ) {
-				WP_CLI::error( esc_html__( 'Please contact the hosting service provider to help you update the permissions so that you can successfully import a complete template.', 'templatiq-sites' ) );
+				WP_CLI::error( esc_html__( 'Please contact the hosting service provider to help you update the permissions so that you can successfully import a complete template.', 'templatiq' ) );
 			}
 		} else {
 			wp_send_json_success(

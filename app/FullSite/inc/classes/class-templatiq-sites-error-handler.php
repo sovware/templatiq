@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ST_ERROR_FATALS', E_ERROR | E_PARSE | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR );
+define( 'TEMPLATIQ_ERROR_FATALS', E_ERROR | E_PARSE | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR );
 
 /**
  * Templatiq_Sites_Error_Handler
@@ -109,7 +109,7 @@ class Templatiq_Sites_Error_Handler {
 		if ( wp_doing_ajax() ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'There was an error on your website.', 'templatiq-sites' ),
+					'message' => __( 'There was an error on your website.', 'templatiq' ),
 					'stack' => array(
 						'error-message' => sprintf(
 							'%s: %s',
@@ -133,7 +133,7 @@ class Templatiq_Sites_Error_Handler {
 	public function shutdown_handler() {
 		$e = error_get_last();
 
-		if ( empty( $e ) || ! ( $e['type'] & ST_ERROR_FATALS ) ) {
+		if ( empty( $e ) || ! ( $e['type'] & TEMPLATIQ_ERROR_FATALS ) ) {
 			return;
 		}
 
@@ -149,7 +149,7 @@ class Templatiq_Sites_Error_Handler {
 		if ( wp_doing_ajax() ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'There was an error your website.', 'templatiq-sites' ),
+					'message' => __( 'There was an error your website.', 'templatiq' ),
 					'stack' => array(
 						'error-message' => $error,
 						'error' => $e,

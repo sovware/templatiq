@@ -26,12 +26,12 @@ if ( ! is_callable( 'Templatiq_Ext_White_Label_Markup::branding_key_to_constant'
 		<div class="inside">
 			<div class="form-wrap">
 				<div class="form-field">
-					<label><?php esc_html_e( 'Plugin Name:', 'templatiq-sites' ); ?>
+					<label><?php esc_html_e( 'Plugin Name:', 'templatiq' ); ?>
 						<input type="text" name="ast_white_label[templatiq-sites][name]" class="placeholder placeholder-active" <?php disabled( defined( Templatiq_Ext_White_Label_Markup::branding_key_to_constant( 'templatiq-sites', 'name' ) ), true, true ); ?> value="<?php echo esc_attr( Templatiq_Ext_White_Label_Markup::get_whitelabel_string( 'templatiq-sites', 'name' ) ); ?>">
 					</label>
 				</div>
 				<div class="form-field">
-					<label><?php esc_html_e( 'Plugin Description:', 'templatiq-sites' ); ?>
+					<label><?php esc_html_e( 'Plugin Description:', 'templatiq' ); ?>
 						<textarea name="ast_white_label[templatiq-sites][description]" class="placeholder placeholder-active" <?php disabled( defined( Templatiq_Ext_White_Label_Markup::branding_key_to_constant( 'templatiq-sites', 'description' ) ), true, true ); ?> rows="2"><?php echo esc_html( Templatiq_Ext_White_Label_Markup::get_whitelabel_string( 'templatiq-sites', 'description' ) ); ?></textarea>
 					</label>
 				</div>
