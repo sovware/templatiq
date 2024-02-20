@@ -1,0 +1,93 @@
+name: 🚀 Deploy to the staging site
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+
+      - name: Setup composer
+        run: composer setup
+
+      - name: Setup Node.js 18.15.0
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18.15.0"
+
+      - name: Install yarn globally
+        run: npm install --global yarn
+
+      - name: Install yarn dependencies
+        run: yarn install
+
+      - name: Compile Scripts
+        run: yarn start --no-watch
+
+      - name: Fix Text Domain
+        run: yarn fixtextdomain
+
+      - name: Generate Text Domain POT file
+        run: composer make-unminified-pot
+
+      - name: Remove Composer Dev Dependencies
+        run: composer build
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.ftp_staging_server }}
+          username: ${{ secrets.ftp_staging_username }}
+          password: ${{ secrets.ftp_staging_password }}
+          port: 21
+          exclude: |
+            node_modules/**
+            resources/js/**
+            resources/svg/**
+            vendor-src/**
+            readme.txt
+            utils.js
+            todo.txt
+            scoper.inc.php
+            webpack.*.js
+            **/Gruntfile.js
+            **/.*
+            **/.git/**
+            **/.github/**
+            **/.husky/**
+            **/dev-*/**
+            **/*-test/**
+            **/*-beta/**
+            **/scss/**
+            **/sass/**
+            **/build/*.txt
+            **/*.map
+            **/*.config
+            **/*.config.js
+            **/package.json
+            **/package-lock.json
+            **/tsconfig.json
+            **/mix-manifest.json
+            **/phpcs.xml
+            **/composer.json
+            **/composer.lock
+            **/*.md
+            **/*.mix.js
+            **/none
+            **/artisan
+            **/phpcs-report.xml
+            **/LICENSE
+            **/Installable
+            **/tests
+            **/yarn.lock

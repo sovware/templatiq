@@ -57,6 +57,7 @@ class Importer {
 			->post()
 			->response();
 
+			// error_log( print_r( $response ,true) );
 		if ( is_wp_error( $response ) ) {
 			return Response::error( 'invalid_data', $response->get_error_message(), 'get_remote_content', 404 );
 		}

@@ -389,8 +389,6 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			$replace         = sprintf( '"ref":%d', $new_id );
 			$updated_content = str_replace( $find, $replace, $data );
 
-			error_log( 'setting up menu post_id ' . $old_id . ' to ' . $new_id . ' ' . $updated_content );
-
 			return $updated_content;
 		}
 
