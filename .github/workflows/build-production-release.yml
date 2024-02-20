@@ -1,0 +1,60 @@
+name: Build Production & Release
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+
+      - name: Setup composer
+        run: composer setup
+
+      - name: Setup Node.js 18.15.0
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18.15.0"
+
+      - name: Install yarn globally
+        run: npm install --global yarn
+
+      - name: Install yarn dependencies
+        run: yarn install
+
+      - name: Compile Scripts
+        run: yarn minify
+
+      - name: Fix Text Domain
+        run: yarn fixtextdomain
+
+      - name: Generate Text Domain POT file
+        run: composer make-production-pot
+
+      - name: Remove Composer Dev Dependencies
+        run: composer build
+
+      - name: Build plugin
+        run: yarn git-compress
+
+      - name: Create zip file
+        run: |
+          tag_name=$(git describe --tags --abbrev=0)
+          zip -r "templatiq.${tag_name}.zip" templatiq
+
+      - name: Upload zip file as a release asset
+        uses: softprops/action-gh-release@v1
+        with:
+          files: templatiq*.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}

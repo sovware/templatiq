@@ -13,12 +13,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up PHP
+      - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
 
-      - name: Setup composer
+      - name: Setup Composer
         run: composer setup
 
       - name: Setup Node.js 18.15.0
@@ -38,13 +38,10 @@ jobs:
       - name: Fix Text Domain
         run: yarn fixtextdomain
 
-      - name: Generate Text Domain POT file
-        run: composer make-unminified-pot
-
       - name: Remove Composer Dev Dependencies
         run: composer build
 
-      - name: 📂 Sync files
+      - name: 📂 Sync Files - FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.ftp_staging_server }}
@@ -52,6 +49,7 @@ jobs:
           password: ${{ secrets.ftp_staging_password }}
           port: 21
           exclude: |
+            src/**
             node_modules/**
             resources/js/**
             resources/svg/**

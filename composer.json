@@ -20,10 +20,13 @@
     },
     "scripts": {
         "build": [
-            "composer -d vendor --no-plugins --no-interaction install --no-scripts --no-dev"
+            "composer -d . --no-plugins --no-interaction install --no-scripts --no-dev"
         ],
         "format": "vendor/bin/phpcbf --standard=phpcs.xml",
-        "phpcs": "vendor/bin/phpcs --standard=phpcs.xml"
+        "phpcs": "vendor/bin/phpcs --standard=phpcs.xml",
+        "setup": [
+			"composer install --no-cache"
+		]
     },
     "config": {
         "allow-plugins": {
