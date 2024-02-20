@@ -1,4 +1,4 @@
-import SignInModule from '@modules/Signin';
+import SignInModule from '@modules/SignInx';
 
 export default function SignIn() {
 	return (
