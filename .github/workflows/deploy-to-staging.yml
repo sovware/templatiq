@@ -49,6 +49,7 @@ jobs:
           password: ${{ secrets.ftp_staging_password }}
           port: 21
           exclude: |
+            src/**
             node_modules/**
             resources/js/**
             resources/svg/**
