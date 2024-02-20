@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Templatiq 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/templatiq\n"
-"POT-Creation-Date: 2024-02-18 05:31:32+00:00\n"
+"POT-Creation-Date: 2024-02-20 09:31:45+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -50,11 +50,11 @@ msgstr ""
 #: app/FullSite/inc/classes/class-templatiq-sites-importer.php:230
 #: app/FullSite/inc/classes/class-templatiq-sites-importer.php:297
 #: app/FullSite/inc/classes/class-templatiq-sites-importer.php:342
-#: app/FullSite/inc/classes/class-templatiq-sites-importer.php:487
-#: app/FullSite/inc/classes/class-templatiq-sites-importer.php:546
-#: app/FullSite/inc/classes/class-templatiq-sites-importer.php:574
-#: app/FullSite/inc/classes/class-templatiq-sites-importer.php:612
-#: app/FullSite/inc/classes/class-templatiq-sites-importer.php:655
+#: app/FullSite/inc/classes/class-templatiq-sites-importer.php:485
+#: app/FullSite/inc/classes/class-templatiq-sites-importer.php:544
+#: app/FullSite/inc/classes/class-templatiq-sites-importer.php:572
+#: app/FullSite/inc/classes/class-templatiq-sites-importer.php:610
+#: app/FullSite/inc/classes/class-templatiq-sites-importer.php:653
 #: app/FullSite/inc/importers/batch-processing/class-templatiq-sites-batch-processing.php:959
 #: app/FullSite/inc/importers/batch-processing/class-templatiq-sites-batch-processing.php:977
 msgid "You are not allowed to perform this action"
