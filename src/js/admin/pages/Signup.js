@@ -1,4 +1,4 @@
-import SignUpModule from '@modules/SignUpx';
+import SignUpModule from '@modules/SignUp';
 
 export default function SignUp() {
 	return (
