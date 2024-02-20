@@ -22,11 +22,9 @@ module.exports = async () => {
 	const buildFiles = [
 		'app',
 		'assets',
-		'config',
-		'database',
-		'enqueues',
+		'assets-vendor',
 		'languages',
-		'routes',
+		'templates',
 		'vendor',
 		'readme.txt',
 		`${ pluginRootFile }.php`,

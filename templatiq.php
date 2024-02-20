@@ -8,7 +8,7 @@
  * License: GPL2
  * Requires PHP: 7.4
  * Text Domain: templatiq
- * Domain Path: /i18n/languages/
+ * Domain Path: /languages
  *
  * Released under the GPL license
  * http://www.opensource.org/licenses/gpl-license.php

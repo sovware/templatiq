@@ -19,14 +19,9 @@
         "wp-coding-standards/wpcs": "^2.3"
     },
     "scripts": {
-        "build": [
-            "composer -d . --no-plugins --no-interaction install --no-scripts --no-dev"
-        ],
+        "build": "composer --no-plugins --no-interaction install --no-scripts --no-dev",
         "format": "vendor/bin/phpcbf --standard=phpcs.xml",
-        "phpcs": "vendor/bin/phpcs --standard=phpcs.xml",
-        "setup": [
-			"composer install --no-cache"
-		]
+        "phpcs": "vendor/bin/phpcs --standard=phpcs.xml"
     },
     "config": {
         "allow-plugins": {

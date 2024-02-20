@@ -19,7 +19,7 @@ jobs:
           php-version: '7.4'
 
       - name: Setup composer
-        run: composer setup
+        run: composer install --no-cache
 
       - name: Setup Node.js 18.15.0
         uses: actions/setup-node@v2
@@ -37,9 +37,6 @@ jobs:
 
       - name: Fix Text Domain
         run: yarn fixtextdomain
-
-      - name: Generate Text Domain POT file
-        run: composer make-production-pot
 
       - name: Remove Composer Dev Dependencies
         run: composer build

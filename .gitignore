@@ -17,3 +17,6 @@ __build
 dist
 dist/
 dist/**
+/languages
+/i18n
+yarn.lock
