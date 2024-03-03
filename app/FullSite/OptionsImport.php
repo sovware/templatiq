@@ -42,8 +42,8 @@ class OptionsImport {
 			'elementor_load_fa4_shim',
 
 			// Templatiq Theme Global Color Palette and Typography Preset options.
-			'astra-color-palettes',
-			'astra-typography-presets',
+			'templatiq-color-palettes',
+			'templatiq-typography-presets',
 
 			// Plugin: Directorist.
 			'atbdp_option',
@@ -58,18 +58,10 @@ class OptionsImport {
 			return;
 		}
 
-		// error_log( "\n" . '**** Options Update Started. ****' );
-
 		foreach ( $options as $option_name => $option_value ) {
 
-			// Is option exist in defined array site_options()?
 			if ( null !== $option_value ) {
-
-				// Is option exist in defined array site_options()?
 				if ( in_array( $option_name, self::site_options(), true ) ) {
-
-					// error_log( $option_name );
-					// error_log( print_r( ,true) );
 
 					switch ( $option_name ) {
 
@@ -78,14 +70,11 @@ class OptionsImport {
 							$this->update_page_id_by_option_value( $option_name, $option_value );
 							break;
 
-						// nav menu locations.
 						case 'nav_menu_locations':
 							$this->set_nav_menu_locations( $option_value );
 							break;
 
-						// insert logo.
 						case 'custom_logo':
-							// error_log( $option_value );
 							$this->insert_logo( $option_value );
 							break;
 
@@ -96,8 +85,6 @@ class OptionsImport {
 				}
 			}
 		}
-
-		// error_log( "\n" . '**** Options Update Stopped ****' . "\n" );
 	}
 
 	public function get_page_by_title( $post_title, $post_type ) {
@@ -135,7 +122,6 @@ class OptionsImport {
 	private function set_nav_menu_locations( $nav_menu_locations = [] ) {
 		$menu_locations = [];
 
-		// Update menu locations.
 		if ( isset( $nav_menu_locations ) ) {
 
 			foreach ( $nav_menu_locations as $menu => $value ) {
@@ -158,8 +144,6 @@ class OptionsImport {
 				'id'  => 0,
 			]
 		);
-		
-		// error_log( print_r( $downloaded_image, true ) );
 
 		if ( $downloaded_image['id'] ) {
 			Templatiq_WXR_Importer::instance()->track_post( $downloaded_image['id'] );

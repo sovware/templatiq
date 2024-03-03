@@ -78,8 +78,6 @@ class FullSite {
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/batch-import/class-templatiq-sites-batch-import.php';
 	}
 
-	//
-
 	public function admin_enqueue( $hook = '' ) {
 		// Avoid scripts from customizer.
 		if ( is_customize_preview() ) {
@@ -132,7 +130,6 @@ class FullSite {
 		}
 	}
 
-	//
 	public function delete_templatiq_images( $id ) {
 		if ( ! $id ) {
 			return;
