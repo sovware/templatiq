@@ -9,12 +9,10 @@ namespace Templatiq\FullSite;
 
 use Templatiq\Onboarding\Setup;
 use Templatiq\Utils\Singleton;
-use Templatiq_Sites_Elementor_Images;
 use Templatiq_Sites_Error_Handler;
 use Templatiq_Sites_Helper;
 use Templatiq_Sites_Importer;
 use Templatiq_Sites_Importer_Log;
-use Templatiq_Sites_Reporting;
 
 class Ajax {
 	use Singleton;
@@ -33,20 +31,16 @@ class Ajax {
 	public function __construct() {
 		// AJAX.
 		$this->ajax = [
-			'astra-required-plugins'                  => 'required_plugin',
-			'astra-required-plugin-activate'          => 'required_plugin_activate',
-			'templatiq-sites-backup-settings'         => 'backup_settings',
-			'templatiq-sites-set-reset-data'          => 'get_reset_data',
-			'templatiq-sites-reset-terms-and-forms'   => 'reset_terms_and_forms',
-			'templatiq-sites-reset-posts'             => 'reset_posts',
-			'templatiq-sites-activate-theme'          => 'activate_theme',
-			'templatiq-sites-create-image'            => 'create_image',
-			'templatiq-sites-get-deleted-post-ids'    => 'get_deleted_post_ids',
-			'templatiq-sites-api-request'             => 'api_request',
-			'templatiq-sites-update-subscription'     => 'update_subscription',
-			'templatiq-sites-update-analytics'        => 'update_analytics',
-			'templatiq-sites-filesystem-permission'   => 'filesystem_permission',
-			'templatiq-sites-generate-analytics-lead' => 'push_to_import_analytics',
+			'templatiq-required-plugins'            => 'required_plugin',
+			'templatiq-required-plugin-activate'    => 'required_plugin_activate',
+			'templatiq-sites-backup-settings'       => 'backup_settings',
+			'templatiq-sites-set-reset-data'        => 'get_reset_data',
+			'templatiq-sites-reset-terms-and-forms' => 'reset_terms_and_forms',
+			'templatiq-sites-reset-posts'           => 'reset_posts',
+			'templatiq-sites-activate-theme'        => 'activate_theme',
+			'templatiq-sites-get-deleted-post-ids'  => 'get_deleted_post_ids',
+			'templatiq-sites-api-request'           => 'api_request',
+			'templatiq-sites-filesystem-permission' => 'filesystem_permission',
 		];
 
 		foreach ( $this->ajax as $ajax_hook => $ajax_callback ) {
@@ -55,7 +49,6 @@ class Ajax {
 	}
 
 	public function get_plugin_status( $plugin_init_file ) {
-
 		$installed_plugins = get_plugins();
 
 		if ( ! isset( $installed_plugins[$plugin_init_file] ) ) {
@@ -65,100 +58,6 @@ class Ajax {
 		} else {
 			return 'inactive';
 		}
-	}
-
-	public function update_analytics() {
-
-		check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
-
-		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( 'You are not allowed to perform this action', 'templatiq-sites' );
-		}
-
-		$optin_answer = isset( $_POST['data'] ) ? sanitize_text_field( $_POST['data'] ) : 'no';
-		$optin_answer = 'yes' === $optin_answer ? 'yes' : 'no';
-
-		update_site_option( 'bsf_analytics_optin', $optin_answer );
-
-		wp_send_json_success();
-	}
-
-	public function update_subscription() {
-
-		check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
-
-		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( 'You are not allowed to perform this action', 'templatiq-sites' );
-		}
-
-		$arguments = isset( $_POST['data'] ) ? array_map( 'sanitize_text_field', json_decode( stripslashes( $_POST['data'] ), true ) ) : []; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Already sanitized using `array_map` and `sanitize_text_field`.
-
-		// Page Builder mapping.
-		$page_builder_mapping = [
-			'Elementor'      => 1,
-			'Beaver Builder' => 2,
-			'Brizy'          => 3,
-			'Gutenberg'      => 4,
-		];
-		$arguments['PAGE_BUILDER'] = isset( $page_builder_mapping[$arguments['PAGE_BUILDER']] ) ? $page_builder_mapping[$arguments['PAGE_BUILDER']] : '';
-
-		$url = apply_filters( 'templatiq_sites_subscription_url', $this->api_domain . 'wp-json/starter-templates/v1/subscribe/' );
-
-		$args = [
-			'timeout' => 30,
-			'body'    => $arguments,
-		];
-
-		$response = wp_remote_post( $url, $args );
-
-		if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
-			$response = json_decode( wp_remote_retrieve_body( $response ), true );
-
-			// Successfully subscribed.
-			if ( isset( $response['success'] ) && $response['success'] ) {
-				update_user_meta( get_current_user_ID(), 'templatiq-sites-subscribed', 'yes' );
-			}
-		}
-		wp_send_json_success( $response );
-	}
-
-	public function push_to_import_analytics() {
-
-		check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
-
-		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( 'You are not allowed to perform this action', 'templatiq-sites' );
-		}
-
-		$id = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
-
-		if ( 0 === $id ) {
-			wp_send_json_error(
-				[
-					/* translators: %d is the Template ID. */
-					'message' => sprintf( __( 'Invalid Template ID - %d', 'templatiq' ), $id ),
-					'code'    => 'Error',
-				]
-			);
-		}
-
-		$data = [
-			'id'              => $id,
-			'import_attempts' => isset( $_POST['try-again-count'] ) ? absint( $_POST['try-again-count'] ) : 0,
-			'import_status'   => isset( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : 'true',
-			'type'            => isset( $_POST['type'] ) ? sanitize_text_field( $_POST['type'] ) : 'templatiq-sites',
-			'page_builder'    => isset( $_POST['page-builder'] ) ? sanitize_text_field( $_POST['page-builder'] ) : 'gutenberg',
-		];
-
-		$result = Templatiq_Sites_Reporting::get_instance()->report( $data );
-
-		if ( $result['status'] ) {
-			delete_option( 'templatiq_sites_has_sent_error_report' );
-			delete_option( 'templatiq_sites_cached_import_error' );
-			wp_send_json_success( $result['data'] );
-		}
-
-		wp_send_json_error( $result['data'] );
 	}
 
 	public function api_request() {
@@ -174,40 +73,41 @@ class Ajax {
 		if ( empty( $template_id ) ) {
 			wp_send_json_error(
 				[
-					'message' => __( 'Provided template_id URL is empty! Please try again!', 'templatiq' ),
+					'message' => __( 'Provided template_id is empty! Please try again!', 'templatiq' ),
 					'code'    => 'Error',
 				]
 			);
 		}
 
-		$demo_data = Templatiq_Sites_Importer::get_instance()->get_single_demo( $template_id );
+		$request = Templatiq_Sites_Importer::get_instance()->get_single_demo( $template_id );
 
-		// if ( is_wp_error( $demo_data ) ) {
-		// 	$wp_error_code = $request->get_error_code();
-		// 	switch ( $wp_error_code ) {
-		// 		case 'http_request_not_executed':
-		// 			/* translators: %s Error Message */
-		// 			$message = sprintf( __( 'API Request could not be performed - %s', 'templatiq-sites' ), $request->get_error_message() );
-		// 			break;
-		// 		case 'http_request_failed':
-		// 		default:
-		// 			/* translators: %s Error Message */
-		// 			$message = sprintf( __( 'API Request has failed - %s', 'templatiq-sites' ), $request->get_error_message() );
-		// 			break;
-		// 	}
+		error_log( print_r( $request  ,true) );
+		if ( is_wp_error( $request ) ) {
+			$wp_error_code = $request->get_error_code();
+			switch ( $wp_error_code ) {
+				case 'http_request_not_executed':
+					/* translators: %s Error Message */
+					$message = sprintf( __( 'API Request could not be performed - %s', 'templatiq-sites' ), $request->get_error_message() );
+					break;
+				case 'http_request_failed':
+				default:
+					/* translators: %s Error Message */
+					$message = sprintf( __( 'API Request has failed - %s', 'templatiq-sites' ), $request->get_error_message() );
+					break;
+			}
 
-		// 	wp_send_json_error(
-		// 		[
-		// 			'message'       => $request->get_error_message(),
-		// 			'code'          => 'WP_Error',
-		// 			'response_code' => $wp_error_code,
-		// 		]
-		// 	);
-		// }
+			wp_send_json_error(
+				[
+					'message'       => $request->get_error_message(),
+					'code'          => 'WP_Error',
+					'response_code' => $wp_error_code,
+				]
+			);
+		}
 
-		update_option( 'templatiq_sites_import_data', $demo_data, 'no' );
+		update_option( 'templatiq_sites_import_data', $request, 'no' );
 
-		wp_send_json_success( $demo_data );
+		wp_send_json_success( $request );
 
 		return;
 
@@ -251,64 +151,6 @@ class Ajax {
 				'response_code' => $response_code,
 			]
 		);
-	}
-
-	public function create_image() {
-		// Verify Nonce.
-		check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
-
-		if ( ! current_user_can( 'upload_files' ) ) {
-			wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
-		}
-
-		$url      = isset( $_POST['url'] ) ? sanitize_url( $_POST['url'] ) : false; // phpcs:ignore -- We need to remove this ignore once the WPCS has released this issue fix - https://github.com/WordPress/WordPress-Coding-Standards/issues/2189.
-		$name     = isset( $_POST['name'] ) ? sanitize_text_field( $_POST['name'] ) : false;
-		$photo_id = isset( $_POST['id'] ) ? absint( sanitize_key( $_POST['id'] ) ) : 0;
-
-		if ( false === $url ) {
-			wp_send_json_error( __( 'Need to send URL of the image to be downloaded', 'templatiq' ) );
-		}
-
-		$image  = '';
-		$result = [];
-
-		$name  = preg_replace( '/\.[^.]+$/', '', $name ) . '-' . $photo_id . '.jpg';
-		$image = $this->create_image_from_url( $url, $name, $photo_id );
-
-		if ( is_wp_error( $image ) ) {
-			wp_send_json_error( $image );
-		}
-
-		if ( 0 !== $image ) {
-			$result['attachmentData'] = wp_prepare_attachment_for_js( $image );
-			if ( did_action( 'elementor/loaded' ) ) {
-				$result['data'] = Templatiq_Sites_Elementor_Images::get_instance()->get_attachment_data( $image );
-			}
-			if ( 0 === $photo_id ) {
-				/**
-				 * This flag ensures these files are deleted in the Reset Process.
-				 */
-				update_post_meta( $image, '_templatiq_sites_imported_post', true );
-			}
-		} else {
-			wp_send_json_error( __( 'Could not download the image.', 'templatiq' ) );
-		}
-
-		// Save downloaded image reference to an option.
-		if ( 0 !== $photo_id ) {
-			$saved_images = get_option( 'templatiq-sites-saved-images', [] );
-
-			if ( empty( $saved_images ) || false === $saved_images ) {
-				$saved_images = [];
-			}
-
-			$saved_images[] = $photo_id;
-			update_option( 'templatiq-sites-saved-images', $saved_images, 'no' );
-		}
-
-		$result['updated-saved-images'] = get_option( 'templatiq-sites-saved-images', [] );
-
-		wp_send_json_success( $result );
 	}
 
 	public function get_wp_upload_url() {
@@ -425,8 +267,7 @@ class Ajax {
 
 		Templatiq_Sites_Error_Handler::get_instance()->start_error_handler();
 
-		error_log( print_r( 'activate_theme ', true ) )
-		;
+		error_log( print_r( 'activate_theme ', true ) );
 		switch_theme( 'onedirectory' );
 
 		Templatiq_Sites_Error_Handler::get_instance()->stop_error_handler();
@@ -599,7 +440,7 @@ class Ajax {
 		}
 
 		$file_name    = 'templatiq-sites-backup-' . gmdate( 'd-M-Y-h-i-s' ) . '.json';
-		$old_settings = get_option( 'astra-settings', [] );
+		$old_settings = get_option( 'templatiq-settings', [] );
 		$upload_dir   = Templatiq_Sites_Importer_Log::get_instance()->log_dir();
 		$upload_path  = trailingslashit( $upload_dir['path'] );
 		$log_file     = $upload_path . $file_name;
@@ -610,9 +451,7 @@ class Ajax {
 			update_option( 'templatiq_sites_' . $file_name, $old_settings, 'no' );
 		}
 
-		if ( defined( 'WP_CLI' ) ) {
-			WP_CLI::line( 'File generated at ' . $log_file );
-		} elseif ( wp_doing_ajax() ) {
+		if ( wp_doing_ajax() ) {
 			wp_send_json_success();
 		}
 	}
@@ -667,9 +506,7 @@ class Ajax {
 		Templatiq_Sites_Error_Handler::get_instance()->stop_error_handler();
 
 		if ( is_wp_error( $activate ) ) {
-			if ( defined( 'WP_CLI' ) ) {
-				WP_CLI::error( 'Plugin Activation Error: ' . $activate->get_error_message() );
-			} elseif ( wp_doing_ajax() ) {
+			if ( wp_doing_ajax() ) {
 				wp_send_json_error(
 					[
 						'success' => false,
@@ -679,12 +516,10 @@ class Ajax {
 			}
 		}
 
-		$options = templatiq_get_site_data( 'astra-site-options-data' );
+		$options = templatiq_get_site_data( 'templatiq-site-options-data' );
 		$this->after_plugin_activate( $plugin_init, $options );
-		
-		if ( defined( 'WP_CLI' ) ) {
-			WP_CLI::line( 'Plugin Activated!' );
-		} elseif ( wp_doing_ajax() ) {
+
+		if ( wp_doing_ajax() ) {
 			wp_send_json_success(
 				[
 					'success' => true,
@@ -758,10 +593,7 @@ class Ajax {
 					// Pro - Active.
 					if ( is_plugin_active( $plugin_pro['init'] ) ) {
 						$response['active'][] = $plugin_pro;
-
-						$this->after_plugin_activate( $plugin['init'], $options );
-
-						// Pro - Inactive.
+						$this->after_plugin_activate( $plugin['init'] );
 					} else {
 						$response['inactive'][] = $plugin_pro;
 					}
@@ -811,7 +643,7 @@ class Ajax {
 						// Lite - Active.
 					} else {
 						$response['active'][] = $plugin;
-						$options              = templatiq_get_site_data( 'astra-site-options-data' );
+						$options              = templatiq_get_site_data( 'templatiq-site-options-data' );
 						$this->after_plugin_activate( $plugin['init'], $options );
 					}
 				}
@@ -867,15 +699,9 @@ class Ajax {
 		if ( 'elementor' === $screen ) {
 			$options            = [];
 			$imported_demo_data = get_option( 'templatiq_sites_import_elementor_data_' . $id, [] );
-			if ( 'astra-blocks' === $imported_demo_data['type'] ) {
-				// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
-				$plugins          = unserialize( $imported_demo_data['post-meta']['astra-blocks-required-plugins'] ); // The use of `unserialize()` is necessary in this case to deserialize trusted serialized data.
-				$required_plugins = false !== $plugins ? $plugins : [];
-			} else {
-				$required_plugins = isset( $imported_demo_data['site-pages-required-plugins'] ) ? $imported_demo_data['site-pages-required-plugins'] : [];
-			}
+			$required_plugins = isset( $imported_demo_data['site-pages-required-plugins'] ) ? $imported_demo_data['site-pages-required-plugins'] : [];
 		} else {
-			$options          = templatiq_get_site_data( 'astra-site-options-data' );
+			$options          = templatiq_get_site_data( 'templatiq-site-options-data' );
 			$required_plugins = templatiq_get_site_data( 'required-plugins' );
 		}
 
@@ -965,17 +791,12 @@ class Ajax {
 			$permissions['is_wp_filesystem'] = false;
 		}
 
-		if ( defined( 'WP_CLI' ) ) {
-			if ( ! $permissions['is_readable'] || ! $permissions['is_writable'] || ! $permissions['is_wp_filesystem'] ) {
-				WP_CLI::error( esc_html__( 'Please contact the hosting service provider to help you update the permissions so that you can successfully import a complete template.', 'templatiq' ) );
-			}
-		} else {
-			wp_send_json_success(
-				[
-					'permissions' => $permissions,
-					'directory'   => $wp_upload_path['basedir'],
-				]
-			);
-		}
+		wp_send_json_success(
+			[
+				'permissions' => $permissions,
+				'directory'   => $wp_upload_path['basedir'],
+			]
+		);
+
 	}
 }

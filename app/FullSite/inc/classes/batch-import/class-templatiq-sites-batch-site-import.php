@@ -436,7 +436,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 				$plugins = (array) $demo_data['required-plugins'];
 
 				if ( ! empty( $plugins ) ) {
-					$plugin_status = FullSite::init()->required_plugin( $plugins, $demo_data['astra-site-options-data'], $demo_data['astra-enabled-extensions'] );
+					$plugin_status = FullSite::init()->required_plugin( $plugins, $demo_data['templatiq-site-options-data'], $demo_data['astra-enabled-extensions'] );
 
 					// Install Plugins.
 					if ( ! empty( $plugin_status['required_plugins']['notinstalled'] ) ) {
@@ -448,7 +448,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 								$this->install_plugin( $plugin );
 
 								// Activate plugin.
-								FullSite::init()->required_plugin_activate( $plugin['init'], $demo_data['astra-site-options-data'], $demo_data['astra-enabled-extensions'] );
+								FullSite::init()->required_plugin_activate( $plugin['init'], $demo_data['templatiq-site-options-data'], $demo_data['astra-enabled-extensions'] );
 							}
 						}
 					}
@@ -457,7 +457,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 					if ( ! empty( $plugin_status['required_plugins']['inactive'] ) ) {
 						foreach ( $plugin_status['required_plugins']['inactive'] as $key => $plugin ) {
 							if ( isset( $plugin['init'] ) ) {
-								FullSite::init()->required_plugin_activate( $plugin['init'], $demo_data['astra-site-options-data'], $demo_data['astra-enabled-extensions'] );
+								FullSite::init()->required_plugin_activate( $plugin['init'], $demo_data['templatiq-site-options-data'], $demo_data['astra-enabled-extensions'] );
 							}
 						}
 					}
@@ -543,8 +543,8 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 		public function import_xml() {
 			$demo_data = get_option( 'templatiq_sites_import_data', array() );
 
-			if ( isset( $demo_data['astra-site-wxr-path'] ) && ! empty( $demo_data['astra-site-wxr-path'] ) ) {
-				$xml_path = Templatiq_Sites_Helper::download_file( $demo_data['astra-site-wxr-path'] );
+			if ( isset( $demo_data['templatiq-site-wxr-path'] ) && ! empty( $demo_data['templatiq-site-wxr-path'] ) ) {
+				$xml_path = Templatiq_Sites_Helper::download_file( $demo_data['templatiq-site-wxr-path'] );
 
 				Templatiq_WXR_Importer::instance()->sse_import( $xml_path['data']['file'] );
 			}
@@ -556,8 +556,8 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Site_Import' ) ) :
 		public function import_site_options() {
 			$demo_data = get_option( 'templatiq_sites_import_data', array() );
 
-			if ( isset( $demo_data['astra-site-options-data'] ) && ! empty( $demo_data['astra-site-options-data'] ) ) {
-				Templatiq_Sites_Importer::get_instance()->import_options( $demo_data['astra-site-options-data'] );
+			if ( isset( $demo_data['templatiq-site-options-data'] ) && ! empty( $demo_data['templatiq-site-options-data'] ) ) {
+				Templatiq_Sites_Importer::get_instance()->import_options( $demo_data['templatiq-site-options-data'] );
 			}
 		}
 

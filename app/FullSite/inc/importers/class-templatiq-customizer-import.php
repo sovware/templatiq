@@ -50,8 +50,8 @@ class Templatiq_Customizer_Import {
 	public function import( $options ) {
 
 		// Update Templatiq Theme customizer settings.
-		if ( isset( $options['astra-settings'] ) ) {
-			update_option( 'astra-settings', $options['astra-settings'] );
+		if ( isset( $options['templatiq-settings'] ) ) {
+			update_option( 'templatiq-settings', $options['templatiq-settings'] );
 		}
 
 		// Add Custom CSS.

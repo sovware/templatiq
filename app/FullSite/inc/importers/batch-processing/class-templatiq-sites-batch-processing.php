@@ -241,7 +241,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 			if ( $page_no ) {
 				$sites_and_pages = Templatiq_Sites_Batch_Processing_Importer::get_instance()->import_sites( $page_no );
 
-				$page_builder_keys    = wp_list_pluck( $sites_and_pages, 'astra-site-page-builder' );
+				$page_builder_keys    = wp_list_pluck( $sites_and_pages, 'templatiq-site-page-builder' );
 				$default_page_builder = Templatiq_Sites_Page::get_instance()->get_setting( 'page_builder' );
 
 				$current_page_builder_sites = array();

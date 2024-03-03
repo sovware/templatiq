@@ -286,7 +286,7 @@ const ImportSite = () => {
 		const activatePluginOptions = new FormData();
 		activatePluginOptions.append(
 			'action',
-			'astra-required-plugin-activate'
+			'templatiq-required-plugin-activate'
 		);
 		activatePluginOptions.append( 'init', plugin.init );
 		activatePluginOptions.append(
@@ -888,7 +888,7 @@ const ImportSite = () => {
 		}
 
 		const wxrUrl =
-			encodeURI( templateResponse[ 'astra-site-wxr-path' ] ) || '';
+			encodeURI( templateResponse[ 'templatiq-site-wxr-path' ] ) || '';
 		if ( 'null' === wxrUrl || '' === wxrUrl ) {
 			const errorTxt = __(
 				'The XML URL for the site content is empty.',

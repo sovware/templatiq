@@ -232,10 +232,10 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing_Gutenberg' ) ) :
 			// Step 2: Replace the demo site URL with live site URL.
 			if ( ! empty( $other_links ) ) {
 				$demo_data = get_option( 'templatiq_sites_import_data', array() );
-				if ( isset( $demo_data['astra-site-url'] ) ) {
+				if ( isset( $demo_data['templatiq-site-url'] ) ) {
 					$site_url = get_site_url();
 					foreach ( $other_links as $key => $link ) {
-						$link_mapping[ $link ] = str_replace( 'https:' . $demo_data['astra-site-url'], $site_url, $link );
+						$link_mapping[ $link ] = str_replace( 'https:' . $demo_data['templatiq-site-url'], $site_url, $link );
 					}
 				}
 			}

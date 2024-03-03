@@ -13,7 +13,7 @@ const SitePreview = () => {
 
 	useEffect( () => {
 		const url = templateResponse
-			? templateResponse[ 'astra-site-url' ]
+			? templateResponse[ 'templatiq-site-url' ]
 			: '';
 
 		if ( url !== '' ) { 

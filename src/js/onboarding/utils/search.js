@@ -42,7 +42,7 @@ export const getSitesBySearchTerm = function (
 		for ( const siteId in singlePageBuilderSites ) {
 			if (
 				singlePageBuilderSites[ siteId ][
-					'astra-site-page-builder'
+					'templatiq-site-page-builder'
 				] === pageBuilder
 			) {
 				sites[ siteId ] = singlePageBuilderSites[ siteId ];

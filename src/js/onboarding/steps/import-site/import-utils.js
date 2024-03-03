@@ -17,7 +17,7 @@ export const getDemo = async ( id, dispatch ) => {
 			console.log('getDemo response : ',  response );
 
 			if ( response.success ) {
-				starterTemplates.previewUrl = response.data[ 'astra-site-url' ];
+				starterTemplates.previewUrl = response.data[ 'templatiq-site-url' ];
 
 				dispatch( {
 					type: 'set',
@@ -133,7 +133,7 @@ export const checkRequiredPlugins = async ( dispatch ) => {
 	// const [ {}, dispatch ] = storedState;
 
 	const reqPlugins = new FormData();
-	reqPlugins.append( 'action', 'astra-required-plugins' );
+	reqPlugins.append( 'action', 'templatiq-required-plugins' );
 	reqPlugins.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
 
 	await fetch( ajaxurl, {

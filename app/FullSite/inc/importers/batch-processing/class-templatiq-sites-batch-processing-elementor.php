@@ -128,12 +128,12 @@ class Templatiq_Sites_Batch_Processing_Elementor extends Source_Local {
 				// Replace the site urls.
 				$demo_data = get_option( 'templatiq_sites_import_data', array() );
 				\Templatiq_Sites_Importer_Log::add( wp_json_encode( $demo_data ) );
-				if ( isset( $demo_data['astra-site-url'] ) ) {
+				if ( isset( $demo_data['templatiq-site-url'] ) ) {
 					$data = wp_json_encode( $data, true );
 					if ( ! empty( $data ) ) {
 						$site_url      = get_site_url();
 						$site_url      = str_replace( '/', '\/', $site_url );
-						$demo_site_url = 'https:' . $demo_data['astra-site-url'];
+						$demo_site_url = 'https:' . $demo_data['templatiq-site-url'];
 						$demo_site_url = str_replace( '/', '\/', $demo_site_url );
 						$data          = str_replace( $demo_site_url, $site_url, $data );
 						$data          = json_decode( $data, true );

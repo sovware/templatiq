@@ -174,7 +174,7 @@ class FullSite {
 	public function get_local_vars() {
 		$stored_data = [
 			'templatiq-sites-site-category' => [],
-			'astra-site-page-builder'       => [],
+			'templatiq-site-page-builder'   => [],
 			'templatiq-sites'               => [],
 			'site-pages-category'           => [],
 			'site-pages-page-builder'       => [],
@@ -220,7 +220,7 @@ class FullSite {
 				'ApiURL'                             => $this->api_url,
 				'stored_data'                        => $stored_data,
 				'category_slug'                      => 'templatiq-sites-site-category',
-				'page_builder'                       => 'astra-site-page-builder',
+				'page_builder'                       => 'templatiq-site-page-builder',
 				'cpt_slug'                           => 'templatiq-sites',
 				'parent_category'                    => '',
 				'compatibilities'                    => $this->get_compatibilities(),

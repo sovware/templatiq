@@ -234,7 +234,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				wp_send_json_error( __( 'The XMLReader library is not available. This library is required to import the content for the website.', 'templatiq' ) );
 			}
 
-			$wxr_url = templatiq_get_site_data( 'astra-site-wxr-path' );
+			$wxr_url = templatiq_get_site_data( 'templatiq-site-wxr-path' );
 
 			error_log( $wxr_url );
 			Templatiq_Sites_Importer_Log::add( 'Importing from XML ' . $wxr_url );
@@ -298,7 +298,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				}
 			}
 
-			$options_data = templatiq_get_site_data( 'astra-site-options-data' );
+			$options_data = templatiq_get_site_data( 'templatiq-site-options-data' );
 
 			// error_log( print_r( $options_data ,true) );
 
@@ -407,14 +407,14 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			$remote_args = [];
 			$defaults    = [
 				'id'                       => '',
-				'astra-site-options-data'  => '',
+				'templatiq-site-options-data'  => '',
 				'astra-post-data-mapping'  => '',
-				'astra-site-wxr-path'      => '',
+				'templatiq-site-wxr-path'      => '',
 				'astra-enabled-extensions' => '',
 				'required-plugins'         => '',
 				'license-status'           => '',
 				'site-type'                => '',
-				'astra-site-url'           => '',
+				'templatiq-site-url'           => '',
 			];
 
 			$api_args = apply_filters(
@@ -459,12 +459,12 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 
 			if ( ! isset( $data['code'] ) ) {
 				$remote_args['id']                      = $data['id'];
-				$remote_args['astra-site-options-data'] = $data['astra-site-options-data'];
-				$remote_args['astra-site-wxr-path']     = $data['astra-site-wxr-path'];
+				$remote_args['templatiq-site-options-data'] = $data['templatiq-site-options-data'];
+				$remote_args['templatiq-site-wxr-path']     = $data['templatiq-site-wxr-path'];
 				$remote_args['required-plugins']        = $data['required-plugins'];
 				$remote_args['license-status']          = $data['license-status'];
-				$remote_args['site-type']               = $data['astra-site-type'];
-				$remote_args['astra-site-url']          = $data['astra-site-url'];
+				$remote_args['site-type']               = $data['templatiq-site-type'];
+				$remote_args['templatiq-site-url']          = $data['templatiq-site-url'];
 				$remote_args['directory-types']         = $data['directory-types'];
 			}
 
@@ -545,9 +545,9 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				}
 			}
 
-			Templatiq_Sites_Importer_Log::add( 'Deleted customizer Settings ' . wp_json_encode( get_option( 'astra-settings', [] ) ) );
+			Templatiq_Sites_Importer_Log::add( 'Deleted customizer Settings ' . wp_json_encode( get_option( 'templatiq-settings', [] ) ) );
 
-			delete_option( 'astra-settings' );
+			delete_option( 'templatiq-settings' );
 
 			if ( defined( 'WP_CLI' ) ) {
 				WP_CLI::line( 'Deleted Customizer Settings!' );

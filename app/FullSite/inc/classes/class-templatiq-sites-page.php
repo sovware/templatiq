@@ -154,7 +154,7 @@ if ( ! class_exists( 'Templatiq_Sites_Page' ) ) {
 			$sites_and_pages            = FullSite::init()->get_all_sites();
 			$current_page_builder_sites = array();
 			if ( ! empty( $sites_and_pages ) ) {
-				$page_builder_keys = wp_list_pluck( $sites_and_pages, 'astra-site-page-builder' );
+				$page_builder_keys = wp_list_pluck( $sites_and_pages, 'templatiq-site-page-builder' );
 				foreach ( $page_builder_keys as $site_id => $page_builder ) {
 					if ( $default_page_builder === $page_builder ) {
 						$current_page_builder_sites[ $site_id ] = $sites_and_pages[ $site_id ];

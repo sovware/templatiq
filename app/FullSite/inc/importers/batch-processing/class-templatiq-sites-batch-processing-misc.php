@@ -80,7 +80,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing_Misc' ) ) :
 			}
 
 			// Not found/empty XML URL, then return.
-			$xml_url = ( isset( $demo_data['astra-site-wxr-path'] ) ) ? esc_url( $demo_data['astra-site-wxr-path'] ) : '';
+			$xml_url = ( isset( $demo_data['templatiq-site-wxr-path'] ) ) ? esc_url( $demo_data['templatiq-site-wxr-path'] ) : '';
 			if ( empty( $xml_url ) ) {
 				return;
 			}

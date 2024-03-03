@@ -75,7 +75,7 @@ export const getDefaultColorPalette = ( demo ) => {
 		const customizerData = demo[ 'astra-site-customizer-data' ] || '';
 		if ( customizerData ) {
 			const globalPalette =
-				customizerData[ 'astra-settings' ][ 'global-color-palette' ]
+				customizerData[ 'templatiq-settings' ][ 'global-color-palette' ]
 					.palette || [];
 
 			if ( globalPalette ) {
@@ -98,7 +98,7 @@ export const getDefaultTypography = ( demo ) => {
 	if ( demo && 'astra-site-customizer-data' in demo ) {
 		const customizerData = demo[ 'astra-site-customizer-data' ] || '';
 		if ( customizerData ) {
-			const customizerSettings = customizerData[ 'astra-settings' ] || [];
+			const customizerSettings = customizerData[ 'templatiq-settings' ] || [];
 			const headingFontFamily =
 				customizerSettings[ 'headings-font-family' ];
 
@@ -130,7 +130,7 @@ export const getHeadingFonts = ( demo ) => {
 	if ( demo && 'astra-site-customizer-data' in demo ) {
 		const customizerData = demo[ 'astra-site-customizer-data' ] || '';
 		if ( customizerData ) {
-			const customizerSettings = customizerData[ 'astra-settings' ] || [];
+			const customizerSettings = customizerData[ 'templatiq-settings' ] || [];
 
 			headingsTags.forEach( ( tag ) => {
 				headingFonts[ 'font-family-' + tag ] =

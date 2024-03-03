@@ -64,7 +64,7 @@ class Templatiq_Sites_Batch_Processing_Customizer {
 	 * Downloads images from customizer.
 	 */
 	public static function images_download() {
-		$options = get_option( 'astra-settings', array() );
+		$options = get_option( 'templatiq-settings', array() );
 		array_walk_recursive(
 			$options,
 			function ( &$value ) {
@@ -81,7 +81,7 @@ class Templatiq_Sites_Batch_Processing_Customizer {
 		);
 
 		// Updated settings.
-		update_option( 'astra-settings', $options );
+		update_option( 'templatiq-settings', $options );
 	}
 }
 
