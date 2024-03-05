@@ -84,21 +84,6 @@ class FullSite {
 			return;
 		}
 
-		wp_enqueue_script( 'templatiq-sites-install-theme', TEMPLATIQ_SITES_URI . 'assets/js/install-theme.js', ['jquery', 'updates'], TEMPLATIQ_SITES_VER, true );
-
-		$data = apply_filters(
-			'templatiq_sites_install_theme_localize_vars',
-			[
-				'installed'   => __( 'Installed! Activating..', 'templatiq' ),
-				'activating'  => __( 'Activating...', 'templatiq' ),
-				'activated'   => __( 'Activated!', 'templatiq' ),
-				'installing'  => __( 'Installing...', 'templatiq' ),
-				'ajaxurl'     => esc_url( admin_url( 'admin-ajax.php' ) ),
-				'_ajax_nonce' => wp_create_nonce( 'templatiq-sites' ),
-			]
-		);
-		wp_localize_script( 'templatiq-sites-install-theme', 'TemplatiqSitesInstallThemeVars', $data );
-
 		if ( 'appearance_page_starter-templates' !== $hook ) {
 			return;
 		}

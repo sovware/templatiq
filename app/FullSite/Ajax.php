@@ -87,12 +87,12 @@ class Ajax {
 			switch ( $wp_error_code ) {
 				case 'http_request_not_executed':
 					/* translators: %s Error Message */
-					$message = sprintf( __( 'API Request could not be performed - %s', 'templatiq-sites' ), $request->get_error_message() );
+					$message = sprintf( __( 'API Request could not be performed - %s', 'templatiq' ), $request->get_error_message() );
 					break;
 				case 'http_request_failed':
 				default:
 					/* translators: %s Error Message */
-					$message = sprintf( __( 'API Request has failed - %s', 'templatiq-sites' ), $request->get_error_message() );
+					$message = sprintf( __( 'API Request has failed - %s', 'templatiq' ), $request->get_error_message() );
 					break;
 			}
 
