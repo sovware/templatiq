@@ -47,7 +47,7 @@ class Importer {
 		return $template_data;
 	}
 
-	private function get_remote_content( int $template_id ): array {
+	private function get_remote_content( int $template_id ) {
 		$http     = new Http( $this->cloud_endpoint . '/template/contents' );
 		$response = $http->body(
 			[
@@ -57,9 +57,15 @@ class Importer {
 			->post()
 			->response();
 
-			// error_log( print_r( $response ,true) );
+		// error_log( 'get_remote_content' . print_r( $response, true ) );
+
 		if ( is_wp_error( $response ) ) {
-			return Response::error( 'invalid_data', $response->get_error_message(), 'get_remote_content', 404 );
+			return Response::error(
+				'invalid_data',
+				$response->get_error_message(),
+				'get_remote_content',
+				404
+			);
 		}
 
 		if ( isset( $response['status'] ) && 'error' === $response['status'] ) {

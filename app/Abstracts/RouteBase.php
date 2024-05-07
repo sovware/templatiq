@@ -29,6 +29,10 @@ abstract class RouteBase {
 	public function permission_check( WP_REST_Request $request ) {
 		$this->request = $request;
 
+		// Development Mode
+
+		return true;
+
 		if ( is_user_logged_in() && current_user_can( 'edit_posts' ) ) {
 			return true;
 		}
@@ -59,16 +63,20 @@ abstract class RouteBase {
 	}
 
 	public function post( $endpoint, $callback, $args = [] ) {
-		return $this->register_endpoint( $endpoint, $callback, $args );
+		return $this->register_endpoint( $endpoint, $callback, $args, WP_REST_Server::CREATABLE );
 	}
 
-	public function register_endpoint( $endpoint, $callback, $args = [], $methods = WP_REST_Server::CREATABLE ) {
+	protected function register_endpoint( string $endpoint, array $callback, array $args = [], string $method ) {
 		return register_rest_route(
 			$this->namespace,
 			$endpoint,
 			[
-				'methods'             => $methods,
-				'callback'            => $callback,
+				'methods'             => $method,
+				'callback'            => function ( WP_REST_Request $wp_rest_request ) use ( $callback ) {
+					$controller = new $callback[0];
+
+					return $controller->{$callback[1]}( $wp_rest_request );
+				},
 				'permission_callback' => [$this, 'permission_check'],
 				'args'                => $args,
 			]
