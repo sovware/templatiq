@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author  wpWax
+ * @since   1.0.0
+ * @version 1.0.0
+ */
 
 namespace Templatiq\Controllers;
 
@@ -9,7 +14,7 @@ use Templatiq\Utils\Options;
 use Templatiq\Utils\Response;
 use WP_REST_Request;
 
-class UserController extends ControllerBase {
+class AccountController extends ControllerBase {
 
 	public function login( WP_REST_Request $request ) {
 		$username = $request->get_param( 'username' );
@@ -144,33 +149,6 @@ class UserController extends ControllerBase {
 				$th->getCode()
 			);
 		}
-	}
-
-	/**
-	 * Check whether a user logged,
-	 * If no token found have to login
-	 */
-	public function is_logged_in() {
-		$token = Options::get( 'token' );
-
-		if ( empty( $token ) ) {
-			$errors['token'] = __( 'Account not logged in! please login with templatiq.com', 'templatiq' );
-		}
-
-		if ( ! empty( $errors ) ) {
-			return Response::error(
-				'is_logged_in',
-				$errors,
-				__FUNCTION__,
-				401
-			);
-		}
-
-		return Response::success(
-			[
-				'token' => $token,
-			]
-		);
 	}
 
 	public function directorist_membership_sync() {
