@@ -32,12 +32,13 @@ export default function App() {
 	useEffect( () => {
 		fetchData( 'templatiq/template/library' )
 			.then( ( res ) => {
+				console.log(res)
 				dispatch( store ).setTemplates( res.templates );
 				dispatch( store ).setLibraryData( res );
 			} )
 			.then( () => {
-				fetchData( 'templatiq/account/data' ).then( ( res ) => {
-					const data = res.body;
+				fetchData( 'templatiq/account/data' ).then( ( res ) => {					
+					const data = res;
 
 					const updatedUserInfo = {
 						isLoggedIn: data.token ? true : false,

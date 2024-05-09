@@ -15,6 +15,6 @@ class Template extends RouteBase {
 
 	public function register_routes(): void {
 		$this->post( $this->endpoint . '/import-as-page', [TemplateController::class, 'import_as_page'] );
-		$this->post( $this->endpoint . '/library', [TemplateController::class, 'library_data'] );
+		$this->get( $this->endpoint . '/library', [TemplateController::class, 'library_data'] );
 	}
 }

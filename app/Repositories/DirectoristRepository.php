@@ -5,10 +5,10 @@
  * @version 1.0.0
  */
 
-namespace Templatiq\Model;
+namespace Templatiq\Repositories;
 
+use Templatiq\Repositories\DependencyRepository;
 use Templatiq\Utils\Http;
-use Templatiq\Utils\Plugin;
 use Templatiq\Utils\Response;
 
 /**
@@ -17,7 +17,7 @@ use Templatiq\Utils\Response;
  * & has a valid token
  * & will only unlock the themes design that already purchased
  */
-class Directorist {
+class DirectoristRepository {
 	private string $cloud_endpoint;
 
 	public function __construct() {
@@ -25,7 +25,7 @@ class Directorist {
 	}
 
 	public function is_active() {
-		return Plugin::is_active( 'directorist/directorist-base.php' );
+		return ( new DependencyRepository )->is_active( 'directorist/directorist-base.php' );
 	}
 
 	public function token(): string {

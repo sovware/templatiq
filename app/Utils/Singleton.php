@@ -8,13 +8,14 @@
 namespace Templatiq\Utils;
 
 trait Singleton {
-	protected static $singleton;
+	private static $instances = [];
 
-	public static function init(): self {
-		if ( empty( static::$singleton ) ) {
-			static::$singleton = new static;
+	public static function init( ...$args ): object {
+		$class = get_called_class();
+		if ( ! isset( self::$instances[$class] ) ) {
+			self::$instances[$class] = new $class( ...$args );
 		}
 
-		return static::$singleton;
+		return self::$instances[$class];
 	}
 }

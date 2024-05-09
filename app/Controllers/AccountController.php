@@ -8,8 +8,8 @@
 namespace Templatiq\Controllers;
 
 use Templatiq\Abstracts\ControllerBase;
-use Templatiq\Model\Directorist;
 use Templatiq\Repositories\AccountRepository;
+use Templatiq\Repositories\DirectoristRepository;
 use Templatiq\Utils\Options;
 use Templatiq\Utils\Response;
 use WP_REST_Request;
@@ -126,7 +126,7 @@ class AccountController extends ControllerBase {
 				'account_token_errors',
 				$errors,
 				__FUNCTION__,
-				422
+				200
 			);
 		}
 
@@ -152,7 +152,7 @@ class AccountController extends ControllerBase {
 	}
 
 	public function directorist_membership_sync() {
-		$directorist = new Directorist;
+		$directorist = new DirectoristRepository;
 		$response    = $directorist->sync_membership_with_cloud();
 
 		return $response;
