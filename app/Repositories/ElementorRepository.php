@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace Templatiq\Model;
+namespace Templatiq\Integrations;
 
 use Elementor\Core\Settings\Page\Model;
 use Elementor\Plugin as ElementorPlugin;
@@ -14,7 +14,7 @@ use Templatiq\Utils\Http;
 use Templatiq\Utils\Options;
 use Templatiq\Utils\Response;
 
-class Elementor extends ElementorLocal {
+class ElementorRepository extends ElementorLocal {
 	private string $cloud_endpoint;
 
 	public function __construct() {
@@ -92,7 +92,7 @@ class Elementor extends ElementorLocal {
 		return $args;
 	}
 
-	public function get_library_data(): array {
+	public function get_library_data() {
 		$http     = new Http( $this->cloud_endpoint . '/template/library' );
 		$response = $http->body(
 			[

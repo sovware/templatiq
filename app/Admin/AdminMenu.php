@@ -18,7 +18,7 @@ class AdminMenu {
 	use Singleton;
 
 	public function __construct() {
-		$this->action( 'admin_menu', 'admin_menu' );
+		$this->action( 'admin_menu', [$this, 'admin_menu'] );
 	}
 
 	public function admin_menu() {

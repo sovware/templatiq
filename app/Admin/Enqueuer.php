@@ -16,10 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Enqueuer extends EnqueuerBase {
 
 	public function __construct() {
-		$this->action( 'admin_enqueue_scripts', 'admin_enqueue_scripts' );
-
-		//Enqueue editor scripts
-		$this->action( 'elementor/editor/after_enqueue_scripts', 'elementor_editor_enqueue' );
+		$this->action( 'admin_enqueue_scripts', [$this, 'admin_enqueue_scripts'] );
+		$this->action( 'elementor/editor/after_enqueue_scripts', [$this, 'elementor_editor_enqueue'] );
 	}
 
 	public function admin_enqueue_scripts( $hook ) {

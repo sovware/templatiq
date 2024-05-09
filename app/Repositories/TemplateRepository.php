@@ -5,15 +5,14 @@
  * @version 1.0.0
  */
 
-namespace Templatiq\Model;
+namespace Templatiq\Repositories;
 
 use Templatiq\Utils\Cache;
 use Templatiq\Utils\Http;
-use Templatiq\Utils\Response;
 
-class Library {
+class TemplateRepository {
 
-	public function data() {
+	public function library_data() {
 
 		$data = Cache::get( ['library'] );
 
@@ -25,17 +24,25 @@ class Library {
 		$response = $http->get()->response();
 
 		if ( is_wp_error( $response ) ) {
-			return Response::error( 'invalid_data', $response->get_error_message(), 'get_library_data', 404 );
+			throw new \Exception(
+				$response->get_error_message(),
+				404
+			);
 		}
 
 		if ( isset( $response['status'] ) && 'error' === $response['status'] ) {
-			return Response::error( 'invalid_data', $response['message'], 'get_library_data', 404 );
+			throw new \Exception(
+				$response['message'],
+				404
+			);
 		}
 
-		if ( ! empty( $response['body'] ) && is_string( $response['body'] ) ) {
-			$data = json_decode( $response['body'], true );
+		$body = wp_remote_retrieve_body( $response );
+
+		if ( ! empty( $body ) && is_string( $body ) ) {
+			$data = json_decode( $body, true );
 		} else {
-			$data = isset( $response['body'] ) ? (array) $response['body'] : [];
+			$data = (array) $body;
 		}
 
 		Cache::set( ['library'], $data );

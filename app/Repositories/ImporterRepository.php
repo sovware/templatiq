@@ -5,14 +5,16 @@
  * @version 1.0.0
  */
 
-namespace Templatiq\Model;
+namespace Templatiq\Repositories;
 
+use Templatiq\Integrations\ElementorRepository;
 use Templatiq\Utils\Http;
 use Templatiq\Utils\Options;
 use Templatiq\Utils\Response;
 use WP_Error;
 
-class Importer {
+class ImporterRepository {
+
 	private string $cloud_endpoint;
 
 	public function __construct() {
@@ -23,9 +25,9 @@ class Importer {
 		$template_data = $this->get_content( $template_id );
 
 		if ( 'elementor' === $builder ) {
-			return ( new Elementor )->create_page( $template_data, $title );
+			return ( new ElementorRepository )->create_page( $template_data, $title );
 		} elseif ( 'block-editor' === $builder ) {
-			return ( new Elementor )->create_page( $template_data, $title );
+			return ( new ElementorRepository )->create_page( $template_data, $title );
 		}
 
 		return new WP_Error( 'builder-not-specified', __( "Builder not specified", "templatiq" ) );
@@ -34,7 +36,7 @@ class Importer {
 	public function get_template_data( int $template_id, string $builder = 'elementor' ) {
 		$template_data = $this->get_content( $template_id );
 
-		return ( new Elementor )->get_template_data( $template_data );
+		return ( new ElementorRepository )->get_template_data( $template_data );
 	}
 
 	private function get_content( int $template_id, string $origin = 'remote' ): array {
@@ -56,8 +58,6 @@ class Importer {
 			] )
 			->post()
 			->response();
-
-		// error_log( 'get_remote_content' . print_r( $response, true ) );
 
 		if ( is_wp_error( $response ) ) {
 			return Response::error(

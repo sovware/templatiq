@@ -5,11 +5,11 @@
  * @version 1.0.0
  */
 
-namespace Templatiq\Compatibility;
+namespace Templatiq\Compatibilities;
 
 use Templatiq\Utils\Singleton;
 
-class Elementor {
+class ElementorCompatibility {
 	use Singleton;
 
 	public function __construct() {
