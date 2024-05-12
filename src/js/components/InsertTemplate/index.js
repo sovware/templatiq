@@ -1,13 +1,13 @@
-import { useState, useEffect } from '@wordpress/element';
-import postData from '@helper/postData';
-import { select } from '@wordpress/data';
-import ReactSVG from 'react-inlinesvg';
 import AuthModal from '@components/Popup/AuthModal';
+import postData from '@helper/postData';
 import store from '@store/index';
+import { select } from '@wordpress/data';
+import { useEffect, useState } from '@wordpress/element';
+import ReactSVG from 'react-inlinesvg';
 
 import InsertTemplateModal from '@components/Popup/InsertTemplateModal';
-import downloadIcon from '@icon/download.svg';
 import downloadAltIcon from '@icon/download-alt.svg';
+import downloadIcon from '@icon/download.svg';
 
 const InsertTemplate = ( {
 	item,
@@ -78,7 +78,7 @@ const InsertTemplate = ( {
 			{ insertModalOpen && requiredPlugins && (
 				<InsertTemplateModal
 					item={ item }
-					required_plugins={ requiredPlugins }
+					// required_plugins={ requiredPlugins }
 					onClose={ handleInsertModalClose }
 				/>
 			) }

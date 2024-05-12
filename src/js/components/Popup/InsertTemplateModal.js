@@ -1,12 +1,12 @@
-import { useState, useEffect } from '@wordpress/element';
 import postData from '@helper/postData';
+import { useEffect, useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { InsertTemplateModalStyle } from './style';
 
 import closeIcon from '@icon/close.svg';
 
-const InsertTemplateModal = ( { item, required_plugins, onClose } ) => {
-	const { template_id, builder } = item;
+const InsertTemplateModal = ( { item, onClose } ) => {
+	const { template_id, builder, required_plugins } = item;
 
 	const installPluginEndPoint = 'templatiq/dependency/install';
 	const importAsPageEndPoint = 'templatiq/template/import-as-page';
@@ -183,7 +183,7 @@ const InsertTemplateModal = ( { item, required_plugins, onClose } ) => {
 
 	// Check if all requiredPlugins are available in installedPlugins
 	useEffect( () => {
-		const allRequiredPluginsInstalled = installablePlugins.every(
+		const allRequiredPluginsInstalled = installablePlugins.length > 0 && installablePlugins.every(
 			( plugin ) => installedPlugins.includes( plugin.slug )
 		);
 
