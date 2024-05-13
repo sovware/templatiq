@@ -7,6 +7,7 @@
 
 namespace Templatiq\Controllers;
 
+use Elementor\Plugin;
 use Templatiq\Abstracts\ControllerBase;
 use Templatiq\Repositories\ImporterRepository;
 use Templatiq\Repositories\TemplateRepository;
