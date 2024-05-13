@@ -153,6 +153,63 @@ const InsertTemplateModalStyle = Styled.div`
         height: 40px;
         padding: 0 20px;
     }
+
+    &.templatiq__modal--install {
+        text-align: center;
+        .templatiq__modal__title {
+            text-align: center;
+        }
+        .templatiq__modal__title--installing {
+            margin-top: 50px;
+        }
+        .templatiq__modal__icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            border-radius: 100%;
+            svg {
+                max-width: 40px;
+            }
+            &--warning {
+                background-color: var(--templatiq-warning-color2);
+                svg {
+                    fill: var(--templatiq-warning-color);
+                }
+            }
+            &--success {
+                background-color: var(--templatiq-success-color);
+                svg {
+                    fill: var(--templatiq-success-color);
+                }
+            }
+        }
+        .templatiq__modal__progressbar {
+            display: flex;
+            position: relative;
+            margin: 20px 0 0;
+            width: 100%;
+            height: 4px;
+            background-color: #f3f3f3;
+            border-radius: 6px;
+            &:before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 30px;
+                height: 100%;
+                border-radius: 6px;
+                background-color: var(--templatiq-primary-color);
+                transition: width 2s;
+            }
+        }
+        .templatiq__modal__action--install {
+            margin: 20px 0 0;
+        }
+    }
 `;
 
 const AuthModalStyle = Styled.div`
@@ -185,4 +242,5 @@ const AuthModalStyle = Styled.div`
     }
 `;
 
-export { PopupStyle, InsertTemplateModalStyle, AuthModalStyle };
+export { AuthModalStyle, InsertTemplateModalStyle, PopupStyle };
+

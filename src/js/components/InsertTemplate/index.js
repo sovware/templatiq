@@ -25,6 +25,7 @@ const InsertTemplate = ( {
 	const [ insertModalOpen, setInsertModalOpen ] = useState( false );
 	const [ authModalOpen, setAuthModalOpen ] = useState( false );
 	const [ requiredPlugins, setRequiredPlugins ] = useState( [] );
+	const [ installDirectorist, setInstallDirectorist ] = useState( false );
 
 	const addInsertModal = async ( e ) => {
 		e.preventDefault();
@@ -74,14 +75,21 @@ const InsertTemplate = ( {
 		handlePlugins( required_plugins );
 	}, [] );
 
+	useEffect( () => {
+		if (is_directorist_required) {
+			// setInstallDirectorist(requiredPlugins.some(plugin => plugin.slug === 'directorist'));
+			const directoristPlugin = requiredPlugins.find(plugin => plugin.slug === 'directorist');
+    		setInstallDirectorist(directoristPlugin);
+		}
+	}, [requiredPlugins] );
+
 
 	return (
 		<>
-			{ is_directorist_required && insertModalOpen ? 
+			{ installDirectorist && insertModalOpen ? 
 				insertModalOpen && 
 					(<InstallPluginModal
-						item={ item }
-						is_directorist_required={ is_directorist_required }
+						install_directorist={ installDirectorist }
 						onClose={ handleInsertModalClose }
 					/>)  :
 				insertModalOpen && (
