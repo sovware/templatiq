@@ -58,4 +58,29 @@ class DirectoristRepository {
 
 		return $data;
 	}
+
+	public function get_directory_types(): array {
+		$listing_types = get_terms( [
+			'taxonomy'   => 'atbdp_listing_types',
+			'hide_empty' => false,
+			'orderby'    => 'date',
+			'order'      => 'DESC',
+		] );
+
+		foreach ( $listing_types as $key => $type ) {
+			$listing_types[$key]->meta = $this->get_directory_type_meta( $type->term_id );
+		}
+
+		return $listing_types;
+	}
+
+	private function get_directory_type_meta( $id ) {
+		$meta_val_with_array = get_term_meta( $id, '', true );
+		$meta                = [];
+		foreach ( $meta_val_with_array as $key => $value ) {
+			$meta[$key] = $value[0];
+		}
+
+		return $meta;
+	}
 }
