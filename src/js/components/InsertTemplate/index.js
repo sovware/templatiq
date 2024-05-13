@@ -32,16 +32,11 @@ const InsertTemplate = ( {
 
 	const addInsertModal = async ( e ) => {
 		e.stopPropagation();
+		console.log('addInsertModal', template_id, isPro)
 
 		if (isPro) {
 			console.log('Template is Pro', isPro, template_id)
 			setProTemplate(true);
-		}
-
-		if (is_directorist_required) {
-			console.log('Directorist is required', is_directorist_required, template_id)
-			const directoristPlugin = requiredPlugins.find(plugin => plugin.slug === 'directorist');
-    		setInstallDirectorist(directoristPlugin);
 		}
 
 		document
@@ -82,6 +77,7 @@ const InsertTemplate = ( {
 
 	const handlePlugins = async ( plugins ) => {
 		postData( dependencyCheckEndPoint, { plugins } ).then( ( data ) => {
+			console.log('handlePlugins', data)
 			setRequiredPlugins( data );
 		} );
 	};
@@ -89,6 +85,13 @@ const InsertTemplate = ( {
 	useEffect( () => {
 		handlePlugins( required_plugins );
 	}, [] );
+
+	useEffect( () => {
+		if (is_directorist_required) {
+			const directoristPlugin = requiredPlugins.find(plugin => plugin.slug === 'directorist');
+    		setInstallDirectorist(directoristPlugin);
+		}
+	}, [requiredPlugins] );
 
 
 
