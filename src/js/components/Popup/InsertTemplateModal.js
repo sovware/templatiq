@@ -5,19 +5,19 @@ import { InsertTemplateModalStyle } from './style';
 
 import closeIcon from '@icon/close.svg';
 
-const InsertTemplateModal = ( { item, onClose } ) => {
-	const { template_id, builder, required_plugins } = item;
+const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
+	const { template_id, builder } = item;
 
 	const installPluginEndPoint = 'templatiq/dependency/install';
 	const importAsPageEndPoint = 'templatiq/template/import-as-page';
 
 	const installablePlugins = required_plugins.filter(
 		( plugin ) =>
-			! plugin.hasOwnProperty( 'is_pro' ) || plugin.is_pro === 'false'
+			! plugin.hasOwnProperty( 'is_pro' ) || plugin.is_pro === false
 	);
 	const proPlugins = required_plugins.filter(
 		( plugin ) =>
-			plugin.hasOwnProperty( 'is_pro' ) && plugin.is_pro === 'true'
+			plugin.hasOwnProperty( 'is_pro' ) && plugin.is_pro === true
 	);
 
 	let [ selectedPlugins, setSelectedPlugins ] = useState( [] );
@@ -183,19 +183,31 @@ const InsertTemplateModal = ( { item, onClose } ) => {
 		} );
 	};
 
-	// Check if all requiredPlugins are available in installedPlugins
-	useEffect( () => {
-		const allRequiredPluginsInstalled = installablePlugins.length > 0 && installablePlugins.every(
-			( plugin ) => installedPlugins.includes( plugin.slug )
-		);
-
-		if ( allRequiredPluginsInstalled ) {
+	const requiredPluginStatusCheck = () => {
+		if(installablePlugins.length === 0) {
 			setAllPluginsInstalled( true );
 			setSelectedPlugins( [] );
+		} else {
+			const allRequiredPluginsInstalled = installablePlugins.every(
+				( plugin ) => installedPlugins.includes( plugin.slug )
+			);
+	
+			if ( allRequiredPluginsInstalled ) {
+				setAllPluginsInstalled( true );
+				setSelectedPlugins( [] );
+			}
 		}
-	}, [ installedPlugins, installablePlugins ] );
+		
+	}
+
+	// Check if all requiredPlugins are available in installedPlugins
+	useEffect( () => {
+		requiredPluginStatusCheck();
+	}, [ installedPlugins ] );
 
 	useEffect( () => {
+		requiredPluginStatusCheck();
+
 		// Check if the 'elementor-editor-active' class is present on the body element
 		const isElementorEditorActive = document.body.classList.contains(
 			'elementor-editor-active'

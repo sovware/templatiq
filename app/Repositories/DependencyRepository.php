@@ -26,7 +26,7 @@ class DependencyRepository {
 
 		if ( is_wp_error( $result ) ) {
 			throw new \Exception(
-				__( "Can't install this plugin" ),
+				__( "Can't install this plugin", 'templatiq' ),
 				401
 			);
 		}
