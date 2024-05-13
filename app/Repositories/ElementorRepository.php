@@ -10,6 +10,7 @@ namespace Templatiq\Repositories;
 use Elementor\Core\Settings\Page\Model;
 use Elementor\Plugin as ElementorPlugin;
 use Elementor\TemplateLibrary\Source_Local as ElementorLocal;
+use Templatiq\DTO\TemplateDataDTO;
 use Templatiq\Utils\Http;
 use Templatiq\Utils\Options;
 use Templatiq\Utils\Response;
@@ -21,35 +22,28 @@ class ElementorRepository extends ElementorLocal {
 		$this->cloud_endpoint = TEMPLATIQ_CLOUD_BASE;
 	}
 
-	public function create_page( array $template_data, string $title ): int {
-		$template_data = $this->get_data( $template_data );
+	public function create_page( TemplateDataDTO $template_data ): int {
+		$this->process_content( $template_data );
 		$page_settings = $this->page_settings( $template_data );
 
-		$defaults = [
-			'post_title'    => $title ?? 'Templatiq: ' . $template_data['title'],
-			'page_settings' => $page_settings,
-			'status'        => current_user_can( 'publish_posts' ) ? 'publish' : 'pending',
-		];
-
-		$template_data = wp_parse_args( $template_data, $defaults );
-
 		$document = ElementorPlugin::$instance->documents->create(
-			$template_data['type'],
+			$template_data->get_type(),
 			[
-				'post_title'  => $template_data['post_title'],
-				'post_status' => $template_data['status'],
+				'post_title'  => $template_data->get_title(),
+				'post_status' => $template_data->get_status(),
 				'post_type'   => 'page',
 			]
 		);
 
 		if ( is_wp_error( $document ) ) {
-			error_log( print_r( $document, true ) );
-
-			return 0;
+			throw new \Exception(
+				$document->get_error_message(),
+				$document->get_error_code()
+			);
 		}
 
 		$document->save( [
-			'elements' => $template_data['content'],
+			'elements' => $template_data->get_content(),
 			'settings' => $page_settings,
 		] );
 
@@ -64,13 +58,14 @@ class ElementorRepository extends ElementorLocal {
 		return $data;
 	}
 
-	private function page_settings( array $template_data ): array {
+	private function page_settings( TemplateDataDTO $template_data ) {
 		$page_settings = [];
 
-		if ( ! empty( $template_data['page_settings'] ) ) {
+		$_page_settings = $template_data->get_page_settings();
+		if ( ! empty( $_page_settings ) ) {
 			$page = new Model( [
 				'id'       => 0,
-				'settings' => $template_data['page_settings'],
+				'settings' => $_page_settings,
 			] );
 
 			$page_settings_data = $this->process_element_export_import_content( $page, 'on_import' );
@@ -83,13 +78,13 @@ class ElementorRepository extends ElementorLocal {
 		return $page_settings;
 	}
 
-	public function get_data( array $args ): array {
+	public function process_content( TemplateDataDTO $template_data ) {
 		ElementorPlugin::$instance->editor->set_edit_mode( true );
 
-		$args['content'] = $this->replace_elements_ids( $args['content'] );
-		$args['content'] = $this->process_export_import_content( $args['content'], 'on_import' );
+		$content = $this->replace_elements_ids( $template_data->get_content() );
+		$content = $this->process_export_import_content( $content, 'on_import' );
 
-		return $args;
+		$template_data->set_content( $content );
 	}
 
 	public function get_library_data() {
@@ -98,6 +93,7 @@ class ElementorRepository extends ElementorLocal {
 			[
 				'token' => Options::get( 'token' ),
 			] )
+
 			->get()
 			->response();
 

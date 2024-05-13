@@ -7,9 +7,7 @@
 
 namespace Templatiq\DTO;
 
-use Templatiq\Abstracts\DTOBase;
-
-class PluginDTO extends DTOBase {
+class PluginDTO {
 	public string $name;
 	public string $file_name;
 	public string $slug;
