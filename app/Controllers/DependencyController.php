@@ -84,4 +84,26 @@ class DependencyController extends ControllerBase {
 			);
 		}
 	}
+
+	public function activate_theme() {
+		try {
+			switch_theme( 'oceanwp' );
+
+			error_log( print_r( 'theme activated ', true ) );
+
+			return Response::success(
+				[
+					'success' => true,
+					'message' => __( 'Theme Activated', 'templatiq' ),
+				]
+			);
+		} catch ( \Throwable $th ) {
+			return Response::error(
+				'theme_activate_errors',
+				$th->getMessage(),
+				__FUNCTION__,
+				$th->getCode()
+			);
+		}
+	}
 }

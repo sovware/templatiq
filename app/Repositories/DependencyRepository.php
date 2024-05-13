@@ -84,13 +84,11 @@ class DependencyRepository {
 		$_plugins     = $this->get();
 		$is_installed = isset( $_plugins[$plugin->get_file_name()] );
 
-		if ( true === $plugin->get_is_pro() ) {
-			if ( ! $is_installed ) {
-				throw new \Exception(
-					__( "Can't install pro plugin, have to install it manually first", 'templatiq' ),
-					401
-				);
-			}
+		if ( $plugin->get_is_pro() && ! $is_installed ) {
+			throw new \Exception(
+				__( "Can't install pro plugin, have to install it manually first", 'templatiq' ),
+				401
+			);
 		}
 
 		if ( ! $is_installed ) {
