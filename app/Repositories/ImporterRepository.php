@@ -7,7 +7,7 @@
 
 namespace Templatiq\Repositories;
 
-use Templatiq\Integrations\ElementorRepository;
+use Templatiq\Repositories\ElementorRepository;
 use Templatiq\Utils\Http;
 use Templatiq\Utils\Options;
 use Templatiq\Utils\Response;

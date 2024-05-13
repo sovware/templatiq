@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace Templatiq\Integrations;
+namespace Templatiq\Repositories;
 
 use Elementor\Core\Settings\Page\Model;
 use Elementor\Plugin as ElementorPlugin;
