@@ -1,20 +1,20 @@
-import { lazy, Suspense, useState, useEffect } from '@wordpress/element';
+import store from '@store/index';
+import { select, subscribe } from '@wordpress/data';
+import { Suspense, lazy, useEffect, useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import ReactPaginate from 'react-paginate';
-import { select, subscribe } from '@wordpress/data';
-import store from '@store/index';
 
-import { TemplatePackFilterStyle } from '@root/style';
-import Searchform from '@components/Searchform';
 import ContentLoading from '@components/ContentLoading';
+import Searchform from '@components/Searchform';
+import { TemplatePackFilterStyle } from '@root/style';
 
 const SingleTemplate = lazy( () => import( '@components/SingleTemplate' ) );
 
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 
-import crownIcon from '@icon/crown.svg';
 import arrowLeft from '@icon/angle-left.svg';
 import arrowRight from '@icon/angle-right.svg';
+import crownIcon from '@icon/crown.svg';
 
 export default function AllTemplates( props ) {
 	const { templateType, templateStatus } = props;
@@ -340,6 +340,9 @@ export default function AllTemplates( props ) {
 											number_of_bookmarks={
 												template.number_of_bookmarks
 											}
+											is_directorist_required={
+												template.is_directorist_required
+											}
 											required_plugins={
 												template.required_plugins
 											}
@@ -381,6 +384,9 @@ export default function AllTemplates( props ) {
 											}
 											number_of_bookmarks={
 												template.number_of_bookmarks
+											}
+											is_directorist_required={
+												template.is_directorist_required
 											}
 											required_plugins={
 												template.required_plugins
@@ -424,6 +430,9 @@ export default function AllTemplates( props ) {
 											}
 											number_of_bookmarks={
 												template.number_of_bookmarks
+											}
+											is_directorist_required={
+												template.is_directorist_required
 											}
 											required_plugins={
 												template.required_plugins

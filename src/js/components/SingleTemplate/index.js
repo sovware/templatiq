@@ -1,15 +1,15 @@
+import Bookmark from '@components/Bookmark';
+import ContentLoading from '@components/ContentLoading';
+import InsertTemplate from '@components/InsertTemplate';
+import store from '@store/index';
 import { select } from '@wordpress/data';
-import { useState, useEffect, useRef } from '@wordpress/element';
+import { useEffect, useRef, useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { Link } from 'react-router-dom';
-import Bookmark from '@components/Bookmark';
-import InsertTemplate from '@components/InsertTemplate';
-import ContentLoading from '@components/ContentLoading';
 import { SingleTemplateStyle } from './style';
-import store from '@store/index';
 
-import crownIcon from '@icon/crown.svg';
 import cartIcon from '@icon/cart.svg';
+import crownIcon from '@icon/crown.svg';
 import downloadIcon from '@icon/download-alt.svg';
 
 const SingleTemplate = ( item ) => {

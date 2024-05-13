@@ -127,7 +127,6 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	};
 
 	const importData = async ( pageTitle, template_id, builder ) => {
-		console.log( 'importData', pageTitle, template_id, builder)
 		setLoading( true );
 		postData( importAsPageEndPoint, {
 			title: pageTitle,
@@ -223,7 +222,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	return (
 		<>
 			<InsertTemplateModalStyle
-				className={ `templatiq__modal templatiq__modal--required ${
+				className={ `templateInsert templatiq__modal templatiq__modal--required ${
 					loading && allPluginsInstalled ? 'templatiq__loading' : ''
 				}` }
 			>

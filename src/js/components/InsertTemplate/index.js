@@ -6,6 +6,7 @@ import { useEffect, useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 
 import InsertTemplateModal from '@components/Popup/InsertTemplateModal';
+import InstallPluginModal from '@components/Popup/installPluginModal';
 import downloadAltIcon from '@icon/download-alt.svg';
 import downloadIcon from '@icon/download.svg';
 
@@ -16,7 +17,7 @@ const InsertTemplate = ( {
 	innerText,
 	solidIcon,
 } ) => {
-	let { template_id, required_plugins, type } = item;
+	let { template_id, required_plugins, type, is_directorist_required } = item;
 
 	const dependencyCheckEndPoint = 'templatiq/dependency/check';
 
@@ -73,15 +74,24 @@ const InsertTemplate = ( {
 		handlePlugins( required_plugins );
 	}, [] );
 
+
 	return (
 		<>
-			{ insertModalOpen && requiredPlugins && (
-				<InsertTemplateModal
-					item={ item }
-					required_plugins={ requiredPlugins }
-					onClose={ handleInsertModalClose }
-				/>
-			) }
+			{ is_directorist_required && insertModalOpen ? 
+				insertModalOpen && 
+					(<InstallPluginModal
+						item={ item }
+						is_directorist_required={ is_directorist_required }
+						onClose={ handleInsertModalClose }
+					/>)  :
+				insertModalOpen && (
+					(<InsertTemplateModal
+						item={ item }
+						required_plugins={ requiredPlugins }
+						onClose={ handleInsertModalClose }
+					/>) 
+				)
+			}
 			{ authModalOpen && (
 				<AuthModal
 					modalEnable={ true }
