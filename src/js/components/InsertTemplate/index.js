@@ -78,7 +78,6 @@ const InsertTemplate = ( {
 			{ insertModalOpen && requiredPlugins && (
 				<InsertTemplateModal
 					item={ item }
-					// required_plugins={ requiredPlugins }
 					onClose={ handleInsertModalClose }
 				/>
 			) }
