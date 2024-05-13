@@ -74,7 +74,6 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	};
 
 	const installPlugin = async ( plugin ) => {
-		console.log('Install Plugin', plugin)
 		setLoading( true );
 		setDisableButton( true );
 		setInstallingPlugins( ( prevInstalling ) => [
@@ -84,7 +83,6 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 		try {
 			const installResponse = await new Promise( ( resolve, reject ) => {
 				postData( installPluginEndPoint, { plugin } ).then( ( res ) => {
-					console.log('Install Response', res)
 					setLoading( false );
 					if ( res.success ) {
 						setInstalledPlugins( ( prevInstalled ) => [
@@ -129,6 +127,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	};
 
 	const importData = async ( pageTitle, template_id, builder ) => {
+		console.log( 'importData', pageTitle, template_id, builder)
 		setLoading( true );
 		postData( importAsPageEndPoint, {
 			title: pageTitle,
