@@ -6,12 +6,14 @@ import { useEffect, useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 
 import InsertTemplateModal from '@components/Popup/InsertTemplateModal';
+import InsertProModal from '@components/Popup/insertProModal';
 import InstallPluginModal from '@components/Popup/installPluginModal';
 import downloadAltIcon from '@icon/download-alt.svg';
 import downloadIcon from '@icon/download.svg';
 
 const InsertTemplate = ( {
 	item,
+	isPro,
 	templateRef,
 	className,
 	innerText,
@@ -26,9 +28,22 @@ const InsertTemplate = ( {
 	const [ authModalOpen, setAuthModalOpen ] = useState( false );
 	const [ requiredPlugins, setRequiredPlugins ] = useState( [] );
 	const [ installDirectorist, setInstallDirectorist ] = useState( false );
+	const [ proTemplate, setProTemplate ] = useState( false );
 
 	const addInsertModal = async ( e ) => {
-		e.preventDefault();
+		e.stopPropagation();
+
+		if (isPro) {
+			console.log('Template is Pro', isPro, template_id)
+			setProTemplate(true);
+		}
+
+		if (is_directorist_required) {
+			console.log('Directorist is required', is_directorist_required, template_id)
+			const directoristPlugin = requiredPlugins.find(plugin => plugin.slug === 'directorist');
+    		setInstallDirectorist(directoristPlugin);
+		}
+
 		document
 			.querySelector( '.templatiq' )
 			.classList.add( 'templatiq-overlay-enable' );
@@ -48,7 +63,7 @@ const InsertTemplate = ( {
 	};
 
 	const addAuthModal = ( e ) => {
-		e.preventDefault();
+		e.stopPropagation();
 		document
 			.querySelector( '.templatiq' )
 			.classList.add( 'templatiq-overlay-enable' );
@@ -75,31 +90,31 @@ const InsertTemplate = ( {
 		handlePlugins( required_plugins );
 	}, [] );
 
-	useEffect( () => {
-		if (is_directorist_required) {
-			// setInstallDirectorist(requiredPlugins.some(plugin => plugin.slug === 'directorist'));
-			const directoristPlugin = requiredPlugins.find(plugin => plugin.slug === 'directorist');
-    		setInstallDirectorist(directoristPlugin);
-		}
-	}, [requiredPlugins] );
 
 
 	return (
 		<>
-			{ installDirectorist && insertModalOpen ? 
-				insertModalOpen && 
-					(<InstallPluginModal
-						install_directorist={ installDirectorist }
-						onClose={ handleInsertModalClose }
-					/>)  :
-				insertModalOpen && (
-					(<InsertTemplateModal
-						item={ item }
-						required_plugins={ requiredPlugins }
-						onClose={ handleInsertModalClose }
-					/>) 
+			{!proTemplate && insertModalOpen && (
+				installDirectorist ? (
+					<InstallPluginModal
+						install_directorist={installDirectorist}
+						onClose={handleInsertModalClose}
+					/>
+				) : (
+					<InsertTemplateModal
+						item={item}
+						required_plugins={requiredPlugins}
+						onClose={handleInsertModalClose}
+					/>
 				)
-			}
+			)}
+
+			{proTemplate && insertModalOpen && (
+				<InsertProModal 
+					onClose={handleInsertModalClose}
+				/>
+			)}
+
 			{ authModalOpen && (
 				<AuthModal
 					modalEnable={ true }

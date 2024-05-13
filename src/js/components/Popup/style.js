@@ -210,6 +210,17 @@ const InsertTemplateModalStyle = Styled.div`
             margin: 20px 0 0;
         }
     }
+    &.templatiq__modal--pro {
+        text-align: center;
+        .templatiq__modal__title {
+            text-align: center;
+        }
+        .templatiq__modal__content {
+            .templatiq-btn {
+                margin: 20px 0 0;
+            }
+        }
+    }
 `;
 
 const AuthModalStyle = Styled.div`

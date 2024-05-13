@@ -222,7 +222,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	return (
 		<>
 			<InsertTemplateModalStyle
-				className={ `templateInsert templatiq__modal templatiq__modal--required ${
+				className={ `templatiq__modal templatiq__modal--required ${
 					loading && allPluginsInstalled ? 'templatiq__loading' : ''
 				}` }
 			>

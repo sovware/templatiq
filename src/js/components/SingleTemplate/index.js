@@ -8,7 +8,6 @@ import ReactSVG from 'react-inlinesvg';
 import { Link } from 'react-router-dom';
 import { SingleTemplateStyle } from './style';
 
-import cartIcon from '@icon/cart.svg';
 import crownIcon from '@icon/crown.svg';
 import downloadIcon from '@icon/download-alt.svg';
 
@@ -101,7 +100,15 @@ const SingleTemplate = ( item ) => {
 						>
 							Live Demo
 						</a>
-						{ price > 0 ? (
+						<InsertTemplate
+							item={ item }
+							isPro={ price > 0 }
+							templateRef={ templateRef }
+							className={
+								'templatiq__template__single__info__action__link insert-btn tmTemplateLibrary__insert-button'
+							}
+						/>
+						{/* { price > 0 ? (
 							<a
 								href={ purchase_url }
 								target="_blank"
@@ -117,12 +124,13 @@ const SingleTemplate = ( item ) => {
 						) : (
 							<InsertTemplate
 								item={ item }
+								isPro={ price > 0 }
 								templateRef={ templateRef }
 								className={
 									'templatiq__template__single__info__action__link insert-btn tmTemplateLibrary__insert-button'
 								}
 							/>
-						) }
+						) } */}
 					</div>
 					<div className="templatiq__template__single__info__required">
 						{ required_plugins &&
