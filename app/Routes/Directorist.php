@@ -15,6 +15,6 @@ class Directorist extends RouteBase {
 
 	public function register_routes(): void {
 		$this->post( $this->endpoint . '/erase-existing-data', [DirectoristController::class, 'erase_existing_data'] );
-		$this->post( $this->endpoint . '/add-custom-page', [DirectoristController::class, 'add_custom_page'] );
+		// $this->post( $this->endpoint . '/add-custom-page', [DirectoristController::class, 'add_custom_page'] );
 	}
 }
