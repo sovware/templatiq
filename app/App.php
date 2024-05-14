@@ -15,6 +15,7 @@ use Templatiq\Routes\Account;
 use Templatiq\Routes\Bookmark;
 use Templatiq\Routes\Cache;
 use Templatiq\Routes\Dependency;
+use Templatiq\Routes\Directorist;
 use Templatiq\Routes\ElementorAjax;
 use Templatiq\Routes\Template;
 use Templatiq\Utils\Singleton;
@@ -42,6 +43,7 @@ class App {
 		Template::init();
 		Cache::init();
 		Bookmark::init();
+		Directorist::init();
 		ElementorAjax::init();
 
 		/**

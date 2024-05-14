@@ -161,7 +161,7 @@ class DependencyRepository {
 		];
 	}
 
-	private function includes(): void {
+	public function includes(): void {
 		if ( ! function_exists( 'is_plugin_active' ) || ! function_exists( 'get_plugins' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
