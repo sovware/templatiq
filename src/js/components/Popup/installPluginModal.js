@@ -10,6 +10,8 @@ const InstallPluginModal = ( { onClose, install_directorist } ) => {
 	const history = useNavigate();
 	const installPluginEndPoint = 'templatiq/dependency/install';
 
+	console.log('InstallPluginModal', item)
+
 	let [ installingPlugin, setInstallingPlugin ] = useState( false );
 	let [ installedPlugin, setInstalledPlugin ] = useState( false );
 

@@ -82,6 +82,7 @@ const InsertTemplate = ( {
 
 	const handlePlugins = async ( plugins ) => {
 		postData( dependencyCheckEndPoint, { plugins } ).then( ( data ) => {
+			console.log('Plugin DependencyCheck', data)
 			setRequiredPlugins( data );
 		} );
 	};
@@ -97,39 +98,45 @@ const InsertTemplate = ( {
 		}
 	}, [requiredPlugins] );
 
-
-
 	return (
-		<>
-			{!proTemplate && insertModalOpen && (
-				installDirectorist ? (
-					<InstallPluginModal
-						install_directorist={installDirectorist}
-						onClose={handleInsertModalClose}
-					/>
-				) : (
-					<InsertTemplateModal
-						item={item}
-						required_plugins={requiredPlugins}
-						onClose={handleInsertModalClose}
-					/>
-				)
-			)}
-
+		<>	
 			{proTemplate && insertModalOpen && (
 				<InsertProModal 
+					item={item}
 					onClose={handleInsertModalClose}
 				/>
 			)}
 
-			{insertFullSite && insertModalOpen && (
+			{!proTemplate && requiredPlugins && insertModalOpen && (
+				<InsertTemplateModal
+					item={item}
+					required_plugins={requiredPlugins}
+					onClose={handleInsertModalClose}
+				/>
+			)}
+
+			{!proTemplate && installDirectorist && insertModalOpen && (
+				<InstallPluginModal
+					install_directorist={installDirectorist}
+					onClose={handleInsertModalClose}
+				/>
+			)}
+
+			{!proTemplate && installDirectorist && insertModalOpen && (
+				<InstallPluginModal
+					install_directorist={installDirectorist}
+					onClose={handleInsertModalClose}
+				/>
+			)}
+
+			{!proTemplate && insertFullSite && insertModalOpen && (
 				<InsertFullsiteModal
 					item={item}
 					onClose={handleInsertModalClose}
 				/>
 			)}
 
-			{directoryType && insertModalOpen && (
+			{!proTemplate && directoryType && insertModalOpen && (
 				<InsertDirectoryTypeModal
 					item={item}
 					onClose={handleInsertModalClose}

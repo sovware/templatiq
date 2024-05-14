@@ -3,7 +3,9 @@ import { InsertTemplateModalStyle } from './style';
 
 import closeIcon from '@icon/close.svg';
 
-const InsertProModal = ( { onClose } ) => {
+const InsertProModal = ( { item, onClose } ) => {
+	console.log('InsertProModal', item);
+	
 	let closeInsertTemplateModal = ( e ) => {
 		e.preventDefault();
 		let templatiqRoot = document.querySelector( '.templatiq' );

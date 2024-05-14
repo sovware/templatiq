@@ -7,7 +7,6 @@ import closeIcon from '@icon/close.svg';
 
 const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	const { template_id } = item;
-	console.log('InsertTemplateModal', item)
 
 	const installPluginEndPoint = 'templatiq/dependency/install';
 	const importAsPageEndPoint = 'templatiq/template/import-as-page';
@@ -24,6 +23,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	let [ selectedPlugins, setSelectedPlugins ] = useState( [] );
 	let [ pageTitle, setPageTitle ] = useState( '' );
 	let [ loading, setLoading ] = useState( false );
+	let [ errorMsg, setErrorMsg ] = useState( false );
 
 	const [ installingPlugins, setInstallingPlugins ] = useState( [] );
 	const [ installedPlugins, setInstalledPlugins ] = useState( [] );
@@ -194,6 +194,8 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 			if ( allRequiredPluginsInstalled ) {
 				setAllPluginsInstalled( true );
 				setSelectedPlugins( [] );
+			} else {
+				setErrorMsg( 'Something went wrong, Please Try again.' );
 			}
 		}
 		
@@ -232,7 +234,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 					onSubmit={ handlePopUpForm }
 				>
 					<div className="templatiq__modal__content">
-						{ ! importedData ? (
+						{ ! importedData && ! errorMsg ? (
 							<>
 								<h2 className="templatiq__modal__title">
 									{ ! allPluginsInstalled
@@ -454,7 +456,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 									</button>
 								</div>
 							</>
-						) : (
+						) : importedData ? (
 							<>
 								<h2 className="templatiq__modal__title">
 									Imported Successfully
@@ -483,6 +485,16 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 									</a>
 								</div>
 							</>
+						) : (
+							<>
+								<h2 className="templatiq__modal__title text-center">
+									Error
+								</h2>
+								<p className="templatiq__modal__desc text-danger text-center">
+									{ errorMsg }
+								</p>
+							</>
+						
 						) }
 					</div> 
 				</form>

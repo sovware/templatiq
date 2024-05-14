@@ -5,6 +5,7 @@ import closeIcon from '@icon/close.svg';
 
 const InsertFullsiteModal = ( { item, onClose } ) => {
 	const { template_id } = item;
+	console.log('InsertFullsiteModal', item);
 
 	let closeInsertTemplateModal = ( e ) => {
 		e.preventDefault();
