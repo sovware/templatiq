@@ -77,7 +77,7 @@ const InsertTemplate = ( {
 
 	const handlePlugins = async ( plugins ) => {
 		postData( dependencyCheckEndPoint, { plugins } ).then( ( data ) => {
-			console.log('handlePlugins', data)
+			console.log('handlePlugins', data);
 			setRequiredPlugins( data );
 		} );
 	};
@@ -88,7 +88,7 @@ const InsertTemplate = ( {
 
 	useEffect( () => {
 		if (is_directorist_required) {
-			const directoristPlugin = requiredPlugins.find(plugin => plugin.slug === 'directorist');
+			const directoristPlugin = requiredPlugins.length && requiredPlugins.find(plugin => plugin.slug === 'directorist');
     		setInstallDirectorist(directoristPlugin);
 		}
 	}, [requiredPlugins] );

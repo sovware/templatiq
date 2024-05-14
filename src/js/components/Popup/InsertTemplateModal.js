@@ -11,11 +11,11 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	const installPluginEndPoint = 'templatiq/dependency/install';
 	const importAsPageEndPoint = 'templatiq/template/import-as-page';
 
-	const installablePlugins = required_plugins.filter(
+	const installablePlugins = required_plugins.length && required_plugins.filter(
 		( plugin ) =>
 			! plugin.hasOwnProperty( 'is_pro' ) || plugin.is_pro === false
 	);
-	const proPlugins = required_plugins.filter(
+	const proPlugins = required_plugins.length && required_plugins.filter(
 		( plugin ) =>
 			plugin.hasOwnProperty( 'is_pro' ) && plugin.is_pro === true
 	);
@@ -182,11 +182,11 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	};
 
 	const requiredPluginStatusCheck = () => {
-		if(installablePlugins.length === 0) {
+		if(installablePlugins && installablePlugins.length === 0) {
 			setAllPluginsInstalled( true );
 			setSelectedPlugins( [] );
 		} else {
-			const allRequiredPluginsInstalled = installablePlugins.every(
+			const allRequiredPluginsInstalled = installablePlugins && installablePlugins.every(
 				( plugin ) => installedPlugins.includes( plugin.slug )
 			);
 	

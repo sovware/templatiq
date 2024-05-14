@@ -1,12 +1,12 @@
-import { lazy, Suspense, useState, useEffect } from '@wordpress/element';
-import { applyFilters } from '@wordpress/hooks';
-import { HashRouter, Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
-import fetchData from '@helper/fetchData';
 import ContentLoading from '@components/ContentLoading';
+import fetchData from '@helper/fetchData';
+import { Suspense, lazy, useEffect, useState } from '@wordpress/element';
+import { applyFilters } from '@wordpress/hooks';
+import { HashRouter, Route, Routes } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
 
-import { dispatch, useSelect } from '@wordpress/data';
 import store from '@store/index';
+import { dispatch } from '@wordpress/data';
 
 const TemplatePack = lazy( () => import( './pages/TemplatePack' ) );
 const TemplateDetails = lazy( () => import( './pages/TemplateDetails' ) );
