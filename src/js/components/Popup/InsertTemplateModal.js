@@ -6,7 +6,9 @@ import { InsertTemplateModalStyle } from './style';
 import closeIcon from '@icon/close.svg';
 
 const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
-	const { template_id } = item;
+	const { template_id, builder, directory_page_type } = item;
+	console.log('InsertTemplateModal', builder, directory_page_type, item);
+	const directoryType = template_market_obj?.directory_types;
 
 	const installPluginEndPoint = 'templatiq/dependency/install';
 	const importAsPageEndPoint = 'templatiq/template/import-as-page';
@@ -21,13 +23,16 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	);
 
 	let [ selectedPlugins, setSelectedPlugins ] = useState( [] );
+	let [ selectedTypes, setSelectedTypes ] = useState( [] );
+	let [ submittedTypes, setSubmittedTypes ] = useState( [] );
+	let [ disableButtonType, setDisableButtonType ] = useState( true );
 	let [ pageTitle, setPageTitle ] = useState( '' );
 	let [ loading, setLoading ] = useState( false );
 	let [ errorMsg, setErrorMsg ] = useState( false );
 
 	const [ installingPlugins, setInstallingPlugins ] = useState( [] );
 	const [ installedPlugins, setInstalledPlugins ] = useState( [] );
-	const [ disableButton, setDisableButton ] = useState( true );
+	const [ disableButtonInstall, setDisableButtonInstall ] = useState( true );
 
 	const [ allPluginsInstalled, setAllPluginsInstalled ] = useState( false );
 	const [ importedData, setImportedData ] = useState( false );
@@ -56,9 +61,21 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 
 		setSelectedPlugins( updatedPlugins );
 
-		setDisableButton( updatedPlugins.length === 0 );
+		setDisableButtonInstall( updatedPlugins.length === 0 );
 
 		return updatedPlugins;
+	};
+
+	const handleTypeChange = ( type ) => {
+		const updatedTypes = selectedTypes.includes( type )
+			? selectedTypes.filter( ( c ) => c !== type )
+			: [ ...selectedTypes, type ];
+
+		setSelectedTypes( updatedTypes );
+
+		setDisableButtonType( updatedTypes.length === 0 );
+
+		return updatedTypes;
 	};
 
 	const handlePopUpForm = async ( e ) => {
@@ -76,7 +93,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 
 	const installPlugin = async ( plugin ) => {
 		setLoading( true );
-		setDisableButton( true );
+		setDisableButtonInstall( true );
 		setInstallingPlugins( ( prevInstalling ) => [
 			...prevInstalling,
 			plugin.slug,
@@ -107,6 +124,11 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 		}
 	};
 
+	const handleSelectedType = ( e ) => {
+		e.preventDefault();
+		setSubmittedTypes( selectedTypes );
+	};
+
 	const requestTemplateData = async ( template_id, ajaxOptions ) => {
 		var options = {
 			unique_id: template_id,
@@ -127,15 +149,18 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 		);
 	};
 
-	const importData = async ( pageTitle, template_id, builder ) => {
+	const importData = async ( pageTitle, template_id, builder, pageType, directoryTypes ) => {
+		console.log('importData', pageTitle, template_id, builder, pageType, directoryTypes);
 		setLoading( true );
 		postData( importAsPageEndPoint, {
 			title: pageTitle,
 			template_id: template_id,
-			builder: builder,
+			builder,
+			pageType,
+			directoryTypes
 		} ).then( ( res ) => {
 			setLoading( false );
-
+			console.log('importData res', res)
 			if ( res.post_id ) {
 				setImportedData( res );
 			}
@@ -195,7 +220,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 				setAllPluginsInstalled( true );
 				setSelectedPlugins( [] );
 			} else {
-				setErrorMsg( 'Something went wrong, Please Try again.' );
+				// setErrorMsg( 'Something went wrong, Please Try again.' );
 			}
 		}
 		
@@ -234,7 +259,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 					onSubmit={ handlePopUpForm }
 				>
 					<div className="templatiq__modal__content">
-						{ ! importedData && ! errorMsg ? (
+						{ !importedData && !directoryType && ! errorMsg ? (
 							<>
 								<h2 className="templatiq__modal__title">
 									{ ! allPluginsInstalled
@@ -286,12 +311,12 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 															>
 																<input
 																	id={
-																		template_id +
+																		'plugin_' + template_id +
 																		'_' +
 																		index
 																	}
 																	name={
-																		template_id +
+																		'plugin_' + template_id +
 																		'_' +
 																		index
 																	}
@@ -311,7 +336,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 
 																<label
 																	htmlFor={
-																		template_id +
+																		'plugin_' + template_id +
 																		'_' +
 																		index
 																	}
@@ -346,12 +371,12 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 															>
 																<input
 																	id={
-																		template_id +
+																		'plugin_' + template_id +
 																		'_pro_' +
 																		index
 																	}
 																	name={
-																		template_id +
+																		'plugin_' + template_id +
 																		'_pro_' +
 																		index
 																	}
@@ -364,7 +389,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 
 																<label
 																	htmlFor={
-																		template_id +
+																		'plugin_' + template_id +
 																		'_pro_' +
 																		index
 																	}
@@ -440,7 +465,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 									{ ! allPluginsInstalled ? (
 										<button
 											type="submit"
-											disabled={ disableButton }
+											disabled={ disableButtonInstall }
 											className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-primary"
 										>
 											Install and Proceed to Import
@@ -456,6 +481,123 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 									</button>
 								</div>
 							</>
+						) : !importedData && !errorMsg && directoryType ? (
+								<>
+									<h2 className="templatiq__modal__title">
+										{ ! submittedTypes.length
+											? 'Available Directory Type'
+											: ! elementorEditorEnabled
+											? 'Enter Page Title'
+											: 'Importing...' }
+									</h2>
+									{ submittedTypes.length && ! elementorEditorEnabled ? (
+										<p className="templatiq__modal__desc">
+											Choose the directories where you'd like to include this page. You can choose multiple directories.
+										</p>
+									) : null }
+									<div className="templatiq__modal__plugins">
+									{ ! submittedTypes.length ? (
+										<>
+											{ directoryType && directoryType.map(( type, index ) => {
+												return (
+													<div
+														key={ index }
+														className="templatiq__modal__plugin templatiq__checkbox"
+													>
+														<input
+															id={
+																'type_' + template_id +
+																'_' +
+																index
+															}
+															name={
+																'type_' + template_id +
+																'_' +
+																index
+															}
+															type="checkbox"
+															className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
+															onChange={ () =>
+																handleTypeChange(
+																	type
+																)
+															}
+														/>
+
+														<label
+															htmlFor={
+																'type_' + template_id +
+																'_' +
+																index
+															}
+															className="templatiq__modal__plugin__label templatiq__checkbox__label"
+														>
+															<a
+																href="#"
+																className="templatiq__modal__plugin__link"
+															>
+																{
+																	type.name
+																}
+															</a>
+														</label>
+													</div>
+												)}
+											)}
+										</>
+									) : (
+										<div className="templatiq__modal__page">
+											{ ! elementorEditorEnabled ? (
+												<>
+													<input
+														type="text"
+														className="templatiq__modal__page__title"
+														placeholder="Enter Page Title"
+														onChange={ ( e ) =>
+															handlePageTitle( e )
+														}
+													/>
+													<button
+														type="button"
+														className="templatiq__modal__page__button templatiq-btn templatiq-btn-primary"
+														onClick={ () =>
+															importData(
+																pageTitle,
+																template_id,
+																builder,
+																directory_page_type,
+																submittedTypes
+															)
+														}
+														disabled={
+															pageTitle === ''
+														}
+													>
+														Create a Page
+													</button>
+												</>
+											) : (
+												<p className="templatiq__modal__desc">
+													Elementor Content Importing
+												</p>
+											) }
+										</div>
+									) }
+									</div>
+									<div className="templatiq__modal__actions">
+										{ ! submittedTypes.length ? (
+											<button
+												disabled={ disableButtonType }
+												className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-success"
+												onClick={ (e) => ( handleSelectedType(e))}
+											>
+												Insert Page
+											</button>
+										) : (
+											''
+										) }
+									</div>
+								</>
 						) : importedData ? (
 							<>
 								<h2 className="templatiq__modal__title">

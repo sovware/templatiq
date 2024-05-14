@@ -5,15 +5,13 @@ import { InsertTemplateModalStyle } from './style';
 import closeIcon from '@icon/close.svg';
 
 const InsertDirectoryTypeModal = ( { item, onClose } ) => {
-	const { template_id, required_plugins } = item;
+	const { template_id } = item;
+	const directoryType = template_market_obj?.directory_types;
+
 	let [ selectedTypes, setSelectedTypes ] = useState( [] );
-
-	console.log('InsertDirectoryTypeModal', item)
-
-	const directoristType = required_plugins.length && required_plugins.filter(
-		( type ) =>
-			! type.hasOwnProperty( 'is_pro' ) || type.is_pro === false
-	);
+	
+	console.log('InsertDirectoryTypeModal', item);
+	console.log('directoryTypes', directoryType);
 
 	let closeInsertTemplateModal = ( e ) => {
 		e.preventDefault();
@@ -44,7 +42,7 @@ const InsertDirectoryTypeModal = ( { item, onClose } ) => {
 	};
 
 	const installDirectoryType = async ( type ) => {
-		console.log('installedDirectoryType', type)
+		console.log('chk installedDirectoryType', type)
 	};
 
 	return (
@@ -64,8 +62,8 @@ const InsertDirectoryTypeModal = ( { item, onClose } ) => {
 							Choose the directories where you'd like to include this page. You can choose multiple directories.
 						</p>
 						<div className="templatiq__modal__plugins">
-						{ directoristType &&
-							directoristType.map(
+						{ directoryType &&
+							directoryType.map(
 								( type, index ) => {
 									return (
 										<div
@@ -112,7 +110,8 @@ const InsertDirectoryTypeModal = ( { item, onClose } ) => {
 										</div>
 									);
 								}
-							) }
+							) 
+						}
 						</div>
 						<div className="templatiq__modal__actions">
 							<button

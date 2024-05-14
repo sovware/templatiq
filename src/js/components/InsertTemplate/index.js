@@ -5,7 +5,6 @@ import { select } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 
-import InsertDirectoryTypeModal from '@components/Popup/insertDirectoryTypeModal';
 import InsertFullsiteModal from '@components/Popup/insertFullsiteModal';
 import InsertProModal from '@components/Popup/insertProModal';
 import InsertTemplateModal from '@components/Popup/insertTemplateModal';
@@ -40,13 +39,9 @@ const InsertTemplate = ( {
 			.querySelector( '.templatiq' )
 			.classList.add( 'templatiq-overlay-enable' );
 
-		console.log('addInsertModal', template_id, isPro)
-
 		isPro && setProTemplate(true);
 
 		type === 'pack' && setInsertFullSite(true);
-
-		type === 'page' && setDirectoryType(true);
 
 		// Add the class to the root div using templateRef
 		if ( templateRef && templateRef.current ) {
@@ -82,7 +77,6 @@ const InsertTemplate = ( {
 
 	const handlePlugins = async ( plugins ) => {
 		postData( dependencyCheckEndPoint, { plugins } ).then( ( data ) => {
-			console.log('Plugin DependencyCheck', data)
 			setRequiredPlugins( data );
 		} );
 	};
@@ -122,22 +116,8 @@ const InsertTemplate = ( {
 				/>
 			)}
 
-			{!proTemplate && installDirectorist && insertModalOpen && (
-				<InstallPluginModal
-					install_directorist={installDirectorist}
-					onClose={handleInsertModalClose}
-				/>
-			)}
-
 			{!proTemplate && insertFullSite && insertModalOpen && (
 				<InsertFullsiteModal
-					item={item}
-					onClose={handleInsertModalClose}
-				/>
-			)}
-
-			{!proTemplate && directoryType && insertModalOpen && (
-				<InsertDirectoryTypeModal
 					item={item}
 					onClose={handleInsertModalClose}
 				/>

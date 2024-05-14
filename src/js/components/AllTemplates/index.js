@@ -343,6 +343,9 @@ export default function AllTemplates( props ) {
 											is_directorist_required={
 												template.is_directorist_required
 											}
+											directory_page_type={
+												template.directory_page_type
+											}
 											required_plugins={
 												template.required_plugins
 											}
@@ -387,6 +390,9 @@ export default function AllTemplates( props ) {
 											}
 											is_directorist_required={
 												template.is_directorist_required
+											}
+											directory_page_type={
+												template.directory_page_type
 											}
 											required_plugins={
 												template.required_plugins
@@ -433,6 +439,9 @@ export default function AllTemplates( props ) {
 											}
 											is_directorist_required={
 												template.is_directorist_required
+											}
+											directory_page_type={
+												template.directory_page_type
 											}
 											required_plugins={
 												template.required_plugins
