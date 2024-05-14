@@ -86,6 +86,12 @@ class Enqueuer extends EnqueuerBase {
 	}
 
 	private function get_directory_types() {
-		return ( new DirectoristRepository )->get_directory_types();
+		$directorist = ( new DirectoristRepository );
+
+		if ( ! $directorist->is_active() ) {
+			return [];
+		}
+
+		return $directorist->get_directory_types();
 	}
 }
