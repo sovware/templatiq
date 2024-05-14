@@ -108,29 +108,6 @@ const SingleTemplate = ( item ) => {
 								'templatiq__template__single__info__action__link insert-btn tmTemplateLibrary__insert-button'
 							}
 						/>
-						{/* { price > 0 ? (
-							<a
-								href={ purchase_url }
-								target="_blank"
-								className="templatiq__template__single__info__action__link purchase-btn"
-							>
-								<ReactSVG
-									src={ cartIcon }
-									width={ 14 }
-									height={ 14 }
-								/>
-								Purchase
-							</a>
-						) : (
-							<InsertTemplate
-								item={ item }
-								isPro={ price > 0 }
-								templateRef={ templateRef }
-								className={
-									'templatiq__template__single__info__action__link insert-btn tmTemplateLibrary__insert-button'
-								}
-							/>
-						) } */}
 					</div>
 					<div className="templatiq__template__single__info__required">
 						{ required_plugins &&

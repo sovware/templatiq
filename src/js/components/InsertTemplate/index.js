@@ -28,6 +28,7 @@ const InsertTemplate = ( {
 	const [ authModalOpen, setAuthModalOpen ] = useState( false );
 	const [ requiredPlugins, setRequiredPlugins ] = useState( [] );
 	const [ installDirectorist, setInstallDirectorist ] = useState( false );
+	const [ directoryType, setDirectoryType ] = useState( false );
 	const [ proTemplate, setProTemplate ] = useState( false );
 
 	const addInsertModal = async ( e ) => {
