@@ -94,7 +94,7 @@ const InsertTemplate = ( {
 	useEffect( () => {
 		if (is_directorist_required) {
 			const directoristPlugin = requiredPlugins.length && requiredPlugins.find(plugin => plugin.slug === 'directorist');
-    		setInstallDirectorist(directoristPlugin);
+			setInstallDirectorist(typeof directoristPlugin === 'object' ? directoristPlugin : false);
 		}
 	}, [requiredPlugins] );
 
@@ -149,6 +149,7 @@ const InsertTemplate = ( {
 					onClose={ handleAuthModalClose }
 				/>
 			) }
+
 			<button
 				id={ template_id }
 				className={
@@ -167,49 +168,6 @@ const InsertTemplate = ( {
 				/>
 				{ type !== 'pack' ? innerText ? innerText : 'Insert' : 'Insert Full Site' }
 			</button>
-			{/* {
-				type !== 'pack' ?
-					<button
-						id={ template_id }
-						className={
-							className
-								? className
-								: 'templatiq__template__single__info__action__link insert-btn tmTemplateLibrary__insert-button'
-						}
-						onClick={ ( e ) =>
-							! isLoggedIn ? addAuthModal( e ) : addInsertModal( e )
-						}
-					>
-						<ReactSVG
-							src={ ! solidIcon ? downloadAltIcon : downloadIcon }
-							width={ 14 }
-							height={ 14 }
-						/>
-						{ innerText ? innerText : 'Insert' }
-					</button>
-				:
-				<a
-					href={`?page=starter-templates&template_id=${template_id}`}
-					target='_blank'
-					className={
-						className
-							? className
-							: 'templatiq__template__single__info__action__link insert-btn tmTemplateLibrary__insert-button'
-					}
-					onClick={ ( e ) =>
-						! isLoggedIn ? addAuthModal( e ) : null
-					}
-				>
-					<ReactSVG
-						src={ ! solidIcon ? downloadAltIcon : downloadIcon }
-						width={ 14 }
-						height={ 14 }
-					/>
-					{ innerText ? innerText : `Insert Full Site` }
-				</a>
-		
-			} */}
-			
 		</>
 	);
 };
