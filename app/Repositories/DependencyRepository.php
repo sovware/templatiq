@@ -69,7 +69,7 @@ class DependencyRepository {
 		return get_plugins();
 	}
 
-	private function is_active( string $plugin ): bool {
+	public function is_active( string $plugin ): bool {
 		$this->includes();
 
 		return is_plugin_active( $plugin );
