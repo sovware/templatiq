@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace Templatiq\Repositories;
+namespace Templatiq\Integrations\Directorist;
 
 use Templatiq\Repositories\DependencyRepository;
 use Templatiq\Utils\Http;
@@ -17,7 +17,7 @@ use Templatiq\Utils\Response;
  * & has a valid token
  * & will only unlock the themes design that already purchased
  */
-class DirectoristRepository {
+class Repository {
 	private string $cloud_endpoint;
 
 	public function __construct() {
@@ -90,7 +90,7 @@ class DirectoristRepository {
 		global $wpdb;
 
 		include_once PLUGINDIR . DIRECTORY_SEPARATOR . 'directorist' . DIRECTORY_SEPARATOR . "directorist-base.php";
-		
+
 		// Delete selected pages.
 		wp_delete_post( get_directorist_option( 'add_listing_page' ), true );
 		wp_delete_post( get_directorist_option( 'all_listing_page' ), true );

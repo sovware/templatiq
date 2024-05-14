@@ -5,17 +5,16 @@
  * @version 1.0.0
  */
 
-namespace Templatiq\Controllers;
+namespace Templatiq\Integrations\Directorist;
 
 use Templatiq\Abstracts\ControllerBase;
-use Templatiq\Repositories\DirectoristRepository;
 use Templatiq\Utils\Response;
 use WP_REST_Request;
 
-class DirectoristController extends ControllerBase {
+class Controller extends ControllerBase {
 
 	public function erase_existing_data() {
-		$directorist = ( new DirectoristRepository() );
+		$directorist = ( new Repository() );
 
 		if ( ! $directorist->is_active() ) {
 			return Response::error(
