@@ -6,7 +6,8 @@ import { InsertTemplateModalStyle } from './style';
 import closeIcon from '@icon/close.svg';
 
 const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
-	const { template_id, builder } = item;
+	const { template_id } = item;
+	console.log('InsertTemplateModal', item)
 
 	const installPluginEndPoint = 'templatiq/dependency/install';
 	const importAsPageEndPoint = 'templatiq/template/import-as-page';
@@ -483,7 +484,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 								</div>
 							</>
 						) }
-					</div>
+					</div> 
 				</form>
 
 				<button

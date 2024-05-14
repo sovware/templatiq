@@ -159,6 +159,9 @@ const InsertTemplateModalStyle = Styled.div`
         .templatiq__modal__title {
             text-align: center;
         }
+        .templatiq__modal__actions {
+            justify-content: center;
+        }
         .templatiq__modal__title--installing {
             margin-top: 50px;
         }

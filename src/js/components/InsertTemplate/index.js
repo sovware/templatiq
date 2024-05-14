@@ -5,8 +5,10 @@ import { select } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 
-import InsertTemplateModal from '@components/Popup/InsertTemplateModal';
+import InsertDirectoryTypeModal from '@components/Popup/insertDirectoryTypeModal';
+import InsertFullsiteModal from '@components/Popup/insertFullsiteModal';
 import InsertProModal from '@components/Popup/insertProModal';
+import InsertTemplateModal from '@components/Popup/insertTemplateModal';
 import InstallPluginModal from '@components/Popup/installPluginModal';
 import downloadAltIcon from '@icon/download-alt.svg';
 import downloadIcon from '@icon/download.svg';
@@ -19,7 +21,7 @@ const InsertTemplate = ( {
 	innerText,
 	solidIcon,
 } ) => {
-	let { template_id, required_plugins, type, is_directorist_required } = item;
+	let { template_id, type, required_plugins, is_directorist_required } = item;
 
 	const dependencyCheckEndPoint = 'templatiq/dependency/check';
 
@@ -28,21 +30,23 @@ const InsertTemplate = ( {
 	const [ authModalOpen, setAuthModalOpen ] = useState( false );
 	const [ requiredPlugins, setRequiredPlugins ] = useState( [] );
 	const [ installDirectorist, setInstallDirectorist ] = useState( false );
+	const [ insertFullSite, setInsertFullSite ] = useState( false );
 	const [ directoryType, setDirectoryType ] = useState( false );
 	const [ proTemplate, setProTemplate ] = useState( false );
 
 	const addInsertModal = async ( e ) => {
 		e.stopPropagation();
-		console.log('addInsertModal', template_id, isPro)
-
-		if (isPro) {
-			console.log('Template is Pro', isPro, template_id)
-			setProTemplate(true);
-		}
-
 		document
 			.querySelector( '.templatiq' )
 			.classList.add( 'templatiq-overlay-enable' );
+
+		console.log('addInsertModal', template_id, isPro)
+
+		isPro && setProTemplate(true);
+
+		type === 'pack' && setInsertFullSite(true);
+
+		type === 'page' && setDirectoryType(true);
 
 		// Add the class to the root div using templateRef
 		if ( templateRef && templateRef.current ) {
@@ -78,7 +82,6 @@ const InsertTemplate = ( {
 
 	const handlePlugins = async ( plugins ) => {
 		postData( dependencyCheckEndPoint, { plugins } ).then( ( data ) => {
-			console.log('handlePlugins', data);
 			setRequiredPlugins( data );
 		} );
 	};
@@ -119,13 +122,45 @@ const InsertTemplate = ( {
 				/>
 			)}
 
+			{insertFullSite && insertModalOpen && (
+				<InsertFullsiteModal
+					item={item}
+					onClose={handleInsertModalClose}
+				/>
+			)}
+
+			{directoryType && insertModalOpen && (
+				<InsertDirectoryTypeModal
+					item={item}
+					onClose={handleInsertModalClose}
+				/>
+			)}
+
 			{ authModalOpen && (
 				<AuthModal
 					modalEnable={ true }
 					onClose={ handleAuthModalClose }
 				/>
 			) }
-			{
+			<button
+				id={ template_id }
+				className={
+					className
+						? className
+						: 'templatiq__template__single__info__action__link insert-btn tmTemplateLibrary__insert-button'
+				}
+				onClick={ ( e ) =>
+					! isLoggedIn ? addAuthModal( e ) : addInsertModal( e )
+				}
+			>
+				<ReactSVG
+					src={ ! solidIcon ? downloadAltIcon : downloadIcon }
+					width={ 14 }
+					height={ 14 }
+				/>
+				{ type !== 'pack' ? innerText ? innerText : 'Insert' : 'Insert Full Site' }
+			</button>
+			{/* {
 				type !== 'pack' ?
 					<button
 						id={ template_id }
@@ -166,7 +201,7 @@ const InsertTemplate = ( {
 					{ innerText ? innerText : `Insert Full Site` }
 				</a>
 		
-			}
+			} */}
 			
 		</>
 	);
