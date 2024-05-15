@@ -37,10 +37,10 @@ class App {
 		 * Routes Initialize
 		 */
 		Account::init();
+		Bookmark::init();
+		Cache::init();
 		Dependency::init();
 		Template::init();
-		Cache::init();
-		Bookmark::init();
 
 		/**
 		 * Full Site Importer
