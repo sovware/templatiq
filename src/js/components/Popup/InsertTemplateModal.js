@@ -5,26 +5,8 @@ import { InsertTemplateModalStyle } from './style';
 
 import closeIcon from '@icon/close.svg';
 
-const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
+const InsertTemplateModal = ( { item, onClose, required_plugins, installed_directorist } ) => {
 	const { template_id, builder, directory_page_type } = item;
-
-	let [ selectedPlugins, setSelectedPlugins ] = useState( [] );
-	let [ selectedTypes, setSelectedTypes ] = useState( [] );
-	let [ submittedTypes, setSubmittedTypes ] = useState( [] );
-	let [ disableButtonType, setDisableButtonType ] = useState( true );
-	let [ pageTitle, setPageTitle ] = useState( '' );
-	let [ loading, setLoading ] = useState( false );
-	let [ errorMsg, setErrorMsg ] = useState( false );
-
-	const [ installablePlugins, setInstallablePlugins ] = useState( [] );
-	const [ installingPlugins, setInstallingPlugins ] = useState( [] );
-	const [ installedPlugins, setInstalledPlugins ] = useState( [] );
-	const [ disableButtonInstall, setDisableButtonInstall ] = useState( true );
-
-	const [ allPluginsInstalled, setAllPluginsInstalled ] = useState( false );
-	const [ importedData, setImportedData ] = useState( false );
-	const [ elementorEditorEnabled, setElementorEditorEnabled ] = useState( false );
-
 
 	const directoryType = template_market_obj?.directory_types;
 
@@ -38,8 +20,25 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 		( plugin ) => plugin.hasOwnProperty( 'is_pro' ) && plugin.is_pro === true
 	) : [];
 
+	let [ selectedPlugins, setSelectedPlugins ] = useState( [] );
+	let [ selectedTypes, setSelectedTypes ] = useState( [] );
+	let [ submittedTypes, setSubmittedTypes ] = useState( [] );
+	let [ disableButtonType, setDisableButtonType ] = useState( true );
+	let [ pageTitle, setPageTitle ] = useState( '' );
+	let [ loading, setLoading ] = useState( false );
+	let [ errorMsg, setErrorMsg ] = useState( false );
+
+	const [ installablePlugins, setInstallablePlugins ] = useState( freePlugins || [] );
+	const [ installingPlugins, setInstallingPlugins ] = useState( [] );
+	const [ installedPlugins, setInstalledPlugins ] = useState( [] );
+	const [ disableButtonInstall, setDisableButtonInstall ] = useState( true );
+
+	const [ allPluginsInstalled, setAllPluginsInstalled ] = useState( true );
+	const [ importedData, setImportedData ] = useState( false );
+	const [ elementorEditorEnabled, setElementorEditorEnabled ] = useState( false );
+
 	console.log('InsertTemplateModal', {
-		builder, directory_page_type, directoryType, allPluginsInstalled, installedPlugins, installablePlugins, item
+		installed_directorist, required_plugins, freePlugins, proPlugins, allPluginsInstalled, installedPlugins, installablePlugins, item
 	});
 
 	let closeInsertTemplateModal = ( e ) => {
@@ -211,22 +210,24 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	};
 
 	const requiredPluginStatusCheck = () => {
-		console.log('requiredPluginStatusCheck', installablePlugins)
 		if(installablePlugins && installablePlugins.length === 0) {
-			console.log('installablePlugins is zero', installablePlugins)
 			setAllPluginsInstalled( true );
 			setSelectedPlugins( [] );
 		} else {
 			const allRequiredPluginsInstalled = installablePlugins && installablePlugins.every(
 				( plugin ) => installedPlugins.includes( plugin.slug )
 			);
+
+			const missingPlugins = installablePlugins.filter(
+				(plugin) => !installedPlugins.includes(plugin.slug)
+			);
 	
 			if ( allRequiredPluginsInstalled ) {
-				console.log('allRequiredPluginsInstalled', allRequiredPluginsInstalled)
 				setAllPluginsInstalled( true );
 				setSelectedPlugins( [] );
 			} else {
-				console.log('Other Issue on Install Plugins')
+				setInstallablePlugins( missingPlugins );
+				setAllPluginsInstalled( false );
 				// setErrorMsg( 'Something went wrong, Please Try again.' );
 			}
 		}
@@ -236,11 +237,10 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	// Check if all requiredPlugins are available in installedPlugins
 	useEffect( () => {
 		requiredPluginStatusCheck();
-	}, [ installedPlugins, allPluginsInstalled ] );
+	}, [ installedPlugins ] );
 
 	useEffect( () => {
 		requiredPluginStatusCheck();
-
 		setInstallablePlugins( freePlugins );
 
 		// Check if the 'elementor-editor-active' class is present on the body element
@@ -253,6 +253,8 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 			importElementorData( template_id );
 		}
 	}, [] );
+
+	console.log('CHK Template Option', template_market_obj, directoryType, submittedTypes, allPluginsInstalled);
 
 	return (
 		<>

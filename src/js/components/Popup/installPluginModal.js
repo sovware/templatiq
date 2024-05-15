@@ -41,6 +41,7 @@ const InstallPluginModal = ( { onClose, install_directorist } ) => {
 						resolve( res ); // Resolve the Promise when installation is successful
 						setTimeout( () => {
 							history('/');
+							// window.location.reload();
 						}, 1000 );
 					} else {
 						reject( new Error( 'Installation failed' ) ); // Reject the Promise if installation fails
