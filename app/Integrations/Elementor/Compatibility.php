@@ -13,11 +13,6 @@ class Compatibility {
 	use Singleton;
 
 	public function __construct() {
-
-		if ( ! class_exists( '\Elementor\Plugin' ) ) {
-			return;
-		}
-
 		/**
 		 * Add Slashes
 		 *
@@ -38,7 +33,6 @@ class Compatibility {
 
 		add_action( 'init', [$this, 'pre'] );
 		add_action( 'templatiq_sites_after_plugin_activation', [$this, 'disable_elementor_redirect'] );
-
 	}
 
 	/**
