@@ -19,7 +19,7 @@ class Controller extends ControllerBase {
 		if ( ! $directorist->is_active() ) {
 			return Response::error(
 				'invalid_erase_directorist_data_request',
-				__( 'Directorist required to erase data' ),
+				__( 'Directorist required to erase data', 'templatiq' ),
 				'directorist/erase_existing_data',
 				404
 			);
