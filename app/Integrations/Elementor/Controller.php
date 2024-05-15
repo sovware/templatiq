@@ -9,8 +9,6 @@ namespace Templatiq\Integrations\Elementor;
 
 use Elementor\Core\Common\Modules\Ajax\Module as Ajax;
 use Templatiq\Abstracts\ControllerBase;
-use Templatiq\Integrations\ElementorRepository;
-use Templatiq\Repositories\ImporterRepository;
 use Templatiq\Utils\Response;
 
 class Controller extends ControllerBase {
@@ -42,7 +40,7 @@ class Controller extends ControllerBase {
 
 			try {
 				return Response::success(
-					( new ElementorRepository )->get_library_data()
+					( new Repository )->get_library_data()
 				);
 			} catch ( \Throwable $th ) {
 				return Response::error(
@@ -60,7 +58,7 @@ class Controller extends ControllerBase {
 					'access_denied',
 					__( 'Access Denied', 'templatiq' ),
 					'get_templatiq_template_data',
-					400
+					401
 				);
 			}
 
@@ -69,20 +67,20 @@ class Controller extends ControllerBase {
 					'item_id_missing',
 					__( 'Item ID Missing', 'templatiq' ),
 					'get_templatiq_template_data',
-					400
+					404
 				);
 			}
 
 			try {
 				$template_id = (int) $data['template_id'];
-				$importer    = new ImporterRepository;
-				$result      = $importer->get_template_data( $template_id );
+				$result      = ( new Repository )->get_template_data( $template_id );
 
 				unset( $result['type'] );
 
-				return Response::success(
-					$importer->get_template_data( $template_id )
-				);
+				error_log( print_r( $result    ,true) );
+
+				return Response::success( $result );
+
 			} catch ( \Throwable $th ) {
 				return Response::error(
 					'dependency_check_errors',

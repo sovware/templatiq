@@ -67,13 +67,7 @@ class ImporterRepository {
 		);
 	}
 
-	public function get_template_data( int $template_id, string $builder = 'elementor' ) {
-		$template_data = $this->get_content( $template_id );
-
-		return ( new ElementorRepository )->get_template_data( $template_data );
-	}
-
-	private function get_content( int $template_id, string $origin = 'remote' ): array {
+	public function get_content( int $template_id, string $origin = 'remote' ): array {
 		switch ( $origin ) {
 			case 'remote':
 				$template_data = self::get_remote_content( $template_id );
