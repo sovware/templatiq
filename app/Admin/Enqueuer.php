@@ -8,7 +8,7 @@
 namespace Templatiq\Admin;
 
 use Templatiq\Abstracts\EnqueuerBase;
-use Templatiq\Repositories\DirectoristRepository;
+use Templatiq\Integrations\Directorist\Repository as DirectoristRepository;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

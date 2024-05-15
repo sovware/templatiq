@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace Templatiq\Repositories;
+namespace Templatiq\Integrations\Elementor;
 
 use Elementor\Core\Settings\Page\Model;
 use Elementor\Plugin as ElementorPlugin;
@@ -15,7 +15,7 @@ use Templatiq\Utils\Http;
 use Templatiq\Utils\Options;
 use Templatiq\Utils\Response;
 
-class ElementorRepository extends ElementorLocal {
+class Repository extends ElementorLocal {
 	private string $cloud_endpoint;
 
 	public function __construct() {

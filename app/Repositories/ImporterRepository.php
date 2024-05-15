@@ -9,7 +9,7 @@ namespace Templatiq\Repositories;
 
 use Templatiq\DTO\ImportAsPageDTO;
 use Templatiq\DTO\TemplateDataDTO;
-use Templatiq\Repositories\ElementorRepository;
+use Templatiq\Integrations\Elementor\Repository as ElementorRepository;
 use Templatiq\Utils\Http;
 use Templatiq\Utils\Options;
 use Templatiq\Utils\Response;
@@ -49,14 +49,20 @@ class ImporterRepository {
 			->set_status( $_status )
 			->set_page_settings( $_page_settings );
 
+		$post_id = 0;
 		if ( 'elementor' === $builder ) {
-			return ( new ElementorRepository )->create_page( $templateDataDTO );
+			$post_id = ( new ElementorRepository )->create_page( $templateDataDTO );
 		} elseif ( 'block-editor' === $builder ) {
-			return ( new ElementorRepository )->create_page( $templateDataDTO );
+			$post_id = ( new ElementorRepository )->create_page( $templateDataDTO );
+		}
+
+		if ( $post_id ) {
+			// Directorist add custom page functionality goes here.
+			return $post_id;
 		}
 
 		throw new \Exception(
-			__( "Builder not specified", "templatiq" ),
+			__( "Something wen't wrong!", "templatiq" ),
 			'builder-not-specified'
 		);
 	}

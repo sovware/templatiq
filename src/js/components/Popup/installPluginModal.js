@@ -72,7 +72,6 @@ const InstallPluginModal = ( { onClose, install_directorist } ) => {
 									<p className="templatiq__modal__desc">
 										Installing directorist you need to install directorist. Installing directorist you need to install directorist.
 									</p>
-									<span className="templatiq__modal__progressbar"></span>
 									<button
 										disabled
 										className="templatiq__modal__action templatiq__modal__action--install templatiq-btn templatiq-btn-primary templatiq-btn-loading"

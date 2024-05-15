@@ -102,6 +102,6 @@ class AccountRepository {
 
 		Options::set( 'account_data', $response['body'] ?? [] );
 
-		return $response;
+		return $response['body'];
 	}
 }

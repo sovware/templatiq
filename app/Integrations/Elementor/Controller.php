@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace Templatiq\Controllers;
+namespace Templatiq\Integrations\Elementor;
 
 use Elementor\Core\Common\Modules\Ajax\Module as Ajax;
 use Templatiq\Abstracts\ControllerBase;
@@ -13,7 +13,7 @@ use Templatiq\Integrations\ElementorRepository;
 use Templatiq\Repositories\ImporterRepository;
 use Templatiq\Utils\Response;
 
-class ElementorController extends ControllerBase {
+class Controller extends ControllerBase {
 
 	public function print_template_views() {
 		include_once TEMPLATIQ_PATH . '/templates/template-library/templates.php';

@@ -87,7 +87,7 @@ const InsertTemplate = ( {
 
 	useEffect( () => {
 		if (is_directorist_required) {
-			const directoristPlugin = requiredPlugins.length && requiredPlugins.find(plugin => plugin.slug === 'directorist');
+			const directoristPlugin = requiredPlugins.length > 0 && requiredPlugins.find(plugin => plugin.slug === 'directorist');
 			setInstallDirectorist(typeof directoristPlugin === 'object' ? directoristPlugin : false);
 		}
 	}, [requiredPlugins] );

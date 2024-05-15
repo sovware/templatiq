@@ -7,20 +7,6 @@ import closeIcon from '@icon/close.svg';
 
 const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	const { template_id, builder, directory_page_type } = item;
-	console.log('InsertTemplateModal', builder, directory_page_type, item);
-	const directoryType = template_market_obj?.directory_types;
-
-	const installPluginEndPoint = 'templatiq/dependency/install';
-	const importAsPageEndPoint = 'templatiq/template/import-as-page';
-
-	const installablePlugins = required_plugins.length && required_plugins.filter(
-		( plugin ) =>
-			! plugin.hasOwnProperty( 'is_pro' ) || plugin.is_pro === false
-	);
-	const proPlugins = required_plugins.length && required_plugins.filter(
-		( plugin ) =>
-			plugin.hasOwnProperty( 'is_pro' ) && plugin.is_pro === true
-	);
 
 	let [ selectedPlugins, setSelectedPlugins ] = useState( [] );
 	let [ selectedTypes, setSelectedTypes ] = useState( [] );
@@ -30,14 +16,31 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	let [ loading, setLoading ] = useState( false );
 	let [ errorMsg, setErrorMsg ] = useState( false );
 
+	const [ installablePlugins, setInstallablePlugins ] = useState( [] );
 	const [ installingPlugins, setInstallingPlugins ] = useState( [] );
 	const [ installedPlugins, setInstalledPlugins ] = useState( [] );
 	const [ disableButtonInstall, setDisableButtonInstall ] = useState( true );
 
 	const [ allPluginsInstalled, setAllPluginsInstalled ] = useState( false );
 	const [ importedData, setImportedData ] = useState( false );
-	const [ elementorEditorEnabled, setElementorEditorEnabled ] =
-		useState( false );
+	const [ elementorEditorEnabled, setElementorEditorEnabled ] = useState( false );
+
+
+	const directoryType = template_market_obj?.directory_types;
+
+	const installPluginEndPoint = 'templatiq/dependency/install';
+	const importAsPageEndPoint = 'templatiq/template/import-as-page';
+
+	const freePlugins = required_plugins.length > 0 ? required_plugins.filter(
+		( plugin ) => ! plugin.hasOwnProperty( 'is_pro' ) || plugin.is_pro === false
+	) : [];
+	const proPlugins = required_plugins.length > 0 ? required_plugins.filter(
+		( plugin ) => plugin.hasOwnProperty( 'is_pro' ) && plugin.is_pro === true
+	) : [];
+
+	console.log('InsertTemplateModal', {
+		builder, directory_page_type, directoryType, allPluginsInstalled, installedPlugins, installablePlugins, item
+	});
 
 	let closeInsertTemplateModal = ( e ) => {
 		e.preventDefault();
@@ -56,7 +59,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 
 	const handlePluginChange = ( plugin ) => {
 		const updatedPlugins = selectedPlugins.includes( plugin )
-			? selectedPlugins.filter( ( c ) => c !== plugin )
+			? selectedPlugins.filter( ( item ) => item !== plugin )
 			: [ ...selectedPlugins, plugin ];
 
 		setSelectedPlugins( updatedPlugins );
@@ -208,7 +211,9 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	};
 
 	const requiredPluginStatusCheck = () => {
+		console.log('requiredPluginStatusCheck', installablePlugins)
 		if(installablePlugins && installablePlugins.length === 0) {
+			console.log('installablePlugins is zero', installablePlugins)
 			setAllPluginsInstalled( true );
 			setSelectedPlugins( [] );
 		} else {
@@ -217,9 +222,11 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 			);
 	
 			if ( allRequiredPluginsInstalled ) {
+				console.log('allRequiredPluginsInstalled', allRequiredPluginsInstalled)
 				setAllPluginsInstalled( true );
 				setSelectedPlugins( [] );
 			} else {
+				console.log('Other Issue on Install Plugins')
 				// setErrorMsg( 'Something went wrong, Please Try again.' );
 			}
 		}
@@ -229,20 +236,20 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	// Check if all requiredPlugins are available in installedPlugins
 	useEffect( () => {
 		requiredPluginStatusCheck();
-	}, [ installedPlugins ] );
+	}, [ installedPlugins, allPluginsInstalled ] );
 
 	useEffect( () => {
 		requiredPluginStatusCheck();
 
+		setInstallablePlugins( freePlugins );
+
 		// Check if the 'elementor-editor-active' class is present on the body element
-		const isElementorEditorActive = document.body.classList.contains(
-			'elementor-editor-active'
-		);
+		const isElementorEditorActive = document.body.classList.contains('elementor-editor-active');
 
 		// Set the state variable based on the presence of Elementor Editor
 		setElementorEditorEnabled( isElementorEditorActive );
 
-		if ( isElementorEditorActive && ! installablePlugins.length ) {
+		if ( isElementorEditorActive && installablePlugins.length === 0 ) {
 			importElementorData( template_id );
 		}
 	}, [] );
@@ -259,27 +266,26 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 					onSubmit={ handlePopUpForm }
 				>
 					<div className="templatiq__modal__content">
-						{ !importedData && !directoryType && ! errorMsg ? (
+						{ !importedData && ! errorMsg ? (
 							<>
 								<h2 className="templatiq__modal__title">
-									{ ! allPluginsInstalled
+									{ !allPluginsInstalled
 										? 'Required Plugins'
-										: ! elementorEditorEnabled
+										: directoryType.length > 0 && !submittedTypes.length > 0 
+										? 'Available Directory Type'
+										: !elementorEditorEnabled
 										? 'Enter Page Title'
 										: 'Importing...' }
 								</h2>
-								{ allPluginsInstalled &&
-								! elementorEditorEnabled ? (
+								{ allPluginsInstalled && !directoryType && !elementorEditorEnabled ? (
 									<p className="templatiq__modal__desc">
 										To import this item you need to install
 										all the Plugin listed below.
 									</p>
-								) : (
-									''
-								) }
+								) : null }
 								<div className="templatiq__modal__plugins">
-									{ ! allPluginsInstalled ? (
-										<>
+									{ ! allPluginsInstalled && ! elementorEditorEnabled ? (
+										<div className="templatiq__modal__plugins">
 											{ installablePlugins &&
 												installablePlugins.map(
 													( plugin, index ) => {
@@ -360,7 +366,8 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 															</div>
 														);
 													}
-												) }
+												) 
+											}
 											{ proPlugins &&
 												proPlugins.map(
 													( plugin, index ) => {
@@ -412,140 +419,64 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 															</div>
 														);
 													}
-												) }
-										</>
-									) : (
-										<div className="templatiq__modal__page">
-											{ ! elementorEditorEnabled ? (
-												<>
-													<input
-														type="text"
-														className="templatiq__modal__page__title"
-														placeholder="Enter Page Title"
-														onChange={ ( e ) =>
-															handlePageTitle( e )
-														}
-													/>
-													<button
-														type="button"
-														className="templatiq__modal__page__button templatiq-btn templatiq-btn-primary"
-														onClick={ () =>
-															importData(
-																pageTitle,
-																template_id,
-																builder
-															)
-														}
-														disabled={
-															pageTitle === ''
-														}
-													>
-														Create a Page
-													</button>
-												</>
-											) : (
-												<p className="templatiq__modal__desc">
-													Elementor Content Importing
-												</p>
-											) }
+												) 
+											}
 										</div>
-									) }
-								</div>
-								{ allPluginsInstalled &&
-								! elementorEditorEnabled ? (
-									<p className="templatiq__modal__desc">
-										<strong>Note:</strong> Make sure you
-										have manually installed & activated the
-										Pro Plugin listed above.
-									</p>
-								) : (
-									''
-								) }
-								<div className="templatiq__modal__actions">
-									{ ! allPluginsInstalled ? (
-										<button
-											type="submit"
-											disabled={ disableButtonInstall }
-											className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-primary"
-										>
-											Install and Proceed to Import
-										</button>
-									) : (
-										''
-									) }
-									<button
-										className="templatiq__modal__action templatiq__modal__action--cancel templatiq-btn"
-										onClick={ closeInsertTemplateModal }
-									>
-										Cancel
-									</button>
-								</div>
-							</>
-						) : !importedData && !errorMsg && directoryType ? (
-								<>
-									<h2 className="templatiq__modal__title">
-										{ ! submittedTypes.length
-											? 'Available Directory Type'
-											: ! elementorEditorEnabled
-											? 'Enter Page Title'
-											: 'Importing...' }
-									</h2>
-									{ submittedTypes.length && ! elementorEditorEnabled ? (
-										<p className="templatiq__modal__desc">
-											Choose the directories where you'd like to include this page. You can choose multiple directories.
-										</p>
-									) : null }
-									<div className="templatiq__modal__plugins">
-									{ ! submittedTypes.length ? (
+									) : directoryType.length > 0 && ! submittedTypes.length > 0 && ! elementorEditorEnabled ? (
 										<>
-											{ directoryType && directoryType.map(( type, index ) => {
-												return (
-													<div
-														key={ index }
-														className="templatiq__modal__plugin templatiq__checkbox"
-													>
-														<input
-															id={
-																'type_' + template_id +
-																'_' +
-																index
-															}
-															name={
-																'type_' + template_id +
-																'_' +
-																index
-															}
-															type="checkbox"
-															className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
-															onChange={ () =>
-																handleTypeChange(
-																	type
-																)
-															}
-														/>
-
-														<label
-															htmlFor={
-																'type_' + template_id +
-																'_' +
-																index
-															}
-															className="templatiq__modal__plugin__label templatiq__checkbox__label"
+											<p className="templatiq__modal__desc">
+												Choose the directories where you'd like to include this page. You can choose multiple directories.
+											</p>
+											<div className="templatiq__modal__plugins">
+												{ directoryType && directoryType.map(( type, index ) => {
+													return (
+														<div
+															key={ index }
+															className="templatiq__modal__plugin templatiq__checkbox"
 														>
-															<a
-																href="#"
-																className="templatiq__modal__plugin__link"
-															>
-																{
-																	type.name
+															<input
+																id={
+																	'type_' + template_id +
+																	'_' +
+																	index
 																}
-															</a>
-														</label>
-													</div>
+																name={
+																	'type_' + template_id +
+																	'_' +
+																	index
+																}
+																type="checkbox"
+																className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
+																onChange={ () =>
+																	handleTypeChange(
+																		type
+																	)
+																}
+															/>
+
+															<label
+																htmlFor={
+																	'type_' + template_id +
+																	'_' +
+																	index
+																}
+																className="templatiq__modal__plugin__label templatiq__checkbox__label"
+															>
+																<a
+																	href="#"
+																	className="templatiq__modal__plugin__link"
+																>
+																	{
+																		type.name
+																	}
+																</a>
+															</label>
+														</div>
+													)}
 												)}
-											)}
+											</div>
 										</>
-									) : (
+									) :
 										<div className="templatiq__modal__page">
 											{ ! elementorEditorEnabled ? (
 												<>
@@ -564,8 +495,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 															importData(
 																pageTitle,
 																template_id,
-																builder,
-																directory_page_type,
+																builder,									directory_page_type,
 																submittedTypes
 															)
 														}
@@ -582,22 +512,43 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 												</p>
 											) }
 										</div>
-									) }
-									</div>
-									<div className="templatiq__modal__actions">
-										{ ! submittedTypes.length ? (
+									}
+								</div>
+								{ allPluginsInstalled && !directoryType && ! elementorEditorEnabled ? (
+									<p className="templatiq__modal__desc">
+										<strong>Note:</strong> Make sure you have manually installed & activated the Pro Plugin listed above.
+									</p>
+								) : (
+									''
+								) }
+								<div className="templatiq__modal__actions">
+									{ ! allPluginsInstalled ? (
+										<>
 											<button
-												disabled={ disableButtonType }
-												className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-success"
-												onClick={ (e) => ( handleSelectedType(e))}
+												type="submit"
+												disabled={ disableButtonInstall }
+												className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-primary"
 											>
-												Insert Page
+												Install and Proceed to Import
 											</button>
-										) : (
-											''
-										) }
-									</div>
-								</>
+											<button
+												className="templatiq__modal__action templatiq__modal__action--cancel templatiq-btn"
+												onClick={ closeInsertTemplateModal }
+											>
+												Cancel
+											</button>
+										</>
+									) : ! submittedTypes.length ? (
+										<button
+											disabled={ disableButtonType }
+											className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-success"
+											onClick={ (e) => ( handleSelectedType(e))}
+										>
+											Insert Page
+										</button>
+									) : null}
+								</div>
+							</>
 						) : importedData ? (
 							<>
 								<h2 className="templatiq__modal__title">
