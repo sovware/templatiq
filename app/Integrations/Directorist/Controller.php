@@ -8,6 +8,8 @@
 namespace Templatiq\Integrations\Directorist;
 
 use Templatiq\Abstracts\ControllerBase;
+use Templatiq\DTO\PluginDTO;
+use Templatiq\Repositories\DependencyRepository;
 use Templatiq\Utils\Response;
 use WP_REST_Request;
 

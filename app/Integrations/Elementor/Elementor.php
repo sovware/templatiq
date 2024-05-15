@@ -8,6 +8,7 @@
 namespace Templatiq\Integrations\Elementor;
 
 use Templatiq\Abstracts\IntegrationBase;
+use Templatiq\Integrations\Elementor\Admin\Enqueuer;
 
 class Elementor extends IntegrationBase {
 	public function boot(): void {
@@ -17,5 +18,6 @@ class Elementor extends IntegrationBase {
 
 		Ajax::init();
 		Compatibility::init();
+		Enqueuer::init();
 	}
 }

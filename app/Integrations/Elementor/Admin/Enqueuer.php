@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace Templatiq\Admin;
+namespace Templatiq\Integrations\Elementor\Admin;
 
 use Templatiq\Abstracts\EnqueuerBase;
 
@@ -16,13 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Enqueuer extends EnqueuerBase {
 
 	public function __construct() {
-		$this->action( 'admin_enqueue_scripts', [$this, 'admin_enqueue_scripts'] );
+		add_action( 'elementor/editor/after_enqueue_scripts', [$this, 'elementor_editor_enqueue'] );
 	}
 
-	public function admin_enqueue_scripts( $hook ) {
-		if ( ! isset( $_GET['page'] ) || 'templatiq' !== $_GET['page'] ) {
-			return;
-		}
+	public function elementor_editor_enqueue() {
 
 		wp_enqueue_style( 'wp-components' );
 
@@ -39,21 +36,14 @@ class Enqueuer extends EnqueuerBase {
 
 		$this->enqueue_style( 'templatiq-app', '/css/global.css' );
 
-		$obj = $this->localize_object();
+		$obj = \Templatiq\Admin\Enqueuer::init()->localize_object();
 
 		wp_localize_script( 'templatiq-app', 'template_market_obj', $obj );
-	}
 
-	public function localize_object() {
-		return apply_filters(
-			'templatiq_admin_localize_data',
-			[
-				'rest_args'  => [
-					'nonce'    => wp_create_nonce( 'wp_rest' ),
-					'endpoint' => get_rest_url( null, 'templatiq' ),
-				],
-				'assets_url' => TEMPLATIQ_ASSETS,
-			]
-		);
+		$this->enqueue_style( 'templatiq-elementor-editor', '/vendor/elementor-style.css', [] );
+
+		$this->enqueue_script( 'templatiq-elementor-editor', '/vendor/elementor-script.js', ['elementor-editor', 'jquery'] );
+
+		wp_localize_script( 'templatiq-elementor-editor', 'template_market_obj', $obj );
 	}
 }
