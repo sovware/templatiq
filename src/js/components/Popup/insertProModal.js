@@ -1,3 +1,5 @@
+import store from '@store/index';
+import { select } from '@wordpress/data';
 import ReactSVG from 'react-inlinesvg';
 import { InsertTemplateModalStyle } from './style';
 
@@ -5,6 +7,8 @@ import closeIcon from '@icon/close.svg';
 
 const InsertProModal = ( { item, onClose } ) => {
 	console.log('InsertProModal', item);
+
+	const { isLoggedIn } = select(store).getUserInfo();
 	
 	let closeInsertTemplateModal = ( e ) => {
 		e.preventDefault();
@@ -33,6 +37,22 @@ const InsertProModal = ( { item, onClose } ) => {
 					>
 						Buy This Item
 					</a>
+
+					{
+						!isLoggedIn && (
+							<>
+								<p className="templatiq__modal__desc">
+									Already a Premium Member?
+								</p>
+								<a 
+									href="/signin"
+									className="templatiq-btn"
+								>
+									Login
+								</a>
+							</>
+						)
+					}
 				</div>
 				<button
 					className="templatiq__modal__cancel__button"

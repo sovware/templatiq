@@ -126,7 +126,7 @@ const InsertTemplate = ({
 				/>
 			)}
 
-			{authModalOpen && (
+			{!proTemplate && authModalOpen && (
 				<AuthModal
 					modalEnable={true}
 					onClose={handleAuthModalClose}
@@ -141,7 +141,7 @@ const InsertTemplate = ({
 						: 'templatiq__template__single__info__action__link insert-btn tmTemplateLibrary__insert-button'
 				}
 				onClick={(e) =>
-					!isLoggedIn ? addAuthModal(e) : addInsertModal(e)
+					!isLoggedIn && proTemplate ? addAuthModal(e) : addInsertModal(e)
 				}
 			>
 				<ReactSVG
