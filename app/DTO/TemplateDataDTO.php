@@ -16,6 +16,7 @@ class TemplateDataDTO extends DTOBase {
 	public array $content;
 	public string $status;
 	public array $page_settings;
+	public string $version;
 
 	public function set_title( string $title ) {
 		$this->title = $title;
@@ -75,5 +76,15 @@ class TemplateDataDTO extends DTOBase {
 
 	public function get_page_settings() {
 		return $this->page_settings;
+	}
+
+	public function set_version( string $version ) {
+		$this->version = $version;
+
+		return $this;
+	}
+
+	public function get_version() {
+		return $this->version;
 	}
 }

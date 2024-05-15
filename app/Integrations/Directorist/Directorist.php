@@ -16,7 +16,8 @@ class Directorist extends IntegrationBase {
 			return;
 		}
 
-		Routes::init();
 		Compatibility::init();
+		Localize::init();
+		Routes::init();
 	}
 }
