@@ -8,8 +8,6 @@
 namespace Templatiq\Repositories;
 
 use Templatiq\DTO\ImportAsPageDTO;
-use Templatiq\DTO\TemplateDataDTO;
-use Templatiq\Integrations\Elementor\Repository as ElementorRepository;
 use Templatiq\Utils\Http;
 use Templatiq\Utils\Options;
 use Templatiq\Utils\Response;
@@ -23,48 +21,39 @@ class ImporterRepository {
 	}
 
 	public function import_as_page( ImportAsPageDTO $DTO ) {
-		$template_data = $this->get_content( $DTO->get_template_id() );
-		$builder       = $DTO->get_builder();
-		$title         = $DTO->get_title();
+		if ( empty( $DTO->get_builder() ) ) {
+			throw new \Exception(
+				__( "Builder not specified yet.", "templatiq" ),
+				'builder-not-specified'
+			);
+		}
 
+		$template_data = $this->get_content( $DTO->get_template_id() );
 		if ( empty( $template_data ) ) {
 			throw new \Exception(
-				__( "Template Data Not Found", "templatiq" ),
+				__( "Template data not found", "templatiq" ),
 				'template-data-missing'
 			);
 		}
 
-		$_content       = $template_data['content'] ?? [];
-		$_title         = $template_data['title'] ?? '';
-		$_post_title    = $title ?? 'Templatiq: ' . $_title;
-		$_type          = $template_data['type'] ?? '';
-		$_status        = current_user_can( 'publish_posts' ) ? 'publish' : 'pending';
-		$_page_settings = $template_data['page_settings'] ?? [];
+		$DTO->set_template_data( $template_data );
 
-		$templateDataDTO = ( new TemplateDataDTO )
-			->set_content( $_content )
-			->set_title( $_title )
-			->set_post_title( $_post_title )
-			->set_type( $_type )
-			->set_status( $_status )
-			->set_page_settings( $_page_settings );
-
-		$post_id = 0;
-		if ( 'elementor' === $builder ) {
-			$post_id = ( new ElementorRepository )->create_page( $templateDataDTO );
-		} elseif ( 'block-editor' === $builder ) {
-			$post_id = ( new ElementorRepository )->create_page( $templateDataDTO );
+		$inserted_id = apply_filters( 'templatiq_import_as_page_created_post_id', 0, $DTO );
+		if ( is_wp_error( $inserted_id ) ) {
+			throw new \Exception(
+				$inserted_id->get_error_message(),
+				'import-as-page'
+			);
 		}
 
-		if ( $post_id ) {
-			// Directorist add custom page functionality goes here.
-			return $post_id;
+		if ( ! $inserted_id ) {
+			throw new \Exception(
+				__( "Import as page failed", "templatiq" ),
+				'import-as-page-failed'
+			);
 		}
 
-		throw new \Exception(
-			__( "Something wen't wrong!", "templatiq" ),
-			'builder-not-specified'
-		);
+		return $inserted_id;
 	}
 
 	public function get_content( int $template_id, string $origin = 'remote' ): array {

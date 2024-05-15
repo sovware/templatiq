@@ -11,8 +11,8 @@ class ImportAsPageDTO {
 	public int $template_id;
 	public string $title;
 	public string $builder;
-	public array $directory_types;
 
+	public array $template_data;
 	public function set_template_id( int $template_id ) {
 		$this->template_id = $template_id;
 
@@ -43,13 +43,13 @@ class ImportAsPageDTO {
 		return $this->builder;
 	}
 
-	public function set_directory_types( array $directory_types ) {
-		$this->directory_types = $directory_types;
+	public function set_template_data( array $template_data ) {
+		$this->template_data = $template_data;
 
 		return $this;
 	}
 
-	public function get_directory_types() {
-		return $this->directory_types;
+	public function get_template_data() {
+		return $this->template_data;
 	}
 }

@@ -10,7 +10,6 @@ namespace Templatiq\Integrations\Elementor;
 use Elementor\Core\Settings\Page\Model;
 use Elementor\Plugin as ElementorPlugin;
 use Elementor\TemplateLibrary\Source_Local as ElementorLocal;
-use Templatiq\DTO\TemplateDataDTO;
 use Templatiq\Repositories\ImporterRepository;
 use Templatiq\Utils\Http;
 use Templatiq\Utils\Options;

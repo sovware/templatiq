@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace Templatiq\DTO;
+namespace Templatiq\Integrations\Elementor;
 
 use Templatiq\Abstracts\DTOBase;
 
