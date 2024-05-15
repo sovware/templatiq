@@ -30,11 +30,9 @@ const InsertTemplate = ({
 	const [requiredPlugins, setRequiredPlugins] = useState([]);
 	const [installDirectorist, setInstallDirectorist] = useState(false);
 	const [insertFullSite, setInsertFullSite] = useState(false);
-	const [directoryType, setDirectoryType] = useState(false);
 	const [proTemplate, setProTemplate] = useState(false);
 
 	const addInsertModal = async (e) => {
-		console.log('addInsertModal clicked');
 		e.stopPropagation();
 		document.querySelector('.templatiq').classList.add('templatiq-overlay-enable');
 
@@ -59,6 +57,7 @@ const InsertTemplate = ({
 	const addAuthModal = (e) => {
 		e.stopPropagation();
 		document.querySelector('.templatiq').classList.add('templatiq-overlay-enable');
+		setInsertModalOpen(false);
 		setAuthModalOpen(true);
 	};
 
@@ -89,10 +88,8 @@ const InsertTemplate = ({
 	}, [requiredPlugins, is_directorist_required]);
 
 	useEffect(() => {
-		if (insertModalOpen) {
-			console.log('requiredPlugins chk', requiredPlugins);
-		}
-	}, [requiredPlugins, insertModalOpen]);
+		isPro && setProTemplate(true);
+	});
 
 	return (
 		<>
@@ -100,6 +97,7 @@ const InsertTemplate = ({
 				<InsertProModal 
 					item={item}
 					onClose={handleInsertModalClose}
+					onLoginClick={addAuthModal}
 				/>
 			)}
 
@@ -126,7 +124,7 @@ const InsertTemplate = ({
 				/>
 			)}
 
-			{!proTemplate && authModalOpen && (
+			{authModalOpen && (
 				<AuthModal
 					modalEnable={true}
 					onClose={handleAuthModalClose}
@@ -141,7 +139,11 @@ const InsertTemplate = ({
 						: 'templatiq__template__single__info__action__link insert-btn tmTemplateLibrary__insert-button'
 				}
 				onClick={(e) =>
-					!isLoggedIn && proTemplate ? addAuthModal(e) : addInsertModal(e)
+					!isLoggedIn
+					? proTemplate
+						? addInsertModal(e)
+						: addAuthModal(e)
+					: addInsertModal(e)
 				}
 			>
 				<ReactSVG

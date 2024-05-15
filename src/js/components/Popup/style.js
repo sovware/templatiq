@@ -220,10 +220,18 @@ const InsertTemplateModalStyle = Styled.div`
         }
         .templatiq__modal__content {
             .templatiq-btn {
+                height: 40px;
                 margin: 20px 0 0;
+            }
+            .templatiq__modal__pro-auth {
+                margin: 20px 0 0;
+                .templatiq-btn {
+                    margin: 10px 0 0;
+                }
             }
         }
     }
+    
 `;
 
 const AuthModalStyle = Styled.div`

@@ -5,10 +5,10 @@ import { InsertTemplateModalStyle } from './style';
 
 import closeIcon from '@icon/close.svg';
 
-const InsertProModal = ( { item, onClose } ) => {
-	console.log('InsertProModal', item);
-
+const InsertProModal = ( { item, onClose, onLoginClick } ) => {
 	const { isLoggedIn } = select(store).getUserInfo();
+
+	const { purchase_url } = item;
 	
 	let closeInsertTemplateModal = ( e ) => {
 		e.preventDefault();
@@ -32,25 +32,26 @@ const InsertProModal = ( { item, onClose } ) => {
 					<p className="templatiq__modal__desc">
 						This is Pro template. Get access to this template.
 					</p>
-					<a href="#"
-						className="templatiq-btn templatiq-btn-warning"
+					<a 
+						href={purchase_url}
+						className="templatiq-btn templatiq-btn-warning templatiq-btn-full bold"
 					>
 						Buy This Item
 					</a>
 
 					{
 						!isLoggedIn && (
-							<>
+							<div className="templatiq__modal__pro-auth">
 								<p className="templatiq__modal__desc">
 									Already a Premium Member?
 								</p>
-								<a 
-									href="/signin"
-									className="templatiq-btn"
+								<button
+									onClick={ onLoginClick }
+									className="templatiq-btn templatiq-btn-full"
 								>
 									Login
-								</a>
-							</>
+								</button>
+							</div>
 						)
 					}
 				</div>

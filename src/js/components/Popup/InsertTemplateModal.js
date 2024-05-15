@@ -13,10 +13,10 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, installed_direc
 	const installPluginEndPoint = 'templatiq/dependency/install';
 	const importAsPageEndPoint = 'templatiq/template/import-as-page';
 
-	const freePlugins = required_plugins.length > 0 ? required_plugins.filter(
+	const freePlugins = required_plugins?.length > 0 ? required_plugins.filter(
 		( plugin ) => ! plugin.hasOwnProperty( 'is_pro' ) || plugin.is_pro === false
 	) : [];
-	const proPlugins = required_plugins.length > 0 ? required_plugins.filter(
+	const proPlugins = required_plugins?.length > 0 ? required_plugins.filter(
 		( plugin ) => plugin.hasOwnProperty( 'is_pro' ) && plugin.is_pro === true
 	) : [];
 
@@ -63,7 +63,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, installed_direc
 
 		setSelectedPlugins( updatedPlugins );
 
-		setDisableButtonInstall( updatedPlugins.length === 0 );
+		setDisableButtonInstall( updatedPlugins?.length === 0 );
 
 		return updatedPlugins;
 	};
@@ -75,7 +75,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, installed_direc
 
 		setSelectedTypes( updatedTypes );
 
-		setDisableButtonType( updatedTypes.length === 0 );
+		setDisableButtonType( updatedTypes?.length === 0 );
 
 		return updatedTypes;
 	};
@@ -210,7 +210,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, installed_direc
 	};
 
 	const requiredPluginStatusCheck = () => {
-		if(installablePlugins && installablePlugins.length === 0) {
+		if(installablePlugins && installablePlugins?.length === 0) {
 			setAllPluginsInstalled( true );
 			setSelectedPlugins( [] );
 		} else {
@@ -249,7 +249,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, installed_direc
 		// Set the state variable based on the presence of Elementor Editor
 		setElementorEditorEnabled( isElementorEditorActive );
 
-		if ( isElementorEditorActive && installablePlugins.length === 0 ) {
+		if ( isElementorEditorActive && installablePlugins?.length === 0 ) {
 			importElementorData( template_id );
 		}
 	}, [] );
@@ -273,7 +273,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, installed_direc
 								<h2 className="templatiq__modal__title">
 									{ !allPluginsInstalled
 										? 'Required Plugins'
-										: directoryType.length > 0 && !submittedTypes.length > 0 
+										: directoryType?.length > 0 && !submittedTypes?.length > 0 
 										? 'Available Directory Type'
 										: !elementorEditorEnabled
 										? 'Enter Page Title'
@@ -424,7 +424,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, installed_direc
 												) 
 											}
 										</div>
-									) : directoryType.length > 0 && ! submittedTypes.length > 0 && ! elementorEditorEnabled ? (
+									) : directoryType?.length > 0 && ! submittedTypes?.length > 0 && ! elementorEditorEnabled ? (
 										<>
 											<p className="templatiq__modal__desc">
 												Choose the directories where you'd like to include this page. You can choose multiple directories.
@@ -540,7 +540,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, installed_direc
 												Cancel
 											</button>
 										</>
-									) : ! submittedTypes.length ? (
+									) : ! submittedTypes?.length ? (
 										<button
 											disabled={ disableButtonType }
 											className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-success"

@@ -77,6 +77,7 @@ const SingleSelectStyle = Styled.div`
         }
     }
 `;
+
 const MultiSelectStyle = Styled.div`
     &:not(last-child){
         margin-bottom: 10px;

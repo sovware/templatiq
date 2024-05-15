@@ -71,6 +71,10 @@ button {
   color: var(--templatiq-danger-color) !important;
 }
 
+.bold {
+  font-weight: 700 !important;
+}
+
 .uppercase {
   text-transform: uppercase;
 }
@@ -127,6 +131,7 @@ button {
   font-weight: 500;
   background-color: var(--templatiq-sec-color);
   box-shadow: none;
+  box-sizing: border-box;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
   path {
@@ -143,6 +148,10 @@ button {
     path {
       fill: var(--templatiq-white-color);
     }
+  }
+  &.templatiq-btn-full {
+    width: 100%;
+    justify-content: center;
   }
   &.templatiq-btn-white {
     background-color: var(--templatiq-white-color);
@@ -213,7 +222,7 @@ button {
     }
     &:hover {
       color: var(--templatiq-dark-color);
-      background-color: var(--templatiq-warning-color);
+      background-color: var(--templatiq-pro-color);
       path {
         fill: var(--templatiq-dark-color);
       }
@@ -363,6 +372,7 @@ button {
   border-radius: 12px;
   padding: 26px 32px 32px;
   background-color: var(--templatiq-white-color);
+  box-sizing: border-box;
   position: fixed;
   left: 50%;
   top: 50%;
