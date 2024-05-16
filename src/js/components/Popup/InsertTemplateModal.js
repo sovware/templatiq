@@ -5,7 +5,7 @@ import { InsertTemplateModalStyle } from './style';
 
 import closeIcon from '@icon/close.svg';
 
-const InsertTemplateModal = ( { item, onClose, required_plugins, installed_directorist } ) => {
+const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	const { template_id, builder, directory_page_type } = item;
 
 	const directoryType = template_market_obj?.directory_types;
@@ -38,7 +38,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, installed_direc
 	const [ elementorEditorEnabled, setElementorEditorEnabled ] = useState( false );
 
 	console.log('InsertTemplateModal', {
-		installed_directorist, required_plugins, freePlugins, proPlugins, allPluginsInstalled, installedPlugins, installablePlugins, item
+		required_plugins, freePlugins, proPlugins, allPluginsInstalled, installedPlugins, installablePlugins, item
 	});
 
 	let closeInsertTemplateModal = ( e ) => {
@@ -254,7 +254,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, installed_direc
 		}
 	}, [] );
 
-	// console.log('CHK Template Option', template_market_obj, directoryType, submittedTypes, allPluginsInstalled);
+	// console.log('CHK Template Option', template_market_obj, directoryType, submittedTypes, installedPlugins, allPluginsInstalled);
 
 	return (
 		<>

@@ -8,7 +8,7 @@ import ReactSVG from 'react-inlinesvg';
 import InsertFullsiteModal from '@components/Popup/insertFullsiteModal';
 import InsertProModal from '@components/Popup/insertProModal';
 import InsertTemplateModal from '@components/Popup/insertTemplateModal';
-import InstallPluginModal from '@components/Popup/installPluginModal';
+import InstallDirectoristModal from '@components/Popup/installDirectoristModal';
 import downloadAltIcon from '@icon/download-alt.svg';
 import downloadIcon from '@icon/download.svg';
 
@@ -22,19 +22,18 @@ const InsertTemplate = ({
 }) => {
 	let { template_id, type, required_plugins, is_directorist_required } = item;
 
+	const onebaseInstalled = true;
+	const insertFullSite = type === 'pack';
 	const dependencyCheckEndPoint = 'templatiq/dependency/check';
 
 	const { isLoggedIn } = select(store).getUserInfo();
 	const [insertModalOpen, setInsertModalOpen] = useState(false);
 	const [authModalOpen, setAuthModalOpen] = useState(false);
-	const [requiredPlugins, setRequiredPlugins] = useState([]);
+	const [requiredPlugins, setRequiredPlugins] = useState(required_plugins);
 	const [installDirectorist, setInstallDirectorist] = useState(false);
-	const [insertFullSite, setInsertFullSite] = useState(type === 'pack');
 
 	const addInsertModal = async (e) => {
 		e.stopPropagation();
-		const onebaseInstalled = false;
-		console.log('addInsertModal Clicked', isPro, insertFullSite, installDirectorist);
 
 		const renderModal = () => {
 			document.querySelector('.templatiq').classList.add('templatiq-overlay-enable');
@@ -52,10 +51,9 @@ const InsertTemplate = ({
 		} else if (isPro || installDirectorist) {
 			renderModal();
 		} else {
-			renderModal();
 			try {
 				await handlePlugins(required_plugins);
-				setInsertModalOpen(true);
+				renderModal();
 			} catch (error) {
 				// Handle error if needed
 				console.error('Error fetching installable plugins:', error);
@@ -87,7 +85,7 @@ const InsertTemplate = ({
 
 	useEffect(() => {
 		handlePlugins(required_plugins);
-	}, [required_plugins]);
+	}, []);
 
 	useEffect(() => {
 		if (is_directorist_required) {
@@ -106,7 +104,7 @@ const InsertTemplate = ({
 						onLoginClick={addAuthModal}
 					/> :
 					installDirectorist ? 
-						<InstallPluginModal
+						<InstallDirectoristModal
 							install_directorist={installDirectorist}
 							onClose={handleInsertModalClose}
 						/> :

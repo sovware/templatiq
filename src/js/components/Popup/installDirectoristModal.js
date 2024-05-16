@@ -6,7 +6,7 @@ import { InsertTemplateModalStyle } from './style';
 
 import closeIcon from '@icon/close.svg';
 
-const InstallPluginModal = ( { onClose, install_directorist } ) => {
+const InstallDirectoristModal = ( { onClose, install_directorist } ) => {
 	const history = useNavigate();
 	const installPluginEndPoint = 'templatiq/dependency/install';
 
@@ -135,4 +135,4 @@ const InstallPluginModal = ( { onClose, install_directorist } ) => {
 	);
 };
 
-export default InstallPluginModal;
+export default InstallDirectoristModal;
