@@ -6,9 +6,7 @@
  * @package Templatiq Sites
  */
 
-use Templatiq\FullSite\FullSite;
-
-if ( ! function_exists( 'templatiq_sites_error_log' ) ) :
+if ( ! function_exists( 'templatiq_sites_error_log' ) ):
 
 	/**
 	 * Error Log
@@ -34,22 +32,7 @@ if ( ! function_exists( 'templatiq_sites_error_log' ) ) :
 
 endif;
 
-if ( ! function_exists( 'templatiq_sites_get_suggestion_link' ) ) :
-	/**
-	 *
-	 * Get suggestion link.
-	 *
-	 * @since 2.6.1
-	 *
-	 * @return suggestion link.
-	 */
-	function templatiq_sites_get_suggestion_link() {
-		$white_label_link = 'https://wpastra.com/sites-suggestions/?utm_source=demo-import-panel&utm_campaign=templatiq-sites&utm_medium=suggestions';
-		return apply_filters( 'templatiq_sites_suggestion_link', $white_label_link );
-	}
-endif;
-
-if ( ! function_exists( 'templatiq_sites_is_valid_image' ) ) :
+if ( ! function_exists( 'templatiq_sites_is_valid_image' ) ):
 	/**
 	 * Check for the valid image
 	 *
@@ -61,9 +44,10 @@ if ( ! function_exists( 'templatiq_sites_is_valid_image' ) ) :
 	function templatiq_sites_is_valid_image( $link = '' ) {
 		return preg_match( '/^((https?:\/\/)|(www\.))([a-z0-9-].?)+(:[0-9]+)?\/[\w\-\@]+\.(jpg|png|gif|jpeg|svg)\/?$/i', $link );
 	}
+
 endif;
 
-if ( ! function_exists( 'templatiq_get_site_data' ) ) :
+if ( ! function_exists( 'templatiq_get_site_data' ) ):
 	/**
 	 * Returns the value of the index for the Site Data
 	 *
@@ -73,12 +57,14 @@ if ( ! function_exists( 'templatiq_get_site_data' ) ) :
 	 * @return mixed
 	 */
 	function templatiq_get_site_data( $index = '' ) {
-		$demo_data = get_option( 'templatiq_sites_import_data', array() );
-		if ( ! empty( $demo_data ) && isset( $demo_data[ $index ] ) ) {
-			return $demo_data[ $index ];
+		$demo_data = get_option( 'templatiq_sites_import_data', [] );
+		if ( ! empty( $demo_data ) && isset( $demo_data[$index] ) ) {
+			return $demo_data[$index];
 		}
+
 		return '';
 	}
+
 endif;
 
 /**
@@ -99,15 +85,15 @@ function templatiq_sites_is_valid_url( $url = '' ) {
 		return false;
 	}
 
-	$valid_hosts = array(
+	$valid_hosts = [
 		'lh3.googleusercontent.com',
 		'pixabay.com',
 		'websitedemos.net',
 		'templatiq.net',
-	);
+	];
 
 	$api_domain_parse_url = wp_parse_url( TEMPLATIQ_API_ENDPOINT );
-	$valid_hosts[] = $api_domain_parse_url['host'];
+	$valid_hosts[]        = $api_domain_parse_url['host'];
 
 	// Validate host.
 	if ( in_array( $parse_url['host'], $valid_hosts, true ) ) {
@@ -160,24 +146,6 @@ function templatiq_sites_get_reset_term_data() {
 }
 
 /**
- * Get API params
- *
- * @since 2.7.3
- * @return array
- */
-function templatiq_sites_get_api_params() {
-	return apply_filters(
-		'templatiq_sites_api_params', array(
-			'purchase_key' => '',
-			'site_url'     => get_site_url(),
-			'per-page'     => 15,
-			'template_status' => '',
-			'version' => TEMPLATIQ_SITES_VER,
-		)
-	);
-}
-
-/**
  * Check if Import for Templatiq Site is in progress
  *
  * @since 3.0.21
@@ -188,6 +156,7 @@ function templatiq_sites_has_import_started() {
 	if ( 'yes' === $has_import_started ) {
 		return true;
 	}
+
 	return false;
 }
 
@@ -203,9 +172,9 @@ function templatiq_sites_empty_post_excerpt( $post_id = 0 ) {
 	}
 
 	wp_update_post(
-		array(
+		[
 			'ID'           => $post_id,
 			'post_excerpt' => '',
-		)
+		]
 	);
 }

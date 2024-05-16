@@ -6,9 +6,11 @@
  * @since 1.0.14
  */
 
-use Templatiq\FullSite\FullSite;
+use Templatiq\FullTemplate\Cron;
+use Templatiq\FullTemplate\Settings;
+use Templatiq\Repositories\FileSystemRepository;
 
-if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
+if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ):
 
 	/**
 	 * Templatiq_Sites_Batch_Processing
@@ -72,6 +74,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 			if ( ! isset( self::$instance ) ) {
 				self::$instance = new self();
 			}
+
 			return self::$instance;
 		}
 
@@ -85,25 +88,25 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 			$this->includes();
 
 			// Start image importing after site import complete.
-			add_filter( 'templatiq_sites_image_importer_skip_image', array( $this, 'skip_image' ), 10, 2 );
-			add_action( 'templatiq_sites_import_complete', array( $this, 'start_process' ) );
-			add_action( 'templatiq_sites_process_single', array( $this, 'start_process_single' ) );
+			add_filter( 'templatiq_sites_image_importer_skip_image', [$this, 'skip_image'], 10, 2 );
+			add_action( 'templatiq_sites_import_complete', [$this, 'start_process'] );
+			add_action( 'templatiq_sites_process_single', [$this, 'start_process_single'] );
 			if ( current_user_can( 'manage_options' ) ) {
-				add_action( 'admin_init', array( $this, 'start_importer' ) );
+				add_action( 'admin_init', [$this, 'start_importer'] );
 			}
-			add_action( 'wp_ajax_templatiq-sites-update-library', array( $this, 'update_library' ) );
-			add_action( 'wp_ajax_templatiq-sites-update-library-complete', array( $this, 'update_library_complete' ) );
-			add_action( 'wp_ajax_templatiq-sites-import-all-categories-and-tags', array( $this, 'import_all_categories_and_tags' ) );
-			add_action( 'wp_ajax_templatiq-sites-import-all-categories', array( $this, 'import_all_categories' ) );
-			add_action( 'wp_ajax_templatiq-sites-import-block-categories', array( $this, 'import_block_categories' ) );
-			add_action( 'wp_ajax_templatiq-sites-import-blocks', array( $this, 'import_blocks' ) );
-			add_action( 'wp_ajax_templatiq-sites-get-sites-request-count', array( $this, 'sites_requests_count' ) );
-			add_action( 'wp_ajax_templatiq-sites-get-blocks-request-count', array( $this, 'blocks_requests_count' ) );
-			add_action( 'wp_ajax_templatiq-sites-import-sites', array( $this, 'import_sites' ) );
-			add_action( 'wp_ajax_templatiq-sites-get-all-categories', array( $this, 'get_all_categories' ) );
-			add_action( 'wp_ajax_templatiq-sites-get-all-categories-and-tags', array( $this, 'get_all_categories_and_tags' ) );
+			add_action( 'wp_ajax_templatiq-sites-update-library', [$this, 'update_library'] );
+			add_action( 'wp_ajax_templatiq-sites-update-library-complete', [$this, 'update_library_complete'] );
+			add_action( 'wp_ajax_templatiq-sites-import-all-categories-and-tags', [$this, 'import_all_categories_and_tags'] );
+			add_action( 'wp_ajax_templatiq-sites-import-all-categories', [$this, 'import_all_categories'] );
+			add_action( 'wp_ajax_templatiq-sites-import-block-categories', [$this, 'import_block_categories'] );
+			add_action( 'wp_ajax_templatiq-sites-import-blocks', [$this, 'import_blocks'] );
+			add_action( 'wp_ajax_templatiq-sites-get-sites-request-count', [$this, 'sites_requests_count'] );
+			add_action( 'wp_ajax_templatiq-sites-get-blocks-request-count', [$this, 'blocks_requests_count'] );
+			add_action( 'wp_ajax_templatiq-sites-import-sites', [$this, 'import_sites'] );
+			add_action( 'wp_ajax_templatiq-sites-get-all-categories', [$this, 'get_all_categories'] );
+			add_action( 'wp_ajax_templatiq-sites-get-all-categories-and-tags', [$this, 'get_all_categories_and_tags'] );
 
-			add_action( 'templatiq_sites_site_import_batch_complete', array( $this, 'sync_batch_complete' ) );
+			add_action( 'templatiq_sites_site_import_batch_complete', [$this, 'sync_batch_complete'] );
 		}
 
 		/**
@@ -242,12 +245,12 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 				$sites_and_pages = Templatiq_Sites_Batch_Processing_Importer::get_instance()->import_sites( $page_no );
 
 				$page_builder_keys    = wp_list_pluck( $sites_and_pages, 'templatiq-site-page-builder' );
-				$default_page_builder = Templatiq_Sites_Page::get_instance()->get_setting( 'page_builder' );
+				$default_page_builder = ( new Settings )->get_setting( 'page_builder' );
 
-				$current_page_builder_sites = array();
+				$current_page_builder_sites = [];
 				foreach ( $page_builder_keys as $site_id => $page_builder ) {
 					if ( $default_page_builder === $page_builder ) {
-						$current_page_builder_sites[ $site_id ] = $sites_and_pages[ $site_id ];
+						$current_page_builder_sites[$site_id] = $sites_and_pages[$site_id];
 					}
 				}
 
@@ -357,9 +360,9 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 				return $this->last_export_checksums;
 			}
 
-			$api_args = array(
+			$api_args = [
 				'timeout' => 60,
-			);
+			];
 
 			$response = wp_remote_get( trailingslashit( TEMPLATIQ_API_ENDPOINT ) . 'wp-json/templatiq-sites/v1/get-last-export-checksums', $api_args );
 			if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
@@ -417,7 +420,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 				$list_files = $this->get_default_assets();
 				foreach ( $list_files as $key => $file_name ) {
 					if ( file_exists( $dir . '/' . $file_name . '.json' ) ) {
-						$data = FullSite::init()->get_filesystem()->get_contents( $dir . '/' . $file_name . '.json' );
+						$data = ( new FileSystemRepository )->get_filesystem()->get_contents( $dir . '/' . $file_name . '.json' );
 						if ( ! empty( $data ) ) {
 							update_site_option( $file_name, json_decode( $data, true ) );
 						}
@@ -440,7 +443,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 		 */
 		public function get_default_assets() {
 
-			return array(
+			return [
 				'astra-blocks-1',
 				'templatiq-sites-site-category',
 				'templatiq-sites-all-site-categories',
@@ -474,7 +477,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 				'templatiq-sites-and-pages-page-22',
 				'templatiq-sites-and-pages-page-23',
 				'templatiq-sites-and-pages-page-24',
-			);
+			];
 		}
 
 		/**
@@ -496,10 +499,12 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 				if ( defined( 'WP_CLI' ) ) {
 					WP_CLI::line( 'Library is up to date!' );
 				}
+
 				return;
 			}
 
-			$status = Templatiq_Sites_Page::get_instance()->test_cron();
+			$status = ( new Cron )->status();
+
 			if ( is_wp_error( $status ) ) {
 				templatiq_sites_error_log( 'Error! Batch Not Start due to disabled cron events!' );
 				update_site_option( 'templatiq-sites-batch-status-string', 'Error! Batch Not Start due to disabled cron events!' );
@@ -521,10 +526,10 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 				Templatiq_Sites_Batch_Processing_Importer::get_instance()->import_all_categories_and_tags();
 			} else {
 				self::$process_site_importer->push_to_queue(
-					array(
+					[
 						'instance' => Templatiq_Sites_Batch_Processing_Importer::get_instance(),
 						'method'   => 'import_all_categories_and_tags',
-					)
+					]
 				);
 			}
 
@@ -535,10 +540,10 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 				Templatiq_Sites_Batch_Processing_Importer::get_instance()->import_all_categories();
 			} else {
 				self::$process_site_importer->push_to_queue(
-					array(
+					[
 						'instance' => Templatiq_Sites_Batch_Processing_Importer::get_instance(),
 						'method'   => 'import_all_categories',
-					)
+					]
 				);
 			}
 
@@ -555,11 +560,11 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 						Templatiq_Sites_Batch_Processing_Importer::get_instance()->import_blocks( $page );
 					} else {
 						self::$process_site_importer->push_to_queue(
-							array(
+							[
 								'page'     => $page,
 								'instance' => Templatiq_Sites_Batch_Processing_Importer::get_instance(),
 								'method'   => 'import_blocks',
-							)
+							]
 						);
 					}
 				}
@@ -572,10 +577,10 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 				Templatiq_Sites_Batch_Processing_Importer::get_instance()->import_block_categories();
 			} else {
 				self::$process_site_importer->push_to_queue(
-					array(
+					[
 						'instance' => Templatiq_Sites_Batch_Processing_Importer::get_instance(),
 						'method'   => 'import_block_categories',
-					)
+					]
 				);
 			}
 
@@ -592,11 +597,11 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 						Templatiq_Sites_Batch_Processing_Importer::get_instance()->import_sites( $page );
 					} else {
 						self::$process_site_importer->push_to_queue(
-							array(
+							[
 								'page'     => $page,
 								'instance' => Templatiq_Sites_Batch_Processing_Importer::get_instance(),
 								'method'   => 'import_sites',
-							)
+							]
 						);
 					}
 				}
@@ -676,9 +681,9 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 			templatiq_sites_error_log( 'Getting Total Pages' );
 			update_site_option( 'templatiq-sites-batch-status-string', 'Getting Total Pages' );
 
-			$api_args = array(
+			$api_args = [
 				'timeout' => 60,
-			);
+			];
 
 			$response = wp_remote_get( trailingslashit( TEMPLATIQ_API_ENDPOINT ) . 'wp-json/templatiq-sites/v1/get-total-pages/?per_page=15', $api_args );
 			if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
@@ -710,14 +715,14 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 			templatiq_sites_error_log( 'BLOCK: Getting Total Blocks' );
 			update_site_option( 'templatiq-sites-batch-status-string', 'Getting Total Blocks' );
 
-			$api_args = array(
+			$api_args = [
 				'timeout' => 60,
-			);
+			];
 
-			$query_args = array(
+			$query_args = [
 				'page_builder' => 'elementor',
 				'wireframe'    => 'yes',
-			);
+			];
 
 			$api_url = add_query_arg( $query_args, trailingslashit( TEMPLATIQ_API_ENDPOINT ) . 'wp-json/astra-blocks/v1/get-blocks-count/' );
 
@@ -753,8 +758,8 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 
 			templatiq_sites_error_log( '=================== ' . TEMPLATIQ_SITES_NAME . ' - Single Page - Importing Images for Blog name \'' . get_the_title( $page_id ) . '\' (' . $page_id . ') ===================' );
 
-			$default_page_builder = Templatiq_Sites_Page::get_instance()->get_setting( 'page_builder' );
-		
+			$default_page_builder = ( new Settings )->get_setting( 'page_builder' );
+
 			// Add "elementor" in import [queue].
 			if ( 'elementor' === $default_page_builder ) {
 				// @todo Remove required `allow_url_fopen` support.
@@ -766,10 +771,10 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 
 						$import = new \Elementor\TemplateLibrary\Templatiq_Sites_Batch_Processing_Elementor();
 						self::$process_single->push_to_queue(
-							array(
+							[
 								'page_id'  => $page_id,
 								'instance' => $import,
-							)
+							]
 						);
 					}
 				} else {
@@ -800,11 +805,11 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 				}
 
 				if (
-					strpos( $attachment['url'], 'brainstormforce.com' ) !== false ||
-					strpos( $attachment['url'], 'wpastra.com' ) !== false ||
-					strpos( $attachment['url'], 'sharkz.in' ) !== false ||
-					strpos( $attachment['url'], 'templatiq.com' ) !== false
-				) {
+				strpos( $attachment['url'], 'brainstormforce.com' ) !== false ||
+				strpos( $attachment['url'], 'wpastra.com' ) !== false ||
+				strpos( $attachment['url'], 'sharkz.in' ) !== false ||
+				strpos( $attachment['url'], 'templatiq.com' ) !== false
+			) {
 					return false;
 				}
 			}
@@ -836,7 +841,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 				Templatiq_Sites_Importer_Log::add( 'Option `templatiq_sites_imported_wxr_id` Deleted.' );
 			}
 
-			$classes = array();
+			$classes = [];
 
 			Templatiq_Sites_Importer_Log::add( 'Batch Process Started..' );
 			Templatiq_Sites_Importer_Log::add( TEMPLATIQ_SITES_NAME . ' - Importing Images for Blog name \'' . get_bloginfo( 'name' ) . '\' (' . get_current_blog_id() . ')' );
@@ -905,10 +910,10 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 		 * @param  array $post_types Post types.
 		 * @return array
 		 */
-		public static function get_pages( $post_types = array() ) {
+		public static function get_pages( $post_types = [] ) {
 
 			if ( $post_types ) {
-				$args = array(
+				$args = [
 					'post_type'      => $post_types,
 
 					// Query performance optimization.
@@ -916,19 +921,19 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 					'no_found_rows'  => true,
 					'post_status'    => 'publish',
 					'posts_per_page' => -1,
-				);
+				];
 
 				$query = new WP_Query( $args );
 
 				// Have posts?
-				if ( $query->have_posts() ) :
+				if ( $query->have_posts() ):
 
 					return $query->posts;
 
 				endif;
 			}
 
-			return null;
+			return;
 		}
 
 		/**
@@ -942,7 +947,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 			global $_wp_post_type_features;
 
 			$post_types = array_keys(
-				wp_filter_object_list( $_wp_post_type_features, array( $feature => true ) )
+				wp_filter_object_list( $_wp_post_type_features, [$feature => true] )
 			);
 
 			return $post_types;
@@ -959,7 +964,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 				}
 
-				$all_categories = get_site_option( 'templatiq-sites-all-site-categories', array() );
+				$all_categories = get_site_option( 'templatiq-sites-all-site-categories', [] );
 				wp_send_json_success( $all_categories );
 			}
 
@@ -977,7 +982,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ) :
 					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 				}
 
-				$all_categories_and_tags = get_site_option( 'templatiq-sites-all-site-categories-and-tags', array() );
+				$all_categories_and_tags = get_site_option( 'templatiq-sites-all-site-categories-and-tags', [] );
 				wp_send_json_success( $all_categories_and_tags );
 			}
 

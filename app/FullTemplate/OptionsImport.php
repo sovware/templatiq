@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace Templatiq\FullSite;
+namespace Templatiq\FullTemplate;
 
 use Templatiq\Utils\Singleton;
 use Templatiq_Sites_Image_Importer;

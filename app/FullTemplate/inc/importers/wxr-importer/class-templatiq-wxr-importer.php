@@ -6,7 +6,7 @@
  * @package Templatiq Addon
  */
 
-use Templatiq\FullSite\FullSite;
+use Templatiq\Repositories\DependencyRepository;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -96,14 +96,14 @@ class Templatiq_WXR_Importer {
 		if ( 'wp_template' === $data['post_type'] || 'wp_template_part' === $data['post_type'] ) {
 			$_template_parts           = get_option( '_templatiq_imported_template_parts', [] );
 			$_template_parts[$post_id] = $post_id;
-			error_log( 'track_post - ' . $data['post_type']  .  ' : ' . $data['post_id'] . ' => ' . $post_id );
+			error_log( 'track_post - ' . $data['post_type'] . ' : ' . $data['post_id'] . ' => ' . $post_id );
 			update_option( '_templatiq_imported_template_parts', $_template_parts );
 		}
 
 		// Set the full width template for the pages.
 		if ( isset( $data['post_type'] ) && 'page' === $data['post_type'] ) {
 			$is_elementor_page = get_post_meta( $post_id, '_elementor_version', true );
-			$theme_status      = FullSite::init()->get_theme_status();
+			$theme_status      = ( new DependencyRepository )->get_theme_status();
 			if ( 'installed-and-active' !== $theme_status && $is_elementor_page ) {
 				// update_post_meta( $post_id, '_wp_page_template', 'elementor_header_footer' );
 			}
@@ -239,7 +239,7 @@ class Templatiq_WXR_Importer {
 		}
 
 		// Set EXT and real MIME type only for the file name `wpforms.json` or `wpforms-{page-id}.json`.
-		if (  ( strpos( $filename, 'wpforms' ) !== false ) || ( strpos( $filename, 'cartflows' ) !== false ) || ( strpos( $filename, 'spectra' ) !== false ) ) {
+		if ( ( strpos( $filename, 'wpforms' ) !== false ) || ( strpos( $filename, 'cartflows' ) !== false ) || ( strpos( $filename, 'spectra' ) !== false ) ) {
 			$defaults['ext']  = 'json';
 			$defaults['type'] = 'text/plain';
 		}

@@ -6,13 +6,13 @@
  * @package Templatiq Sites
  */
 
-use Templatiq\FullSite\FullSite;
+use Templatiq\Repositories\FileSystemRepository;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
+if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ):
 
 	/**
 	 * Templatiq Sites Importer
@@ -59,7 +59,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 
 			// Check file read/write permissions.
 			if ( current_user_can( 'edit_posts' ) ) {
-				add_action( 'admin_init', array( $this, 'has_file_read_write' ) );
+				add_action( 'admin_init', [$this, 'has_file_read_write'] );
 			}
 
 		}
@@ -74,9 +74,10 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 
 			$upload_dir = self::log_dir();
 
-			$file_created = FullSite::init()->get_filesystem()->put_contents( $upload_dir['path'] . 'index.html', '' );
+			$file_created = ( new FileSystemRepository )->get_filesystem()->put_contents( $upload_dir['path'] . 'index.html', '' );
 			if ( ! $file_created ) {
-				add_action( 'admin_notices', array( $this, 'file_permission_notice' ) );
+				add_action( 'admin_notices', [$this, 'file_permission_notice'] );
+
 				return;
 			}
 
@@ -84,7 +85,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 			self::set_log_file();
 
 			// Initial AJAX Import Hooks.
-			add_action( 'templatiq_sites_import_start', array( $this, 'start' ), 10, 2 );
+			add_action( 'templatiq_sites_import_start', [$this, 'start'], 10, 2 );
 		}
 
 		/**
@@ -94,24 +95,24 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 		 * @return void
 		 */
 		public function file_permission_notice() {
-			$upload_dir = self::log_dir();
+			$upload_dir  = self::log_dir();
 			$plugin_name = TEMPLATIQ_SITES_NAME;
-			
+
 			/* translators: %1$s refers to the plugin name */
 			$notice = sprintf( __( 'Required File Permissions to import the templates from %s are missing.', 'templatiq' ), $plugin_name );
 			?>
-			<div class="notice notice-error templatiq-sites-must-notices templatiq-sites-file-permission-issue">
-				<p><?php echo esc_html( $notice ); ?></p>
-				<?php if ( defined( 'FS_METHOD' ) ) { ?>
-					<p><?php esc_html_e( 'This is usually due to inconsistent file permissions.', 'templatiq' ); ?></p>
-					<p><code><?php echo esc_html( $upload_dir['path'] ); ?></code></p>
-				<?php } else { ?>
-					<p><?php esc_html_e( 'You can easily update permissions by adding the following code into the wp-config.php file.', 'templatiq' ); ?></p>
-					<p><code>define( 'FS_METHOD', 'direct' );</code></p>
-				<?php } ?>
-			</div>
-			<?php
-		}
+						<div class="notice notice-error templatiq-sites-must-notices templatiq-sites-file-permission-issue">
+							<p><?php echo esc_html( $notice ); ?></p>
+							<?php if ( defined( 'FS_METHOD' ) ) {?>
+								<p><?php esc_html_e( 'This is usually due to inconsistent file permissions.', 'templatiq' );?></p>
+								<p><code><?php echo esc_html( $upload_dir['path'] ); ?></code></p>
+							<?php } else {?>
+								<p><?php esc_html_e( 'You can easily update permissions by adding the following code into the wp-config.php file.', 'templatiq' );?></p>
+								<p><code>define( 'FS_METHOD', 'direct' );</code></p>
+							<?php }?>
+						</div>
+						<?php
+	}
 
 		/**
 		 * Add log file URL in UI response.
@@ -125,10 +126,10 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 			$file_abs_url = get_option( 'templatiq_sites_recent_import_log_file', self::$log_file );
 			$file_url     = $upload_path . basename( $file_abs_url );
 
-			return array(
+			return [
 				'abs_url' => $file_abs_url,
 				'url'     => $file_url,
-			);
+			];
 		}
 
 		/**
@@ -149,7 +150,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 		 * @param  string $demo_api_uri Import site API URL.
 		 * @return void
 		 */
-		public function start( $data = array(), $demo_api_uri = '' ) {
+		public function start( $data = [], $demo_api_uri = '' ) {
 
 			self::add( 'Started Import Process' );
 
@@ -199,10 +200,10 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 			$upload_dir = wp_upload_dir();
 
 			// Build the paths.
-			$dir_info = array(
+			$dir_info = [
 				'path' => $upload_dir['basedir'] . '/' . $dir_name . '/',
 				'url'  => $upload_dir['baseurl'] . '/' . $dir_name . '/',
-			);
+			];
 
 			// Create the upload dir if it doesn't exist.
 			if ( ! file_exists( $dir_info['path'] ) ) {
@@ -210,11 +211,13 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 				// Create the directory.
 				wp_mkdir_p( $dir_info['path'] );
 
+				$file_system = ( new FileSystemRepository );
+
 				// Add an index file for security.
-				FullSite::init()->get_filesystem()->put_contents( $dir_info['path'] . 'index.html', '' );
+				$file_system->get_filesystem()->put_contents( $dir_info['path'] . 'index.html', '' );
 
 				// Add an .htaccess for security.
-				FullSite::init()->get_filesystem()->put_contents( $dir_info['path'] . '.htaccess', 'deny from all' );
+				$file_system->get_filesystem()->put_contents( $dir_info['path'] . '.htaccess', 'deny from all' );
 			}
 
 			return $dir_info;
@@ -253,15 +256,16 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 				$log_file = self::$log_file;
 			}
 
+			$file_system   = ( new FileSystemRepository );
 			$existing_data = '';
 			if ( file_exists( $log_file ) ) {
-				$existing_data = FullSite::init()->get_filesystem()->get_contents( $log_file );
+				$existing_data = $file_system->get_filesystem()->get_contents( $log_file );
 			}
 
 			// Style separator.
 			$separator = PHP_EOL;
 
-			FullSite::init()->get_filesystem()->put_contents( $log_file, $existing_data . $separator . $content, FS_CHMOD_FILE );
+			$file_system->get_filesystem()->put_contents( $log_file, $existing_data . $separator . $content, FS_CHMOD_FILE );
 		}
 
 		/**
@@ -348,6 +352,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 		 */
 		public static function get_mysql_version() {
 			global $wpdb;
+
 			return $wpdb->db_version();
 		}
 
@@ -376,6 +381,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 			if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 				return _x( 'We recommend to use php 5.4 or higher', 'PHP Version', 'templatiq' );
 			}
+
 			return PHP_VERSION;
 		}
 
@@ -432,16 +438,16 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 		public function display_data() {
 
 			$crons  = _get_cron_array();
-			$events = array();
+			$events = [];
 
 			if ( empty( $crons ) ) {
 				esc_html_e( 'You currently have no scheduled cron events.', 'templatiq' );
 			}
 
 			foreach ( $crons as $time => $cron ) {
-				$keys           = array_keys( $cron );
-				$key            = $keys[0];
-				$events[ $key ] = $time;
+				$keys         = array_keys( $cron );
+				$key          = $keys[0];
+				$events[$key] = $time;
 			}
 
 			$expired = get_site_transient( 'templatiq-sites-import-check' );
@@ -452,9 +458,9 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 				$transient_timeout = $wpdb->get_col(
 					$wpdb->prepare(
 						"SELECT option_value
-					FROM $wpdb->options
-					WHERE option_name
-					LIKE %s",
+								FROM $wpdb->options
+								WHERE option_name
+								LIKE %s",
 						'%_transient_timeout_' . $transient . '%'
 					)
 				); // WPCS: cache ok. // WPCS: db call ok.
@@ -464,13 +470,13 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 			} else {
 				$transient_status = 'Transient: Starting.. Process for each 5 minutes.';
 			}
-			$temp  = get_site_option( 'templatiq-sites-batch-status-string', '' );
+			$temp = get_site_option( 'templatiq-sites-batch-status-string', '' );
 			$temp .= isset( $events['wp_templatiq_site_importer_cron'] ) ? '<br/>Batch: Recheck batch in ' . human_time_diff( time(), $events['wp_templatiq_site_importer_cron'] ) : '<br/>Batch: Not Started! Until the Transient expire.';
 
 			$upload_dir   = self::get_instance()->log_dir();
 			$list_files   = list_files( $upload_dir['path'] );
-			$backup_files = array();
-			$log_files    = array();
+			$backup_files = [];
+			$log_files    = [];
 			foreach ( $list_files as $key => $file ) {
 				if ( strpos( $file, '.json' ) ) {
 					$backup_files[] = $file;
@@ -480,46 +486,48 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ) :
 				}
 			}
 			?>
-			<table>
-				<tr>
-					<td>
-						<h2>Log Files</h2>
-						<ul>
-							<?php
-							foreach ( $log_files as $key => $file ) {
-								$file_name = basename( $file );
-								$file      = str_replace( $upload_dir['path'], $upload_dir['url'], $file );
-								?>
-								<li>
-									<a target="_blank" href="<?php echo esc_url( $file ); ?>"><?php echo esc_html( $file_name ); ?></a>
-								</li>
-							<?php } ?>
-						</ul>
-					</td>
-					<td>
-						<h2>Backup Files</h2>
-						<ul>
-							<?php
-							foreach ( $backup_files as $key => $file ) {
-								$file_name = basename( $file );
-								$file      = str_replace( $upload_dir['path'], $upload_dir['url'], $file );
-								?>
-								<li>
-									<a target="_blank" href="<?php echo esc_url( $file ); ?>"><?php echo esc_html( $file_name ); ?></a>
-								</li>
-							<?php } ?>
-						</ul>
-					</td>
-					<td>
-						<div class="batch-log">
-							<p><?php echo wp_kses_post( $temp ); ?></p>
-							<p><?php echo wp_kses_post( $transient_status ); ?></p>
-						</div>
-					</td>
-				</tr>
-			</table>
-			<?php
-		}
+						<table>
+							<tr>
+								<td>
+									<h2>Log Files</h2>
+									<ul>
+										<?php
+	foreach ( $log_files as $key => $file ) {
+				$file_name = basename( $file );
+				$file      = str_replace( $upload_dir['path'], $upload_dir['url'], $file );
+				?>
+											<li>
+												<a target="_blank" href="<?php echo esc_url( $file ); ?>"><?php echo esc_html( $file_name ); ?></a>
+											</li>
+										<?php
+	}?>
+									</ul>
+								</td>
+								<td>
+									<h2>Backup Files</h2>
+									<ul>
+										<?php
+	foreach ( $backup_files as $key => $file ) {
+				$file_name = basename( $file );
+				$file      = str_replace( $upload_dir['path'], $upload_dir['url'], $file );
+				?>
+											<li>
+												<a target="_blank" href="<?php echo esc_url( $file ); ?>"><?php echo esc_html( $file_name ); ?></a>
+											</li>
+										<?php
+	}?>
+									</ul>
+								</td>
+								<td>
+									<div class="batch-log">
+										<p><?php echo wp_kses_post( $temp ); ?></p>
+										<p><?php echo wp_kses_post( $transient_status ); ?></p>
+									</div>
+								</td>
+							</tr>
+						</table>
+						<?php
+	}
 
 	}
 

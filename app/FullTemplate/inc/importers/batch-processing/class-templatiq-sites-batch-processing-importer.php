@@ -6,7 +6,6 @@
  * @since 2.0.0
  */
 
-use Templatiq\FullSite\FullSite;
 
 if ( ! class_exists( 'Templatiq_Sites_Batch_Processing_Importer' ) ) :
 

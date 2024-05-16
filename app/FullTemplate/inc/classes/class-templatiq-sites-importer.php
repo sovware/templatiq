@@ -6,8 +6,7 @@
  * @package Templatiq Sites
  */
 
-use Templatiq\FullSite\OptionsImport;
-use Templatiq\Utils\Options;
+use Templatiq\FullTemplate\OptionsImport;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -20,12 +19,6 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 	 */
 	class Templatiq_Sites_Importer {
 
-		/**
-		 * Instance
-		 *
-		 * @since  1.0.0
-		 * @var (Object) Class object
-		 */
 		public static $instance = null;
 
 		/**
@@ -309,7 +302,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 					update_option( '_templatiq_sites_old_site_options', $options_data, 'no' );
 				}
 
-				$options_importer = OptionsImport::init();
+				$options_importer = ( new OptionsImport );
 				$options_importer->import_options( $options_data );
 
 				if ( defined( 'WP_CLI' ) ) {
@@ -356,10 +349,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 				'Import ended, hello '
 				. PHP_EOL . '#############################################'
 				. PHP_EOL . '#############################################'
-				. PHP_EOL . '#############################################'
-				. PHP_EOL . '#############################################'
-				. PHP_EOL . '#############################################'
-				. PHP_EOL . '#############################################' . PHP_EOL );
+				. PHP_EOL );
 
 			if ( wp_doing_ajax() ) {
 				wp_send_json_success();
@@ -390,87 +380,6 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			$updated_content = str_replace( $find, $replace, $data );
 
 			return $updated_content;
-		}
-
-		/**
-		 * Get single demo.
-		 *
-		 * @since  1.0.0
-		 *
-		 * @param  (String) $template_id API URL of a demo.
-		 *
-		 * @return (Array) $templatiq_demo_data demo data for the demo.
-		 */
-		public static function get_single_demo( $template_id ) {
-
-			// default values.
-			$remote_args = [];
-			$defaults    = [
-				'id'                       => '',
-				'templatiq-site-options-data'  => '',
-				'astra-post-data-mapping'  => '',
-				'templatiq-site-wxr-path'      => '',
-				'astra-enabled-extensions' => '',
-				'required-plugins'         => '',
-				'license-status'           => '',
-				'site-type'                => '',
-				'templatiq-site-url'           => '',
-			];
-
-			$api_args = apply_filters(
-				'templatiq_sites_api_args',
-				[
-					'timeout' => 15,
-				]
-			);
-
-			// Use this for premium demos.
-			$request_params = apply_filters(
-				'templatiq_sites_api_params',
-				[
-					'token'       => Options::get( 'token' ),
-					'template_id' => $template_id,
-				]
-			);
-
-			// $template_id = add_query_arg( $request_params, trailingslashit( $template_id ) );
-			$url = 'https://templatiq.com/wp-json/tm/template/full-site';
-			$url = add_query_arg( $request_params, trailingslashit( $url ) );
-
-			// API Call.
-			// $response = wp_remote_get( $url, $api_args );
-			$response = wp_remote_post( $url, $api_args );
-
-			if ( is_wp_error( $response ) || ( isset( $response->status ) && 0 === $response->status ) ) {
-				if ( isset( $response->status ) ) {
-					$data = json_decode( $response, true );
-				} else {
-					return new WP_Error( 'api_invalid_response_code', $response->get_error_message() );
-				}
-			}
-
-			if ( wp_remote_retrieve_response_code( $response ) !== 200 ) {
-				return new WP_Error( 'api_invalid_response_code', wp_remote_retrieve_body( $response ) );
-			} else {
-				$data = json_decode( wp_remote_retrieve_body( $response ), true );
-			}
-
-			$data = json_decode( wp_remote_retrieve_body( $response ), true );
-
-			if ( ! isset( $data['code'] ) ) {
-				$remote_args['id']                      = $data['id'];
-				$remote_args['templatiq-site-options-data'] = $data['templatiq-site-options-data'];
-				$remote_args['templatiq-site-wxr-path']     = $data['templatiq-site-wxr-path'];
-				$remote_args['required-plugins']        = $data['required-plugins'];
-				$remote_args['license-status']          = $data['license-status'];
-				$remote_args['site-type']               = $data['templatiq-site-type'];
-				$remote_args['templatiq-site-url']          = $data['templatiq-site-url'];
-				$remote_args['directory-types']         = $data['directory-types'];
-			}
-
-			// Merge remote demo and defaults.
-
-			return wp_parse_args( $remote_args, $defaults );
 		}
 
 		/**

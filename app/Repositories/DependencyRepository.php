@@ -175,4 +175,23 @@ class DependencyRepository {
 
 		Templatiq_Sites_Error_Handler::get_instance()->stop_error_handler();
 	}
+
+	public function get_theme_status() {
+
+		$theme = wp_get_theme();
+
+		// Theme installed and activate.
+		if ( 'One Directory' === $theme->name || 'One Directory' === $theme->parent_theme ) {
+			return 'installed-and-active';
+		}
+
+		// Theme installed but not activate.
+		foreach ( (array) wp_get_themes() as $theme_dir => $theme ) {
+			if ( 'One Directory' === $theme->name || 'One Directory' === $theme->parent_theme ) {
+				return 'installed-but-inactive';
+			}
+		}
+
+		return 'not-installed';
+	}
 }

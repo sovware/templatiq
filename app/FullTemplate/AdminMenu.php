@@ -29,14 +29,7 @@ class AdminMenu {
 	}
 
 	public function menu_callback() {
-		$current_slug = isset( $_GET['action'] ) ? esc_attr( $_GET['action'] ) : 'general'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Fetching a $_GET value, no nonce available to validate.
-		$active_tab   = str_replace( '_', '-', $current_slug );
-
-		if ( 'site-import' === $current_slug ) {
-			\Templatiq_Sites_Page::get_instance()->init_nav_menu( $active_tab );
-		} else {
-			echo '<div class="templatiq-sites-menu-page-wrapper"><div id="templatiq-sites-menu-page"><div id="starter-templates-ai-root"></div></div></div>';
-		}
+		echo '<div class="templatiq-sites-menu-page-wrapper"><div id="templatiq-sites-menu-page"><div id="starter-templates-ai-root"></div></div></div>';
 	}
 
 	public function admin_body_class( $classes = '' ) {

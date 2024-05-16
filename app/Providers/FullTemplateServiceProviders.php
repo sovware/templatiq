@@ -8,13 +8,12 @@
 namespace Templatiq\Providers;
 
 use Templatiq\Abstracts\ProviderBase;
-use Templatiq\FullSite\FullSite;
 use Templatiq\FullTemplate\AdminMenu;
 use Templatiq\FullTemplate\Ajax;
 use Templatiq\FullTemplate\Enqueuer;
 use Templatiq\FullTemplate\FullTemplate;
-use Templatiq\Repositories\FullTemplateRepository;
-use Templatiq_Sites_Page;
+use Templatiq\FullTemplate\Repository;
+use Templatiq\FullTemplate\Settings;
 
 class FullTemplateServiceProviders extends ProviderBase {
 
@@ -28,7 +27,6 @@ class FullTemplateServiceProviders extends ProviderBase {
 		FullTemplate::init();
 		AdminMenu::init();
 		Enqueuer::init();
-		FullSite::init();
 		Ajax::init();
 	}
 
@@ -68,11 +66,11 @@ class FullTemplateServiceProviders extends ProviderBase {
 			'import_attempts' => isset( $data->tryAgainCount ) ? absint( $data->tryAgainCount ) : 0,
 			'import_status'   => 'false',
 			'type'            => 'templatiq-sites',
-			'page_builder'    => Templatiq_Sites_Page::get_instance()->get_setting( 'page_builder' ),
+			'page_builder'    => ( new Settings )->get_setting( 'page_builder' ),
 			'exit_intend'     => 'true',
 		];
 
-		( new FullTemplateRepository )->report( $report_data );
+		( new Repository )->report( $report_data );
 
 		update_option( 'templatiq_sites_has_sent_error_report', 'no' );
 		delete_option( 'templatiq_sites_cached_import_error' );

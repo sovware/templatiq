@@ -7,8 +7,6 @@
 
 namespace Templatiq\FullTemplate;
 
-use Templatiq\FullSite\FullSite;
-
 class Repository {
 
 	public function get_log_file_path() {
@@ -53,7 +51,7 @@ class Repository {
 			],
 		];
 
-		$request = wp_remote_post( FullSite::init()->import_analytics_url, $api_args );
+		$request = wp_remote_post( ( new FullTemplate )->import_analytics_url, $api_args );
 
 		if ( is_wp_error( $request ) ) {
 			return [
