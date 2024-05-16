@@ -218,6 +218,10 @@ const InsertTemplateModalStyle = Styled.div`
         }
         .templatiq__modal__action--install {
             margin: 20px 0 0;
+            svg {
+                width: 16px;
+                height: 16px;
+            }
         }
     }
     &.templatiq__modal--pro {
