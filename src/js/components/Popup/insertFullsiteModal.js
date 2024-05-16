@@ -1,3 +1,5 @@
+import postData from '@helper/postData';
+import { useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { InsertTemplateModalStyle } from './style';
 
@@ -5,8 +7,25 @@ import closeIcon from '@icon/close.svg';
 
 const InsertFullsiteModal = ( { item, onClose } ) => {
 	const { template_id } = item;
+	const [ themeInstalling, setThemeInstalling ] = useState( false );
 
-	let closeInsertTemplateModal = ( e ) => {
+	const installOnebaseThemeEndPoint = 'templatiq/dependency/install-activate-theme';
+
+	const installOneBaseTheme = async (e) => {
+		setThemeInstalling(true);
+		postData( installOnebaseThemeEndPoint ).then( ( res ) => {
+			setThemeInstalling(false);
+			console.log('installOneBaseTheme res', res)
+			if ( res.success ) {
+				closeInsertTemplateModal(e);
+				window.open(`?page=starter-templates&template_id=${template_id}`, '_blank');
+			} else {
+				console.error( 'Installation failed' );
+			}
+		} );
+	};
+
+	const closeInsertTemplateModal = ( e ) => {
 		e.preventDefault();
 		let templatiqRoot = document.querySelector( '.templatiq' );
 
@@ -33,20 +52,24 @@ const InsertFullsiteModal = ( { item, onClose } ) => {
 						We recommend to use Onebase Theme to fully experience the design & feature of this template. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist.
 					</p>
 					<div className="templatiq__modal__actions">
-						<a
-							href={`?page=starter-templates&template_id=${template_id}`}
-							target='_blank'
+						<button
 							className='templatiq-btn templatiq-btn-primary'
+							onClick={installOneBaseTheme}
+							disabled={themeInstalling}
 						>
-							Yes, Install
-						</a>
-						<a
-							href='/'
-							target='_blank'
-							className='templatiq-btn'
-						>
-							Continue without installing	
-						</a>
+							{themeInstalling ? 'Installing...' : 'Yes, Install'}
+						</button>
+						{
+							!themeInstalling && 
+							<a
+								href='/'
+								target='_blank'
+								className='templatiq-btn'
+							>
+								Continue without installing	
+							</a>
+						}
+						
 					</div>
 				</div>
 

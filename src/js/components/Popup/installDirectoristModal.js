@@ -41,7 +41,6 @@ const InstallDirectoristModal = ( { onClose, install_directorist } ) => {
 						setTimeout( () => {
 							window.location.reload();
 							closeInsertTemplateModal();
-							history('/?test');
 						}, 1000 );
 					} else {
 						reject( new Error( 'Installation failed' ) ); // Reject the Promise if installation fails

@@ -22,7 +22,7 @@ const InsertTemplate = ({
 }) => {
 	let { template_id, type, required_plugins, is_directorist_required } = item;
 
-	const onebaseInstalled = false;
+	const onebaseInstalled = template_market_obj?.theme_status === 'installed-and-active';
 	const insertFullSite = type === 'pack';
 	const dependencyCheckEndPoint = 'templatiq/dependency/check';
 
