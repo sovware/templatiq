@@ -19,5 +19,6 @@ class Elementor extends IntegrationBase {
 		Ajax::init();
 		Compatibility::init();
 		Enqueuer::init();
+		ImportAsPage::init();
 	}
 }

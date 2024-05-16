@@ -16,6 +16,5 @@ class Admin {
 	public function __construct() {
 		AdminMenu::init();
 		Enqueuer::init();
-		FullSite::init();
 	}
 }

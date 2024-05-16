@@ -16,6 +16,7 @@ class Directorist extends IntegrationBase {
 			return;
 		}
 
+		AddCustomPages::init();
 		Compatibility::init();
 		Localize::init();
 		Routes::init();

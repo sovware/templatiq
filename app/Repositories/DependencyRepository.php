@@ -9,6 +9,7 @@ namespace Templatiq\Repositories;
 
 use Plugin_Upgrader;
 use Templatiq\DTO\PluginDTO;
+use Templatiq_Sites_Error_Handler;
 use WP_Ajax_Upgrader_Skin;
 use WP_Filesystem_Base;
 
@@ -165,5 +166,32 @@ class DependencyRepository {
 		if ( ! function_exists( 'is_plugin_active' ) || ! function_exists( 'get_plugins' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
+	}
+
+	public function activate_theme() {
+		Templatiq_Sites_Error_Handler::get_instance()->start_error_handler();
+
+		switch_theme( 'onedirectory' );
+
+		Templatiq_Sites_Error_Handler::get_instance()->stop_error_handler();
+	}
+
+	public function get_theme_status() {
+
+		$theme = wp_get_theme();
+
+		// Theme installed and activate.
+		if ( 'One Directory' === $theme->name || 'One Directory' === $theme->parent_theme ) {
+			return 'installed-and-active';
+		}
+
+		// Theme installed but not activate.
+		foreach ( (array) wp_get_themes() as $theme_dir => $theme ) {
+			if ( 'One Directory' === $theme->name || 'One Directory' === $theme->parent_theme ) {
+				return 'installed-but-inactive';
+			}
+		}
+
+		return 'not-installed';
 	}
 }

@@ -5,152 +5,207 @@
  * @version 1.0.0
  */
 
-namespace Templatiq\FullSite;
+namespace Templatiq\FullTemplate;
 
-use Templatiq\Utils\Singleton;
+use Templatiq\Abstracts\EnqueuerBase;
+use Templatiq\Repositories\DependencyRepository;
+use Templatiq_Sites_Helper;
 
-/**
- * Set constants.
- */
-if ( ! defined( 'TEMPLATIQ_SITES_NAME' ) ) {
-	define( 'TEMPLATIQ_SITES_NAME', __( 'Templatiq Sites', 'templatiq' ) );
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
 }
 
-if ( ! defined( 'TEMPLATIQ_SITES_VER' ) ) {
-	define( 'TEMPLATIQ_SITES_VER', '1.0.0' );
-}
+class Enqueuer extends EnqueuerBase {
 
-if ( ! defined( 'TEMPLATIQ_SITES_BASE' ) ) {
-	define( 'TEMPLATIQ_SITES_BASE', TEMPLATIQ_PATH . '/app/FullSite/' );
-}
-
-if ( ! defined( 'TEMPLATIQ_SITES_DIR' ) ) {
-	define( 'TEMPLATIQ_SITES_DIR', TEMPLATIQ_PATH . '/app/FullSite/' );
-}
-
-if ( ! defined( 'TEMPLATIQ_SITES_URI' ) ) {
-	define( 'TEMPLATIQ_SITES_URI', TEMPLATIQ_URL . '/app/FullSite/inc/' );
-}
-
-class FullSite {
-	use Singleton;
-
+	private $hosting_providers = [
+		'unaux',
+		'epizy',
+		'ezyro',
+	];
 	public string $api_domain;
 	public string $api_url;
-	public string $search_analytics_url;
-	public string $import_analytics_url;
-	public string $pixabay_url;
-	public string $pixabay_api_key;
-
 	public function __construct() {
-		$this->set_api_url();
-		$this->includes();
-
-		add_action( 'admin_enqueue_scripts', [$this, 'admin_enqueue'], 99 );
-		add_action( 'admin_notices', [$this, 'check_filesystem_access_notice'] );
-
-		Ajax::init();
-
-		add_action( 'delete_attachment', [$this, 'delete_templatiq_images'] );
-		add_filter( 'wp_php_error_message', [$this, 'php_error_message'], 10, 2 );
-		add_filter( 'wp_import_post_data_processed', [$this, 'wp_slash_after_xml_import'], 99, 2 );
-	}
-
-	public function set_api_url() {
-		$this->api_domain = trailingslashit( $this->get_api_domain() );
+		$this->api_domain = trailingslashit( TEMPLATIQ_API_ENDPOINT );
 		$this->api_url    = apply_filters( 'templatiq_sites_api_url', $this->api_domain . 'wp-json/wp/v2/' );
 
-		$this->search_analytics_url = apply_filters( 'templatiq_sites_search_api_url', $this->api_domain . 'wp-json/analytics/v2/search/' );
-		$this->import_analytics_url = apply_filters( 'templatiq_sites_import_analytics_api_url', $this->api_domain . 'wp-json/analytics/v2/import/' );
-
-		$this->pixabay_url     = 'https://pixabay.com/api/';
-		$this->pixabay_api_key = '2727911-c4d7c1031949c7e0411d7e81e';
+		$this->action( 'admin_enqueue_scripts', [$this, 'new_enqueue_scripts'] );
 	}
 
-	private function includes() {
-		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/functions.php';
-		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-error-handler.php';
-		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-page.php';
-		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-importer.php';
-		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-image-processing.php';
+	public function enqueue_scripts( $hook = '' ) {
 
-		// Batch Import.
-		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/batch-import/class-templatiq-sites-batch-import.php';
-	}
-
-	public function admin_enqueue( $hook = '' ) {
-		// Avoid scripts from customizer.
-		if ( is_customize_preview() ) {
-			return;
+		// After activating the starter template from Templatiq notice for the first time, the templates was not displayed because of template import process not fully done.
+		if ( isset( $_GET['ast-disable-activation-notice'] ) ) {
+			$current_url = home_url( $_SERVER['REQUEST_URI'] );
+			$current_url = str_replace( '&ast-disable-activation-notice', '', $current_url );
+			wp_safe_redirect( $current_url );
+			exit;
 		}
 
 		if ( 'appearance_page_starter-templates' !== $hook ) {
 			return;
 		}
 
-		global $is_IE, $is_edge;
-
-		if ( $is_IE || $is_edge ) {
-			wp_enqueue_script( 'templatiq-sites-eventsource', TEMPLATIQ_SITES_URI . 'assets/js/eventsource.min.js', ['jquery', 'wp-util', 'updates'], TEMPLATIQ_SITES_VER, true );
-		}
-
-		// Fetch.
-		wp_register_script( 'templatiq-sites-fetch', TEMPLATIQ_SITES_URI . 'assets/js/fetch.umd.js', ['jquery'], TEMPLATIQ_SITES_VER, true );
-
-		// History.
-		wp_register_script( 'templatiq-sites-history', TEMPLATIQ_SITES_URI . 'assets/js/history.js', ['jquery'], TEMPLATIQ_SITES_VER, true );
-
-		// Admin Page.
-		wp_enqueue_style( 'templatiq-sites-admin', TEMPLATIQ_SITES_URI . 'assets/css/admin.css', TEMPLATIQ_SITES_VER, true );
-		wp_style_add_data( 'templatiq-sites-admin', 'rtl', 'replace' );
+		remove_all_actions( 'admin_notices' );
 
 		$data = $this->get_local_vars();
-	}
 
-	public function check_filesystem_access_notice() {
-		// Check if WP_Filesystem() returns false.
-		if ( ! WP_Filesystem() ) {
-			// Display a notice on the dashboard.
-			echo '<div class="error"><p>' . esc_html__( 'Required WP_Filesystem Permissions to import the templates from Starter Templates are missing.', 'templatiq' ) . '</p></div>';
-		}
-	}
+		wp_localize_script( 'jquery', 'templatiqSitesVars', $data );
 
-	public function delete_templatiq_images( $id ) {
-		if ( ! $id ) {
+		$file = INTELLIGENT_TEMPLATES_DIR . 'assets/dist/main.asset.php';
+		if ( ! file_exists( $file ) ) {
 			return;
 		}
 
-		$saved_images         = get_option( 'templatiq-sites-saved-images', [] );
-		$templatiq_image_flag = get_post_meta( $id, 'astra-images', true );
-		$templatiq_image_flag = (int) $templatiq_image_flag;
-		if (
-			'' !== $templatiq_image_flag &&
-			is_array( $saved_images ) &&
-			! empty( $saved_images ) &&
-			in_array( $templatiq_image_flag, $saved_images )
-		) {
-			$flag_arr     = [$templatiq_image_flag];
-			$saved_images = array_diff( $saved_images, $flag_arr );
-			update_option( 'templatiq-sites-saved-images', $saved_images, 'no' );
-		}
-	}
+		$asset = require_once $file;
 
-	public function php_error_message( $message, $error ) {
-		if ( empty( $error ) ) {
-			return $message;
+		if ( ! isset( $asset ) ) {
+			return;
 		}
 
-		$message = isset( $error['message'] ) ? $error['message'] : $message;
+		wp_register_script(
+			'starter-templates-onboarding',
+			INTELLIGENT_TEMPLATES_URI . 'assets/dist/main.js',
+			array_merge( $asset['dependencies'] ),
+			$asset['version'],
+			true
+		);
 
-		return $message;
+		wp_localize_script(
+			'starter-templates-onboarding', 'wpApiSettings', [
+				'root'  => esc_url_raw( get_rest_url() ),
+				'nonce' => ( wp_installing() && ! is_multisite() ) ? '' : wp_create_nonce( 'wp_rest' ),
+			]
+		);
+
+		wp_localize_script( 'starter-templates-onboarding', 'starterTemplates', $this->get_starter_templates_onboarding_localized_array() );
+
+		wp_enqueue_media();
+		wp_enqueue_script( 'starter-templates-onboarding' );
+
+		wp_enqueue_style( 'starter-templates-onboarding', INTELLIGENT_TEMPLATES_URI . 'assets/dist/style-main.css', [], $asset['version'] );
+		wp_style_add_data( 'starter-templates-onboarding', 'rtl', 'replace' );
+
+		// Load fonts from Google.
+		wp_enqueue_style( 'starter-templates-onboarding-google-fonts', $this->google_fonts_url(), ['starter-templates-onboarding'], 'all' );
 	}
 
-	public function wp_slash_after_xml_import( $postdata, $data ) {
-		return wp_slash( $postdata );
+	public function new_enqueue_scripts( $hook = '' ) {
+		if ( 'appearance_page_starter-templates' !== $hook ) {
+			return;
+		}
+
+		remove_all_actions( 'admin_notices' );
+
+		$data = $this->get_local_vars();
+
+		wp_localize_script( 'jquery', 'templatiqSitesVars', $data );
+
+		wp_enqueue_style( 'wp-components' );
+
+		$script_asset_path = TEMPLATIQ_ASSETS_PATH . '/js/onboarding.asset.php';
+
+		$script_info = file_exists( $script_asset_path ) ? include $script_asset_path : [
+			'dependencies' => [],
+			'version'      => TEMPLATIQ_VERSION,
+		];
+
+		$script_dep = array_merge( $script_info['dependencies'], ['updates', 'wp-hooks'] );
+
+		$this->enqueue_script( 'templatiq-onboarding', '/js/onboarding.js', $script_dep );
+		$this->enqueue_style( 'templatiq-onboarding', '/js/style-onboarding.css' );
+
+		wp_localize_script(
+			'templatiq-onboarding', 'wpApiSettings',
+			[
+				'root'  => esc_url_raw( get_rest_url() ),
+				'nonce' => ( wp_installing() && ! is_multisite() ) ? '' : wp_create_nonce( 'wp_rest' ),
+			]
+		);
+
+		wp_localize_script(
+			'templatiq-onboarding',
+			'starterTemplates',
+			$this->get_starter_templates_onboarding_localized_array()
+		);
+
+		wp_enqueue_media();
+
+		wp_enqueue_style( 'templatiq-onboarding-google-fonts', $this->google_fonts_url(), ['templatiq-onboarding'], 'all' );
 	}
 
-	public static function get_api_domain() {
-		return apply_filters( 'templatiq_sites_api_domain', 'https://templatiq.com/' );
+	private function get_starter_templates_onboarding_localized_array() {
+		$current_user = wp_get_current_user();
+
+		$site_url = add_query_arg(
+			[
+				'preview-nonce' => wp_create_nonce( 'starter-templates-preview' ),
+			], site_url( '/' )
+		);
+
+		$spectraTheme = 'not-installed';
+		$themeStatus  = ( new DependencyRepository )->get_theme_status();
+		// Theme installed and activate.
+		if ( 'spectra-one' === get_option( 'stylesheet', 'onedirectory' ) ) {
+			$spectraTheme = 'installed-and-active';
+			$themeStatus  = 'installed-and-active';
+		}
+
+		$data = [
+			'imageDir'            => INTELLIGENT_TEMPLATES_URI . 'assets/images/',
+			'URI'                 => INTELLIGENT_TEMPLATES_URI,
+			'buildDir'            => INTELLIGENT_TEMPLATES_URI . 'assets/dist/',
+			'previewUrl'          => $site_url,
+			'adminUrl'            => admin_url(),
+			'demoId'              => 0,
+			'skipImport'          => false,
+			'adminEmail'          => $current_user->user_email,
+			'themeStatus'         => $themeStatus,
+			'spectraTheme'        => $spectraTheme,
+			'nonce'               => wp_create_nonce( 'templatiq-sites-set-ai-site-data' ),
+			'restNonce'           => wp_create_nonce( 'wp_rest' ),
+			'retryTimeOut'        => 5000, // 10 Seconds.
+			'siteUrl' => get_site_url(),
+			'searchData'          => TEMPLATIQ_API_ENDPOINT . 'wp-json/starter-templates/v1/ist-data',
+			'firstImportStatus'   => get_option( 'templatiq_sites_import_complete', false ),
+			'supportLink'         => 'https://wpastra.com/starter-templates-support/?ip=' . Templatiq_Sites_Helper::get_client_ip(),
+			'isElementorDisabled' => get_option( 'st-elementor-builder-flag' ),
+			'analytics'           => get_site_option( 'bsf_analytics_optin', false ),
+			'phpVersion'          => PHP_VERSION,
+			'reportError'         => $this->should_report_error(),
+		];
+
+		return apply_filters( 'starter_templates_onboarding_localize_vars', $data );
+	}
+
+	public function should_report_error() {
+
+		/**
+		 * Bypassing error reporting for a few hosting providers.
+		 */
+		foreach ( $this->hosting_providers as $provider ) {
+			if ( strpos( ABSPATH, $provider ) !== false ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public function google_fonts_url() {
+
+		$fonts_url     = '';
+		$font_families = [
+			'Inter:400,500,600',
+		];
+
+		$query_args = [
+			'family' => rawurlencode( implode( '|', $font_families ) ),
+			'subset' => rawurlencode( 'latin,latin-ext' ),
+		];
+
+		$fonts_url = add_query_arg( $query_args, '//fonts.googleapis.com/css' );
+
+		return $fonts_url;
 	}
 
 	public function get_local_vars() {
@@ -306,96 +361,5 @@ class FullSite {
 		} else {
 			return esc_html( $message );
 		}
-	}
-
-	public function get_all_sites() {
-		$sites_and_pages = [];
-		$total_requests  = (int) get_site_option( 'templatiq-sites-requests', 0 );
-
-		for ( $page = 1; $page <= $total_requests; $page++ ) {
-			$current_page_data = get_site_option( 'templatiq-sites-and-pages-page-' . $page, [] );
-			if ( ! empty( $current_page_data ) ) {
-				foreach ( $current_page_data as $page_id => $page_data ) {
-					$sites_and_pages[$page_id] = $page_data;
-				}
-			}
-		}
-
-		return $sites_and_pages;
-	}
-
-	public function get_all_blocks() {
-
-		$blocks         = [];
-		$total_requests = (int) get_site_option( 'astra-blocks-requests', 0 );
-
-		for ( $page = 1; $page <= $total_requests; $page++ ) {
-			$current_page_data = get_site_option( 'astra-blocks-' . $page, [] );
-			if ( ! empty( $current_page_data ) ) {
-				foreach ( $current_page_data as $page_id => $page_data ) {
-					$blocks[$page_id] = $page_data;
-				}
-			}
-		}
-
-		return $blocks;
-	}
-
-	public function get_page_builders() {
-		return $this->get_default_page_builders();
-	}
-
-	public function get_default_page_builders() {
-		return [
-			[
-				'id'   => 42,
-				'slug' => 'gutenberg',
-				'name' => 'Gutenberg',
-			],
-			[
-				'id'   => 33,
-				'slug' => 'elementor',
-				'name' => 'Elementor',
-			],
-			[
-				'id'   => 34,
-				'slug' => 'beaver-builder',
-				'name' => 'Beaver Builder',
-			],
-			[
-				'id'   => 41,
-				'slug' => 'brizy',
-				'name' => 'Brizy',
-			],
-		];
-	}
-
-	public function get_filesystem() {
-		global $wp_filesystem;
-
-		require_once ABSPATH . '/wp-admin/includes/file.php';
-
-		WP_Filesystem();
-
-		return $wp_filesystem;
-	}
-
-	public function get_theme_status() {
-
-		$theme = wp_get_theme();
-
-		// Theme installed and activate.
-		if ( 'One Directory' === $theme->name || 'One Directory' === $theme->parent_theme ) {
-			return 'installed-and-active';
-		}
-
-		// Theme installed but not activate.
-		foreach ( (array) wp_get_themes() as $theme_dir => $theme ) {
-			if ( 'One Directory' === $theme->name || 'One Directory' === $theme->parent_theme ) {
-				return 'installed-but-inactive';
-			}
-		}
-
-		return 'not-installed';
 	}
 }
