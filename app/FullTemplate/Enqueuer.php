@@ -142,36 +142,28 @@ class Enqueuer extends EnqueuerBase {
 			], site_url( '/' )
 		);
 
-		$spectraTheme = 'not-installed';
-		$themeStatus  = ( new DependencyRepository )->get_theme_status();
-		// Theme installed and activate.
-		if ( 'spectra-one' === get_option( 'stylesheet', 'onedirectory' ) ) {
-			$spectraTheme = 'installed-and-active';
-			$themeStatus  = 'installed-and-active';
-		}
+		$themeStatus = ( new DependencyRepository )->get_theme_status();
 
 		$data = [
-			'imageDir'            => INTELLIGENT_TEMPLATES_URI . 'assets/images/',
-			'URI'                 => INTELLIGENT_TEMPLATES_URI,
-			'buildDir'            => INTELLIGENT_TEMPLATES_URI . 'assets/dist/',
-			'previewUrl'          => $site_url,
-			'adminUrl'            => admin_url(),
-			'demoId'              => 0,
-			'skipImport'          => false,
-			'adminEmail'          => $current_user->user_email,
-			'themeStatus'         => $themeStatus,
-			'spectraTheme'        => $spectraTheme,
-			'nonce'               => wp_create_nonce( 'templatiq-sites-set-ai-site-data' ),
-			'restNonce'           => wp_create_nonce( 'wp_rest' ),
-			'retryTimeOut'        => 5000, // 10 Seconds.
+			'imageDir'          => INTELLIGENT_TEMPLATES_URI . 'assets/images/',
+			'URI'               => INTELLIGENT_TEMPLATES_URI,
+			'buildDir'          => INTELLIGENT_TEMPLATES_URI . 'assets/dist/',
+			'previewUrl'        => $site_url,
+			'adminUrl'          => admin_url(),
+			'demoId'            => 0,
+			'skipImport'        => false,
+			'adminEmail'        => $current_user->user_email,
+			'themeStatus'       => $themeStatus,
+			'nonce'             => wp_create_nonce( 'templatiq-sites-set-ai-site-data' ),
+			'restNonce'         => wp_create_nonce( 'wp_rest' ),
+			'retryTimeOut'      => 5000, // 10 Seconds.
 			'siteUrl' => get_site_url(),
-			'searchData'          => TEMPLATIQ_API_ENDPOINT . 'wp-json/starter-templates/v1/ist-data',
-			'firstImportStatus'   => get_option( 'templatiq_sites_import_complete', false ),
-			'supportLink'         => 'https://wpastra.com/starter-templates-support/?ip=' . Templatiq_Sites_Helper::get_client_ip(),
-			'isElementorDisabled' => get_option( 'st-elementor-builder-flag' ),
-			'analytics'           => get_site_option( 'bsf_analytics_optin', false ),
-			'phpVersion'          => PHP_VERSION,
-			'reportError'         => $this->should_report_error(),
+			'searchData'        => TEMPLATIQ_API_ENDPOINT . 'wp-json/starter-templates/v1/ist-data',
+			'firstImportStatus' => get_option( 'templatiq_sites_import_complete', false ),
+			'supportLink'       => 'https://wpastra.com/starter-templates-support/?ip=' . Templatiq_Sites_Helper::get_client_ip(),
+			'analytics'         => get_site_option( 'bsf_analytics_optin', false ),
+			'phpVersion'        => PHP_VERSION,
+			'reportError'       => $this->should_report_error(),
 		];
 
 		return apply_filters( 'starter_templates_onboarding_localize_vars', $data );

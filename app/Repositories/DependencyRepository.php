@@ -9,11 +9,12 @@ namespace Templatiq\Repositories;
 
 use Plugin_Upgrader;
 use Templatiq\DTO\PluginDTO;
-use Templatiq_Sites_Error_Handler;
 use WP_Ajax_Upgrader_Skin;
 use WP_Filesystem_Base;
 
 class DependencyRepository {
+
+	private string $theme_slug = 'best-listing';
 
 	private function activate( string $file ) {
 		if ( ! is_plugin_inactive( $file ) ) {
@@ -168,30 +169,25 @@ class DependencyRepository {
 		}
 	}
 
-	public function activate_theme() {
-		Templatiq_Sites_Error_Handler::get_instance()->start_error_handler();
-
-		switch_theme( 'onedirectory' );
-
-		Templatiq_Sites_Error_Handler::get_instance()->stop_error_handler();
-	}
-
-	public function get_theme_status() {
-		$theme      = wp_get_theme();
-		$theme_name = 'One Directory';
+	public function get_theme_status(): string {
+		$theme = wp_get_theme();
 
 		// Theme installed and activate.
-		if ( $theme_name === $theme->name || $theme_name === $theme->parent_theme ) {
+		if ( $this->theme_slug === $theme->TextDomain || $this->theme_slug === $theme->TextDomain ) {
 			return 'installed-and-active';
 		}
 
 		// Theme installed but not activate.
 		foreach ( (array) wp_get_themes() as $theme_dir => $theme ) {
-			if ( $theme_name === $theme->name || $theme_name === $theme->parent_theme ) {
+			if ( $this->theme_slug === $theme->TextDomain || $this->theme_slug === $theme->parent_theme ) {
 				return 'installed-but-inactive';
 			}
 		}
 
 		return 'not-installed';
+	}
+
+	public function activate_theme() {
+		switch_theme( $this->theme_slug );
 	}
 }

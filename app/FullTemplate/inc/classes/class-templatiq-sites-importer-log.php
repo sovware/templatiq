@@ -96,7 +96,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer_Log' ) ):
 		 */
 		public function file_permission_notice() {
 			$upload_dir  = self::log_dir();
-			$plugin_name = TEMPLATIQ_SITES_NAME;
+			$plugin_name = 'Templatiq';
 
 			/* translators: %1$s refers to the plugin name */
 			$notice = sprintf( __( 'Required File Permissions to import the templates from %s are missing.', 'templatiq' ), $plugin_name );
