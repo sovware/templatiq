@@ -29,28 +29,37 @@ const InsertTemplate = ({
 	const [authModalOpen, setAuthModalOpen] = useState(false);
 	const [requiredPlugins, setRequiredPlugins] = useState([]);
 	const [installDirectorist, setInstallDirectorist] = useState(false);
-	const [insertFullSite, setInsertFullSite] = useState(false);
-	const [proTemplate, setProTemplate] = useState(false);
+	const [insertFullSite, setInsertFullSite] = useState(type === 'pack');
 
 	const addInsertModal = async (e) => {
 		e.stopPropagation();
-		document.querySelector('.templatiq').classList.add('templatiq-overlay-enable');
+		const onebaseInstalled = false;
+		console.log('addInsertModal Clicked', isPro, insertFullSite, installDirectorist);
 
-		isPro && setProTemplate(true);
-
-		type === 'pack' && setInsertFullSite(true);
-
-		// Add the class to the root div using templateRef
-		if (templateRef && templateRef.current) {
-			templateRef.current.classList.add('insert-modal-open');
+		const renderModal = () => {
+			document.querySelector('.templatiq').classList.add('templatiq-overlay-enable');
+			// Add the class to the root div using templateRef
+			if (templateRef && templateRef.current) {
+				templateRef.current.classList.add('insert-modal-open');
+			}
+			setInsertModalOpen(true);
 		}
 
-		try {
-			await handlePlugins(required_plugins);
-			setInsertModalOpen(true);
-		} catch (error) {
-			// Handle error if needed
-			console.error('Error fetching installable plugins:', error);
+		if (insertFullSite) {
+			!installDirectorist && onebaseInstalled ? 
+			window.open(`?page=starter-templates&template_id=${template_id}`, '_blank')
+			: renderModal();
+		} else if (isPro || installDirectorist) {
+			renderModal();
+		} else {
+			renderModal();
+			try {
+				await handlePlugins(required_plugins);
+				setInsertModalOpen(true);
+			} catch (error) {
+				// Handle error if needed
+				console.error('Error fetching installable plugins:', error);
+			}
 		}
 	};
 
@@ -85,16 +94,12 @@ const InsertTemplate = ({
 			const directoristPlugin = requiredPlugins.find(plugin => plugin.slug === 'directorist');
 			setInstallDirectorist(directoristPlugin || false);
 		}
-	}, [requiredPlugins, is_directorist_required]);
-
-	useEffect(() => {
-		isPro && setProTemplate(true);
-	});
+	}, [requiredPlugins, insertModalOpen]);
 
 	return (
 		<>
 			{insertModalOpen ? 
-				proTemplate ?
+				isPro ?
 					<InsertProModal 
 						item={item}
 						onClose={handleInsertModalClose}
@@ -136,7 +141,7 @@ const InsertTemplate = ({
 				}
 				onClick={(e) =>
 					!isLoggedIn
-					? proTemplate
+					? isPro
 						? addInsertModal(e)
 						: addAuthModal(e)
 					: addInsertModal(e)

@@ -14,11 +14,10 @@ const InstallPluginModal = ( { onClose, install_directorist } ) => {
 	let [ installedPlugin, setInstalledPlugin ] = useState( false );
 
 	let closeInsertTemplateModal = ( e ) => {
-		e.preventDefault();
+		e && e.preventDefault();
 		let templatiqRoot = document.querySelector( '.templatiq' );
 
-		templatiqRoot &&
-			templatiqRoot.classList.remove( 'templatiq-overlay-enable' );
+		templatiqRoot && templatiqRoot.classList.remove( 'templatiq-overlay-enable' );
 
 		onClose();
 	};
@@ -40,8 +39,9 @@ const InstallPluginModal = ( { onClose, install_directorist } ) => {
 						setInstalledPlugin(true);
 						resolve( res ); // Resolve the Promise when installation is successful
 						setTimeout( () => {
+							window.location.reload();
+							closeInsertTemplateModal();
 							history('/?test');
-							// window.location.reload();
 						}, 1000 );
 					} else {
 						reject( new Error( 'Installation failed' ) ); // Reject the Promise if installation fails

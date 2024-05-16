@@ -254,7 +254,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, installed_direc
 		}
 	}, [] );
 
-	console.log('CHK Template Option', template_market_obj, directoryType, submittedTypes, allPluginsInstalled);
+	// console.log('CHK Template Option', template_market_obj, directoryType, submittedTypes, allPluginsInstalled);
 
 	return (
 		<>

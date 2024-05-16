@@ -102,7 +102,7 @@ const SingleTemplate = ( item ) => {
 						</a>
 						<InsertTemplate
 							item={ item }
-							isPro={ price > 0 }
+							isPro={ parseFloat(price) > 0 }
 							templateRef={ templateRef }
 							className={
 								'templatiq__template__single__info__action__link insert-btn tmTemplateLibrary__insert-button'
