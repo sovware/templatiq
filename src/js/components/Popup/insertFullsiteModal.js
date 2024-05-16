@@ -10,7 +10,9 @@ const InsertFullsiteModal = ( { item, onClose } ) => {
 	const { template_id } = item;
 	const [ themeInstalling, setThemeInstalling ] = useState( false );
 
-	const installOnebaseThemeEndPoint = 'templatiq/dependency/install-activate-theme';
+	console.log( 'template_market_obj?.directory_types: ', template_market_obj?.theme_status );
+
+	const installOnebaseThemeEndPoint = 'templatiq/dependency/activate-theme';
 
 	const installOneBaseTheme = async (e) => {
 		setThemeInstalling(true);

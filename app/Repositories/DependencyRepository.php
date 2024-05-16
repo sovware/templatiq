@@ -14,7 +14,7 @@ use WP_Filesystem_Base;
 
 class DependencyRepository {
 
-	private string $theme_slug = 'best-listing';
+	private string $theme_slug = 'Best Listing';
 
 	private function activate( string $file ) {
 		if ( ! is_plugin_inactive( $file ) ) {
@@ -173,13 +173,13 @@ class DependencyRepository {
 		$theme = wp_get_theme();
 
 		// Theme installed and activate.
-		if ( $this->theme_slug === $theme->TextDomain || $this->theme_slug === $theme->TextDomain ) {
+		if ( $this->theme_slug === $theme->Name || $this->theme_slug === $theme->parent_theme ) {
 			return 'installed-and-active';
 		}
 
 		// Theme installed but not activate.
 		foreach ( (array) wp_get_themes() as $theme_dir => $theme ) {
-			if ( $this->theme_slug === $theme->TextDomain || $this->theme_slug === $theme->parent_theme ) {
+			if ( $this->theme_slug === $theme->Name || $this->theme_slug === $theme->parent_theme ) {
 				return 'installed-but-inactive';
 			}
 		}
@@ -188,6 +188,6 @@ class DependencyRepository {
 	}
 
 	public function activate_theme() {
-		switch_theme( $this->theme_slug );
+		switch_theme( 'best-listing' );
 	}
 }
