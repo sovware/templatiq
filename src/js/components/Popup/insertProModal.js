@@ -30,11 +30,11 @@ const InsertProModal = ( { item, onClose, onLoginClick } ) => {
 						Liked This Template
 					</h2>
 					<p className="templatiq__modal__desc">
-						This is Pro template. Get access to this template.
+						This is a premium template. Get access to this premium template.
 					</p>
 					<a 
 						href={purchase_url}
-						className="templatiq-btn templatiq-btn-warning templatiq-btn-full bold"
+						className="templatiq-btn templatiq-btn-warning templatiq-btn-full semi-bold"
 					>
 						Buy This Item
 					</a>

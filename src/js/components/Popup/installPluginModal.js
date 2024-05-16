@@ -40,7 +40,7 @@ const InstallPluginModal = ( { onClose, install_directorist } ) => {
 						setInstalledPlugin(true);
 						resolve( res ); // Resolve the Promise when installation is successful
 						setTimeout( () => {
-							history('/');
+							history('/?test');
 							// window.location.reload();
 						}, 1000 );
 					} else {

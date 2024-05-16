@@ -93,36 +93,32 @@ const InsertTemplate = ({
 
 	return (
 		<>
-			{proTemplate && insertModalOpen && (
-				<InsertProModal 
-					item={item}
-					onClose={handleInsertModalClose}
-					onLoginClick={addAuthModal}
-				/>
-			)}
+			{insertModalOpen ? 
+				proTemplate ?
+					<InsertProModal 
+						item={item}
+						onClose={handleInsertModalClose}
+						onLoginClick={addAuthModal}
+					/> :
+					installDirectorist ? 
+						<InstallPluginModal
+							install_directorist={installDirectorist}
+							onClose={handleInsertModalClose}
+						/> :
 
-			{!proTemplate && insertModalOpen && (
-				<InsertTemplateModal
-					item={item}
-					required_plugins={requiredPlugins}
-					installed_directorist={!installDirectorist}
-					onClose={handleInsertModalClose}
-				/>
-			)}
+						insertFullSite ? 
+							<InsertFullsiteModal
+								item={item}
+								onClose={handleInsertModalClose}
+							/> :
+							<InsertTemplateModal
+								item={item}
+								required_plugins={requiredPlugins}
+								installed_directorist={!installDirectorist}
+								onClose={handleInsertModalClose}
+							/> : null
 
-			{!proTemplate && installDirectorist && insertModalOpen && (
-				<InstallPluginModal
-					install_directorist={installDirectorist}
-					onClose={handleInsertModalClose}
-				/>
-			)}
-
-			{!proTemplate && insertFullSite && insertModalOpen && (
-				<InsertFullsiteModal
-					item={item}
-					onClose={handleInsertModalClose}
-				/>
-			)}
+			}
 
 			{authModalOpen && (
 				<AuthModal

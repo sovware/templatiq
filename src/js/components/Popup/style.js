@@ -15,6 +15,9 @@ const PopupStyle = Styled.div`
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
     .templatiq__modal__title {
+        display: flex;
+        gap: 14px;
+        align-items: center;
         font-size: 21px;
         line-height: 25px;
         font-weight: 600;
@@ -98,10 +101,13 @@ const PopupStyle = Styled.div`
 
 const InsertTemplateModalStyle = Styled.div`
     .templatiq__modal__title {
+        display: flex;
+        gap: 14px;
+        align-items: center;
         font-size: 21px;
         line-height: 25px;
         font-weight: 600;
-        margin: 0 0 20px;
+        margin: 0 0 15px;
         text-align: start;
         color: var(--templatiq-black-color);
     }
@@ -158,6 +164,7 @@ const InsertTemplateModalStyle = Styled.div`
         text-align: center;
         .templatiq__modal__title {
             text-align: center;
+            justify-content: center;
         }
         .templatiq__modal__actions {
             justify-content: center;
@@ -215,16 +222,19 @@ const InsertTemplateModalStyle = Styled.div`
     }
     &.templatiq__modal--pro {
         text-align: center;
+        padding: 60px 70px;
         .templatiq__modal__title {
             text-align: center;
+            justify-content: center;
         }
         .templatiq__modal__content {
             .templatiq-btn {
                 height: 40px;
+                max-width: 275px;
                 margin: 20px 0 0;
             }
             .templatiq__modal__pro-auth {
-                margin: 20px 0 0;
+                margin: 30px 0 0;
                 .templatiq-btn {
                     margin: 10px 0 0;
                 }
