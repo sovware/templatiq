@@ -177,7 +177,6 @@ class DependencyRepository {
 	}
 
 	public function get_theme_status() {
-
 		$theme = wp_get_theme();
 
 		// Theme installed and activate.
