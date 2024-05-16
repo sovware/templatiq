@@ -85,11 +85,11 @@ class DependencyController extends ControllerBase {
 		}
 	}
 
-	public function activate_theme() {
+	public function install_activate_theme() {
 		try {
 			switch_theme( 'oceanwp' );
 
-			error_log( print_r( 'theme activated ', true ) );
+			error_log( print_r( 'install_activate_theme oceanwp ', true ) );
 
 			return Response::success(
 				[
