@@ -8,8 +8,7 @@
 namespace Templatiq;
 
 use Templatiq\Admin\Admin;
-use Templatiq\FullSite\FullSite;
-use Templatiq\Onboarding\Onboarding;
+use Templatiq\Providers\FullTemplateServiceProviders;
 use Templatiq\Providers\IntegrationServiceProviders;
 use Templatiq\Routes\Account;
 use Templatiq\Routes\Bookmark;
@@ -31,7 +30,6 @@ class App {
 
 	public function setup() {
 		Admin::init();
-		Enqueuer::init();
 
 		/**
 		 * Routes Initialize
@@ -43,14 +41,9 @@ class App {
 		Template::init();
 
 		/**
-		 * Full Site Importer
-		 */
-		Onboarding::init();
-		FullSite::init();
-
-		/**
 		 * Service Providers
 		 */
+		FullTemplateServiceProviders::init()->boot();
 		IntegrationServiceProviders::init()->boot();
 	}
 }

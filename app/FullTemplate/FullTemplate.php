@@ -5,15 +5,27 @@
  * @version 1.0.0
  */
 
-namespace Templatiq\Admin;
+namespace Templatiq\FullTemplate;
 
 use Templatiq\Utils\Singleton;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if ( ! defined( 'INTELLIGENT_TEMPLATES_FILE' ) ) {
+	define( 'INTELLIGENT_TEMPLATES_FILE', __FILE__ );
 }
 
-class FullSite {
+if ( ! defined( 'INTELLIGENT_TEMPLATES_BASE' ) ) {
+	define( 'INTELLIGENT_TEMPLATES_BASE', plugin_basename( INTELLIGENT_TEMPLATES_FILE ) );
+}
+
+if ( ! defined( 'INTELLIGENT_TEMPLATES_DIR' ) ) {
+	define( 'INTELLIGENT_TEMPLATES_DIR', plugin_dir_path( INTELLIGENT_TEMPLATES_FILE ) );
+}
+
+if ( ! defined( 'INTELLIGENT_TEMPLATES_URI' ) ) {
+	define( 'INTELLIGENT_TEMPLATES_URI', plugins_url( '/', INTELLIGENT_TEMPLATES_FILE ) );
+}
+
+class FullTemplate {
 	use Singleton;
 
 	private function __construct() {
@@ -32,13 +44,6 @@ class FullSite {
 		wp_enqueue_script( 'templatiq-sites-admin-js', TEMPLATIQ_SITES_URI . 'assets/js/admin.js', ['templatiq-sites-admin-page', 'jquery'], TEMPLATIQ_SITES_VER, true );
 	}
 
-	/**
-	 * Enqueue Templatiq Notices CSS.
-	 *
-	 * @since 2.3.7
-	 *
-	 * @return void
-	 */
 	public static function notice_assets() {
 		$file = is_rtl() ? 'astra-notices-rtl.css' : 'astra-notices.css';
 		wp_enqueue_style( 'templatiq-sites-notices', TEMPLATIQ_SITES_URI . 'assets/css/' . $file, [], TEMPLATIQ_SITES_VER );

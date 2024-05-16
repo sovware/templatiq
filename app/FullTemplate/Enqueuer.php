@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace Templatiq\Onboarding;
+namespace Templatiq\FullTemplate;
 
 use Templatiq\Abstracts\EnqueuerBase;
 use Templatiq\FullSite\FullSite;
@@ -126,13 +126,6 @@ class Enqueuer extends EnqueuerBase {
 
 		wp_enqueue_media();
 
-		// $this->enqueue_style(
-		// 	'templatiq-onboarding-google-fonts',
-		// 	$this->google_fonts_url(),
-		// 	['templatiq-onboarding'],
-		// 	'all'
-		// );
-
 		wp_enqueue_style( 'templatiq-onboarding-google-fonts', $this->google_fonts_url(), ['templatiq-onboarding'], 'all' );
 	}
 
@@ -168,7 +161,7 @@ class Enqueuer extends EnqueuerBase {
 			'restNonce'           => wp_create_nonce( 'wp_rest' ),
 			'retryTimeOut'        => 5000, // 10 Seconds.
 			'siteUrl' => get_site_url(),
-			'searchData'          => FullSite::init()->get_api_domain() . 'wp-json/starter-templates/v1/ist-data',
+			'searchData'          => TEMPLATIQ_API_ENDPOINT . 'wp-json/starter-templates/v1/ist-data',
 			'firstImportStatus'   => get_option( 'templatiq_sites_import_complete', false ),
 			'supportLink'         => 'https://wpastra.com/starter-templates-support/?ip=' . Templatiq_Sites_Helper::get_client_ip(),
 			'isElementorDisabled' => get_option( 'st-elementor-builder-flag' ),

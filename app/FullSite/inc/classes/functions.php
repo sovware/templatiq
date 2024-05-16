@@ -106,7 +106,7 @@ function templatiq_sites_is_valid_url( $url = '' ) {
 		'templatiq.net',
 	);
 
-	$api_domain_parse_url = wp_parse_url( FullSite::init()->get_api_domain() );
+	$api_domain_parse_url = wp_parse_url( TEMPLATIQ_API_ENDPOINT );
 	$valid_hosts[] = $api_domain_parse_url['host'];
 
 	// Validate host.

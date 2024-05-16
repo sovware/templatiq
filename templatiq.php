@@ -127,6 +127,8 @@ final class Templatiq {
 
 		define( 'TEMPLATIQ_CLOUD_BASE', 'https://templatiq.com/wp-json/tm' );
 
+		define( 'TEMPLATIQ_API_ENDPOINT', 'https://templatiq.com/' );
+
 		define( 'TEMPLATIQ_DEV', true );
 		define( 'TEMPLATIQ_DEBUG_LOG', true );
 	}

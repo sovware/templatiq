@@ -49,15 +49,13 @@ class FullSite {
 		add_action( 'admin_enqueue_scripts', [$this, 'admin_enqueue'], 99 );
 		add_action( 'admin_notices', [$this, 'check_filesystem_access_notice'] );
 
-		Ajax::init();
-
 		add_action( 'delete_attachment', [$this, 'delete_templatiq_images'] );
 		add_filter( 'wp_php_error_message', [$this, 'php_error_message'], 10, 2 );
 		add_filter( 'wp_import_post_data_processed', [$this, 'wp_slash_after_xml_import'], 99, 2 );
 	}
 
 	public function set_api_url() {
-		$this->api_domain = trailingslashit( $this->get_api_domain() );
+		$this->api_domain = trailingslashit( TEMPLATIQ_API_ENDPOINT );
 		$this->api_url    = apply_filters( 'templatiq_sites_api_url', $this->api_domain . 'wp-json/wp/v2/' );
 
 		$this->search_analytics_url = apply_filters( 'templatiq_sites_search_api_url', $this->api_domain . 'wp-json/analytics/v2/search/' );
@@ -147,10 +145,6 @@ class FullSite {
 
 	public function wp_slash_after_xml_import( $postdata, $data ) {
 		return wp_slash( $postdata );
-	}
-
-	public static function get_api_domain() {
-		return apply_filters( 'templatiq_sites_api_domain', 'https://templatiq.com/' );
 	}
 
 	public function get_local_vars() {
