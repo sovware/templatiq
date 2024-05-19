@@ -162,4 +162,36 @@ class Repository {
 			delete_option( $settings );
 		}
 	}
+
+	public function import_directory_types() {
+		$types       = get_option( 'templatiq_sites_import_data', true )['directory-types'];
+		$ids_mapping = [];
+
+		foreach ( $types as $type ) {
+			if ( term_exists( $type['name'], 'atbdp_listing_types' ) ) {
+				continue;
+			}
+
+			$type_id               = (string) $type['term_id'];
+			$term                  = wp_insert_term( $type['name'], 'atbdp_listing_types' );
+			$term_id               = $term['term_id'];
+			$ids_mapping[$type_id] = $term_id;
+
+			update_term_meta( $term_id, '_templatiq_sites_imported_term', true );
+
+			foreach ( $type['meta'] as $key => $value ) {
+				if ( '_default' !== $key ) {
+					$value = maybe_unserialize( $value );
+					update_term_meta( $term_id, $key, $value );
+				}
+			}
+
+			error_log( 'Directory Type Inserted: Name: ' . $type['name'] . ' #ID: ' . $type_id . ' => ' . $term_id );
+		}
+
+		if ( $ids_mapping ) {
+			error_log( 'Directory Types ids mapping: ' . print_r( $ids_mapping, true ) );
+			update_option( 'templatiq_sites_directory_types_ids_mapping', $ids_mapping, 'no' );
+		}
+	}
 }

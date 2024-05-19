@@ -82,7 +82,7 @@ class Templatiq_WXR_Importer {
 		update_post_meta( $post_id, '_templatiq_sites_imported_post', true );
 		update_post_meta( $post_id, '_templatiq_sites_enable_for_batch', true );
 
-		// error_log( 'Track Post: post_id => ' . $post_id . ' post_type ' . $data['post_type'] );
+		error_log( 'Track Post: post_id => ' . $post_id . ' post_type ' . $data['post_type'] );
 
 		if ( 'wp_navigation' === $data['post_type'] ) {
 			$_menu_map = get_option( '_templatiq_imported_menu_map', [] );
@@ -246,6 +246,9 @@ class Templatiq_WXR_Importer {
 	 * @param array $terms Terms on the post.
 	 */
 	public function fix_image_duplicate_issue( $data, $meta, $comments, $terms ) {
+		if ( empty( $data ) ) {
+			return $data;
+		}
 
 		$remote_url   = ! empty( $data['attachment_url'] ) ? $data['attachment_url'] : $data['guid'];
 		$data['guid'] = $remote_url;
