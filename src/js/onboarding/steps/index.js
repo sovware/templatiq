@@ -1,10 +1,7 @@
 import { useEffect, useState } from '@wordpress/element';
 import { useNavigate } from 'react-router-dom';
 // import { Tooltip } from '@brainstormforce/starter-templates-components';
-import { __ } from '@wordpress/i18n';
 import { useStateValue } from '../store/store';
-import ICONS from '../icons';
-import Logo from '../components/logo';
 import { storeCurrentState } from '../utils/functions';
 import { STEPS } from './util';
 const { adminUrl } = starterTemplates;
@@ -23,6 +20,8 @@ const Steps = () => {
 	const [ settingIndex, setSettingIndex ] = useState( true );
 	const history = useNavigate();
 	let current = STEPS[ currentIndex ];
+
+	console.log('Onboarding CHK', {currentIndex, designStep,templateResponse})
 
 	useEffect( () => {
 		const previousIndex = parseInt( currentIndex ) - 1;
