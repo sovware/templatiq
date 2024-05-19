@@ -6,8 +6,6 @@
  * @package Templatiq Addon
  */
 
-use Templatiq\Repositories\DependencyRepository;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -100,14 +98,7 @@ class Templatiq_WXR_Importer {
 			update_option( '_templatiq_imported_template_parts', $_template_parts );
 		}
 
-		// Set the full width template for the pages.
-		if ( isset( $data['post_type'] ) && 'page' === $data['post_type'] ) {
-			$is_elementor_page = get_post_meta( $post_id, '_elementor_version', true );
-			$theme_status      = ( new DependencyRepository )->get_theme_status();
-			if ( 'installed-and-active' !== $theme_status && $is_elementor_page ) {
-				// update_post_meta( $post_id, '_wp_page_template', 'elementor_header_footer' );
-			}
-		} elseif ( isset( $data['post_type'] ) && 'attachment' === $data['post_type'] ) {
+		if ( isset( $data['post_type'] ) && 'attachment' === $data['post_type'] ) {
 			$remote_url          = isset( $data['guid'] ) ? $data['guid'] : '';
 			$attachment_hash_url = Templatiq_Sites_Image_Importer::get_instance()->get_hash_image( $remote_url );
 			if ( ! empty( $attachment_hash_url ) ) {
@@ -115,7 +106,6 @@ class Templatiq_WXR_Importer {
 				update_post_meta( $post_id, '_elementor_source_image_hash', $attachment_hash_url );
 			}
 		}
-
 	}
 
 	/**

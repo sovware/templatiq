@@ -21,7 +21,7 @@ class Ajax extends AjaxBase {
 		$this->action( 'wp_ajax_templatiq-sites-set-reset-data', [Controller::class, 'get_reset_data'] );
 		$this->action( 'wp_ajax_templatiq-sites-reset-terms-and-forms', [Controller::class, 'reset_terms_and_forms'] );
 		$this->action( 'wp_ajax_templatiq-sites-reset-posts', [Controller::class, 'reset_posts'] );
-		$this->action( 'wp_ajax_templatiq-sites-activate-theme', [Controller::class, 'activate_theme'] );
+		$this->action( 'wp_ajax_templatiq-sites-activate-theme', [Controller::class, 'install_activate_theme'] );
 		$this->action( 'wp_ajax_templatiq-sites-get-deleted-post-ids', [Controller::class, 'get_deleted_post_ids'] );
 		$this->action( 'wp_ajax_templatiq-sites-api-request', [Controller::class, 'api_request'] );
 		$this->action( 'wp_ajax_templatiq-sites-filesystem-permission', [Controller::class, 'filesystem_permission'] );

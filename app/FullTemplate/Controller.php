@@ -344,14 +344,14 @@ class Controller extends ControllerBase {
 		wp_send_json_error();
 	}
 
-	public function activate_theme() {
+	public function install_activate_theme() {
 		check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
 		if ( ! current_user_can( 'customize' ) ) {
 			wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 		}
 
-		( new DependencyRepository )->activate_theme();
+		( new DependencyRepository )->install_activate_theme();
 
 		wp_send_json_success(
 			[
