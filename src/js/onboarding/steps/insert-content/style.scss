@@ -384,7 +384,10 @@
         }
       }
       &__btn {
+        border: none;
+        cursor: pointer;
         margin: 0 !important;
+        border-radius: 8px !important;
       }
       &__notice {
         margin-top: -10px;

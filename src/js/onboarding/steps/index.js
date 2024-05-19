@@ -10,6 +10,7 @@ const $ = jQuery;
 const Steps = () => {
 	const [ stateValue, dispatch ] = useStateValue();
 	const {
+		importContentData,
 		currentIndex,
 		currentCustomizeIndex,
 		templateResponse,
@@ -21,7 +22,7 @@ const Steps = () => {
 	const history = useNavigate();
 	let current = STEPS[ currentIndex ];
 
-	console.log('Onboarding CHK', {currentIndex, designStep,templateResponse})
+	console.log('Onboarding CHK', {currentIndex, designStep, templateResponse, importContentData})
 
 	useEffect( () => {
 		const previousIndex = parseInt( currentIndex ) - 1;
