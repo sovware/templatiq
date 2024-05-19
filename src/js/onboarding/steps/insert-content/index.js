@@ -7,7 +7,7 @@ import { useStateValue } from '../../store/store';
 import './style.scss';
 
 const InsertContent = () => {
-	const [{ currentIndex, designStep, templateId }, dispatch ] = useStateValue();
+	const [{ currentIndex }, dispatch ] = useStateValue();
 	const prevStep = () => {
 		dispatch( {
 			type: 'set',
@@ -30,32 +30,20 @@ const InsertContent = () => {
 						{ ICONS.tada }
 					</h1>
 					<p className="screen-description p-bold">Insert Content Message</p>
-					<Button
-						className="view-website-btn"
-						after
-						onClick={ () => {
-							window.open( siteUrl, '_blank' );
-						} }
-					>
-						{ __( 'View Your Website', 'templatiq-sites' ) }
-					</Button>
-				</div>
-			}
-			actions={ 
-				<>
-					<Button
-						className={ `ist-button ist-next-step` }
-						onClick={ nextStep }
-						disabled={ templateId !== 0 ? false : true }
-						after
-					>
-						{ __( 'Continue', 'templatiq-sites' ) }
-					</Button>
+					<div>
+						<Button
+							className={ `ist-button ist-next-step` }
+							onClick={ nextStep }
+							after
+						>
+							{ __( 'Continue', 'templatiq-sites' ) }
+						</Button>
 
-					<PreviousStepLink onClick={ prevStep }>
-						{ __( 'Back', 'templatiq-sites' ) }
-					</PreviousStepLink>
-				</>
+						<Button onClick={ prevStep }>
+							{ __( 'Back', 'templatiq-sites' ) }
+						</Button>
+					</div>
+				</div>
 			}
 		/>
 	);

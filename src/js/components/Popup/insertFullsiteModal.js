@@ -10,18 +10,30 @@ const InsertFullsiteModal = ( { item, onClose } ) => {
 	const { template_id } = item;
 	const [ themeInstalling, setThemeInstalling ] = useState( false );
 
-	console.log( 'template_market_obj?.directory_types: ', template_market_obj?.theme_status );
 
-	const installOnebaseThemeEndPoint = 'templatiq/dependency/activate-theme';
+	const themeStatus = template_market_obj?.theme_status;
+	console.log( 'themeStatus ', themeStatus );
 
-	const installOneBaseTheme = async (e) => {
+	const activateThemeEndPoint = 'templatiq/dependency/activate-theme';
+
+	const installTheme = async (e) =>  {
 		setThemeInstalling(true);
-		postData( installOnebaseThemeEndPoint ).then( ( res ) => {
+		let themeInstallResponse = await wp.updates.installTheme( {
+			slug: 'best-listing'
+		});
+
+		if(themeInstallResponse.customizeUrl) {
+			await activateTheme(e);
+		}
+	}
+
+	const activateTheme = async (e) => {
+		setThemeInstalling(true);
+		postData( activateThemeEndPoint ).then( ( res ) => {
 			setThemeInstalling(false);
-			console.log('installOneBaseTheme res', res)
 			if ( res.success ) {
 				closeInsertTemplateModal(e);
-				window.open(`?page=starter-templates&template_id=${template_id}`, '_blank');
+				window.open(`?page=starter-templates&template_id=${template_id}`);
 			} else {
 				console.error( 'Installation failed' );
 			}
@@ -55,19 +67,27 @@ const InsertFullsiteModal = ( { item, onClose } ) => {
 					<div className="templatiq__modal__actions">
 						<button
 							className='templatiq-btn templatiq-btn-primary'
-							onClick={installOneBaseTheme}
+							onClick={
+								themeStatus === 'not-installed'
+									? installTheme
+									: themeStatus === 'installed-but-inactive' 
+									? activateTheme
+									: null
+							}
 							disabled={themeInstalling}
 						>
-							{themeInstalling ? 'Installing...' : 'Yes, Install'}
+							{ themeStatus === 'not-installed'
+									? themeInstalling ? 'Installing...' : 'Yes, Install'
+									: themeInstalling ? 'Activating...' : 'Yes, Activate'}
 						</button>
 						{
 							!themeInstalling && 
 							<a
-								href='/'
+								href={`?page=starter-templates&template_id=${template_id}&ci=1`}
 								target='_blank'
 								className='templatiq-btn'
 							>
-								Continue without installing	
+								Continue without {themeStatus === 'not-installed' ? 'installing' : 'activating'}	
 							</a>
 						}
 						
