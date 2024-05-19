@@ -395,6 +395,21 @@
         font-weight: 400;
         text-align: center;
       }
+      &__warning {
+        padding: 10px;
+        background-color: #e7e7e7;
+        border-radius: 8px;
+        svg {
+          max-width: 16px;
+          margin-inline-end: 8px;
+          path {
+            fill: brown;
+          }
+        }
+        strong {
+          color: brown;
+        }
+      }
     }
     &__btns {
       display: flex;

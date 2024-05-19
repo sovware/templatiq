@@ -1,9 +1,11 @@
 import arrowIcon from '@images/icon/angle-left.svg';
 import Logo from '@images/logo.svg';
 import { useState } from '@wordpress/element';
+import ReactSVG from 'react-inlinesvg';
 import DefaultStep from '../../components/default-step/index';
 import { useStateValue } from '../../store/store';
 
+import trashIcon from '@icon/trash.svg';
 import './style.scss';
 
 const InsertContent = () => {
@@ -181,6 +183,17 @@ const InsertContent = () => {
 									/>
 									<label htmlFor="erase-directory-data">Erase existing directory data & start fresh</label>
 								</div>
+								{
+									eraseExistingData && 
+									<span className="fullsite-setup-wizard__content__import__warning">
+										<ReactSVG
+											src={ trashIcon }
+											width={ 16 }
+											height={ 16 }
+										/>
+										<strong>Warning:</strong> This will remove all existing data from your directories, listing & data associated Directorist.
+									</span>
+								}
 							</div>
 							<button
 								type='submit'
