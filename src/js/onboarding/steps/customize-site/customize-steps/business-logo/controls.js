@@ -2,8 +2,6 @@ import { __ } from '@wordpress/i18n';
 import Button from '../../../../components/button/button';
 import MediaUploader from '../../../../components/media-uploader';
 import { useStateValue } from '../../../../store/store';
-import PreviousStepLink from '../../../../components/util/previous-step-link/index';
-import { sendPostMessage } from '../../../../utils/functions';
 
 const BusinessLogoControls = () => {
 	const [
@@ -13,23 +11,24 @@ const BusinessLogoControls = () => {
 	const nextStep = () => {
 		dispatch( {
 			type: 'set',
-			currentCustomizeIndex: currentCustomizeIndex + 1,
+			currentIndex: currentIndex + 1,
 		} );
 	};
 
-	const lastStep = () => {
-		sendPostMessage( {
-			param: 'clearPreviewAssets',
-			data: {},
-		} );
-		setTimeout( () => {
-			dispatch( {
-				type: 'set',
-				currentIndex: currentIndex - 1,
-				currentCustomizeIndex: 0,
-			} );
-		}, 300 );
-	};
+	// const prevStep = () => {
+	// 	sendPostMessage( {
+	// 		param: 'clearPreviewAssets',
+	// 		data: {},
+	// 	} );
+	// 	setTimeout( () => {
+	// 		dispatch( {
+	// 			type: 'set',
+	// 			currentIndex: currentIndex - 1,
+	// 			currentCustomizeIndex: 0,
+	// 		} );
+	// 	}, 300 );
+	// };
+
 	const disabledClass = templateId === 0 ? 'disabled-btn' : '';
 	return (
 		<>
@@ -44,12 +43,12 @@ const BusinessLogoControls = () => {
 					? __( 'Continue', 'templatiq-sites' )
 					: __( 'Skip & Continue', 'templatiq-sites' ) }
 			</Button>
-			{
+			{/* {
 				!designStep === 1 &&
-				<PreviousStepLink onClick={ lastStep }>
+				<PreviousStepLink onClick={ prevStep }>
 					{ __( 'Back', 'templatiq-sites' ) }
 				</PreviousStepLink>
-			}
+			} */}
 		</>
 	);
 };

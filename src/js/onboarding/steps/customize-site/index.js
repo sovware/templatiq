@@ -6,33 +6,16 @@ import { useStateValue } from '../../store/store';
 import { CustomizeSteps } from './customize-steps';
 
 
-import { getDemo,
+import {
+	checkFileSystemPermissions,
 	checkRequiredPlugins,
-	checkFileSystemPermissions, 
+	getDemo,
 } from '../import-site/import-utils';
 
 const currentUrlParams = new URLSearchParams( window.location.search );
 const template_id = currentUrlParams.get( 'template_id' ) || '';
 
 const CustomizeSite = () => {
-	// useEffect( async () => {
-		
-	// 	const itemData ={
-	// 		type: 'set',
-	// 		currentIndex: 0,
-	// 		selectedTemplateName: 'hello',
-	// 		selectedTemplateID: template_id,
-	// 		selectedTemplateType: 'free',
-	// 	}
-
-	// 	dispatch( itemData );
-		
-	// 	await getDemo( template_id, dispatch );
-		
-	// 	checkRequiredPlugins( dispatch );
-	// 	checkFileSystemPermissions( dispatch );
-
-	// }, []);
 
 	useEffect( () => {
 		
@@ -64,8 +47,7 @@ const CustomizeSite = () => {
 		
 	}, [template_id]);
 
-	const [ { currentCustomizeIndex, currentIndex, builder }, dispatch ] =
-		useStateValue();
+	const [ { currentCustomizeIndex, currentIndex, builder }, dispatch ] = useStateValue();
 
 	const currentStepObject = CustomizeSteps[ currentCustomizeIndex ];
 	let CurrentStepContent;
