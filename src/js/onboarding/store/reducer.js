@@ -47,8 +47,8 @@ export const initialState = {
 	selectedTemplateName: '',
 	selectedTemplateType: '',
 
-	// Import Content Data
-	importContentData: {},
+	// Import Persona Data
+	importPersonaData: {},
 
 	// Import statuses.
 	reset: 'yes' === starterTemplates.firstImportStatus ? true : false,

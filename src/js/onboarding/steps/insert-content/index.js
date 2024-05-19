@@ -49,7 +49,7 @@ const InsertContent = () => {
 		e.preventDefault();
 		dispatch( {
 			type: 'set',
-			importContentData: {installRequiredTools, installContents, eraseExistingData}
+			importPersonaData: {installRequiredTools, installContents, eraseExistingData}
 		} );
 		nextStep();
 	}

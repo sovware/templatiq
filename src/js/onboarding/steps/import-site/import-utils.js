@@ -302,8 +302,8 @@ export const saveTypography = async ( selectedValue ) => {
 	console.log( 'saveTypography' );
 };
 
-export const importContent = async ( selectedValues ) => {
-	console.log('Test importContent', selectedValues);
+export const importPersonaWise = async ( selectedValues ) => {
+	console.log('Test importPersonaWise', selectedValues);
 	const data = new FormData();
 	data.append( 'action', 'templatiq_sites_import_content' );
 	data.append( 'import_data', JSON.stringify( selectedValues ) );
@@ -314,7 +314,7 @@ export const importContent = async ( selectedValues ) => {
 		body: data,
 	} );
 
-	console.log( 'importContent' );
+	console.log( 'importPersonaWise' );
 };
 
 export const divideIntoChunks = ( chunkSize, inputArray ) => {

@@ -10,7 +10,7 @@ const $ = jQuery;
 const Steps = () => {
 	const [ stateValue, dispatch ] = useStateValue();
 	const {
-		importContentData,
+		importPersonaData,
 		currentIndex,
 		currentCustomizeIndex,
 		templateResponse,
