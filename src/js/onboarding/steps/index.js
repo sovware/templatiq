@@ -22,8 +22,6 @@ const Steps = () => {
 	const history = useNavigate();
 	let current = STEPS[ currentIndex ];
 
-	console.log('Onboarding CHK', {currentIndex, designStep, templateResponse, importContentData})
-
 	useEffect( () => {
 		const previousIndex = parseInt( currentIndex ) - 1;
 		const nextIndex = parseInt( currentIndex ) + 1;

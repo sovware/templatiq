@@ -302,6 +302,21 @@ export const saveTypography = async ( selectedValue ) => {
 	console.log( 'saveTypography' );
 };
 
+export const importContent = async ( selectedValues ) => {
+	console.log('Test importContent', selectedValues);
+	const data = new FormData();
+	data.append( 'action', 'templatiq_sites_import_content' );
+	data.append( 'import_data', JSON.stringify( selectedValues ) );
+	data.append( 'security', nonce );
+
+	await fetch( ajaxurl, {
+		method: 'post',
+		body: data,
+	} );
+
+	console.log( 'importContent' );
+};
+
 export const divideIntoChunks = ( chunkSize, inputArray ) => {
 	const values = Object.keys( inputArray );
 	const final = [];

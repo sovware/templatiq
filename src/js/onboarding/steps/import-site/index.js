@@ -14,6 +14,7 @@ import {
 	saveTypography,
 	setSiteLogo,
 	setColorPalettes,
+	importContent,
 	divideIntoChunks,
 	checkRequiredPlugins,
 } from './import-utils';
@@ -37,6 +38,7 @@ const ImportSite = () => {
 			siteLogo,
 			activePalette,
 			typography,
+			importContentData,
 			customizerImportFlag,
 			widgetImportFlag,
 			contentImportFlag,
@@ -1217,15 +1219,19 @@ const ImportSite = () => {
 	 * 		2. Install Required Plugins.
 	 */
 	useEffect( () => {
+		
 		/**
 		 * Do not process when Import is already going on.
 		 */
 		if ( importStart || importEnd ) {
 			return;
 		}
+		
 		if ( ! importError ) {
 			localStorage.setItem( 'st-import-start', +new Date() );
 			percentage += 5;
+
+			importContent( importContentData );
 
 			dispatch( {
 				type: 'set',
