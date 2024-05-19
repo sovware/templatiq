@@ -55,6 +55,7 @@ class Enqueuer extends EnqueuerBase {
 				],
 				'assets_url'   => TEMPLATIQ_ASSETS,
 				'theme_status' => ( new DependencyRepository )->get_theme_status(),
+				'theme_slug'   => 'best-listing',
 			]
 		);
 	}

@@ -47,8 +47,6 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			require_once TEMPLATIQ_SITES_DIR . 'inc/importers/class-templatiq-sites-helper.php';
 
 			// Import AJAX.
-			add_action( 'wp_ajax_templatiq-sites-import-directory-types', [$this, 'import_directory_types'] );
-
 			add_action( 'wp_ajax_templatiq-sites-import-customizer-settings', [$this, 'import_customizer_settings'] );
 			add_action( 'wp_ajax_templatiq-sites-import-prepare-xml', [$this, 'prepare_xml_data'] );
 			add_action( 'wp_ajax_templatiq-sites-import-options', [$this, 'import_options'] );
@@ -157,55 +155,6 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 		 */
 		public function load_importer() {
 			require_once TEMPLATIQ_SITES_DIR . 'inc/importers/wxr-importer/class-templatiq-wxr-importer.php';
-		}
-
-		/**
-		 * Directory Types
-		 *
-		 * @return void
-		 */
-		public function import_directory_types() {
-			if ( wp_doing_ajax() ) {
-				check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
-
-				if ( ! current_user_can( 'customize' ) ) {
-					wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
-				}
-			}
-
-			$types       = get_option( 'templatiq_sites_import_data', true )['directory-types'];
-			$ids_mapping = [];
-
-			foreach ( $types as $type ) {
-
-				if ( term_exists( $type['name'], 'atbdp_listing_types' ) ) {
-					continue;
-				}
-
-				$type_id               = (string) $type['term_id'];
-				$term                  = wp_insert_term( $type['name'], 'atbdp_listing_types' );
-				$term_id               = $term['term_id'];
-				$ids_mapping[$type_id] = $term_id;
-
-				update_term_meta( $term_id, '_templatiq_sites_imported_term', true );
-
-				foreach ( $type['meta'] as $key => $value ) {
-					if ( '_default' !== $key ) {
-						// error_log( 'atbdp_listing_types ' .$key );
-						$value = maybe_unserialize( $value );
-						update_term_meta( $term_id, $key, $value );
-					}
-				}
-
-				error_log( 'Directory Type Inserted: Name: ' . $type['name'] . ' #ID: ' . $type_id . ' => ' . $term_id );
-			}
-
-			if ( $ids_mapping ) {
-				error_log( 'Directory Types ids mapping: ' . print_r( $ids_mapping, true ) );
-				update_option( 'templatiq_sites_directory_types_ids_mapping', $ids_mapping, 'no' );
-			}
-
-			wp_send_json_success( 'true' );
 		}
 
 		/**
