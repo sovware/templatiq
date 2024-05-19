@@ -40,6 +40,11 @@ const InsertFullsiteModal = ( { item, onClose } ) => {
 		} );
 	};
 
+	const redirectImportPage = (e) => {
+		window.open(`?page=starter-templates&template_id=${template_id}&ci=1`);
+		closeInsertTemplateModal(e);
+	}
+
 	const closeInsertTemplateModal = ( e ) => {
 		e.preventDefault();
 		let templatiqRoot = document.querySelector( '.templatiq' );
@@ -82,13 +87,12 @@ const InsertFullsiteModal = ( { item, onClose } ) => {
 						</button>
 						{
 							!themeInstalling && 
-							<a
-								href={`?page=starter-templates&template_id=${template_id}&ci=1`}
-								target='_blank'
+							<button
 								className='templatiq-btn'
+								onClick={redirectImportPage}
 							>
 								Continue without {themeStatus === 'not-installed' ? 'installing' : 'activating'}	
-							</a>
+							</button>
 						}
 						
 					</div>
