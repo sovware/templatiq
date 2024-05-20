@@ -10,7 +10,6 @@ namespace Templatiq\Repositories;
 use Templatiq\Utils\Helper;
 use Templatiq\Utils\Http;
 use Templatiq\Utils\Options;
-use Templatiq\Utils\Response;
 
 class AccountRepository {
 	private string $cloud_endpoint;
