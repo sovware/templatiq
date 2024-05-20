@@ -375,6 +375,11 @@
               }
             }
           }
+          &:disabled {
+            ~ label {
+              cursor: not-allowed;
+            }
+          }
         }
       }
       &__btn {
