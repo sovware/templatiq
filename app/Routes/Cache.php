@@ -8,6 +8,7 @@
 namespace Templatiq\Routes;
 
 use Templatiq\Abstracts\RouteBase;
+use Templatiq\Repositories\AccountRepository;
 use Templatiq\Utils\Cache as UtilsCache;
 
 class Cache extends RouteBase {
@@ -18,6 +19,8 @@ class Cache extends RouteBase {
 	}
 
 	public function clear() {
+		( new AccountRepository() )->data();
+
 		return UtilsCache::clear( ['library'] );
 	}
 }
