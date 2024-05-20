@@ -1,18 +1,12 @@
 // Wizard New Style
 .fullsite-setup-wizard {
+  height: 100%;
+  min-height: 100vh;
   display: flex;
-  align-items: flex-start;
-  height: auto;
-  margin: 0;
-  &__wrapper {
-    height: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 0;
-    background-color: #f4f5f7;
-  }
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  background-color: #f4f5f7;
   &__header {
     display: flex;
     gap: 30px;

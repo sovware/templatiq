@@ -59,7 +59,7 @@ const InsertContent = () => {
 	return (
 		<DefaultStep
 			content={
-				<form className="fullsite-setup-wizard-wrapper fullsite-setup-wizard__wrapper" onSubmit={handleInsertContentForm}>
+				<form className="fullsite-setup-wizard" onSubmit={handleInsertContentForm}>
 					<div className="fullsite-setup-wizard__header">
 						<div className="fullsite-setup-wizard__logo">
 							<img src={ Logo } alt="Logo" />
