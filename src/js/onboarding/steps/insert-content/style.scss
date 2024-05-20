@@ -396,18 +396,20 @@
         text-align: center;
       }
       &__warning {
+        display: flex;
         padding: 10px;
-        background-color: #e7e7e7;
+        font-size: 12px;
+        background-color: #f3dddb;
         border-radius: 8px;
         svg {
           max-width: 16px;
           margin-inline-end: 8px;
           path {
-            fill: brown;
+            fill: #ef4333;
           }
         }
         strong {
-          color: brown;
+          color: #ef4333;
         }
       }
     }
