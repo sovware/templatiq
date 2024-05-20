@@ -33,7 +33,7 @@ const InsertProModal = ( { item, onClose, onLoginClick } ) => {
 						This is a premium template. Get access to this premium template.
 					</p>
 					<a 
-						href={`https://templatiq.com/checkout?edd_action=add_to_cart&download_id=${template_id}`}
+						href={`https://templatiq.com/checkout?edd_action=add_to_cart&download_id=${template_id}`} target='_blank'
 						className="templatiq-btn templatiq-btn-warning templatiq-btn-full semi-bold"
 					>
 						<svg xmlns="http://www.w3.org/2000/svg" width="16.417" height="16.5" viewBox="1063.75 119.75 16.417 16.5">
