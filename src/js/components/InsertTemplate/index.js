@@ -103,23 +103,22 @@ const InsertTemplate = ({
 						onClose={handleInsertModalClose}
 						onLoginClick={addAuthModal}
 					/> :
-					installDirectorist ? 
-						<InstallDirectoristModal
-							install_directorist={installDirectorist}
+					insertFullSite ? 
+						<InsertFullsiteModal
+							item={item}
 							onClose={handleInsertModalClose}
 						/> :
-
-						insertFullSite ? 
-							<InsertFullsiteModal
-								item={item}
+						installDirectorist ? 
+							<InstallDirectoristModal
+								install_directorist={installDirectorist}
 								onClose={handleInsertModalClose}
 							/> :
-							<InsertTemplateModal
-								item={item}
-								required_plugins={requiredPlugins}
-								installed_directorist={!installDirectorist}
-								onClose={handleInsertModalClose}
-							/> : null
+								<InsertTemplateModal
+									item={item}
+									required_plugins={requiredPlugins}
+									installed_directorist={!installDirectorist}
+									onClose={handleInsertModalClose}
+								/> : null
 
 			}
 
