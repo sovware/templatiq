@@ -15,7 +15,6 @@ export default function SignInContent() {
 	let [ error, setError ] = useState(false);
 
 	const { isLoggedIn } = select( store ).getUserInfo();
-	const userInfo = select( store ).getUserInfo();
 
 	const [ formData, setFormData ] = useState( {
 		authorEmail: 'riaz',
