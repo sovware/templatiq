@@ -1,35 +1,34 @@
-import { useState, useRef, useEffect } from '@wordpress/element';
 import postData from '@helper/postData';
-import { select, dispatch } from '@wordpress/data';
+import { dispatch, select } from '@wordpress/data';
+import { useEffect, useRef, useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 
-import Dropdown from '@components/Dropdown';
 import CacheClearBtn from '@components/CacheClearBtn';
+import Dropdown from '@components/Dropdown';
 import checkedClickedOutside from '@helper/checkClickedOutside';
 import store from '@store/index';
 
-import { HeaderStyle, HeaderNavStyle, HeaderActionStyle } from './style';
+import { HeaderActionStyle, HeaderNavStyle, HeaderStyle } from './style';
 
+import avatar from '@images/avatar.svg';
 import Fav from '@images/fav.svg';
 import Logo from '@images/logo.svg';
-import avatar from '@images/avatar.svg';
 
-import pagesIcon from '@icon/pages.svg';
 import blocksIcon from '@icon/blocks.svg';
-import userIcon from '@icon/user-alt.svg';
 import fileIcon from '@icon/file-solid.svg';
+import pagesIcon from '@icon/pages.svg';
+import userIcon from '@icon/user-alt.svg';
 
 import backIcon from '@icon/arrow-left.svg';
-import elementorIcon from '@icon/elementor.svg';
-import blockEditorIcon from '@icon/directorist.svg';
 import chevronIcon from '@icon/chevron-down-solid.svg';
+import elementorIcon from '@icon/elementor.svg';
 
 import cartIcon from '@icon/cart.svg';
+import downloadIcon from '@icon/download-alt.svg';
 import heartIcon from '@icon/heart.svg';
 import logoutIcon from '@icon/logout.svg';
 import settingsIcon from '@icon/settings.svg';
-import downloadIcon from '@icon/download-alt.svg';
 
 const Header = ( props ) => {
 	const { type } = props;
@@ -60,11 +59,11 @@ const Header = ( props ) => {
 			text: 'Elementor',
 			url: '#',
 		},
-		{
-			icon: blockEditorIcon,
-			text: 'Block Editor',
-			url: '#',
-		},
+		// {
+		// 	icon: blockEditorIcon,
+		// 	text: 'Block Editor',
+		// 	url: '#',
+		// },
 	];
 
 	const navigate = useNavigate();
