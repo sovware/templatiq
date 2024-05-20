@@ -1,3 +1,5 @@
+import arrowIcon from '@images/icon/angle-left.svg';
+import Logo from '@images/logo.svg';
 import { useEffect } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import Lottie from 'react-lottie-player';
@@ -38,6 +40,7 @@ const ImportSite = () => {
 			siteLogo,
 			activePalette,
 			typography,
+			currentIndex,
 			importPersonaData,
 			customizerImportFlag,
 			widgetImportFlag,
@@ -54,6 +57,13 @@ const ImportSite = () => {
 		},
 		dispatch,
 	] = storedState;
+	
+	const prevStep = () => {
+		dispatch( {
+			type: 'set',
+			currentIndex: currentIndex - 1
+		} );
+	};
 
 	let percentage = importPercent;
 
@@ -1309,8 +1319,35 @@ const ImportSite = () => {
 	return (
 		<DefaultStep
 			content={
-				<div className="middle-content middle-content-import">
-					<>
+				<div className="fullsite-setup-wizard">
+					<div className="fullsite-setup-wizard__header">
+						<div className="fullsite-setup-wizard__logo">
+							<img src={ Logo } alt="Logo" />
+						</div>
+						<div className="fullsite-setup-wizard__header__step">
+							<ul className="fullsite-setup-wizard__header__step__wrapper">
+								<li className="fullsite-setup-wizard__header__step__single completed" data-step="1">
+									Choose Template
+								</li>
+								<li className={`fullsite-setup-wizard__header__step__single ${ importPercent === 100 ? 'completed' : 'active'}`} data-step="2">
+									Insert Content
+								</li>
+								<li className={`fullsite-setup-wizard__header__step__single ${ importPercent === 100 ? 'completed' : ''}`} data-step="3">
+									Done
+								</li>
+							</ul>
+						</div>
+						<div className="fullsite-setup-wizard__close">
+							<a
+								href='#' 
+								className="fullsite-setup-wizard__close__btn"
+								onClick={ prevStep }
+							>
+								<svg xmlns="http://www.w3.org/2000/svg" width="12" height="11.998" viewBox="1237 31 12 11.998"><path d="m1244.409 36.998 4.295-4.286a1.003 1.003 0 0 0-1.418-1.418L1243 35.59l-4.286-4.296a1.003 1.003 0 0 0-1.418 1.418l4.295 4.286-4.295 4.286a.999.999 0 0 0 0 1.419.999.999 0 0 0 1.418 0l4.286-4.296 4.286 4.296a1 1 0 0 0 1.418 0 .999.999 0 0 0 0-1.419l-4.295-4.286Z" fill="#b7b7b7" fill-rule="evenodd" data-name="times"></path></svg>
+							</a>
+						</div>
+					</div>
+					<div className="middle-content middle-content-import">
 						{ importPercent === 100 ? (
 							<h1 className="import-done-congrats">
 								{ __( 'Congratulations', 'templatiq-sites' ) }
@@ -1347,7 +1384,19 @@ const ImportSite = () => {
 								) }
 							</>
 						) }
-					</>
+					</div>
+					<div className="fullsite-setup-wizard__footer">
+						<div className="fullsite-setup-wizard__back">
+							<a
+								href='#' 
+								class="fullsite-setup-wizard__back__btn"
+								onClick={ prevStep }	
+							>
+								<img src={arrowIcon} alt="" />
+								Back
+							</a>
+						</div>
+					</div>
 				</div>
 			}
 			actions={
