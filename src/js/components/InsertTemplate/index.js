@@ -5,7 +5,7 @@ import { select } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 
-import InsertFullsiteModal from '@components/Popup/insertFullsiteModal';
+import InsertFullTemplateModal from '@components/Popup/insertFullTemplateModal';
 import InsertProModal from '@components/Popup/insertProModal';
 import InsertTemplateModal from '@components/Popup/insertTemplateModal';
 import InstallDirectoristModal from '@components/Popup/installDirectoristModal';
@@ -22,8 +22,8 @@ const InsertTemplate = ({
 }) => {
 	let { template_id, type, required_plugins, is_directorist_required } = item;
 
-	const onebaseInstalled = template_market_obj?.theme_status === 'installed-and-active';
-	const insertFullSite = type === 'pack';
+	const themeInstalled = template_market_obj?.theme_status === 'installed-and-active';
+	const insertFullTemplate = type === 'pack';
 	const dependencyCheckEndPoint = 'templatiq/dependency/check';
 
 	const { isLoggedIn } = select(store).getUserInfo();
@@ -44,8 +44,8 @@ const InsertTemplate = ({
 			setInsertModalOpen(true);
 		}
 
-		if (insertFullSite) {
-			!installDirectorist && onebaseInstalled ? 
+		if (insertFullTemplate) {
+			!installDirectorist && themeInstalled ? 
 			window.open(`?page=starter-templates&template_id=${template_id}&ci=0`)
 			: renderModal();
 		} else if (isPro || installDirectorist) {
@@ -103,8 +103,8 @@ const InsertTemplate = ({
 						onClose={handleInsertModalClose}
 						onLoginClick={addAuthModal}
 					/> :
-					insertFullSite ? 
-						<InsertFullsiteModal
+					insertFullTemplate ? 
+						<InsertFullTemplateModal
 							item={item}
 							onClose={handleInsertModalClose}
 						/> :
@@ -149,7 +149,7 @@ const InsertTemplate = ({
 					width={14}
 					height={14}
 				/>
-				{type !== 'pack' ? (innerText ? innerText : 'Insert') : 'Insert Full Site'}
+				{type !== 'pack' ? (innerText ? innerText : 'Insert') : 'Insert Full Template'}
 			</button>
 		</>
 	);

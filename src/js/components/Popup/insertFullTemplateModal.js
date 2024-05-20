@@ -6,7 +6,7 @@ import { InsertTemplateModalStyle } from './style';
 import closeIcon from '@icon/close.svg';
 import recommendationIcon from '@icon/recommendation.svg';
 
-const InsertFullsiteModal = ( { item, onClose } ) => {
+const insertFullTemplateModal = ( { item, onClose } ) => {
 	const { template_id } = item;
 	const [ themeInstalling, setThemeInstalling ] = useState( false );
 
@@ -109,4 +109,4 @@ const InsertFullsiteModal = ( { item, onClose } ) => {
 	);
 };
 
-export default InsertFullsiteModal;
+export default insertFullTemplateModal;
