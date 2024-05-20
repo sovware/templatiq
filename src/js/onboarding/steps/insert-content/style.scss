@@ -241,6 +241,9 @@
       font-weight: 400;
       margin: 0 0 10px;
       color: #141414;
+      span {
+        display: block;
+      }
       &--section {
         font-size: 24px;
         font-weight: 500;
@@ -375,9 +378,23 @@
               }
             }
           }
-          &:disabled {
-            ~ label {
-              cursor: not-allowed;
+        }
+        &.required_plugins {
+          label {
+            display: flex;
+            justify-content: space-between;
+            cursor: default;
+            .plugin_status {
+              color: #d53034;
+              font-weight: 600;
+            }
+          }
+          input[type="checkbox"] {
+            &:disabled {
+              ~ label {
+                opacity: 0.5;
+                cursor: not-alloweds;
+              }
             }
           }
         }

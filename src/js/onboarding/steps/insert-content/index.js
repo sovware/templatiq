@@ -1,6 +1,6 @@
 import arrowIcon from '@images/icon/angle-left.svg';
 import Logo from '@images/logo.svg';
-import { useState } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import DefaultStep from '../../components/default-step/index';
 import { useStateValue } from '../../store/store';
@@ -8,8 +8,14 @@ import { useStateValue } from '../../store/store';
 import trashIcon from '@icon/trash.svg';
 import './style.scss';
 
+import {
+	checkRequiredPlugins
+} from '../import-site/import-utils';
+
 const InsertContent = () => {
-	const [{ currentIndex }, dispatch ] = useStateValue();
+	const [{ currentIndex, notActivatedList, notInstalledList }, dispatch ] = useStateValue();
+	const insertRequiredPlugins = [...notActivatedList, ...notInstalledList];
+
 	const prevStep = () => {
 		dispatch( {
 			type: 'set',
@@ -29,7 +35,7 @@ const InsertContent = () => {
     const [eraseExistingData, setEraseExistingData] = useState(false);
     const [removeImportedData, setRemoveImportedData] = useState(false);
 
-	const isPro = false;
+	const isPro = true;
 
     // Handle change events for checkboxes
     const handleCheckboxChange = (e, setState, state) => {
@@ -64,6 +70,15 @@ const InsertContent = () => {
 		nextStep();
 	}
 
+	useEffect(() => {
+		const fetchRequiredPluginsData = async () => {
+			const requiredPluginsData = await checkRequiredPlugins(dispatch);
+		};
+		
+		fetchRequiredPluginsData(); 
+		
+	}, []);
+
 	return (
 		<DefaultStep
 			content={
@@ -97,46 +112,32 @@ const InsertContent = () => {
 					</div>
 					
 					<div className="fullsite-setup-wizard__content">
-						<h1 className="d-flex-center-align">
-							We're Almost There! Just one last step...
+						<h1 className="fullsite-setup-wizard__content__title">
+							We're Almost There! <span>Just one last step...</span>
 						</h1>
 						<div className="fullsite-setup-wizard__content__items fullsite-setup-wizard__content__import">
-							<div className="fullsite-setup-wizard__content__import__wrapper">
-								<h3 className="fullsite-setup-wizard__content__import__title">Install required plugins</h3>
-								<div className="fullsite-setup-wizard__content__import__single">
-									<input
-										type="checkbox"
-										name="install-required-plugins-1"
-										id="install-required-plugins-1"
-										value="yes"
-										checked
-										disabled = {!isPro}
-									/>
-									<label htmlFor="install-required-plugins-1">Install required plugins</label>
+							{
+								insertRequiredPlugins.length > 0 &&
+								<div className="fullsite-setup-wizard__content__import__wrapper">
+									<h3 className="fullsite-setup-wizard__content__import__title">Install required plugins</h3>
+									{
+										insertRequiredPlugins.map((plugin, index) => {
+											return (
+												<div className="fullsite-setup-wizard__content__import__single required_plugins">
+													<input
+														type="checkbox"
+														name={plugin.slug}
+														id={plugin.slug}
+														checked= {!plugin.is_pro}
+														disabled = { plugin.is_pro }
+													/>
+													<label htmlFor={plugin.slug}>{plugin.name} {plugin.is_pro ? <span className="plugin_status">(Pro)</span> : null}</label>
+												</div>
+											)
+										})
+									}
 								</div>
-								<div className="fullsite-setup-wizard__content__import__single">
-									<input
-										type="checkbox"
-										name="install-required-plugins-2"
-										id="install-required-plugins-2"
-										value="yes"
-										checked
-										disabled = {!isPro}
-									/>
-									<label htmlFor="install-required-plugins-2">Install required plugins</label>
-								</div>
-								<div className="fullsite-setup-wizard__content__import__single">
-									<input
-										type="checkbox"
-										name="install-required-plugins-3"
-										id="install-required-plugins-3"
-										value="yes"
-										checked
-										disabled = {!isPro}
-									/>
-									<label htmlFor="install-required-plugins-3">Install required plugins</label>
-								</div>
-							</div>
+							}
 
 							<div className="fullsite-setup-wizard__content__import__wrapper">
 								<h3 className="fullsite-setup-wizard__content__import__title">Install contents</h3>
