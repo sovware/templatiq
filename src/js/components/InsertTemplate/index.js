@@ -45,8 +45,8 @@ const InsertTemplate = ({
 		}
 
 		if (insertFullTemplate) {
-			!installDirectorist && themeInstalled ? 
-			window.open(`?page=starter-templates&template_id=${template_id}&ci=0`)
+			themeInstalled ? 
+			window.location.href= `?page=starter-templates&template_id=${template_id}&ci=0`
 			: renderModal();
 		} else if (isPro || installDirectorist) {
 			renderModal();
