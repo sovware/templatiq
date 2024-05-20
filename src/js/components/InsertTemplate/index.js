@@ -26,11 +26,17 @@ const InsertTemplate = ({
 	const insertFullTemplate = type === 'pack';
 	const dependencyCheckEndPoint = 'templatiq/dependency/check';
 
-	const { isLoggedIn } = select(store).getUserInfo();
+	const { isLoggedIn, purchased } = select(store).getUserInfo();
+	const [isPurchased, setIsPurchased] = useState(false);
 	const [insertModalOpen, setInsertModalOpen] = useState(false);
 	const [authModalOpen, setAuthModalOpen] = useState(false);
 	const [requiredPlugins, setRequiredPlugins] = useState(required_plugins);
 	const [installDirectorist, setInstallDirectorist] = useState(false);
+
+	const isItemPurchased = (itemId) => {
+		// Check if any object in purchasedItems contains the itemId as a key
+		return purchased.some(item => itemId in item);
+	};
 
 	const addInsertModal = async (e) => {
 		e.stopPropagation();
@@ -42,7 +48,9 @@ const InsertTemplate = ({
 				templateRef.current.classList.add('insert-modal-open');
 			}
 			setInsertModalOpen(true);
-		}
+		};
+		
+		setIsPurchased(isItemPurchased(template_id));
 
 		if (insertFullTemplate) {
 			themeInstalled ? 
@@ -97,7 +105,7 @@ const InsertTemplate = ({
 	return (
 		<>
 			{insertModalOpen ? 
-				isPro ?
+				isPro && !isPurchased ?
 					<InsertProModal 
 						item={item}
 						onClose={handleInsertModalClose}
