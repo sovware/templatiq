@@ -37,9 +37,9 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	const [ importedData, setImportedData ] = useState( false );
 	const [ elementorEditorEnabled, setElementorEditorEnabled ] = useState( false );
 
-	console.log('InsertTemplateModal', {
-		required_plugins, freePlugins, proPlugins, allPluginsInstalled, installedPlugins, installablePlugins, item
-	});
+	// console.log('InsertTemplateModal', {
+	// 	required_plugins, freePlugins, proPlugins, allPluginsInstalled, installedPlugins, installablePlugins, item
+	// });
 
 	let closeInsertTemplateModal = ( e ) => {
 		e.preventDefault();
@@ -273,13 +273,13 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 								<h2 className="templatiq__modal__title">
 									{ !allPluginsInstalled
 										? 'Required Plugins'
-										: directoryType?.length > 0 && !submittedTypes?.length > 0 
+										: directoryType?.length > 1 && !submittedTypes?.length > 0 
 										? 'Available Directory Type'
 										: !elementorEditorEnabled
 										? 'Enter Page Title'
 										: 'Importing...' }
 								</h2>
-								{ allPluginsInstalled && !directoryType && !elementorEditorEnabled ? (
+								{ allPluginsInstalled && !directoryType?.length > 1 && !elementorEditorEnabled ? (
 									<p className="templatiq__modal__desc">
 										To import this item you need to install
 										all the Plugin listed below.
@@ -424,13 +424,13 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 												) 
 											}
 										</div>
-									) : directoryType?.length > 0 && ! submittedTypes?.length > 0 && ! elementorEditorEnabled ? (
+									) : directoryType?.length > 1 && ! submittedTypes?.length > 0 && ! elementorEditorEnabled ? (
 										<>
 											<p className="templatiq__modal__desc">
 												Choose the directories where you'd like to include this page. You can choose multiple directories.
 											</p>
 											<div className="templatiq__modal__plugins">
-												{ directoryType && directoryType.map(( type, index ) => {
+												{ directoryType.map(( type, index ) => {
 													return (
 														<div
 															key={ index }
@@ -493,14 +493,15 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 													<button
 														type="button"
 														className="templatiq__modal__page__button templatiq-btn templatiq-btn-primary"
-														onClick={ () =>
+														onClick={() => 
 															importData(
-																pageTitle,
-																template_id,
-																builder,									directory_page_type,
-																submittedTypes
+															  pageTitle,
+															  template_id,
+															  builder,
+															  directory_page_type,
+															  { submittedTypes: submittedTypes.length > 0 ? submittedTypes : directoryType }
 															)
-														}
+														}														  
 														disabled={
 															pageTitle === ''
 														}
@@ -516,7 +517,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 										</div>
 									}
 								</div>
-								{ allPluginsInstalled && !directoryType && ! elementorEditorEnabled ? (
+								{ allPluginsInstalled && !directoryType?.length > 1 && ! elementorEditorEnabled ? (
 									<p className="templatiq__modal__desc">
 										<strong>Note:</strong> Make sure you have manually installed & activated the Pro Plugin listed above.
 									</p>
@@ -540,7 +541,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 												Cancel
 											</button>
 										</>
-									) : ! submittedTypes?.length ? (
+									) : ! submittedTypes?.length && directoryType?.length > 1 ? (
 										<button
 											disabled={ disableButtonType }
 											className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-success"

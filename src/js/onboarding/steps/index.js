@@ -1,10 +1,7 @@
 import { useEffect, useState } from '@wordpress/element';
 import { useNavigate } from 'react-router-dom';
 // import { Tooltip } from '@brainstormforce/starter-templates-components';
-import { __ } from '@wordpress/i18n';
 import { useStateValue } from '../store/store';
-import ICONS from '../icons';
-import Logo from '../components/logo';
 import { storeCurrentState } from '../utils/functions';
 import { STEPS } from './util';
 const { adminUrl } = starterTemplates;
@@ -13,6 +10,7 @@ const $ = jQuery;
 const Steps = () => {
 	const [ stateValue, dispatch ] = useStateValue();
 	const {
+		importPersonaData,
 		currentIndex,
 		currentCustomizeIndex,
 		templateResponse,

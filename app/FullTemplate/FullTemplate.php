@@ -65,7 +65,6 @@ class FullTemplate {
 	}
 
 	private function includes() {
-
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/functions.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-error-handler.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-importer.php';

@@ -78,4 +78,27 @@ class Controller extends ControllerBase {
 			);
 		}
 	}
+
+	public function import_directory_types() {
+		if ( wp_doing_ajax() ) {
+			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
+
+			if ( ! current_user_can( 'customize' ) ) {
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
+			}
+		}
+
+		try {
+			( new Repository() )->import_directory_types();
+
+			wp_send_json_success( 'true' );
+		} catch ( \Throwable $th ) {
+			wp_send_json_error( __( 'Some problem detected, please try again later.', 'templatiq' ) );
+		}
+	}
+
+	public function import_directory_listings() {
+		update_option( 'templatiq_import_directory_listings', true );
+		wp_send_json_success( 'true' );
+	}
 }

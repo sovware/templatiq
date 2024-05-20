@@ -756,7 +756,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ):
 		 */
 		public function start_process_single( $page_id ) {
 
-			templatiq_sites_error_log( '=================== ' . TEMPLATIQ_SITES_NAME . ' - Single Page - Importing Images for Blog name \'' . get_the_title( $page_id ) . '\' (' . $page_id . ') ===================' );
+			templatiq_sites_error_log( '=================== ' . 'Templatiq' . ' - Single Page - Importing Images for Blog name \'' . get_the_title( $page_id ) . '\' (' . $page_id . ') ===================' );
 
 			$default_page_builder = ( new Settings )->get_setting( 'page_builder' );
 
@@ -844,7 +844,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ):
 			$classes = [];
 
 			Templatiq_Sites_Importer_Log::add( 'Batch Process Started..' );
-			Templatiq_Sites_Importer_Log::add( TEMPLATIQ_SITES_NAME . ' - Importing Images for Blog name \'' . get_bloginfo( 'name' ) . '\' (' . get_current_blog_id() . ')' );
+			Templatiq_Sites_Importer_Log::add( 'Templatiq' . ' - Importing Images for Blog name \'' . get_bloginfo( 'name' ) . '\' (' . get_current_blog_id() . ')' );
 
 			// Add "widget" in import [queue].
 			$classes[] = Templatiq_Sites_Batch_Processing_Widgets::get_instance();

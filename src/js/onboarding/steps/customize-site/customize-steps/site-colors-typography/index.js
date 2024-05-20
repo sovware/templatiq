@@ -1,7 +1,7 @@
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { useStateValue } from '../../../../store/store';
 import ChangeTemplate from '../../../../components/change-template';
+import { useStateValue } from '../../../../store/store';
 
 const SiteColors = () => {
 	const [ { builder }, dispatch ] = useStateValue();

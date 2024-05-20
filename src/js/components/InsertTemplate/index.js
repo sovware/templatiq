@@ -22,7 +22,7 @@ const InsertTemplate = ({
 }) => {
 	let { template_id, type, required_plugins, is_directorist_required } = item;
 
-	const onebaseInstalled = false;
+	const onebaseInstalled = template_market_obj?.theme_status === 'installed-and-active';
 	const insertFullSite = type === 'pack';
 	const dependencyCheckEndPoint = 'templatiq/dependency/check';
 
@@ -46,7 +46,7 @@ const InsertTemplate = ({
 
 		if (insertFullSite) {
 			!installDirectorist && onebaseInstalled ? 
-			window.open(`?page=starter-templates&template_id=${template_id}`, '_blank')
+			window.open(`?page=starter-templates&template_id=${template_id}&ci=1`, '_blank')
 			: renderModal();
 		} else if (isPro || installDirectorist) {
 			renderModal();

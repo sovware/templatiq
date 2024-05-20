@@ -1,22 +1,23 @@
 import { useEffect } from '@wordpress/element';
-import Lottie from 'react-lottie-player';
 import { __, sprintf } from '@wordpress/i18n';
-import PreviousStepLink from '../../components/util/previous-step-link/index';
-import DefaultStep from '../../components/default-step/index';
-import ImportLoader from '../../components/import-steps/import-loader';
-import ErrorScreen from '../../components/error/index';
-import { useStateValue } from '../../store/store';
+import Lottie from 'react-lottie-player';
 import lottieJson from '../../../../svg/onboarding/website-building.json';
+import DefaultStep from '../../components/default-step/index';
+import ErrorScreen from '../../components/error/index';
+import ImportLoader from '../../components/import-steps/import-loader';
+import PreviousStepLink from '../../components/util/previous-step-link/index';
 import ICONS from '../../icons';
-import sseImport from './sse-import';
+import { useStateValue } from '../../store/store';
 import {
+	checkRequiredPlugins,
+	divideIntoChunks,
+	importPersonaWise,
 	installOneDirectory,
 	saveTypography,
-	setSiteLogo,
 	setColorPalettes,
-	divideIntoChunks,
-	checkRequiredPlugins,
+	setSiteLogo,
 } from './import-utils';
+import sseImport from './sse-import';
 const { reportError } = starterTemplates;
 let sendReportFlag = reportError;
 const successMessageDelay = 8000; // 8 seconds delay for fully assets load.
@@ -37,6 +38,7 @@ const ImportSite = () => {
 			siteLogo,
 			activePalette,
 			typography,
+			importPersonaData,
 			customizerImportFlag,
 			widgetImportFlag,
 			contentImportFlag,
@@ -1217,15 +1219,19 @@ const ImportSite = () => {
 	 * 		2. Install Required Plugins.
 	 */
 	useEffect( () => {
+		
 		/**
 		 * Do not process when Import is already going on.
 		 */
 		if ( importStart || importEnd ) {
 			return;
 		}
+		
 		if ( ! importError ) {
 			localStorage.setItem( 'st-import-start', +new Date() );
 			percentage += 5;
+
+			importPersonaWise( importPersonaData );
 
 			dispatch( {
 				type: 'set',
