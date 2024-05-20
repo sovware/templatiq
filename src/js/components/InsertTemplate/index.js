@@ -46,7 +46,7 @@ const InsertTemplate = ({
 
 		if (insertFullSite) {
 			!installDirectorist && onebaseInstalled ? 
-			window.open(`?page=starter-templates&template_id=${template_id}&ci=1`, '_blank')
+			window.open(`?page=starter-templates&template_id=${template_id}&ci=0`)
 			: renderModal();
 		} else if (isPro || installDirectorist) {
 			renderModal();
