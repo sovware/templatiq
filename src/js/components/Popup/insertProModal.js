@@ -9,7 +9,6 @@ const InsertProModal = ( { item, onClose, onLoginClick } ) => {
 	const { isLoggedIn } = select(store).getUserInfo();
 
 	const { template_id, purchase_url } = item;
-	console.log('Pro Data', template_id, purchase_url, item);
 	
 	let closeInsertTemplateModal = ( e ) => {
 		e.preventDefault();

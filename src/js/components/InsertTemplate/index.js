@@ -53,9 +53,11 @@ const InsertTemplate = ({
 		setIsPurchased(isItemPurchased(template_id));
 
 		if (insertFullTemplate) {
-			themeInstalled ? 
-			window.location.href= `?page=starter-templates&template_id=${template_id}&ci=0`
-			: renderModal();
+			isPro && !isItemPurchased(template_id) ?
+				renderModal()
+				: themeInstalled ? 
+					window.location.href= `?page=starter-templates&template_id=${template_id}&ci=0`
+					: null;
 		} else if (isPro || installDirectorist) {
 			renderModal();
 		} else {
