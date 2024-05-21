@@ -67,7 +67,7 @@ const ImportLoader = () => {
 		tweetMessage = sprintf(
 			//translators: %1$s Time taken %2$s Time Type %3$s theme name.
 			__(
-				`I just built my website in %1$s %2$s with Starter Templates by %3$s. Can’t believe how easy it was!!! 😍`,
+				`I just built my website in %1$s %2$s with Templatiq by %3$s. Can’t believe how easy it was!!! 😍`,
 				'templatiq-sites'
 			),
 			timeTaken,
@@ -82,7 +82,7 @@ const ImportLoader = () => {
 		tweetMessage = sprintf(
 			//translators: %1$s theme name.
 			__(
-				`I just built my website with Starter Templates by %1$s in minutes. Can't believe how easy it is! 😍`,
+				`I just built my website with Templatiq by %1$s in minutes. Can't believe how easy it is! 😍`,
 				'templatiq-sites'
 			),
 			themeName
