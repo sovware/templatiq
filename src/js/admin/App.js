@@ -39,6 +39,7 @@ export default function App() {
 			.then( () => {
 				fetchData( 'templatiq/account/data' ).then( ( res ) => {					
 					const data = res;
+					console.log('Userinfo', data)
 
 					const updatedUserInfo = {
 						isLoggedIn: data.token ? true : false,
@@ -47,6 +48,7 @@ export default function App() {
 						bookmarks: data.bookmarks,
 						downloads: data.downloads,
 						purchased: data.purchased,
+						unlocked: data.unlocked_by_directorist,
 					};
 
 					// Dispatch the action to update the login status in the store
