@@ -1,9 +1,7 @@
-import { useParams } from 'react-router-dom';
 import TemplateDetailsModule from '@modules/TemplateDetails';
+import { useParams } from 'react-router-dom';
 
 export default function TemplateDetails() {
-	let isLoggedIn = false;
-
 	const { slug } = useParams();
 
 	return (

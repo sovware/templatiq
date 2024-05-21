@@ -1,6 +1,6 @@
 import arrowIcon from '@images/icon/angle-left.svg';
 import Logo from '@images/logo.svg';
-import { useState } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import DefaultStep from '../../components/default-step/index';
 import { useStateValue } from '../../store/store';
@@ -8,8 +8,17 @@ import { useStateValue } from '../../store/store';
 import trashIcon from '@icon/trash.svg';
 import './style.scss';
 
+import {
+	checkRequiredPlugins
+} from '../import-site/import-utils';
+
 const InsertContent = () => {
-	const [{ currentIndex }, dispatch ] = useStateValue();
+	const [{ currentIndex, notActivatedList, notInstalledList }, dispatch ] = useStateValue();
+	const insertRequiredPlugins = [
+		...notActivatedList.filter(item => item?.init),
+		...notInstalledList.filter(item => item?.init)
+	];
+
 	const prevStep = () => {
 		dispatch( {
 			type: 'set',
@@ -24,12 +33,13 @@ const InsertContent = () => {
 	};
 	
 	// Initialize state for each group of checkboxes
-    const [installRequiredTools, setInstallRequiredTools] = useState([]);
-    const [installContents, setInstallContents] = useState([]);
+    const [installRequiredPlugins, setInstallRequiredPlugins] = useState([]);
+    const [installContents, setInstallContents] = useState(['import-listing', 'share-non-sensitive-data']);
     const [eraseExistingData, setEraseExistingData] = useState(false);
+    const [removeImportedData, setRemoveImportedData] = useState(false);
 
     // Handle change events for checkboxes
-    const handleCheckboxChange = (e, setState, state) => {
+    const handleCheckboxChange = (e, setState) => {
         const { name, checked } = e.target;
         setState((prevState) => {
             if (checked) {
@@ -42,24 +52,38 @@ const InsertContent = () => {
         });
     };
 
-	// Handle change events for the single optional checkbox
+	// Handle change events for erase existing data checkbox
     const handleEraseExistingData = (e) => {
         setEraseExistingData(e.target.checked);
+    };
+
+	// Handle change events for remove imported data checkbox
+    const handleRemoveImportedData = (e) => {
+        setRemoveImportedData(e.target.checked);
     };
 
 	const handleInsertContentForm = (e) => {
 		e.preventDefault();
 		dispatch( {
 			type: 'set',
-			importPersonaData: {installRequiredTools, installContents, eraseExistingData}
+			importPersonaData: {installRequiredPlugins, installContents, eraseExistingData, removeImportedData}
 		} );
 		nextStep();
 	}
 
+	useEffect(() => {
+		const fetchRequiredPluginsData = async () => {
+			const requiredPluginsData = await checkRequiredPlugins(dispatch);
+		};
+		
+		fetchRequiredPluginsData(); 
+		
+	}, []);
+
 	return (
 		<DefaultStep
 			content={
-				<form className="fullsite-setup-wizard-wrapper fullsite-setup-wizard__wrapper" onSubmit={handleInsertContentForm}>
+				<form className="fullsite-setup-wizard" onSubmit={handleInsertContentForm}>
 					<div className="fullsite-setup-wizard__header">
 						<div className="fullsite-setup-wizard__logo">
 							<img src={ Logo } alt="Logo" />
@@ -89,50 +113,32 @@ const InsertContent = () => {
 					</div>
 					
 					<div className="fullsite-setup-wizard__content">
-						<h1 className="d-flex-center-align">
-							We're Almost There! Just one last step...
+						<h1 className="fullsite-setup-wizard__content__title">
+							We're Almost There! <span>Just one last step...</span>
 						</h1>
 						<div className="fullsite-setup-wizard__content__items fullsite-setup-wizard__content__import">
-							<div className="fullsite-setup-wizard__content__header">
-								<h2 className="fullsite-setup-wizard__content__header__title">Insert Content</h2>
-								<p className="fullsite-setup-wizard__content__header__desc">Install required tools, Import listings, share non-sensitive data, etc</p>
-							</div>
-							<div className="fullsite-setup-wizard__content__import__wrapper">
-								<h3 className="fullsite-setup-wizard__content__import__title">Install required tools</h3>
-								<div className="fullsite-setup-wizard__content__import__single">
-									<input
-										type="checkbox"
-										name="install-required-tools-1"
-										id="install-required-tools-1"
-										value="yes"
-										checked={installRequiredTools.includes('install-required-tools-1')}
-										onChange={(e) => handleCheckboxChange(e, setInstallRequiredTools, installRequiredTools)}
-									/>
-									<label htmlFor="install-required-tools-1">Install required tools</label>
+							{
+								insertRequiredPlugins.length > 0 &&
+								<div className="fullsite-setup-wizard__content__import__wrapper">
+									<h3 className="fullsite-setup-wizard__content__import__title">Install required plugins</h3>
+									{
+										insertRequiredPlugins.map((plugin) => {
+											return (
+												<div className="fullsite-setup-wizard__content__import__single required_plugins">
+													<input
+														type="checkbox"
+														name={plugin.slug}
+														id={plugin.slug}
+														checked= {!plugin.is_pro}
+														disabled = { plugin.is_pro }
+													/>
+													<label htmlFor={plugin.slug}>{plugin.name} {plugin.is_pro ? <span className="plugin_status">(Pro)</span> : null}</label>
+												</div>
+											)
+										})
+									}
 								</div>
-								<div className="fullsite-setup-wizard__content__import__single">
-									<input
-										type="checkbox"
-										name="install-required-tools-2"
-										id="install-required-tools-2"
-										value="yes"
-										checked={installRequiredTools.includes('install-required-tools-2')}
-										onChange={(e) => handleCheckboxChange(e, setInstallRequiredTools, installRequiredTools)}
-									/>
-									<label htmlFor="install-required-tools-2">Install required tools</label>
-								</div>
-								<div className="fullsite-setup-wizard__content__import__single">
-									<input
-										type="checkbox"
-										name="install-required-tools-3"
-										id="install-required-tools-3"
-										value="yes"
-										checked={installRequiredTools.includes('install-required-tools-3')}
-										onChange={(e) => handleCheckboxChange(e, setInstallRequiredTools, installRequiredTools)}
-									/>
-									<label htmlFor="install-required-tools-3">Install required tools</label>
-								</div>
-							</div>
+							}
 
 							<div className="fullsite-setup-wizard__content__import__wrapper">
 								<h3 className="fullsite-setup-wizard__content__import__title">Install contents</h3>
@@ -150,17 +156,6 @@ const InsertContent = () => {
 								<div className="fullsite-setup-wizard__content__import__single">
 									<input
 										type="checkbox"
-										name="import-directory-settings"
-										id="import-directory-settings"
-										value="yes"
-										checked={installContents.includes('import-directory-settings')}
-										onChange={(e) => handleCheckboxChange(e, setInstallContents, installContents)}
-									/>
-									<label htmlFor="import-directory-settings">Import Directory Settings</label>
-								</div>
-								<div className="fullsite-setup-wizard__content__import__single">
-									<input
-										type="checkbox"
 										name="share-non-sensitive-data"
 										id="share-non-sensitive-data"
 										value="yes"
@@ -170,6 +165,7 @@ const InsertContent = () => {
 									<label htmlFor="share-non-sensitive-data">Share Non-Sensitive Data</label>
 								</div>
 							</div>
+
 							<div className="fullsite-setup-wizard__content__import__wrapper">
 								<h3 className="fullsite-setup-wizard__content__import__title">Optional</h3>
 								<div className="fullsite-setup-wizard__content__import__single">
@@ -191,7 +187,29 @@ const InsertContent = () => {
 											width={ 16 }
 											height={ 16 }
 										/>
-										<strong>Warning:</strong> This will remove all existing data from your directories, listing & data associated Directorist.
+										<strong>Warning: </strong> This will remove all existing data from your directories, listing & data associated Directorist.
+									</span>
+								}
+								<div className="fullsite-setup-wizard__content__import__single">
+									<input
+										type="checkbox"
+										name="remove-imported-data"
+										id="remove-imported-data"
+										value="yes"
+										checked={removeImportedData}
+										onChange={handleRemoveImportedData}
+									/>
+									<label htmlFor="remove-imported-data">Remove imported demo data</label>
+								</div>
+								{
+									removeImportedData && 
+									<span className="fullsite-setup-wizard__content__import__warning">
+										<ReactSVG
+											src={ trashIcon }
+											width={ 16 }
+											height={ 16 }
+										/>
+										<strong>Warning: </strong> This will remove all imported data from your directories, listing & data associated Directorist.
 									</span>
 								}
 							</div>

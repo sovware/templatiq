@@ -5,13 +5,14 @@ import Bookmark from '@components/Bookmark';
 import InsertTemplate from '@components/InsertTemplate';
 import { TemplateDetailsHeaderStyle } from './style';
 
-import crownIcon from '@icon/crown.svg';
 import cartIcon from '@icon/cart.svg';
-import heartIcon from '@icon/heart.svg';
+import crownIcon from '@icon/crown.svg';
 import downloadAltIcon from '@icon/download-alt.svg';
+import heartIcon from '@icon/heart.svg';
 
 const TemplateDetailsHeader = ( props ) => {
 	const {
+		template_id,
 		title,
 		price,
 		number_of_downloads,
@@ -97,7 +98,7 @@ const TemplateDetailsHeader = ( props ) => {
 				</a>
 				{ price > 0 ? (
 					<a
-						href={ purchase_url }
+						href={`https://templatiq.com/checkout?edd_action=add_to_cart&download_id=${template_id}`} target='_blank'
 						className="templatiq__details__header__action__link purchase-btn templatiq-btn templatiq-btn-primary"
 					>
 						<ReactSVG src={ cartIcon } width={ 16 } height={ 16 } />

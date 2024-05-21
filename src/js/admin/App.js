@@ -32,7 +32,6 @@ export default function App() {
 	useEffect( () => {
 		fetchData( 'templatiq/template/library' )
 			.then( ( res ) => {
-				console.log(res)
 				dispatch( store ).setTemplates( res.templates );
 				dispatch( store ).setLibraryData( res );
 			} )
@@ -112,52 +111,52 @@ export default function App() {
 		},
 	] );
 
-	const templateRoutes = [
-		{
-			path: `/*`,
-			element: <TemplatePack />,
-		},
-		{
-			path: '/pages',
-			element: <Pages />,
-		},
-		{
-			path: `/blocks`,
-			element: <Blocks />,
-		},
-		{
-			path: `/template/:slug`,
-			element: <TemplateDetails />,
-		},
-		{
-			path: `/signin`,
-			element: <SignIn />,
-		},
-		{
-			path: `/signup`,
-			element: <SignUp />,
-		},
-		{
-			path: `/dashboard`,
-			element: <MyFavorites />,
-		},
-		{
-			path: `/dashboard/favorites`,
-			element: <MyFavorites />,
-		},
-		{
-			path: `/dashboard/downloads`,
-			element: <MyDownloads />,
-		},
-		{
-			path: '/dashboard/purchase',
-			element: <MyPurchase />,
-		},
-		{
-			path: `/dashboard/account`,
-			element: <MyAccount />,
-		},
-	];
+	// const templateRoutes = [
+	// 	{
+	// 		path: `/*`,
+	// 		element: <TemplatePack />,
+	// 	},
+	// 	{
+	// 		path: '/pages',
+	// 		element: <Pages />,
+	// 	},
+	// 	{
+	// 		path: `/blocks`,
+	// 		element: <Blocks />,
+	// 	},
+	// 	{
+	// 		path: `/template/:slug`,
+	// 		element: <TemplateDetails />,
+	// 	},
+	// 	{
+	// 		path: `/signin`,
+	// 		element: <SignIn />,
+	// 	},
+	// 	{
+	// 		path: `/signup`,
+	// 		element: <SignUp />,
+	// 	},
+	// 	{
+	// 		path: `/dashboard`,
+	// 		element: <MyFavorites />,
+	// 	},
+	// 	{
+	// 		path: `/dashboard/favorites`,
+	// 		element: <MyFavorites />,
+	// 	},
+	// 	{
+	// 		path: `/dashboard/downloads`,
+	// 		element: <MyDownloads />,
+	// 	},
+	// 	{
+	// 		path: '/dashboard/purchase',
+	// 		element: <MyPurchase />,
+	// 	},
+	// 	{
+	// 		path: `/dashboard/account`,
+	// 		element: <MyAccount />,
+	// 	},
+	// ];
 
 	return (
 		<>

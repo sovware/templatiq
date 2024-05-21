@@ -1,5 +1,5 @@
-import { useState } from '@wordpress/element';
 import postData from '@helper/postData';
+import { useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { CacheClearBtnStyle } from './style';
 
@@ -15,6 +15,9 @@ const CacheClearBtn = ( props ) => {
 		e.preventDefault();
 		setIsLoading( true );
 		postData( cacheClearEndPoint ).then( ( data ) => {
+			if (data) {
+				window.location.reload();
+			}
 			setIsLoading( false );
 		} );
 	};

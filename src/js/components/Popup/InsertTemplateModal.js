@@ -37,10 +37,6 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	const [ importedData, setImportedData ] = useState( false );
 	const [ elementorEditorEnabled, setElementorEditorEnabled ] = useState( false );
 
-	// console.log('InsertTemplateModal', {
-	// 	required_plugins, freePlugins, proPlugins, allPluginsInstalled, installedPlugins, installablePlugins, item
-	// });
-
 	let closeInsertTemplateModal = ( e ) => {
 		e.preventDefault();
 		let templatiqRoot = document.querySelector( '.templatiq' );
@@ -152,7 +148,6 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	};
 
 	const importData = async ( pageTitle, template_id, builder, pageType, directoryTypes ) => {
-		console.log('importData', pageTitle, template_id, builder, pageType, directoryTypes);
 		setLoading( true );
 		postData( importAsPageEndPoint, {
 			title: pageTitle,
@@ -162,7 +157,6 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 			directoryTypes
 		} ).then( ( res ) => {
 			setLoading( false );
-			console.log('importData res', res)
 			if ( res.post_id ) {
 				setImportedData( res );
 			}
@@ -253,8 +247,6 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 			importElementorData( template_id );
 		}
 	}, [] );
-
-	// console.log('CHK Template Option', template_market_obj, directoryType, submittedTypes, installedPlugins, allPluginsInstalled);
 
 	return (
 		<>

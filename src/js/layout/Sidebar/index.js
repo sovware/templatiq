@@ -1,14 +1,14 @@
-import { useState, useEffect } from '@wordpress/element';
-import { useLocation } from 'react-router-dom';
+import { dispatch, select, subscribe } from '@wordpress/data';
+import { useEffect, useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
-import { select, dispatch, subscribe } from '@wordpress/data';
+import { useLocation } from 'react-router-dom';
 
 import store from '@store/index';
-import { SidebarStyle, SidebarItemStyle } from './style';
+import { SidebarItemStyle, SidebarStyle } from './style';
 
-import { Accordion, AccordionItem } from '@szhsin/react-accordion';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ContentLoading from '@components/ContentLoading';
+import { Accordion, AccordionItem } from '@szhsin/react-accordion';
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 
 import filterIcon from '@icon/filter.svg';
 
@@ -94,7 +94,7 @@ const Sidebar = () => {
 		Object.keys( data.plugins ).forEach( ( plugin ) => {
 			pluginCount[ plugin ] = templatesOfType.filter( ( template ) =>
 				template.required_plugins.some(
-					( reqPlugin ) => reqPlugin.slug === plugin
+					( reqPlugin ) => reqPlugin?.slug === plugin
 				)
 			).length;
 		} );

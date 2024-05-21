@@ -142,7 +142,6 @@ export const checkRequiredPlugins = async ( dispatch ) => {
 	} )
 		.then( ( response ) => response.json() )
 		.then( ( response ) => {
-			console.log(' checkRequiredPlugins response : ',  response );
 			if ( response.success ) {
 				const rPlugins = response.data?.required_plugins;
 				const notInstalledPlugin = rPlugins.notinstalled || '';

@@ -1,9 +1,9 @@
-import confetti from 'canvas-confetti';
-import { __, sprintf } from '@wordpress/i18n';
 import { decodeEntities } from '@wordpress/html-entities';
-import { useStateValue } from '../../store/store';
+import { __, sprintf } from '@wordpress/i18n';
+import confetti from 'canvas-confetti';
 import { Button } from '..';
 import ICONS from '../../icons';
+import { useStateValue } from '../../store/store';
 import { getTotalTime } from '../../utils/functions';
 const { siteUrl } = starterTemplates;
 

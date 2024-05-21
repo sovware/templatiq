@@ -15,7 +15,6 @@ const SingleTemplate = ( item ) => {
 	let {
 		slug,
 		preview_link,
-		purchase_url,
 		thumbnail,
 		title,
 		price,
@@ -29,6 +28,8 @@ const SingleTemplate = ( item ) => {
 	const [ dropdownCategories, setDropdownCategories ] = useState( [] );
 
 	const [ imageLoaded, setImageLoaded ] = useState( false );
+
+	const requiredPlugins = required_plugins.filter(item => item?.init);
 
 	const handleImageLoad = () => {
 		setImageLoaded( true );
@@ -110,16 +111,16 @@ const SingleTemplate = ( item ) => {
 						/>
 					</div>
 					<div className="templatiq__template__single__info__required">
-						{ required_plugins &&
-							required_plugins.map( ( plugin, index ) => (
+						{ requiredPlugins &&
+							requiredPlugins.map( ( plugin, index ) => (
 								<a
 									key={ index }
 									href="#"
 									className="templatiq__template__single__info__required__item templatiq-tooltip"
-									data-info={ plugin.name }
+									data-info={ plugin?.name }
 								>
 									<img
-										src={ `${ template_market_obj.assets_url }/svg/icon/${ plugin.slug }.svg` }
+										src={ `${ template_market_obj.assets_url }/svg/icon/${ plugin?.slug }.svg` }
 										width={ 28 }
 										height={ 28 }
 									/>

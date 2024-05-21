@@ -6,13 +6,12 @@ import { InsertTemplateModalStyle } from './style';
 import closeIcon from '@icon/close.svg';
 import recommendationIcon from '@icon/recommendation.svg';
 
-const InsertFullsiteModal = ( { item, onClose } ) => {
+const insertFullTemplateModal = ( { item, onClose } ) => {
 	const { template_id } = item;
 	const [ themeInstalling, setThemeInstalling ] = useState( false );
 
 
 	const themeStatus = template_market_obj?.theme_status;
-	console.log( 'themeStatus ', themeStatus );
 
 	const activateThemeEndPoint = 'templatiq/dependency/activate-theme';
 
@@ -33,7 +32,7 @@ const InsertFullsiteModal = ( { item, onClose } ) => {
 			setThemeInstalling(false);
 			if ( res.success ) {
 				closeInsertTemplateModal(e);
-				window.open(`?page=starter-templates&template_id=${template_id}`);
+				window.location.href = `?page=starter-templates&template_id=${template_id}`;
 			} else {
 				console.error( 'Installation failed' );
 			}
@@ -41,7 +40,7 @@ const InsertFullsiteModal = ( { item, onClose } ) => {
 	};
 
 	const redirectImportPage = (e) => {
-		window.open(`?page=starter-templates&template_id=${template_id}&ci=1`);
+		window.location.href = `?page=starter-templates&template_id=${template_id}&ci=1`;
 		closeInsertTemplateModal(e);
 	}
 
@@ -109,4 +108,4 @@ const InsertFullsiteModal = ( { item, onClose } ) => {
 	);
 };
 
-export default InsertFullsiteModal;
+export default insertFullTemplateModal;

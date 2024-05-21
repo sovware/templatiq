@@ -8,7 +8,7 @@ import closeIcon from '@icon/close.svg';
 const InsertProModal = ( { item, onClose, onLoginClick } ) => {
 	const { isLoggedIn } = select(store).getUserInfo();
 
-	const { purchase_url } = item;
+	const { template_id } = item;
 	
 	let closeInsertTemplateModal = ( e ) => {
 		e.preventDefault();
@@ -27,13 +27,13 @@ const InsertProModal = ( { item, onClose, onLoginClick } ) => {
 			>	
 				<div className="templatiq__modal__content">
 					<h2 className="templatiq__modal__title">
-						Liked This Template
+						Liked This Template?
 					</h2>
 					<p className="templatiq__modal__desc">
 						This is a premium template. Get access to this premium template.
 					</p>
 					<a 
-						href={purchase_url}
+						href={`https://templatiq.com/checkout?edd_action=add_to_cart&download_id=${template_id}`} target='_blank'
 						className="templatiq-btn templatiq-btn-warning templatiq-btn-full semi-bold"
 					>
 						<svg xmlns="http://www.w3.org/2000/svg" width="16.417" height="16.5" viewBox="1063.75 119.75 16.417 16.5">

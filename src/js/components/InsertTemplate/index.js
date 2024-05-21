@@ -5,7 +5,7 @@ import { select } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 
-import InsertFullsiteModal from '@components/Popup/insertFullsiteModal';
+import InsertFullTemplateModal from '@components/Popup/insertFullTemplateModal';
 import InsertProModal from '@components/Popup/insertProModal';
 import InsertTemplateModal from '@components/Popup/insertTemplateModal';
 import InstallDirectoristModal from '@components/Popup/installDirectoristModal';
@@ -22,15 +22,24 @@ const InsertTemplate = ({
 }) => {
 	let { template_id, type, required_plugins, is_directorist_required } = item;
 
-	const onebaseInstalled = template_market_obj?.theme_status === 'installed-and-active';
-	const insertFullSite = type === 'pack';
+	const validPlugins = required_plugins.filter(item => item?.init);
+
+	const themeInstalled = template_market_obj?.theme_status === 'installed-and-active' || template_market_obj?.theme_status === 'installed-but-inactive';
+	
+	const insertFullTemplate = type === 'pack';
 	const dependencyCheckEndPoint = 'templatiq/dependency/check';
 
-	const { isLoggedIn } = select(store).getUserInfo();
+	const { isLoggedIn, purchased } = select(store).getUserInfo();
+	const [isPurchased, setIsPurchased] = useState(false);
 	const [insertModalOpen, setInsertModalOpen] = useState(false);
 	const [authModalOpen, setAuthModalOpen] = useState(false);
-	const [requiredPlugins, setRequiredPlugins] = useState(required_plugins);
+	const [requiredPlugins, setRequiredPlugins] = useState(validPlugins);
 	const [installDirectorist, setInstallDirectorist] = useState(false);
+
+	const isItemPurchased = (itemId) => {
+		// Check if any object in purchasedItems contains the itemId as a key
+		return purchased && purchased.some(item => itemId in item);
+	};
 
 	const addInsertModal = async (e) => {
 		e.stopPropagation();
@@ -42,17 +51,21 @@ const InsertTemplate = ({
 				templateRef.current.classList.add('insert-modal-open');
 			}
 			setInsertModalOpen(true);
-		}
+		};
+		
+		setIsPurchased(isItemPurchased(template_id));
 
-		if (insertFullSite) {
-			!installDirectorist && onebaseInstalled ? 
-			window.open(`?page=starter-templates&template_id=${template_id}&ci=1`, '_blank')
-			: renderModal();
+		if (insertFullTemplate) {
+			isPro && !isItemPurchased(template_id) ?
+				renderModal()
+				: themeInstalled ? 
+					window.location.href= `?page=starter-templates&template_id=${template_id}&ci=0`
+					: renderModal();
 		} else if (isPro || installDirectorist) {
 			renderModal();
 		} else {
 			try {
-				await handlePlugins(required_plugins);
+				await handlePlugins(validPlugins);
 				renderModal();
 			} catch (error) {
 				// Handle error if needed
@@ -84,7 +97,7 @@ const InsertTemplate = ({
 	};
 
 	useEffect(() => {
-		handlePlugins(required_plugins);
+		handlePlugins(validPlugins);
 	}, []);
 
 	useEffect(() => {
@@ -97,29 +110,28 @@ const InsertTemplate = ({
 	return (
 		<>
 			{insertModalOpen ? 
-				isPro ?
+				isPro && !isPurchased ?
 					<InsertProModal 
 						item={item}
 						onClose={handleInsertModalClose}
 						onLoginClick={addAuthModal}
 					/> :
-					installDirectorist ? 
-						<InstallDirectoristModal
-							install_directorist={installDirectorist}
+					insertFullTemplate ? 
+						<InsertFullTemplateModal
+							item={item}
 							onClose={handleInsertModalClose}
 						/> :
-
-						insertFullSite ? 
-							<InsertFullsiteModal
-								item={item}
+						installDirectorist ? 
+							<InstallDirectoristModal
+								install_directorist={installDirectorist}
 								onClose={handleInsertModalClose}
 							/> :
-							<InsertTemplateModal
-								item={item}
-								required_plugins={requiredPlugins}
-								installed_directorist={!installDirectorist}
-								onClose={handleInsertModalClose}
-							/> : null
+								<InsertTemplateModal
+									item={item}
+									required_plugins={requiredPlugins}
+									installed_directorist={!installDirectorist}
+									onClose={handleInsertModalClose}
+								/> : null
 
 			}
 
@@ -150,7 +162,7 @@ const InsertTemplate = ({
 					width={14}
 					height={14}
 				/>
-				{type !== 'pack' ? (innerText ? innerText : 'Insert') : 'Insert Full Site'}
+				{type !== 'pack' ? (innerText ? innerText : 'Insert') : 'Insert Full Template'}
 			</button>
 		</>
 	);

@@ -1,18 +1,12 @@
 // Wizard New Style
 .fullsite-setup-wizard {
+  height: 100%;
+  min-height: 100vh;
   display: flex;
-  align-items: flex-start;
-  height: auto;
-  margin: 0;
-  &__wrapper {
-    height: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 0;
-    background-color: #f4f5f7;
-  }
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  background-color: #f4f5f7;
   &__header {
     display: flex;
     gap: 30px;
@@ -247,6 +241,9 @@
       font-weight: 400;
       margin: 0 0 10px;
       color: #141414;
+      span {
+        display: block;
+      }
       &--section {
         font-size: 24px;
         font-weight: 500;
@@ -382,6 +379,25 @@
             }
           }
         }
+        &.required_plugins {
+          label {
+            display: flex;
+            justify-content: space-between;
+            cursor: default;
+            .plugin_status {
+              color: #d53034;
+              font-weight: 600;
+            }
+          }
+          input[type="checkbox"] {
+            &:disabled {
+              ~ label {
+                opacity: 0.5;
+                cursor: not-alloweds;
+              }
+            }
+          }
+        }
       }
       &__btn {
         border: none;
@@ -396,18 +412,20 @@
         text-align: center;
       }
       &__warning {
+        display: flex;
         padding: 10px;
-        background-color: #e7e7e7;
+        font-size: 12px;
+        background-color: #f3dddb;
         border-radius: 8px;
         svg {
           max-width: 16px;
           margin-inline-end: 8px;
           path {
-            fill: brown;
+            fill: #ef4333;
           }
         }
         strong {
-          color: brown;
+          color: #ef4333;
         }
       }
     }
@@ -638,92 +656,17 @@
       }
     }
   }
-  &__introduction {
-    max-width: 700px;
-    margin: 0 auto;
-    text-align: center;
-    padding: 50px 0 100px;
-  }
-  &__step {
-    display: flex;
-    flex: 1;
-    gap: 15px;
-    width: 100%;
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 50px 15px 100px;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
-    @media (max-width: 767px) {
-      padding-top: 100px;
-    }
-  }
-  &__box {
-    width: 100%;
-    padding: 30px 40px 40px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-    @media (max-width: 480px) {
-      padding: 30px 25px;
-    }
-    @media (max-width: 375px) {
-      padding: 30px 20px;
-    }
-    &__content {
-      &__title {
-        font-size: 24px;
-        font-weight: 400;
-        margin: 0 0 5px;
-        color: #141414;
-        &--section {
-          font-size: 15px;
-          font-weight: 400;
-          color: #141414;
-          margin: 0 0 10px;
-        }
-      }
-      &__desc {
-        font-size: 15px;
-        font-weight: 400;
-        margin: 0 0 25px;
-        color: #484848;
-      }
 
-      &__form {
-        position: relative;
-        &:before {
-          content: "";
-          background-image: url("../../../../svg/icon/check.svg");
-          background-repeat: no-repeat;
-          width: 14px;
-          height: 14px;
-          position: absolute;
-          left: 18px;
-          top: 14px;
-          background-size: 14px;
-        }
-      }
-      &__input {
-        width: 100%;
-        height: 44px;
-        border-radius: 8px;
-        padding: 0 18px;
-        padding-left: 40px;
-        outline: none;
-        background-color: #ebebeb;
-        border: 1px solid #ebebeb;
-        box-sizing: border-box;
-      }
-    }
+  .middle-content-import {
+    flex: 1;
+    position: unset !important;
+    transform: unset !important;
+    margin: 50px auto !important;
   }
-  &__map {
-    margin-top: 20px;
-    #gmap {
-      height: 280px;
-      border-radius: 8px;
-    }
+  .import-done-congrats {
+    justify-content: center;
+  }
+  .tweet-import-success {
+    position: relative;
   }
 }
