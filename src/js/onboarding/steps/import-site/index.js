@@ -1219,7 +1219,7 @@ const ImportSite = () => {
 	 */
 	useEffect( () => {
 		if ( tryAgainCount > 0 ) {
-			checkRequiredPlugins( storedState );
+			checkRequiredPlugins( dispatch );
 		}
 	}, [ tryAgainCount ] );
 
