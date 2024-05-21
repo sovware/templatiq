@@ -22,6 +22,8 @@ const InsertTemplate = ({
 }) => {
 	let { template_id, type, required_plugins, is_directorist_required } = item;
 
+	const validPlugins = required_plugins.filter(item => item?.init);
+
 	const themeInstalled = template_market_obj?.theme_status === 'installed-and-active' || template_market_obj?.theme_status === 'installed-but-inactive';
 	
 	const insertFullTemplate = type === 'pack';
@@ -31,7 +33,7 @@ const InsertTemplate = ({
 	const [isPurchased, setIsPurchased] = useState(false);
 	const [insertModalOpen, setInsertModalOpen] = useState(false);
 	const [authModalOpen, setAuthModalOpen] = useState(false);
-	const [requiredPlugins, setRequiredPlugins] = useState(required_plugins);
+	const [requiredPlugins, setRequiredPlugins] = useState(validPlugins);
 	const [installDirectorist, setInstallDirectorist] = useState(false);
 
 	const isItemPurchased = (itemId) => {
@@ -63,7 +65,7 @@ const InsertTemplate = ({
 			renderModal();
 		} else {
 			try {
-				await handlePlugins(required_plugins);
+				await handlePlugins(validPlugins);
 				renderModal();
 			} catch (error) {
 				// Handle error if needed
@@ -95,7 +97,7 @@ const InsertTemplate = ({
 	};
 
 	useEffect(() => {
-		handlePlugins(required_plugins);
+		handlePlugins(validPlugins);
 	}, []);
 
 	useEffect(() => {

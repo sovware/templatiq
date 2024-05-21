@@ -15,8 +15,8 @@ import {
 const InsertContent = () => {
 	const [{ currentIndex, notActivatedList, notInstalledList }, dispatch ] = useStateValue();
 	const insertRequiredPlugins = [
-		...notActivatedList.filter(item => item.init),
-		...notInstalledList.filter(item => item.init)
+		...notActivatedList.filter(item => item?.init),
+		...notInstalledList.filter(item => item?.init)
 	];
 
 	const prevStep = () => {
