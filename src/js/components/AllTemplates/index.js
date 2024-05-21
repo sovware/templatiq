@@ -83,7 +83,7 @@ export default function AllTemplates( props ) {
 				if ( filter.type === 'plugins' ) {
 					// Check if any required plugin matches the selected plugin
 					return template.required_plugins.some(
-						( requiredPlugin ) => requiredPlugin.slug === filter.key
+						( requiredPlugin ) => requiredPlugin?.slug === filter.key
 					);
 				} else if ( filter.type === 'categories' ) {
 					// Check if the template includes the selected category

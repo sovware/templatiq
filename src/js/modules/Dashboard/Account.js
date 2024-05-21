@@ -1,4 +1,6 @@
 import DashboardLayout from '@layout/DashboardLayout';
+import store from '@store/index';
+import { select } from '@wordpress/data';
 import { useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { MyAccountStyle } from './style';
@@ -6,9 +8,11 @@ import { MyAccountStyle } from './style';
 import userIcon from '@icon/user.svg';
 
 export default function MyAccountModule() {
+	const { userDisplayName, userEmail } = select( store ).getUserInfo();
+
 	const [ formData, setFormData ] = useState( {
-		authorFullname: 'Ibn Adam',
-		authorEmail: 'sample@gmail.com',
+		authorFullName: userDisplayName,
+		authorEmail: userEmail,
 	} );
 
 	const handleChange = ( e ) => {
@@ -20,6 +24,7 @@ export default function MyAccountModule() {
 
 	const handleData = ( e ) => {
 		e.preventDefault(); // Prevents the default form submission behavior
+		console.log( 'Submitted Author Info:', formData );
 	};
 
 	return (
@@ -42,12 +47,12 @@ export default function MyAccountModule() {
 						</div>
 						<div className="templatiq__dashboard__account__info">
 							<div className="templatiq__dashboard__account__info__single">
-								<label for="authorFullname">Full Name</label>
+								<label for="authorFullName">Full Name</label>
 								<input
 									type="text"
-									id="authorFullname"
-									name="authorFullname"
-									value={ formData.authorFullname }
+									id="authorFullName"
+									name="authorFullName"
+									value={ formData.authorFullName }
 									onChange={ handleChange }
 								/>
 							</div>
