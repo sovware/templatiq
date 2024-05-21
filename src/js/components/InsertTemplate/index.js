@@ -35,7 +35,7 @@ const InsertTemplate = ({
 
 	const isItemPurchased = (itemId) => {
 		// Check if any object in purchasedItems contains the itemId as a key
-		return purchased.some(item => itemId in item);
+		return purchased && purchased.some(item => itemId in item);
 	};
 
 	const addInsertModal = async (e) => {
