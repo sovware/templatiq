@@ -116,10 +116,10 @@ const SingleTemplate = ( item ) => {
 									key={ index }
 									href="#"
 									className="templatiq__template__single__info__required__item templatiq-tooltip"
-									data-info={ plugin.name }
+									data-info={ plugin?.name }
 								>
 									<img
-										src={ `${ template_market_obj.assets_url }/svg/icon/${ plugin.slug }.svg` }
+										src={ `${ template_market_obj.assets_url }/svg/icon/${ plugin?.slug }.svg` }
 										width={ 28 }
 										height={ 28 }
 									/>

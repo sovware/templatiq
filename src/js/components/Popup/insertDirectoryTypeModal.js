@@ -9,9 +9,6 @@ const InsertDirectoryTypeModal = ( { item, onClose } ) => {
 	const directoryType = template_market_obj?.directory_types;
 
 	let [ selectedTypes, setSelectedTypes ] = useState( [] );
-	
-	console.log('InsertDirectoryTypeModal', item);
-	console.log('directoryTypes', directoryType);
 
 	let closeInsertTemplateModal = ( e ) => {
 		e.preventDefault();
@@ -42,7 +39,7 @@ const InsertDirectoryTypeModal = ( { item, onClose } ) => {
 	};
 
 	const installDirectoryType = async ( type ) => {
-		console.log('chk installedDirectoryType', type)
+		return type;
 	};
 
 	return (

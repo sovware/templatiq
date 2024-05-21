@@ -14,7 +14,10 @@ import {
 
 const InsertContent = () => {
 	const [{ currentIndex, notActivatedList, notInstalledList }, dispatch ] = useStateValue();
-	const insertRequiredPlugins = [...notActivatedList, ...notInstalledList];
+	const insertRequiredPlugins = [
+		...notActivatedList.filter(item => item.init),
+		...notInstalledList.filter(item => item.init)
+	];
 
 	const prevStep = () => {
 		dispatch( {
@@ -35,10 +38,8 @@ const InsertContent = () => {
     const [eraseExistingData, setEraseExistingData] = useState(false);
     const [removeImportedData, setRemoveImportedData] = useState(false);
 
-	const isPro = true;
-
     // Handle change events for checkboxes
-    const handleCheckboxChange = (e, setState, state) => {
+    const handleCheckboxChange = (e, setState) => {
         const { name, checked } = e.target;
         setState((prevState) => {
             if (checked) {
@@ -121,7 +122,7 @@ const InsertContent = () => {
 								<div className="fullsite-setup-wizard__content__import__wrapper">
 									<h3 className="fullsite-setup-wizard__content__import__title">Install required plugins</h3>
 									{
-										insertRequiredPlugins.map((plugin, index) => {
+										insertRequiredPlugins.map((plugin) => {
 											return (
 												<div className="fullsite-setup-wizard__content__import__single required_plugins">
 													<input

@@ -12,7 +12,6 @@ const insertFullTemplateModal = ( { item, onClose } ) => {
 
 
 	const themeStatus = template_market_obj?.theme_status;
-	console.log( 'themeStatus ', themeStatus );
 
 	const activateThemeEndPoint = 'templatiq/dependency/activate-theme';
 
@@ -41,7 +40,6 @@ const insertFullTemplateModal = ( { item, onClose } ) => {
 	};
 
 	const redirectImportPage = (e) => {
-		console.log('redirectImportPage', e)
 		window.location.href = `?page=starter-templates&template_id=${template_id}&ci=1`;
 		closeInsertTemplateModal(e);
 	}

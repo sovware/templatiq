@@ -91,11 +91,11 @@ const TemplateDetailsWidget = ( props ) => {
 											key={ index }
 											href="#"
 											className="templatiq__details__widget__content__required-plugins__link templatiq-tooltip"
-											data-info={ plugin.name }
+											data-info={ plugin?.name }
 										>
 											<img
-												src={ `${ template_market_obj.assets_url }/svg/icon/${ plugin.slug }.svg` }
-												alt={ plugin.name }
+												src={ `${ template_market_obj.assets_url }/svg/icon/${ plugin?.slug }.svg` }
+												alt={ plugin?.name }
 											/>
 										</a>
 									);

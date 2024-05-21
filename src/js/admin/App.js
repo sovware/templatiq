@@ -32,7 +32,6 @@ export default function App() {
 	useEffect( () => {
 		fetchData( 'templatiq/template/library' )
 			.then( ( res ) => {
-				console.log(res)
 				dispatch( store ).setTemplates( res.templates );
 				dispatch( store ).setLibraryData( res );
 			} )

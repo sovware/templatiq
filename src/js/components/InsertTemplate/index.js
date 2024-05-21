@@ -22,7 +22,8 @@ const InsertTemplate = ({
 }) => {
 	let { template_id, type, required_plugins, is_directorist_required } = item;
 
-	const themeInstalled = template_market_obj?.theme_status === 'installed-and-active';
+	const themeInstalled = template_market_obj?.theme_status === 'installed-and-active' || template_market_obj?.theme_status === 'installed-but-inactive';
+	
 	const insertFullTemplate = type === 'pack';
 	const dependencyCheckEndPoint = 'templatiq/dependency/check';
 
@@ -53,7 +54,6 @@ const InsertTemplate = ({
 		setIsPurchased(isItemPurchased(template_id));
 
 		if (insertFullTemplate) {
-			console.log('!isItemPurchased(template_id)', purchased, isPro && !isItemPurchased(template_id))
 			isPro && !isItemPurchased(template_id) ?
 				renderModal()
 				: themeInstalled ? 
