@@ -69,14 +69,10 @@ const InsertDirectoryTypeModal = ( { item, onClose } ) => {
 										>
 											<input
 												id={
-													template_id +
-													'_' +
-													index
+													'directory_' + template_id + '_' + index
 												}
 												name={
-													template_id +
-													'_' +
-													index
+													'directory_' + template_id + '_' + index
 												}
 												type="checkbox"
 												className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
@@ -89,9 +85,7 @@ const InsertDirectoryTypeModal = ( { item, onClose } ) => {
 
 											<label
 												htmlFor={
-													template_id +
-													'_' +
-													index
+													'directory_' + template_id + '_' + index
 												}
 												className="templatiq__modal__plugin__label templatiq__checkbox__label"
 											>

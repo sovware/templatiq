@@ -34,6 +34,7 @@ export default function App() {
 			.then( ( res ) => {
 				dispatch( store ).setTemplates( res.templates );
 				dispatch( store ).setLibraryData( res );
+				console.log( 'Library Data:', res)
 			} )
 			.then( () => {
 				fetchData( 'templatiq/account/data' ).then( ( res ) => {					
