@@ -301,7 +301,15 @@ class Controller extends ControllerBase {
 			}
 		}
 
-		$data = ( new Reset )->get_data();
+		$data = [
+			'reset_posts'    => [],
+			'reset_wp_forms' => [],
+			'reset_terms'    => [],
+		];
+
+		if ( get_option( 'templatiq-erase-existing-imported-data' ) ) {
+			$data = ( new Reset )->get_data();
+		}
 
 		if ( wp_doing_ajax() ) {
 			wp_send_json_success( $data );
@@ -319,7 +327,9 @@ class Controller extends ControllerBase {
 			}
 		}
 
-		( new Reset )->terms_and_forms();
+		if ( get_option( 'templatiq-erase-existing-imported-data' ) ) {
+			( new Reset )->terms_and_forms();
+		}
 
 		if ( wp_doing_ajax() ) {
 			wp_send_json_success();
@@ -335,7 +345,9 @@ class Controller extends ControllerBase {
 			}
 		}
 
-		( new Reset )->posts();
+		if ( get_option( 'templatiq-erase-existing-imported-data' ) ) {
+			( new Reset )->posts();
+		}
 
 		if ( wp_doing_ajax() ) {
 			wp_send_json_success();
@@ -368,6 +380,10 @@ class Controller extends ControllerBase {
 			if ( ! current_user_can( 'manage_options' ) ) {
 				wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 			}
+		}
+
+		if ( ! get_option( 'templatiq-erase-existing-imported-data' ) ) {
+			wp_send_json_success( [] );
 		}
 
 		wp_send_json_success( templatiq_sites_get_reset_post_data() );
@@ -410,6 +426,27 @@ class Controller extends ControllerBase {
 
 		wp_send_json_success(
 			( new FileSystemRepository )->check_permission()
+		);
+	}
+
+	public function import_content_persona_wise() {
+		if ( wp_doing_ajax() ) {
+			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
+
+			if ( ! current_user_can( 'manage_options' ) ) {
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
+			}
+		}
+
+		$import_data = $_POST['import_data'] ?? '';
+		if ( empty( $import_data ) ) {
+			wp_send_json_success( true );
+		}
+
+		$import_data = json_decode( stripslashes( $import_data ), true );
+
+		wp_send_json_success(
+			( new Repository )->save_user_requirements( $import_data )
 		);
 	}
 }
