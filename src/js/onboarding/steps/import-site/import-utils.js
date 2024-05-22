@@ -313,7 +313,7 @@ export const importPersonaWise = async ( selectedValues ) => {
 		body: data,
 	} );
 
-	console.log( 'importPersonaWise' );
+	console.log( 'importPersonaWise', data );
 };
 
 export const divideIntoChunks = ( chunkSize, inputArray ) => {
