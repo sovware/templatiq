@@ -24,7 +24,7 @@ const InsertTemplate = ({
 
 	const validPlugins = required_plugins.filter(item => item?.init);
 
-	const themeInstalled = template_market_obj?.theme_status === 'installed-and-active' || template_market_obj?.theme_status === 'installed-but-inactive';
+	const themeInstalled = template_market_obj?.theme_status === 'installed-and-active';
 	
 	const insertFullTemplate = type === 'pack';
 	const dependencyCheckEndPoint = 'templatiq/dependency/check';
