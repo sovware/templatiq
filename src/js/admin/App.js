@@ -39,7 +39,6 @@ export default function App() {
 			.then( () => {
 				fetchData( 'templatiq/account/data' ).then( ( res ) => {					
 					const data = res;
-					console.log('Userinfo', data)
 
 					const updatedUserInfo = {
 						isLoggedIn: data.token ? true : false,

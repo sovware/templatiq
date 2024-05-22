@@ -351,7 +351,7 @@ class Controller extends ControllerBase {
 			wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 		}
 
-		( new DependencyRepository )->install_activate_theme();
+		( new DependencyRepository )->activate_theme();
 
 		wp_send_json_success(
 			[
