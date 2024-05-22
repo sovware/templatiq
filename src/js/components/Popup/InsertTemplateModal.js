@@ -283,26 +283,13 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 											{ installablePlugins &&
 												installablePlugins.map(
 													( plugin, index ) => {
-														let currentInstalling =
-															installingPlugins.includes(
-																plugin.slug
-															);
-														let currentInstalled =
-															installedPlugins.includes(
-																plugin.slug
-															);
-
+														let currentInstalling = installingPlugins.includes( plugin.slug );
+														let currentInstalled = installedPlugins.includes( plugin.slug );
 														let installStatus = '';
-														if (
-															currentInstalled
-														) {
-															installStatus =
-																'Installed';
-														} else if (
-															currentInstalling
-														) {
-															installStatus =
-																'Installing...';
+														if ( currentInstalled ) {
+															installStatus = 'Installed';
+														} else if ( currentInstalling ) {
+															installStatus = 'Installing...';
 														}
 														return (
 															<div
@@ -316,9 +303,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 																		index
 																	}
 																	name={
-																		'plugin_' + template_id +
-																		'_' +
-																		index
+																		'plugin_' + template_id + '_' + index
 																	}
 																	type="checkbox"
 																	className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
@@ -327,18 +312,16 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 																			plugin
 																		)
 																	}
+																	checked={selectedPlugins.includes(plugin)}
 																	disabled={
 																		currentInstalling ||
-																		installStatus !==
-																			''
+																		installStatus !== ''
 																	}
 																/>
 
 																<label
 																	htmlFor={
-																		'plugin_' + template_id +
-																		'_' +
-																		index
+																		'plugin_' + template_id + '_' + index
 																	}
 																	className="templatiq__modal__plugin__label templatiq__checkbox__label"
 																>
@@ -372,14 +355,10 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 															>
 																<input
 																	id={
-																		'plugin_' + template_id +
-																		'_pro_' +
-																		index
+																		'plugin_' + template_id + '_pro_' + index
 																	}
 																	name={
-																		'plugin_' + template_id +
-																		'_pro_' +
-																		index
+																		'plugin_' + template_id + '_pro_' + index
 																	}
 																	type="checkbox"
 																	className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
@@ -390,9 +369,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 
 																<label
 																	htmlFor={
-																		'plugin_' + template_id +
-																		'_pro_' +
-																		index
+																		'plugin_' + template_id + '_pro_' + index
 																	}
 																	className="templatiq__modal__plugin__label templatiq__checkbox__label"
 																>
@@ -407,8 +384,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 																</label>
 
 																<span className="templatiq__modal__plugin__status">
-																	It's Pro
-																	Plugin
+																	It's Pro Plugin
 																</span>
 															</div>
 														);
@@ -430,14 +406,10 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 														>
 															<input
 																id={
-																	'type_' + template_id +
-																	'_' +
-																	index
+																	'type_' + template_id + '_' + index
 																}
 																name={
-																	'type_' + template_id +
-																	'_' +
-																	index
+																	'type_' + template_id + '_' + index
 																}
 																type="checkbox"
 																className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
@@ -450,9 +422,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 
 															<label
 																htmlFor={
-																	'type_' + template_id +
-																	'_' +
-																	index
+																	'type_' + template_id + '_' + index
 																}
 																className="templatiq__modal__plugin__label templatiq__checkbox__label"
 															>
@@ -582,7 +552,6 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 									{ errorMsg }
 								</p>
 							</>
-						
 						) }
 					</div> 
 				</form>

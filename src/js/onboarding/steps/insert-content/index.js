@@ -33,7 +33,6 @@ const InsertContent = () => {
 	};
 	
 	// Initialize state for each group of checkboxes
-    const [installRequiredPlugins, setInstallRequiredPlugins] = useState([]);
     const [installContents, setInstallContents] = useState(['import-listing', 'share-non-sensitive-data']);
     const [eraseExistingData, setEraseExistingData] = useState(false);
     const [removeImportedData, setRemoveImportedData] = useState(false);
@@ -63,10 +62,15 @@ const InsertContent = () => {
     };
 
 	const handleInsertContentForm = (e) => {
+		const installPlugins = insertRequiredPlugins
+			.filter(plugin => !plugin.is_pro)
+			.map(plugin => plugin.slug);
+
+		console.log('Form Submitted', insertRequiredPlugins, installPlugins, installContents, eraseExistingData, removeImportedData)
 		e.preventDefault();
 		dispatch( {
 			type: 'set',
-			importPersonaData: {installRequiredPlugins, installContents, eraseExistingData, removeImportedData}
+			importPersonaData: {installPlugins, installContents, eraseExistingData, removeImportedData}
 		} );
 		nextStep();
 	}

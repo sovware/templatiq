@@ -15,6 +15,7 @@ const SingleTemplateStyle = Styled.div`
         min-height: 150px;
         img {
             width: 100%;
+            border-radius: 12px;
         }
     }
 

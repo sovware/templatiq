@@ -1,12 +1,12 @@
 import { useState } from '@wordpress/element';
-import confetti from 'canvas-confetti';
 import { __, sprintf } from '@wordpress/i18n';
-import DefaultStep from '../../components/default-step/index';
-import { useStateValue } from '../../store/store';
-import './style.scss';
-import ICONS from '../../icons';
-import { whiteLabelEnabled } from '../../utils/functions';
+import confetti from 'canvas-confetti';
 import { Button } from '../../components';
+import DefaultStep from '../../components/default-step/index';
+import ICONS from '../../icons';
+import { useStateValue } from '../../store/store';
+import { whiteLabelEnabled } from '../../utils/functions';
+import './style.scss';
 const { siteUrl } = starterTemplates;
 
 const getTotalTime = ( value ) => {
@@ -102,10 +102,10 @@ const Congrats = () => {
 			timeTaken,
 			typeOfTime
 		);
-		tweetMessage = `I just built my website in ${ timeTaken } ${ typeOfTime } with Starter Templates by @TemplatiqWP. Can't believe how easy it is! 😍`;
+		tweetMessage = `I just built my website in ${ timeTaken } ${ typeOfTime } with Templatiq by @TemplatiqWP. Can't believe how easy it is! 😍`;
 	} else {
 		descMessage = __( 'Your Website is up and ready!.', 'templatiq-sites' );
-		tweetMessage = `I just built my website with Starter Templates by @TemplatiqWP in minutes. Can't believe how easy it is! 😍`;
+		tweetMessage = `I just built my website with Templatiq by @TemplatiqWP in minutes. Can't believe how easy it is! 😍`;
 	}
 
 	const handleClick = () => {

@@ -34,6 +34,7 @@ export default function App() {
 			.then( ( res ) => {
 				dispatch( store ).setTemplates( res.templates );
 				dispatch( store ).setLibraryData( res );
+				console.log( 'Library Data:', res)
 			} )
 			.then( () => {
 				fetchData( 'templatiq/account/data' ).then( ( res ) => {					
@@ -46,6 +47,7 @@ export default function App() {
 						bookmarks: data.bookmarks,
 						downloads: data.downloads,
 						purchased: data.purchased,
+						unlocked: data.unlocked_by_directorist,
 					};
 
 					// Dispatch the action to update the login status in the store

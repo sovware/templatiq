@@ -29,8 +29,9 @@ const InsertTemplate = ({
 	const insertFullTemplate = type === 'pack';
 	const dependencyCheckEndPoint = 'templatiq/dependency/check';
 
-	const { isLoggedIn, purchased } = select(store).getUserInfo();
+	const { isLoggedIn, purchased, unlocked } = select(store).getUserInfo();
 	const [isPurchased, setIsPurchased] = useState(false);
+	const [isUnlocked, setIsUnlocked] = useState(false);
 	const [insertModalOpen, setInsertModalOpen] = useState(false);
 	const [authModalOpen, setAuthModalOpen] = useState(false);
 	const [requiredPlugins, setRequiredPlugins] = useState(validPlugins);
@@ -39,6 +40,11 @@ const InsertTemplate = ({
 	const isItemPurchased = (itemId) => {
 		// Check if any object in purchasedItems contains the itemId as a key
 		return purchased && purchased.some(item => itemId in item);
+	};
+	
+	const isItemUnlocked = (itemId) => {
+		// Check if any object in unlockedItems contains the itemId as a key
+		return unlocked && unlocked.some(item => itemId in item);
 	};
 
 	const addInsertModal = async (e) => {
@@ -54,9 +60,10 @@ const InsertTemplate = ({
 		};
 		
 		setIsPurchased(isItemPurchased(template_id));
+		setIsUnlocked(isItemUnlocked(template_id));
 
 		if (insertFullTemplate) {
-			isPro && !isItemPurchased(template_id) ?
+			isPro && !isItemPurchased(template_id) && !isItemUnlocked(template_id) ?
 				renderModal()
 				: themeInstalled ? 
 					window.location.href= `?page=starter-templates&template_id=${template_id}&ci=0`
@@ -110,7 +117,7 @@ const InsertTemplate = ({
 	return (
 		<>
 			{insertModalOpen ? 
-				isPro && !isPurchased ?
+				isPro && !isPurchased && !isUnlocked ?
 					<InsertProModal 
 						item={item}
 						onClose={handleInsertModalClose}
