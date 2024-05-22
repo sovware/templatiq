@@ -1,9 +1,9 @@
 import { memo, useEffect, useState } from '@wordpress/element';
-import { sendPostMessage } from '../../utils/functions';
 import { useStateValue } from '../../store/store';
+import { addTrailingSlash } from '../../utils/add-trailing-slash';
+import { sendPostMessage } from '../../utils/functions';
 import { prependHTTPS } from '../../utils/prepend-https';
 import { stripSlashes } from '../../utils/strip-slashes';
-import { addTrailingSlash } from '../../utils/add-trailing-slash';
 import SiteSkeleton from './site-skeleton';
 
 const SitePreview = () => {

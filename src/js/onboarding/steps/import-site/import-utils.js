@@ -252,6 +252,8 @@ export const setSiteLogo = async ( logo ) => {
 	if ( '' === logo.id ) {
 		return;
 	}
+
+	console.log('SetSiteLogo', logo)
 	const data = new FormData();
 	data.append( 'action', 'templatiq_sites_set_site_data' );
 	data.append( 'param', 'site-logo' );

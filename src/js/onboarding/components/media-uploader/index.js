@@ -1,13 +1,13 @@
+import { RangeControl } from '@wordpress/components';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import Button from '../button/button';
-import { RangeControl } from '@wordpress/components';
-import { useStateValue } from '../../store/store';
 import { initialState } from '../../store/reducer';
-import { sendPostMessage, getDataUri } from '../../utils/functions';
+import { useStateValue } from '../../store/store';
+import { getDataUri, sendPostMessage } from '../../utils/functions';
+import Button from '../button/button';
 
-import './style.scss';
 import ICONS from '../../icons';
+import './style.scss';
 
 let frame;
 
@@ -21,6 +21,16 @@ const MediaUploader = () => {
 			url: media.url,
 			width: siteLogo.width,
 		};
+
+		const iframe = document.getElementById( 'astra-starter-templates-preview' );
+		iframe.contentWindow.postMessage({ command: 'updateLogo', logoUrl: media.url }, '*');
+
+
+		// var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+
+		// const testLogo = iframeDocument.querySelector('.wp-block-site-logo .custom-logo');
+		// console.log('onSelectImage media : ', media, mediaData, testLogo, iframeDocument);
+
 
 		if ( window.location.protocol === 'http:' ) {
 			getDataUri( media.url, function ( data ) {
