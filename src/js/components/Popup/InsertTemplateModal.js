@@ -38,7 +38,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	const [ elementorEditorEnabled, setElementorEditorEnabled ] = useState( false );
 
 	let closeInsertTemplateModal = ( e ) => {
-		e.preventDefault();
+		e && e.preventDefault();
 		let templatiqRoot = document.querySelector( '.templatiq' );
 
 		templatiqRoot &&
@@ -197,6 +197,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 			},
 			complete: function ( data ) {
 				console.log( 'Complete: ', data );
+				closeInsertTemplateModal()
 				// self.getModal().hideLoadingView();
 				// window.elementor.$previewContents.find('.elementor-add-section .elementor-add-section-close').click();
 			},
@@ -265,11 +266,11 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 								<h2 className="templatiq__modal__title">
 									{ !allPluginsInstalled
 										? 'Required Plugins'
-										: directoryType?.length > 1 && !submittedTypes?.length > 0 
+										: directoryType?.length > 1 && !submittedTypes?.length > 0 && !elementorEditorEnabled 
 										? 'Available Directory Type'
-										: !elementorEditorEnabled
-										? 'Enter Page Title'
-										: 'Importing...' }
+										: elementorEditorEnabled
+										? 'Importing...'
+										: 'Enter Page Title' }
 								</h2>
 								{ allPluginsInstalled && !directoryType?.length > 1 && !elementorEditorEnabled ? (
 									<p className="templatiq__modal__desc">
@@ -473,7 +474,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 												</>
 											) : (
 												<p className="templatiq__modal__desc">
-													Elementor Content Importing
+													Elementor Content Importing...
 												</p>
 											) }
 										</div>
@@ -503,7 +504,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 												Cancel
 											</button>
 										</>
-									) : ! submittedTypes?.length && directoryType?.length > 1 ? (
+									) : ! submittedTypes?.length && directoryType?.length > 1 && !elementorEditorEnabled ? (
 										<button
 											disabled={ disableButtonType }
 											className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-success"

@@ -74,8 +74,6 @@ const SingleTemplate = ( item ) => {
 		setIsPurchased(isItemPurchased(template_id));
 	}, [] );
 
-	console.log('item unlocked', isUnlocked , template_id);
-
 	return (
 		<SingleTemplateStyle
 			className="templatiq__template__single"
