@@ -25,7 +25,7 @@ class Compatibility {
 			return $data;
 		}
 
-		$import_listings = get_option( 'templatiq_import_directory_listings', false );
+		$import_listings = get_option( 'templatiq-import-directorist-listings', false );
 		if ( ! $import_listings ) {
 			return [];
 		}

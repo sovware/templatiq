@@ -302,18 +302,17 @@ export const saveTypography = async ( selectedValue ) => {
 };
 
 export const importPersonaWise = async ( selectedValues ) => {
-	console.log('Test importPersonaWise', selectedValues);
 	const data = new FormData();
-	data.append( 'action', 'templatiq_sites_import_content' );
+	data.append( 'action', 'templatiq_sites_import_content_persona_wise' );
 	data.append( 'import_data', JSON.stringify( selectedValues ) );
-	data.append( 'security', nonce );
+	data.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
 
 	await fetch( ajaxurl, {
 		method: 'post',
 		body: data,
 	} );
 
-	console.log( 'importPersonaWise', data );
+	console.log( 'importPersonaWise', selectedValues );
 };
 
 export const divideIntoChunks = ( chunkSize, inputArray ) => {

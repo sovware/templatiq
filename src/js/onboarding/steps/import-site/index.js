@@ -14,7 +14,7 @@ import {
 	checkRequiredPlugins,
 	divideIntoChunks,
 	importPersonaWise,
-	installOneDirectory,
+	// installOneDirectory,
 	saveTypography,
 	setColorPalettes,
 	setSiteLogo,
@@ -1251,14 +1251,14 @@ const ImportSite = () => {
 			} );
 		}
 
-		if ( themeActivateFlag && false === themeStatus ) {
-			installOneDirectory( storedState );
-		} else {
-			dispatch( {
-				type: 'set',
-				themeStatus: true,
-			} );
-		}
+		// if ( themeActivateFlag && false === themeStatus ) {
+		// 	installOneDirectory( storedState );
+		// } else {
+		// 	dispatch( {
+		// 		type: 'set',
+		// 		themeStatus: true,
+		// 	} );
+		// }
 		
 		dispatch( {
 			type: 'set',

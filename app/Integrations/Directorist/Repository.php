@@ -89,7 +89,7 @@ class Repository {
 		// Warning: You can't revert this.
 		global $wpdb;
 
-		include_once PLUGINDIR . DIRECTORY_SEPARATOR . 'directorist' . DIRECTORY_SEPARATOR . "directorist-base.php";
+		include_once WP_CONTENT_DIR . '/plugins/' . DIRECTORY_SEPARATOR . 'directorist' . DIRECTORY_SEPARATOR . "directorist-base.php";
 
 		// Delete selected pages.
 		wp_delete_post( get_directorist_option( 'add_listing_page' ), true );
