@@ -167,9 +167,9 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	const importElementorData = async ( template_id ) => {
 		await requestTemplateData( template_id, {
 			success: function ( data ) {
-				
-				const templateData = data.data;
-				console.log( templateData);
+				console.log( data);
+
+				const templateData = data;
 
 				// if (self.atIndex !== -1) {
 				//     options.at = self.atIndex;
@@ -197,8 +197,11 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 				console.log( 'Error: ', data );
 			},
 			complete: function ( data ) {
-				console.log( 'Complete: ', data, window.elementor.$previewContents.find('.elementor-add-section .elementor-add-section-close') );
+				console.log( 'Complete: ', data );
 				closeInsertTemplateModal()
+				setTimeout( () => {
+					document.getElementById('tmTemplateLibrary__modal').style.display = 'none';
+				}, 300);
 				// self.getModal().hideLoadingView();
 				// window.elementor.$previewContents.find('.elementor-add-section .elementor-add-section-close').click();
 			},
@@ -266,12 +269,12 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 							<>
 								<h2 className="templatiq__modal__title">
 									{ !allPluginsInstalled
-                                        ? 'Required Plugins'
-                                        : directoryType?.length > 1 && !submittedTypes?.length > 0 && !elementorEditorEnabled 
-                                        ? 'Available Directory Type'
-                                        : elementorEditorEnabled
-                                        ? 'Importing...'
-                                        : 'Enter Page Title' }
+										? 'Required Plugins'
+										: directoryType?.length > 1 && !submittedTypes?.length > 0 && !elementorEditorEnabled 
+										? 'Available Directory Type'
+										: elementorEditorEnabled
+										? 'Importing...'
+										: 'Enter Page Title' }
 								</h2>
 								{ allPluginsInstalled && !directoryType?.length > 1 && !elementorEditorEnabled ? (
 									<p className="templatiq__modal__desc">
@@ -505,7 +508,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 												Cancel
 											</button>
 										</>
-									) : ! elementorEditorEnabled && ! submittedTypes?.length && directoryType?.length > 1 ? (
+									) : ! submittedTypes?.length && directoryType?.length > 1 && !elementorEditorEnabled ? (
 										<button
 											disabled={ disableButtonType }
 											className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-success"

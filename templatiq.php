@@ -46,7 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @class Templatiq The class that holds the entire Templatiq plugin
  */
 final class Templatiq {
-	public $version = '1.0.0';
+	public $version = '1.1.0';
 
 	private $min_php = '7.4';
 
