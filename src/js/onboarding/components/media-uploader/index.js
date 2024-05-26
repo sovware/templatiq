@@ -3,7 +3,7 @@ import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { initialState } from '../../store/reducer';
 import { useStateValue } from '../../store/store';
-import { getDataUri, sendPostMessage } from '../../utils/functions';
+import { getDataUri } from '../../utils/functions';
 import Button from '../button/button';
 
 import ICONS from '../../icons';
@@ -22,16 +22,6 @@ const MediaUploader = () => {
 			width: siteLogo.width,
 		};
 
-		const iframe = document.getElementById( 'astra-starter-templates-preview' );
-		iframe.contentWindow.postMessage({ command: 'updateLogo', logoUrl: media.url }, '*');
-
-
-		// var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-
-		// const testLogo = iframeDocument.querySelector('.wp-block-site-logo .custom-logo');
-		// console.log('onSelectImage media : ', media, mediaData, testLogo, iframeDocument);
-
-
 		if ( window.location.protocol === 'http:' ) {
 			getDataUri( media.url, function ( data ) {
 				mediaData.dataUri = data;
@@ -42,16 +32,21 @@ const MediaUploader = () => {
 		}
 	};
 
+	function sendMessageToIframe(data) {
+		var iframe = document.getElementById('astra-starter-templates-preview');
+		var message = {
+			type: 'logoUpdate',
+			logo: data
+		};
+		iframe.contentWindow.postMessage(message, 'https://demo.directorist.com/');
+	}
+
 	const updateValues = ( data ) => {
 		dispatch( {
 			type: 'set',
 			siteLogo: data,
 		} );
-
-		sendPostMessage( {
-			param: 'siteLogo',
-			data,
-		} );
+		sendMessageToIframe(data)
 	};
 
 	const removeImage = () => {
@@ -69,10 +64,10 @@ const MediaUploader = () => {
 			siteLogo: newLogoOptions,
 		} );
 
-		sendPostMessage( {
-			param: 'siteLogo',
-			data: newLogoOptions,
-		} );
+		// sendPostMessage( {
+		// 	param: 'siteLogo',
+		// 	data: newLogoOptions,
+		// } );
 	};
 
 	const resetLogoWidth = ( event ) => {
