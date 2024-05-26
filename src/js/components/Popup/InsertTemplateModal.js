@@ -149,6 +149,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 
 	const importData = async ( pageTitle, template_id, builder, pageType, directoryTypes ) => {
 		setLoading( true );
+		console.log('Importing Data', pageTitle, template_id, builder, pageType, directoryTypes)
 		postData( importAsPageEndPoint, {
 			title: pageTitle,
 			template_id: template_id,
@@ -196,7 +197,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 				console.log( 'Error: ', data );
 			},
 			complete: function ( data ) {
-				console.log( 'Complete: ', data );
+				console.log( 'Complete: ', data, window.elementor.$previewContents.find('.elementor-add-section .elementor-add-section-close') );
 				closeInsertTemplateModal()
 				// self.getModal().hideLoadingView();
 				// window.elementor.$previewContents.find('.elementor-add-section .elementor-add-section-close').click();
