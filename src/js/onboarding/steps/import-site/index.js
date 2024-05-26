@@ -866,6 +866,9 @@ const ImportSite = () => {
 			.then( ( text ) => {
 				try {
 					const data = JSON.parse( text );
+
+					console.log( ' Importing Directory Types : ', data );
+					
 					if ( data.success ) {
 						console.log('importDirectoryTypes...', percentage)
 						percentage += 2;
