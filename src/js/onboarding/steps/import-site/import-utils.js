@@ -128,7 +128,6 @@ export const getDemo = async ( id, dispatch ) => {
 		} );
 };
 
-// Test
 export const checkRequiredPlugins = async ( dispatch ) => {
 	// const [ {}, dispatch ] = storedState;
 
@@ -253,7 +252,6 @@ export const setSiteLogo = async ( logo ) => {
 		return;
 	}
 
-	console.log('SetSiteLogo', logo)
 	const data = new FormData();
 	data.append( 'action', 'templatiq_sites_set_site_data' );
 	data.append( 'param', 'site-logo' );
@@ -265,8 +263,6 @@ export const setSiteLogo = async ( logo ) => {
 		method: 'post',
 		body: data,
 	} );
-
-	console.log( 'Logo set', logo.id );
 };
 
 export const setColorPalettes = async ( palette ) => {
