@@ -189,6 +189,7 @@ class DependencyRepository {
 	}
 
 	public function activate_theme() {
-		switch_theme( 'best-listing' );
+		// switch_theme( 'best-listing' );
+		switch_theme( 'onedirectory' );
 	}
 }
