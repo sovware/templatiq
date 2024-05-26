@@ -200,7 +200,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 				console.log( 'Complete: ', data );
 				closeInsertTemplateModal()
 				setTimeout( () => {
-					document.getElementById('tmTemplateLibrary__modal').style.display = 'none';
+					// document.getElementById('tmTemplateLibrary__modal').style.display = 'none';
 				}, 300);
 				// self.getModal().hideLoadingView();
 				// window.elementor.$previewContents.find('.elementor-add-section .elementor-add-section-close').click();
