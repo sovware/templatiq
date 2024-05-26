@@ -167,14 +167,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	const importElementorData = async ( template_id ) => {
 		await requestTemplateData( template_id, {
 			success: function ( data ) {
-				console.log( data);
-
-				const templateData = data;
-
-				// if (self.atIndex !== -1) {
-				//     options.at = self.atIndex;
-				// }
-				//
+				const templateData = data.data;
 				const Model = Backbone.Model.extend({
 						defaults: {
 							title: '',
@@ -182,28 +175,21 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 						},
 				});
 
-
 				$e.run('document/elements/import', {
 				    model: (new Model),
 				    data: templateData,
-				  //   options: {
-						// 		at: -1 // Set the position after which section you want to add the imported section(s)
-						// }
 				});
-
-				// self.atIndex = -1;
 			},
 			error: function ( data ) {
 				console.log( 'Error: ', data );
 			},
 			complete: function ( data ) {
-				console.log( 'Complete: ', data );
+				console.log( 'Complete importElementorData: ', data );
+
 				closeInsertTemplateModal()
 				setTimeout( () => {
 					document.getElementById('tmTemplateLibrary__modal').style.display = 'none';
 				}, 300);
-				// self.getModal().hideLoadingView();
-				// window.elementor.$previewContents.find('.elementor-add-section .elementor-add-section-close').click();
 			},
 		} );
 	};
