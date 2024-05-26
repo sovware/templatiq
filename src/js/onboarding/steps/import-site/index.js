@@ -195,9 +195,6 @@ const ImportSite = () => {
 		}
 
 		percentage += 2;
-		
-		console.log('installRequiredPlugins...', percentage)
-		
 		dispatch( {
 			type: 'set',
 			importStatus: __( 'Installing Required Plugins.', 'templatiq-sites' ),
@@ -287,8 +284,6 @@ const ImportSite = () => {
 	 * Activate Plugin
 	 */
 	const activatePlugin = ( plugin ) => {
-
-		console.log('activatePlugin...', percentage)
 		percentage += 2;
 		dispatch( {
 			type: 'set',
@@ -422,8 +417,6 @@ const ImportSite = () => {
 		if ( ! reset ) {
 			return true;
 		}
-
-		console.log('resetOldSite...', percentage)
 		percentage += 2;
 		dispatch( {
 			type: 'set',
@@ -526,7 +519,6 @@ const ImportSite = () => {
 					const result = JSON.parse( text );
 					cloneData = result;
 					if ( result.success ) {
-						console.log('performPostsReset...', percentage)
 						percentage += 2;
 						dispatch( {
 							type: 'set',
@@ -588,7 +580,6 @@ const ImportSite = () => {
 			.then( ( text ) => {
 				const response = JSON.parse( text );
 				if ( response.success ) {
-					console.log('performSettingsBackup...', percentage)
 					percentage += 2;
 					dispatch( {
 						type: 'set',
@@ -637,7 +628,6 @@ const ImportSite = () => {
 				try {
 					const response = JSON.parse( text );
 					if ( response.success ) {
-						console.log('performResetCustomizer...', percentage)
 						percentage += 2;
 						dispatch( {
 							type: 'set',
@@ -695,7 +685,6 @@ const ImportSite = () => {
 				try {
 					const data = JSON.parse( text );
 					if ( data.success ) {
-						console.log('performResetSiteOptions...', percentage)
 						percentage += 2;
 						dispatch( {
 							type: 'set',
@@ -752,8 +741,6 @@ const ImportSite = () => {
 				try {
 					const response = JSON.parse( text );
 					if ( response.success ) {
-
-						console.log('performResetTermsAndForms...', percentage)
 						percentage += 2;
 						dispatch( {
 							type: 'set',
@@ -859,18 +846,11 @@ const ImportSite = () => {
 			method: 'post',
 			body: types,
 		} )
-			.then( ( response ) => {
-				response.text() 
-				console.log(' Importing Directory response : ', resonse)
-			})
+			.then( ( response ) => response.text() )
 			.then( ( text ) => {
 				try {
 					const data = JSON.parse( text );
-
-					console.log( ' Importing Directory Types : ', data );
-					
 					if ( data.success ) {
-						console.log('importDirectoryTypes...', percentage)
 						percentage += 2;
 						dispatch( {
 							type: 'set',
@@ -910,7 +890,6 @@ const ImportSite = () => {
 	 */
 	const importSiteContent = async () => {
 		if ( ! contentImportFlag ) {
-			console.log('importSiteContent...', percentage)
 			percentage += 20;
 			dispatch( {
 				type: 'set',
@@ -1089,7 +1068,6 @@ const ImportSite = () => {
 				try {
 					const data = JSON.parse( text );
 					if ( data.success ) {
-						console.log('importSiteOptions...', percentage)
 						percentage += 5;
 						dispatch( {
 							type: 'set',
@@ -1163,7 +1141,6 @@ const ImportSite = () => {
 				try {
 					const data = JSON.parse( text );
 					if ( data.success ) {
-						console.log('importDone...', percentage)
 						localStorage.setItem( 'st-import-end', +new Date() );
 						setTimeout( function () {
 							dispatch( {
