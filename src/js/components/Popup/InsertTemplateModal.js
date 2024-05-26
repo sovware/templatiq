@@ -167,9 +167,9 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	const importElementorData = async ( template_id ) => {
 		await requestTemplateData( template_id, {
 			success: function ( data ) {
-				console.log( data);
-
-				const templateData = data;
+				
+				const templateData = data.data;
+				console.log( templateData);
 
 				// if (self.atIndex !== -1) {
 				//     options.at = self.atIndex;
@@ -266,12 +266,12 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 							<>
 								<h2 className="templatiq__modal__title">
 									{ !allPluginsInstalled
-										? 'Required Plugins'
-										: directoryType?.length > 1 && !submittedTypes?.length > 0 && !elementorEditorEnabled 
-										? 'Available Directory Type'
-										: elementorEditorEnabled
-										? 'Importing...'
-										: 'Enter Page Title' }
+                                        ? 'Required Plugins'
+                                        : directoryType?.length > 1 && !submittedTypes?.length > 0 && !elementorEditorEnabled 
+                                        ? 'Available Directory Type'
+                                        : elementorEditorEnabled
+                                        ? 'Importing...'
+                                        : 'Enter Page Title' }
 								</h2>
 								{ allPluginsInstalled && !directoryType?.length > 1 && !elementorEditorEnabled ? (
 									<p className="templatiq__modal__desc">
@@ -505,7 +505,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 												Cancel
 											</button>
 										</>
-									) : ! submittedTypes?.length && directoryType?.length > 1 && !elementorEditorEnabled ? (
+									) : ! elementorEditorEnabled && ! submittedTypes?.length && directoryType?.length > 1 ? (
 										<button
 											disabled={ disableButtonType }
 											className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-success"
