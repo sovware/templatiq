@@ -41,7 +41,6 @@ export const sendPostMessage = ( data ) => {
 };
 
 export const getDataUri = ( url, callback ) => {
-	console.log('getDataUri url : ', url)
 	const image = new Image();
 
 	image.onload = function () {
@@ -56,8 +55,6 @@ export const getDataUri = ( url, callback ) => {
 	};
 
 	image.src = url;
-
-	console.log('getDataUri image : ', image)
 };
 
 export const storeCurrentState = ( currentState ) => {

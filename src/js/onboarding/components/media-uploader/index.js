@@ -64,10 +64,7 @@ const MediaUploader = () => {
 			siteLogo: newLogoOptions,
 		} );
 
-		// sendPostMessage( {
-		// 	param: 'siteLogo',
-		// 	data: newLogoOptions,
-		// } );
+		updateValues( newLogoOptions );
 	};
 
 	const resetLogoWidth = ( event ) => {
