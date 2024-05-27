@@ -28,6 +28,13 @@ class ImporterRepository {
 			);
 		}
 
+		if ( isset( $template_data['message'] ) ) {
+			throw new \Exception(
+				$template_data['message'],
+				$template_data['code']
+			);
+		}
+
 		$template_data['type'] = 'page';
 
 		$DTO->set_template_data( $template_data );

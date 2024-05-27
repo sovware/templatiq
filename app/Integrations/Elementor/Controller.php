@@ -77,8 +77,6 @@ class Controller extends ControllerBase {
 
 				unset( $result['type'] );
 
-				error_log( print_r( $result    ,true) );
-
 				return Response::success( $result );
 
 			} catch ( \Throwable $th ) {

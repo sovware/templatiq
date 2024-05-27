@@ -19,8 +19,9 @@ class AddCustomPages {
 	}
 
 	public function custom_pages( int $inserted_id, ImportAsPageDTO $DTO, WP_REST_Request $request ) {
-		$directory_types     = $request->get_param( 'directory_types' );
-		$directory_page_type = $request->get_param( 'directory_page_type' );
+		$page_type       = $request->get_param( 'pageType' );
+		$raw_types       = $request->get_param( 'directoryTypes' );
+		$directory_types = $raw_types['submittedTypes'] ?? [];
 
 		if ( empty( $directory_types ) || empty( $page_type ) ) {
 			return;
@@ -30,14 +31,32 @@ class AddCustomPages {
 		 * Have to set type specific
 		 * custom pages here.
 		 */
-		switch ( $directory_page_type ) {
-			case 'single-listing':
-				get_directorist_option( 'add_listing_page' );
+		switch ( $page_type ) {
+			case 'add_listing':
+				$this->set_add_listing( $inserted_id, $directory_types );
 				break;
 
-			case 'add-listing':
-				get_directorist_option( 'add_listing_page' );
+			case 'single_listing':
+				$this->set_single_listing( $inserted_id, $directory_types );
 				break;
 		}
+	}
+
+	private function set_add_listing( $page_id, $terms ) {
+		foreach ( $terms as $key => $term ) {
+			$this->update_meta( $term['term_id'], 'enable_add_listing_custom_template', 1 );
+			$this->update_meta( $term['term_id'], 'custom_add_listing_template', $page_id );
+		}
+	}
+
+	private function set_single_listing( $page_id, $terms ) {
+		foreach ( $terms as $key => $term ) {
+			$this->update_meta( $term['term_id'], 'enable_add_listing_custom_template', 1 );
+			$this->update_meta( $term['term_id'], 'custom_add_listing_template', $page_id );
+		}
+	}
+
+	private function update_meta( int $term_id, string $key, $value ) {
+		update_term_meta( $term_id, $key, $value );
 	}
 }

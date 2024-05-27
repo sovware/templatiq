@@ -178,7 +178,6 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 
 			$wxr_url = templatiq_get_site_data( 'templatiq-site-wxr-path' );
 
-			error_log( $wxr_url );
 			Templatiq_Sites_Importer_Log::add( 'Importing from XML ' . $wxr_url );
 
 			$overrides = [
@@ -242,8 +241,6 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 
 			$options_data = templatiq_get_site_data( 'templatiq-site-options-data' );
 
-			// error_log( print_r( $options_data ,true) );
-
 			if ( ! empty( $options_data ) ) {
 				// Set meta for tracking the post.
 				if ( is_array( $options_data ) ) {
@@ -266,7 +263,6 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 					wp_send_json_error( __( 'Site options are empty!', 'templatiq' ) );
 				}
 			}
-
 		}
 
 		/**
@@ -295,8 +291,8 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			$this->update_menu_refs();
 
 			error_log(
-				'Import ended, hello '
-				. PHP_EOL . '#############################################'
+				PHP_EOL . '#############################################'
+				. PHP_EOL . '   Import ended, Congratulations	'
 				. PHP_EOL . '#############################################'
 				. PHP_EOL );
 

@@ -27,7 +27,7 @@ class Http {
 
 	public function headers( array $args = [] ) {
 		$_headers = $this->headers ?? [
-			'Content-Type'          => 'application/json',
+			'Content-Type'    => 'application/json',
 			'x-templatiq-ip'  => Helper::get_ip(),
 			'x-templatiq-url' => home_url( '/' ),
 		];
@@ -53,9 +53,6 @@ class Http {
 			$this->url,
 			$args
 		);
-
-
-		error_log( $this->url);
 
 		return $this;
 	}
