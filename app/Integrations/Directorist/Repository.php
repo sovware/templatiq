@@ -88,8 +88,12 @@ class Repository {
 		// Delete all existing data.
 		// Warning: You can't revert this.
 		global $wpdb;
+		$path = WP_CONTENT_DIR . '/plugins/' . DIRECTORY_SEPARATOR . 'directorist' . DIRECTORY_SEPARATOR . "directorist-base.php";
+		if ( ! file_exists( $path ) ) {
+			return;
+		}
 
-		include_once PLUGINDIR . DIRECTORY_SEPARATOR . 'directorist' . DIRECTORY_SEPARATOR . "directorist-base.php";
+		include_once $path;
 
 		// Delete selected pages.
 		wp_delete_post( get_directorist_option( 'add_listing_page' ), true );

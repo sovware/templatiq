@@ -10,7 +10,7 @@ namespace Templatiq\Integrations\Elementor;
 use Elementor\Core\Settings\Page\Model;
 use Elementor\Plugin as ElementorPlugin;
 use Elementor\TemplateLibrary\Source_Local as ElementorLocal;
-use Templatiq\Repositories\ImporterRepository;
+use Templatiq\Repositories\RemoteRepository;
 use Templatiq\Utils\Http;
 use Templatiq\Utils\Options;
 use Templatiq\Utils\Response;
@@ -23,7 +23,7 @@ class Repository extends ElementorLocal {
 	}
 
 	public function get_template_data( int $template_id ) {
-		$remote_data = ( new ImporterRepository() )->get_content( $template_id );
+		$remote_data = ( new RemoteRepository() )->get_single_template( $template_id );
 
 		$template_data = ( new TemplateDataDTO )
 			->set_content( $remote_data['content'] )

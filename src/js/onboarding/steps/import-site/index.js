@@ -14,10 +14,7 @@ import {
 	checkRequiredPlugins,
 	divideIntoChunks,
 	importPersonaWise,
-	installOneDirectory,
-	saveTypography,
-	setColorPalettes,
-	setSiteLogo,
+	setSiteLogo
 } from './import-utils';
 import sseImport from './sse-import';
 const { reportError } = starterTemplates;
@@ -150,14 +147,11 @@ const ImportSite = () => {
 	const importPart1 = async () => {
 		let resetStatus = false;
 		let directoryTypes = false;
-		
-		console.log('importPart1 called ');
 
 		resetStatus = await resetOldSite();
 
 		if ( resetStatus ) {
 			directoryTypes = await importDirectoryTypes();
-			console.log( 'directoryTypes', directoryTypes);
 		}
 
 		if ( directoryTypes ) {
@@ -177,10 +171,20 @@ const ImportSite = () => {
 
 		if ( optionsStatus ) {
 			customizationsStatus = await customizeWebsite();
+			percentage += 5;
+			dispatch( {
+				type: 'set',
+				importPercent: percentage,
+			} );
 		}
 
 		if ( customizationsStatus ) {
 			finalStepStatus = await importDone();
+			percentage += 5;
+			dispatch( {
+				type: 'set',
+				importPercent: percentage,
+			} );
 		}
 	};
 
@@ -399,8 +403,6 @@ const ImportSite = () => {
 					error
 				);
 			} );
-
-			console.log( 'activatePlugin Done');
 	};
 
 	/**
@@ -481,7 +483,6 @@ const ImportSite = () => {
 			importStatus: __( 'Reset for old website is done.', 'templatiq-sites' ),
 		} );
 
-		console.log( 'Reset for old website is done.')
 		return true;
 	};
 
@@ -512,8 +513,6 @@ const ImportSite = () => {
 			.then( ( text ) => {
 				let cloneData = [];
 				let errorReported = false;
-
-				console.log(text);
 				
 				try {
 					const result = JSON.parse( text );
@@ -840,8 +839,6 @@ const ImportSite = () => {
 		types.append( 'action', 'templatiq-sites-import-directory-types' );
 		types.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
 
-		console.log(' Importing Directory Types : ');
-
 		const status = await fetch( ajaxurl, {
 			method: 'post',
 			body: types,
@@ -893,7 +890,7 @@ const ImportSite = () => {
 			percentage += 20;
 			dispatch( {
 				type: 'set',
-				importPercent: percentage >= 80 ? 80 : percentage,
+				importPercent: percentage,
 				xmlImportDone: true,
 			} );
 			return true;
@@ -934,10 +931,10 @@ const ImportSite = () => {
 			.then( ( text ) => {
 				try {
 					const data = JSON.parse( text );
-					percentage += 2;
+					percentage += 20;
 					dispatch( {
 						type: 'set',
-						importPercent: percentage >= 80 ? 80 : percentage,
+						importPercent: percentage,
 					} );
 					if ( false === data.success ) {
 						const errorMsg = data.data.error || data.data;
@@ -995,9 +992,11 @@ const ImportSite = () => {
 				case 'complete':
 					if ( false === eventData.error ) {
 						evtSource.close();
+						percentage += 10;
 						dispatch( {
 							type: 'set',
 							xmlImportDone: true,
+							importPercent: percentage,
 						} );
 					} else {
 						report(
@@ -1057,8 +1056,6 @@ const ImportSite = () => {
 		siteOptions.append( 'action', 'templatiq-sites-import-options' );
 		siteOptions.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
 
-		console.log( 'Site Options Import Started: ', siteOptions );
-
 		const status = await fetch( ajaxurl, {
 			method: 'post',
 			body: siteOptions,
@@ -1068,7 +1065,7 @@ const ImportSite = () => {
 				try {
 					const data = JSON.parse( text );
 					if ( data.success ) {
-						percentage += 5;
+						percentage += 10;
 						dispatch( {
 							type: 'set',
 							importPercent: percentage >= 90 ? 90 : percentage,
@@ -1100,8 +1097,6 @@ const ImportSite = () => {
 				return false;
 			} );
 
-		console.log( 'Site Options Import Ended: ' );
-
 		return status;
 	};
 
@@ -1114,8 +1109,8 @@ const ImportSite = () => {
 	 */
 	const customizeWebsite = async () => {
 		await setSiteLogo( siteLogo );
-		await setColorPalettes( JSON.stringify( activePalette ) );
-		await saveTypography( typography );
+		// await setColorPalettes( JSON.stringify( activePalette ) );
+		// await saveTypography( typography );
 		return true;
 	};
 
@@ -1141,6 +1136,7 @@ const ImportSite = () => {
 				try {
 					const data = JSON.parse( text );
 					if ( data.success ) {
+						percentage += 10;
 						localStorage.setItem( 'st-import-end', +new Date() );
 						setTimeout( function () {
 							dispatch( {
@@ -1251,14 +1247,14 @@ const ImportSite = () => {
 			} );
 		}
 
-		if ( themeActivateFlag && false === themeStatus ) {
-			installOneDirectory( storedState );
-		} else {
-			dispatch( {
-				type: 'set',
-				themeStatus: true,
-			} );
-		}
+		// if ( themeActivateFlag && false === themeStatus ) {
+		// 	installOneDirectory( storedState );
+		// } else {
+		// 	dispatch( {
+		// 		type: 'set',
+		// 		themeStatus: true,
+		// 	} );
+		// }
 		
 		dispatch( {
 			type: 'set',

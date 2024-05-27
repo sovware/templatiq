@@ -17,7 +17,7 @@ const ImportLoader = () => {
 	if ( importPercent <= 25 ) {
 		percentClass = 'import-1';
 		stepText = __(
-			'1. Installing required theme, plugins, forms, etc',
+			'1. Installing required plugins, forms, etc',
 			'templatiq-sites'
 		);
 	}
@@ -157,6 +157,7 @@ const ImportLoader = () => {
 			<div className="ist-import-progress-bar-wrap">
 				<div className="ist-import-progress-bar-bg">
 					<div
+						style={{ width: `${importPercent}%` }}
 						className={ `ist-import-progress-bar ${ doneClass } ${ percentClass }` }
 					/>
 				</div>

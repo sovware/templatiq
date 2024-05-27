@@ -128,7 +128,6 @@ export const getDemo = async ( id, dispatch ) => {
 		} );
 };
 
-// Test
 export const checkRequiredPlugins = async ( dispatch ) => {
 	// const [ {}, dispatch ] = storedState;
 
@@ -252,6 +251,7 @@ export const setSiteLogo = async ( logo ) => {
 	if ( '' === logo.id ) {
 		return;
 	}
+
 	const data = new FormData();
 	data.append( 'action', 'templatiq_sites_set_site_data' );
 	data.append( 'param', 'site-logo' );
@@ -263,8 +263,6 @@ export const setSiteLogo = async ( logo ) => {
 		method: 'post',
 		body: data,
 	} );
-
-	console.log( 'Logo set', logo.id );
 };
 
 export const setColorPalettes = async ( palette ) => {
@@ -302,18 +300,17 @@ export const saveTypography = async ( selectedValue ) => {
 };
 
 export const importPersonaWise = async ( selectedValues ) => {
-	console.log('Test importPersonaWise', selectedValues);
 	const data = new FormData();
-	data.append( 'action', 'templatiq_sites_import_content' );
+	data.append( 'action', 'templatiq_sites_import_content_persona_wise' );
 	data.append( 'import_data', JSON.stringify( selectedValues ) );
-	data.append( 'security', nonce );
+	data.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
 
 	await fetch( ajaxurl, {
 		method: 'post',
 		body: data,
 	} );
 
-	console.log( 'importPersonaWise', data );
+	console.log( 'importPersonaWise', selectedValues );
 };
 
 export const divideIntoChunks = ( chunkSize, inputArray ) => {

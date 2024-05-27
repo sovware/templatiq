@@ -1,13 +1,13 @@
+import { RangeControl } from '@wordpress/components';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import Button from '../button/button';
-import { RangeControl } from '@wordpress/components';
-import { useStateValue } from '../../store/store';
 import { initialState } from '../../store/reducer';
-import { sendPostMessage, getDataUri } from '../../utils/functions';
+import { useStateValue } from '../../store/store';
+import { getDataUri } from '../../utils/functions';
+import Button from '../button/button';
 
-import './style.scss';
 import ICONS from '../../icons';
+import './style.scss';
 
 let frame;
 
@@ -32,16 +32,21 @@ const MediaUploader = () => {
 		}
 	};
 
+	function sendMessageToIframe(data) {
+		var iframe = document.getElementById('astra-starter-templates-preview');
+		var message = {
+			type: 'logoUpdate',
+			logo: data
+		};
+		iframe.contentWindow.postMessage(message, 'https://demo.directorist.com/');
+	}
+
 	const updateValues = ( data ) => {
 		dispatch( {
 			type: 'set',
 			siteLogo: data,
 		} );
-
-		sendPostMessage( {
-			param: 'siteLogo',
-			data,
-		} );
+		sendMessageToIframe(data)
 	};
 
 	const removeImage = () => {
@@ -59,10 +64,7 @@ const MediaUploader = () => {
 			siteLogo: newLogoOptions,
 		} );
 
-		sendPostMessage( {
-			param: 'siteLogo',
-			data: newLogoOptions,
-		} );
+		updateValues( newLogoOptions );
 	};
 
 	const resetLogoWidth = ( event ) => {

@@ -38,7 +38,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	const [ elementorEditorEnabled, setElementorEditorEnabled ] = useState( false );
 
 	let closeInsertTemplateModal = ( e ) => {
-		e.preventDefault();
+		e && e.preventDefault();
 		let templatiqRoot = document.querySelector( '.templatiq' );
 
 		templatiqRoot &&
@@ -149,6 +149,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 
 	const importData = async ( pageTitle, template_id, builder, pageType, directoryTypes ) => {
 		setLoading( true );
+		console.log('Importing Data', pageTitle, template_id, builder, pageType, directoryTypes)
 		postData( importAsPageEndPoint, {
 			title: pageTitle,
 			template_id: template_id,
@@ -166,14 +167,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	const importElementorData = async ( template_id ) => {
 		await requestTemplateData( template_id, {
 			success: function ( data ) {
-				console.log( data);
-
-				const templateData = data;
-
-				// if (self.atIndex !== -1) {
-				//     options.at = self.atIndex;
-				// }
-				//
+				const templateData = data.data;
 				const Model = Backbone.Model.extend({
 						defaults: {
 							title: '',
@@ -181,24 +175,21 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 						},
 				});
 
-
 				$e.run('document/elements/import', {
 				    model: (new Model),
 				    data: templateData,
-				  //   options: {
-						// 		at: -1 // Set the position after which section you want to add the imported section(s)
-						// }
 				});
-
-				// self.atIndex = -1;
 			},
 			error: function ( data ) {
 				console.log( 'Error: ', data );
 			},
 			complete: function ( data ) {
-				console.log( 'Complete: ', data );
-				// self.getModal().hideLoadingView();
-				// window.elementor.$previewContents.find('.elementor-add-section .elementor-add-section-close').click();
+				console.log( 'Complete importElementorData: ', data );
+
+				closeInsertTemplateModal()
+				setTimeout( () => {
+					// document.getElementById('tmTemplateLibrary__modal').style.display = 'none';
+				}, 300);
 			},
 		} );
 	};
@@ -265,11 +256,11 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 								<h2 className="templatiq__modal__title">
 									{ !allPluginsInstalled
 										? 'Required Plugins'
-										: directoryType?.length > 1 && !submittedTypes?.length > 0 
+										: directoryType?.length > 1 && !submittedTypes?.length > 0 && !elementorEditorEnabled 
 										? 'Available Directory Type'
-										: !elementorEditorEnabled
-										? 'Enter Page Title'
-										: 'Importing...' }
+										: elementorEditorEnabled
+										? 'Importing...'
+										: 'Enter Page Title' }
 								</h2>
 								{ allPluginsInstalled && !directoryType?.length > 1 && !elementorEditorEnabled ? (
 									<p className="templatiq__modal__desc">
@@ -473,7 +464,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 												</>
 											) : (
 												<p className="templatiq__modal__desc">
-													Elementor Content Importing
+													Elementor Content Importing...
 												</p>
 											) }
 										</div>
@@ -503,7 +494,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 												Cancel
 											</button>
 										</>
-									) : ! submittedTypes?.length && directoryType?.length > 1 ? (
+									) : ! submittedTypes?.length && directoryType?.length > 1 && !elementorEditorEnabled ? (
 										<button
 											disabled={ disableButtonType }
 											className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-success"

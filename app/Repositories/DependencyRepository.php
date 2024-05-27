@@ -14,7 +14,8 @@ use WP_Filesystem_Base;
 
 class DependencyRepository {
 
-	private string $theme_slug = 'Best Listing';
+	// private string $theme_slug = 'Best Listing';
+	private string $theme_slug = 'One Directory';
 
 	private function activate( string $file ) {
 		if ( ! is_plugin_inactive( $file ) ) {
@@ -188,6 +189,7 @@ class DependencyRepository {
 	}
 
 	public function activate_theme() {
-		switch_theme( 'best-listing' );
+		// switch_theme( 'best-listing' );
+		switch_theme( 'onedirectory' );
 	}
 }

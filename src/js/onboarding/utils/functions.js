@@ -1,5 +1,5 @@
-import { __ } from '@wordpress/i18n';
 import { decodeEntities } from '@wordpress/html-entities';
+import { __ } from '@wordpress/i18n';
 
 export const whiteLabelEnabled = () => {
 	return templatiqSitesVars.isWhiteLabeled ? true : false;
@@ -23,9 +23,13 @@ export const getProUrl = () => {
 
 export const sendPostMessage = ( data ) => {
 	const frame = document.getElementById( 'astra-starter-templates-preview' );
+	console.log('sendPostMessage data : ', data, frame)
 	if ( ! frame ) {
 		return;
 	}
+
+
+	console.log('frame found', frame, frame.contentWindow, data);
 
 	frame.contentWindow.postMessage(
 		{

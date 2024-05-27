@@ -62,6 +62,11 @@ const SingleTemplateStyle = Styled.div`
         }
     }
 
+    .templatiq__template__single__info__meta {
+        display: flex;
+        gap: 10px;
+    }
+
     .templatiq__template__single__info__meta__item {
         display: inline-flex;
         gap: 6px;
@@ -77,6 +82,14 @@ const SingleTemplateStyle = Styled.div`
         transition: background 0.3s ease;
         path {
             fill: var(--templatiq-pro-color);
+        }
+        &.unlocked-item {
+            color: #ffffff;
+            background-color: #26A764;
+        }
+        &.purchased-item {
+            color: #ffffff;
+            background-color: #26A764;
         }
     }
     .templatiq__template__single__info__action {
@@ -218,6 +231,10 @@ const SingleTemplateStyle = Styled.div`
         &.pro-item {
             color: var(--templatiq-primary-color);
             background-color: #F2ECFF;
+        }
+        &.unlocked-item {
+            color: #ffffff;
+            background-color: #26A764;
         }
         &.free-item {
             color: #26A764;

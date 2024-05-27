@@ -1,10 +1,7 @@
 // import { PremiumBadge } from '@brainstormforce/starter-templates-components';
-import { __ } from '@wordpress/i18n';
-import { decodeEntities } from '@wordpress/html-entities';
 import { useStateValue } from '../../store/store';
-import './style.scss';
-import ICONS from '../../icons';
 import { sendPostMessage } from '../../utils/functions';
+import './style.scss';
 
 const ChangeTemplate = () => {
 	const [
@@ -18,11 +15,6 @@ const ChangeTemplate = () => {
 	] = useStateValue();
 
 	const goToShowcase = () => {
-		sendPostMessage( {
-			param: 'clearPreviewAssets',
-			data: {},
-		} );
-
 		setTimeout( () => {
 			dispatch( {
 				type: 'set',

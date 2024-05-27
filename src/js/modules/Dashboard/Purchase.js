@@ -1,10 +1,10 @@
-import { useState, useEffect } from '@wordpress/element';
-import { select, subscribe } from '@wordpress/data';
-import DashboardLayout from '@layout/DashboardLayout';
-import InsertTemplate from '@components/InsertTemplate';
 import ContentLoading from '@components/ContentLoading';
+import InsertTemplate from '@components/InsertTemplate';
 import Searchform from '@components/Searchform';
+import DashboardLayout from '@layout/DashboardLayout';
 import store from '@store/index';
+import { select, subscribe } from '@wordpress/data';
+import { useEffect, useState } from '@wordpress/element';
 
 import { TemplatePackStyle } from '@root/style';
 import { DashboardItemsStyle } from './style';
@@ -14,7 +14,7 @@ export default function MyPurchaseModule() {
 	const [ isEmpty, setIsEmpty ] = useState( false );
 
 	const templateData = select( store ).getTemplates();
-	const { purchased } = select( store ).getUserInfo();
+	const { purchased,unlocked } = select( store ).getUserInfo();
 
 	const [ purchasedData, setPurchasedData ] = useState( [] );
 	const [ purchasedTemplates, setPurchasedTemplates ] = useState( [] );
@@ -34,32 +34,27 @@ export default function MyPurchaseModule() {
 		return newFilteredTemplates;
 	};
 
-	useEffect( () => {
-		if ( purchased ) {
-			setLoading( false );
-			setPurchasedData( purchased );
 
-			const purchasedTemplateIds = purchasedData
-				.filter(
-					( item ) =>
-						typeof item === 'object' && ! Array.isArray( item )
-				)
-				.map( ( obj ) => Object.keys( obj ) )
-				.flat()
-				.map( Number );
+	const renderPurchasedData = ( totalPurchasedData ) => {
+		setLoading( false );
+		const purchasedTemplateIds = totalPurchasedData
+			.filter(
+				( item ) =>
+					typeof item === 'object' && ! Array.isArray( item )
+			)
+			.map( ( obj ) => Object.keys( obj ) )
+			.flat()
+			.map( Number );
 
-			// Find template data for purchased template_ids
-			const purchasedTemplate = templateData.filter( ( template ) =>
-				purchasedTemplateIds.includes( template.template_id )
-			);
+		// Find template data for purchased template_ids
+		const purchasedTemplate = templateData.filter( ( template ) =>
+			purchasedTemplateIds.includes( template.template_id )
+		);
 
-			setPurchasedTemplates( purchasedTemplate );
-			setFilteredTemplates( purchasedTemplate );
-			setDefaultTemplates( purchasedTemplate );
-		} else {
-			console.log( 'No Data' );
-		}
-	}, [ purchasedData ] );
+		setPurchasedTemplates( purchasedTemplate );
+		setFilteredTemplates( purchasedTemplate );
+		setDefaultTemplates( purchasedTemplate );
+	}
 
 	useEffect( () => {
 		searchFilteredTemplates();
@@ -73,7 +68,10 @@ export default function MyPurchaseModule() {
 
 	useEffect( () => {
 		setLoading( true );
+		const totalPurchasedData = (purchased || [])?.concat(unlocked || []);
+		
 		purchasedData.length > 0 ? setIsEmpty( true ) : setIsEmpty( false );
+		renderPurchasedData(totalPurchasedData);
 
 		// Subscribe to changes in the store's data
 		const purchaseSearch = subscribe( () => {

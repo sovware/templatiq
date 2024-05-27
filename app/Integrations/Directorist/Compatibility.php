@@ -13,10 +13,7 @@ class Compatibility {
 	use Singleton;
 
 	public function __construct() {
-		add_filter( 'atbdp_create_required_pages', function () {
-			return false;
-		} );
-
+		add_action( 'templatiq_sites_after_plugin_activation', [$this, 'disable_redirect'] );
 		add_filter( 'wxr_importer.pre_process.post', [$this, 'pre_process_post'], 10 );
 	}
 
@@ -25,11 +22,18 @@ class Compatibility {
 			return $data;
 		}
 
-		$import_listings = get_option( 'templatiq_import_directory_listings', false );
+		$import_listings = get_option( 'templatiq-import-directorist-listings', false );
 		if ( ! $import_listings ) {
 			return [];
 		}
 
 		return $data;
+	}
+
+	public function disable_redirect() {
+		$redirect = get_transient( '_directorist_setup_page_redirect' );
+		if ( ! empty( $redirect ) && '' !== $redirect ) {
+			delete_transient( '_directorist_setup_page_redirect' );
+		}
 	}
 }

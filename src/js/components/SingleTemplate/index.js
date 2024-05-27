@@ -13,6 +13,7 @@ import downloadIcon from '@icon/download-alt.svg';
 
 const SingleTemplate = ( item ) => {
 	let {
+		template_id,
 		slug,
 		preview_link,
 		thumbnail,
@@ -27,12 +28,26 @@ const SingleTemplate = ( item ) => {
 	const [ displayedCategories, setDisplayedCategories ] = useState( [] );
 	const [ dropdownCategories, setDropdownCategories ] = useState( [] );
 
+	const { purchased, unlocked } = select(store).getUserInfo();
+
 	const [ imageLoaded, setImageLoaded ] = useState( false );
+	const [isPurchased, setIsPurchased] = useState(false);
+	const [isUnlocked, setIsUnlocked] = useState(false);
 
 	const requiredPlugins = required_plugins.filter(item => item?.init);
 
 	const handleImageLoad = () => {
 		setImageLoaded( true );
+	};
+
+	const isItemPurchased = (itemId) => {
+		// Check if any object in purchasedItems contains the itemId as a key
+		return purchased && purchased.some(item => itemId in item);
+	};
+
+	const isItemUnlocked = (itemId) => {
+		// Check if any object in unlockedItems contains the itemId as a key
+		return unlocked && unlocked.some(item => itemId in item);
 	};
 
 	const templateRef = useRef( null );
@@ -54,6 +69,9 @@ const SingleTemplate = ( item ) => {
 
 		setDisplayedCategories( visibleCategories );
 		setDropdownCategories( hiddenCategories );
+
+		setIsUnlocked(isItemUnlocked(template_id));
+		setIsPurchased(isItemPurchased(template_id));
 	}, [] );
 
 	return (
@@ -92,6 +110,26 @@ const SingleTemplate = ( item ) => {
 						) : (
 							''
 						) }
+						{
+							isPurchased && (
+								<span
+									className="templatiq__template__single__info__meta__item purchased-item templatiq-tooltip"
+									data-info="Unlocked"
+								>
+									Purchased
+								</span>
+							)
+						}
+						{
+							isUnlocked && (
+								<span
+									className="templatiq__template__single__info__meta__item unlocked-item templatiq-tooltip"
+									data-info="Unlocked"
+								>
+									Unlocked
+								</span>
+							)
+						}
 					</div>
 					<div className="templatiq__template__single__info__action">
 						<a
