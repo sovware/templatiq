@@ -157,6 +157,7 @@ const ImportLoader = () => {
 			<div className="ist-import-progress-bar-wrap">
 				<div className="ist-import-progress-bar-bg">
 					<div
+						style={{ width: `${importPercent}%` }}
 						className={ `ist-import-progress-bar ${ doneClass } ${ percentClass }` }
 					/>
 				</div>
