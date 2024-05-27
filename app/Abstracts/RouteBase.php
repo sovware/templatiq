@@ -7,6 +7,7 @@
 
 namespace Templatiq\Abstracts;
 
+use Templatiq\Utils\Config;
 use Templatiq\Utils\Response;
 use Templatiq\Utils\Singleton;
 use WP_Error;
@@ -29,9 +30,9 @@ abstract class RouteBase {
 	public function permission_check( WP_REST_Request $request ) {
 		$this->request = $request;
 
-		// Development Mode
-
-		return true;
+		if ( 'development' === Config::get( 'environment' ) ) {
+			return true;
+		}
 
 		if ( is_user_logged_in() && current_user_can( 'edit_posts' ) ) {
 			return true;
@@ -66,7 +67,7 @@ abstract class RouteBase {
 		return $this->register_endpoint( $endpoint, $callback, $args, WP_REST_Server::CREATABLE );
 	}
 
-	protected function register_endpoint( string $endpoint, array $callback, array $args = [], string $method ) {
+	protected function register_endpoint( string $endpoint, array $callback, array $args, string $method ) {
 		return register_rest_route(
 			$this->namespace,
 			$endpoint,

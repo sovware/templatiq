@@ -63,6 +63,7 @@ module.exports = async () => {
 		'**/LICENSE',
 		'**/Installable',
 		'**/tests',
+		'config.dev.php',
 	].map( ( path ) => `${ dist }/zip/${ pluginRootFile }/${ path }` );
 
 	return {
