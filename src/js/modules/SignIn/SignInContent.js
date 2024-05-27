@@ -17,8 +17,8 @@ export default function SignInContent() {
 	const { isLoggedIn } = select( store ).getUserInfo();
 
 	const [ formData, setFormData ] = useState( {
-		authorEmail: 'riaz',
-		authorPassword: 'fffffffffddddd',
+		authorEmail: '',
+		authorPassword: '',
 	} );
 
 	const handleChange = ( e ) => {
