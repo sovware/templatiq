@@ -29,10 +29,12 @@ class AddBuilderSettings {
             return $content;
         }
 
-        $dir_plan = isset( $_GET['plan'] ) ? $_GET['plan'] : '';
+        if ( is_plugin_active('directorist-pricing-plans/directorist-pricing-plans.php') ) {
+            $dir_plan = isset( $_GET['plan'] ) ? $_GET['plan'] : '';
 
-        if ( isset( $dir_plan ) && empty( $dir_plan ) ) {
-            return $content;
+            if ( isset( $dir_plan ) && empty( $dir_plan ) ) {
+                return $content;
+            }
         }
 
         if ( directorist_is_multi_directory_enabled() && ( count( get_listing_types() ) > 1 ) ) {
