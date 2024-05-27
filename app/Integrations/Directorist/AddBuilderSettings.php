@@ -23,10 +23,17 @@ class AddBuilderSettings {
             return $content;
         }
 
-        $dir_type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : '';
+        $term_id = default_directory_type();
 
-        if ( empty( $dir_type ) ) {
-            return $content;
+        if ( directorist_is_multi_directory_enabled() && ( count( get_listing_types() ) > 1 ) ) {
+            $dir_type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : '';
+
+            if ( empty( $dir_type ) ) {
+                return $content;
+            }
+
+            $term     = get_term_by( 'slug', $dir_type, ATBDP_TYPE );
+            $term_id  = $term->term_id;
         }
 
         if ( is_plugin_active('directorist-pricing-plans/directorist-pricing-plans.php') ) {
@@ -35,13 +42,6 @@ class AddBuilderSettings {
             if ( isset( $dir_plan ) && empty( $dir_plan ) ) {
                 return $content;
             }
-        }
-
-        if ( directorist_is_multi_directory_enabled() && ( count( get_listing_types() ) > 1 ) ) {
-            $term    = get_term_by( 'slug', $dir_type, ATBDP_TYPE );
-            $term_id = $term->term_id;
-        } else {
-            $term_id = default_directory_type();
         }
 
         if ( empty( $term_id ) ) {
