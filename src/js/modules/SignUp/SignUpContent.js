@@ -1,10 +1,10 @@
-import { useState, useEffect } from '@wordpress/element';
 import postData from '@helper/postData';
-import { Link, useNavigate } from 'react-router-dom';
 import { AuthStyle } from '@root/style';
+import { useEffect, useState } from '@wordpress/element';
+import { Link, useNavigate } from 'react-router-dom';
 
-import { select } from '@wordpress/data';
 import store from '@store/index';
+import { select } from '@wordpress/data';
 
 export default function SignUpContent() {
 	const navigate = useNavigate();
@@ -16,8 +16,8 @@ export default function SignUpContent() {
 	const singUpEndPoint = 'templatiq/account/create';
 
 	const [ formData, setFormData ] = useState( {
-		authorFullName: 'Ibrahim Riaz',
-		authorEmail: 'riaz@sovware.com',
+		authorFullName: '',
+		authorEmail: '',
 	} );
 
 	const { isLoggedIn } = select( store ).getUserInfo();
