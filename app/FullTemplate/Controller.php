@@ -8,7 +8,6 @@
 namespace Templatiq\FullTemplate;
 
 use Templatiq\Abstracts\ControllerBase;
-use Templatiq\Repositories\DependencyRepository;
 use Templatiq\Repositories\FileSystemRepository;
 use Templatiq\Repositories\RemoteRepository;
 use Templatiq_Sites_Error_Handler;
@@ -143,17 +142,8 @@ class Controller extends ControllerBase {
 			'notinstalled' => [],
 		];
 
-		$id     = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : '';
-		$screen = isset( $_POST['screen'] ) ? sanitize_text_field( $_POST['screen'] ) : '';
-
-		if ( 'elementor' === $screen ) {
-			$options            = [];
-			$imported_demo_data = get_option( 'templatiq_sites_import_elementor_data_' . $id, [] );
-			$required_plugins   = isset( $imported_demo_data['site-pages-required-plugins'] ) ? $imported_demo_data['site-pages-required-plugins'] : [];
-		} else {
-			$options          = templatiq_get_site_data( 'templatiq-site-options-data' );
-			$required_plugins = templatiq_get_site_data( 'required-plugins' );
-		}
+		$options          = templatiq_get_site_data( 'templatiq-site-options-data' );
+		$required_plugins = templatiq_get_site_data( 'required-plugins' );
 
 		$data = ( new Repository )->get_required_plugins_data( $response, $required_plugins );
 
