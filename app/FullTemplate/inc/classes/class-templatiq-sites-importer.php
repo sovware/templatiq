@@ -289,6 +289,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			delete_transient( 'templatiq_sites_import_started' );
 
 			$this->update_menu_refs();
+			$this->update_logo_width();
 
 			error_log(
 				PHP_EOL . '#############################################'
@@ -305,6 +306,10 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			$menu_ref  = get_option( '_templatiq_imported_menu_map', [] );
 			$templates = get_option( '_templatiq_imported_template_parts', [] );
 
+			if ( empty( $menu_ref ) || empty( $templates ) ) {
+				return;
+			}
+
 			foreach ( $templates as $template_id ) {
 				$post = get_post( $template_id );
 				if ( ! isset( $post->post_content ) ) {
@@ -317,6 +322,38 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 					wp_update_post( $post );
 				}
 			}
+		}
+
+		public function update_logo_width() {
+			$width     = get_option( '_templatiq_logo_width' . '' );
+			$templates = get_option( '_templatiq_imported_template_parts', [] );
+
+			if ( empty( $width ) || empty( $templates ) ) {
+				return;
+			}
+
+			foreach ( $templates as $template_id ) {
+				$post = get_post( $template_id );
+				if ( ! isset( $post->post_content ) ) {
+					error_log( $template_id . 'post content not found' );
+					continue;
+				}
+
+				$post->post_content = $this->update_site_logo_width( $post->post_content, $width );
+				wp_update_post( $post );
+			}
+		}
+
+		public function update_site_logo_width( string $content, int $width ) {
+			if ( strpos( $content, 'wp:site-logo' ) !== false ) {
+				$content = preg_replace(
+					'/<!-- wp:site-logo {"width":\d+/',
+					'<!-- wp:site-logo {"width":' . $width,
+					$content
+				);
+			}
+
+			return $content;
 		}
 
 		public function menu_id_replace( $data, $old_id, $new_id ) {
