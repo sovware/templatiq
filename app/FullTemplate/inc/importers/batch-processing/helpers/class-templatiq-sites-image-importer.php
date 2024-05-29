@@ -124,9 +124,9 @@ if ( ! class_exists( 'Templatiq_Sites_Image_Importer' ) ):
 			$post_id = $wpdb->get_var(  // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- We are checking if this image is already processed. WO_Query would have been overkill.
 				$wpdb->prepare(
 					'SELECT `post_id` FROM `' . $wpdb->postmeta . '`
-							WHERE `meta_key` = \'_templatiq_sites_image_hash\'
-								AND `meta_value` = %s
-						;',
+									WHERE `meta_key` = \'_templatiq_sites_image_hash\'
+										AND `meta_value` = %s
+								;',
 					$this->get_hash_image( $attachment['url'] )
 				)
 			);
@@ -143,8 +143,8 @@ if ( ! class_exists( 'Templatiq_Sites_Image_Importer' ) ):
 				$post_id = $wpdb->get_var(  // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- We are checking if this attachment is already processed. WO_Query would have been overkill.
 					$wpdb->prepare(
 						"SELECT post_id FROM {$wpdb->postmeta}
-							WHERE meta_key = '_wp_attached_file'
-							AND meta_value LIKE %s",
+									WHERE meta_key = '_wp_attached_file'
+									AND meta_value LIKE %s",
 						'%/' . $filename . '%'
 					)
 				);
@@ -184,14 +184,11 @@ if ( ! class_exists( 'Templatiq_Sites_Image_Importer' ) ):
 				return $attachment;
 			}
 
-			error_log( 'I have got a request to import this file' . $attachment['url'] );
-
 			Templatiq_Sites_Importer_Log::add( 'Source - ' . $attachment['url'] );
 			$saved_image = $this->get_saved_image( $attachment );
 			Templatiq_Sites_Importer_Log::add( 'Log - ' . wp_json_encode( $saved_image['attachment'] ) );
 
 			if ( $saved_image['status'] ) {
-				error_log( 'saved_image' . print_r(  $saved_image, true) );
 				return $saved_image['attachment'];
 			}
 
@@ -252,8 +249,6 @@ if ( ! class_exists( 'Templatiq_Sites_Image_Importer' ) ):
 			Templatiq_Sites_Importer_Log::add( 'BATCH - SUCCESS Image {Imported} - ' . $new_attachment['url'] );
 
 			$this->already_imported_ids[] = $post_id;
-
-			// error_log( 'new_attachment' . print_r( $new_attachment, true ) );
 
 			return $new_attachment;
 		}

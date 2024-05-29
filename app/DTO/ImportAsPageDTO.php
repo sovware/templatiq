@@ -30,7 +30,7 @@ class ImportAsPageDTO {
 	}
 
 	public function get_title() {
-		return $this->title;
+		return $this->title; 
 	}
 
 	public function set_builder( string $builder ) {

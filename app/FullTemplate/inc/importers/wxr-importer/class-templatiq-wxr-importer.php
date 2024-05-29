@@ -82,11 +82,10 @@ class Templatiq_WXR_Importer {
 		update_post_meta( $post_id, '_templatiq_sites_imported_post', true );
 		update_post_meta( $post_id, '_templatiq_sites_enable_for_batch', true );
 
-		error_log( 'Track Post: post_id => ' . $post_id . ' post_type ' . $data['post_type'] );
+		error_log( 'TrackPost: #' . $post_id . ' | PostType => ' . $data['post_type'] );
 
 		if ( 'wp_navigation' === $data['post_type'] ) {
-			$_menu_map = get_option( '_templatiq_imported_menu_map', [] );
-			error_log( 'track_post - wp_navigation : ' . $data['post_id'] . ' => ' . $post_id );
+			$_menu_map                   = get_option( '_templatiq_imported_menu_map', [] );
 			$_menu_map[$data['post_id']] = $post_id;
 			update_option( '_templatiq_imported_menu_map', $_menu_map );
 		}
@@ -94,7 +93,6 @@ class Templatiq_WXR_Importer {
 		if ( 'wp_template' === $data['post_type'] || 'wp_template_part' === $data['post_type'] ) {
 			$_template_parts           = get_option( '_templatiq_imported_template_parts', [] );
 			$_template_parts[$post_id] = $post_id;
-			error_log( 'track_post - ' . $data['post_type'] . ' : ' . $data['post_id'] . ' => ' . $post_id );
 			update_option( '_templatiq_imported_template_parts', $_template_parts );
 		}
 

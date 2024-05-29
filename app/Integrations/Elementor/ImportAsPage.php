@@ -35,8 +35,7 @@ class ImportAsPage extends ElementorLocal {
 
 		$templateDataDTO = ( new TemplateDataDTO )
 			->set_content( $_content )
-			->set_title( $_title )
-			->set_post_title( $_post_title )
+			->set_title( $_post_title )
 			->set_type( $_type )
 			->set_status( $_status )
 			->set_page_settings( $_page_settings );
