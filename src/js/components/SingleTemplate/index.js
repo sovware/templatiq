@@ -163,7 +163,7 @@ const SingleTemplate = ( item ) => {
 										height={ 28 }
 										onError={(e) => {
 											e.target.onerror = null; // prevents looping
-											e.target.src = `${template_market_obj.assets_url}/svg/icon/wordpress.svg`;
+											e.target.src = `${template_market_obj.assets_url}/svg/icon/wordpress-plugin.png`;
 										}}
 									/>
 								</a>
