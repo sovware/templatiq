@@ -31,6 +31,9 @@ const InsertContent = () => {
 			currentIndex: currentIndex + 1,
 		} );
 	};
+
+	const directoristDB = starterTemplates?.directoristDB;
+	const firstImportStatus = starterTemplates?.firstImportStatus;
 	
 	// Initialize state for each group of checkboxes
     const [installContents, setInstallContents] = useState(['import-listing', 'share-non-sensitive-data']);
@@ -170,53 +173,66 @@ const InsertContent = () => {
 								</div>
 							</div>
 
-							<div className="fullsite-setup-wizard__content__import__wrapper">
-								<h3 className="fullsite-setup-wizard__content__import__title">Optional</h3>
-								<div className="fullsite-setup-wizard__content__import__single">
-									<input
-										type="checkbox"
-										name="erase-directory-data"
-										id="erase-directory-data"
-										value="yes"
-										checked={eraseExistingData}
-										onChange={handleEraseExistingData}
-									/>
-									<label htmlFor="erase-directory-data">Erase existing directory data & start fresh</label>
-								</div>
-								{
-									eraseExistingData && 
-									<span className="fullsite-setup-wizard__content__import__warning">
-										<ReactSVG
-											src={ trashIcon }
-											width={ 16 }
-											height={ 16 }
-										/>
-										<strong>Warning: </strong> This will remove all existing data from your directories, listing & data associated Directorist.
-									</span>
-								}
-								<div className="fullsite-setup-wizard__content__import__single">
-									<input
-										type="checkbox"
-										name="remove-imported-data"
-										id="remove-imported-data"
-										value="yes"
-										checked={removeImportedData}
-										onChange={handleRemoveImportedData}
-									/>
-									<label htmlFor="remove-imported-data">Remove imported demo data</label>
-								</div>
-								{
-									removeImportedData && 
-									<span className="fullsite-setup-wizard__content__import__warning">
-										<ReactSVG
-											src={ trashIcon }
-											width={ 16 }
-											height={ 16 }
-										/>
-										<strong>Warning: </strong> This will remove all imported data from your directories, listing & data associated Directorist.
-									</span>
-								}
-							</div>
+							{
+								directoristDB || firstImportStatus ?
+								<div className="fullsite-setup-wizard__content__import__wrapper">
+									<h3 className="fullsite-setup-wizard__content__import__title">Optional</h3>
+									{
+										directoristDB && 
+										<>
+											<div className="fullsite-setup-wizard__content__import__single">
+												<input
+													type="checkbox"
+													name="erase-directory-data"
+													id="erase-directory-data"
+													value="yes"
+													checked={eraseExistingData}
+													onChange={handleEraseExistingData}
+												/>
+												<label htmlFor="erase-directory-data">Erase existing directory data & start fresh</label>
+											</div>
+											{
+												eraseExistingData && 
+												<span className="fullsite-setup-wizard__content__import__warning">
+													<ReactSVG
+														src={ trashIcon }
+														width={ 16 }
+														height={ 16 }
+													/>
+													<strong>Warning: </strong> This will remove all existing data from your directories, listing & data associated Directorist.
+												</span>
+											}
+										</>
+									}
+									{
+										firstImportStatus && 
+										<>
+											<div className="fullsite-setup-wizard__content__import__single">
+												<input
+													type="checkbox"
+													name="remove-imported-data"
+													id="remove-imported-data"
+													value="yes"
+													checked={removeImportedData}
+													onChange={handleRemoveImportedData}
+												/>
+												<label htmlFor="remove-imported-data">Remove imported demo data</label>
+											</div>
+											{
+												removeImportedData && 
+												<span className="fullsite-setup-wizard__content__import__warning">
+													<ReactSVG
+														src={ trashIcon }
+														width={ 16 }
+														height={ 16 }
+													/>
+													<strong>Warning: </strong> This will remove all imported data from your directories, listing & data associated Directorist.
+												</span>
+											}
+										</>
+									}
+								</div> : null
+							}
 							<button
 								type='submit'
 								// onClick={ nextStep }
