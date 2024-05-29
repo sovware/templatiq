@@ -15,53 +15,59 @@ class AddBuilderSettings {
     public function __construct() {
         add_filter( 'atbdp_listing_type_settings_field_list', [$this, 'listing_form_setting_fields'] );
         add_filter( 'atbdp_submission_form_settings', [$this, 'listing_form_custom_template'] );
-        add_filter( 'the_content', [$this, 'add_listing_custom_content'] );
+        add_filter( 'the_content', [$this, 'addListingCustomContent'] );
     }
 
-    public function add_listing_custom_content( $content ) {
+    public function addListingCustomContent( $content ) {
         if ( ! atbdp_is_page( 'add_listing' ) ) {
             return $content;
         }
 
-        $dir_type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : '';
+        $isMultiDirectory = directorist_is_multi_directory_enabled() && count( get_listing_types() ) > 1;
 
-        if ( empty( $dir_type ) ) {
-            return $content;
-        }
-
-        if ( is_plugin_active('directorist-pricing-plans/directorist-pricing-plans.php') ) {
-            $dir_plan = isset( $_GET['plan'] ) ? $_GET['plan'] : '';
-
-            if ( isset( $dir_plan ) && empty( $dir_plan ) ) {
+        if ( $isMultiDirectory ) {
+            if ( ! isset( $_GET['directory_type'] ) ) {
                 return $content;
             }
-        }
 
-        if ( directorist_is_multi_directory_enabled() && ( count( get_listing_types() ) > 1 ) ) {
-            $term    = get_term_by( 'slug', $dir_type, ATBDP_TYPE );
-            $term_id = $term->term_id;
+            if ( is_plugin_active( 'directorist-pricing-plans/directorist-pricing-plans.php' ) ) {
+                if ( ! isset( $_GET['plan'] ) ) {
+                    return $content;
+                }
+            }
+
+            $term   = get_term_by( 'slug', $_GET['directory_type'], ATBDP_TYPE );
+            $termId = $term ? $term->term_id : null;
+
         } else {
-            $term_id = default_directory_type();
+            if ( is_plugin_active( 'directorist-pricing-plans/directorist-pricing-plans.php' ) ) {
+                if ( ! isset( $_GET['plan'] ) ) {
+                    return $content;
+                }
+            }
+
+            $termId = default_directory_type();
         }
 
-        if ( empty( $term_id ) ) {
+        if ( empty( $termId ) ) {
             return $content;
         }
 
-        $enable_template = get_directorist_type_option( $term_id, 'enable_custom_template' );
-        $page_id         = empty( $enable_template ) ? '' : get_directorist_type_option( $term_id, 'custom_template' );
+        $enableTemplate = get_directorist_type_option( $termId, 'enable_custom_template' );
+        $pageId         = ! empty( $enableTemplate ) ? get_directorist_type_option( $termId, 'custom_template' ) : '';
 
-        // Bail if custom add listing page is disabled
-        if ( empty( $page_id ) ) {
+          // Bail if custom add listing page is disabled
+        if ( empty( $pageId ) ) {
             return $content;
         }
 
-        // Bail if selected custom add listing page is not really a page
-        if ( 'page' !== get_post( $page_id )->post_type ) {
+          // Bail if selected custom add listing page is not really a page
+        $post = get_post( $pageId );
+        if ( ! $post || 'page' !== $post->post_type ) {
             return $content;
         }
 
-        return get_the_content( null, null, $page_id );
+        return get_the_content( null, null, $pageId );
     }
 
     public function listing_form_setting_fields( $args ) {
