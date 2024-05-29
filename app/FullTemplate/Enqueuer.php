@@ -28,68 +28,10 @@ class Enqueuer extends EnqueuerBase {
 		$this->api_domain = trailingslashit( TEMPLATIQ_API_ENDPOINT );
 		$this->api_url    = apply_filters( 'templatiq_sites_api_url', $this->api_domain . 'wp-json/wp/v2/' );
 
-		$this->action( 'admin_enqueue_scripts', [$this, 'new_enqueue_scripts'] );
+		$this->action( 'admin_enqueue_scripts', [$this, 'enqueue_scripts'] );
 	}
 
 	public function enqueue_scripts( $hook = '' ) {
-
-		// After activating the starter template from Templatiq notice for the first time, the templates was not displayed because of template import process not fully done.
-		if ( isset( $_GET['ast-disable-activation-notice'] ) ) {
-			$current_url = home_url( $_SERVER['REQUEST_URI'] );
-			$current_url = str_replace( '&ast-disable-activation-notice', '', $current_url );
-			wp_safe_redirect( $current_url );
-			exit;
-		}
-
-		if ( 'appearance_page_starter-templates' !== $hook ) {
-			return;
-		}
-
-		remove_all_actions( 'admin_notices' );
-
-		$data = $this->get_local_vars();
-
-		wp_localize_script( 'jquery', 'templatiqSitesVars', $data );
-
-		$file = INTELLIGENT_TEMPLATES_DIR . 'assets/dist/main.asset.php';
-		if ( ! file_exists( $file ) ) {
-			return;
-		}
-
-		$asset = require_once $file;
-
-		if ( ! isset( $asset ) ) {
-			return;
-		}
-
-		wp_register_script(
-			'starter-templates-onboarding',
-			INTELLIGENT_TEMPLATES_URI . 'assets/dist/main.js',
-			array_merge( $asset['dependencies'] ),
-			$asset['version'],
-			true
-		);
-
-		wp_localize_script(
-			'starter-templates-onboarding', 'wpApiSettings', [
-				'root'  => esc_url_raw( get_rest_url() ),
-				'nonce' => ( wp_installing() && ! is_multisite() ) ? '' : wp_create_nonce( 'wp_rest' ),
-			]
-		);
-
-		wp_localize_script( 'starter-templates-onboarding', 'starterTemplates', $this->get_starter_templates_onboarding_localized_array() );
-
-		wp_enqueue_media();
-		wp_enqueue_script( 'starter-templates-onboarding' );
-
-		wp_enqueue_style( 'starter-templates-onboarding', INTELLIGENT_TEMPLATES_URI . 'assets/dist/style-main.css', [], $asset['version'] );
-		wp_style_add_data( 'starter-templates-onboarding', 'rtl', 'replace' );
-
-		// Load fonts from Google.
-		wp_enqueue_style( 'starter-templates-onboarding-google-fonts', $this->google_fonts_url(), ['starter-templates-onboarding'], 'all' );
-	}
-
-	public function new_enqueue_scripts( $hook = '' ) {
 		if ( 'appearance_page_starter-templates' !== $hook ) {
 			return;
 		}
@@ -157,13 +99,14 @@ class Enqueuer extends EnqueuerBase {
 			'nonce'             => wp_create_nonce( 'templatiq-sites-set-ai-site-data' ),
 			'restNonce'         => wp_create_nonce( 'wp_rest' ),
 			'retryTimeOut'      => 5000, // 10 Seconds.
-			'siteUrl' => get_site_url(),
+			'siteUrl'           => get_site_url(),
 			'searchData'        => TEMPLATIQ_API_ENDPOINT . 'wp-json/starter-templates/v1/ist-data',
 			'firstImportStatus' => get_option( 'templatiq_sites_import_complete', false ),
 			'supportLink'       => 'https://wpastra.com/starter-templates-support/?ip=' . Templatiq_Sites_Helper::get_client_ip(),
 			'analytics'         => get_site_option( 'bsf_analytics_optin', false ),
 			'phpVersion'        => PHP_VERSION,
 			'reportError'       => $this->should_report_error(),
+			'directoristDB'     => get_option( 'directorist_db_version', false ),
 		];
 
 		return apply_filters( 'starter_templates_onboarding_localize_vars', $data );

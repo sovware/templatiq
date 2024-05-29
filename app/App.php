@@ -21,6 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class App {
+	public static bool $loaded;
 	public static App $instance;
 
 	public static function instance() {
@@ -31,8 +32,18 @@ class App {
 		return static::$instance;
 	}
 
-	public function load( string $plugin_file ) {
-		$this->define_constants( $plugin_file );
+	public function boot( $plugin_root_file, $plugin_root_dir ) {
+		if ( ! empty( static::$loaded ) ) {
+			return;
+		}
+
+		$this->define_constants( $plugin_root_file );
+	}
+
+	public function load() {
+		if ( ! empty( static::$loaded ) ) {
+			return;
+		}
 
 		Admin::init();
 
@@ -50,6 +61,8 @@ class App {
 		 */
 		FullTemplateServiceProviders::init()->boot();
 		IntegrationServiceProviders::init()->boot();
+
+		static::$loaded = \true;
 	}
 
 	private function define_constants( string $plugin_file ): void {

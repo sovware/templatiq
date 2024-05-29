@@ -64,13 +64,14 @@ final class Templatiq {
 		);
 
 		$application = \Templatiq\App::instance();
+		$application->boot( __FILE__, __DIR__ );
 
 		add_action(
 			'plugins_loaded', function () use ( $application ): void {
 
 				do_action( 'before_load_templatiq' );
 
-				$application->load( __FILE__ );
+				$application->load();
 
 				do_action( 'after_load_templatiq' );
 			}
