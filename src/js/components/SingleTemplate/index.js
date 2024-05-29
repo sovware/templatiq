@@ -161,6 +161,10 @@ const SingleTemplate = ( item ) => {
 										src={ `${ template_market_obj.assets_url }/svg/icon/${ plugin?.slug }.svg` }
 										width={ 28 }
 										height={ 28 }
+										onError={(e) => {
+											e.target.onerror = null; // prevents looping
+											e.target.src = `${template_market_obj.assets_url}/svg/icon/wordpress.svg`;
+										}}
 									/>
 								</a>
 							) ) }

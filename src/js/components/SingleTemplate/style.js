@@ -140,6 +140,7 @@ const SingleTemplateStyle = Styled.div`
             padding: 4px;
             border-radius: 8px;
             background-color: var(--templatiq-white-color);
+            white-space: nowrap;
         }
     }
 
