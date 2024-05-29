@@ -13,7 +13,7 @@ class Compatibility {
 	use Singleton;
 
 	public function __construct() {
-		add_action( 'templatiq_sites_after_plugin_activation', [$this, 'disable_redirect'] );
+		add_action( 'templatiq_sites_after_plugin_activation', [$this, 'after_activation'] );
 		add_filter( 'wxr_importer.pre_process.post', [$this, 'pre_process_post'], 10 );
 	}
 
@@ -30,7 +30,13 @@ class Compatibility {
 		return $data;
 	}
 
-	public function disable_redirect() {
+	public function after_activation( $plugin_init ) {
+		if ( 'directorist/directorist-base.php' !== $plugin_init ) {
+			return;
+		}
+
+		set_transient( 'templatiq_disable_import_default_directory', true, 300 );
+
 		$redirect = get_transient( '_directorist_setup_page_redirect' );
 		if ( ! empty( $redirect ) && '' !== $redirect ) {
 			delete_transient( '_directorist_setup_page_redirect' );
