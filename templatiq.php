@@ -33,119 +33,49 @@
  * **********************************************************************
  */
 
-use Templatiq\App;
-
-// don't call the file directly
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Templatiq class
- *
- * @class Templatiq The class that holds the entire Templatiq plugin
- */
+include __DIR__ . '/vendor/autoload.php';
+
 final class Templatiq {
-	public $version = '1.0.0';
+	private static Templatiq $instance;
 
-	private $min_php = '7.4';
-
-	private static $instance;
-
-	public $app;
-
-	public static function init() {
-		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Templatiq ) ) {
-			self::$instance = new Templatiq();
-			self::$instance->setup();
+	public static function instance(): Templatiq {
+		if ( empty( self::$instance ) ) {
+			self::$instance = new self;
 		}
 
 		return self::$instance;
 	}
 
-	private function setup() {
-		register_activation_hook( __FILE__, [$this, 'auto_deactivate'] );
+	public function load() {
+		register_activation_hook(
+			__FILE__, function () {
+				( new \Templatiq\Setup\Activation() )->execute();
+			}
+		);
 
-		if ( ! $this->is_supported_php() ) {
-			return;
-		}
+		register_deactivation_hook(
+			__FILE__, function () {
+				( new \Templatiq\Setup\Deactivation() )->execute();
+			}
+		);
 
-		$this->define_constants();
-		$this->includes();
-		$this->app = App::init();
+		$application = \Templatiq\App::instance();
 
-		do_action( 'addonskit_for_elementor_loaded' );
-	}
+		add_action(
+			'plugins_loaded', function () use ( $application ): void {
 
-	public function is_supported_php(): bool {
-		if ( version_compare( PHP_VERSION, $this->min_php, '<' ) ) {
-			return false;
-		}
+				do_action( 'before_load_templatiq' );
 
-		return true;
-	}
+				$application->load( __FILE__ );
 
-	public function auto_deactivate(): void {
-		if ( $this->is_supported_php() ) {
-			return;
-		}
-
-		deactivate_plugins( basename( __FILE__ ) );
-
-		$error = __( '<h1>An Error Occurred</h1>', 'templatiq' );
-		$error .= __( '<h2>Your installed PHP Version is: ', 'templatiq' ) . PHP_VERSION . '</h2>';
-		$error .= __( '<p>The <strong>Wax Elements</strong> plugin requires PHP version <strong>', 'templatiq' ) . $this->min_php . __( '</strong> or greater', 'templatiq' );
-		$error .= __( '<p>The version of your PHP is ', 'templatiq' ) . '<a href="http://php.net/supported-versions.php" target="_blank"><strong>' . __( 'unsupported and old', 'templatiq' ) . '</strong></a>.';
-		$error .= __( 'You should update your PHP software or contact your host regarding this matter.</p>', 'templatiq' );
-		wp_die(
-			wp_kses_post( $error ),
-			esc_html__( 'Plugin Activation Error', 'templatiq' ),
-			[
-				'response'  => 200,
-				'back_link' => true,
-			]
+				do_action( 'after_load_templatiq' );
+			}
 		);
 	}
-
-	public function is_plugin_installed( $basename ) {
-		if ( ! function_exists( 'get_plugins' ) ) {
-			include_once ABSPATH . '/wp-admin/includes/plugin.php';
-		}
-
-		$installed_plugins = get_plugins();
-
-		return isset( $installed_plugins[$basename] );
-	}
-
-	private function define_constants(): void {
-		define( 'TEMPLATIQ_VERSION', $this->version );
-		define( 'TEMPLATIQ_FILE', __FILE__ );
-		define( 'TEMPLATIQ_PATH', dirname( TEMPLATIQ_FILE ) );
-		define( 'TEMPLATIQ_URL', plugins_url( '', TEMPLATIQ_FILE ) );
-		define( 'TEMPLATIQ_ASSETS', TEMPLATIQ_URL . '/assets' );
-		define( 'TEMPLATIQ_ASSETS_PATH', TEMPLATIQ_PATH . '/assets' );
-
-		define( 'TEMPLATIQ_CLOUD_BASE', 'https://templatiq.com/wp-json/tm' );
-
-		define( 'TEMPLATIQ_API_ENDPOINT', 'https://templatiq.com/' );
-
-		define( 'TEMPLATIQ_DEV', true );
-		define( 'TEMPLATIQ_DEBUG_LOG', true );
-	}
-
-	private function includes() {
-		include __DIR__ . '/vendor/autoload.php';
-	}
 }
 
-/**
- * Init the Templatiq plugin
- *
- * @return Templatiq the plugin object
- */
-function Templatiq() {
-	add_action( 'plugins_loaded', ['Templatiq', 'init'] );
-}
-
-// kick it off
-Templatiq();
+Templatiq::instance()->load();

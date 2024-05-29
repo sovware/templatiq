@@ -18,6 +18,20 @@ class Admin {
 		Enqueuer::init();
 
 		add_action( 'wp_loaded', [$this, 'hide_admin_notices'] );
+		add_action( 'admin_init', [$this, 'redirect_to_dashboard'] );
+	}
+
+	public function redirect_to_dashboard() {
+		if ( ! get_option( '_templatiq_redirect_to_dashboard', false ) ) {
+			return;
+		}
+
+		delete_option( '_templatiq_redirect_to_dashboard' );
+
+		if ( ! defined( 'WP_CLI' ) || ! WP_CLI ) {
+			wp_safe_redirect( admin_url( 'admin.php?page=templatiq' ) );
+			exit();
+		}
 	}
 
 	public function hide_admin_notices() {
