@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Templatiq
- * Description: Complete Elementor Widgets
+ * Description: The Ultimate Templates on WordPress | Craft beautiful website in no time
  * Author: wpWax
  * Author URI: https://wpwax.com
  * Version: 1.0.0
