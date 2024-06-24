@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace Templatiq;
+namespace Templatiq\Boot;
 
 use Templatiq\Admin\Admin;
 use Templatiq\Providers\FullTemplateServiceProviders;

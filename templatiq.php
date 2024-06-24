@@ -63,7 +63,7 @@ final class Templatiq {
 			}
 		);
 
-		$application = \Templatiq\App::instance();
+		$application = \Templatiq\Boot\App::instance();
 		$application->boot( __FILE__, __DIR__ );
 
 		add_action(

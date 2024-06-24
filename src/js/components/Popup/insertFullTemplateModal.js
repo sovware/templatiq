@@ -18,7 +18,7 @@ const insertFullTemplateModal = ( { item, onClose } ) => {
 	const installTheme = async (e) =>  {
 		setThemeInstalling(true);
 		let themeInstallResponse = await wp.updates.installTheme( {
-			slug: 'best-listing'
+			slug: 'pixetiq'
 		});
 
 		if(themeInstallResponse.customizeUrl) {
