@@ -9,7 +9,6 @@ namespace Templatiq\Controllers;
 
 use Templatiq\Abstracts\ControllerBase;
 use Templatiq\Repositories\AccountRepository;
-use Templatiq\Repositories\DirectoristRepository;
 use Templatiq\Utils\Options;
 use Templatiq\Utils\Response;
 use WP_REST_Request;
@@ -32,7 +31,7 @@ class AccountController extends ControllerBase {
 
 		if ( ! empty( $errors ) ) {
 			return Response::error(
-				'login_errors',
+				'login_errors_before_request',
 				$errors,
 				'login',
 				422
@@ -45,7 +44,7 @@ class AccountController extends ControllerBase {
 			);
 		} catch ( \Throwable $th ) {
 			return Response::error(
-				'login_errors',
+				'login_errors_after_response',
 				$th->getMessage(),
 				__FUNCTION__,
 				$th->getCode()

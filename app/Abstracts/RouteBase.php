@@ -88,7 +88,7 @@ abstract class RouteBase {
 		if ( $response instanceof WP_Error ) {
 			return Response::error(
 				$response->get_error_code(),
-				$response->get_error_message(),
+				$response,
 				$endpoint,
 				$status,
 				$additional_data

@@ -1302,19 +1302,6 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 				$key   = apply_filters( 'import_post_meta_key', $meta_item['key'], $post_id, $post );
 				$value = false;
 
-				if( '_directory_type' === $key ) {
-					$types = get_option( 'templatiq_sites_directory_types_ids_mapping', true );
-					$value = $types[ $meta_item['value'] ] ?? 0; // if no id found then serve the default directory type
-					$_pre_type = get_post_meta( $post_id, '_directory_type', true );
-					
-					if( $_pre_type !== $value ) {
-						update_post_meta( $post_id, '_directory_type', $value );
-						wp_set_object_terms( $post_id, $value, 'atbdp_listing_types' );
-					}
-					
-					continue;
-				}
-
 				if ( '_edit_last' === $key ) {
 					$value = intval( $meta_item['value'] );
 					if ( ! isset( $this->mapping['user'][ $value ] ) ) {

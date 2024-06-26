@@ -15,6 +15,42 @@ class Compatibility {
 	public function __construct() {
 		add_action( 'templatiq_sites_after_plugin_activation', [$this, 'after_activation'] );
 		add_filter( 'wxr_importer.pre_process.post', [$this, 'pre_process_post'], 10 );
+		add_filter( 'wxr_importer.pre_process.post_meta', [$this, 'set_directory_type'], 10, 2 );
+		add_action( 'wxr_importer.processed.term', [$this, 'set_directory_type_term'], 10, 2 );
+	}
+
+	public function set_directory_type_term( $term_id, $data ) {
+
+		if ( isset( $data['taxonomy'] ) && ( 'at_biz_dir-location' === $data['taxonomy'] || 'at_biz_dir-category' === $data['taxonomy'] ) ) {
+			$_pre_types = get_term_meta( $term_id, '_directory_type', true );
+
+			error_log( '$_pre_types: ' . print_r( $_pre_types, true ) );
+
+			$types = array_values( get_option( 'templatiq_sites_directory_types_ids_mapping', true ) );
+			update_term_meta( $term_id, '_directory_type', $types );
+			// wp_set_object_terms( $term_id, $value, 'atbdp_listing_types' );
+
+			error_log( '_directory_type changed - term_id ' . $term_id . ' from ' . '' . ' => ' . print_r( $types, true ) );
+		}
+
+	}
+
+	public function set_directory_type( $meta_item, $post_id ) {
+		$key = $meta_item['key'] ?? '';
+		if ( '_directory_type' === $key ) {
+			$types     = get_option( 'templatiq_sites_directory_types_ids_mapping', true );
+			$value     = $types[$meta_item['value']] ?? 0; // if no id found then serve the default directory type
+			$_pre_type = get_post_meta( $post_id, '_directory_type', true );
+
+			if ( $_pre_type !== $value ) {
+				update_post_meta( $post_id, '_directory_type', $value );
+				wp_set_object_terms( $post_id, $value, 'atbdp_listing_types' );
+
+				error_log( '_directory_type changed - post_id ' . $post_id . ' from ' . $meta_item['value'] . ' => ' . $value );
+			}
+		}
+
+		return $meta_item;
 	}
 
 	public function pre_process_post( $data ) {

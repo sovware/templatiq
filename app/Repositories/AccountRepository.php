@@ -20,11 +20,10 @@ class AccountRepository {
 
 	public function login( string $username, string $password ) {
 		$http     = new Http( $this->cloud_endpoint . '/account/login' );
-		$response = $http->body(
-			[
-				'username' => $username,
-				'password' => $password,
-			] )
+		$response = $http->body( [
+			'username' => $username,
+			'password' => $password,
+		] )
 			->post()
 			->response();
 

@@ -79,6 +79,7 @@ class Controller extends ControllerBase {
 			}
 		}
 
+		error_log( print_r( 'Import directory type ajax request received: ', true ) );
 		try {
 			( new Repository() )->import_directory_types();
 
