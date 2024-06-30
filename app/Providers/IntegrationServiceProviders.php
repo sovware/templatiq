@@ -15,15 +15,15 @@ use Templatiq\Integrations\Elementor\Elementor;
 class IntegrationServiceProviders extends ProviderBase {
 
 	public function boot() {
-		foreach ( $this->get_integrations() as $_integration ) {
-			$integration = new $_integration();
+		foreach ( $this->get() as $i ) {
+			$integration = new $i();
 			if ( $integration instanceof IntegrationBase ) {
 				$integration->boot();
 			}
 		}
 	}
 
-	public function get_integrations(): array {
+	public function get(): array {
 		return [
 			Directorist::class,
 			Elementor::class,

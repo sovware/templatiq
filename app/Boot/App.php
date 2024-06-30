@@ -7,15 +7,6 @@
 
 namespace Templatiq\Boot;
 
-use Templatiq\Admin\Admin;
-use Templatiq\Providers\FullTemplateServiceProviders;
-use Templatiq\Providers\IntegrationServiceProviders;
-use Templatiq\Routes\Account;
-use Templatiq\Routes\Bookmark;
-use Templatiq\Routes\Cache;
-use Templatiq\Routes\Dependency;
-use Templatiq\Routes\Template;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -45,22 +36,14 @@ class App {
 			return;
 		}
 
-		Admin::init();
-
-		/**
-		 * Routes Initialize
-		 */
-		Account::init();
-		Bookmark::init();
-		Cache::init();
-		Dependency::init();
-		Template::init();
+		\Templatiq\Admin\Admin::init();
 
 		/**
 		 * Service Providers
 		 */
-		FullTemplateServiceProviders::init()->boot();
-		IntegrationServiceProviders::init()->boot();
+		\Templatiq\Providers\FullTemplateServiceProviders::init()->boot();
+		\Templatiq\Providers\IntegrationServiceProviders::init()->boot();
+		\Templatiq\Providers\RouteServiceProviders::init()->boot();
 
 		static::$loaded = \true;
 	}
