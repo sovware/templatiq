@@ -1186,6 +1186,10 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 		 * @return int|WP_Error Post ID on success, WP_Error otherwise.
 		 */
 		protected function process_attachment( $post, $meta, $remote_url ) {
+			
+			error_log( print_r( 'for_faster_import_skipping_attachment',true) );
+			return new WP_Error( 'for_faster_import_skipping_attachment', __( 'for_faster_import_skipping_attachment', 'templatiq' ) );
+
 			// try to use _wp_attached file for upload folder placement to ensure the same location as the export site
 			// e.g. location is 2003/05/image.jpg but the attachment post_date is 2010/09, see media_handle_upload().
 			$post['upload_date'] = $post['post_date'];

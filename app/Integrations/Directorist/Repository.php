@@ -189,12 +189,11 @@ class Repository {
 					update_term_meta( $term_id, $key, $value );
 				}
 			}
+
+			error_log( 'Directory Type Inserted Name: ' . $type['name'] . ' ID #' . $type_id . ' => ' . $term_id );
 		}
 
-		error_log( 'Directory Type Inserted: Name: ' . $type['name'] . ' #ID: ' . $type_id . ' => ' . $term_id );
-
 		if ( $ids_mapping ) {
-			error_log( ' $ids_mapping: ' . print_r( $ids_mapping, true ) );
 			update_option( 'templatiq_sites_directory_types_ids_mapping', $ids_mapping, 'no' );
 		}
 	}

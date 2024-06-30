@@ -157,7 +157,7 @@ export const checkRequiredPlugins = async ( dispatch ) => {
 
 export const installOneDirectory = ( storedState ) => {
 	const [ { importPercent }, dispatch ] = storedState;
-	const themeSlug = 'onedirectory';
+	const themeSlug = 'pixetiq';
 	let percentage = importPercent;
 
 	if ( 'not-installed' === themeStatus ) {
@@ -171,7 +171,7 @@ export const installOneDirectory = ( storedState ) => {
 		dispatch( {
 			type: 'set',
 			importPercent: percentage,
-			importStatus: __( 'Installing OneDirectory Theme…', 'templatiq-sites' ),
+			importStatus: __( 'Installing Pixetiq Theme…', 'templatiq-sites' ),
 		} );
 
 		wp.updates.installTheme( {
@@ -186,7 +186,7 @@ export const installOneDirectory = ( storedState ) => {
 				dispatch( {
 					type: 'set',
 					themeStatus: response,
-					importStatus: __( 'OneDirectory Theme Installed.', 'templatiq-sites' ),
+					importStatus: __( 'Pixetiq Theme Installed.', 'templatiq-sites' ),
 				} );
 			}
 		);

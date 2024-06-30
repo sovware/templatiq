@@ -82,14 +82,20 @@ class Templatiq_WXR_Importer {
 		update_post_meta( $post_id, '_templatiq_sites_imported_post', true );
 		update_post_meta( $post_id, '_templatiq_sites_enable_for_batch', true );
 
-		error_log( 'TrackPost: #' . $post_id . ' | PostType => ' . $data['post_type'] );
+		error_log( 'Time: #' . time() . ' | TrackPost: #' . $post_id . ' | PostType => ' . $data['post_type'] . ' | ' . $data['post_title'] );
 
+		/**
+		 * Keep ref for imported menus
+		 */
 		if ( 'wp_navigation' === $data['post_type'] ) {
 			$_menu_map                   = get_option( '_templatiq_imported_menu_map', [] );
 			$_menu_map[$data['post_id']] = $post_id;
 			update_option( '_templatiq_imported_menu_map', $_menu_map );
 		}
 
+		/**
+		 * Keep ref for imported template parts
+		 */
 		if ( 'wp_template' === $data['post_type'] || 'wp_template_part' === $data['post_type'] ) {
 			$_template_parts           = get_option( '_templatiq_imported_template_parts', [] );
 			$_template_parts[$post_id] = $post_id;
@@ -131,7 +137,6 @@ class Templatiq_WXR_Importer {
 	 * @return array           Post data.
 	 */
 	public function pre_post_data( $postdata, $data ) {
-
 		// Skip GUID field which point to the https://templatiq.com.
 		$postdata['guid'] = '';
 
