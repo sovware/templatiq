@@ -17,14 +17,56 @@ class Compatibility {
 		add_filter( 'wxr_importer.pre_process.post', [$this, 'pre_process_post'], 10 );
 		add_filter( 'wxr_importer.pre_process.post_meta', [$this, 'set_directory_type'], 10, 2 );
 		add_action( 'wxr_importer.processed.term', [$this, 'set_directory_type_term'], 10, 2 );
+		add_action( 'templatiq_full_template_import_complete', [$this, 'change_term_meta'] );
+	}
+
+	public function change_term_meta() {
+		$attachments_ref = get_option( '_templatiq_imported_attachments', [] );
+
+		if ( empty( $attachments_ref ) ) {
+			return;
+		}
+
+		// Location update
+		$locs = get_terms( [
+			'taxonomy'   => 'at_biz_dir-location',
+			'meta_key'   => 'image',
+			'hide_empty' => false,
+			'fields'     => 'ids',
+		] );
+
+		if ( ! empty( $locs ) ) {
+			foreach ( $locs as $loc ) {
+				$attachment_id = $attachments_ref[$loc] ?? 0;
+				if ( $attachment_id ) {
+					update_term_meta( $loc, 'image', $attachment_id );
+				}
+			}
+		}
+
+		// Category update
+		$cats = get_terms( [
+			'taxonomy'   => 'at_biz_dir-category',
+			'meta_key'   => 'image',
+			'hide_empty' => false,
+			'fields'     => 'ids',
+		] );
+
+		if ( ! empty( $cats ) ) {
+			foreach ( $cats as $cat ) {
+				$attachment_id = $attachments_ref[$cat] ?? 0;
+				if ( $attachment_id ) {
+					update_term_meta( $cat, 'image', $attachment_id );
+				}
+			}
+		}
 	}
 
 	public function set_directory_type_term( $term_id, $data ) {
 
 		if ( isset( $data['taxonomy'] ) && ( 'at_biz_dir-location' === $data['taxonomy'] || 'at_biz_dir-category' === $data['taxonomy'] ) ) {
-			$_pre_types = get_term_meta( $term_id, '_directory_type', true );
-
-			error_log( '$_pre_types: ' . print_r( $_pre_types, true ) );
+			// $_pre_types = get_term_meta( $term_id, '_directory_type', true );
+			// error_log( '$_pre_types: ' . print_r( $_pre_types, true ) );
 
 			$types = array_values( get_option( 'templatiq_sites_directory_types_ids_mapping', true ) );
 			update_term_meta( $term_id, '_directory_type', $types );

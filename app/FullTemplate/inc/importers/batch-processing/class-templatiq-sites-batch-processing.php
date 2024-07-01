@@ -89,7 +89,7 @@ if ( ! class_exists( 'Templatiq_Sites_Batch_Processing' ) ):
 
 			// Start image importing after site import complete.
 			add_filter( 'templatiq_sites_image_importer_skip_image', [$this, 'skip_image'], 10, 2 );
-			add_action( 'templatiq_sites_import_complete', [$this, 'start_process'] );
+			add_action( 'templatiq_full_template_import_complete', [$this, 'start_process'] );
 			add_action( 'templatiq_sites_process_single', [$this, 'start_process_single'] );
 			if ( current_user_can( 'manage_options' ) ) {
 				add_action( 'admin_init', [$this, 'start_importer'] );

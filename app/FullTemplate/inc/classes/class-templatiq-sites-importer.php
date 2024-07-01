@@ -53,7 +53,7 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 			add_action( 'wp_ajax_templatiq-sites-import-end', [$this, 'import_end'] );
 
 			// Hooks in AJAX.
-			add_action( 'templatiq_sites_import_complete', [$this, 'clear_related_cache'] );
+			add_action( 'templatiq_full_template_import_complete', [$this, 'clear_related_cache'] );
 			add_action( 'init', [$this, 'load_importer'] );
 
 			require_once TEMPLATIQ_SITES_DIR . 'inc/importers/batch-processing/class-templatiq-sites-batch-processing.php';
@@ -283,12 +283,11 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 
 			$demo_data = get_option( 'templatiq_sites_import_data', [] );
 
-			do_action( 'templatiq_sites_import_complete', $demo_data );
+			do_action( 'templatiq_full_template_import_complete', $demo_data );
 
-			update_option( 'templatiq_sites_import_complete', 'yes', 'no' );
+			update_option( 'templatiq_full_template_import_complete', 'yes', 'no' );
 			delete_transient( 'templatiq_sites_import_started' );
 
-			$this->update_term_meta();
 			$this->update_menu_links();
 			$this->update_menu_refs();
 			$this->update_logo_width();
@@ -301,52 +300,6 @@ if ( ! class_exists( 'Templatiq_Sites_Importer' ) ) {
 
 			if ( wp_doing_ajax() ) {
 				wp_send_json_success();
-			}
-		}
-
-		public function update_term_meta() {
-			$attachments_ref = get_option( '_templatiq_imported_attachments', [] );
-
-			if ( empty( $attachments_ref ) ) {
-				return;
-			}
-
-			// Location update
-			$locs = get_terms(
-				[
-					'taxonomy'   => 'at_biz_dir-location',
-					'meta_key'   => 'image',
-					'hide_empty' => false,
-					'fields'     => 'ids',
-				]
-			);
-
-			if ( ! empty( $locs ) ) {
-				foreach ( $locs as $loc ) {
-					$attachment_id = $attachments_ref[$loc] ?? 0;
-					if ( $attachment_id ) {
-						update_term_meta( $loc, 'image', $attachment_id );
-					}
-				}
-			}
-
-			// Category update
-			$cats = get_terms(
-				[
-					'taxonomy'   => 'at_biz_dir-category',
-					'meta_key'   => 'image',
-					'hide_empty' => false,
-					'fields'     => 'ids',
-				]
-			);
-
-			if ( ! empty( $cats ) ) {
-				foreach ( $cats as $cat ) {
-					$attachment_id = $attachments_ref[$cat] ?? 0;
-					if ( $attachment_id ) {
-						update_term_meta( $cat, 'image', $attachment_id );
-					}
-				}
 			}
 		}
 

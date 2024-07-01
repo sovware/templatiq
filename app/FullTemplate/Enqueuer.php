@@ -101,7 +101,7 @@ class Enqueuer extends EnqueuerBase {
 			'retryTimeOut'      => 5000, // 10 Seconds.
 			'siteUrl'           => get_site_url(),
 			'searchData'        => TEMPLATIQ_API_ENDPOINT . 'wp-json/starter-templates/v1/ist-data',
-			'firstImportStatus' => get_option( 'templatiq_sites_import_complete', false ),
+			'firstImportStatus' => get_option( 'templatiq_full_template_import_complete', false ),
 			'supportLink'       => 'https://wpastra.com/starter-templates-support/?ip=' . Templatiq_Sites_Helper::get_client_ip(),
 			'analytics'         => get_site_option( 'bsf_analytics_optin', false ),
 			'phpVersion'        => PHP_VERSION,
@@ -203,7 +203,7 @@ class Enqueuer extends EnqueuerBase {
 					'site_import'  => esc_html__( 'Your Selected Website is Being Imported.', 'templatiq' ),
 					'page_import'  => esc_html__( 'Your Selected Template is Being Imported.', 'templatiq' ),
 				],
-				'first_import_complete'              => get_option( 'templatiq_sites_import_complete' ),
+				'first_import_complete'              => get_option( 'templatiq_full_template_import_complete' ),
 				'server_import_primary_error'        => __( 'Looks like the template you are importing is temporarily not available.', 'templatiq' ),
 				'client_import_primary_error'        => __( 'We could not start the import process and this is the message from WordPress:', 'templatiq' ),
 				'cloudflare_import_primary_error'    => __( 'There was an error connecting to the Starter Templates API.', 'templatiq' ),
