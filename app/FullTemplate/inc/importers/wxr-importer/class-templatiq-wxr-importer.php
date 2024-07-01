@@ -108,6 +108,11 @@ class Templatiq_WXR_Importer {
 			if ( ! empty( $attachment_hash_url ) ) {
 				update_post_meta( $post_id, '_templatiq_sites_image_hash', $attachment_hash_url );
 				update_post_meta( $post_id, '_elementor_source_image_hash', $attachment_hash_url );
+
+				$demo_id                = $data['post_id'];
+				$_attachments           = get_option( '_templatiq_imported_attachments', [] );
+				$_attachments[$demo_id] = $post_id;
+				update_option( '_templatiq_imported_attachments', $_attachments );
 			}
 		}
 	}
@@ -574,7 +579,6 @@ class Templatiq_WXR_Importer {
 
 		flush();
 	}
-
 }
 
 Templatiq_WXR_Importer::instance();

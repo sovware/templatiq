@@ -30,7 +30,6 @@ class Compatibility {
 			update_term_meta( $term_id, '_directory_type', $types );
 			// wp_set_object_terms( $term_id, $value, 'atbdp_listing_types' );
 
-			error_log( '_directory_type changed - term_id ' . $term_id . ' from ' . '' . ' => ' . print_r( $types, true ) );
 		}
 
 	}
@@ -46,7 +45,7 @@ class Compatibility {
 				update_post_meta( $post_id, '_directory_type', $value );
 				wp_set_object_terms( $post_id, $value, 'atbdp_listing_types' );
 
-				error_log( '_directory_type changed - post_id ' . $post_id . ' from ' . $meta_item['value'] . ' => ' . $value );
+				error_log( 'Directory Type Changed - post_id #' . $post_id . ' from #' . $meta_item['value'] . ' => ' . $value );
 			}
 		}
 

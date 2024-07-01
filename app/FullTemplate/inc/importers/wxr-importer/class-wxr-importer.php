@@ -1187,8 +1187,8 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 		 */
 		protected function process_attachment( $post, $meta, $remote_url ) {
 			
-			error_log( print_r( 'for_faster_import_skipping_attachment',true) );
-			return new WP_Error( 'for_faster_import_skipping_attachment', __( 'for_faster_import_skipping_attachment', 'templatiq' ) );
+			// error_log( print_r( 'for_faster_import_skipping_attachment',true) );
+			// return new WP_Error( 'for_faster_import_skipping_attachment', __( 'for_faster_import_skipping_attachment', 'templatiq' ) );
 
 			// try to use _wp_attached file for upload folder placement to ensure the same location as the export site
 			// e.g. location is 2003/05/image.jpg but the attachment post_date is 2010/09, see media_handle_upload().
@@ -1822,6 +1822,14 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 				if ( $key ) {
 					$data[ $key ] = $child->textContent; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- 3rd party library.
 				}
+
+
+				if( 'wp:termmeta' === $child->tagName ) {
+					$meta_item = $this->parse_meta_node( $child );
+					if ( ! empty( $meta_item ) ) {
+						$meta[] = $meta_item;
+					}
+				}
 			}
 
 			if ( empty( $data['taxonomy'] ) ) {
@@ -1832,6 +1840,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			if ( 'tag' === $data['taxonomy'] ) {
 				$data['taxonomy'] = 'post_tag';
 			}
+				
 
 			return compact( 'data', 'meta' );
 		}
@@ -1847,6 +1856,9 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			if( 'atbdp_listing_types' === $data['taxonomy'] ) {
 				return false;
 			}
+
+			// error_log( 'wxr_importer.pre_process.term: ' . print_r( $data ,true) );
+			
 			/**
 			 * Pre-process term data.
 			 *
@@ -1961,6 +1973,8 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 				)
 			);
 
+			$this->process_term_meta( $meta, $term_id, $data );
+
 			do_action( 'wp_import_insert_term', $term_id, $data );
 
 			/**
@@ -1970,6 +1984,49 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			 * @param array $data Raw data imported for the term.
 			 */
 			do_action( 'wxr_importer.processed.term', $term_id, $data ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
+		}
+
+		/**
+		 * Process and import term meta items.
+		 *
+		 * @param array $meta List of meta data arrays.
+		 * @param int   $term_id term to associate with.
+		 * @param array $data term data.
+		 * @return int|WP_Error Number of meta items imported on success, error otherwise.
+		 */
+		protected function process_term_meta( $meta, $term_id, $term ) {
+			if ( empty( $meta ) ) {
+				return true;
+			}
+
+			foreach ( $meta as $meta_item ) {
+				/**
+				 * Pre-process term meta data.
+				 *
+				 * @param array $meta_item Meta data. (Return empty to skip.)
+				 * @param int $term_id term the meta is attached to.
+				 */
+				$meta_item = apply_filters( 'wxr_importer.pre_process.term_meta', $meta_item, $term_id ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
+				if ( empty( $meta_item ) ) {
+					return false;
+				}
+
+				$key   = apply_filters( 'import_term_meta_key', $meta_item['key'], $term_id, $term );
+				$value = false;
+
+				if ( $key ) {
+					// export gets meta straight from the DB so could have a serialized string.
+					if ( ! $value ) {
+						$value = maybe_unserialize( $meta_item['value'] );
+					}
+
+					add_term_meta( $term_id, $key, $value );
+
+					do_action( 'import_term_meta', $term_id, $key, $value );
+				}
+			}
+
+			return true;
 		}
 
 		/**
