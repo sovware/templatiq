@@ -38,7 +38,7 @@ const MediaUploader = () => {
 			type: 'logoUpdate',
 			logo: data
 		};
-		iframe.contentWindow.postMessage(message, 'https://demo.directorist.com/');
+		iframe.contentWindow.postMessage(message, 'https://demo.templatiq.com/');
 	}
 
 	const updateValues = ( data ) => {
