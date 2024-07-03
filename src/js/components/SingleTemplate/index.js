@@ -98,7 +98,7 @@ const SingleTemplate = ( item ) => {
 				<div className="templatiq__template__single__overlay"></div>
 				<div className="templatiq__template__single__info">
 					<div className="templatiq__template__single__info__meta">
-						{ price > 0 ? (
+						{ price > 0 && !isUnlocked ? (
 							<span className="templatiq__template__single__info__meta__item pro-item">
 								<ReactSVG
 									src={ crownIcon }
