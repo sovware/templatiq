@@ -22,7 +22,7 @@ export const getProUrl = () => {
 };
 
 export const sendPostMessage = ( data ) => {
-	const frame = document.getElementById( 'astra-starter-templates-preview' );
+	const frame = document.getElementById( 'astra-templatiq-library-preview' );
 	console.log('sendPostMessage data : ', data, frame)
 	if ( ! frame ) {
 		return;
@@ -60,7 +60,7 @@ export const getDataUri = ( url, callback ) => {
 export const storeCurrentState = ( currentState ) => {
 	try {
 		localStorage.setItem(
-			'starter-templates-onboarding',
+			'templatiq-library-onboarding',
 			JSON.stringify( currentState )
 		);
 	} catch ( err ) {
@@ -69,7 +69,7 @@ export const storeCurrentState = ( currentState ) => {
 };
 
 export const getStoredState = () => {
-	return JSON.parse( localStorage.getItem( 'starter-templates-onboarding' ) );
+	return JSON.parse( localStorage.getItem( 'templatiq-library-onboarding' ) );
 };
 
 export const getDefaultColorPalette = ( demo ) => {
@@ -156,10 +156,10 @@ export const getColorScheme = ( demo ) => {
 
 	if (
 		demo &&
-		'astra-site-color-scheme' in demo &&
-		'' !== demo[ 'astra-site-color-scheme' ]
+		'templatiq-site-color-scheme' in demo &&
+		'' !== demo[ 'templatiq-site-color-scheme' ]
 	) {
-		colorScheme = demo[ 'astra-site-color-scheme' ];
+		colorScheme = demo[ 'templatiq-site-color-scheme' ];
 	}
 	return colorScheme;
 };

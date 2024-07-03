@@ -1,4 +1,7 @@
 <?php
+use Templatiq\FullTemplate\ImageImporter;
+use Templatiq\FullTemplate\ImporterLog;
+
 /**
  * Class Templatiq WXR Importer
  *
@@ -58,7 +61,7 @@ class Templatiq_WXR_Importer {
 		require_once TEMPLATIQ_SITES_DIR . 'inc/importers/wxr-importer/class-wxr-import-info.php';
 
 		add_filter( 'upload_mimes', [$this, 'custom_upload_mimes'] ); //phpcs:ignore WordPressVIPMinimum.Hooks.RestrictedHooks.upload_mimes -- Added this to allow upload of SVG files.
-		add_action( 'wp_ajax_astra-wxr-import', [$this, 'sse_import'] );
+		add_action( 'wp_ajax_templatiq-wxr-import', [$this, 'sse_import'] );
 		add_filter( 'wxr_importer.pre_process.user', '__return_null' );
 		add_filter( 'wp_import_post_data_processed', [$this, 'pre_post_data'], 10, 2 );
 		// add_filter( 'wxr_importer.pre_process.post', [$this, 'pre_process_post'], 10, 4 );
@@ -77,7 +80,7 @@ class Templatiq_WXR_Importer {
 	 * @return void
 	 */
 	public function track_post( $post_id = 0, $data = [] ) {
-		Templatiq_Sites_Importer_Log::add( 'Inserted - Post ' . $post_id . ' - ' . get_post_type( $post_id ) . ' - ' . get_the_title( $post_id ) );
+		ImporterLog::add( 'Inserted - Post ' . $post_id . ' - ' . get_post_type( $post_id ) . ' - ' . get_the_title( $post_id ) );
 
 		update_post_meta( $post_id, '_templatiq_sites_imported_post', true );
 		update_post_meta( $post_id, '_templatiq_sites_enable_for_batch', true );
@@ -104,7 +107,7 @@ class Templatiq_WXR_Importer {
 
 		if ( isset( $data['post_type'] ) && 'attachment' === $data['post_type'] ) {
 			$remote_url          = isset( $data['guid'] ) ? $data['guid'] : '';
-			$attachment_hash_url = Templatiq_Sites_Image_Importer::get_instance()->get_hash_image( $remote_url );
+			$attachment_hash_url = ImageImporter::get_instance()->get_hash_image( $remote_url );
 			if ( ! empty( $attachment_hash_url ) ) {
 				update_post_meta( $post_id, '_templatiq_sites_image_hash', $attachment_hash_url );
 				update_post_meta( $post_id, '_elementor_source_image_hash', $attachment_hash_url );
@@ -126,7 +129,7 @@ class Templatiq_WXR_Importer {
 	public function track_term( $term_id ) {
 		$term = get_term( $term_id );
 		if ( $term ) {
-			Templatiq_Sites_Importer_Log::add( 'Inserted - Term ' . $term_id . ' - ' . wp_json_encode( $term ) );
+			ImporterLog::add( 'Inserted - Term ' . $term_id . ' - ' . wp_json_encode( $term ) );
 		}
 
 		update_term_meta( $term_id, '_templatiq_sites_imported_term', true );
@@ -418,7 +421,7 @@ class Templatiq_WXR_Importer {
 	public function get_xml_data( $path, $post_id ) {
 
 		$args = [
-			'action'      => 'astra-wxr-import',
+			'action'      => 'templatiq-wxr-import',
 			'id'          => '1',
 			'_ajax_nonce' => wp_create_nonce( 'templatiq-sites' ),
 			'xml_id'      => $post_id,

@@ -17,7 +17,7 @@ class Backup {
 
 		$file_name    = 'templatiq-sites-backup-' . gmdate( 'd-M-Y-h-i-s' ) . '.json';
 		$old_settings = get_option( 'templatiq-settings', [] );
-		$upload_dir   = \Templatiq_Sites_Importer_Log::get_instance()->log_dir();
+		$upload_dir   = ImporterLog::get_instance()->log_dir();
 		$upload_path  = trailingslashit( $upload_dir['path'] );
 		$log_file     = $upload_path . $file_name;
 		$file_system  = ( new FileSystemRepository )->get_filesystem();

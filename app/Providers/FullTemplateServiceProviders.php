@@ -8,10 +8,6 @@
 namespace Templatiq\Providers;
 
 use Templatiq\Abstracts\ProviderBase;
-use Templatiq\FullTemplate\AdminMenu;
-use Templatiq\FullTemplate\Ajax;
-use Templatiq\FullTemplate\Enqueuer;
-use Templatiq\FullTemplate\FullTemplate;
 use Templatiq\FullTemplate\Repository;
 use Templatiq\FullTemplate\Settings;
 
@@ -24,10 +20,11 @@ class FullTemplateServiceProviders extends ProviderBase {
 		add_action( 'st_before_start_import_process', [$this, 'schedule_reporting_event'] );
 		add_action( 'generate_analytics_lead', [$this, 'send_analytics_lead'] );
 
-		FullTemplate::init();
-		AdminMenu::init();
-		Enqueuer::init();
-		Ajax::init();
+		\Templatiq\FullTemplate\FullTemplate::init();
+		\Templatiq\FullTemplate\Importer::get_instance();
+		\Templatiq\FullTemplate\AdminMenu::init();
+		\Templatiq\FullTemplate\Enqueuer::init();
+		\Templatiq\FullTemplate\Ajax::init();
 	}
 
 	public function temporary_cache_errors( $posted_data ) {

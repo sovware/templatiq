@@ -43,7 +43,7 @@ class Repository {
 				'import_status'   => $import_status,
 				'id'              => $id,
 				'import_attempts' => $import_attempts,
-				'version'         => TEMPLATIQ_SITES_VER,
+				'version'         => TEMPLATIQ_VERSION,
 				'type'            => $type,
 				'builder'         => $page_builder,
 				'user_agent'      => $user_agent_string,

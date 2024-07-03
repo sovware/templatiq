@@ -1,10 +1,11 @@
 <?php
 /**
- * Templatiq Sites
- *
- * @since  3.0.23
- * @package Templatiq Sites
+ * @author  wpWax
+ * @since   1.0.0
+ * @version 1.0.0
  */
+
+namespace Templatiq\FullTemplate;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -13,21 +14,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'TEMPLATIQ_ERROR_FATALS', E_ERROR | E_PARSE | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR );
 
 /**
- * Templatiq_Sites_Error_Handler
+ * ErrorHandler
  */
-class Templatiq_Sites_Error_Handler {
+class ErrorHandler {
 
 	/**
-	 * Instance of Templatiq_Sites_Error_Handler
+	 * Instance of ErrorHandler
 	 *
 	 * @since  3.0.23
-	 * @var (Object) Templatiq_Sites_Error_Handler
+	 * @var (Object) ErrorHandler
 	 */
 	private static $instance = null;
 
-
 	/**
-	 * Instance of Templatiq_Sites_Error_Handler.
+	 * Instance of ErrorHandler.
 	 *
 	 * @since  3.0.23
 	 *
@@ -46,12 +46,11 @@ class Templatiq_Sites_Error_Handler {
 	 */
 	public function __construct() {
 
-		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-importer-log.php';
 		if ( true === templatiq_sites_has_import_started() ) {
 			$this->start_error_handler();
 		}
 
-		add_action( 'shutdown', array( $this, 'stop_handler' ) );
+		add_action( 'shutdown', [ $this, 'stop_handler' ] );
 	}
 
 	/**
@@ -71,11 +70,11 @@ class Templatiq_Sites_Error_Handler {
 	public function start_error_handler() {
 		if ( ! interface_exists( 'Throwable' ) ) {
 			// Fatal error handler for PHP < 7.
-			register_shutdown_function( array( $this, 'shutdown_handler' ) );
+			register_shutdown_function( [ $this, 'shutdown_handler' ] );
 		}
 
 		// Fatal error handler for PHP >= 7, and uncaught exception handler for all PHP versions.
-		set_exception_handler( array( $this, 'exception_handler' ) );
+		set_exception_handler( [ $this, 'exception_handler' ] );
 	}
 
 	/**
@@ -103,24 +102,24 @@ class Templatiq_Sites_Error_Handler {
 			$error = 'Uncaught Error';
 		}
 
-		Templatiq_Sites_Importer_Log::add( 'There was an error on website: ' . $error );
-		Templatiq_Sites_Importer_Log::add( $e );
+		ImporterLog::add( 'There was an error on website: ' . $error );
+		ImporterLog::add( $e );
 
 		if ( wp_doing_ajax() ) {
 			wp_send_json_error(
-				array(
+				[
 					'message' => __( 'There was an error on your website.', 'templatiq' ),
-					'stack' => array(
+					'stack'   => [
 						'error-message' => sprintf(
 							'%s: %s',
 							$error,
 							$e->getMessage()
 						),
-						'file' => $e->getFile(),
-						'line' => $e->getLine(),
-						'trace' => $e->getTrace(),
-					),
-				)
+						'file'          => $e->getFile(),
+						'line'          => $e->getLine(),
+						'trace'         => $e->getTrace(),
+					],
+				]
 			);
 		}
 
@@ -143,24 +142,24 @@ class Templatiq_Sites_Error_Handler {
 			$error = 'Fatal error';
 		}
 
-		Templatiq_Sites_Importer_Log::add( 'There was an error on website: ' . $error );
-		Templatiq_Sites_Importer_Log::add( $e );
+		ImporterLog::add( 'There was an error on website: ' . $error );
+		ImporterLog::add( $e );
 
 		if ( wp_doing_ajax() ) {
 			wp_send_json_error(
-				array(
+				[
 					'message' => __( 'There was an error your website.', 'templatiq' ),
-					'stack' => array(
+					'stack'   => [
 						'error-message' => $error,
-						'error' => $e,
-					),
-				)
+						'error'         => $e,
+					],
+				]
 			);
 		}
 	}
 }
 
 /**
-* Kicking this off by calling 'get_instance()' method
-*/
-Templatiq_Sites_Error_Handler::get_instance();
+ * Kicking this off by calling 'get_instance()' method
+ */
+ErrorHandler::get_instance();

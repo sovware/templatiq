@@ -1,6 +1,6 @@
 import { useEffect, useState } from '@wordpress/element';
 import { useNavigate } from 'react-router-dom';
-// import { Tooltip } from '@brainstormforce/starter-templates-components';
+// import { Tooltip } from '@brainstormforce/templatiq-library-components';
 import { useStateValue } from '../store/store';
 import { storeCurrentState } from '../utils/functions';
 import { STEPS } from './util';
@@ -48,7 +48,7 @@ const Steps = () => {
 	useEffect( () => {
 		const currentUrlParams = new URLSearchParams( window.location.search );
 		const storedStateValue = JSON.parse(
-			localStorage.getItem( 'starter-templates-onboarding' )
+			localStorage.getItem( 'templatiq-library-onboarding' )
 		);
 		const urlIndex = parseInt( currentUrlParams.get( 'ci' ) ) || 0;
 		const designIndex = parseInt( currentUrlParams.get( 'designStep' ) ) || 0;
@@ -66,7 +66,7 @@ const Steps = () => {
 				...stateValueUpdates,
 			} );
 		} else {
-			localStorage.removeItem( 'starter-templates-onboarding' );
+			localStorage.removeItem( 'templatiq-library-onboarding' );
 		}
 
 		setSettingHistory( false );

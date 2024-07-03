@@ -8,7 +8,6 @@
 namespace Templatiq\FullTemplate;
 
 use Templatiq\Utils\Singleton;
-use Templatiq_Sites_Image_Importer;
 use Templatiq_WXR_Importer;
 use WP_Query;
 
@@ -138,7 +137,7 @@ class OptionsImport {
 	}
 
 	private function insert_logo( $image_url = '' ) {
-		$downloaded_image = Templatiq_Sites_Image_Importer::get_instance()->import(
+		$downloaded_image = ImageImporter::get_instance()->import(
 			[
 				'url' => $image_url,
 				'id'  => 0,

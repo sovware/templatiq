@@ -25,10 +25,6 @@ if ( ! defined( 'INTELLIGENT_TEMPLATES_URI' ) ) {
 	define( 'INTELLIGENT_TEMPLATES_URI', plugins_url( '/', INTELLIGENT_TEMPLATES_FILE ) );
 }
 
-if ( ! defined( 'TEMPLATIQ_SITES_VER' ) ) {
-	define( 'TEMPLATIQ_SITES_VER', '1.0.0' );
-}
-
 if ( ! defined( 'TEMPLATIQ_SITES_DIR' ) ) {
 	define( 'TEMPLATIQ_SITES_DIR', TEMPLATIQ_PATH . '/app/FullTemplate/' );
 }
@@ -54,7 +50,6 @@ class FullTemplate {
 
 		$this->includes();
 
-		add_action( 'templatiq_notice_before_markup', [$this, 'notice_assets'] );
 		add_action( 'admin_enqueue_scripts', [$this, 'admin_assets'] );
 
 		add_action( 'admin_notices', [$this, 'check_filesystem_access_notice'] );
@@ -65,26 +60,18 @@ class FullTemplate {
 	}
 
 	private function includes() {
-		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/functions.php';
-		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-error-handler.php';
-		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-importer.php';
-		require_once TEMPLATIQ_SITES_DIR . 'inc/classes/class-templatiq-sites-image-processing.php';
+		require_once TEMPLATIQ_SITES_DIR . 'inc/functions.php';
 	}
 
 	public function admin_assets() {
 		$current_screen = get_current_screen();
 
-		if ( 'appearance_page_starter-templates' !== $current_screen->id ) {
+		if ( 'appearance_page_templatiq-library' !== $current_screen->id ) {
 			return;
 		}
 
-		wp_enqueue_style( 'templatiq-sites-admin-page', TEMPLATIQ_SITES_URI . 'assets/css/admin.css', TEMPLATIQ_SITES_VER, true );
-		wp_enqueue_script( 'templatiq-sites-admin-js', TEMPLATIQ_SITES_URI . 'assets/js/admin.js', ['templatiq-sites-admin-page', 'jquery'], TEMPLATIQ_SITES_VER, true );
-	}
-
-	public static function notice_assets() {
-		$file = is_rtl() ? 'astra-notices-rtl.css' : 'astra-notices.css';
-		wp_enqueue_style( 'templatiq-sites-notices', TEMPLATIQ_SITES_URI . 'assets/css/' . $file, [], TEMPLATIQ_SITES_VER );
+		wp_enqueue_style( 'templatiq-sites-admin-page', TEMPLATIQ_SITES_URI . 'assets/css/admin.css', TEMPLATIQ_VERSION, true );
+		wp_enqueue_script( 'templatiq-sites-admin-js', TEMPLATIQ_SITES_URI . 'assets/js/admin.js', ['templatiq-sites-admin-page', 'jquery'], TEMPLATIQ_VERSION, true );
 	}
 
 	public function check_filesystem_access_notice() {
@@ -101,7 +88,7 @@ class FullTemplate {
 		}
 
 		$saved_images         = get_option( 'templatiq-sites-saved-images', [] );
-		$templatiq_image_flag = get_post_meta( $id, 'astra-images', true );
+		$templatiq_image_flag = get_post_meta( $id, 'templatiq-images', true );
 		$templatiq_image_flag = (int) $templatiq_image_flag;
 		if (
 			'' !== $templatiq_image_flag &&

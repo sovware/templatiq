@@ -1,4 +1,4 @@
-// import { Tooltip } from '@brainstormforce/starter-templates-components';
+// import { Tooltip } from '@brainstormforce/templatiq-library-components';
 import { __ } from '@wordpress/i18n';
 import Button from '../button/button';
 import { useStateValue } from '../../store/store';

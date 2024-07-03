@@ -66,7 +66,7 @@ const InsertTemplate = ({
 			isPro && !isItemPurchased(template_id) && !isItemUnlocked(template_id) ?
 				renderModal()
 				: themeInstalled ? 
-					window.location.href= `?page=starter-templates&template_id=${template_id}&ci=0`
+					window.location.href= `?page=templatiq-library&template_id=${template_id}&ci=0`
 					: renderModal();
 		} else if (isPro || installDirectorist) {
 			renderModal();
