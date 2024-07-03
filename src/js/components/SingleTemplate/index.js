@@ -111,7 +111,7 @@ const SingleTemplate = ( item ) => {
 							''
 						) }
 						{
-							isPurchased && (
+							price > 0 && isPurchased && (
 								<span
 									className="templatiq__template__single__info__meta__item purchased-item templatiq-tooltip"
 									data-info="Unlocked"
