@@ -96,6 +96,12 @@ const TemplateDetailsWidget = ( props ) => {
 											<img
 												src={ `${ template_market_obj.assets_url }/svg/icon/${ plugin?.slug }.svg` }
 												alt={ plugin?.name }
+												width={ 30 }
+												height={ 30 }
+												onError={(e) => {
+													e.target.onerror = null; // prevents looping
+													e.target.src = `${template_market_obj.assets_url}/svg/icon/wordpress-plugin.png`;
+												}}
 											/>
 										</a>
 									);
