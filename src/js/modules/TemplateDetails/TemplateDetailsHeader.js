@@ -1,5 +1,8 @@
-import { useState } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
+
+import store from '@store/index';
+import { select } from '@wordpress/data';
 
 import Bookmark from '@components/Bookmark';
 import InsertTemplate from '@components/InsertTemplate';
@@ -21,6 +24,9 @@ const TemplateDetailsHeader = ( props ) => {
 		preview_link,
 	} = props.item;
 
+	const { purchased } = select(store).getUserInfo();
+	const [ isPurchased, setIsPurchased ] = useState(false);
+
 	const [ currentFavoriteCount, setCurrentFavoriteCount ] = useState(
 		number_of_bookmarks ? Number( number_of_bookmarks ) + 1 : ''
 	);
@@ -33,6 +39,15 @@ const TemplateDetailsHeader = ( props ) => {
 				: number_of_bookmarks
 		);
 	};
+
+	const isItemPurchased = (itemId) => {
+		// Check if any object in purchasedItems contains the itemId as a key
+		return purchased && purchased.some(item => itemId in item);
+	};
+
+	useEffect( () => {
+		setIsPurchased(isItemPurchased(template_id));
+	}, [] );
 
 	return (
 		<TemplateDetailsHeaderStyle className="templatiq__details__header">
@@ -96,7 +111,7 @@ const TemplateDetailsHeader = ( props ) => {
 				>
 					Live Demo
 				</a>
-				{ price > 0 ? (
+				{ price > 0 && !isPurchased ? (
 					<a
 						href={`https://templatiq.com/checkout?edd_action=add_to_cart&download_id=${template_id}`} target='_blank'
 						className="templatiq__details__header__action__link purchase-btn templatiq-btn templatiq-btn-primary"
