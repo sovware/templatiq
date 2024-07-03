@@ -24,8 +24,9 @@ const TemplateDetailsHeader = ( props ) => {
 		preview_link,
 	} = props.item;
 
-	const { purchased } = select(store).getUserInfo();
+	const { purchased, unlocked } = select(store).getUserInfo();
 	const [ isPurchased, setIsPurchased ] = useState(false);
+	const [ isUnlocked, setIsUnlocked ] = useState(false);
 
 	const [ currentFavoriteCount, setCurrentFavoriteCount ] = useState(
 		number_of_bookmarks ? Number( number_of_bookmarks ) + 1 : ''
@@ -45,8 +46,14 @@ const TemplateDetailsHeader = ( props ) => {
 		return purchased && purchased.some(item => itemId in item);
 	};
 
+	const isItemUnlocked = (itemId) => {
+		// Check if any object in unlockedItems contains the itemId as a key
+		return unlocked && unlocked.some(item => itemId in item);
+	};
+
 	useEffect( () => {
 		setIsPurchased(isItemPurchased(template_id));
+		setIsUnlocked(isItemUnlocked(template_id));
 	}, [] );
 
 	return (
@@ -85,7 +92,7 @@ const TemplateDetailsHeader = ( props ) => {
 				</div>
 			</div>
 			<div className="templatiq__details__header__action">
-				{ price > 0 ? (
+				{ price > 0 && !isUnlocked ? (
 					<span className="templatiq__details__header__action__link templatiq-badge templatiq-badge-dark">
 						<ReactSVG
 							src={ crownIcon }
@@ -111,7 +118,7 @@ const TemplateDetailsHeader = ( props ) => {
 				>
 					Live Demo
 				</a>
-				{ price > 0 && !isPurchased ? (
+				{ price > 0 && !(isPurchased || isUnlocked) ? (
 					<a
 						href={`https://templatiq.com/checkout?edd_action=add_to_cart&download_id=${template_id}`} target='_blank'
 						className="templatiq__details__header__action__link purchase-btn templatiq-btn templatiq-btn-primary"
