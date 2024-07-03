@@ -31,7 +31,7 @@ body {
   --st-border-radius-1: 1px;
 }
 
-#starter-templates-ai-root {
+#templatiq-library-ai-root {
   font-size: 16px;
   background: var(--st-background-primary);
   font-family: "Inter", sans-serif;
@@ -53,18 +53,18 @@ html.wp-toolbar {
   padding: 0;
 }
 
-.intelligent-starter-templates-onboarding #adminmenumain,
-.intelligent-starter-templates-onboarding #wpadminbar,
-.intelligent-starter-templates-onboarding #adminmenuback,
-.intelligent-starter-templates-onboarding #adminmenuwrap,
-.intelligent-starter-templates-onboarding #wpfooter {
+.intelligent-templatiq-library-onboarding #adminmenumain,
+.intelligent-templatiq-library-onboarding #wpadminbar,
+.intelligent-templatiq-library-onboarding #adminmenuback,
+.intelligent-templatiq-library-onboarding #adminmenuwrap,
+.intelligent-templatiq-library-onboarding #wpfooter {
   display: none;
 }
-.intelligent-starter-templates-onboarding #wpcontent, .intelligent-starter-templates-onboarding.auto-fold #wpcontent {
+.intelligent-templatiq-library-onboarding #wpcontent, .intelligent-templatiq-library-onboarding.auto-fold #wpcontent {
   margin: 0;
   padding: 0;
 }
-.intelligent-starter-templates-onboarding.appearance_page_starter-templates #wpbody-content {
+.intelligent-templatiq-library-onboarding.appearance_page_templatiq-library #wpbody-content {
   padding: 0;
 }
 
@@ -543,127 +543,127 @@ body.step-import-site-done .step-actions {
   align-content: center;
 }
 
-.starter-templates-ai-steps h1 {
+.templatiq-library-ai-steps h1 {
   font-size: var(--st-font-size-xxl);
   font-weight: var(--st-font-weight-extra-bold);
   margin: 0;
   color: var(--st-color-heading);
   line-height: var(--st-font-line-height-xl);
 }
-.starter-templates-ai-steps h2 {
+.templatiq-library-ai-steps h2 {
   font-size: var(--st-font-size-xl);
   font-weight: var(--st-font-weight-bold);
   margin: 0;
   color: var(--st-color-heading);
   line-height: var(--st-font-line-height-l);
 }
-.starter-templates-ai-steps h3 {
+.templatiq-library-ai-steps h3 {
   font-size: var(--st-font-size-l);
   font-weight: var(--st-font-weight-bold);
   margin: 0;
   color: var(--st-color-heading);
   line-height: var(--st-font-line-height-m);
 }
-.starter-templates-ai-steps h4 {
+.templatiq-library-ai-steps h4 {
   font-size: var(--st-font-size-m);
   font-weight: var(--st-font-weight-bold);
   margin: 0;
   color: var(--st-color-heading);
   line-height: var(--st-font-line-height-m);
 }
-.starter-templates-ai-steps h5 {
+.templatiq-library-ai-steps h5 {
   font-size: var(--st-font-size-s);
   font-weight: var(--st-font-weight-bold);
   margin: 0;
   color: var(--st-color-heading);
   line-height: var(--st-font-line-height-s);
 }
-.starter-templates-ai-steps h6 {
+.templatiq-library-ai-steps h6 {
   font-size: var(--st-font-size-xs);
   font-weight: var(--st-font-weight-bold);
   margin: 0;
   color: var(--st-color-heading);
   line-height: var(--st-font-line-height-xs);
 }
-.starter-templates-ai-steps p {
+.templatiq-library-ai-steps p {
   font-size: var(--st-font-size-xs);
   color: var(--st-color-body);
   margin: 0;
   font-weight: var(--st-font-weight-normal);
   line-height: var(--st-font-line-height-xs);
 }
-.starter-templates-ai-steps p.p-bold {
+.templatiq-library-ai-steps p.p-bold {
   font-weight: var(--st-font-weight-bold);
 }
-.starter-templates-ai-steps .button-text {
+.templatiq-library-ai-steps .button-text {
   font-size: var(--st-font-size-xs);
   font-weight: var(--st-font-weight-bold);
   color: var(--st-color-accent);
   line-height: var(--st-font-line-height-xs);
 }
-.starter-templates-ai-steps .placeholder {
+.templatiq-library-ai-steps .placeholder {
   font-size: var(--st-font-size-xs);
   font-weight: var(--st-font-weight-normal);
   color: var(--st-color-placeholder);
   line-height: var(--st-font-line-height-xs);
 }
-.starter-templates-ai-steps .label-text {
+.templatiq-library-ai-steps .label-text {
   font-size: var(--st-font-size-s);
   font-weight: var(--st-font-weight-bold);
   color: var(--st-color-heading);
   line-height: var(--st-font-line-height-s);
 }
-.starter-templates-ai-steps .label-text.label-bold {
+.templatiq-library-ai-steps .label-text.label-bold {
   font-weight: var(--st-font-weight-extra-bold);
 }
-.starter-templates-ai-steps .screen-description {
+.templatiq-library-ai-steps .screen-description {
   margin: 20px auto 40px;
   max-width: 700px;
 }
-.starter-templates-ai-steps .ist-customizer-heading {
+.templatiq-library-ai-steps .ist-customizer-heading {
   margin-bottom: 10px;
 }
-.starter-templates-ai-steps .ist-secondary-heading {
+.templatiq-library-ai-steps .ist-secondary-heading {
   margin: 25px 0 17px 0;
 }
-.starter-templates-ai-steps .ist-fonts-description,
-.starter-templates-ai-steps .ist-colors-description {
+.templatiq-library-ai-steps .ist-fonts-description,
+.templatiq-library-ai-steps .ist-colors-description {
   margin: 2em 0 0 0;
 }
-.starter-templates-ai-steps .ist-footer-note {
+.templatiq-library-ai-steps .ist-footer-note {
   font-size: 12px;
 }
-.starter-templates-ai-steps .customizer-header {
+.templatiq-library-ai-steps .customizer-header {
   background: var(--st-background-secondary);
   border-bottom: 1px solid var(--st-border-color);
 }
-.starter-templates-ai-steps .customizer-header .header-name {
+.templatiq-library-ai-steps .customizer-header .header-name {
   padding: 6% 9%;
   width: 100%;
 }
-.starter-templates-ai-steps .toggle-sidebar-wrap {
+.templatiq-library-ai-steps .toggle-sidebar-wrap {
   display: none;
 }
-.starter-templates-ai-steps .step-customizer .step-content {
+.templatiq-library-ai-steps .step-customizer .step-content {
   background-color: var(--st-background-secondary);
 }
-.starter-templates-ai-steps .step-customizer .hide-sidebar .step-col-left {
+.templatiq-library-ai-steps .step-customizer .hide-sidebar .step-col-left {
   transform: translateX(-100%);
 }
-.starter-templates-ai-steps .step-customizer .hide-sidebar .step-col-right {
+.templatiq-library-ai-steps .step-customizer .hide-sidebar .step-col-right {
   margin-left: 0%;
   transition: margin-left 350ms linear;
 }
-.starter-templates-ai-steps .step-customizer .hide-sidebar .toggle-sidebar-wrap {
+.templatiq-library-ai-steps .step-customizer .hide-sidebar .toggle-sidebar-wrap {
   background: var(--st-color-accent);
 }
-.starter-templates-ai-steps .step-customizer .hide-sidebar .toggle-sidebar-wrap svg path {
+.templatiq-library-ai-steps .step-customizer .hide-sidebar .toggle-sidebar-wrap svg path {
   fill: var(--st-color-white);
 }
-.starter-templates-ai-steps .step-customizer .screen-description {
+.templatiq-library-ai-steps .step-customizer .screen-description {
   margin: 0;
 }
-.starter-templates-ai-steps .step-customizer .toggle-sidebar-wrap {
+.templatiq-library-ai-steps .step-customizer .toggle-sidebar-wrap {
   width: 18px;
   background: #F4F5F6;
   box-shadow: 1px 0px 3px rgba(0, 0, 0, 0.1), 1px 0px 2px rgba(0, 0, 0, 0.06);
@@ -678,28 +678,28 @@ body.step-import-site-done .step-actions {
   transform: translateY(-50%);
   cursor: pointer;
 }
-.starter-templates-ai-steps .step-customizer .toggle-sidebar-wrap svg {
+.templatiq-library-ai-steps .step-customizer .toggle-sidebar-wrap svg {
   height: 15px;
   width: 15px;
 }
-.starter-templates-ai-steps .step-customizer .toggle-sidebar-wrap svg path {
+.templatiq-library-ai-steps .step-customizer .toggle-sidebar-wrap svg path {
   fill: var(--st-color-placeholder);
 }
-.starter-templates-ai-steps .step-customizer .toggle-sidebar-wrap:hover {
+.templatiq-library-ai-steps .step-customizer .toggle-sidebar-wrap:hover {
   background: var(--st-color-accent);
 }
-.starter-templates-ai-steps .step-customizer .toggle-sidebar-wrap:hover svg path {
+.templatiq-library-ai-steps .step-customizer .toggle-sidebar-wrap:hover svg path {
   fill: var(--st-color-white);
 }
-.starter-templates-ai-steps .step-customizer .logo-skip-info {
+.templatiq-library-ai-steps .step-customizer .logo-skip-info {
   padding: 20px;
   background: var(--st-color-light-gray);
   border-radius: 4px;
 }
-.starter-templates-ai-steps .step-customizer .logo-skip-info p {
+.templatiq-library-ai-steps .step-customizer .logo-skip-info p {
   margin-top: 5px;
 }
-.starter-templates-ai-steps .step-customizer .premium-notice {
+.templatiq-library-ai-steps .step-customizer .premium-notice {
   border: 1px solid rgba(220, 50, 50, 0.568627451);
   background: rgba(220, 50, 50, 0.031372549);
   border-radius: var(--st-border-radius-2);
@@ -708,38 +708,38 @@ body.step-import-site-done .step-actions {
   font-size: var(--st-font-size-xs);
   margin-bottom: 10px;
 }
-.starter-templates-ai-steps .step-customizer .step-content.customize-typography-colors .step-controls {
+.templatiq-library-ai-steps .step-customizer .step-content.customize-typography-colors .step-controls {
   padding: 0;
 }
-.starter-templates-ai-steps .step-customizer .step-content.customize-typography-colors .colors-section,
-.starter-templates-ai-steps .step-customizer .step-content.customize-typography-colors .typography-section {
+.templatiq-library-ai-steps .step-customizer .step-content.customize-typography-colors .colors-section,
+.templatiq-library-ai-steps .step-customizer .step-content.customize-typography-colors .typography-section {
   padding: 8%;
 }
-.starter-templates-ai-steps .step-customizer .step-content.customize-typography-colors .colors-section {
+.templatiq-library-ai-steps .step-customizer .step-content.customize-typography-colors .colors-section {
   border-bottom: 1px solid var(--st-border-color);
 }
-.starter-templates-ai-steps .step-customizer .customize-reset-btn {
+.templatiq-library-ai-steps .step-customizer .customize-reset-btn {
   cursor: pointer;
 }
-.starter-templates-ai-steps .step-customizer .customize-reset-btn.disabled {
+.templatiq-library-ai-steps .step-customizer .customize-reset-btn.disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
-.starter-templates-ai-steps .step-customizer .customize-reset-btn.active svg path {
+.templatiq-library-ai-steps .step-customizer .customize-reset-btn.active svg path {
   fill: var(--st-color-accent);
 }
-.step-customizer .starter-templates-ai-steps .step-content {
+.step-customizer .templatiq-library-ai-steps .step-content {
   padding: 0;
   border-radius: 0;
   border-bottom: none;
 }
-.step-customizer .starter-templates-ai-steps .step-content .step-controls {
+.step-customizer .templatiq-library-ai-steps .step-content .step-controls {
   padding: 8%;
 }
-.step-congrats .starter-templates-ai-steps .step-content {
+.step-congrats .templatiq-library-ai-steps .step-content {
   padding: 4%;
 }
-.step-congrats .starter-templates-ai-steps .step-row {
+.step-congrats .templatiq-library-ai-steps .step-row {
   height: calc(100vh - 62px);
 }
 

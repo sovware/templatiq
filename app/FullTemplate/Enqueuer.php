@@ -9,7 +9,7 @@ namespace Templatiq\FullTemplate;
 
 use Templatiq\Abstracts\EnqueuerBase;
 use Templatiq\Repositories\DependencyRepository;
-use Templatiq_Sites_Helper;
+use Templatiq\FullTemplate\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -32,7 +32,7 @@ class Enqueuer extends EnqueuerBase {
 	}
 
 	public function enqueue_scripts( $hook = '' ) {
-		if ( 'appearance_page_starter-templates' !== $hook ) {
+		if ( 'appearance_page_templatiq-library' !== $hook ) {
 			return;
 		}
 
@@ -80,7 +80,7 @@ class Enqueuer extends EnqueuerBase {
 
 		$site_url = add_query_arg(
 			[
-				'preview-nonce' => wp_create_nonce( 'starter-templates-preview' ),
+				'preview-nonce' => wp_create_nonce( 'templatiq-library-preview' ),
 			], site_url( '/' )
 		);
 
@@ -100,9 +100,9 @@ class Enqueuer extends EnqueuerBase {
 			'restNonce'         => wp_create_nonce( 'wp_rest' ),
 			'retryTimeOut'      => 5000, // 10 Seconds.
 			'siteUrl'           => get_site_url(),
-			'searchData'        => TEMPLATIQ_API_ENDPOINT . 'wp-json/starter-templates/v1/ist-data',
+			'searchData'        => TEMPLATIQ_API_ENDPOINT . 'wp-json/templatiq-library/v1/ist-data',
 			'firstImportStatus' => get_option( 'templatiq_full_template_import_complete', false ),
-			'supportLink'       => 'https://wpastra.com/starter-templates-support/?ip=' . Templatiq_Sites_Helper::get_client_ip(),
+			'supportLink'       => 'https://templatiq.com/templatiq-library-support/?ip=' . Helper::get_client_ip(),
 			'analytics'         => get_site_option( 'bsf_analytics_optin', false ),
 			'phpVersion'        => PHP_VERSION,
 			'reportError'       => $this->should_report_error(),
@@ -163,17 +163,17 @@ class Enqueuer extends EnqueuerBase {
 				'ajaxurl'                            => esc_url( admin_url( 'admin-ajax.php' ) ),
 				'siteURL'                            => site_url(),
 				'getProText'                         => __( 'Get Access!', 'templatiq' ),
-				'getProURL'                          => esc_url( 'https://wpastra.com/starter-templates-plans/?utm_source=demo-import-panel&utm_campaign=templatiq-sites&utm_medium=wp-dashboard' ),
+				'getProURL'                          => esc_url( 'https://templatiq.com/templatiq-library-plans/?utm_source=demo-import-panel&utm_campaign=templatiq-sites&utm_medium=wp-dashboard' ),
 				'getUpgradeText'                     => __( 'Upgrade', 'templatiq' ),
-				'getUpgradeURL'                      => esc_url( 'https://wpastra.com/starter-templates-plans/?utm_source=demo-import-panel&utm_campaign=templatiq-sites&utm_medium=wp-dashboard' ),
+				'getUpgradeURL'                      => esc_url( 'https://templatiq.com/templatiq-library-plans/?utm_source=demo-import-panel&utm_campaign=templatiq-sites&utm_medium=wp-dashboard' ),
 				'_ajax_nonce'                        => wp_create_nonce( 'templatiq-sites' ),
 				'requiredPlugins'                    => [],
 				'xmlRequiredFilesMissing'            => __( 'Some of the files required during the import process are missing.<br/><br/>Please try again after some time.', 'templatiq' ),
 				'importFailedMessageDueToDebug'      => __( '<p>WordPress debug mode is currently enabled on your website. This has interrupted the import process..</p><p>Kindly disable debug mode and try importing Starter Template again.</p><p>You can add the following code into the wp-config.php file to disable debug mode.</p><p><code>define(\'WP_DEBUG\', false);</code></p>', 'templatiq' ),
 				/* translators: %s is a documentation link. */
-				'importFailedMessage'                => sprintf( __( '<p>We are facing a temporary issue in importing this template.</p><p>Read <a href="%s" target="_blank">article</a> to resolve the issue and continue importing template.</p>', 'templatiq' ), esc_url( 'https://wpastra.com/docs/fix-starter-template-importing-issues/' ) ),
+				'importFailedMessage'                => sprintf( __( '<p>We are facing a temporary issue in importing this template.</p><p>Read <a href="%s" target="_blank">article</a> to resolve the issue and continue importing template.</p>', 'templatiq' ), esc_url( 'https://templatiq.com/docs/fix-starter-template-importing-issues/' ) ),
 				/* translators: %s is a documentation link. */
-				'importFailedRequiredPluginsMessage' => sprintf( __( '<p>We are facing a temporary issue in installing the required plugins for this template.</p><p>Read&nbsp;<a href="%s" target="_blank">article</a>&nbsp;to resolve the issue and continue importing template.</p>', 'templatiq' ), esc_url( 'https://wpastra.com/docs/plugin-installation-failed-multisite/' ) ),
+				'importFailedRequiredPluginsMessage' => sprintf( __( '<p>We are facing a temporary issue in installing the required plugins for this template.</p><p>Read&nbsp;<a href="%s" target="_blank">article</a>&nbsp;to resolve the issue and continue importing template.</p>', 'templatiq' ), esc_url( 'https://templatiq.com/docs/plugin-installation-failed-multisite/' ) ),
 
 				'strings'                            => [
 					/* translators: %s are white label strings. */
@@ -213,17 +213,17 @@ class Enqueuer extends EnqueuerBase {
 				/* translators: %s HTML tags */
 				'ajax_request_failed_primary'        => sprintf( __( '%1$sWe could not start the import process due to failed AJAX request and this is the message from WordPress:%2$s', 'templatiq' ), '<p>', '</p>' ),
 				/* translators: %s URL to document. */
-				'ajax_request_failed_secondary'      => sprintf( __( '%1$sRead&nbsp;<a href="%2$s" target="_blank">article</a>&nbsp;to resolve the issue and continue importing template.%3$s', 'templatiq' ), '<p>', esc_url( 'https://wpastra.com/docs/internal-server-error-starter-templates/' ), '</p>' ),
+				'ajax_request_failed_secondary'      => sprintf( __( '%1$sRead&nbsp;<a href="%2$s" target="_blank">article</a>&nbsp;to resolve the issue and continue importing template.%3$s', 'templatiq' ), '<p>', esc_url( 'https://templatiq.com/docs/internal-server-error-templatiq-library/' ), '</p>' ),
 
 				/* translators: %s URL to document. */
 				'process_failed_primary'             => sprintf( __( '%1$sWe could not complete the import process due to failed AJAX request and this is the message:%2$s', 'templatiq' ), '<p>', '</p>' ),
 				/* translators: %s URL to document. */
-				'process_failed_secondary'           => sprintf( __( '%1$sPlease report this <a href="%2$s" target="_blank">here</a>.%3$s', 'templatiq' ), '<p>', esc_url( 'https://wpastra.com/starter-templates-support/?url=#DEMO_URL#&subject=#SUBJECT#' ), '</p>' ),
-				'st_page_url'                        => admin_url( 'themes.php?page=starter-templates' ),
+				'process_failed_secondary'           => sprintf( __( '%1$sPlease report this <a href="%2$s" target="_blank">here</a>.%3$s', 'templatiq' ), '<p>', esc_url( 'https://templatiq.com/templatiq-library-support/?url=#DEMO_URL#&subject=#SUBJECT#' ), '</p>' ),
+				'st_page_url'                        => admin_url( 'themes.php?page=templatiq-library' ),
 				'staging_connected'                  => apply_filters( 'templatiq_sites_staging_connected', '' ),
 				'isRTLEnabled'                       => is_rtl(),
 				/* translators: %s Anchor link to support URL. */
-				'support_text'                       => sprintf( __( 'Please report this error %1$shere%2$s, so we can fix it.', 'templatiq' ), '<a href="https://wpastra.com/support/open-a-ticket/" target="_blank">', '</a>' ),
+				'support_text'                       => sprintf( __( 'Please report this error %1$shere%2$s, so we can fix it.', 'templatiq' ), '<a href="https://templatiq.com/support/open-a-ticket/" target="_blank">', '</a>' ),
 			]
 		);
 
@@ -235,17 +235,17 @@ class Enqueuer extends EnqueuerBase {
 			'xmlreader'            => [
 				'title'   => esc_html__( 'XMLReader Support Missing', 'templatiq' ),
 				/* translators: %s doc link. */
-				'tooltip' => '<p>' . esc_html__( 'You\'re close to importing the template. To complete the process, enable XMLReader support on your website..', 'templatiq' ) . '</p><p>' . sprintf( __( 'Read an article <a href="%s" target="_blank">here</a> to resolve the issue.', 'templatiq' ), 'https://wpastra.com/docs/xmlreader-missing/' ) . '</p>',
+				'tooltip' => '<p>' . esc_html__( 'You\'re close to importing the template. To complete the process, enable XMLReader support on your website..', 'templatiq' ) . '</p><p>' . sprintf( __( 'Read an article <a href="%s" target="_blank">here</a> to resolve the issue.', 'templatiq' ), 'https://templatiq.com/docs/xmlreader-missing/' ) . '</p>',
 			],
 			'curl'                 => [
 				'title'   => esc_html__( 'cURL Support Missing', 'templatiq' ),
 				/* translators: %s doc link. */
-				'tooltip' => '<p>' . esc_html__( 'To run a smooth import, kindly enable cURL support on your website.', 'templatiq' ) . '</p><p>' . sprintf( __( 'Read an article <a href="%s" target="_blank">here</a> to resolve the issue.', 'templatiq' ), 'https://wpastra.com/docs/curl-support-missing/' ) . '</p>',
+				'tooltip' => '<p>' . esc_html__( 'To run a smooth import, kindly enable cURL support on your website.', 'templatiq' ) . '</p><p>' . sprintf( __( 'Read an article <a href="%s" target="_blank">here</a> to resolve the issue.', 'templatiq' ), 'https://templatiq.com/docs/curl-support-missing/' ) . '</p>',
 			],
 			'wp-debug'             => [
 				'title'   => esc_html__( 'Disable Debug Mode', 'templatiq' ),
 				/* translators: %s doc link. */
-				'tooltip' => '<p>' . esc_html__( 'WordPress debug mode is currently enabled on your website. With this, any errors from third-party plugins might affect the import process.', 'templatiq' ) . '</p><p>' . esc_html__( 'Kindly disable it to continue importing the Starter Template. To do so, you can add the following code into the wp-config.php file.', 'templatiq' ) . '</p><p><code>define(\'WP_DEBUG\', false);</code></p><p>' . sprintf( __( 'Read an article <a href="%s" target="_blank">here</a> to resolve the issue.', 'templatiq' ), 'https://wpastra.com/docs/disable-debug-mode/' ) . '</p>',
+				'tooltip' => '<p>' . esc_html__( 'WordPress debug mode is currently enabled on your website. With this, any errors from third-party plugins might affect the import process.', 'templatiq' ) . '</p><p>' . esc_html__( 'Kindly disable it to continue importing the Starter Template. To do so, you can add the following code into the wp-config.php file.', 'templatiq' ) . '</p><p><code>define(\'WP_DEBUG\', false);</code></p><p>' . sprintf( __( 'Read an article <a href="%s" target="_blank">here</a> to resolve the issue.', 'templatiq' ), 'https://templatiq.com/docs/disable-debug-mode/' ) . '</p>',
 			],
 			'update-available'     => [
 				'title'   => esc_html__( 'Update Plugin', 'templatiq' ),

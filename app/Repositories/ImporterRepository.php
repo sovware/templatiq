@@ -28,6 +28,8 @@ class ImporterRepository {
 			);
 		}
 
+		error_log( '$template_data: ' . print_r( $template_data, true ) );
+
 		if ( isset( $template_data['message'] ) ) {
 			throw new \Exception(
 				$template_data['message'],

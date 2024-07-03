@@ -8,14 +8,12 @@
 namespace Templatiq\FullTemplate;
 
 use Templatiq\Utils\Singleton;
-use Templatiq_Sites_Error_Handler;
-use Templatiq_Sites_Importer_Log;
 
 class Reset {
 	use Singleton;
 
 	public function posts() {
-		Templatiq_Sites_Error_Handler::get_instance()->start_error_handler();
+		ErrorHandler::get_instance()->start_error_handler();
 
 		// Suspend bunches of stuff in WP core.
 		wp_defer_term_counting( true );
@@ -39,7 +37,7 @@ class Reset {
 
 					wp_delete_post( $post_id, true );
 
-					Templatiq_Sites_Importer_Log::add( $message );
+					ImporterLog::add( $message );
 				}
 			}
 		}
@@ -55,11 +53,11 @@ class Reset {
 		wp_defer_term_counting( false );
 		wp_defer_comment_counting( false );
 
-		Templatiq_Sites_Error_Handler::get_instance()->stop_error_handler();
+		ErrorHandler::get_instance()->stop_error_handler();
 	}
 
 	public function terms_and_forms() {
-		Templatiq_Sites_Error_Handler::get_instance()->start_error_handler();
+		ErrorHandler::get_instance()->start_error_handler();
 
 		$terms = templatiq_sites_get_reset_term_data();
 
@@ -73,7 +71,7 @@ class Reset {
 						do_action( 'templatiq_sites_before_delete_imported_terms', $term_id, $term );
 
 						$message = 'Deleted - Term ' . $term_id . ' - ' . $term->name . ' ' . $term->taxonomy;
-						Templatiq_Sites_Importer_Log::add( $message );
+						ImporterLog::add( $message );
 						wp_delete_term( $term_id, $term->taxonomy );
 					}
 				}
@@ -90,17 +88,17 @@ class Reset {
 					do_action( 'templatiq_sites_before_delete_imported_wp_forms', $post_id );
 
 					$message = 'Deleted - Form ID ' . $post_id . ' - ' . get_post_type( $post_id ) . ' - ' . get_the_title( $post_id );
-					Templatiq_Sites_Importer_Log::add( $message );
+					ImporterLog::add( $message );
 					wp_delete_post( $post_id, true );
 				}
 			}
 		}
 
-		Templatiq_Sites_Error_Handler::get_instance()->stop_error_handler();
+		ErrorHandler::get_instance()->stop_error_handler();
 	}
 
 	public function get_data() {
-		Templatiq_Sites_Error_Handler::get_instance()->start_error_handler();
+		ErrorHandler::get_instance()->start_error_handler();
 
 		$data = [
 			'reset_posts'    => templatiq_sites_get_reset_post_data(),
@@ -108,7 +106,7 @@ class Reset {
 			'reset_terms'    => templatiq_sites_get_reset_term_data(),
 		];
 
-		Templatiq_Sites_Error_Handler::get_instance()->stop_error_handler();
+		ErrorHandler::get_instance()->stop_error_handler();
 
 		return $data;
 	}

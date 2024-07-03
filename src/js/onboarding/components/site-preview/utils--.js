@@ -1,5 +1,5 @@
 export default function sendPostMessage( data ) {
-	const frame = document.getElementById( 'astra-starter-templates-preview' );
+	const frame = document.getElementById( 'astra-templatiq-library-preview' );
 
 	frame.contentWindow.postMessage(
 		{

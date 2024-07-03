@@ -32,7 +32,7 @@ const insertFullTemplateModal = ( { item, onClose } ) => {
 			setThemeInstalling(false);
 			if ( res.success ) {
 				closeInsertTemplateModal(e);
-				window.location.href = `?page=starter-templates&template_id=${template_id}`;
+				window.location.href = `?page=templatiq-library&template_id=${template_id}`;
 			} else {
 				console.error( 'Installation failed' );
 			}
@@ -40,7 +40,7 @@ const insertFullTemplateModal = ( { item, onClose } ) => {
 	};
 
 	const redirectImportPage = (e) => {
-		window.location.href = `?page=starter-templates&template_id=${template_id}&ci=1`;
+		window.location.href = `?page=templatiq-library&template_id=${template_id}&ci=1`;
 		closeInsertTemplateModal(e);
 	}
 

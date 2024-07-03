@@ -1,4 +1,4 @@
-// import { PremiumBadge } from '@brainstormforce/starter-templates-components';
+// import { PremiumBadge } from '@brainstormforce/templatiq-library-components';
 import { useStateValue } from '../../store/store';
 import { sendPostMessage } from '../../utils/functions';
 import './style.scss';

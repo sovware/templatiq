@@ -1,7 +1,7 @@
 // Import Variables CSS styles
 @import "./variables.scss";
 
-#starter-templates-ai-root {
+#templatiq-library-ai-root {
   font-size: 16px;
   background: var(--st-background-primary);
   font-family: "Inter", sans-serif;
@@ -24,7 +24,7 @@ html.wp-toolbar {
   padding: 0;
 }
 
-.intelligent-starter-templates-onboarding {
+.intelligent-templatiq-library-onboarding {
   #adminmenumain,
   #wpadminbar,
   #adminmenuback,
@@ -39,7 +39,7 @@ html.wp-toolbar {
     padding: 0;
   }
 
-  &.appearance_page_starter-templates #wpbody-content {
+  &.appearance_page_templatiq-library #wpbody-content {
     padding: 0;
   }
 }
@@ -546,7 +546,7 @@ body.step-import-site-done {
 }
 
 //Common Css.
-.starter-templates-ai-steps {
+.templatiq-library-ai-steps {
   h1 {
     font-size: var(--st-font-size-xxl);
     font-weight: var(--st-font-weight-extra-bold);

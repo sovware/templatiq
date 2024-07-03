@@ -38,7 +38,7 @@ const SitePreview = () => {
 			{ loading ? <SiteSkeleton /> : null }
 			{ previewUrl !== '' && (
 				<iframe
-					id="astra-starter-templates-preview"
+					id="astra-templatiq-library-preview"
 					title="Website Preview"
 					height="100%"
 					width="100%"

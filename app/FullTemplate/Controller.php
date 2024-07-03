@@ -10,7 +10,7 @@ namespace Templatiq\FullTemplate;
 use Templatiq\Abstracts\ControllerBase;
 use Templatiq\Repositories\FileSystemRepository;
 use Templatiq\Repositories\RemoteRepository;
-use Templatiq_Sites_Error_Handler;
+use Templatiq\FullTemplate\ErrorHandler;
 
 class Controller extends ControllerBase {
 
@@ -60,7 +60,7 @@ class Controller extends ControllerBase {
 	}
 
 	public function report_error() {
-		$api_url = add_query_arg( [], trailingslashit( TEMPLATIQ_API_ENDPOINT ) . 'wp-json/starter-templates/v2/import-error/' );
+		$api_url = add_query_arg( [], trailingslashit( TEMPLATIQ_API_ENDPOINT ) . 'wp-json/templatiq-library/v2/import-error/' );
 
 		if ( ! templatiq_sites_is_valid_url( $api_url ) ) {
 			wp_send_json_error(
@@ -93,7 +93,7 @@ class Controller extends ControllerBase {
 				'err'        => stripslashes( $_POST['error'] ),
 				'id'         => $_POST['id'],
 				'logfile'    => $Repository->get_log_file_path(),
-				'version'    => TEMPLATIQ_SITES_VER,
+				'version'    => TEMPLATIQ_VERSION,
 				'abspath'    => ABSPATH,
 				'user_agent' => $user_agent_string,
 				'server'     => [
@@ -168,12 +168,12 @@ class Controller extends ControllerBase {
 			}
 		}
 
-		Templatiq_Sites_Error_Handler::get_instance()->start_error_handler();
+		ErrorHandler::get_instance()->start_error_handler();
 
 		$plugin_init = ( isset( $_POST['init'] ) ) ? esc_attr( sanitize_text_field( $_POST['init'] ) ) : $init;
 		$activate    = activate_plugin( $plugin_init, '', false, false );
 
-		Templatiq_Sites_Error_Handler::get_instance()->stop_error_handler();
+		ErrorHandler::get_instance()->stop_error_handler();
 
 		if ( is_wp_error( $activate ) ) {
 			if ( wp_doing_ajax() ) {

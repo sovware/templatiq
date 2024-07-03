@@ -14,10 +14,24 @@ class Compatibility {
 
 	public function __construct() {
 		add_action( 'templatiq_sites_after_plugin_activation', [$this, 'after_activation'] );
+
 		add_filter( 'wxr_importer.pre_process.post', [$this, 'pre_process_post'], 10 );
 		add_filter( 'wxr_importer.pre_process.post_meta', [$this, 'set_directory_type'], 10, 2 );
 		add_action( 'wxr_importer.processed.term', [$this, 'set_directory_type_term'], 10, 2 );
 		add_action( 'templatiq_full_template_import_complete', [$this, 'change_term_meta'] );
+
+		add_filter( 'atbdp_create_required_pages', function () {
+			return false;
+		} );
+
+		$redirect = get_transient( '_directorist_setup_page_redirect' );
+		if ( ! empty( $redirect ) && '' !== $redirect ) {
+			delete_transient( '_directorist_setup_page_redirect' );
+		}
+
+		add_filter( 'atbdp_import_default_directory', function () {
+			return false;
+		} );
 	}
 
 	public function change_term_meta() {

@@ -6,7 +6,7 @@ const App = () => {
 	return (
 		<Router>
 			<div
-				className={ `starter-templates-ai-steps ${
+				className={ `templatiq-library-ai-steps ${
 					!! templatiqSitesVars.isRTLEnabled ? 'st-rtl' : ''
 				}` }
 			>
