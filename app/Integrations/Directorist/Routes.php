@@ -13,7 +13,6 @@ class Routes extends RouteBase {
 	private $endpoint = 'directorist';
 
 	public function register_routes(): void {
-		$this->post( $this->endpoint . '/erase-existing-data', [Controller::class, 'erase_existing_data'] );
 		// $this->post( $this->endpoint . '/add-custom-page', [Controller::class, 'add_custom_page'] );
 	}
 }

@@ -15,23 +15,6 @@ use WP_REST_Request;
 
 class Controller extends ControllerBase {
 
-	public function erase_existing_data() {
-		$directorist = ( new Repository() );
-
-		try {
-			$directorist->erase_existing_data();
-
-			return Response::success( true );
-		} catch ( \Throwable $th ) {
-			return Response::error(
-				'bookmark_add_errors',
-				$th->getMessage(),
-				__FUNCTION__,
-				$th->getCode()
-			);
-		}
-	}
-
 	public function add_custom_page( WP_REST_Request $request ) {
 		$plugins = (array) $request->get_param( 'types' );
 
