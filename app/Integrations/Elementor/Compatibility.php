@@ -31,7 +31,6 @@ class Compatibility {
 		add_action( 'templatiq_sites_before_delete_imported_posts', [$this, 'force_delete_kit'], 10, 2 );
 		add_action( 'templatiq_sites_before_sse_import', [$this, 'disable_attachment_metadata'] );
 
-		add_action( 'init', [$this, 'pre'] );
 		add_action( 'templatiq_sites_after_plugin_activation', [$this, 'disable_elementor_redirect'] );
 	}
 
@@ -45,16 +44,6 @@ class Compatibility {
 
 		if ( ! empty( $elementor_redirect ) && '' !== $elementor_redirect ) {
 			delete_transient( 'elementor_activation_redirect' );
-		}
-	}
-
-	/**
-	 * Remove the transient update check for plugins callback from Elementor.
-	 * This reduces the extra code execution for Elementor.
-	 */
-	public function pre() {
-		if ( templatiq_sites_has_import_started() && null !== \Elementor\Plugin::$instance->admin ) {
-			remove_filter( 'pre_set_site_transient_update_plugins', [\Elementor\Plugin::$instance->admin->get_component( 'canary-deployment' ), 'check_version'] );
 		}
 	}
 
