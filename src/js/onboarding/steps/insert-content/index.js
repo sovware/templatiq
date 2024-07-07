@@ -250,7 +250,7 @@ const InsertContent = () => {
 						<div className="fullsite-setup-wizard__back">
 							<a
 								href='#' 
-								class="fullsite-setup-wizard__back__btn"
+								className="fullsite-setup-wizard__back__btn"
 								onClick={ prevStep }	
 							>
 								<img src={arrowIcon} alt="" />

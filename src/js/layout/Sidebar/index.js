@@ -264,7 +264,7 @@ const Sidebar = () => {
 									<div className="templatiq__sidebar__categories__wrapper">
 										{ Object.keys( categories ).map(
 											( categoryKey ) => (
-												<div className="templatiq__sidebar__filter__single templatiq__checkbox">
+												<div key={categoryKey} className="templatiq__sidebar__filter__single templatiq__checkbox">
 													<input
 														type="checkbox"
 														id={ categoryKey }

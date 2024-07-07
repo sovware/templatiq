@@ -314,8 +314,8 @@ export default function AllTemplates( props ) {
 					) }
 					<TabPanel className="templatiq-row templatiq__content__tab-panel">
 						{ templatesToDisplay &&
-							templatesToDisplay.map( ( template ) => (
-								<div className="templatiq-col-6">
+							templatesToDisplay.map( ( template, index ) => (
+								<div className="templatiq-col-6" key={index}>
 									<Suspense
 										fallback={
 											<ContentLoading
@@ -363,8 +363,8 @@ export default function AllTemplates( props ) {
 					</TabPanel>
 					<TabPanel className="templatiq-row templatiq__content__tab-panel">
 						{ templatesToDisplay &&
-							templatesToDisplay.map( ( template ) => (
-								<div className="templatiq-col-6">
+							templatesToDisplay.map( ( template, index ) => (
+								<div className="templatiq-col-6" key={index}>
 									<Suspense
 										fallback={
 											<ContentLoading
@@ -411,8 +411,8 @@ export default function AllTemplates( props ) {
 					</TabPanel>
 					<TabPanel className="templatiq-row templatiq__content__tab-panel">
 						{ templatesToDisplay &&
-							templatesToDisplay.map( ( template ) => (
-								<div className="templatiq-col-6">
+							templatesToDisplay.map( ( template, index ) => (
+								<div className="templatiq-col-6" key={index}>
 									<Suspense
 										fallback={
 											<ContentLoading

@@ -119,7 +119,7 @@ export default function SignUpContent() {
 						Successfully Registered. Check Your Email to Complete
 						Registration.{ ' ' }
 					</p>
-					<div class="templatiq__auth__btn_wrapper">
+					<div className="templatiq__auth__btn_wrapper">
 						<Link
 							to="/"
 							className="templatiq__auth__btn templatiq-btn templatiq-btn-primary"
