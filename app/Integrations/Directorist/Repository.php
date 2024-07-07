@@ -28,37 +28,6 @@ class Repository {
 		return ( new DependencyRepository )->is_active( 'directorist/directorist-base.php' );
 	}
 
-	public function token(): string {
-		return 'directorist token from user meta';
-	}
-
-	public function sync_membership_with_cloud() {
-		$http     = new Http( $this->cloud_endpoint . '/account/directorist-sync' );
-		$response = $http->body(
-			[
-				'token' => $this->token(),
-			] )
-			->post()
-		// ->log()
-			->response();
-
-		if ( is_wp_error( $response ) ) {
-			return Response::error( 'invalid_data', $response->get_error_message(), 'sync_cloud', 404 );
-		}
-
-		if ( isset( $response['status'] ) && 'error' === $response['status'] ) {
-			return Response::error( 'invalid_data', $response['message'], 'get_content', 404 );
-		}
-
-		if ( ! empty( $response['body'] ) && is_string( $response['body'] ) ) {
-			$data = json_decode( $response['body'], true );
-		} else {
-			$data = isset( $response['body'] ) ? (array) $response['body'] : [];
-		}
-
-		return $data;
-	}
-
 	public function get_directory_types(): array {
 		$listing_types = get_terms( [
 			'taxonomy'   => 'atbdp_listing_types',
@@ -116,15 +85,21 @@ class Repository {
 		wp_delete_post( get_directorist_option( 'terms_conditions' ), true );
 
 		// Delete posts + data.
-		$wpdb->query( "DELETE FROM {$wpdb->posts} WHERE post_type IN ( 'at_biz_dir', 'atbdp_fields', 'atbdp_orders', 'atbdp_listing_review' );" );
+		$wpdb->query( "DELETE FROM {$wpdb->posts} WHERE post_type IN ( 'at_biz_dir', 'atbdp_fields', 'atbdp_orders', 'atbdp_listing_review' );" );  // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery  // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		//Delete all postmeta
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
 		$wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE post_id Not IN  (SELECT id FROM {$wpdb->posts})" );
 
 		//Delete term relationships
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
 		$wpdb->query( "DELETE FROM {$wpdb->term_relationships} WHERE object_id Not IN  (SELECT id FROM {$wpdb->posts})" );
 
 		//Delete all taxonomy
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
 		$wpdb->query( "DELETE FROM {$wpdb->term_taxonomy} WHERE taxonomy = 'at_biz_dir-location'" );
 		$wpdb->query( "DELETE FROM {$wpdb->term_taxonomy} WHERE taxonomy = 'at_biz_dir-category'" );
 		$wpdb->query( "DELETE FROM {$wpdb->term_taxonomy} WHERE taxonomy = 'at_biz_dir-tags'" );

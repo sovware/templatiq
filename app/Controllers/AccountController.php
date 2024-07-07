@@ -149,11 +149,4 @@ class AccountController extends ControllerBase {
 			);
 		}
 	}
-
-	public function directorist_membership_sync() {
-		// $directorist = new DirectoristRepository;
-		// $response    = $directorist->sync_membership_with_cloud();
-
-		// return $response;
-	}
 }

@@ -25,14 +25,14 @@ class TemplateRepository {
 
 		if ( is_wp_error( $response ) ) {
 			throw new \Exception(
-				$response->get_error_message(),
+				esc_html( $response->get_error_message() ),
 				404
 			);
 		}
 
 		if ( isset( $response['status'] ) && 'error' === $response['status'] ) {
 			throw new \Exception(
-				$response['message'],
+				esc_html( $response['message'] ),
 				404
 			);
 		}

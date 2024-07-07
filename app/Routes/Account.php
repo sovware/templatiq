@@ -18,7 +18,5 @@ class Account extends RouteBase {
 		$this->post( $this->endpoint . '/logout', [AccountController::class, 'logout'] );
 		$this->post( $this->endpoint . '/create', [AccountController::class, 'create'] );
 		$this->get( $this->endpoint . '/data', [AccountController::class, 'data'] );
-
-		$this->post( $this->endpoint . '/directorist-sync', [AccountController::class, 'directorist_membership_sync'] );
 	}
 }

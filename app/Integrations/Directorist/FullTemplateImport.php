@@ -27,12 +27,7 @@ class FullTemplateImport {
 		}
 
 		// Location update
-		$locs = get_terms( [
-			'taxonomy'   => 'at_biz_dir-location',
-			'meta_key'   => 'image',
-			'hide_empty' => false,
-			'fields'     => 'ids',
-		] );
+		$locs = get_terms( ['taxonomy' => 'at_biz_dir-location', 'meta_key' => 'image', 'hide_empty' => false, 'fields' => 'ids'] ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 
 		if ( ! empty( $locs ) ) {
 			foreach ( $locs as $loc ) {
@@ -44,12 +39,7 @@ class FullTemplateImport {
 		}
 
 		// Category update
-		$cats = get_terms( [
-			'taxonomy'   => 'at_biz_dir-category',
-			'meta_key'   => 'image',
-			'hide_empty' => false,
-			'fields'     => 'ids',
-		] );
+		$cats = get_terms( ['taxonomy' => 'at_biz_dir-category', 'meta_key' => 'image', 'hide_empty' => false, 'fields' => 'ids'] ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 
 		if ( ! empty( $cats ) ) {
 			foreach ( $cats as $cat ) {

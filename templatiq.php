@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Templatiq
- * Description: The Ultimate Templates on WordPress | Craft beautiful website in no time
+ * Description: The Ultimate Templates | Craft beautiful website in no time
  * Author: wpWax
  * Author URI: https://wpwax.com
  * Version: 1.0.0

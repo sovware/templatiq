@@ -12,7 +12,7 @@ use Templatiq\Utils\Singleton;
 class Reset {
 	use Singleton;
 
-	public function posts() {
+	public function posts( $ids ) {
 		ErrorHandler::get_instance()->start_error_handler();
 
 		// Suspend bunches of stuff in WP core.
@@ -20,7 +20,7 @@ class Reset {
 		wp_defer_comment_counting( true );
 		wp_suspend_cache_invalidation( true );
 
-		$posts = json_decode( stripslashes( sanitize_text_field( $_POST['ids'] ) ), true );
+		$posts = json_decode( stripslashes( sanitize_text_field( $ids ) ), true );
 
 		if ( ! empty( $posts ) ) {
 			foreach ( $posts as $key => $post_id ) {

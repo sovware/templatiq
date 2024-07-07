@@ -30,7 +30,7 @@ class Controller extends ControllerBase {
 				$editor_post_id = absint( $data['editor_post_id'] );
 				if ( ! get_post( $editor_post_id ) ) {
 					throw new \Exception(
-						__( 'Post not found.', 'templatiq' ),
+						esc_html__( 'Post not found.', 'templatiq' ),
 						404
 					);
 				}

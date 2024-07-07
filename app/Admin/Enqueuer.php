@@ -17,10 +17,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Enqueuer extends EnqueuerBase {
 
 	public function __construct() {
-		$this->action( 'admin_enqueue_scripts', [$this, 'admin_enqueue_scripts'] );
+		$this->action( 'enqueue_scripts', [$this, 'enqueue_scripts'] );
 	}
 
-	public function admin_enqueue_scripts( $hook ) {
+	public function enqueue_scripts( $hook ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( ! isset( $_GET['page'] ) || 'templatiq' !== $_GET['page'] ) {
 			return;
 		}

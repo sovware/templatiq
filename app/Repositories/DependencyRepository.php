@@ -18,7 +18,7 @@ class DependencyRepository {
 	private function activate( string $file ) {
 		if ( ! is_plugin_inactive( $file ) ) {
 			throw new \Exception(
-				__( "This plugin already activated", 'templatiq' ),
+				esc_html__( "This plugin already activated", 'templatiq' ),
 				401
 			);
 		}
@@ -27,7 +27,7 @@ class DependencyRepository {
 
 		if ( is_wp_error( $result ) ) {
 			throw new \Exception(
-				__( "Can't install this plugin", 'templatiq' ),
+				esc_html__( "Can't install this plugin", 'templatiq' ),
 				401
 			);
 		}
@@ -87,7 +87,7 @@ class DependencyRepository {
 
 		if ( $plugin->get_is_pro() && ! $is_installed ) {
 			throw new \Exception(
-				__( "Can't install pro plugin, have to install it manually first", 'templatiq' ),
+				esc_html__( "Can't install pro plugin, have to install it manually first", 'templatiq' ),
 				401
 			);
 		}
@@ -105,8 +105,8 @@ class DependencyRepository {
 
 			if ( is_wp_error( $api ) ) {
 				throw new \Exception(
-					$api->get_error_message(),
-					$status_code
+					esc_html( $api->get_error_message() ),
+					esc_html( $status_code )
 				);
 			}
 
@@ -138,8 +138,8 @@ class DependencyRepository {
 
 			if ( ! empty( $errors ) ) {
 				throw new \Exception(
-					$errors['message'],
-					$errors['code']
+					esc_html( $errors['message'] ),
+					esc_html( $errors['code'] )
 				);
 			}
 
@@ -151,8 +151,8 @@ class DependencyRepository {
 
 		if ( is_wp_error( $activate_status ) ) {
 			throw new \Exception(
-				$activate_status->get_error_message(),
-				$activate_status->get_error_code()
+				esc_html( $activate_status->get_error_message() ),
+				esc_html( $activate_status->get_error_code() )
 			);
 		}
 

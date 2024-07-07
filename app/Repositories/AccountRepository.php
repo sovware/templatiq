@@ -30,8 +30,8 @@ class AccountRepository {
 		$status_code = wp_remote_retrieve_response_code( $response );
 		if ( 200 !== $status_code ) {
 			throw new \Exception(
-				$response->get_error_message(),
-				$status_code
+				esc_html( $response->get_error_message() ),
+				esc_html( $status_code )
 			);
 		}
 
@@ -64,8 +64,8 @@ class AccountRepository {
 		$status_code = wp_remote_retrieve_response_code( $response );
 		if ( 200 !== $status_code ) {
 			throw new \Exception(
-				__( 'Email already exists, please try with another email address.', 'templatiq' ),
-				$status_code
+				esc_html__( 'Email already exists, please try with another email address.', 'templatiq' ),
+				esc_html( $status_code )
 			);
 		}
 
@@ -89,8 +89,8 @@ class AccountRepository {
 		$status_code = wp_remote_retrieve_response_code( $response );
 		if ( 200 !== $status_code ) {
 			throw new \Exception(
-				__( "Can't get data from templatiq.com, please re-login", 'templatiq' ),
-				$status_code
+				esc_html__( "Can't get data from templatiq.com, please re-login", 'templatiq' ),
+				esc_html( $status_code )
 			);
 		}
 

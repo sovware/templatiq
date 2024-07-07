@@ -1900,25 +1900,6 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 				'description' => true,
 			);
 
-			// Map the parent comment, or mark it as one we need to fix
-			// TODO: add parent mapping and remapping.
-			// phpcs:disable
-			/*
-			$requires_remapping = false;
-			if ( $parent_id ) {
-				if ( isset( $this->mapping['term'][ $parent_id ] ) ) {
-					$data['parent'] = $this->mapping['term'][ $parent_id ];
-				} else {
-					// Prepare for remapping later
-					$meta[] = array( 'key' => '_wxr_import_parent', 'value' => $parent_id );
-					$requires_remapping = true;
-
-					// Wipe the parent for now
-					$data['parent'] = 0;
-				}
-			}*/
-			// phpcs:enable
-
 			foreach ( $data as $key => $value ) {
 				if ( ! isset( $allowed[ $key ] ) ) {
 					continue;
@@ -2057,7 +2038,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 
 			// request failed.
 			if ( is_wp_error( $response ) ) {
-				unlink( $upload['file'] ); //phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_unlink -- 3rd party library.
+				wp_delete_file( $upload['file'] ); //phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_unlink -- 3rd party library.
 				return $response;
 			}
 
@@ -2065,7 +2046,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 
 			// make sure the fetch was successful.
 			if ( 200 !== $code ) {
-				unlink( $upload['file'] ); //phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_unlink -- 3rd party library.
+				wp_delete_file( $upload['file'] ); //phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_unlink -- 3rd party library.
 				return new WP_Error(
 					'import_file_error',
 					sprintf(
@@ -2082,18 +2063,18 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			$headers  = wp_remote_retrieve_headers( $response );
 
 			if ( isset( $headers['content-length'] ) && $filesize !== (int) $headers['content-length'] ) {
-				unlink( $upload['file'] ); //phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_unlink -- 3rd party library.
+				wp_delete_file( $upload['file'] ); //phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_unlink -- 3rd party library.
 				return new WP_Error( 'import_file_error', __( 'Remote file is incorrect size', 'templatiq' ) );
 			}
 
 			if ( 0 === $filesize ) {
-				unlink( $upload['file'] ); //phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_unlink -- 3rd party library.
+				wp_delete_file( $upload['file'] ); //phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_unlink -- 3rd party library.
 				return new WP_Error( 'import_file_error', __( 'Zero size file downloaded', 'templatiq' ) );
 			}
 
 			$max_size = (int) $this->max_attachment_size();
 			if ( ! empty( $max_size ) && $filesize > $max_size ) {
-				unlink( $upload['file'] ); //phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_unlink -- 3rd party library.
+				wp_delete_file( $upload['file'] ); //phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_unlink -- 3rd party library.
 				/* translators: %s max file size. */
 				$message = sprintf( __( 'Remote file is too large, limit is %s', 'templatiq' ), size_format( $max_size ) );
 				return new WP_Error( 'import_file_error', $message );

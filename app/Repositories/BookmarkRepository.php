@@ -24,7 +24,7 @@ class BookmarkRepository {
 
 		if ( is_wp_error( $response ) ) {
 			throw new \Exception(
-				$response->get_error_message(),
+				esc_html( $response->get_error_message() ),
 				404
 			);
 		}
@@ -50,7 +50,7 @@ class BookmarkRepository {
 
 		if ( is_wp_error( $response ) ) {
 			throw new \Exception(
-				$response->get_error_message(),
+				esc_html( $response->get_error_message() ),
 				404
 			);
 		}

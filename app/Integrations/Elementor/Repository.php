@@ -66,8 +66,8 @@ class Repository extends ElementorLocal {
 
 		if ( is_wp_error( $document ) ) {
 			throw new \Exception(
-				$document->get_error_message(),
-				$document->get_error_code()
+				esc_html( $document->get_error_message() ),
+				esc_html( $document->get_error_code() )
 			);
 		}
 
