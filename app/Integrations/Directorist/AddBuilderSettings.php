@@ -12,63 +12,67 @@ use Templatiq\Utils\Singleton;
 class AddBuilderSettings {
 	use Singleton;
 
-    public function __construct() {
-        add_filter( 'atbdp_listing_type_settings_field_list', [$this, 'listing_form_setting_fields'] );
-        add_filter( 'atbdp_submission_form_settings', [$this, 'listing_form_custom_template'] );
-        add_filter( 'the_content', [$this, 'addListingCustomContent'] );
-    }
+	public function __construct() {
+		add_filter( 'atbdp_listing_type_settings_field_list', [$this, 'listing_form_setting_fields'] );
+		add_filter( 'atbdp_submission_form_settings', [$this, 'listing_form_custom_template'] );
+		add_filter( 'the_content', [$this, 'addListingCustomContent'] );
+	}
 
-    public function addListingCustomContent( $content ) {
-        if ( ! atbdp_is_page( 'add_listing' ) ) {
-            return $content;
-        }
+	public function addListingCustomContent( $content ) {
+		if ( ! atbdp_is_page( 'add_listing' ) ) {
+			return $content;
+		}
 
-        $isMultiDirectory = directorist_is_multi_directory_enabled() && count( get_listing_types() ) > 1;
+		$isMultiDirectory = directorist_is_multi_directory_enabled() && count( get_listing_types() ) > 1;
 
-        if ( $isMultiDirectory ) {
-            if ( ! isset( $_GET['directory_type'] ) ) {
-                return $content;
-            }
+		if ( $isMultiDirectory ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			if ( ! isset( $_GET['directory_type'] ) ) {
+				return $content;
+			}
 
-            if ( is_plugin_active( 'directorist-pricing-plans/directorist-pricing-plans.php' ) ) {
-                if ( ! isset( $_GET['plan'] ) ) {
-                    return $content;
-                }
-            }
+			if ( is_plugin_active( 'directorist-pricing-plans/directorist-pricing-plans.php' ) ) {
+				// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				if ( ! isset( $_GET['plan'] ) ) {
+					return $content;
+				}
+			}
 
-            $term   = get_term_by( 'slug', $_GET['directory_type'], ATBDP_TYPE );
-            $termId = $term ? $term->term_id : null;
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$term   = get_term_by( 'slug', esc_html( $_GET['directory_type'] ), ATBDP_TYPE );
+			$termId = $term ? $term->term_id : null;
 
-        } else {
-            if ( is_plugin_active( 'directorist-pricing-plans/directorist-pricing-plans.php' ) ) {
-                if ( ! isset( $_GET['plan'] ) ) {
-                    return $content;
-                }
-            }
+		} else {
+			if ( is_plugin_active( 'directorist-pricing-plans/directorist-pricing-plans.php' ) ) {
+				// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				if ( ! isset( $_GET['plan'] ) ) {
+					return $content;
+				}
+			}
 
-            $termId = default_directory_type();
-        }
+			$termId = default_directory_type();
+		}
 
-        if ( empty( $termId ) ) {
-            return $content;
-        }
+		if ( empty( $termId ) ) {
+			return $content;
+		}
 
-        $enableTemplate = get_directorist_type_option( $termId, 'enable_add_listing_custom_template' );
-        $pageId         = ! empty( $enableTemplate ) ? get_directorist_type_option( $termId, 'custom_add_listing_template' ) : '';
+		$enableTemplate = get_directorist_type_option( $termId, 'enable_add_listing_custom_template' );
+		$pageId         = ! empty( $enableTemplate ) ? get_directorist_type_option( $termId, 'custom_add_listing_template' ) : '';
 
-          // Bail if custom add listing page is disabled
-        if ( empty( $pageId ) ) {
-            return $content;
-        }
+		// Bail if custom add listing page is disabled
+		if ( empty( $pageId ) ) {
+			return $content;
+		}
 
-          // Bail if selected custom add listing page is not really a page
-        $post = get_post( $pageId );
-        if ( ! $post || 'page' !== $post->post_type ) {
-            return $content;
-        }
+		// Bail if selected custom add listing page is not really a page
+		$post = get_post( $pageId );
+		if ( ! $post || 'page' !== $post->post_type ) {
+			return $content;
+		}
 
-        return get_the_content( null, null, $pageId );
-    }
+		return get_the_content( null, null, $pageId );
+	}
 
 	public function listing_form_setting_fields( $args ) {
 		$args['enable_add_listing_custom_template'] = [

@@ -27,7 +27,6 @@ class ImporterLog {
 	}
 
 	private function __construct() {
-
 		// Check file read/write permissions.
 		if ( current_user_can( 'edit_posts' ) ) {
 			add_action( 'admin_init', [$this, 'has_file_read_write'] );
@@ -35,12 +34,6 @@ class ImporterLog {
 
 	}
 
-	/**
-	 * Check file read/write permissions and process.
-	 *
-	 * @since 1.1.0
-	 * @return null
-	 */
 	public function has_file_read_write() {
 
 		$upload_dir = self::log_dir();
@@ -59,12 +52,6 @@ class ImporterLog {
 		add_action( 'templatiq_sites_import_start', [$this, 'start'], 10, 2 );
 	}
 
-	/**
-	 * File Permission Notice
-	 *
-	 * @since 2.0.0
-	 * @return void
-	 */
 	public function file_permission_notice() {
 		$upload_dir  = self::log_dir();
 		$plugin_name = 'Templatiq';
@@ -84,44 +71,11 @@ class ImporterLog {
 			</div>
 	<?php }
 
-	/**
-	 * Add log file URL in UI response.
-	 *
-	 * @since 1.1.0
-	 */
-	public static function add_log_file_url() {
-
-		$upload_dir   = self::log_dir();
-		$upload_path  = trailingslashit( $upload_dir['url'] );
-		$file_abs_url = get_option( 'templatiq_sites_recent_import_log_file', self::$log_file );
-		$file_url     = $upload_path . basename( $file_abs_url );
-
-		return [
-			'abs_url' => $file_abs_url,
-			'url'     => $file_url,
-		];
-	}
-
-	/**
-	 * Current Time for log.
-	 *
-	 * @since 1.1.0
-	 * @return string Current time with time zone.
-	 */
 	public static function current_time() {
 		return gmdate( 'H:i:s' ) . ' ' . date_default_timezone_get();
 	}
 
-	/**
-	 * Import Start
-	 *
-	 * @since 1.1.0
-	 * @param  array  $data         Import Data.
-	 * @param  string $demo_api_uri Import site API URL.
-	 * @return void
-	 */
 	public function start( $data = [], $demo_api_uri = '' ) {
-
 		self::add( 'Started Import Process' );
 
 		self::add( '# System Details: ' );
@@ -148,25 +102,7 @@ class ImporterLog {
 
 	}
 
-	/**
-	 * Get Log File
-	 *
-	 * @since 1.1.0
-	 * @return string log file URL.
-	 */
-	public static function get_log_file() {
-		return self::$log_file;
-	}
-
-	/**
-	 * Log file directory
-	 *
-	 * @since 1.1.0
-	 * @param  string $dir_name Directory Name.
-	 * @return array    Uploads directory array.
-	 */
 	public static function log_dir( $dir_name = 'templatiq-sites' ) {
-
 		$upload_dir = wp_upload_dir();
 
 		// Build the paths.
@@ -193,13 +129,7 @@ class ImporterLog {
 		return $dir_info;
 	}
 
-	/**
-	 * Set log file
-	 *
-	 * @since 1.1.0
-	 */
 	public static function set_log_file() {
-
 		$upload_dir = self::log_dir();
 
 		$upload_path = trailingslashit( $upload_dir['path'] );
@@ -212,14 +142,7 @@ class ImporterLog {
 		}
 	}
 
-	/**
-	 * Write content to a file.
-	 *
-	 * @since 1.1.0
-	 * @param string $content content to be saved to the file.
-	 */
 	public static function add( $content ) {
-
 		if ( get_option( 'templatiq_sites_recent_import_log_file', false ) ) {
 			$log_file = get_option( 'templatiq_sites_recent_import_log_file', self::$log_file );
 		} else {
@@ -238,12 +161,6 @@ class ImporterLog {
 		$file_system->get_filesystem()->put_contents( $log_file, $existing_data . $separator . $content, FS_CHMOD_FILE );
 	}
 
-	/**
-	 * Debug Mode
-	 *
-	 * @since 1.1.0
-	 * @return string Enabled for Debug mode ON and Disabled for Debug mode Off.
-	 */
 	public static function get_debug_mode() {
 		if ( WP_DEBUG ) {
 			return __( 'Enabled', 'templatiq' );
@@ -252,14 +169,7 @@ class ImporterLog {
 		return __( 'Disabled', 'templatiq' );
 	}
 
-	/**
-	 * Memory Limit
-	 *
-	 * @since 1.1.0
-	 * @return string Memory limit.
-	 */
 	public static function get_memory_limit() {
-
 		$required_memory                = '64M';
 		$memory_limit_in_bytes_current  = wp_convert_hr_to_bytes( WP_MEMORY_LIMIT );
 		$memory_limit_in_bytes_required = wp_convert_hr_to_bytes( $required_memory );
@@ -276,14 +186,6 @@ class ImporterLog {
 		return WP_MEMORY_LIMIT;
 	}
 
-	/**
-	 * Timezone
-	 *
-	 * @since 1.1.0
-	 * @see https://codex.wordpress.org/Option_Reference/
-	 *
-	 * @return string Current timezone.
-	 */
 	public static function get_timezone() {
 		$timezone = get_option( 'timezone_string' );
 
@@ -294,46 +196,21 @@ class ImporterLog {
 		return $timezone;
 	}
 
-	/**
-	 * Operating System
-	 *
-	 * @since 1.1.0
-	 * @return string Current Operating System.
-	 */
 	public static function get_os() {
 		return PHP_OS;
 	}
 
-	/**
-	 * Server Software
-	 *
-	 * @since 1.1.0
-	 * @return string Current Server Software.
-	 */
 	public static function get_software() {
 		return isset( $_SERVER['SERVER_SOFTWARE'] ) ? sanitize_text_field( $_SERVER['SERVER_SOFTWARE'] ) : '';
 	}
 
-	/**
-	 * MySql Version
-	 *
-	 * @since 1.1.0
-	 * @return string Current MySql Version.
-	 */
 	public static function get_mysql_version() {
 		global $wpdb;
 
 		return $wpdb->db_version();
 	}
 
-	/**
-	 * XML Reader
-	 *
-	 * @since 1.2.8
-	 * @return string Current XML Reader status.
-	 */
 	public static function get_xmlreader_status() {
-
 		if ( class_exists( 'XMLReader' ) ) {
 			return __( 'Yes', 'templatiq' );
 		}
@@ -341,12 +218,6 @@ class ImporterLog {
 		return __( 'No', 'templatiq' );
 	}
 
-	/**
-	 * PHP Version
-	 *
-	 * @since 1.1.0
-	 * @return string Current PHP Version.
-	 */
 	public static function get_php_version() {
 		if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 			return _x( 'We recommend to use php 5.4 or higher', 'PHP Version', 'templatiq' );
@@ -355,42 +226,18 @@ class ImporterLog {
 		return PHP_VERSION;
 	}
 
-	/**
-	 * PHP Max Input Vars
-	 *
-	 * @since 1.1.0
-	 * @return string Current PHP Max Input Vars
-	 */
 	public static function get_php_max_input_vars() {
 		return ini_get( 'max_input_vars' ); // phpcs:disable PHPCompatibility.IniDirectives.NewIniDirectives.max_input_varsFound
 	}
 
-	/**
-	 * PHP Max Post Size
-	 *
-	 * @since 1.1.0
-	 * @return string Current PHP Max Post Size
-	 */
 	public static function get_php_max_post_size() {
 		return ini_get( 'post_max_size' );
 	}
 
-	/**
-	 * PHP Max Execution Time
-	 *
-	 * @since 1.1.0
-	 * @return string Current Max Execution Time
-	 */
 	public static function get_max_execution_time() {
 		return ini_get( 'max_execution_time' );
 	}
 
-	/**
-	 * PHP GD Extension
-	 *
-	 * @since 1.1.0
-	 * @return string Current PHP GD Extension
-	 */
 	public static function get_php_extension_gd() {
 		if ( extension_loaded( 'gd' ) ) {
 			return __( 'Yes', 'templatiq' );
@@ -398,105 +245,4 @@ class ImporterLog {
 
 		return __( 'No', 'templatiq' );
 	}
-
-	/**
-	 * Display Data
-	 *
-	 * @since 2.0.0
-	 * @return void
-	 */
-	public function display_data() {
-
-		$crons  = _get_cron_array();
-		$events = [];
-
-		if ( empty( $crons ) ) {
-			esc_html_e( 'You currently have no scheduled cron events.', 'templatiq' );
-		}
-
-		foreach ( $crons as $time => $cron ) {
-			$keys         = array_keys( $cron );
-			$key          = $keys[0];
-			$events[$key] = $time;
-		}
-
-		$expired = get_site_transient( 'templatiq-sites-import-check' );
-		if ( $expired ) {
-			global $wpdb;
-			$transient = 'templatiq-sites-import-check';
-
-			$transient_timeout = $wpdb->get_col(
-				$wpdb->prepare(
-					"SELECT option_value
-								FROM $wpdb->options
-								WHERE option_name
-								LIKE %s",
-					'%_transient_timeout_' . $transient . '%'
-				)
-			); // WPCS: cache ok. // WPCS: db call ok.
-
-			$older_date       = $transient_timeout[0];
-			$transient_status = 'Transient: Not Expired! Recheck in ' . human_time_diff( time(), $older_date );
-		} else {
-			$transient_status = 'Transient: Starting.. Process for each 5 minutes.';
-		}
-		$temp = get_site_option( 'templatiq-sites-batch-status-string', '' );
-		$temp .= isset( $events['wp_templatiq_site_importer_cron'] ) ? '<br/>Batch: Recheck batch in ' . human_time_diff( time(), $events['wp_templatiq_site_importer_cron'] ) : '<br/>Batch: Not Started! Until the Transient expire.';
-
-		$upload_dir   = self::get_instance()->log_dir();
-		$list_files   = list_files( $upload_dir['path'] );
-		$backup_files = [];
-		$log_files    = [];
-		foreach ( $list_files as $key => $file ) {
-			if ( strpos( $file, '.json' ) ) {
-				$backup_files[] = $file;
-			}
-			if ( strpos( $file, '.txt' ) ) {
-				$log_files[] = $file;
-			}
-		}
-		?>
-						<table>
-							<tr>
-								<td>
-									<h2>Log Files</h2>
-									<ul>
-										<?php
-foreach ( $log_files as $key => $file ) {
-			$file_name = basename( $file );
-			$file      = str_replace( $upload_dir['path'], $upload_dir['url'], $file );
-			?>
-											<li>
-												<a target="_blank" href="<?php echo esc_url( $file ); ?>"><?php echo esc_html( $file_name ); ?></a>
-											</li>
-										<?php
-}?>
-									</ul>
-								</td>
-								<td>
-									<h2>Backup Files</h2>
-									<ul>
-										<?php
-foreach ( $backup_files as $key => $file ) {
-			$file_name = basename( $file );
-			$file      = str_replace( $upload_dir['path'], $upload_dir['url'], $file );
-			?>
-											<li>
-												<a target="_blank" href="<?php echo esc_url( $file ); ?>"><?php echo esc_html( $file_name ); ?></a>
-											</li>
-										<?php
-}?>
-									</ul>
-								</td>
-								<td>
-									<div class="batch-log">
-										<p><?php echo wp_kses_post( $temp ); ?></p>
-										<p><?php echo wp_kses_post( $transient_status ); ?></p>
-									</div>
-								</td>
-							</tr>
-						</table>
-						<?php
-}
-
 }

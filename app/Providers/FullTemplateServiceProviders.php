@@ -22,6 +22,7 @@ class FullTemplateServiceProviders extends ProviderBase {
 
 		\Templatiq\FullTemplate\FullTemplate::init();
 		\Templatiq\FullTemplate\Importer::get_instance();
+		\Templatiq\FullTemplate\ImportComplete::get_instance();
 		\Templatiq\FullTemplate\AdminMenu::init();
 		\Templatiq\FullTemplate\Enqueuer::init();
 		\Templatiq\FullTemplate\Ajax::init();

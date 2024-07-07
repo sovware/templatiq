@@ -7,17 +7,12 @@
 
 namespace Templatiq\Providers;
 
-use Templatiq\Abstracts\IntegrationBase;
-use Templatiq\Abstracts\ProviderBase;
-use Templatiq\Integrations\Directorist\Directorist;
-use Templatiq\Integrations\Elementor\Elementor;
-
-class IntegrationServiceProviders extends ProviderBase {
+class IntegrationServiceProviders extends \Templatiq\Abstracts\ProviderBase {
 
 	public function boot() {
 		foreach ( $this->get() as $i ) {
 			$integration = new $i();
-			if ( $integration instanceof IntegrationBase ) {
+			if ( $integration instanceof \Templatiq\Abstracts\IntegrationBase ) {
 				$integration->boot();
 			}
 		}
@@ -25,8 +20,9 @@ class IntegrationServiceProviders extends ProviderBase {
 
 	public function get(): array {
 		return [
-			Directorist::class,
-			Elementor::class,
+			\Templatiq\Integrations\Directorist\Directorist::class,
+			\Templatiq\Integrations\Elementor\Elementor::class,
+			\Templatiq\Integrations\WooCommerce\WooCommerce::class,
 		];
 	}
 }

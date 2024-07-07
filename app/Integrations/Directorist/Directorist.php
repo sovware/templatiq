@@ -28,6 +28,7 @@ class Directorist extends IntegrationBase {
 
 		AddBuilderSettings::init();
 		AddCustomPages::init();
+		FullTemplateImport::init();
 		Localize::init();
 		Routes::init();
 		Ajax::init();

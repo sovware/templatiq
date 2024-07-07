@@ -8,30 +8,9 @@
 namespace Templatiq\FullTemplate;
 
 class ImageImporter {
-
-	/**
-	 * Instance
-	 *
-	 * @since 1.0.14
-	 * @var object Class object.
-	 * @access private
-	 */
 	private static $instance;
-
-	/**
-	 * Images IDs
-	 *
-	 * @var array   The Array of already image IDs.
-	 * @since 1.0.14
-	 */
 	private $already_imported_ids = [];
 
-	/**
-	 * Initiator
-	 *
-	 * @since 1.0.14
-	 * @return object initialized object of class.
-	 */
 	public static function get_instance() {
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self();
@@ -40,13 +19,7 @@ class ImageImporter {
 		return self::$instance;
 	}
 
-	/**
-	 * Constructor
-	 *
-	 * @since 1.0.14
-	 */
 	public function __construct() {
-
 		if ( ! function_exists( 'WP_Filesystem' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/file.php';
 		}
@@ -54,44 +27,11 @@ class ImageImporter {
 		WP_Filesystem();
 	}
 
-	/**
-	 * Process Image Download
-	 *
-	 * @since 1.0.14
-	 * @param  array $attachments Attachment array.
-	 * @return array              Attachment array.
-	 */
-	public function process( $attachments ) {
-
-		$downloaded_images = [];
-
-		foreach ( $attachments as $key => $attachment ) {
-			$downloaded_images[] = $this->import( $attachment );
-		}
-
-		return $downloaded_images;
-	}
-
-	/**
-	 * Get Hash Image.
-	 *
-	 * @since 1.0.14
-	 * @param  string $attachment_url Attachment URL.
-	 * @return string                 Hash string.
-	 */
 	public function get_hash_image( $attachment_url ) {
 		return sha1( $attachment_url );
 	}
 
-	/**
-	 * Get Saved Image.
-	 *
-	 * @since 1.0.14
-	 * @param  string $attachment   Attachment Data.
-	 * @return string                 Hash string.
-	 */
 	private function get_saved_image( $attachment ) {
-
 		if ( apply_filters( 'templatiq_sites_image_importer_skip_image', false, $attachment ) ) {
 			ImporterLog::add( 'BATCH - SKIP Image - {from filter} - ' . $attachment['url'] . ' - Filter name `templatiq_sites_image_importer_skip_image`.' );
 
@@ -154,15 +94,7 @@ class ImageImporter {
 		];
 	}
 
-	/**
-	 * Import Image
-	 *
-	 * @since 1.0.14
-	 * @param  array $attachment Attachment array.
-	 * @return array              Attachment array.
-	 */
 	public function import( $attachment ) {
-
 		if ( isset( $attachment['url'] ) && ! templatiq_sites_is_valid_url( $attachment['url'] ) ) {
 			return $attachment;
 		}
@@ -187,7 +119,6 @@ class ImageImporter {
 
 		// Empty file content?
 		if ( empty( $file_content ) ) {
-
 			ImporterLog::add( 'BATCH - FAIL Image {Error: Failed wp_remote_retrieve_body} - ' . $attachment['url'] );
 
 			return $attachment;
@@ -235,25 +166,4 @@ class ImageImporter {
 
 		return $new_attachment;
 	}
-
-	/**
-	 * Is Image URL
-	 *
-	 * @since 1.3.10
-	 *
-	 * @param  string $url URL.
-	 * @return boolean
-	 */
-	public function is_image_url( $url = '' ) {
-		if ( empty( $url ) ) {
-			return false;
-		}
-
-		if ( templatiq_sites_is_valid_image( $url ) ) {
-			return true;
-		}
-
-		return false;
-	}
-
 }

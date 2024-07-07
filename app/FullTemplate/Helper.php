@@ -268,7 +268,7 @@ class Helper {
 
 			// If error storing permanently, unlink.
 			if ( is_wp_error( $id ) ) {
-				unlink( $file_array['tmp_name'] ); //phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_unlink -- Deleting the file from temp location.
+				wp_delete_file( $file_array['tmp_name'] ); //phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_unlink -- Deleting the file from temp location.
 
 				return $id;
 			}

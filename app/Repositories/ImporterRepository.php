@@ -13,7 +13,7 @@ class ImporterRepository {
 	public function import_as_page( ImportAsPageDTO $DTO ) {
 		if ( empty( $DTO->get_builder() ) ) {
 			throw new \Exception(
-				__( "Builder not specified yet.", "templatiq" ),
+				esc_html__( "Builder not specified yet.", "templatiq" ),
 				'builder-not-specified'
 			);
 		}
@@ -23,7 +23,7 @@ class ImporterRepository {
 
 		if ( empty( $template_data ) ) {
 			throw new \Exception(
-				__( "Template data not found", "templatiq" ),
+				esc_html__( "Template data not found", "templatiq" ),
 				'template-data-missing'
 			);
 		}
@@ -32,8 +32,8 @@ class ImporterRepository {
 
 		if ( isset( $template_data['message'] ) ) {
 			throw new \Exception(
-				$template_data['message'],
-				$template_data['code']
+				esc_html( $template_data['message'] ),
+				esc_html( $template_data['code'] )
 			);
 		}
 
@@ -49,14 +49,14 @@ class ImporterRepository {
 
 		if ( is_wp_error( $inserted_id ) ) {
 			throw new \Exception(
-				$inserted_id->get_error_message(),
+				esc_html( $inserted_id->get_error_message() ),
 				'import-as-page'
 			);
 		}
 
 		if ( ! $inserted_id ) {
 			throw new \Exception(
-				__( "Import as page failed", "templatiq" ),
+				esc_html__( "Import as page failed", "templatiq" ),
 				'import-as-page-failed'
 			);
 		}

@@ -46,7 +46,7 @@ class Http {
 	public function post() {
 		$args = [
 			'headers' => $this->headers,
-			'body'    => json_encode( $this->body ),
+			'body'    => wp_json_encode( $this->body ),
 			'timeout' => 10,
 		];
 

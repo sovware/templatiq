@@ -8,9 +8,9 @@
 namespace Templatiq\FullTemplate;
 
 use Templatiq\Abstracts\ControllerBase;
+use Templatiq\FullTemplate\ErrorHandler;
 use Templatiq\Repositories\FileSystemRepository;
 use Templatiq\Repositories\RemoteRepository;
-use Templatiq\FullTemplate\ErrorHandler;
 
 class Controller extends ControllerBase {
 
@@ -44,15 +44,7 @@ class Controller extends ControllerBase {
 
 		switch ( $param ) {
 			case 'site-logo' === $param:
-				( new SiteData() )->update_logo();
-				break;
-
-			case 'site-colors' === $param:
-				( new SiteData() )->update_colors();
-				break;
-
-			case 'site-typography' === $param && function_exists( 'templatiq_get_option' ):
-				( new SiteData() )->update_typography();
+				( new SiteData() )->update_logo( $_POST['logo'], $_POST['logo-width'] );
 				break;
 		}
 
@@ -60,12 +52,20 @@ class Controller extends ControllerBase {
 	}
 
 	public function report_error() {
+		// Verify Nonce.
+		if ( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) {
+			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
+			if ( ! current_user_can( 'edit_posts' ) ) {
+				wp_send_json_error();
+			}
+		}
+
 		$api_url = add_query_arg( [], trailingslashit( TEMPLATIQ_API_ENDPOINT ) . 'wp-json/templatiq-library/v2/import-error/' );
 
 		if ( ! templatiq_sites_is_valid_url( $api_url ) ) {
 			wp_send_json_error(
 				[
-					'message' => sprintf( __( 'Invalid Request URL - %s', 'templatiq' ), $api_url ),
+					'message' => sprintf( __( 'Invalid Request URL - %s', 'templatiq' ), esc_url( $api_url ) ), // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 					'code'    => 'Error',
 				]
 			);
@@ -77,7 +77,7 @@ class Controller extends ControllerBase {
 		if ( 0 === $post_id ) {
 			wp_send_json_error(
 				[
-					'message' => sprintf( __( 'Invalid Post ID - %d', 'templatiq' ), $post_id ),
+					'message' => sprintf( __( 'Invalid Post ID - %d', 'templatiq' ), $post_id ), // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 					'code'    => 'Error',
 				]
 			);
@@ -269,7 +269,7 @@ class Controller extends ControllerBase {
 		}
 
 		if ( get_option( 'templatiq-erase-existing-imported-data' ) ) {
-			( new Reset )->posts();
+			( new Reset )->posts( $_POST['ids'] );
 		}
 
 		if ( wp_doing_ajax() ) {

@@ -1,4 +1,4 @@
-=== Templatiq – The Ultimate Templates on WordPress | Craft beautiful website in no time ===
+=== Templatiq – The Ultimate Templates | Craft beautiful website in no time ===
 Contributors: wpwax
 Tags: templates, starter template, design, quick starter, demo site
 Requires at least: 6.0
