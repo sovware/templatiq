@@ -8,7 +8,7 @@ import closeIcon from '@icon/close.svg';
 const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	const { template_id, builder, directory_page_type } = item;
 
-	const directoryType = template_market_obj?.directory_types;
+	const directoryType = templatiq_obj?.directory_types;
 
 	const installPluginEndPoint = 'templatiq/dependency/install';
 	const importAsPageEndPoint = 'templatiq/template/import-as-page';

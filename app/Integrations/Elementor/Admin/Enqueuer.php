@@ -38,12 +38,12 @@ class Enqueuer extends EnqueuerBase {
 
 		$obj = \Templatiq\Admin\Enqueuer::init()->localize_object();
 
-		wp_localize_script( 'templatiq-app', 'template_market_obj', $obj );
+		wp_localize_script( 'templatiq-app', 'templatiq_obj', $obj );
 
 		$this->enqueue_style( 'templatiq-elementor-editor', '/vendor/elementor-style.css', [] );
 
 		$this->enqueue_script( 'templatiq-elementor-editor', '/vendor/elementor-script.js', ['elementor-editor', 'jquery'] );
 
-		wp_localize_script( 'templatiq-elementor-editor', 'template_market_obj', $obj );
+		wp_localize_script( 'templatiq-elementor-editor', 'templatiq_obj', $obj );
 	}
 }

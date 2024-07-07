@@ -11,7 +11,7 @@ const insertFullTemplateModal = ( { item, onClose } ) => {
 	const [ themeInstalling, setThemeInstalling ] = useState( false );
 
 
-	const themeStatus = template_market_obj?.theme_status;
+	const themeStatus = templatiq_obj?.theme_status;
 
 	const activateThemeEndPoint = 'templatiq/dependency/activate-theme';
 

@@ -42,7 +42,7 @@ class Enqueuer extends EnqueuerBase {
 
 		$obj = $this->localize_object();
 
-		wp_localize_script( 'templatiq-app', 'template_market_obj', $obj );
+		wp_localize_script( 'templatiq-app', 'templatiq_obj', $obj );
 	}
 
 	public function localize_object() {

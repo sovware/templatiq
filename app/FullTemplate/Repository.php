@@ -275,7 +275,7 @@ class Repository {
 		update_option( 'templatiq-erase-existing-directorist-data', false );
 		update_option( 'templatiq-erase-existing-imported-data', false );
 		update_option( 'templatiq-import-directorist-listings', false );
-		update_option( 'templatiq-install-contents-share-non-sensitive-data', false );
+		update_option( 'templatiq-share-non-sensitive-data', false );
 
 		if ( isset( $import_data['eraseExistingData'] ) && $import_data['eraseExistingData'] ) {
 			( new \Templatiq\Integrations\Directorist\Repository() )->erase_existing_data();
@@ -292,7 +292,8 @@ class Repository {
 		}
 
 		if ( isset( $importContents['share-non-sensitive-data'] ) ) {
-			update_option( 'templatiq-install-contents-share-non-sensitive-data', true );
+			update_option( 'templatiq-share-non-sensitive-data', true );
+			do_action( 'templatiq_share_non_sensitive_data', true );
 		}
 	}
 }

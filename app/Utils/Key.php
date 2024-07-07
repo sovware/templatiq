@@ -14,7 +14,7 @@ class Key {
 	}
 
 	public static function prefix(): string {
-		return '_template_market';
+		return '_templatiq';
 	}
 
 	private static function generate(): string {

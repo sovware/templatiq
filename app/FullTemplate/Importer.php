@@ -13,16 +13,8 @@ use Templatiq\FullTemplate\OptionsImport;
  * Templatiq Sites Importer
  */
 class Importer {
-
 	public static $instance = null;
 
-	/**
-	 * Set Instance
-	 *
-	 * @since  1.0.0
-	 *
-	 * @return object Class object.
-	 */
 	public static function get_instance() {
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self();
@@ -31,11 +23,6 @@ class Importer {
 		return self::$instance;
 	}
 
-	/**
-	 * Constructor.
-	 *
-	 * @since  1.0.0
-	 */
 	public function __construct() {
 		// Import AJAX.
 		add_action( 'wp_ajax_templatiq-sites-import-customizer-settings', [$this, 'import_customizer_settings'] );
@@ -63,15 +50,9 @@ class Importer {
 			add_filter( 'http_request_timeout', [$this, 'set_timeout_for_images'], 10, 2 ); //phpcs:ignore WordPressVIPMinimum.Hooks.RestrictedHooks.http_request_timeout -- We need this to avoid timeout on slow servers while installing theme, plugin etc.
 		}
 
-		add_action( 'init', [$this, 'disable_default_woo_pages_creation'], 2 );
 		add_filter( 'upgrader_package_options', [$this, 'plugin_install_clear_directory'] );
 	}
 
-	/**
-	 * Delete related transients
-	 *
-	 * @since 3.1.3
-	 */
 	public function delete_related_transient() {
 		delete_transient( 'templatiq_sites_batch_process_started' );
 		delete_option( 'templatiq_sites_import_data' );
@@ -99,20 +80,6 @@ class Importer {
 		return $options;
 	}
 
-	/**
-	 * Restrict WooCommerce Pages Creation process
-	 *
-	 * Why? WooCommerce creates set of pages on it's activation
-	 * These pages are re created via our XML import step.
-	 * In order to avoid the duplicacy we restrict these page creation process.
-	 *
-	 * @since 3.0.0
-	 */
-	public function disable_default_woo_pages_creation() {
-		if ( templatiq_sites_has_import_started() ) {
-			add_filter( 'woocommerce_create_pages', '__return_empty_array' );
-		}
-	}
 
 	/**
 	 * Set the timeout for the HTTP request by request URL.
@@ -277,107 +244,9 @@ class Importer {
 		update_option( 'templatiq_full_template_import_complete', 'yes', 'no' );
 		delete_transient( 'templatiq_sites_import_started' );
 
-		$this->update_menu_links();
-		$this->update_menu_refs();
-		$this->update_logo_width();
-
-		error_log(
-			PHP_EOL . '#############################################'
-			. PHP_EOL . '   Import finished, Congratulations	'
-			. PHP_EOL . '#############################################'
-			. PHP_EOL );
-
 		if ( wp_doing_ajax() ) {
 			wp_send_json_success();
 		}
-	}
-
-	public function update_menu_links() {
-		$menu_ref = get_option( '_templatiq_imported_menu_map', [] );
-		if ( empty( $menu_ref ) ) {
-			return;
-		}
-
-		$demo_url = templatiq_get_site_data( 'templatiq-site-url' );
-		$site_url = site_url() . '/';
-
-		foreach ( $menu_ref as $menu_id ) {
-			$post = get_post( $menu_id );
-
-			if ( ! isset( $post->post_content ) ) {
-				continue;
-			}
-
-			$post->post_content = str_replace( $demo_url, $site_url, $post->post_content );
-			wp_update_post( $post );
-
-			error_log( 'Menu Demo URL Replaced with Current Site => #' . $menu_id );
-		}
-	}
-
-	public function update_menu_refs() {
-		$menu_ref  = get_option( '_templatiq_imported_menu_map', [] );
-		$templates = get_option( '_templatiq_imported_template_parts', [] );
-
-		if ( empty( $menu_ref ) || empty( $templates ) ) {
-			return;
-		}
-
-		foreach ( $templates as $template_id ) {
-			$post = get_post( $template_id );
-			if ( ! isset( $post->post_content ) ) {
-				continue;
-			}
-
-			foreach ( $menu_ref as $old_id => $new_id ) {
-				$post->post_content = $this->menu_id_replace( $post->post_content, $old_id, $new_id );
-				wp_update_post( $post );
-			}
-
-			error_log( 'Main Menu Replaced by Demo one template id => #' . $template_id );
-		}
-	}
-
-	public function update_logo_width() {
-		$width     = get_option( '_templatiq_logo_width' . '' );
-		$templates = get_option( '_templatiq_imported_template_parts', [] );
-
-		if ( empty( $width ) || empty( $templates ) ) {
-			return;
-		}
-
-		foreach ( $templates as $template_id ) {
-			$post = get_post( $template_id );
-			if ( ! isset( $post->post_content ) ) {
-				error_log( $template_id . 'post content not found' );
-				continue;
-			}
-
-			$post->post_content = $this->update_site_logo_width( $post->post_content, $width );
-			wp_update_post( $post );
-
-			error_log( 'Logo replaced => #' . $template_id );
-		}
-	}
-
-	public function update_site_logo_width( string $content, int $width ) {
-		if ( strpos( $content, 'wp:site-logo' ) !== false ) {
-			$content = preg_replace(
-				'/<!-- wp:site-logo {"width":\d+/',
-				'<!-- wp:site-logo {"width":' . $width,
-				$content
-			);
-		}
-
-		return $content;
-	}
-
-	public function menu_id_replace( $data, $old_id, $new_id ) {
-		$find            = sprintf( '"ref":%d', $old_id );
-		$replace         = sprintf( '"ref":%d', $new_id );
-		$updated_content = str_replace( $find, $replace, $data );
-
-		return $updated_content;
 	}
 
 	/**
