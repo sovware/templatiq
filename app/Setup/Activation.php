@@ -10,8 +10,8 @@ namespace Templatiq\Setup;
 class Activation {
 	private $min_php = '7.4';
 
-	public function execute() {
-		$this->auto_deactivate();
+	public function boot( $file_name ) {
+		$this->auto_deactivate( $file_name );
 		$this->redirection();
 	}
 

@@ -53,7 +53,7 @@ final class Templatiq {
 	public function load() {
 		register_activation_hook(
 			__FILE__, function () {
-				( new \Templatiq\Setup\Activation() )->execute();
+				( new \Templatiq\Setup\Activation() )->boot( __FILE__ );
 			}
 		);
 

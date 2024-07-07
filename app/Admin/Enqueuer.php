@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Enqueuer extends EnqueuerBase {
 
 	public function __construct() {
-		$this->action( 'enqueue_scripts', [$this, 'enqueue_scripts'] );
+		$this->action( 'admin_enqueue_scripts', [$this, 'enqueue_scripts'] );
 	}
 
 	public function enqueue_scripts( $hook ) {
