@@ -54,7 +54,10 @@ class Compatibility {
 	 */
 	public function pre() {
 		if ( templatiq_sites_has_import_started() && null !== \Elementor\Plugin::$instance->admin ) {
-			remove_filter( 'pre_set_site_transient_update_plugins', [\Elementor\Plugin::$instance->admin->get_component( 'canary-deployment' ), 'check_version'] );
+			remove_filter(
+				'pre_set_site_transient_update_plugins',
+				[\Elementor\Plugin::$instance->admin->get_component( 'canary-deployment' ), 'check_version']
+			);
 		}
 	}
 
