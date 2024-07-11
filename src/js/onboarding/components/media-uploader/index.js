@@ -33,7 +33,7 @@ const MediaUploader = () => {
 	};
 
 	function sendMessageToIframe(data) {
-		var iframe = document.getElementById('astra-templatiq-library-preview');
+		var iframe = document.getElementById('templatiq-library-preview');
 		var message = {
 			type: 'logoUpdate',
 			logo: data

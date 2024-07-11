@@ -85,7 +85,7 @@ class Templatiq_WXR_Importer {
 		update_post_meta( $post_id, '_templatiq_sites_imported_post', true );
 		update_post_meta( $post_id, '_templatiq_sites_enable_for_batch', true );
 
-		error_log( 'Time: #' . time() . ' | TrackPost: #' . $post_id . ' | PostType => ' . $data['post_type'] . ' | ' . $data['post_title'] );
+		// error_log( 'Time: #' . time() . ' | TrackPost: #' . $post_id . ' | PostType => ' . $data['post_type'] . ' | ' . $data['post_title'] );
 
 		/**
 		 * Keep ref for imported menus

@@ -90,7 +90,7 @@ class Repository {
 				}
 			}
 
-			error_log( 'Directory Type Inserted Name: ' . $type['name'] . ' ID #' . $type_id . ' => ' . $term_id );
+			// error_log( 'Directory Type Inserted Name: ' . $type['name'] . ' ID #' . $type_id . ' => ' . $term_id );
 		}
 
 		if ( $ids_mapping ) {

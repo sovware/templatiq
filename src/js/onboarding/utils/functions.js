@@ -22,7 +22,7 @@ export const getProUrl = () => {
 };
 
 export const sendPostMessage = ( data ) => {
-	const frame = document.getElementById( 'astra-templatiq-library-preview' );
+	const frame = document.getElementById( 'templatiq-library-preview' );
 	console.log('sendPostMessage data : ', data, frame)
 	if ( ! frame ) {
 		return;
@@ -75,8 +75,8 @@ export const getStoredState = () => {
 export const getDefaultColorPalette = ( demo ) => {
 	let defaultPaletteValues = [];
 
-	if ( demo && 'astra-site-customizer-data' in demo ) {
-		const customizerData = demo[ 'astra-site-customizer-data' ] || '';
+	if ( demo && 'templatiq-site-customizer-data' in demo ) {
+		const customizerData = demo[ 'templatiq-site-customizer-data' ] || '';
 		if ( customizerData ) {
 			const globalPalette =
 				customizerData[ 'templatiq-settings' ][ 'global-color-palette' ]
@@ -99,8 +99,8 @@ export const getDefaultColorPalette = ( demo ) => {
 export const getDefaultTypography = ( demo ) => {
 	let defaultTypography = {};
 
-	if ( demo && 'astra-site-customizer-data' in demo ) {
-		const customizerData = demo[ 'astra-site-customizer-data' ] || '';
+	if ( demo && 'templatiq-site-customizer-data' in demo ) {
+		const customizerData = demo[ 'templatiq-site-customizer-data' ] || '';
 		if ( customizerData ) {
 			const customizerSettings = customizerData[ 'templatiq-settings' ] || [];
 			const headingFontFamily =
@@ -131,8 +131,8 @@ export const getHeadingFonts = ( demo ) => {
 
 	const headingsTags = [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ];
 
-	if ( demo && 'astra-site-customizer-data' in demo ) {
-		const customizerData = demo[ 'astra-site-customizer-data' ] || '';
+	if ( demo && 'templatiq-site-customizer-data' in demo ) {
+		const customizerData = demo[ 'templatiq-site-customizer-data' ] || '';
 		if ( customizerData ) {
 			const customizerSettings = customizerData[ 'templatiq-settings' ] || [];
 

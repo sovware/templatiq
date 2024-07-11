@@ -29,11 +29,11 @@ class ImportComplete {
 
 		update_option( 'permalink_structure', "/%postname%/" );
 		
-		error_log(
-			PHP_EOL . '#############################################'
-			. PHP_EOL . '   Import finished, Congratulations	'
-			. PHP_EOL . '#############################################'
-			. PHP_EOL );
+		// error_log(
+		// 	PHP_EOL . '#############################################'
+		// 	. PHP_EOL . '   Import finished, Congratulations	'
+		// 	. PHP_EOL . '#############################################'
+		// 	. PHP_EOL );
 	}
 
 	public function update_menu_links() {
@@ -55,7 +55,7 @@ class ImportComplete {
 			$post->post_content = str_replace( $demo_url, $site_url, $post->post_content );
 			wp_update_post( $post );
 
-			error_log( 'Menu Demo URL Replaced with Current Site => #' . $menu_id );
+			// error_log( 'Menu Demo URL Replaced with Current Site => #' . $menu_id );
 		}
 	}
 
@@ -78,7 +78,7 @@ class ImportComplete {
 				wp_update_post( $post );
 			}
 
-			error_log( 'Main Menu Replaced by Demo one template id => #' . $template_id );
+			// error_log( 'Main Menu Replaced by Demo one template id => #' . $template_id );
 		}
 	}
 
@@ -100,7 +100,7 @@ class ImportComplete {
 			$post->post_content = $this->update_site_logo_width( $post->post_content, $width );
 			wp_update_post( $post );
 
-			error_log( 'Logo replaced => #' . $template_id );
+			// error_log( 'Logo replaced => #' . $template_id );
 		}
 	}
 

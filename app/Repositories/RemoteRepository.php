@@ -26,15 +26,15 @@ class RemoteRepository {
 	public function get_full_template( int $template_id ) {
 		$remote_args = [];
 		$defaults    = [
-			'id'                          => '',
-			'templatiq-site-options-data' => '',
-			'astra-post-data-mapping'     => '',
-			'templatiq-site-wxr-path'     => '',
-			'astra-enabled-extensions'    => '',
-			'required-plugins'            => '',
-			'license-status'              => '',
-			'site-type'                   => '',
-			'templatiq-site-url'          => '',
+			'id'                           => '',
+			'templatiq-site-options-data'  => '',
+			'templatiq-post-data-mapping'  => '',
+			'templatiq-site-wxr-path'      => '',
+			'templatiq-enabled-extensions' => '',
+			'required-plugins'             => '',
+			'license-status'               => '',
+			'site-type'                    => '',
+			'templatiq-site-url'           => '',
 		];
 
 		$data = $this->get_remote_content( $template_id, 'full-site' );
