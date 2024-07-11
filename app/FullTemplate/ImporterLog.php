@@ -149,6 +149,10 @@ class ImporterLog {
 			$log_file = self::$log_file;
 		}
 
+		if ( ! $log_file ) {
+			return;
+		}
+
 		$file_system   = ( new FileSystemRepository );
 		$existing_data = '';
 		if ( file_exists( $log_file ) ) {
