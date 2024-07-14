@@ -6,6 +6,6 @@ export default async function postData( path, data, config ) {
 	return await apiFetch( { path: path, method: 'POST', data, ...config } )
 		.then( ( res ) => res )
 		.catch( ( error ) => {
-			throw error;
+			return error;
 		} );
 }

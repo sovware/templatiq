@@ -39,11 +39,11 @@ export default function SignUpContent() {
 
 	const handleSignup = async ( credentials ) => {
 		postData( singUpEndPoint, credentials ).then( ( data ) => {
-			if ( data.body.token ) {
+			if ( data?.body?.token ) {
 				setIsRegistered( true );
-				navigate( '/signin' );
+				// navigate( '/signin' );
 			} else {
-				const errorMessage = data.message?.user_email;
+				const errorMessage = data.message || 'Something went wrong';
 				setErrorMessage( errorMessage );
 			}
 
