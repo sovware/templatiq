@@ -248,7 +248,11 @@ export default function AllTemplates( props ) {
 			<div className="templatiq__content__top">
 				<div className="templatiq__content__top__filter">
 					<h3 className="templatiq__content__top__filter__title capitalize">
-						Template { templateType }
+						{
+							templateType === 'pack' ? 
+							'Full Site' :
+							`Template ${ templateType }`
+						}
 					</h3>
 
 					<TemplatePackFilterStyle className="templatiq__content__top__filter__wrapper">

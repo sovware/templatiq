@@ -133,7 +133,7 @@ const Header = ( props ) => {
 									width={ 18 }
 									height={ 18 }
 								/>
-								Template Pack
+								Full Sites 
 							</NavLink>
 						</li>
 					) }
