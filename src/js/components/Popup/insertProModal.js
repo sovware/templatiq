@@ -52,7 +52,7 @@ const InsertProModal = ( { item, onClose, onLoginClick } ) => {
 									onClick={ onLoginClick }
 									className="templatiq-btn templatiq-btn-full"
 								>
-									Login
+									Sign In
 								</button>
 							</div>
 						)

@@ -97,7 +97,9 @@ export default function SignUpContent() {
 									: ''
 							}` }
 						>
-							Sign Up
+							{
+								!loading ? 'Sign Up' : null
+							}
 						</button>
 						{ errorMessage && (
 							<p className="text-danger">{ errorMessage }</p>

@@ -50,7 +50,7 @@ export default function App() {
 						unlocked: data.unlocked_by_directorist,
 					};
 
-					// Dispatch the action to update the login status in the store
+					// Dispatch the action to update the signin status in the store
 					dispatch( store ).setUserInfo( updatedUserInfo );
 
 					setDataFetched( true );

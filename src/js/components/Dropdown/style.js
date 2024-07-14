@@ -9,7 +9,7 @@ const DropdownStyle = Styled.div`
         gap: 10px;
         align-items: center;
         height: 36px;
-        min-width: 160px;
+        min-width: 200px;
         padding: 0 30px 0 12px;
         border-radius: 8px;
         color: var(--templatiq-body-color);
@@ -58,15 +58,23 @@ const DropdownStyle = Styled.div`
         }
     }
     .templatiq-dropdown__content__link {
+        position: relative;
         display: flex;
         align-items: center;
-        gap: 10px;
         padding: 5px 15px;
         color: var(--templatiq-body-color);
         pointer-events: none;
         img {
             width: 24px;
             height: 24px;
+            margin-inline-end: 10px;
+        }
+        sup {
+            position: absolute;
+            top: 0;
+            inset-inline-start: 48px;
+            font-size: 8px;
+            color: var(--templatiq-danger-color);
         }
     }
     .templatiq-dropdown__content__item {
@@ -74,6 +82,13 @@ const DropdownStyle = Styled.div`
         &:hover {
             .templatiq-dropdown__content__link {
                 color: var(--templatiq-primary-color);
+            }
+        }
+        &.disable {
+            opacity: 0.5;
+            pointer-events: none;
+            .templatiq-dropdown__content__link {
+                align-items: baseline;
             }
         }
     }

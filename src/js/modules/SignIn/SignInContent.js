@@ -115,7 +115,7 @@ export default function SignInContent() {
 						</div>
 						<div className="templatiq__auth__forgot">
 							<a
-								href="#"
+								href="https://templatiq.com/wp-login.php?action=lostpassword"
 								target="_blank"
 								className="templatiq__auth__link"
 							>
@@ -134,7 +134,9 @@ export default function SignInContent() {
 								: ''
 						}` }
 					>
-						Sign In
+						{
+							!loading ? 'Sign In' : null
+						}
 					</button>
 					{
 						error ? <p className="templatiq__auth__error text-danger">{ error }</p> : null

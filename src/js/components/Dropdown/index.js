@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from '@wordpress/element';
-import ReactSVG from 'react-inlinesvg';
 import checkedClickedOutside from '@helper/checkClickedOutside';
+import { useEffect, useRef, useState } from '@wordpress/element';
+import ReactSVG from 'react-inlinesvg';
 
 import { DropdownStyle } from './style';
 
@@ -103,7 +103,7 @@ export default function Dropdown( {
 						return (
 							<li
 								key={ i }
-								className="templatiq-dropdown__content__item"
+								className={`templatiq-dropdown__content__item ${item.type === 'upcoming' ? 'disable' : ''}`}
 								onClick={ () => handleItemSelect( item ) }
 							>
 								<a
@@ -126,6 +126,7 @@ export default function Dropdown( {
 										''
 									) }
 									{ item.text }
+									{ item.type === 'upcoming' ?  <sup>(Coming Soon)</sup> : null }
 								</a>
 							</li>
 						);

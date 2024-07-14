@@ -23,6 +23,7 @@ import userIcon from '@icon/user-alt.svg';
 import backIcon from '@icon/arrow-left.svg';
 import chevronIcon from '@icon/chevron-down-solid.svg';
 import elementorIcon from '@icon/elementor.svg';
+import gutenbergIcon from '@icon/gutenberg.svg';
 
 import cartIcon from '@icon/cart.svg';
 import downloadIcon from '@icon/download-alt.svg';
@@ -58,12 +59,14 @@ const Header = ( props ) => {
 			icon: elementorIcon,
 			text: 'Elementor',
 			url: '#',
+			type: 'available'
 		},
-		// {
-		// 	icon: blockEditorIcon,
-		// 	text: 'Block Editor',
-		// 	url: '#',
-		// },
+		{
+			icon: gutenbergIcon,
+			text: 'Block Editor',
+			url: '#',
+			type: 'upcoming'
+		},
 	];
 
 	const navigate = useNavigate();
@@ -285,7 +288,7 @@ const Header = ( props ) => {
 									width={ 14 }
 									height={ 14 }
 								/>
-								Login
+								Sign In
 							</Link>
 						) }
 					</div>
