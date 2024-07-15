@@ -10,7 +10,7 @@
 		"format": "wp-scripts format ./src",
 		"minify": "wp-scripts build",
 		"compress": "webpack --config webpack.compress.js",
-		"build": "yarn minify && grunt build && yarn compress",
+		"build": "yarn minify && composer build && grunt build && yarn compress",
 		"fixtextdomain": "grunt fixtextdomain",
 		"git-compress": "webpack --config webpack.compress.git.js",
 		"git-build": "yarn start --no-watch && grunt build && yarn git-compress",

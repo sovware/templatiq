@@ -11,21 +11,11 @@
         }
     ],
     "require": {
-        "php": ">=7.4"    },
-    "require-dev": {
-        "squizlabs/php_codesniffer": "3.7.2",
-        "dealerdirect/phpcodesniffer-composer-installer": "1.0.0",
-        "phpcompatibility/phpcompatibility-wp": "2.1.4",
-        "wp-coding-standards/wpcs": "^2.3"
+        "php": ">=7.4"    
     },
     "scripts": {
-        "build": "composer --no-plugins --no-interaction install --no-scripts --no-dev",
-        "format": "vendor/bin/phpcbf --standard=phpcs.xml",
-        "phpcs": "vendor/bin/phpcs --standard=phpcs.xml"
-    },
-    "config": {
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
-        }
+       "build": [
+			"composer --no-plugins --no-interaction install --no-scripts --no-dev"
+		]
     }
 }
