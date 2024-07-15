@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import store from '@store/index';
 import { select } from '@wordpress/data';
 
-export default function SignUpContent() {
+export default function SignUpContent({ setIsSignedUp }) {
 	const navigate = useNavigate();
 
 	let [ loading, setLoading ] = useState( false );
@@ -41,6 +41,7 @@ export default function SignUpContent() {
 		postData( singUpEndPoint, credentials ).then( ( data ) => {
 			if ( data?.body?.token ) {
 				setIsRegistered( true );
+				setIsSignedUp( true );
 				// navigate( '/signin' );
 			} else {
 				const errorMessage = data.message || 'Something went wrong';
