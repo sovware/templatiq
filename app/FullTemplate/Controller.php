@@ -44,7 +44,11 @@ class Controller extends ControllerBase {
 
 		switch ( $param ) {
 			case 'site-logo' === $param:
-				( new SiteData() )->update_logo( $_POST['logo'], $_POST['logo-width'] );
+				( new SiteData() )
+					->update_logo(
+						sanitize_text_field( $_POST['logo'] ),
+						sanitize_text_field( $_POST['logo-width'] )
+					);
 				break;
 		}
 
@@ -90,8 +94,8 @@ class Controller extends ControllerBase {
 			'blocking' => true,
 			'body'     => [
 				'url'        => esc_url( site_url() ),
-				'err'        => stripslashes( $_POST['error'] ),
-				'id'         => $_POST['id'],
+				'err'        => stripslashes( sanitize_text_field( $_POST['error'] ) ),
+				'id'         => sanitize_text_field( $_POST['id'] ),
 				'logfile'    => $Repository->get_log_file_path(),
 				'version'    => TEMPLATIQ_VERSION,
 				'abspath'    => ABSPATH,
@@ -269,7 +273,7 @@ class Controller extends ControllerBase {
 		}
 
 		if ( get_option( 'templatiq-erase-existing-imported-data' ) ) {
-			( new Reset )->posts( $_POST['ids'] );
+			( new Reset )->posts( sanitize_text_field( $_POST['ids'] ) );
 		}
 
 		if ( wp_doing_ajax() ) {
@@ -345,7 +349,7 @@ class Controller extends ControllerBase {
 			}
 		}
 
-		$import_data = $_POST['import_data'] ?? '';
+		$import_data = isset( $_POST['import_data'] ) ? sanitize_text_field( $_POST['import_data'] ) : '';
 		if ( empty( $import_data ) ) {
 			wp_send_json_success( true );
 		}

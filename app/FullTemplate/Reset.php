@@ -20,7 +20,7 @@ class Reset {
 		wp_defer_comment_counting( true );
 		wp_suspend_cache_invalidation( true );
 
-		$posts = json_decode( stripslashes( sanitize_text_field( $ids ) ), true );
+		$posts = json_decode( stripslashes( $ids ), true );
 
 		if ( ! empty( $posts ) ) {
 			foreach ( $posts as $key => $post_id ) {

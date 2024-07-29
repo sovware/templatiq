@@ -38,8 +38,8 @@ class AddBuilderSettings {
 				}
 			}
 
-            // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			$term   = get_term_by( 'slug', esc_html( $_GET['directory_type'] ), ATBDP_TYPE );
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$term   = get_term_by( 'slug', esc_html( sanitize_text_field( $_GET['directory_type'] ) ), ATBDP_TYPE );
 			$termId = $term ? $term->term_id : null;
 
 		} else {
