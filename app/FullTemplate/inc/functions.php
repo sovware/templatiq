@@ -2,9 +2,11 @@
 /**
  * Functions
  *
- * @since  2.0.0
+ * @since  1.0.0
  * @package Templatiq Sites
  */
+
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'templatiq_sites_error_log' ) ):
 

@@ -10,10 +10,6 @@ namespace Templatiq\Admin;
 use Templatiq\Abstracts\EnqueuerBase;
 use Templatiq\Repositories\DependencyRepository;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 class Enqueuer extends EnqueuerBase {
 
 	public function __construct() {

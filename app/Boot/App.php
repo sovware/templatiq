@@ -7,10 +7,6 @@
 
 namespace Templatiq\Boot;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 class App {
 	public static bool $loaded;
 	public static App $instance;

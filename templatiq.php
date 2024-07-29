@@ -1,4 +1,6 @@
 <?php
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Plugin Name: Templatiq
  * Description: The Ultimate Templates | Craft beautiful website in no time
@@ -10,10 +12,6 @@
  * Text Domain: templatiq
  * Domain Path: /languages
  */
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 include __DIR__ . '/vendor/autoload.php';
 

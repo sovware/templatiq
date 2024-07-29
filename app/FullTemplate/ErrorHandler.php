@@ -7,9 +7,7 @@
 
 namespace Templatiq\FullTemplate;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 
 define( 'TEMPLATIQ_ERROR_FATALS', E_ERROR | E_PARSE | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR );
 
@@ -50,7 +48,7 @@ class ErrorHandler {
 			$this->start_error_handler();
 		}
 
-		add_action( 'shutdown', [ $this, 'stop_handler' ] );
+		add_action( 'shutdown', [$this, 'stop_handler'] );
 	}
 
 	/**
@@ -70,11 +68,11 @@ class ErrorHandler {
 	public function start_error_handler() {
 		if ( ! interface_exists( 'Throwable' ) ) {
 			// Fatal error handler for PHP < 7.
-			register_shutdown_function( [ $this, 'shutdown_handler' ] );
+			register_shutdown_function( [$this, 'shutdown_handler'] );
 		}
 
 		// Fatal error handler for PHP >= 7, and uncaught exception handler for all PHP versions.
-		set_exception_handler( [ $this, 'exception_handler' ] );
+		set_exception_handler( [$this, 'exception_handler'] );
 	}
 
 	/**

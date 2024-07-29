@@ -9,9 +9,7 @@ use Templatiq\FullTemplate\ImporterLog;
  * @package Templatiq Addon
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
-}
+ defined( 'ABSPATH' ) || exit;
 
 /**
  * All the PHPCS errors are ignored in this file as it is a third party file.

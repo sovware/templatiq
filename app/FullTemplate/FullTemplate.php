@@ -7,22 +7,24 @@
 
 namespace Templatiq\FullTemplate;
 
+defined( 'ABSPATH' ) || exit;
+
 use Templatiq\Utils\Singleton;
 
-if ( ! defined( 'INTELLIGENT_TEMPLATES_FILE' ) ) {
-	define( 'INTELLIGENT_TEMPLATES_FILE', __FILE__ );
+if ( ! defined( 'TEMPLATIQ_FULL_SITE_TEMPLATES_FILE' ) ) {
+	define( 'TEMPLATIQ_FULL_SITE_TEMPLATES_FILE', __FILE__ );
 }
 
-if ( ! defined( 'INTELLIGENT_TEMPLATES_BASE' ) ) {
-	define( 'INTELLIGENT_TEMPLATES_BASE', plugin_basename( INTELLIGENT_TEMPLATES_FILE ) );
+if ( ! defined( 'TEMPLATIQ_FULL_SITE_TEMPLATES_BASE' ) ) {
+	define( 'TEMPLATIQ_FULL_SITE_TEMPLATES_BASE', plugin_basename( TEMPLATIQ_FULL_SITE_TEMPLATES_FILE ) );
 }
 
-if ( ! defined( 'INTELLIGENT_TEMPLATES_DIR' ) ) {
-	define( 'INTELLIGENT_TEMPLATES_DIR', plugin_dir_path( INTELLIGENT_TEMPLATES_FILE ) );
+if ( ! defined( 'TEMPLATIQ_FULL_SITE_TEMPLATES_DIR' ) ) {
+	define( 'TEMPLATIQ_FULL_SITE_TEMPLATES_DIR', plugin_dir_path( TEMPLATIQ_FULL_SITE_TEMPLATES_FILE ) );
 }
 
-if ( ! defined( 'INTELLIGENT_TEMPLATES_URI' ) ) {
-	define( 'INTELLIGENT_TEMPLATES_URI', plugins_url( '/', INTELLIGENT_TEMPLATES_FILE ) );
+if ( ! defined( 'TEMPLATIQ_FULL_SITE_TEMPLATES_URI' ) ) {
+	define( 'TEMPLATIQ_FULL_SITE_TEMPLATES_URI', plugins_url( '/', TEMPLATIQ_FULL_SITE_TEMPLATES_FILE ) );
 }
 
 if ( ! defined( 'TEMPLATIQ_SITES_DIR' ) ) {

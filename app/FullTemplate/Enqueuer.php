@@ -11,9 +11,6 @@ use Templatiq\Abstracts\EnqueuerBase;
 use Templatiq\Repositories\DependencyRepository;
 use Templatiq\FullTemplate\Helper;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
-}
 
 class Enqueuer extends EnqueuerBase {
 
@@ -87,9 +84,9 @@ class Enqueuer extends EnqueuerBase {
 		$themeStatus = ( new DependencyRepository )->get_theme_status();
 
 		$data = [
-			'imageDir'          => INTELLIGENT_TEMPLATES_URI . 'assets/images/',
-			'URI'               => INTELLIGENT_TEMPLATES_URI,
-			'buildDir'          => INTELLIGENT_TEMPLATES_URI . 'assets/dist/',
+			'imageDir'          => TEMPLATIQ_FULL_SITE_TEMPLATES_URI . 'assets/images/',
+			'URI'               => TEMPLATIQ_FULL_SITE_TEMPLATES_URI,
+			'buildDir'          => TEMPLATIQ_FULL_SITE_TEMPLATES_URI . 'assets/dist/',
 			'previewUrl'        => $site_url,
 			'adminUrl'          => admin_url(),
 			'demoId'            => 0,

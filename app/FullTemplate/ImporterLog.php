@@ -9,10 +9,6 @@ namespace Templatiq\FullTemplate;
 
 use Templatiq\Repositories\FileSystemRepository;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 class ImporterLog {
 
 	private static $instance = null;
