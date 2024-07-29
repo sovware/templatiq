@@ -477,7 +477,7 @@ class Templatiq_WXR_Importer {
 		);
 
 		$importer = new Templatiq_WXR_Importer( $options );
-		$logger   = new WP_Importer_Logger_ServerSentEvents();
+		$logger   = new Templatiq_Importer_Logger_ServerSentEvents();
 
 		$importer->set_logger( $logger );
 

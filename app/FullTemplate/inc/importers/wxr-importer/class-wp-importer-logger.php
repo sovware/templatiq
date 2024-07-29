@@ -25,12 +25,12 @@
  * @package WordPress Importer
  */
 
-if ( ! class_exists( 'WP_Importer_Logger' ) ) :
+if ( ! class_exists( 'Templatiq_Importer_Logger' ) ) :
 
 	/**
 	 * WP Importer Log
 	 */
-	class WP_Importer_Logger {
+	class Templatiq_Importer_Logger {
 
 		/**
 		 * System is unusable.

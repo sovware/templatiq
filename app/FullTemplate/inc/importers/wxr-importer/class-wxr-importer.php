@@ -166,7 +166,7 @@ if ( ! class_exists( 'Templatiq_WXR_Importer' ) && class_exists( 'WP_Importer' )
 		/**
 		 * Logger instance.
 		 *
-		 * @var WP_Importer_Logger
+		 * @var Templatiq_Importer_Logger
 		 */
 		protected $logger;
 

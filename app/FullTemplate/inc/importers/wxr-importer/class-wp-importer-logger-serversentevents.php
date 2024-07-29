@@ -11,14 +11,14 @@
  * @package WordPress Importer
  */
 
-if ( ! class_exists( 'WP_Importer_Logger_ServerSentEvents' ) && class_exists( 'WP_Importer_Logger' ) ) {
+if ( ! class_exists( 'Templatiq_Importer_Logger_ServerSentEvents' ) && class_exists( 'Templatiq_Importer_Logger' ) ) {
 
 	/**
 	 * Import Log ServerSendEvents
 	 *
 	 * @since 2.0.0
 	 */
-	class WP_Importer_Logger_ServerSentEvents extends WP_Importer_Logger {
+	class Templatiq_Importer_Logger_ServerSentEvents extends Templatiq_Importer_Logger {
 
 		/**
 		 * Logs with an arbitrary level.
