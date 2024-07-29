@@ -19,12 +19,12 @@
 /**
  * WXR Importer
  */
-if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
+if ( ! class_exists( 'Templatiq_WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 
 	/**
 	 * WXR Importer
 	 */
-	class WXR_Importer extends WP_Importer {
+	class Templatiq_WXR_Importer extends WP_Importer {
 		/**
 		 * Maximum supported WXR version
 		 */
@@ -235,7 +235,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			$status = $reader->open( $file );
 
 			if ( ! $status ) {
-				return new WP_Error( 'wxr_importer.cannot_parse', __( 'Could not open the file for parsing', 'templatiq' ) );
+				return new WP_Error( 'templatiq_wxr_importer.cannot_parse', __( 'Could not open the file for parsing', 'templatiq' ) );
 			}
 
 			return $reader;
@@ -257,7 +257,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			$this->version = '1.0';
 
 			// Start parsing!
-			$data = new WXR_Import_Info();
+			$data = new Templatiq_WXR_Import_Info();
 			while ( $reader->read() ) {
 				// Only deal with element opens.
 				if ( XMLReader::ELEMENT !== $reader->nodeType ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- 3rd party library.
@@ -432,7 +432,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 		 * @param string $file Path to the WXR file for importing.
 		 */
 		public function import( $file ) {
-			add_filter( 'import_post_meta_key', array( $this, 'is_valid_meta_key' ) );
+			add_filter( 'templatiq_import_post_meta_key', array( $this, 'is_valid_meta_key' ) );
 			add_filter( 'http_request_timeout', array( &$this, 'bump_request_timeout' ) ); //phpcs:ignore WordPressVIPMinimum.Hooks.RestrictedHooks.http_request_timeout -- We need this to avoid timeout on slow servers while installing theme, plugin etc.
 
 			$result = $this->import_start( $file );
@@ -619,7 +619,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 		 */
 		protected function import_start( $file ) {
 			if ( ! is_file( $file ) ) {
-				return new WP_Error( 'wxr_importer.file_missing', __( 'The file does not exist, please try again.', 'templatiq' ) );
+				return new WP_Error( 'templatiq_wxr_importer.file_missing', __( 'The file does not exist, please try again.', 'templatiq' ) );
 			}
 
 			// Suspend bunches of stuff in WP core.
@@ -644,7 +644,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			 * Fires before the import process has begun. If you need to suspend
 			 * caching or heavy processing on hooks, do so here.
 			 */
-			do_action( 'import_start' );
+			do_action( 'templatiq_import_start' );
 		}
 
 		/**
@@ -668,7 +668,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			 * Fires after the import process has finished. If you need to update
 			 * your cache or re-enable processing, do so here.
 			 */
-			do_action( 'import_end' );
+			do_action( 'templatiq_import_end' );
 		}
 
 		/**
@@ -779,7 +779,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 						if ( 'auto-draft' === $data['post_status'] ) {
 							// Bail now.
 							return new WP_Error(
-								'wxr_importer.post.cannot_import_draft',
+								'templatiq_wxr_importer.post.cannot_import_draft',
 								__( 'Cannot import auto-draft posts', 'templatiq' ),
 								$data
 							);
@@ -855,7 +855,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			 * @param array $comments Comments on the post.
 			 * @param array $terms Terms on the post.
 			 */
-			$data = apply_filters( 'wxr_importer.pre_process.post', $data, $meta, $comments, $terms ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
+			$data = apply_filters( 'templatiq_wxr_importer.pre_process.post', $data, $meta, $comments, $terms ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
 			if ( empty( $data ) ) {
 				return false;
 			}
@@ -905,7 +905,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 				 *
 				 * @param array $data Raw data imported for the post.
 				 */
-				do_action( 'wxr_importer.process_already_imported.post', $data ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
+				do_action( 'templatiq_wxr_importer.process_already_imported.post', $data ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
 
 				// Even though this post already exists, new comments might need importing.
 				$this->process_comments( $comments, $original_id, $data, $post_exists );
@@ -1001,7 +1001,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 					 * @param array $data Raw data imported for the post.
 					 * @param array $meta Raw meta data, already processed by {@see process_post_meta}.
 					 */
-					do_action( 'wxr_importer.process_skipped.post', $data, $meta ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
+					do_action( 'templatiq_wxr_importer.process_skipped.post', $data, $meta ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
 					return false;
 				}
 				$remote_url = ! empty( $data['attachment_url'] ) ? $data['attachment_url'] : $data['guid'];
@@ -1031,7 +1031,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 				 * @param array $comments Raw comment data, already processed by {@see process_comments}.
 				 * @param array $terms Raw term data, already processed.
 				 */
-				do_action( 'wxr_importer.process_failed.post', $post_id, $data, $meta, $comments, $terms ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
+				do_action( 'templatiq_wxr_importer.process_failed.post', $post_id, $data, $meta, $comments, $terms ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
 				return false;
 			}
 
@@ -1109,7 +1109,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			 * @param array $comments Raw comment data, already processed by {@see process_comments}.
 			 * @param array $terms Raw term data, already processed.
 			 */
-			do_action( 'wxr_importer.processed.post', $post_id, $data, $meta, $comments, $terms ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
+			do_action( 'templatiq_wxr_importer.processed.post', $post_id, $data, $meta, $comments, $terms ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
 		}
 
 		/**
@@ -1298,12 +1298,12 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 				 * @param array $meta_item Meta data. (Return empty to skip.)
 				 * @param int $post_id Post the meta is attached to.
 				 */
-				$meta_item = apply_filters( 'wxr_importer.pre_process.post_meta', $meta_item, $post_id ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
+				$meta_item = apply_filters( 'templatiq_wxr_importer.pre_process.post_meta', $meta_item, $post_id ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
 				if ( empty( $meta_item ) ) {
 					return false;
 				}
 
-				$key   = apply_filters( 'import_post_meta_key', $meta_item['key'], $post_id, $post );
+				$key   = apply_filters( 'templatiq_import_post_meta_key', $meta_item['key'], $post_id, $post );
 				$value = false;
 
 				if ( '_edit_last' === $key ) {
@@ -1323,7 +1323,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 					}
 
 					add_post_meta( $post_id, $key, $value );
-					do_action( 'import_post_meta', $post_id, $key, $value );
+					do_action( 'templatiq_import_post_meta', $post_id, $key, $value );
 
 					// if the post has a featured image, take note of this in case of remap.
 					if ( '_thumbnail_id' === $key ) {
@@ -1440,7 +1440,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 				 * @param array $comment Comment data. (Return empty to skip.)
 				 * @param int $post_id Post the comment is attached to.
 				 */
-				$comment = apply_filters( 'wxr_importer.pre_process.comment', $comment, $post_id ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
+				$comment = apply_filters( 'templatiq_wxr_importer.pre_process.comment', $comment, $post_id ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
 				if ( empty( $comment ) ) {
 					return false;
 				}
@@ -1460,7 +1460,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 						 *
 						 * @param array $comment Raw data imported for the comment.
 						 */
-						do_action( 'wxr_importer.process_already_imported.comment', $comment ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
+						do_action( 'templatiq_wxr_importer.process_already_imported.comment', $comment ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
 
 						$this->mapping['comment'][ $original_id ] = $existing;
 						continue;
@@ -1542,7 +1542,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 				 * @param array $meta Raw meta data, already processed by {@see process_post_meta}.
 				 * @param array $post_id Parent post ID.
 				 */
-				do_action( 'wxr_importer.processed.comment', $comment_id, $comment, $meta, $post_id ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
+				do_action( 'templatiq_wxr_importer.processed.comment', $comment_id, $comment, $meta, $post_id ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
 
 				$num_comments++;
 			}
@@ -1662,7 +1662,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			 * @param array $data User data. (Return empty to skip.)
 			 * @param array $meta Meta data.
 			 */
-			$data = apply_filters( 'wxr_importer.pre_process.user', $data, $meta ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
+			$data = apply_filters( 'templatiq_wxr_importer.pre_process.user', $data, $meta ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
 			if ( empty( $data ) ) {
 				return false;
 			}
@@ -1733,7 +1733,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 				 * @param WP_Error $user_id Error object.
 				 * @param array $userdata Raw data imported for the user.
 				 */
-				do_action( 'wxr_importer.process_failed.user', $user_id, $userdata ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
+				do_action( 'templatiq_wxr_importer.process_failed.user', $user_id, $userdata ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
 				return false;
 			}
 
@@ -1765,7 +1765,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			 * @param int $user_id New user ID.
 			 * @param array $userdata Raw data imported for the user.
 			 */
-			do_action( 'wxr_importer.processed.user', $user_id, $userdata ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
+			do_action( 'templatiq_wxr_importer.processed.user', $user_id, $userdata ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
 		}
 
 		/**
@@ -1857,7 +1857,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 				return false;
 			}
 
-			// error_log( 'wxr_importer.pre_process.term: ' . print_r( $data ,true) );
+			// error_log( 'templatiq_wxr_importer.pre_process.term: ' . print_r( $data ,true) );
 			
 			/**
 			 * Pre-process term data.
@@ -1865,7 +1865,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			 * @param array $data Term data. (Return empty to skip.)
 			 * @param array $meta Meta data.
 			 */
-			$data = apply_filters( 'wxr_importer.pre_process.term', $data, $meta ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
+			$data = apply_filters( 'templatiq_wxr_importer.pre_process.term', $data, $meta ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
 			if ( empty( $data ) ) {
 				return false;
 			}
@@ -1882,7 +1882,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 				 *
 				 * @param array $data Raw data imported for the term.
 				 */
-				do_action( 'wxr_importer.process_already_imported.term', $data ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
+				do_action( 'templatiq_wxr_importer.process_already_imported.term', $data ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
 
 				$this->mapping['term'][ $mapping_key ]    = $existing;
 				$this->mapping['term_id'][ $original_id ] = $existing;
@@ -1928,7 +1928,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 				 * @param array $data Raw data imported for the term.
 				 * @param array $meta Meta data supplied for the term.
 				 */
-				do_action( 'wxr_importer.process_failed.term', $result, $data, $meta ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
+				do_action( 'templatiq_wxr_importer.process_failed.term', $result, $data, $meta ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
 				return false;
 			}
 
@@ -1964,7 +1964,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			 * @param int $term_id New term ID.
 			 * @param array $data Raw data imported for the term.
 			 */
-			do_action( 'wxr_importer.processed.term', $term_id, $data ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
+			do_action( 'templatiq_wxr_importer.processed.term', $term_id, $data ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
 		}
 
 		/**
@@ -1987,12 +1987,12 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 				 * @param array $meta_item Meta data. (Return empty to skip.)
 				 * @param int $term_id term the meta is attached to.
 				 */
-				$meta_item = apply_filters( 'wxr_importer.pre_process.term_meta', $meta_item, $term_id ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
+				$meta_item = apply_filters( 'templatiq_wxr_importer.pre_process.term_meta', $meta_item, $term_id ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
 				if ( empty( $meta_item ) ) {
 					return false;
 				}
 
-				$key   = apply_filters( 'import_term_meta_key', $meta_item['key'], $term_id, $term );
+				$key   = apply_filters( 'templatiq_import_term_meta_key', $meta_item['key'], $term_id, $term );
 				$value = false;
 
 				if ( $key ) {
@@ -2003,7 +2003,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 
 					add_term_meta( $term_id, $key, $value );
 
-					do_action( 'import_term_meta', $term_id, $key, $value );
+					do_action( 'templatiq_import_term_meta', $term_id, $key, $value );
 				}
 			}
 
@@ -2420,7 +2420,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 		 * @return int Maximum attachment file size to import
 		 */
 		protected function max_attachment_size() {
-			return apply_filters( 'import_attachment_size_limit', 0 );
+			return apply_filters( 'templatiq_import_attachment_size_limit', 0 );
 		}
 
 		/**

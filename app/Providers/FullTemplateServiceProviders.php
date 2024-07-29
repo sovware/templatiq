@@ -14,10 +14,10 @@ use Templatiq\FullTemplate\Settings;
 class FullTemplateServiceProviders extends ProviderBase {
 
 	public function boot() {
-		add_action( 'st_before_sending_error_report', [$this, 'delete_transient_for_import_process'] );
-		add_action( 'st_before_sending_error_report', [$this, 'temporary_cache_errors'], 10, 1 );
+		add_action( 'templatiq_before_sending_error_report', [$this, 'delete_transient_for_import_process'] );
+		add_action( 'templatiq_before_sending_error_report', [$this, 'temporary_cache_errors'], 10, 1 );
 
-		add_action( 'st_before_start_import_process', [$this, 'schedule_reporting_event'] );
+		add_action( 'templatiq_before_start_import_process', [$this, 'schedule_reporting_event'] );
 		add_action( 'generate_analytics_lead', [$this, 'send_analytics_lead'] );
 
 		\Templatiq\FullTemplate\FullTemplate::init();

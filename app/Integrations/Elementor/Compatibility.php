@@ -13,24 +13,8 @@ class Compatibility {
 	use Singleton;
 
 	public function __construct() {
-		/**
-		 * Add Slashes
-		 *
-		 * @todo    Elementor already have below code which works on defining the constant `WP_LOAD_IMPORTERS`.
-		 *          After defining the constant `WP_LOAD_IMPORTERS` in WP CLI it was not works.
-		 *          Try to remove below duplicate code in future.
-		 */
-		if ( ! wp_doing_ajax() || ( defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, '3.0.0', '>=' ) ) ) {
-			remove_filter( 'wp_import_post_meta', ['Elementor\Compatibility', 'on_wp_import_post_meta'] );
-			remove_filter( 'wxr_importer.pre_process.post_meta', ['Elementor\Compatibility', 'on_wxr_importer_pre_process_post_meta'] );
-
-			add_filter( 'wp_import_post_meta', [$this, 'on_wp_import_post_meta'] );
-			add_filter( 'wxr_importer.pre_process.post_meta', [$this, 'on_wxr_importer_pre_process_post_meta'] );
-		}
-
 		add_action( 'templatiq_sites_before_delete_imported_posts', [$this, 'force_delete_kit'], 10, 2 );
 		add_action( 'templatiq_sites_before_sse_import', [$this, 'disable_attachment_metadata'] );
-
 		add_action( 'templatiq_sites_after_plugin_activation', [$this, 'disable_elementor_redirect'] );
 	}
 
@@ -55,7 +39,7 @@ class Compatibility {
 			'wp_update_attachment_metadata', [
 				\Elementor\Plugin::$instance->uploads_manager->get_file_type_handlers( 'svg' ),
 				'set_svg_meta_data',
-			], 10, 2
+			], 10
 		);
 	}
 
@@ -110,7 +94,7 @@ class Compatibility {
 	 * Normalize Elementor post meta on import with the new WP_importer, We need
 	 * the `wp_slash` in order to avoid the unslashing during the `add_post_meta`.
 	 *
-	 * Fired by `wxr_importer.pre_process.post_meta` filter.
+	 * Fired by `templatiq_wxr_importer.pre_process.post_meta` filter.
 	 *
 	 * @since 1.4.3
 	 * @access public
@@ -119,7 +103,7 @@ class Compatibility {
 	 *
 	 * @return array Updated post meta.
 	 */
-	public function on_wxr_importer_pre_process_post_meta( $post_meta ) {
+	public function on_templatiq_wxr_importer_pre_process_post_meta( $post_meta ) {
 		if ( '_elementor_data' === $post_meta['key'] ) {
 			$post_meta['value'] = wp_slash( $post_meta['value'] );
 		}

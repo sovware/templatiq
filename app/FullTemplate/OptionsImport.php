@@ -147,7 +147,7 @@ class OptionsImport {
 		if ( $downloaded_image['id'] ) {
 			Templatiq_WXR_Importer::instance()->track_post( $downloaded_image['id'] );
 			set_theme_mod( 'custom_logo', $downloaded_image['id'] );
-			update_option( 'site_logo', $downloaded_image['id'] );
+			update_option( 'site_logo', $downloaded_image['id'] ); // the default option for logo in Full Site Editor
 
 			error_log( 'Logo Set from insert_logo()' . $downloaded_image['id'] . $image_url );
 		}

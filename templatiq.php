@@ -45,11 +45,11 @@ final class Templatiq {
 		add_action(
 			'plugins_loaded', function () use ( $application ): void {
 
-				do_action( 'before_load_templatiq' );
+				do_action( 'templatiq_before_load' );
 
 				$application->load();
 
-				do_action( 'after_load_templatiq' );
+				do_action( 'templatiq_after_load' );
 			}
 		);
 	}

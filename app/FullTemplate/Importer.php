@@ -28,7 +28,7 @@ class Importer {
 		add_action( 'wp_ajax_templatiq-sites-import-customizer-settings', [$this, 'import_customizer_settings'] );
 		add_action( 'wp_ajax_templatiq-sites-import-prepare-xml', [$this, 'prepare_xml_data'] );
 		add_action( 'wp_ajax_templatiq-sites-import-options', [$this, 'import_options'] );
-		add_action( 'wp_ajax_templatiq-sites-import-end', [$this, 'import_end'] );
+		add_action( 'wp_ajax_templatiq-sites-import-end', [$this, 'templatiq_import_end'] );
 
 		// Hooks in AJAX.
 		add_action( 'templatiq_full_template_import_complete', [$this, 'clear_related_cache'] );
@@ -261,7 +261,7 @@ class Importer {
 				wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 			}
 		}
-		do_action( 'st_before_start_import_process' );
+		do_action( 'templatiq_before_start_import_process' );
 		set_transient( 'templatiq_sites_import_started', 'yes', HOUR_IN_SECONDS );
 		wp_send_json_success();
 	}

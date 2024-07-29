@@ -13,9 +13,9 @@ class FullTemplateImport {
 	use Singleton;
 
 	public function __construct() {
-		add_filter( 'wxr_importer.pre_process.post', [$this, 'pre_process_post'], 10 );
-		add_filter( 'wxr_importer.pre_process.post_meta', [$this, 'set_directory_type'], 10, 2 );
-		add_action( 'wxr_importer.processed.term', [$this, 'set_directory_type_term'], 10, 2 );
+		add_filter( 'templatiq_wxr_importer.pre_process.post', [$this, 'pre_process_post'], 10 );
+		add_filter( 'templatiq_wxr_importer.pre_process.post_meta', [$this, 'set_directory_type'], 10, 2 );
+		add_action( 'templatiq_wxr_importer.processed.term', [$this, 'set_directory_type_term'], 10, 2 );
 		add_action( 'templatiq_full_template_import_complete', [$this, 'change_term_meta'] );
 	}
 

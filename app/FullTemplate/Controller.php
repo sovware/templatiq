@@ -107,11 +107,11 @@ class Controller extends ControllerBase {
 			],
 		];
 
-		do_action( 'st_before_sending_error_report', $api_args['body'] );
+		do_action( 'templatiq_before_sending_error_report', $api_args['body'] );
 
 		$request = wp_remote_post( $api_url, $api_args );
 
-		do_action( 'st_after_sending_error_report', $api_args['body'], $request );
+		do_action( 'templatiq_after_sending_error_report', $api_args['body'], $request );
 
 		if ( is_wp_error( $request ) ) {
 			wp_send_json_error( $request );

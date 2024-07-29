@@ -11,14 +11,14 @@
  * @package WordPress Importer
  */
 
-if ( ! class_exists( 'WXR_Import_Info' ) ) {
+if ( ! class_exists( 'Templatiq_WXR_Import_Info' ) ) {
 
 	/**
 	 * Import Info
 	 *
 	 * @since 2.0.0
 	 */
-	class WXR_Import_Info {
+	class Templatiq_WXR_Import_Info {
 
 		/**
 		 * Home

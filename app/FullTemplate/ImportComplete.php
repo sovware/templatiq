@@ -19,7 +19,7 @@ class ImportComplete {
 	}
 
 	public function __construct() {
-		add_action( 'templatiq_full_template_import_complete', [$this, 'import_end'] );
+		add_action( 'templatiq_full_template_import_complete', [$this, 'templatiq_import_end'] );
 	}
 
 	public function import_end() {

@@ -106,7 +106,7 @@ class Enqueuer extends EnqueuerBase {
 			'directoristDB'     => get_option( 'directorist_db_version', false ),
 		];
 
-		return apply_filters( 'starter_templates_onboarding_localize_vars', $data );
+		return apply_filters( 'templatiq_onboarding_localize_vars', $data );
 	}
 
 	public function should_report_error() {

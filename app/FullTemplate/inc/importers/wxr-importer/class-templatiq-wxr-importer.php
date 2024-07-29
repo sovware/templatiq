@@ -60,9 +60,9 @@ class Templatiq_WXR_Importer {
 
 		add_filter( 'upload_mimes', [$this, 'custom_upload_mimes'] ); //phpcs:ignore WordPressVIPMinimum.Hooks.RestrictedHooks.upload_mimes -- Added this to allow upload of SVG files.
 		add_action( 'wp_ajax_templatiq-wxr-import', [$this, 'sse_import'] );
-		add_filter( 'wxr_importer.pre_process.user', '__return_null' );
+		add_filter( 'templatiq_wxr_importer.pre_process.user', '__return_null' );
 		add_filter( 'wp_import_post_data_processed', [$this, 'pre_post_data'], 10, 2 );
-		// add_filter( 'wxr_importer.pre_process.post', [$this, 'pre_process_post'], 10, 4 );
+		// add_filter( 'templatiq_wxr_importer.pre_process.post', [$this, 'pre_process_post'], 10, 4 );
 		if ( version_compare( get_bloginfo( 'version' ), '5.1.0', '>=' ) ) {
 			add_filter( 'wp_check_filetype_and_ext', [$this, 'real_mime_types_5_1_0'], 10, 5 );
 		} else {
@@ -340,27 +340,27 @@ class Templatiq_WXR_Importer {
 		add_filter( 'wp_image_editors', [$this, 'enable_wp_image_editor_gd'] );
 
 		// Change GUID image URL.
-		add_filter( 'wxr_importer.pre_process.post', [$this, 'fix_image_duplicate_issue'], 10, 4 );
+		add_filter( 'templatiq_wxr_importer.pre_process.post', [$this, 'fix_image_duplicate_issue'], 10, 4 );
 
 		// Are we allowed to create users?
-		add_filter( 'wxr_importer.pre_process.user', '__return_null' );
+		add_filter( 'templatiq_wxr_importer.pre_process.user', '__return_null' );
 
 		// Keep track of our progress.
-		add_action( 'wxr_importer.processed.post', [$this, 'imported_post'], 10, 2 );
-		add_action( 'wxr_importer.process_failed.post', [$this, 'imported_post'], 10, 2 );
-		add_action( 'wxr_importer.process_already_imported.post', [$this, 'already_imported_post'], 10, 2 );
-		add_action( 'wxr_importer.process_skipped.post', [$this, 'already_imported_post'], 10, 2 );
-		add_action( 'wxr_importer.processed.comment', [$this, 'imported_comment'] );
-		add_action( 'wxr_importer.process_already_imported.comment', [$this, 'imported_comment'] );
-		add_action( 'wxr_importer.processed.term', [$this, 'imported_term'] );
-		add_action( 'wxr_importer.process_failed.term', [$this, 'imported_term'] );
-		add_action( 'wxr_importer.process_already_imported.term', [$this, 'imported_term'] );
-		add_action( 'wxr_importer.processed.user', [$this, 'imported_user'] );
-		add_action( 'wxr_importer.process_failed.user', [$this, 'imported_user'] );
+		add_action( 'templatiq_wxr_importer.processed.post', [$this, 'imported_post'], 10, 2 );
+		add_action( 'templatiq_wxr_importer.process_failed.post', [$this, 'imported_post'], 10, 2 );
+		add_action( 'templatiq_wxr_importer.process_already_imported.post', [$this, 'already_imported_post'], 10, 2 );
+		add_action( 'templatiq_wxr_importer.process_skipped.post', [$this, 'already_imported_post'], 10, 2 );
+		add_action( 'templatiq_wxr_importer.processed.comment', [$this, 'imported_comment'] );
+		add_action( 'templatiq_wxr_importer.process_already_imported.comment', [$this, 'imported_comment'] );
+		add_action( 'templatiq_wxr_importer.processed.term', [$this, 'imported_term'] );
+		add_action( 'templatiq_wxr_importer.process_failed.term', [$this, 'imported_term'] );
+		add_action( 'templatiq_wxr_importer.process_already_imported.term', [$this, 'imported_term'] );
+		add_action( 'templatiq_wxr_importer.processed.user', [$this, 'imported_user'] );
+		add_action( 'templatiq_wxr_importer.process_failed.user', [$this, 'imported_user'] );
 
 		// Keep track of our progress.
-		add_action( 'wxr_importer.processed.post', [$this, 'track_post'], 10, 2 );
-		add_action( 'wxr_importer.processed.term', [$this, 'track_term'] );
+		add_action( 'templatiq_wxr_importer.processed.post', [$this, 'track_post'], 10, 2 );
+		add_action( 'templatiq_wxr_importer.processed.term', [$this, 'track_term'] );
 
 		// Flush once more.
 		flush();
@@ -476,7 +476,7 @@ class Templatiq_WXR_Importer {
 			]
 		);
 
-		$importer = new WXR_Importer( $options );
+		$importer = new Templatiq_WXR_Importer( $options );
 		$logger   = new WP_Importer_Logger_ServerSentEvents();
 
 		$importer->set_logger( $logger );
