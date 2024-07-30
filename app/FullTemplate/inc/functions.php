@@ -70,42 +70,6 @@ if ( ! function_exists( 'templatiq_get_site_data' ) ):
 endif;
 
 /**
- * Check is valid URL
- *
- * @param string $url  The site URL.
- *
- * @since 2.7.1
- * @return string
- */
-function templatiq_sites_is_valid_url( $url = '' ) {
-	if ( empty( $url ) ) {
-		return false;
-	}
-
-	$parse_url = wp_parse_url( $url );
-	if ( empty( $parse_url ) || ! is_array( $parse_url ) ) {
-		return false;
-	}
-
-	$valid_hosts = [
-		'lh3.googleusercontent.com',
-		'pixabay.com',
-		'websitedemos.net',
-		'templatiq.net',
-	];
-
-	$api_domain_parse_url = wp_parse_url( TEMPLATIQ_API_ENDPOINT );
-	$valid_hosts[]        = $api_domain_parse_url['host'];
-
-	// Validate host.
-	if ( in_array( $parse_url['host'], $valid_hosts, true ) ) {
-		return true;
-	}
-
-	return false;
-}
-
-/**
  * Get all the posts to be reset.
  *
  * @since 3.0.3

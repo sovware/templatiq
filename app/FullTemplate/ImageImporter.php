@@ -95,10 +95,6 @@ class ImageImporter {
 	}
 
 	public function import( $attachment ) {
-		if ( isset( $attachment['url'] ) && ! templatiq_sites_is_valid_url( $attachment['url'] ) ) {
-			return $attachment;
-		}
-
 		ImporterLog::add( 'Source - ' . $attachment['url'] );
 		$saved_image = $this->get_saved_image( $attachment );
 		ImporterLog::add( 'Log - ' . wp_json_encode( $saved_image['attachment'] ) );

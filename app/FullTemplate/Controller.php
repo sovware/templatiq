@@ -66,15 +66,6 @@ class Controller extends ControllerBase {
 
 		$api_url = add_query_arg( [], trailingslashit( TEMPLATIQ_API_ENDPOINT ) . 'wp-json/templatiq-library/v2/import-error/' );
 
-		if ( ! templatiq_sites_is_valid_url( $api_url ) ) {
-			wp_send_json_error(
-				[
-					'message' => sprintf( __( 'Invalid Request URL - %s', 'templatiq' ), esc_url( $api_url ) ), // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
-					'code'    => 'Error',
-				]
-			);
-		}
-
 		$post_id           = ( isset( $_POST['id'] ) ) ? intval( $_POST['id'] ) : 0;
 		$user_agent_string = isset( $_SERVER['HTTP_USER_AGENT'] ) ? sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] ) : '';
 
