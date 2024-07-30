@@ -19,12 +19,12 @@
 /**
  * WXR Importer
  */
-if ( ! class_exists( 'Templatiq_WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
+if ( ! class_exists( 'Templatiq_Main_WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 
 	/**
 	 * WXR Importer
 	 */
-	class Templatiq_WXR_Importer extends WP_Importer {
+	class Templatiq_Main_WXR_Importer extends WP_Importer {
 		/**
 		 * Maximum supported WXR version
 		 */

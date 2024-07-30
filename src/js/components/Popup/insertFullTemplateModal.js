@@ -66,7 +66,7 @@ const insertFullTemplateModal = ( { item, onClose } ) => {
 						Recommendation
 					</h2>
 					<p className="templatiq__modal__desc">
-						We recommend to use Onebase Theme to fully experience the design & feature of this template. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist.
+						We recommend to use Pixetiq Theme to fully experience the design & feature of this template. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist.
 					</p>
 					<div className="templatiq__modal__actions">
 						<button

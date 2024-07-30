@@ -9,7 +9,7 @@ use Templatiq\FullTemplate\ImporterLog;
  * @package Templatiq Addon
  */
 
- defined( 'ABSPATH' ) || exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * All the PHPCS errors are ignored in this file as it is a third party file.
@@ -50,7 +50,7 @@ class Templatiq_WXR_Importer {
 	 *
 	 * @since  1.0.0
 	 */
-	private function __construct() {
+	private function __construct( array $options = [] ) {
 
 		require_once ABSPATH . '/wp-admin/includes/class-wp-importer.php';
 		require_once TEMPLATIQ_SITES_DIR . 'inc/importers/wxr-importer/class-wp-importer-logger.php';
@@ -467,7 +467,7 @@ class Templatiq_WXR_Importer {
 	 * @return object   Importer object.
 	 */
 	public function get_importer() {
-		$options = apply_filters(
+		$options = (array) apply_filters(
 			'templatiq_sites_xml_import_options',
 			[
 				'update_attachment_guids' => true,
@@ -476,7 +476,7 @@ class Templatiq_WXR_Importer {
 			]
 		);
 
-		$importer = new Templatiq_WXR_Importer( $options );
+		$importer = new Templatiq_Main_WXR_Importer( $options );
 		$logger   = new Templatiq_Importer_Logger_ServerSentEvents();
 
 		$importer->set_logger( $logger );

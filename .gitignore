@@ -20,3 +20,4 @@ dist/**
 /languages
 /i18n
 yarn.lock
+/assets
