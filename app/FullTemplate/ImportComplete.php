@@ -22,7 +22,7 @@ class ImportComplete {
 		add_action( 'templatiq_full_template_import_complete', [$this, 'templatiq_import_end'] );
 	}
 
-	public function import_end() {
+	public function templatiq_import_end() {
 		$this->update_menu_links();
 		$this->update_menu_refs();
 		$this->update_logo_width();
