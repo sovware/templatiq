@@ -227,7 +227,7 @@ class Importer {
 	 * @since 1.0.14
 	 * @return void
 	 */
-	public function import_end() {
+	public function templatiq_import_end() {
 		if ( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) {
 			// Verify Nonce.
 			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
