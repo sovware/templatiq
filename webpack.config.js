@@ -2,7 +2,6 @@ const path = require( 'path' );
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
 const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
-const { log } = require( 'console' );
 const TEMPLATIQ_NAMESPACE = '@templatiq/';
 
 const devHost = 'templatiq.test';

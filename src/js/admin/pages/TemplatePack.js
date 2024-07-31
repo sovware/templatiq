@@ -1,7 +1,7 @@
 import TemplatePackModule from '@modules/TemplatePack';
 
 const TemplatePack = () => {
-	return <TemplatePackModule type="pack" />;
+	return <TemplatePackModule type="page" />;
 };
 
 export default TemplatePack;
