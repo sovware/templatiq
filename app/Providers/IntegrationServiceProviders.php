@@ -20,9 +20,7 @@ class IntegrationServiceProviders extends \Templatiq\Abstracts\ProviderBase {
 
 	public function get(): array {
 		return [
-			\Templatiq\Integrations\Directorist\Directorist::class,
 			\Templatiq\Integrations\Elementor\Elementor::class,
-			\Templatiq\Integrations\WooCommerce\WooCommerce::class,
 		];
 	}
 }

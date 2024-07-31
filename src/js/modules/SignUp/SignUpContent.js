@@ -66,7 +66,7 @@ export default function SignUpContent({ setIsSignedUp }) {
 				>
 					<div className="templatiq__auth__info">
 						<div className="templatiq__auth__info__single">
-							<label htmlFor="authorFullName">Full Name</label>
+							<label htmlFor="authorFullName">Name</label>
 							<input
 								type="text"
 								id="authorFullName"
