@@ -3,12 +3,12 @@
 1. Clone Github Repository
 
    ```sh
-   git clone https:://github.com/sovware/helpgent.git
+   git clone https:://github.com/sovware/templatiq.git
    ```
 
 2. Install composer dependencies
    ```sh
-   composer install --no-cache
+   composer install
    ```
 
 3. Install npm dependencies (Node v18.x)
@@ -18,7 +18,7 @@
 
 4. Compile Scripts
    ```sh
-   npm start --no-watch
+   npm start
    ```
 
 4. Build plugin
