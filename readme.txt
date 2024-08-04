@@ -1,8 +1,8 @@
-=== Templatiq – The Ultimate Templates | Craft beautiful website in no time ===
+=== Templatiq – A Dedicated Template Library for Elementor ===
 Contributors: wpwax
 Tags: templates, starter template, design, quick starter, demo site
 Requires at least: 6.0
-Tested up to: 6.5
+Tested up to: 6.6.1
 Requires PHP: 7.4
 Stable tag: 1.0.0
 License: GPLv2 or later
