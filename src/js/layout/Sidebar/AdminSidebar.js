@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import ReactSVG from 'react-inlinesvg';
 import { AdminSidebarStyle } from './style';
+import { __ } from '@wordpress/i18n';
 
 import cartIcon from '@icon/cart.svg';
 import heartIcon from '@icon/heart.svg';
@@ -24,7 +25,7 @@ const AdminSidebar = () => {
 							width={ 16 }
 							height={ 16 }
 						/>
-						My Favorites
+						{__( 'My Favorites', 'helpgent' )}
 					</NavLink>
 					<NavLink
 						to="/dashboard/downloads"
@@ -36,7 +37,7 @@ const AdminSidebar = () => {
 							width={ 16 }
 							height={ 16 }
 						/>
-						My Downloads
+						{__( 'My Downloads', 'helpgent' )}
 					</NavLink>
 					<NavLink
 						to="/dashboard/purchase"
@@ -44,7 +45,7 @@ const AdminSidebar = () => {
 						activeClassName="active"
 					>
 						<ReactSVG src={ cartIcon } width={ 16 } height={ 16 } />
-						My Purchase
+						{__( 'My Purchase', 'helpgent' )}
 					</NavLink>
 					<NavLink
 						to="/dashboard/account"
@@ -56,7 +57,7 @@ const AdminSidebar = () => {
 							width={ 16 }
 							height={ 16 }
 						/>
-						My Account
+						{__( 'My Account', 'helpgent' )}
 					</NavLink>
 				</div>
 			</div>

@@ -2,6 +2,7 @@ import { dispatch, select, subscribe } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { useLocation } from 'react-router-dom';
+import { __ } from '@wordpress/i18n';
 
 import store from '@store/index';
 import { SidebarItemStyle, SidebarStyle } from './style';
@@ -153,7 +154,7 @@ const Sidebar = () => {
 								width={ 18 }
 								height={ 18 }
 							/>
-							Filter
+							{__( 'Filter', 'helpgent' )}
 						</h3>
 						<button
 							href="#"
@@ -161,7 +162,7 @@ const Sidebar = () => {
 							onClick={ clearFilters }
 							disabled={ selectedFilters.length === 0 }
 						>
-							Clear
+							{__( 'Clear', 'helpgent' )}
 						</button>
 					</div>
 					<div className="templatiq__sidebar__wrapper">
@@ -169,12 +170,12 @@ const Sidebar = () => {
 							<TabList className="templatiq__sidebar__nav">
 								<Tab className="templatiq__sidebar__nav__item">
 									<button className="templatiq__sidebar__nav__link">
-										Plugins
+										{__( 'Plugins', 'helpgent' )}
 									</button>
 								</Tab>
 								<Tab className="templatiq__sidebar__nav__item">
 									<button className="templatiq__sidebar__nav__link">
-										Categories
+										{__( 'Categories', 'helpgent' )}
 									</button>
 								</Tab>
 							</TabList>

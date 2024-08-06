@@ -4,6 +4,7 @@ import postData from '@helper/postData';
 import ReactSVG from 'react-inlinesvg';
 import AuthModal from '@components/Popup/AuthModal';
 import store from '@store/index';
+import { __ } from '@wordpress/i18n';
 
 import heartIcon from '@icon/heart.svg';
 import heartSolidIcon from '@icon/heart-solid.svg';
@@ -108,7 +109,7 @@ const Bookmark = ( props ) => {
 					<a
 						href="#"
 						className="templatiq__template__single__quickmeta__item favorite-btn templatiq-tooltip"
-						data-info="Add to Favourite"
+						data-info={__( 'Add to Favourite', 'helpgent' )}
 						onClick={ addAuthModal }
 					>
 						<ReactSVG
@@ -127,8 +128,8 @@ const Bookmark = ( props ) => {
 					}` }
 					data-info={
 						addedToFavorite
-							? 'Added to Favourite'
-							: 'Add to Favourite'
+							? __( 'Added to Favourite', 'helpgent' )
+							: __( 'Add to Favourite', 'helpgent' ) 
 					}
 					onClick={ handleFavorite }
 				>

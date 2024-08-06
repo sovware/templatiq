@@ -1,5 +1,6 @@
 import ReactSVG from 'react-inlinesvg';
 import { PopupStyle } from './style';
+import { __ } from '@wordpress/i18n';
 
 import closeIcon from '@icon/close.svg';
 
@@ -27,15 +28,13 @@ const Popup = ( props ) => {
 				<div className="templatiq__modal__content">
 					<div className="">
 						<h2 className="templatiq__modal__title">
-							Required Plugins
+							{__( 'Required Plugins', 'helpgent' )}
 						</h2>
 						<p className="templatiq__modal__desc">
-							To import this item you need to install all the
-							Plugin listed below.
+							{__( 'To import this item you need to install all the Plugin listed below.', 'helpgent' )}
 						</p>
 						<p className="templatiq__modal__desc">
-							<strong>Note:</strong> Make sure you have manually
-							installed & activated the Pro Plugin listed above.
+							<strong>{__( 'Note:', 'helpgent' )}</strong> {__( 'Make sure you have manually installed & activated the Pro Plugin listed above.', 'helpgent' )}
 						</p>
 					</div>
 				</div>

@@ -4,6 +4,7 @@ import DashboardLayout from '@layout/DashboardLayout';
 import ContentLoading from '@components/ContentLoading';
 import Searchform from '@components/Searchform';
 import store from '@store/index';
+import { __ } from '@wordpress/i18n';
 
 import { TemplatePackStyle } from '@root/style';
 import { DashboardItemsStyle } from './style';
@@ -92,7 +93,7 @@ export default function MyDownloadsModule() {
 					<div className="templatiq__content__top">
 						<div className="templatiq__content_top__filter">
 							<h3 className="templatiq__content__top__filter__title">
-								My Downloads
+								{__( 'My Downloads', 'helpgent' )}
 							</h3>
 						</div>
 						<div className="templatiq__content__top__search">
@@ -103,17 +104,17 @@ export default function MyDownloadsModule() {
 						<div className="templatiq__content__dashboard__header">
 							<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name">
 								<span className="templatiq__content__dashboard__item__header">
-									Name
+									{__( 'Name', 'helpgent' )}
 								</span>
 							</div>
 							<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--type">
 								<span className="templatiq__content__dashboard__item__header">
-									Downloaded Type
+									{__( 'Downloaded Type', 'helpgent' )}
 								</span>
 							</div>
 							<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
 								<span className="templatiq__content__dashboard__item__header">
-									Downloaded Date
+									{__( 'Downloaded Date', 'helpgent' )}
 								</span>
 							</div>
 						</div>
@@ -125,10 +126,10 @@ export default function MyDownloadsModule() {
 							) : isEmpty ? (
 								<div className="templatiq__content__empty">
 									<h3 className="templatiq__content__empty__title">
-										No Downloads Found
+										{__( 'No Downloads Found', 'helpgent' )}
 									</h3>
 									<h3 className="templatiq__content__empty__desc">
-										Search Other Templates
+										{__( 'Search Other Templates', 'helpgent' )}
 									</h3>
 								</div>
 							) : (
@@ -150,9 +151,7 @@ export default function MyDownloadsModule() {
 											</span>
 										</div>
 										<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
-											<span className="templatiq__content__dashboard__item__text">
-												14 May, 2023 7.23pm
-											</span>
+											<span className="templatiq__content__dashboard__item__text"> </span>
 										</div>
 									</div>
 								) )

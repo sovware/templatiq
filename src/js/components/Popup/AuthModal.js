@@ -3,6 +3,7 @@ import SignUpContent from '@modules/SignUp/SignUpContent';
 import { useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { AuthModalStyle } from './style';
+import { __ } from '@wordpress/i18n';
 
 import closeIcon from '@icon/close.svg';
 
@@ -39,14 +40,14 @@ const AuthModal = ( { onClose } ) => {
 			{!isSignedUp && (
 				<div className="templatiq__modal__bottom">
 					{!signUpModal
-						? "Don't have an account?"
-						: 'Already have an account?'}{' '}
+						?  __( "Don't have an account?", 'helpgent' )
+						:  __( 'Already have an account?', 'helpgent' )}{' '}
 					<a
 						href="#"
 						className="templatiq__modal__another__btn"
 						onClick={openAnotherModal}
 					>
-						{!signUpModal ? 'Sign up' : 'Sign in'}
+						{!signUpModal ? __( 'Sign up', 'helpgent' ) :  __( 'Sign in', 'helpgent' ) }
 					</a>
 				</div>
 			)}

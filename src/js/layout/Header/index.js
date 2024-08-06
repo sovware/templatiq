@@ -3,6 +3,7 @@ import { dispatch, select } from '@wordpress/data';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { __ } from '@wordpress/i18n';
 
 import CacheClearBtn from '@components/CacheClearBtn';
 import Dropdown from '@components/Dropdown';
@@ -57,13 +58,13 @@ const Header = ( props ) => {
 	let editorItems = [
 		{
 			icon: elementorIcon,
-			text: 'Elementor',
+			text: __( 'Elementor', 'helpgent' ),
 			url: '#',
 			type: 'available'
 		},
 		{
 			icon: gutenbergIcon,
-			text: 'Block Editor',
+			text: __( 'Block Editor', 'helpgent' ),
 			url: '#',
 			type: 'upcoming'
 		},
@@ -108,7 +109,7 @@ const Header = ( props ) => {
 						onClick={ handleGoBack }
 					>
 						<ReactSVG src={ backIcon } width={ 12 } height={ 12 } />
-						Back to Library
+						{__( 'Back to Library', 'helpgent' )}
 					</button>
 				</div>
 			) : (
@@ -132,7 +133,7 @@ const Header = ( props ) => {
 								width={ 18 }
 								height={ 18 }
 							/>
-							Pages
+							{__( 'Pages', 'helpgent' )}
 						</NavLink>
 					</li>
 					<li className="templatiq__header__item">
@@ -146,7 +147,7 @@ const Header = ( props ) => {
 								width={ 18 }
 								height={ 18 }
 							/>
-							Blocks
+							{__( 'Blocks', 'helpgent' )}
 						</NavLink>
 					</li>
 				</HeaderNavStyle>
@@ -159,7 +160,7 @@ const Header = ( props ) => {
 					<div className="templatiq__header__action__item">
 						<Dropdown
 							className="templatiq__dropdown"
-							dropDownText="Select Editor"
+							dropDownText={__( 'Select Editor', 'helpgent' )}
 							dropDownIcon={ chevronIcon }
 							dropdownList={ editorItems }
 							defaultSelect={ editorItems[ 0 ] }
@@ -193,7 +194,7 @@ const Header = ( props ) => {
 													width={ 14 }
 													height={ 14 }
 												/>
-												My Favorites
+												{__( 'My Favorites', 'helpgent' )}
 											</NavLink>
 										</div>
 										{ ! elementorEditorEnabled && (
@@ -209,7 +210,7 @@ const Header = ( props ) => {
 															width={ 14 }
 															height={ 14 }
 														/>
-														My Downloads
+														{__( 'My Downloads', 'helpgent' )}
 													</NavLink>
 												</div>
 												<div className="templatiq__header__author__info__item">
@@ -223,7 +224,7 @@ const Header = ( props ) => {
 															width={ 14 }
 															height={ 14 }
 														/>
-														My Purchase
+														{__( 'My Purchase', 'helpgent' )}
 													</NavLink>
 												</div>
 												<div className="templatiq__header__author__info__item">
@@ -237,7 +238,7 @@ const Header = ( props ) => {
 															width={ 14 }
 															height={ 14 }
 														/>
-														Manage Account
+														{__( 'Manage Account', 'helpgent' )}
 													</NavLink>
 												</div>
 											</>
@@ -256,7 +257,7 @@ const Header = ( props ) => {
 													width={ 14 }
 													height={ 14 }
 												/>
-												Log Out
+												{__( 'Log Out', 'helpgent' )}
 											</button>
 										</div>
 									</div>
@@ -272,7 +273,7 @@ const Header = ( props ) => {
 									width={ 14 }
 									height={ 14 }
 								/>
-								Sign In
+								{__( 'Sign In', 'helpgent' )}
 							</Link>
 						) }
 					</div>

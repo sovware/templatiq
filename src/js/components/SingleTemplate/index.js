@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { Link } from 'react-router-dom';
 import { SingleTemplateStyle } from './style';
+import { __ } from '@wordpress/i18n';
 
 import crownIcon from '@icon/crown.svg';
 import downloadIcon from '@icon/download-alt.svg';
@@ -105,7 +106,7 @@ const SingleTemplate = ( item ) => {
 									width={ 16 }
 									height={ 16 }
 								/>
-								Pro
+								{__( "Pro", 'helpgent' )}
 							</span>
 						) : (
 							''
@@ -116,7 +117,7 @@ const SingleTemplate = ( item ) => {
 									className="templatiq__template__single__info__meta__item purchased-item templatiq-tooltip"
 									data-info="Unlocked"
 								>
-									Purchased
+									{__( "Purchased", 'helpgent' )}
 								</span>
 							)
 						}
@@ -126,7 +127,7 @@ const SingleTemplate = ( item ) => {
 									className="templatiq__template__single__info__meta__item unlocked-item templatiq-tooltip"
 									data-info="Unlocked"
 								>
-									Unlocked
+									{__( "Unlocked", 'helpgent' )}
 								</span>
 							)
 						}
@@ -137,7 +138,7 @@ const SingleTemplate = ( item ) => {
 							target="_blank"
 							className="templatiq__template__single__info__action__link"
 						>
-							Live Demo
+							{__( "Live Demo", 'helpgent' )}
 						</a>
 						<InsertTemplate
 							item={ item }
@@ -174,7 +175,7 @@ const SingleTemplate = ( item ) => {
 			<div className="templatiq__template__single__content">
 				<h3 className="templatiq__template__single__title">
 					<Link to={ `/template/${ slug }` }>
-						{ title ? title : 'DDoctors' }
+						{ title ? title : __( 'dDoctors', 'helpgent' ) }
 					</Link>
 				</h3>
 				<div className="templatiq__template__single__cat">
@@ -222,13 +223,13 @@ const SingleTemplate = ( item ) => {
 						</span>
 					) : (
 						<span className="templatiq__template__single__quickmeta__item free-item">
-							Free
+							{__( "Free", 'helpgent' )}
 						</span>
 					) }
 
 					<span
 						className="templatiq__template__single__quickmeta__item templatiq-tooltip"
-						data-info="Total Downloads"
+						data-info={__( "Total Downloads", 'helpgent' )}
 					>
 						<ReactSVG
 							src={ downloadIcon }

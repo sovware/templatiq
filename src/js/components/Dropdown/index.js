@@ -1,6 +1,7 @@
 import checkedClickedOutside from '@helper/checkClickedOutside';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
+import { __ } from '@wordpress/i18n';
 
 import { DropdownStyle } from './style';
 
@@ -126,7 +127,7 @@ export default function Dropdown( {
 										''
 									) }
 									{ item.text }
-									{ item.type === 'upcoming' ?  <sup>(Coming Soon)</sup> : null }
+									{ item.type === 'upcoming' ?  <sup> {__( '(Coming Soon)', 'helpgent' )}</sup> : null }
 								</a>
 							</li>
 						);

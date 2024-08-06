@@ -2,6 +2,7 @@ import postData from '@helper/postData';
 import { useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { CacheClearBtnStyle } from './style';
+import { __ } from '@wordpress/i18n';
 
 import cacheClearIcon from '@icon/sync.svg';
 

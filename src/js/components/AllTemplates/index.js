@@ -3,6 +3,7 @@ import { select, subscribe } from '@wordpress/data';
 import { Suspense, lazy, useEffect, useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import ReactPaginate from 'react-paginate';
+import { __ } from '@wordpress/i18n';
 
 import ContentLoading from '@components/ContentLoading';
 import Searchform from '@components/Searchform';
@@ -250,7 +251,7 @@ export default function AllTemplates( props ) {
 					<h3 className="templatiq__content__top__filter__title capitalize">
 						{
 							templateType === 'pack' ? 
-							'Full Site' :
+							__( 'Full Site', 'helpgent' ):
 							`Template ${ templateType }`
 						}
 					</h3>
@@ -262,7 +263,7 @@ export default function AllTemplates( props ) {
 								onClick={ () => changeTemplateTab( 'all' ) }
 							>
 								<button className="templatiq__content__top__filter__link">
-									All (
+									{__( 'All', 'helpgent' )} (
 									{ defaultTemplates
 										? defaultTemplates.length
 										: '0' }
@@ -274,7 +275,7 @@ export default function AllTemplates( props ) {
 								onClick={ () => changeTemplateTab( 'free' ) }
 							>
 								<button className="templatiq__content__top__filter__link">
-									Free (
+									{__( 'Free', 'helpgent' )} (
 									{ freeTemplates
 										? freeTemplates.length
 										: '0' }
@@ -291,7 +292,7 @@ export default function AllTemplates( props ) {
 										width={ 12 }
 										height={ 12 }
 									/>
-									Pro (
+									{__( 'Pro', 'helpgent' )} (
 									{ proTemplates ? proTemplates.length : '0' }
 									)
 								</button>
@@ -309,10 +310,10 @@ export default function AllTemplates( props ) {
 					{ isEmpty && (
 						<div className="templatiq__content__empty">
 							<h3 className="templatiq__content__empty__title">
-								No Template Found
+								{__( 'No Template Found', 'helpgent' )}								
 							</h3>
 							<h3 className="templatiq__content__empty__desc">
-								Search Other Templates
+								{__( 'Search Other Templates', 'helpgent' )}
 							</h3>
 						</div>
 					) }

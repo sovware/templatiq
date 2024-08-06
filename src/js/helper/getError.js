@@ -1,20 +1,22 @@
+import { __ } from '@wordpress/i18n';
+
 export default function getErrorMessage( code ) {
 	let errorMessage = '';
 	switch ( code ) {
 		case 404:
-			errorMessage = 'Resource not found';
+			errorMessage = __( 'Resource not found', 'helpgent' );
 			break;
 		case 400:
-			errorMessage = 'Invalid Request';
+			errorMessage = __( 'Invalid Request', 'helpgent' );
 			break;
 		case 422:
-			errorMessage = 'Invalid data';
+			errorMessage = __( 'Invalid data', 'helpgent' );
 			break;
 		case 500:
-			errorMessage = 'Internal server error';
+			errorMessage = __( 'Internal server error', 'helpgent' );
 			break;
 		default:
-			errorMessage = 'Technical error';
+			errorMessage = __( 'Technical error', 'helpgent' );
 			break;
 	}
 	return errorMessage;

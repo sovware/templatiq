@@ -2,6 +2,7 @@ import postData from '@helper/postData';
 import { AuthStyle } from '@root/style';
 import { useEffect, useState } from '@wordpress/element';
 import { Link, useNavigate } from 'react-router-dom';
+import { __ } from '@wordpress/i18n';
 
 import store from '@store/index';
 import { select } from '@wordpress/data';
@@ -44,7 +45,7 @@ export default function SignUpContent({ setIsSignedUp }) {
 				setIsSignedUp( true );
 				// navigate( '/signin' );
 			} else {
-				const errorMessage = data.message || 'Something went wrong';
+				const errorMessage = data.message ||  __( 'Something went wrong', 'helpgent' );
 				setErrorMessage( errorMessage );
 			}
 
@@ -58,7 +59,7 @@ export default function SignUpContent({ setIsSignedUp }) {
 
 	return (
 		<AuthStyle className="templatiq__auth">
-			<h3 className="templatiq__auth__title">Sign up your account</h3>
+			<h3 className="templatiq__auth__title"> Sign up your account</h3>
 			{ ! isRegistered ? (
 				<form
 					className="templatiq__auth__wrapper"
@@ -99,19 +100,19 @@ export default function SignUpContent({ setIsSignedUp }) {
 							}` }
 						>
 							{
-								!loading ? 'Sign Up' : null
+								!loading ?  __( 'Sign Up', 'helpgent' ) : null
 							}
 						</button>
 						{ errorMessage && (
 							<p className="text-danger">{ errorMessage }</p>
 						) }
 						<span className="templatiq__auth__desc">
-							Already have an account?
+							{ __( "Already have an account?", 'helpgent' )}
 							<Link
 								to="/signin"
 								className="templatiq__auth__link"
 							>
-								Sign in
+								{ __( "Sign in", 'helpgent' )}
 							</Link>
 						</span>
 					</div>
@@ -119,21 +120,20 @@ export default function SignUpContent({ setIsSignedUp }) {
 			) : (
 				<div className="templatiq__auth__wrapper notification-wrapper">
 					<p>
-						Successfully Registered. Check Your Email to Complete
-						Registration.{ ' ' }
+						{__( "Successfully Registered. Check Your Email to Complete Registration.", 'helpgent' )}
 					</p>
 					<div className="templatiq__auth__btn_wrapper">
 						<Link
 							to="/"
 							className="templatiq__auth__btn templatiq-btn templatiq-btn-primary"
 						>
-							Go to Home
+							{__( " Go to Home", 'helpgent' )}
 						</Link>
 						<Link
 							to="/signin"
 							className="templatiq__auth__btn templatiq-btn"
 						>
-							Sign in
+							{__( "Sign in", 'helpgent' )}
 						</Link>
 					</div>
 				</div>

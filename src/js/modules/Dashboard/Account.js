@@ -4,6 +4,7 @@ import { select } from '@wordpress/data';
 import { useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { MyAccountStyle } from './style';
+import { __ } from '@wordpress/i18n';
 
 import userIcon from '@icon/user.svg';
 
@@ -24,7 +25,6 @@ export default function MyAccountModule() {
 
 	const handleData = ( e ) => {
 		e.preventDefault(); // Prevents the default form submission behavior
-		console.log( 'Submitted Author Info:', formData );
 	};
 
 	return (
@@ -32,7 +32,7 @@ export default function MyAccountModule() {
 			<div className="templatiq__content templatiq__content--dashboard">
 				<MyAccountStyle className="templatiq__dashboard__account">
 					<h3 className="templatiq__dashboard__account__title">
-						My Account
+						{__( 'My Account', 'helpgent' )}
 					</h3>
 					<form
 						className="templatiq__dashboard__account__wrapper"
@@ -72,19 +72,19 @@ export default function MyAccountModule() {
 								href="#"
 								className="templatiq__dashboard__account__link"
 							>
-								Change Password
+								{__( 'Change Password', 'helpgent' )}
 							</a>
 							<button
 								type="submit"
 								className="templatiq__dashboard__account__btn templatiq-btn templatiq-btn-primary"
 							>
-								Save Changes
+								{__( 'Save Changes', 'helpgent' )}
 							</button>
 							<a
 								href="#"
 								className="templatiq__dashboard__account__link text-danger"
 							>
-								Delete Account
+								{__( 'Delete Account', 'helpgent' )}
 							</a>
 						</div>
 					</form>

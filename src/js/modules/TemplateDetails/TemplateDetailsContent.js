@@ -1,5 +1,5 @@
 import ReactSVG from 'react-inlinesvg';
-
+import { __ } from '@wordpress/i18n';
 import checkIcon from '@icon/check-alt.svg';
 
 
@@ -11,12 +11,12 @@ const TemplateDetailsContent = ( props ) => {
 			<div className="templatiq__details__img">
 				<img
 					src={ thumbnail }
-					alt="Template Pack Pro"
+					alt={__( "Template Pack Pro", 'helpgent' )}
 				/>
 			</div>
 			<div className="templatiq__details__content__single">
 				<h3 className="templatiq__details__content__single__title">
-					Overview
+					{__( "Overview", 'helpgent' )}
 				</h3>
 				<p className="templatiq__details__content__single__desc">
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed

@@ -3,6 +3,7 @@ import { AuthStyle } from '@root/style';
 import { dispatch, select } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 import { Link, useNavigate } from 'react-router-dom';
+import { __ } from '@wordpress/i18n';
 
 import store from '@store/index';
 
@@ -77,7 +78,7 @@ export default function SignInContent() {
 			<form className="templatiq__auth__wrapper" onSubmit={ handleData }>
 				<div className="templatiq__auth__info">
 					<div className="templatiq__auth__info__single">
-						<label htmlFor="authorEmail">Email Address</label>
+						<label htmlFor="authorEmail">{__( 'Email Address', 'helpgent' )}</label>
 						<input
 							type="text"
 							id="authorEmail"
@@ -110,7 +111,7 @@ export default function SignInContent() {
 								for="rememberMe"
 								className="templatiq__checkbox__label"
 							>
-								Remember Me
+								{__( 'Remember Me', 'helpgent' )}
 							</label>
 						</div>
 						<div className="templatiq__auth__forgot">
@@ -119,7 +120,7 @@ export default function SignInContent() {
 								target="_blank"
 								className="templatiq__auth__link"
 							>
-								Forgot password?
+								{__( 'Forgot password?', 'helpgent' )}
 							</a>
 						</div>
 					</div>
@@ -135,16 +136,16 @@ export default function SignInContent() {
 						}` }
 					>
 						{
-							!loading ? 'Sign In' : null
+							!loading ? __( 'Forgot password?', 'helpgent' ): null
 						}
 					</button>
 					{
 						error ? <p className="templatiq__auth__error text-danger">{ error }</p> : null
 					}
 					<span className="templatiq__auth__desc">
-						Don't have an account?
+						{ __( "Don't have an account?", 'helpgent' )}
 						<Link to="/signup" className="templatiq__auth__link">
-							Sign up
+							{ __( "Sign up", 'helpgent' )}
 						</Link>
 					</span>
 				</div>

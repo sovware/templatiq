@@ -1,5 +1,6 @@
 import { useEffect, useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
+import { __ } from '@wordpress/i18n';
 
 import store from '@store/index';
 import { select } from '@wordpress/data';
@@ -68,7 +69,7 @@ const TemplateDetailsHeader = ( props ) => {
 								width={ 16 }
 								height={ 16 }
 							/>
-							Used by { number_of_downloads } people
+							{__( "Used by", 'helpgent' )} { number_of_downloads } {__( "people", 'helpgent' )}
 						</span>
 					) : (
 						''
@@ -80,11 +81,11 @@ const TemplateDetailsHeader = ( props ) => {
 								width={ 16 }
 								height={ 16 }
 							/>
-							Loved by{ ' ' }
+							{__( "Loved by", 'helpgent' )}{ ' ' }
 							{ currentFavoriteCount
 								? currentFavoriteCount
 								: '0' }{ ' ' }
-							people
+							{__( "people", 'helpgent' )} 
 						</span>
 					) : (
 						''
@@ -99,7 +100,7 @@ const TemplateDetailsHeader = ( props ) => {
 							width={ 16 }
 							height={ 16 }
 						/>
-						PRO
+						{__( "PRO", 'helpgent' )}
 					</span>
 				) : (
 					''
@@ -116,7 +117,7 @@ const TemplateDetailsHeader = ( props ) => {
 					target="_blank"
 					className="templatiq__details__header__action__link live-demo-btn templatiq-btn templatiq-btn-white"
 				>
-					Live Demo
+					{__( "Live Demo", 'helpgent' )}
 				</a>
 				{ price > 0 && !(isPurchased || isUnlocked) ? (
 					<a
@@ -124,7 +125,7 @@ const TemplateDetailsHeader = ( props ) => {
 						className="templatiq__details__header__action__link purchase-btn templatiq-btn templatiq-btn-primary"
 					>
 						<ReactSVG src={ cartIcon } width={ 16 } height={ 16 } />
-						Buy this item ${ price }
+						{__( "Buy this item", 'helpgent' )} ${ price }
 					</a>
 				) : (
 					<InsertTemplate

@@ -4,6 +4,7 @@ import store from '@store/index';
 import { select } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
+import { __ } from '@wordpress/i18n';
 
 import InsertFullTemplateModal from '@components/Popup/insertFullTemplateModal';
 import InsertProModal from '@components/Popup/insertProModal';
@@ -169,7 +170,7 @@ const InsertTemplate = ({
 					width={14}
 					height={14}
 				/>
-				{type !== 'pack' ? (innerText ? innerText : 'Insert') : 'Insert Full Template'}
+				{type !== 'pack' ? (innerText ? innerText :  __( 'Insert', 'helpgent' ) ) :  __( 'Insert Full Template', 'helpgent' )}
 			</button>
 		</>
 	);

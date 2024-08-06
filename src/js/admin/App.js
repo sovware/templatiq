@@ -4,6 +4,7 @@ import { Suspense, lazy, useEffect, useState } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
+import { __ } from '@wordpress/i18n';
 
 import store from '@store/index';
 import { dispatch } from '@wordpress/data';

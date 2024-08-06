@@ -3,6 +3,7 @@ import { select, subscribe } from '@wordpress/data';
 import store from '@store/index';
 import { TemplateDetailsStyle } from './style';
 import ContentLoading from '@components/ContentLoading';
+import { __ } from '@wordpress/i18n';
 
 import TemplateDetailsLayout from './TemplateDetailsLayout';
 import TemplateDetailsHeader from './TemplateDetailsHeader';
@@ -41,7 +42,6 @@ export default function TemplateDetailsModule( props ) {
 			// Clean up the subscription when the component is unmounted
 			return () => storeUpdate();
 		} catch ( error ) {
-			console.error( 'Error fetching data:', error );
 			setLoading( false );
 		}
 	};

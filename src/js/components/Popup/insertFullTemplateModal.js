@@ -2,6 +2,7 @@ import postData from '@helper/postData';
 import { useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { InsertTemplateModalStyle } from './style';
+import { __ } from '@wordpress/i18n';
 
 import closeIcon from '@icon/close.svg';
 import recommendationIcon from '@icon/recommendation.svg';
@@ -63,10 +64,10 @@ const insertFullTemplateModal = ( { item, onClose } ) => {
 				<div className="templatiq__modal__content">
 					<h2 className="templatiq__modal__title">
 						<ReactSVG src={ recommendationIcon } width={ 30 } height={ 30 } />
-						Recommendation
+						{__( 'Recommendation', 'helpgent' )}
 					</h2>
 					<p className="templatiq__modal__desc">
-						We recommend to use Pixetiq Theme to fully experience the design & feature of this template. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist.
+						{__( 'We recommend to use Pixetiq Theme to fully experience the design & feature of this template. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist.', 'helpgent' )}
 					</p>
 					<div className="templatiq__modal__actions">
 						<button
@@ -81,16 +82,16 @@ const insertFullTemplateModal = ( { item, onClose } ) => {
 							disabled={themeInstalling}
 						>
 							{ themeStatus === 'not-installed'
-									? themeInstalling ? 'Installing...' : 'Yes, Install'
-									: themeInstalling ? 'Activating...' : 'Yes, Activate'}
+									? themeInstalling ? __( 'Installing...' , 'helpgent' ) : __( 'Yes, Install' , 'helpgent' )
+									: themeInstalling ? __( 'Activating...' , 'helpgent' )  : __( 'Yes, Activate' , 'helpgent' )}
 						</button>
 						{
 							!themeInstalling && 
 							<button
 								className='templatiq-btn'
 								onClick={redirectImportPage}
-							>
-								Continue without {themeStatus === 'not-installed' ? 'installing' : 'activating'}	
+							> 
+								{__( 'Continue without...' , 'helpgent' )} {themeStatus === 'not-installed' ? 'installing' : 'activating'}	
 							</button>
 						}
 						

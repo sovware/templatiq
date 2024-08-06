@@ -1,5 +1,6 @@
 import ReactSVG from 'react-inlinesvg';
 import { TemplateDetailsWidgetStyle } from './style';
+import { __ } from '@wordpress/i18n';
 
 import fireIcon from '@icon/fire.svg';
 
@@ -17,11 +18,11 @@ const TemplateDetailsWidget = ( props ) => {
 								width={ 22 }
 								height={ 22 }
 							/>
-							Subscribe & Save BIG
+							{__( "Subscribe & Save BIG", 'helpgent' )}
 						</h3>
 						<span className="templatiq__details__widget__subscribe__desc">
-							Get ultimate access to over 200 Premium templates
-							and <strong>save 60%</strong>
+							{__( "Get ultimate access to over 200 Premium templates and", 'helpgent' )}
+							 <strong>{__( "save 60%", 'helpgent' )}</strong>
 						</span>
 					</div>
 					<div className="templatiq__details__widget__subscribe__btn">
@@ -29,7 +30,7 @@ const TemplateDetailsWidget = ( props ) => {
 							href="#"
 							className="templatiq__details__widget__subscribe__btn__link templatiq-btn templatiq-btn-warning"
 						>
-							Get Unlimited Access
+							{__( "Get Unlimited Access", 'helpgent' )}
 						</a>
 					</div>
 				</div>
@@ -40,13 +41,13 @@ const TemplateDetailsWidget = ( props ) => {
 			<div className="templatiq__details__widget__single templatiq__details__widget__quickinfo">
 				<div className="templatiq__details__widget__header">
 					<h3 className="templatiq__details__widget__title">
-						Quick Information
+						{__( "Quick Information", 'helpgent' )}
 					</h3>
 				</div>
 				<div className="templatiq__details__widget__content">
 					<div className="templatiq__details__widget__content__single">
 						<span className="templatiq__details__widget__content__title">
-							Template Type:
+							{__( "Template Type: ", 'helpgent' )}
 						</span>
 						{ type && (
 							<span className="templatiq__details__widget__content__info">
@@ -56,7 +57,7 @@ const TemplateDetailsWidget = ( props ) => {
 					</div>
 					<div className="templatiq__details__widget__content__single">
 						<span className="templatiq__details__widget__content__title">
-							Category:
+							{__( "Category: ", 'helpgent' )}
 						</span>
 						{ categories &&
 							categories.map( ( category, index ) => (
@@ -70,7 +71,7 @@ const TemplateDetailsWidget = ( props ) => {
 					</div>
 					<div className="templatiq__details__widget__content__single">
 						<span className="templatiq__details__widget__content__title">
-							Builder:
+							{__( "Builder: ", 'helpgent' )}
 						</span>
 						{ builder && (
 							<span className="templatiq__details__widget__content__info">
@@ -81,7 +82,7 @@ const TemplateDetailsWidget = ( props ) => {
 
 					<div className="templatiq__details__widget__content__single required-plugins">
 						<span className="templatiq__details__widget__content__title">
-							Required Plugins:
+							{__( "Required Plugins: ", 'helpgent' )}
 						</span>
 						<div className="templatiq__details__widget__content__required-plugins">
 							{ required_plugins &&

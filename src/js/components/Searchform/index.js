@@ -1,6 +1,7 @@
 import { useState, useEffect } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { dispatch } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
 
 import store from '@store/index';
 
@@ -32,7 +33,7 @@ export default function Searchform() {
 			<input
 				type="text"
 				className="templatiq__content__top__searchbox__input"
-				placeholder="Search "
+				placeholder={__( "Search", 'helpgent' )}
 				value={ searchQuery }
 				onChange={ handleSearchChange }
 			/>
