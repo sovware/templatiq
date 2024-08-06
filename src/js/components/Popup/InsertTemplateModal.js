@@ -6,7 +6,7 @@ import { __ } from '@wordpress/i18n';
 
 import closeIcon from '@icon/close.svg';
 
-const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
+export default InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	const { template_id, builder, directory_page_type } = item;
 
 	const directoryType = templatiq_obj?.directory_types;
@@ -552,5 +552,3 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 		</>
 	);
 };
-
-export default InsertTemplateModal;
