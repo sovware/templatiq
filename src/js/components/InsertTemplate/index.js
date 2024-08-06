@@ -8,7 +8,7 @@ import { __ } from '@wordpress/i18n';
 
 import InsertFullTemplateModal from '@components/Popup/insertFullTemplateModal';
 import InsertProModal from '@components/Popup/insertProModal';
-import InsertTemplateModal from '@components/Popup/insertTemplateModal';
+import InsertTemplateModal from '@components/Popup/InsertTemplateModal';
 import InstallDirectoristModal from '@components/Popup/installDirectoristModal';
 import downloadAltIcon from '@icon/download-alt.svg';
 import downloadIcon from '@icon/download.svg';

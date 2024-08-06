@@ -87,5 +87,5 @@ The number of templates is not fixed. We continuously add new templates to our l
 Currently, Templatiq supports only Elementor. Gutenberg/Block Editor support will be introduced shortly.
 
 == Changelog ==
-= 1.0.0 - Aug 4, 2024 =
+= 1.0.0 - Aug 6, 2024 =
 * Initial launch
