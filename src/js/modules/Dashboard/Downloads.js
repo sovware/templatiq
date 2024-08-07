@@ -71,8 +71,6 @@ export default function MyDownloadsModule() {
 			setDownloadedTemplates( downloadedTemplate );
 			setFilteredTemplates( downloadedTemplate );
 			setDefaultTemplates( downloadedTemplate );
-		} else {
-			console.log( 'No Data' );
 		}
 	}, [ downloadedData ] );
 

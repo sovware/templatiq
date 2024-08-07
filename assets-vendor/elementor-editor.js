@@ -150,8 +150,6 @@
 
 				containerDiv.appendChild(rootDiv);
 				wp.hooks.doAction('templatiq_load_admin_app', rootDiv);
-			} else {
-				// console.log('Root div already exists in containerDiv');
 			}
 		};
 

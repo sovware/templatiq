@@ -120,8 +120,6 @@ const Sidebar = () => {
 			setLoading( false );
 			getSidebarData( data );
 			setLibraryData( data );
-		} else {
-			console.log( 'No Data Found' );
 		}
 
 		// Clear Stored Filters

@@ -35,12 +35,10 @@ export default function App() {
 			.then( ( res ) => {
 				dispatch( store ).setTemplates( res.templates );
 				dispatch( store ).setLibraryData( res );
-				console.log( 'Library Data:', res)
 			} )
 			.then( () => {
 				fetchData( 'templatiq/account/data' ).then( ( res ) => {					
 					const data = res;
-					console.log( 'User Data:', data)
 					const updatedUserInfo = {
 						isLoggedIn: data.token ? true : false,
 						userEmail: data.user_email,

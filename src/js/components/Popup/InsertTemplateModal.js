@@ -149,7 +149,6 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 
 	const importData = async ( pageTitle, template_id, builder, pageType, directoryTypes ) => {
 		setLoading( true );
-		console.log('Importing Data', pageTitle, template_id, builder, pageType, directoryTypes)
 		postData( importAsPageEndPoint, {
 			title: pageTitle,
 			template_id: template_id,
@@ -181,7 +180,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 				});
 			},
 			error: function ( data ) {
-				console.log( 'Error: ', data );
+				// console.log( 'Error: ', data );
 			},
 			complete: function ( data ) {
 				closeInsertTemplateModal()
