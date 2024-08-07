@@ -152,7 +152,7 @@ const Sidebar = () => {
 								width={ 18 }
 								height={ 18 }
 							/>
-							{__( 'Filter', 'helpgent' )}
+							{__( 'Filter', 'templatiq' )}
 						</h3>
 						<button
 							href="#"
@@ -160,7 +160,7 @@ const Sidebar = () => {
 							onClick={ clearFilters }
 							disabled={ selectedFilters.length === 0 }
 						>
-							{__( 'Clear', 'helpgent' )}
+							{__( 'Clear', 'templatiq' )}
 						</button>
 					</div>
 					<div className="templatiq__sidebar__wrapper">
@@ -168,12 +168,12 @@ const Sidebar = () => {
 							<TabList className="templatiq__sidebar__nav">
 								<Tab className="templatiq__sidebar__nav__item">
 									<button className="templatiq__sidebar__nav__link">
-										{__( 'Plugins', 'helpgent' )}
+										{__( 'Plugins', 'templatiq' )}
 									</button>
 								</Tab>
 								<Tab className="templatiq__sidebar__nav__item">
 									<button className="templatiq__sidebar__nav__link">
-										{__( 'Categories', 'helpgent' )}
+										{__( 'Categories', 'templatiq' )}
 									</button>
 								</Tab>
 							</TabList>

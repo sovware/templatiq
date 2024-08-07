@@ -11,7 +11,7 @@ class Config {
 
 	public static function get( string $name ): string {
 		$config = [
-			'version'     => '1.0.1',
+			'version'     => '1.0.0',
 			'environment' => 'production',
 		];
 

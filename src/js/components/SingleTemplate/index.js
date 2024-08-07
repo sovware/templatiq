@@ -106,7 +106,7 @@ const SingleTemplate = ( item ) => {
 									width={ 16 }
 									height={ 16 }
 								/>
-								{__( "Pro", 'helpgent' )}
+								{__( "Pro", 'templatiq' )}
 							</span>
 						) : (
 							''
@@ -117,7 +117,7 @@ const SingleTemplate = ( item ) => {
 									className="templatiq__template__single__info__meta__item purchased-item templatiq-tooltip"
 									data-info="Unlocked"
 								>
-									{__( "Purchased", 'helpgent' )}
+									{__( "Purchased", 'templatiq' )}
 								</span>
 							)
 						}
@@ -127,7 +127,7 @@ const SingleTemplate = ( item ) => {
 									className="templatiq__template__single__info__meta__item unlocked-item templatiq-tooltip"
 									data-info="Unlocked"
 								>
-									{__( "Unlocked", 'helpgent' )}
+									{__( "Unlocked", 'templatiq' )}
 								</span>
 							)
 						}
@@ -138,7 +138,7 @@ const SingleTemplate = ( item ) => {
 							target="_blank"
 							className="templatiq__template__single__info__action__link"
 						>
-							{__( "Live Demo", 'helpgent' )}
+							{__( "Live Demo", 'templatiq' )}
 						</a>
 						<InsertTemplate
 							item={ item }
@@ -175,7 +175,7 @@ const SingleTemplate = ( item ) => {
 			<div className="templatiq__template__single__content">
 				<h3 className="templatiq__template__single__title">
 					<Link to={ `/template/${ slug }` }>
-						{ title ? title : __( 'dDoctors', 'helpgent' ) }
+						{ title ? title : __( 'dDoctors', 'templatiq' ) }
 					</Link>
 				</h3>
 				<div className="templatiq__template__single__cat">
@@ -223,13 +223,13 @@ const SingleTemplate = ( item ) => {
 						</span>
 					) : (
 						<span className="templatiq__template__single__quickmeta__item free-item">
-							{__( "Free", 'helpgent' )}
+							{__( "Free", 'templatiq' )}
 						</span>
 					) }
 
 					<span
 						className="templatiq__template__single__quickmeta__item templatiq-tooltip"
-						data-info={__( "Total Downloads", 'helpgent' )}
+						data-info={__( "Total Downloads", 'templatiq' )}
 					>
 						<ReactSVG
 							src={ downloadIcon }

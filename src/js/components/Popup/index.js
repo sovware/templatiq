@@ -28,13 +28,13 @@ const Popup = ( props ) => {
 				<div className="templatiq__modal__content">
 					<div className="">
 						<h2 className="templatiq__modal__title">
-							{__( 'Required Plugins', 'helpgent' )}
+							{__( 'Required Plugins', 'templatiq' )}
 						</h2>
 						<p className="templatiq__modal__desc">
-							{__( 'To import this item you need to install all the Plugin listed below.', 'helpgent' )}
+							{__( 'To import this item you need to install all the Plugin listed below.', 'templatiq' )}
 						</p>
 						<p className="templatiq__modal__desc">
-							<strong>{__( 'Note:', 'helpgent' )}</strong> {__( 'Make sure you have manually installed & activated the Pro Plugin listed above.', 'helpgent' )}
+							<strong>{__( 'Note:', 'templatiq' )}</strong> {__( 'Make sure you have manually installed & activated the Pro Plugin listed above.', 'templatiq' )}
 						</p>
 					</div>
 				</div>

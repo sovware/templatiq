@@ -18,11 +18,11 @@ const TemplateDetailsWidget = ( props ) => {
 								width={ 22 }
 								height={ 22 }
 							/>
-							{__( "Subscribe & Save BIG", 'helpgent' )}
+							{__( "Subscribe & Save BIG", 'templatiq' )}
 						</h3>
 						<span className="templatiq__details__widget__subscribe__desc">
-							{__( "Get ultimate access to over 200 Premium templates and", 'helpgent' )}
-							 <strong>{__( "save 60%", 'helpgent' )}</strong>
+							{__( "Get ultimate access to over 200 Premium templates and", 'templatiq' )}
+							 <strong>{__( "save 60%", 'templatiq' )}</strong>
 						</span>
 					</div>
 					<div className="templatiq__details__widget__subscribe__btn">
@@ -30,7 +30,7 @@ const TemplateDetailsWidget = ( props ) => {
 							href="#"
 							className="templatiq__details__widget__subscribe__btn__link templatiq-btn templatiq-btn-warning"
 						>
-							{__( "Get Unlimited Access", 'helpgent' )}
+							{__( "Get Unlimited Access", 'templatiq' )}
 						</a>
 					</div>
 				</div>
@@ -41,13 +41,13 @@ const TemplateDetailsWidget = ( props ) => {
 			<div className="templatiq__details__widget__single templatiq__details__widget__quickinfo">
 				<div className="templatiq__details__widget__header">
 					<h3 className="templatiq__details__widget__title">
-						{__( "Quick Information", 'helpgent' )}
+						{__( "Quick Information", 'templatiq' )}
 					</h3>
 				</div>
 				<div className="templatiq__details__widget__content">
 					<div className="templatiq__details__widget__content__single">
 						<span className="templatiq__details__widget__content__title">
-							{__( "Template Type: ", 'helpgent' )}
+							{__( "Template Type: ", 'templatiq' )}
 						</span>
 						{ type && (
 							<span className="templatiq__details__widget__content__info">
@@ -57,7 +57,7 @@ const TemplateDetailsWidget = ( props ) => {
 					</div>
 					<div className="templatiq__details__widget__content__single">
 						<span className="templatiq__details__widget__content__title">
-							{__( "Category: ", 'helpgent' )}
+							{__( "Category: ", 'templatiq' )}
 						</span>
 						{ categories &&
 							categories.map( ( category, index ) => (
@@ -71,7 +71,7 @@ const TemplateDetailsWidget = ( props ) => {
 					</div>
 					<div className="templatiq__details__widget__content__single">
 						<span className="templatiq__details__widget__content__title">
-							{__( "Builder: ", 'helpgent' )}
+							{__( "Builder: ", 'templatiq' )}
 						</span>
 						{ builder && (
 							<span className="templatiq__details__widget__content__info">
@@ -82,7 +82,7 @@ const TemplateDetailsWidget = ( props ) => {
 
 					<div className="templatiq__details__widget__content__single required-plugins">
 						<span className="templatiq__details__widget__content__title">
-							{__( "Required Plugins: ", 'helpgent' )}
+							{__( "Required Plugins: ", 'templatiq' )}
 						</span>
 						<div className="templatiq__details__widget__content__required-plugins">
 							{ required_plugins &&

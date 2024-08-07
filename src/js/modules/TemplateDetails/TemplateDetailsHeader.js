@@ -69,7 +69,7 @@ const TemplateDetailsHeader = ( props ) => {
 								width={ 16 }
 								height={ 16 }
 							/>
-							{__( "Used by", 'helpgent' )} { number_of_downloads } {__( "people", 'helpgent' )}
+							{__( "Used by", 'templatiq' )} { number_of_downloads } {__( "people", 'templatiq' )}
 						</span>
 					) : (
 						''
@@ -81,11 +81,11 @@ const TemplateDetailsHeader = ( props ) => {
 								width={ 16 }
 								height={ 16 }
 							/>
-							{__( "Loved by", 'helpgent' )}{ ' ' }
+							{__( "Loved by", 'templatiq' )}{ ' ' }
 							{ currentFavoriteCount
 								? currentFavoriteCount
 								: '0' }{ ' ' }
-							{__( "people", 'helpgent' )} 
+							{__( "people", 'templatiq' )} 
 						</span>
 					) : (
 						''
@@ -100,7 +100,7 @@ const TemplateDetailsHeader = ( props ) => {
 							width={ 16 }
 							height={ 16 }
 						/>
-						{__( "PRO", 'helpgent' )}
+						{__( "PRO", 'templatiq' )}
 					</span>
 				) : (
 					''
@@ -117,7 +117,7 @@ const TemplateDetailsHeader = ( props ) => {
 					target="_blank"
 					className="templatiq__details__header__action__link live-demo-btn templatiq-btn templatiq-btn-white"
 				>
-					{__( "Live Demo", 'helpgent' )}
+					{__( "Live Demo", 'templatiq' )}
 				</a>
 				{ price > 0 && !(isPurchased || isUnlocked) ? (
 					<a
@@ -125,7 +125,7 @@ const TemplateDetailsHeader = ( props ) => {
 						className="templatiq__details__header__action__link purchase-btn templatiq-btn templatiq-btn-primary"
 					>
 						<ReactSVG src={ cartIcon } width={ 16 } height={ 16 } />
-						{__( "Buy this item", 'helpgent' )} ${ price }
+						{__( "Buy this item", 'templatiq' )} ${ price }
 					</a>
 				) : (
 					<InsertTemplate

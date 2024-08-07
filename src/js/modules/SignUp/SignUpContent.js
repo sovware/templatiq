@@ -45,7 +45,7 @@ export default function SignUpContent({ setIsSignedUp }) {
 				setIsSignedUp( true );
 				// navigate( '/signin' );
 			} else {
-				const errorMessage = data.message ||  __( 'Something went wrong', 'helpgent' );
+				const errorMessage = data.message ||  __( 'Something went wrong', 'templatiq' );
 				setErrorMessage( errorMessage );
 			}
 
@@ -100,19 +100,19 @@ export default function SignUpContent({ setIsSignedUp }) {
 							}` }
 						>
 							{
-								!loading ?  __( 'Sign Up', 'helpgent' ) : null
+								!loading ?  __( 'Sign Up', 'templatiq' ) : null
 							}
 						</button>
 						{ errorMessage && (
 							<p className="text-danger">{ errorMessage }</p>
 						) }
 						<span className="templatiq__auth__desc">
-							{ __( "Already have an account?", 'helpgent' )}
+							{ __( "Already have an account?", 'templatiq' )}
 							<Link
 								to="/signin"
 								className="templatiq__auth__link"
 							>
-								{ __( "Sign in", 'helpgent' )}
+								{ __( "Sign in", 'templatiq' )}
 							</Link>
 						</span>
 					</div>
@@ -120,20 +120,20 @@ export default function SignUpContent({ setIsSignedUp }) {
 			) : (
 				<div className="templatiq__auth__wrapper notification-wrapper">
 					<p>
-						{__( "Successfully Registered. Check Your Email to Complete Registration.", 'helpgent' )}
+						{__( "Successfully Registered. Check Your Email to Complete Registration.", 'templatiq' )}
 					</p>
 					<div className="templatiq__auth__btn_wrapper">
 						<Link
 							to="/"
 							className="templatiq__auth__btn templatiq-btn templatiq-btn-primary"
 						>
-							{__( " Go to Home", 'helpgent' )}
+							{__( " Go to Home", 'templatiq' )}
 						</Link>
 						<Link
 							to="/signin"
 							className="templatiq__auth__btn templatiq-btn"
 						>
-							{__( "Sign in", 'helpgent' )}
+							{__( "Sign in", 'templatiq' )}
 						</Link>
 					</div>
 				</div>

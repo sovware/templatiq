@@ -11,31 +11,24 @@ const TemplateDetailsContent = ( props ) => {
 			<div className="templatiq__details__img">
 				<img
 					src={ thumbnail }
-					alt={__( "Template Pack Pro", 'helpgent' )}
+					alt={__( "Template Pack Pro", 'templatiq' )}
 				/>
 			</div>
 			<div className="templatiq__details__content__single">
 				<h3 className="templatiq__details__content__single__title">
-					{__( "Overview", 'helpgent' )}
+					{__( "Overview", 'templatiq' )}
 				</h3>
 				<p className="templatiq__details__content__single__desc">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-					do eiusmod tempor incididunt ut labore. Ut enim ad minim
-					veniam, quis nostrud exercitation ullamco laboris nisi ut
-					aliquip ex ea commodo con. Duis aute irure dolor in
-					reprehenderit in voluptate velit esse cillum dolore eu
-					fugiat nulla pariatu.
+					{__( "Using this ready template you'll be able to design your website in no time, This offers exclusive dynamic design, which makes it an excellent choice to create fascinating websites.", 'templatiq' )}
 				</p>
 				<p className="templatiq__details__content__single__desc">
-					eiusmod tempor incididunt ut labore Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-					ea commodo con
+					{__( "Display engaging and attractive landing pages to draw visitors' attention.", 'templatiq' )}
 				</p>
 			</div>
 
 			<div className="templatiq__details__content__single">
 				<h3 className="templatiq__details__content__single__title">
-					Highlights
+					{__( "Highlights", 'templatiq' )}
 				</h3>
 				<ul className="templatiq__details__content__single__list">
 					<li className="templatiq__details__content__single__list__item">
@@ -44,7 +37,7 @@ const TemplateDetailsContent = ( props ) => {
 							width={ 22 }
 							height={ 22 }
 						/>
-						Fully interactive website
+						{__( "Fully interactive website", 'templatiq' )}
 					</li>
 					<li className="templatiq__details__content__single__list__item">
 						<ReactSVG
@@ -52,7 +45,7 @@ const TemplateDetailsContent = ( props ) => {
 							width={ 22 }
 							height={ 22 }
 						/>
-						Fully interactive website
+						{__( "Attractive Customizable Elements", 'templatiq' )}
 					</li>
 					<li className="templatiq__details__content__single__list__item">
 						<ReactSVG
@@ -60,7 +53,7 @@ const TemplateDetailsContent = ( props ) => {
 							width={ 22 }
 							height={ 22 }
 						/>
-						Fully interactive website
+						{__( "100% Responsive On All Devices", 'templatiq' )}
 					</li>
 					<li className="templatiq__details__content__single__list__item">
 						<ReactSVG
@@ -68,39 +61,7 @@ const TemplateDetailsContent = ( props ) => {
 							width={ 22 }
 							height={ 22 }
 						/>
-						Fully interactive website
-					</li>
-					<li className="templatiq__details__content__single__list__item">
-						<ReactSVG
-							src={ checkIcon }
-							width={ 22 }
-							height={ 22 }
-						/>
-						Fully interactive website
-					</li>
-					<li className="templatiq__details__content__single__list__item">
-						<ReactSVG
-							src={ checkIcon }
-							width={ 22 }
-							height={ 22 }
-						/>
-						Fully interactive website
-					</li>
-					<li className="templatiq__details__content__single__list__item">
-						<ReactSVG
-							src={ checkIcon }
-							width={ 22 }
-							height={ 22 }
-						/>
-						Fully interactive website
-					</li>
-					<li className="templatiq__details__content__single__list__item">
-						<ReactSVG
-							src={ checkIcon }
-							width={ 22 }
-							height={ 22 }
-						/>
-						Fully interactive website
+						{__( "Cross-Browser Compatibility", 'templatiq' )}
 					</li>
 				</ul>
 			</div>

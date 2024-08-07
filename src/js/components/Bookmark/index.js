@@ -109,7 +109,7 @@ const Bookmark = ( props ) => {
 					<a
 						href="#"
 						className="templatiq__template__single__quickmeta__item favorite-btn templatiq-tooltip"
-						data-info={__( 'Add to Favourite', 'helpgent' )}
+						data-info={__( 'Add to Favourite', 'templatiq' )}
 						onClick={ addAuthModal }
 					>
 						<ReactSVG
@@ -128,8 +128,8 @@ const Bookmark = ( props ) => {
 					}` }
 					data-info={
 						addedToFavorite
-							? __( 'Added to Favourite', 'helpgent' )
-							: __( 'Add to Favourite', 'helpgent' ) 
+							? __( 'Added to Favourite', 'templatiq' )
+							: __( 'Add to Favourite', 'templatiq' ) 
 					}
 					onClick={ handleFavorite }
 				>

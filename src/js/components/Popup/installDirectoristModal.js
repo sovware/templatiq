@@ -60,16 +60,16 @@ const InstallDirectoristModal = ( { onClose, install_directorist } ) => {
 							installingPlugin ? (
 								<>
 									<h2 className="templatiq__modal__title templatiq__modal__title--installing">
-										{__( "Installing the directorist Plugin", 'helpgent' )}
+										{__( "Installing the directorist Plugin", 'templatiq' )}
 									</h2>
 									<p className="templatiq__modal__desc">
-										{__( "Installing directorist you need to install directorist. Installing directorist you need to install directorist.", 'helpgent' )}
+										{__( "Installing directorist you need to install directorist. Installing directorist you need to install directorist.", 'templatiq' )}
 									</p>
 									<button
 										disabled
 										className="templatiq__modal__action templatiq__modal__action--install templatiq-btn templatiq-btn-primary templatiq-btn-loading"
 									>
-										{__( "Installing", 'helpgent' )}
+										{__( "Installing", 'templatiq' )}
 									</button>
 								</>
 							) : (
@@ -78,16 +78,16 @@ const InstallDirectoristModal = ( { onClose, install_directorist } ) => {
 									<ReactSVG src={ trashIcon } width={ 30 } height={ 30 } />
 								</div>
 								<h2 className="templatiq__modal__title">
-									{__( "Oops!", 'helpgent' )} <span className="text-warning">{__( "Directorist is not Installed", 'helpgent' )}</span>
+									{__( "Oops!", 'templatiq' )} <span className="text-warning">{__( "Directorist is not Installed", 'templatiq' )}</span>
 								</h2>
 								<p className="templatiq__modal__desc">
-									{__( "To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist.", 'helpgent' )}
+									{__( "To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist.", 'templatiq' )}
 								</p>
 								<button
 									type="submit"
 									className="templatiq__modal__action templatiq__modal__action--install templatiq-btn  templatiq-btn-primary"
 								>
-									{__( "Install Now", 'helpgent' )}
+									{__( "Install Now", 'templatiq' )}
 								</button>
 							</>
 						) : (
@@ -96,17 +96,17 @@ const InstallDirectoristModal = ( { onClose, install_directorist } ) => {
 								 	<ReactSVG src={ checkIcon } width={ 30 } height={ 30 } />
 								</div>
 								<h2 className="templatiq__modal__title">
-									<span className="text-success">{__( "Success!", 'helpgent' )}</span>
+									<span className="text-success">{__( "Success!", 'templatiq' )}</span>
 								</h2>
 								<p className="templatiq__modal__desc">
-									{__( "Directorist successful installed & activated", 'helpgent' )}
+									{__( "Directorist successful installed & activated", 'templatiq' )}
 								</p>
 								<button
 									disabled
 									className="templatiq__modal__action templatiq__modal__action--install templatiq-btn  templatiq-btn-primary"
 								>
 									<ReactSVG src={ checkIcon } width={ 16 } height={ 16 } />
-									{__( "Installed & Activated", 'helpgent' )}
+									{__( "Installed & Activated", 'templatiq' )}
 								</button>
 							</>
 						) }

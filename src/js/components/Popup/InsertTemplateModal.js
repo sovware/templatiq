@@ -252,16 +252,16 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 							<>
 								<h2 className="templatiq__modal__title">
 									{ !allPluginsInstalled
-										? __( 'Required Plugins' , 'helpgent' )
+										? __( 'Required Plugins' , 'templatiq' )
 										: directoryType?.length > 1 && !submittedTypes?.length > 0 && !elementorEditorEnabled 
-										? __( 'Available Directory Type', 'helpgent' )
+										? __( 'Available Directory Type', 'templatiq' )
 										: elementorEditorEnabled
-										? __( 'Importing...', 'helpgent' )
-										: __( 'Enter Page Title' , 'helpgent' ) }
+										? __( 'Importing...', 'templatiq' )
+										: __( 'Enter Page Title' , 'templatiq' ) }
 								</h2>
 								{ allPluginsInstalled && !directoryType?.length > 1 && !elementorEditorEnabled ? (
 									<p className="templatiq__modal__desc">
-										{__( 'To import this item you need to install all the Plugin listed below.', 'helpgent' )}
+										{__( 'To import this item you need to install all the Plugin listed below.', 'templatiq' )}
 									</p>
 								) : null }
 								<div className="templatiq__modal__plugins">
@@ -274,9 +274,9 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 														let currentInstalled = installedPlugins.includes( plugin.slug );
 														let installStatus = '';
 														if ( currentInstalled ) {
-															installStatus = __( 'Installed', 'helpgent' );
+															installStatus = __( 'Installed', 'templatiq' );
 														} else if ( currentInstalling ) {
-															installStatus = __( 'Installing...', 'helpgent' );
+															installStatus = __( 'Installing...', 'templatiq' );
 														}
 														return (
 															<div
@@ -371,7 +371,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 																</label>
 
 																<span className="templatiq__modal__plugin__status">
-																	{__( "It's Pro Plugin", 'helpgent' )}
+																	{__( "It's Pro Plugin", 'templatiq' )}
 																</span>
 															</div>
 														);
@@ -382,7 +382,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 									) : directoryType?.length > 1 && ! submittedTypes?.length > 0 && ! elementorEditorEnabled ? (
 										<>
 											<p className="templatiq__modal__desc">
-												{__( "Choose the directories where you'd like to include this page. You can choose multiple directories.", 'helpgent' )}
+												{__( "Choose the directories where you'd like to include this page. You can choose multiple directories.", 'templatiq' )}
 											</p>
 											<div className="templatiq__modal__plugins">
 												{ directoryType.map(( type, index ) => {
@@ -434,7 +434,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 													<input
 														type="text"
 														className="templatiq__modal__page__title"
-														placeholder={__( "Enter Page Title", 'helpgent' )}
+														placeholder={__( "Enter Page Title", 'templatiq' )}
 														onChange={ ( e ) =>
 															handlePageTitle( e )
 														}
@@ -455,12 +455,12 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 															pageTitle === ''
 														}
 													>
-														{__( "Create a Page", 'helpgent' )}
+														{__( "Create a Page", 'templatiq' )}
 													</button>
 												</>
 											) : (
 												<p className="templatiq__modal__desc">
-													{__( "Elementor Content Importing...", 'helpgent' )}
+													{__( "Elementor Content Importing...", 'templatiq' )}
 												</p>
 											) }
 										</div>
@@ -468,7 +468,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 								</div>
 								{ allPluginsInstalled && !directoryType?.length > 1 && ! elementorEditorEnabled ? (
 									<p className="templatiq__modal__desc">
-										<strong>{__( "Note:", 'helpgent' )}</strong>{__( " Make sure you have manually installed & activated the Pro Plugin listed above.", 'helpgent' )}
+										<strong>{__( "Note:", 'templatiq' )}</strong>{__( " Make sure you have manually installed & activated the Pro Plugin listed above.", 'templatiq' )}
 									</p>
 								) : (
 									''
@@ -481,13 +481,13 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 												disabled={ disableButtonInstall }
 												className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-primary"
 											>
-												{__( "Install and Proceed to Import", 'helpgent' )}
+												{__( "Install and Proceed to Import", 'templatiq' )}
 											</button>
 											<button
 												className="templatiq__modal__action templatiq__modal__action--cancel templatiq-btn"
 												onClick={ closeInsertTemplateModal }
 											>
-												{__( "Cancel", 'helpgent' )}
+												{__( "Cancel", 'templatiq' )}
 											</button>
 										</>
 									) : ! submittedTypes?.length && directoryType?.length > 1 && !elementorEditorEnabled ? (
@@ -496,7 +496,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 											className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-success"
 											onClick={ (e) => ( handleSelectedType(e))}
 										>
-											{__( "Insert Page", 'helpgent' )}
+											{__( "Insert Page", 'templatiq' )}
 										</button>
 									) : null}
 								</div>
@@ -507,7 +507,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 									Imported Successfully
 								</h2>
 								<p className="templatiq__modal__desc">
-									{__( "You can edit or preview the template or you can push it to Templatiq cloud to share with your team.", 'helpgent' )}
+									{__( "You can edit or preview the template or you can push it to Templatiq cloud to share with your team.", 'templatiq' )}
 								</p>
 								<div className="templatiq__modal__actions">
 									<a
@@ -517,21 +517,21 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 										target="_blank"
 										className="templatiq-btn templatiq-btn-primary"
 									>
-										{__( "Edit Template with Elementor", 'helpgent' )}
+										{__( "Edit Template with Elementor", 'templatiq' )}
 									</a>
 									<a
 										href={ importedData.visit }
 										target="_blank"
 										className="templatiq-btn templatiq-btn-primary"
 									>
-										{__( "View Template", 'helpgent' )}
+										{__( "View Template", 'templatiq' )}
 									</a>
 								</div>
 							</>
 						) : (
 							<>
 								<h2 className="templatiq__modal__title text-center">
-									{__( "Error", 'helpgent' )}
+									{__( "Error", 'templatiq' )}
 								</h2>
 								<p className="templatiq__modal__desc text-danger text-center">
 									{ errorMsg }

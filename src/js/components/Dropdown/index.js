@@ -127,7 +127,7 @@ export default function Dropdown( {
 										''
 									) }
 									{ item.text }
-									{ item.type === 'upcoming' ?  <sup> {__( '(Coming Soon)', 'helpgent' )}</sup> : null }
+									{ item.type === 'upcoming' ?  <sup> {__( '(Coming Soon)', 'templatiq' )}</sup> : null }
 								</a>
 							</li>
 						);

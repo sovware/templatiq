@@ -78,7 +78,7 @@ export default function SignInContent() {
 			<form className="templatiq__auth__wrapper" onSubmit={ handleData }>
 				<div className="templatiq__auth__info">
 					<div className="templatiq__auth__info__single">
-						<label htmlFor="authorEmail">{__( 'Email Address', 'helpgent' )}</label>
+						<label htmlFor="authorEmail">{__( 'Email Address', 'templatiq' )}</label>
 						<input
 							type="text"
 							id="authorEmail"
@@ -111,7 +111,7 @@ export default function SignInContent() {
 								for="rememberMe"
 								className="templatiq__checkbox__label"
 							>
-								{__( 'Remember Me', 'helpgent' )}
+								{__( 'Remember Me', 'templatiq' )}
 							</label>
 						</div>
 						<div className="templatiq__auth__forgot">
@@ -120,7 +120,7 @@ export default function SignInContent() {
 								target="_blank"
 								className="templatiq__auth__link"
 							>
-								{__( 'Forgot password?', 'helpgent' )}
+								{__( 'Forgot password?', 'templatiq' )}
 							</a>
 						</div>
 					</div>
@@ -136,16 +136,16 @@ export default function SignInContent() {
 						}` }
 					>
 						{
-							!loading ? __( 'Forgot password?', 'helpgent' ): null
+							!loading ? __( 'Forgot password?', 'templatiq' ): null
 						}
 					</button>
 					{
 						error ? <p className="templatiq__auth__error text-danger">{ error }</p> : null
 					}
 					<span className="templatiq__auth__desc">
-						{ __( "Don't have an account?", 'helpgent' )}
+						{ __( "Don't have an account?", 'templatiq' )}
 						<Link to="/signup" className="templatiq__auth__link">
-							{ __( "Sign up", 'helpgent' )}
+							{ __( "Sign up", 'templatiq' )}
 						</Link>
 					</span>
 				</div>

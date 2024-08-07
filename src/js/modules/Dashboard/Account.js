@@ -32,7 +32,7 @@ export default function MyAccountModule() {
 			<div className="templatiq__content templatiq__content--dashboard">
 				<MyAccountStyle className="templatiq__dashboard__account">
 					<h3 className="templatiq__dashboard__account__title">
-						{__( 'My Account', 'helpgent' )}
+						{__( 'My Account', 'templatiq' )}
 					</h3>
 					<form
 						className="templatiq__dashboard__account__wrapper"
@@ -72,19 +72,19 @@ export default function MyAccountModule() {
 								href="#"
 								className="templatiq__dashboard__account__link"
 							>
-								{__( 'Change Password', 'helpgent' )}
+								{__( 'Change Password', 'templatiq' )}
 							</a>
 							<button
 								type="submit"
 								className="templatiq__dashboard__account__btn templatiq-btn templatiq-btn-primary"
 							>
-								{__( 'Save Changes', 'helpgent' )}
+								{__( 'Save Changes', 'templatiq' )}
 							</button>
 							<a
 								href="#"
 								className="templatiq__dashboard__account__link text-danger"
 							>
-								{__( 'Delete Account', 'helpgent' )}
+								{__( 'Delete Account', 'templatiq' )}
 							</a>
 						</div>
 					</form>

@@ -92,7 +92,7 @@ export default function MyPurchaseModule() {
 					<div className="templatiq__content__top">
 						<div className="templatiq__content_top__filter">
 							<h3 className="templatiq__content__top__filter__title">
-								{__( 'My Purchase', 'helpgent' )}
+								{__( 'My Purchase', 'templatiq' )}
 							</h3>
 						</div>
 						<div className="templatiq__content__top__search">
@@ -103,22 +103,22 @@ export default function MyPurchaseModule() {
 						<div className="templatiq__content__dashboard__header">
 							<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name">
 								<span className="templatiq__content__dashboard__item__header">
-									{__( 'Name', 'helpgent' )}
+									{__( 'Name', 'templatiq' )}
 								</span>
 							</div>
 							<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--type">
 								<span className="templatiq__content__dashboard__item__header">
-									{__( 'Downloaded Type', 'helpgent' )}
+									{__( 'Downloaded Type', 'templatiq' )}
 								</span>
 							</div>
 							<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
 								<span className="templatiq__content__dashboard__item__header">
-									{__( 'Downloaded Date', 'helpgent' )}
+									{__( 'Downloaded Date', 'templatiq' )}
 								</span>
 							</div>
 							<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--insert">
 								<span className="templatiq__content__dashboard__item__header">
-									{__( 'Insert', 'helpgent' )}
+									{__( 'Insert', 'templatiq' )}
 								</span>
 							</div>
 						</div>
@@ -130,10 +130,10 @@ export default function MyPurchaseModule() {
 							) : isEmpty ? (
 								<div className="templatiq__content__empty">
 									<h3 className="templatiq__content__empty__title">
-										{__( 'No Purchase Found', 'helpgent' )}
+										{__( 'No Purchase Found', 'templatiq' )}
 									</h3>
 									<h3 className="templatiq__content__empty__desc">
-										{__( 'Search Other Templates', 'helpgent' )}
+										{__( 'Search Other Templates', 'templatiq' )}
 									</h3>
 								</div>
 							) : (

@@ -64,10 +64,10 @@ const insertFullTemplateModal = ( { item, onClose } ) => {
 				<div className="templatiq__modal__content">
 					<h2 className="templatiq__modal__title">
 						<ReactSVG src={ recommendationIcon } width={ 30 } height={ 30 } />
-						{__( 'Recommendation', 'helpgent' )}
+						{__( 'Recommendation', 'templatiq' )}
 					</h2>
 					<p className="templatiq__modal__desc">
-						{__( 'We recommend to use Pixetiq Theme to fully experience the design & feature of this template. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist.', 'helpgent' )}
+						{__( 'We recommend to use Pixetiq Theme to fully experience the design & feature of this template. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist.', 'templatiq' )}
 					</p>
 					<div className="templatiq__modal__actions">
 						<button
@@ -82,8 +82,8 @@ const insertFullTemplateModal = ( { item, onClose } ) => {
 							disabled={themeInstalling}
 						>
 							{ themeStatus === 'not-installed'
-									? themeInstalling ? __( 'Installing...' , 'helpgent' ) : __( 'Yes, Install' , 'helpgent' )
-									: themeInstalling ? __( 'Activating...' , 'helpgent' )  : __( 'Yes, Activate' , 'helpgent' )}
+									? themeInstalling ? __( 'Installing...' , 'templatiq' ) : __( 'Yes, Install' , 'templatiq' )
+									: themeInstalling ? __( 'Activating...' , 'templatiq' )  : __( 'Yes, Activate' , 'templatiq' )}
 						</button>
 						{
 							!themeInstalling && 
@@ -91,7 +91,7 @@ const insertFullTemplateModal = ( { item, onClose } ) => {
 								className='templatiq-btn'
 								onClick={redirectImportPage}
 							> 
-								{__( 'Continue without...' , 'helpgent' )} {themeStatus === 'not-installed' ? 'installing' : 'activating'}	
+								{__( 'Continue without...' , 'templatiq' )} {themeStatus === 'not-installed' ? 'installing' : 'activating'}	
 							</button>
 						}
 						

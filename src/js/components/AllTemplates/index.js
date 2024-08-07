@@ -251,7 +251,7 @@ export default function AllTemplates( props ) {
 					<h3 className="templatiq__content__top__filter__title capitalize">
 						{
 							templateType === 'pack' ? 
-							__( 'Full Site', 'helpgent' ):
+							__( 'Full Site', 'templatiq' ):
 							`Template ${ templateType }`
 						}
 					</h3>
@@ -263,7 +263,7 @@ export default function AllTemplates( props ) {
 								onClick={ () => changeTemplateTab( 'all' ) }
 							>
 								<button className="templatiq__content__top__filter__link">
-									{__( 'All', 'helpgent' )} (
+									{__( 'All', 'templatiq' )} (
 									{ defaultTemplates
 										? defaultTemplates.length
 										: '0' }
@@ -275,7 +275,7 @@ export default function AllTemplates( props ) {
 								onClick={ () => changeTemplateTab( 'free' ) }
 							>
 								<button className="templatiq__content__top__filter__link">
-									{__( 'Free', 'helpgent' )} (
+									{__( 'Free', 'templatiq' )} (
 									{ freeTemplates
 										? freeTemplates.length
 										: '0' }
@@ -292,7 +292,7 @@ export default function AllTemplates( props ) {
 										width={ 12 }
 										height={ 12 }
 									/>
-									{__( 'Pro', 'helpgent' )} (
+									{__( 'Pro', 'templatiq' )} (
 									{ proTemplates ? proTemplates.length : '0' }
 									)
 								</button>
@@ -310,10 +310,10 @@ export default function AllTemplates( props ) {
 					{ isEmpty && (
 						<div className="templatiq__content__empty">
 							<h3 className="templatiq__content__empty__title">
-								{__( 'No Template Found', 'helpgent' )}								
+								{__( 'No Template Found', 'templatiq' )}								
 							</h3>
 							<h3 className="templatiq__content__empty__desc">
-								{__( 'Search Other Templates', 'helpgent' )}
+								{__( 'Search Other Templates', 'templatiq' )}
 							</h3>
 						</div>
 					) }

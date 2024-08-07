@@ -25,7 +25,7 @@ const AdminSidebar = () => {
 							width={ 16 }
 							height={ 16 }
 						/>
-						{__( 'My Favorites', 'helpgent' )}
+						{__( 'My Favorites', 'templatiq' )}
 					</NavLink>
 					<NavLink
 						to="/dashboard/downloads"
@@ -37,7 +37,7 @@ const AdminSidebar = () => {
 							width={ 16 }
 							height={ 16 }
 						/>
-						{__( 'My Downloads', 'helpgent' )}
+						{__( 'My Downloads', 'templatiq' )}
 					</NavLink>
 					<NavLink
 						to="/dashboard/purchase"
@@ -45,7 +45,7 @@ const AdminSidebar = () => {
 						activeClassName="active"
 					>
 						<ReactSVG src={ cartIcon } width={ 16 } height={ 16 } />
-						{__( 'My Purchase', 'helpgent' )}
+						{__( 'My Purchase', 'templatiq' )}
 					</NavLink>
 					<NavLink
 						to="/dashboard/account"
@@ -57,7 +57,7 @@ const AdminSidebar = () => {
 							width={ 16 }
 							height={ 16 }
 						/>
-						{__( 'My Account', 'helpgent' )}
+						{__( 'My Account', 'templatiq' )}
 					</NavLink>
 				</div>
 			</div>

@@ -40,14 +40,14 @@ const AuthModal = ( { onClose } ) => {
 			{!isSignedUp && (
 				<div className="templatiq__modal__bottom">
 					{!signUpModal
-						?  __( "Don't have an account?", 'helpgent' )
-						:  __( 'Already have an account?', 'helpgent' )}{' '}
+						?  __( "Don't have an account?", 'templatiq' )
+						:  __( 'Already have an account?', 'templatiq' )}{' '}
 					<a
 						href="#"
 						className="templatiq__modal__another__btn"
 						onClick={openAnotherModal}
 					>
-						{!signUpModal ? __( 'Sign up', 'helpgent' ) :  __( 'Sign in', 'helpgent' ) }
+						{!signUpModal ? __( 'Sign up', 'templatiq' ) :  __( 'Sign in', 'templatiq' ) }
 					</a>
 				</div>
 			)}

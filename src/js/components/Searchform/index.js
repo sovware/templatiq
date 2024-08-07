@@ -33,7 +33,7 @@ export default function Searchform() {
 			<input
 				type="text"
 				className="templatiq__content__top__searchbox__input"
-				placeholder={__( "Search", 'helpgent' )}
+				placeholder={__( "Search", 'templatiq' )}
 				value={ searchQuery }
 				onChange={ handleSearchChange }
 			/>
