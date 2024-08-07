@@ -1,6 +1,6 @@
 === Templatiq ===
 Contributors: wpwax
-Tags: templates, starter template, design, quick starter, directory Websites
+Tags: templates, starter template, design, quick starter, directory websites
 Requires at least: 6.0
 Tested up to: 6.6.1
 Stable tag: 1.0.0
@@ -12,15 +12,13 @@ Enhance your Elementor experience with a variety of stunning templates.
 
 == Description ==
 
-FREE ELEMENTOR SUPPORTED TEMPLATES FOR WORDPRESS
+FREE ELEMENTOR SUPPORTED TEMPLATES
 
 Templatiq is a powerful template library designed to enhance your Elementor experience with a variety of stunning templates. Whether you need single page templates or individual sections, Templatiq has you covered. The plugin offers both free and pro templates, with new additions being made regularly.
 
-LOVED Templatiq?
+= LOVED Templatiq? =
 
-Join our Facebook Group: https://www.facebook.com/groups/templatiq 
-
-Facebook Page: https://www.facebook.com/templatiq
+Join our [Facebook Group](https://www.facebook.com/groups/templatiq) | [Facebook Page](https://www.facebook.com/templatiq)
 
 
 = Creating Any Type of Directory Websites =
@@ -68,7 +66,7 @@ Are you an Elementor enthusiast? Your search ends here! Templatiq provides a vas
 
 Templatiq is fully dependent on templatiq.com. To import a template, users must create an account on templatiq.com.
 
-1. Download the Templatiq plugin from  templatiq.com or WordPress.Org.
+1. Download the Templatiq plugin from  templatiq.com or WordPress.org.
 2. Upload the plugin files to the /wp-content/plugins/templatiq directory, or install the plugin through the WordPress plugins screen directly.
 3. Activate the plugin through the 'Plugins' screen in WordPress.
 
