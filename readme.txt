@@ -84,6 +84,10 @@ The number of templates is not fixed. We continuously add new templates to our l
 
 Currently, Templatiq supports only Elementor. Gutenberg/Block Editor support will be introduced shortly.
 
+= How does data sharing work in Templatiq? =
+
+At Templatiq, user privacy is our top priority. As a premier marketplace for templates, we are committed to protecting your personal information and strictly adhering to the [terms outlined](https://templatiq.com/terms-conditions/) in this [Privacy Policy](https://templatiq.com/privacy-policy/).
+
 == Changelog ==
-= 1.0.0 - Aug 7, 2024 =
+= 1.0.1 - Aug 8, 2024 =
 * Initial launch
