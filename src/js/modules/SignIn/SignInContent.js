@@ -136,7 +136,7 @@ export default function SignInContent() {
 						}` }
 					>
 						{
-							!loading ? __( 'Forgot password?', 'templatiq' ): null
+							!loading ? __( 'Sign In', 'templatiq' ): null
 						}
 					</button>
 					{
