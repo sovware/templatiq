@@ -14,9 +14,9 @@ class TemplateRepository {
 
 	public function library_data() {
 
-		$data = Cache::get( ['library'] );
-
-		if ( $data ) {
+		$data  = Cache::get( ['library'] );
+		$cache = apply_filters( 'templatiq_library_data_cache', true );
+		if ( $data && $cache ) {
 			return $data;
 		}
 
