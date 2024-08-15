@@ -20,7 +20,13 @@ class TemplateRepository {
 			return $data;
 		}
 
-		$http     = new Http( TEMPLATIQ_BASE . '/template/library' );
+		$endpoint = TEMPLATIQ_BASE . '/template/library';
+		$cache    = apply_filters( 'templatiq_rest_library_cache', false );
+		if ( $cache ) {
+			$endpoint .= '/?' . time();
+		}
+
+		$http     = new Http( $endpoint );
 		$response = $http->get()->response();
 
 		if ( is_wp_error( $response ) ) {
