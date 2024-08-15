@@ -24,11 +24,11 @@ class RouteServiceProviders extends ProviderBase {
 		return apply_filters(
 			'templatiq_route_service_providers ',
 			[
-				\Templatiq\Routes\Account::class,
-				\Templatiq\Routes\Bookmark::class,
-				\Templatiq\Routes\Cache::class,
-				\Templatiq\Routes\Dependency::class,
-				\Templatiq\Routes\Template::class,
+				'account'    => \Templatiq\Routes\Account::class,
+				'bookmark'   => \Templatiq\Routes\Bookmark::class,
+				'cache'      => \Templatiq\Routes\Cache::class,
+				'dependency' => \Templatiq\Routes\Dependency::class,
+				'template'   => \Templatiq\Routes\Template::class,
 			]
 		);
 	}
