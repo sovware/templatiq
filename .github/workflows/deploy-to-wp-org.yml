@@ -1,9 +1,9 @@
-name: Build Production & Release
+name: Deploy to WordPress.org
 
 on:
   release:
     types:
-      - created
+      - released
 
 jobs:
   build:
@@ -13,13 +13,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup PHP
+      - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
 
       - name: Setup composer
-        run: composer install --no-cache
+        run: composer setup
 
       - name: Setup Node.js 18.15.0
         uses: actions/setup-node@v2
@@ -43,6 +43,14 @@ jobs:
 
       - name: Build plugin
         run: yarn git-compress
+
+      - name: Deploy to WordPress.org
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SLUG: templatiq
+          BUILD_DIR: templatiq
 
       - name: Create zip file
         run: |
