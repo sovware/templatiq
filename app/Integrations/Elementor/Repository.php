@@ -19,7 +19,7 @@ class Repository extends ElementorLocal {
 	private string $cloud_endpoint;
 
 	public function __construct() {
-		$this->cloud_endpoint = TEMPLATIQ_CLOUD_BASE;
+		$this->cloud_endpoint = TEMPLATIQ_BASE;
 	}
 
 	public function get_template_data( int $template_id ) {

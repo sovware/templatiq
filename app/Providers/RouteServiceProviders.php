@@ -21,12 +21,15 @@ class RouteServiceProviders extends ProviderBase {
 	}
 
 	public function get(): array {
-		return [
-			\Templatiq\Routes\Account::class,
-			\Templatiq\Routes\Bookmark::class,
-			\Templatiq\Routes\Cache::class,
-			\Templatiq\Routes\Dependency::class,
-			\Templatiq\Routes\Template::class,
-		];
+		return apply_filters(
+			'templatiq_route_service_providers ',
+			[
+				\Templatiq\Routes\Account::class,
+				\Templatiq\Routes\Bookmark::class,
+				\Templatiq\Routes\Cache::class,
+				\Templatiq\Routes\Dependency::class,
+				\Templatiq\Routes\Template::class,
+			]
+		);
 	}
 }

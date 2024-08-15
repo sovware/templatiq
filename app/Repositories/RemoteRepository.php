@@ -16,7 +16,7 @@ class RemoteRepository {
 	private string $cloud_endpoint;
 
 	public function __construct() {
-		$this->cloud_endpoint = TEMPLATIQ_CLOUD_BASE;
+		$this->cloud_endpoint = TEMPLATIQ_BASE;
 	}
 
 	public function get_single_template( int $template_id ): array {

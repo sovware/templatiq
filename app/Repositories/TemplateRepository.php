@@ -20,7 +20,7 @@ class TemplateRepository {
 			return $data;
 		}
 
-		$http     = new Http( TEMPLATIQ_CLOUD_BASE . '/template/library' );
+		$http     = new Http( TEMPLATIQ_BASE . '/template/library' );
 		$response = $http->get()->response();
 
 		if ( is_wp_error( $response ) ) {
