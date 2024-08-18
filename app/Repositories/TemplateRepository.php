@@ -14,18 +14,12 @@ class TemplateRepository {
 
 	public function library_data() {
 
-		$data  = Cache::get( ['library'] );
-		$cache = apply_filters( 'templatiq_library_data_cache', true );
-		if ( $data && $cache ) {
+		$data = Cache::get( ['library'] );
+		if ( $data ) {
 			return $data;
 		}
 
-		$endpoint = TEMPLATIQ_BASE . '/template/library';
-		$cache    = apply_filters( 'templatiq_rest_library_cache', false );
-		if ( $cache ) {
-			$endpoint .= '/?' . time();
-		}
-
+		$endpoint = TEMPLATIQ_BASE . '/template/library/?' . time();
 		$http     = new Http( $endpoint );
 		$response = $http->get()->response();
 
