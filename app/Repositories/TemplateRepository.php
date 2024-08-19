@@ -19,7 +19,7 @@ class TemplateRepository {
 			return $data;
 		}
 
-		$endpoint = TEMPLATIQ_BASE . '/template/library/?' . time();
+		$endpoint = TEMPLATIQ_CLOUD_BASE . '/template/library/?' . time();
 		$http     = new Http( $endpoint );
 		$response = $http->get()->response();
 
