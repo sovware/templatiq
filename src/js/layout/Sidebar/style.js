@@ -71,10 +71,11 @@ const SidebarItemStyle = Styled.div`
             position: absolute;
             inset-inline-end: 0;
             top: 2px;
-            width: 14px;
-            height: 14px;
+            width: 12px;
+            height: 12px;
             background: url(${ chevronIcon }) no-repeat center center;
-            background-size: 14px;
+            background-size: 12px;
+            opacity: 0.5;
             transition: transform 0.3s ease;
         }
         &[aria-expanded="true"] {

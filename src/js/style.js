@@ -247,12 +247,12 @@ const TemplatePackStyle = Styled.div`
         display: flex;
         gap: 8px;
         flex-direction: column;
+        position: relative;
     }
     
     .templatiq__content__top {
         display: flex;
         gap: 24px;
-        margin: 0 0 8px;
         justify-content: space-between;
         .templatiq__content__top__filter__title {
             font-size: 16px;
@@ -269,37 +269,40 @@ const TemplatePackStyle = Styled.div`
 
     .templatiq-pagination {
         display: flex;
+        gap: 8px;
         align-items: center;
         justify-content: center;
         border-radius: 8px;
         margin-top: 32px;
         li {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: var(--templatiq-white-color);
-            border: 1px solid var(--templatiq-border-color);
-            border-right: none;
-            cursor: pointer;
             a {
-                color: var(--templatiq-body-color);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+                background: var(--templatiq-primary-transparent);
+                color: var(--templatiq-primary-color);
+                border-radius: 4px;
                 box-shadow: none;
-            }
-            &:first-child {
-                border-radius: 8px 0 0 8px;
-            }
-            &:last-child {
-                border-radius: 0 8px 8px 0;
-                border-right: 1px solid var(--templatiq-border-color);
+                transition: background 0.3s ease, color 0.3s ease;
+                svg path {
+                    fill: var(--templatiq-primary-color);
+                }
             }
             &.selected,
             &:hover {
-                background: var(--templatiq-sec-color);
+                a {
+                    color: var(--templatiq-white-color);
+                    background: var(--templatiq-primary-color);
+                    svg path {
+                        fill: var(--templatiq-white-color);
+                    }
+                }
             }
             &.break,
             &.disabled {
+                opacity: 0.5;
                 pointer-events: none;
             }
         }
@@ -310,7 +313,7 @@ const TemplatePackFilterStyle = Styled.div`
     .templatiq__content__top__filter__tablist {
         display: flex;
         gap: 4px;
-        padding: 4px 10px;
+        padding: 4px;
         border-radius: 8px;
         background-color: var(--templatiq-white-color);
         box-shadow: var(----templatiq-box-shadow);
@@ -462,11 +465,7 @@ const AuthStyle = Styled.div`
 `;
 
 export {
-	AuthStyle,
-	SearchBoxStyle,
-	SingleSelectStyle,
-	MultiSelectStyle,
-	ModalAlertStyle,
-	TemplatePackStyle,
-	TemplatePackFilterStyle,
+    AuthStyle, ModalAlertStyle, MultiSelectStyle, SearchBoxStyle,
+    SingleSelectStyle, TemplatePackFilterStyle, TemplatePackStyle
 };
+

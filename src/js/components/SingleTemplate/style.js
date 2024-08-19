@@ -35,7 +35,7 @@ const SingleTemplateStyle = Styled.div`
             height: 100%;
             top: 0;
             left: 0;
-            background: #00000020;
+            background: #00000030;
             border-radius: 12px;
         }
     }

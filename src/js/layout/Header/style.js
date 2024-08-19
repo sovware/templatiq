@@ -7,7 +7,8 @@ const HeaderStyle = Styled.div`
     display: flex;
     align-items: center;
     background: var(--templatiq-white-color);
-    box-shadow: 0 2px 4px var(--templatiq-dark-color)04;
+    box-shadow: 0 2px 4px rgba(0,0,0,.04);
+    z-index: 1;
     .templatiq__header__logo {
         flex: 0 0 324px;
         max-width: 324px;

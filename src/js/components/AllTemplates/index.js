@@ -39,7 +39,7 @@ export default function AllTemplates( props ) {
 
 	const [ totalPaginate, setTotalPaginate ] = useState( [] );
 	const [ startItemCount, setStartItemCount ] = useState( 0 );
-	const [ endItemCount, setEndItemCount ] = useState( 6 );
+	const [ endItemCount, setEndItemCount ] = useState( paginatePerPage );
 	const [ forcePage, setForcePage ] = useState( 0 );
 
 	const changeTemplateTab = ( type ) => {
@@ -50,7 +50,7 @@ export default function AllTemplates( props ) {
 		setEndItemCount( paginatePerPage );
 	};
 
-	const handlePageClick = ( event ) => {
+	const handlePageChange = ( event ) => {
 		const selectedPage = event.selected + 1;
 		setStartItemCount( selectedPage * paginatePerPage - paginatePerPage );
 		setEndItemCount( selectedPage * paginatePerPage );
@@ -240,10 +240,6 @@ export default function AllTemplates( props ) {
 		<Tabs className="templatiq__content__tab">
 			<div className="templatiq__content__top">
 				<div className="templatiq__content__top__filter">
-					<h3 className="templatiq__content__top__filter__title capitalize">
-						{__( 'Template', 'templatiq' )}
-					</h3>
-
 					<TemplatePackFilterStyle className="templatiq__content__top__filter__wrapper">
 						<TabList className="templatiq__content__top__filter__tablist">
 							<Tab
@@ -453,7 +449,7 @@ export default function AllTemplates( props ) {
 						<ReactPaginate
 							key={ activeTab }
 							breakLabel="..."
-							onPageChange={ handlePageClick }
+							onPageChange={ handlePageChange }
 							nextLabel={ <ReactSVG src={ arrowRight } /> }
 							previousLabel={ <ReactSVG src={ arrowLeft } /> }
 							pageRangeDisplayed={ 3 }
