@@ -24,6 +24,7 @@ module.exports = {
 	entry: {
 		'js/admin': './src/js/admin/index.js',
 		'js/index': './src/js/frontend/index.js',
+		'js/onboarding': './src/js/onboarding/index.js',
 		'css/global': './src/sass/global.scss',
 		'vendor/elementor-style': './assets-vendor/elementor-editor.css',
 		'vendor/elementor-script': './assets-vendor/elementor-editor.js',

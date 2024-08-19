@@ -15,7 +15,7 @@ class AccountRepository {
 	private string $cloud_endpoint;
 
 	public function __construct() {
-		$this->cloud_endpoint = TEMPLATIQ_BASE;
+		$this->cloud_endpoint = TEMPLATIQ_CLOUD_BASE;
 	}
 
 	public function login( string $username, string $password ) {

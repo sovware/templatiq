@@ -12,6 +12,8 @@ use Templatiq\Integrations\Elementor\Admin\Enqueuer;
 
 class Elementor extends IntegrationBase {
 	public function boot(): void {
+		Compatibility::init();
+
 		if ( ! class_exists( '\Elementor\Plugin' ) ) {
 			return;
 		}

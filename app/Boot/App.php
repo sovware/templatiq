@@ -37,6 +37,7 @@ class App {
 		/**
 		 * Service Providers
 		 */
+		\Templatiq\Providers\FullTemplateServiceProviders::init()->boot();
 		\Templatiq\Providers\IntegrationServiceProviders::init()->boot();
 		\Templatiq\Providers\RouteServiceProviders::init()->boot();
 
@@ -52,7 +53,7 @@ class App {
 
 		define( 'TEMPLATIQ_VERSION', \Templatiq\Utils\Config::get( 'version' ) );
 
-		define( 'TEMPLATIQ_BASE', 'https://templatiq.com/wp-json/cloud' );
+		define( 'TEMPLATIQ_CLOUD_BASE', 'https://templatiq.com/wp-json/cloud' );
 		define( 'TEMPLATIQ_API_ENDPOINT', 'https://templatiq.com/' );
 
 		define( 'TEMPLATIQ_DEV', true );
