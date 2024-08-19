@@ -2,8 +2,8 @@ import postData from '@helper/postData';
 import { AuthStyle } from '@root/style';
 import { dispatch, select } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
-import { Link, useNavigate } from 'react-router-dom';
 import { __ } from '@wordpress/i18n';
+import { Link, useNavigate } from 'react-router-dom';
 
 import store from '@store/index';
 
@@ -108,7 +108,7 @@ export default function SignInContent() {
 								className="templatiq__checkbox__input"
 							/>
 							<label
-								for="rememberMe"
+								htmlFor="rememberMe"
 								className="templatiq__checkbox__label"
 							>
 								{__( 'Remember Me', 'templatiq' )}

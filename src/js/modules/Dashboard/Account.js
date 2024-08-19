@@ -47,7 +47,7 @@ export default function MyAccountModule() {
 						</div>
 						<div className="templatiq__dashboard__account__info">
 							<div className="templatiq__dashboard__account__info__single">
-								<label for="authorFullName">Full Name</label>
+								<label htmlFor="authorFullName">Full Name</label>
 								<input
 									type="text"
 									id="authorFullName"
@@ -57,7 +57,7 @@ export default function MyAccountModule() {
 								/>
 							</div>
 							<div className="templatiq__dashboard__account__info__single">
-								<label for="authorEmail">Email Address</label>
+								<label htmlFor="authorEmail">Email Address</label>
 								<input
 									type="text"
 									id="authorEmail"

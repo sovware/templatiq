@@ -7,10 +7,11 @@ const HeaderStyle = Styled.div`
     display: flex;
     align-items: center;
     background: var(--templatiq-white-color);
-    box-shadow: 0 2px 4px var(--templatiq-dark-color)04;
+    box-shadow: 0 2px 4px rgba(0,0,0,.04);
+    z-index: 1;
     .templatiq__header__logo {
-        flex: 0 0 256px;
-        max-width: 256px;
+        flex: 0 0 324px;
+        max-width: 324px;
         text-align: start;
         margin-inline-start: 24px;
         img {
@@ -20,9 +21,15 @@ const HeaderStyle = Styled.div`
     .templatiq__header__content {
         flex: 1 1 auto;
         display: flex;
+        gap: 32px;
         align-items: center;
         margin-inline-end: 32px;
         justify-content: space-between;
+        .templatiq__header__content__left {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
     }
     .templatiq__header__details {
         display: flex;
@@ -174,4 +181,5 @@ const HeaderActionStyle = Styled.div`
     }
 `;
 
-export { HeaderStyle, HeaderNavStyle, HeaderActionStyle };
+export { HeaderActionStyle, HeaderNavStyle, HeaderStyle };
+

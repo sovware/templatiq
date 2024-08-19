@@ -1,12 +1,11 @@
 import store from '@store/index';
 import { select, subscribe } from '@wordpress/data';
 import { Suspense, lazy, useEffect, useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 import ReactSVG from 'react-inlinesvg';
 import ReactPaginate from 'react-paginate';
-import { __ } from '@wordpress/i18n';
 
 import ContentLoading from '@components/ContentLoading';
-import Searchform from '@components/Searchform';
 import { TemplatePackFilterStyle } from '@root/style';
 
 const SingleTemplate = lazy( () => import( '@components/SingleTemplate' ) );
@@ -18,7 +17,7 @@ import arrowRight from '@icon/angle-right.svg';
 import crownIcon from '@icon/crown.svg';
 
 export default function AllTemplates( props ) {
-	const { templateType, templateStatus } = props;
+	const { templateStatus } = props;
 	const paginatePerPage = 6;
 
 	const [ isEmpty, setIsEmpty ] = useState( false );
@@ -40,7 +39,7 @@ export default function AllTemplates( props ) {
 
 	const [ totalPaginate, setTotalPaginate ] = useState( [] );
 	const [ startItemCount, setStartItemCount ] = useState( 0 );
-	const [ endItemCount, setEndItemCount ] = useState( 6 );
+	const [ endItemCount, setEndItemCount ] = useState( paginatePerPage );
 	const [ forcePage, setForcePage ] = useState( 0 );
 
 	const changeTemplateTab = ( type ) => {
@@ -51,7 +50,7 @@ export default function AllTemplates( props ) {
 		setEndItemCount( paginatePerPage );
 	};
 
-	const handlePageClick = ( event ) => {
+	const handlePageChange = ( event ) => {
 		const selectedPage = event.selected + 1;
 		setStartItemCount( selectedPage * paginatePerPage - paginatePerPage );
 		setEndItemCount( selectedPage * paginatePerPage );
@@ -73,12 +72,8 @@ export default function AllTemplates( props ) {
 	};
 
 	const filterPluginTemplates = () => {
-		// Filter templates based on filterValue and templateType
+		// Filter templates based on filterValue
 		const newFilteredTemplates = allTemplates.filter( ( template ) => {
-			// Check if the template type matches the specified templateType
-			if ( template.type !== templateType ) {
-				return false;
-			}
 
 			return filterValue.some( ( filter ) => {
 				if ( filter.type === 'plugins' ) {
@@ -86,11 +81,10 @@ export default function AllTemplates( props ) {
 					return template.required_plugins.some(
 						( requiredPlugin ) => requiredPlugin?.slug === filter.key
 					);
-				} else if ( filter.type === 'categories' ) {
+				} else {
 					// Check if the template includes the selected category
 					return template.categories.includes( filter.key );
 				}
-				return false;
 			} );
 		} );
 
@@ -100,14 +94,12 @@ export default function AllTemplates( props ) {
 
 	const checkTemplateType = ( templates ) => {
 		let typeChecked = '';
-		if ( templates && templateType ) {
+		if ( templates ) {
 			user && userFav && templateStatus === 'favorites'
 				? ( typeChecked = templates.filter( ( template ) =>
 						userFav.includes( template.template_id )
 				  ) )
-				: ( typeChecked = templates.filter(
-						( template ) => template.type === templateType
-				  ) );
+				: ( typeChecked = templates );
 
 			setAllTemplates( typeChecked );
 		} else {
@@ -248,14 +240,6 @@ export default function AllTemplates( props ) {
 		<Tabs className="templatiq__content__tab">
 			<div className="templatiq__content__top">
 				<div className="templatiq__content__top__filter">
-					<h3 className="templatiq__content__top__filter__title capitalize">
-						{
-							templateType === 'pack' ? 
-							__( 'Full Site', 'templatiq' ):
-							`Template ${ templateType }`
-						}
-					</h3>
-
 					<TemplatePackFilterStyle className="templatiq__content__top__filter__wrapper">
 						<TabList className="templatiq__content__top__filter__tablist">
 							<Tab
@@ -299,9 +283,6 @@ export default function AllTemplates( props ) {
 							</Tab>
 						</TabList>
 					</TemplatePackFilterStyle>
-				</div>
-				<div className="templatiq__content__top__search">
-					<Searchform />
 				</div>
 			</div>
 
@@ -468,7 +449,7 @@ export default function AllTemplates( props ) {
 						<ReactPaginate
 							key={ activeTab }
 							breakLabel="..."
-							onPageChange={ handlePageClick }
+							onPageChange={ handlePageChange }
 							nextLabel={ <ReactSVG src={ arrowRight } /> }
 							previousLabel={ <ReactSVG src={ arrowLeft } /> }
 							pageRangeDisplayed={ 3 }

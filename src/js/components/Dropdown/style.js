@@ -8,7 +8,7 @@ const DropdownStyle = Styled.div`
         display: flex;
         gap: 10px;
         align-items: center;
-        height: 36px;
+        height: 38px;
         min-width: 200px;
         padding: 0 30px 0 12px;
         border-radius: 8px;

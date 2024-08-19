@@ -10,6 +10,7 @@
   --templatiq-gray-color: #6b6b73;
   --templatiq-gray-color2: #d1d1d9;
   --templatiq-sec-color: #f1f1f4;
+  --templatiq-border-color: #eaecf0;
   --templatiq-section-color: #e8e8ee;
   --templatiq-section-color2: #f8f8f9;
   --templatiq-placeholder-color: #94949a;
@@ -274,7 +275,7 @@ button {
     top: -45px;
     left: 50%;
     transform: translateX(-50%);
-    min-width: 100px;
+    min-width: max-content;
     text-align: center;
     color: var(--templatiq-white-color);
     font-size: 13px;
@@ -336,7 +337,7 @@ button {
   .templatiq__checkbox__label {
     flex: 1;
     width: 100%;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     position: relative;
     color: var(--templatiq-gray-color);
