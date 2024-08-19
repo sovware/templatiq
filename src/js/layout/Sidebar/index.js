@@ -1,37 +1,21 @@
 import { dispatch, select, subscribe } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
-import ReactSVG from 'react-inlinesvg';
-import { useLocation } from 'react-router-dom';
 import { __ } from '@wordpress/i18n';
+import ReactSVG from 'react-inlinesvg';
 
 import store from '@store/index';
 import { SidebarItemStyle, SidebarStyle } from './style';
 
 import ContentLoading from '@components/ContentLoading';
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
-import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 
 import filterIcon from '@icon/filter.svg';
 
 const Sidebar = () => {
-	const location = useLocation();
-	const pathType = location.pathname.split( '/' ).pop();
-
-	const templateType =
-		pathType == 'pages'
-			? 'page'
-			: pathType == 'blocks'
-			? 'section'
-			: 'pack';
-
 	const [ loading, setLoading ] = useState( false );
-	const [ libraryData, setLibraryData ] = useState( false );
-	const [ categories, setCategories ] = useState( [] );
-	const [ plugins, setPlugins ] = useState( [] );
-	const [ pluginGroups, setPluginGroups ] = useState( [] );
 
-	const [ countCategories, setCountCategories ] = useState();
-	const [ countPlugins, setCountPlugins ] = useState();
+	const [ filterGroups, setFilterGroups ] = useState( {} );
+	const [expandedGroups, setExpandedGroups] = useState({});
 
 	const [ selectedFilters, setSelectedFilters ] = useState( [] );
 
@@ -68,58 +52,58 @@ const Sidebar = () => {
 	};
 
 	function getSidebarData( data ) {
-		setCategories( data.categories );
-		setPlugins( data.plugins );
-		setPluginGroups( data.plugins_groups );
-
-		// Filter templates based on type
-		const templatesOfType = data.templates.filter(
-			( template ) => template.type === templateType
-		);
-
-		// Count for categories based on templates of the specific type
-		const categoryCount = {};
-		templatesOfType.forEach( ( template ) => {
-			template.categories.forEach( ( category ) => {
-				if ( categoryCount[ category ] ) {
-					categoryCount[ category ]++;
-				} else {
-					categoryCount[ category ] = 1;
+		// Function to count templates for each item
+		const countTemplatesByItem = (item, type) => {
+			return data.templates.filter(template => {
+				if (type === 'plugins') {
+					return template.required_plugins.some(p => p.slug === item);
 				}
-			} );
-		} );
-		setCountCategories( categoryCount );
+				return template.categories.includes(item);
+			}).length;
+		};
 
-		// Count for plugin maps based on templates of the specific type
-		const pluginCount = {};
-		Object.keys( data.plugins ).forEach( ( plugin ) => {
-			pluginCount[ plugin ] = templatesOfType.filter( ( template ) =>
-				template.required_plugins.some(
-					( reqPlugin ) => reqPlugin?.slug === plugin
-				)
-			).length;
-		} );
-		setCountPlugins( pluginCount );
+		// getCategoryItems & getPluginItems functions
+		const getCategoryItems = (groupKey, groupValue) => 
+			Object.keys(groupValue || {}).map(key => ({
+				key,
+				title: groupValue[key], 
+				count: countTemplatesByItem(key, groupKey)
+			}));
+
+		const getPluginItems = (groupValue) => 
+			Object.keys(groupValue || {}).map(key => ({
+				key,
+				title: groupValue[key].name, 
+				count: countTemplatesByItem(key, 'plugins')
+			}));
+
+		const newGroupedCategories = {};
+
+		// Initialize categories and plugins in the newGroupedCategories object
+		Object.entries(data.categories).forEach(([groupKey, groupValue]) => {
+			newGroupedCategories[groupKey] = getCategoryItems(groupKey, groupValue);
+		});
+
+		newGroupedCategories.plugins = getPluginItems(data.plugins);
+
+		setFilterGroups(newGroupedCategories);
 	}
 
-	// Group plugins by their group
-	const groupedPlugins = {};
-	Object.keys( plugins ).forEach( ( plugin ) => {
-		const group = plugins[ plugin ].group;
-		if ( ! groupedPlugins[ group ] ) {
-			groupedPlugins[ group ] = [];
-		}
-		groupedPlugins[ group ].push( plugin );
-	} );
+	const handleSeeMore = (group) => {
+		setExpandedGroups((prev) => ({ ...prev, [group]: true }));
+	};
+
+	const handleShowLess = (group) => {
+		setExpandedGroups((prev) => ({ ...prev, [group]: false }));
+	};
 
 	useEffect( () => {
 		setLoading( true );
 		const data = select( store ).getLibraryData();
 
-		if ( libraryData ) {
+		if ( data ) {
 			setLoading( false );
 			getSidebarData( data );
-			setLibraryData( data );
 		}
 
 		// Clear Stored Filters
@@ -131,7 +115,6 @@ const Sidebar = () => {
 			if ( data ) {
 				setLoading( false );
 				getSidebarData( data );
-				setLibraryData( data );
 			}
 		} );
 
@@ -160,150 +143,64 @@ const Sidebar = () => {
 							onClick={ clearFilters }
 							disabled={ selectedFilters.length === 0 }
 						>
-							{__( 'Clear', 'templatiq' )}
+							{__( 'Reset', 'templatiq' )}
 						</button>
 					</div>
-					<div className="templatiq__sidebar__wrapper">
-						<Tabs>
-							<TabList className="templatiq__sidebar__nav">
-								<Tab className="templatiq__sidebar__nav__item">
-									<button className="templatiq__sidebar__nav__link">
-										{__( 'Plugins', 'templatiq' )}
-									</button>
-								</Tab>
-								<Tab className="templatiq__sidebar__nav__item">
-									<button className="templatiq__sidebar__nav__link">
-										{__( 'Categories', 'templatiq' )}
-									</button>
-								</Tab>
-							</TabList>
-							<TabPanel>
-								<SidebarItemStyle className="templatiq__sidebar__filter templatiq__sidebar__plugins">
-									<Accordion
-										transition
-										transitionTimeout={ 250 }
-										className="templatiq__sidebar__accordion"
+					<div className="templatiq__sidebar__wrapper">	
+						<SidebarItemStyle className="templatiq__sidebar__filter templatiq__sidebar__plugins">
+							<Accordion
+								transition
+								transitionTimeout={250}
+								className="templatiq__sidebar__accordion"
+							>
+								{Object.keys(filterGroups).map((group) => (
+									<AccordionItem
+										key={group}
+										header={group.charAt(0).toUpperCase() + group.slice(1)}
+										className="templatiq__sidebar__accordion__single"
 									>
-										{ Object.keys( groupedPlugins ).map(
-											( group, index ) => (
-												<AccordionItem
-													key={ group }
-													header={
-														pluginGroups[ group ]
-													}
-													className="templatiq__sidebar__accordion__single"
-													initialEntered={
-														index === 0
-													} // Set initialEntered to true for the first item
+										<div className="templatiq__sidebar__accordion__item">
+										{filterGroups[group]
+											.slice(0, (expandedGroups[group] ? filterGroups[group].length : 2))
+											.map((item, itemIndex) => (
+											<div
+												key={item.key || itemIndex}
+												className="templatiq__sidebar__filter__single templatiq__checkbox"
+											>
+												<input
+													type="checkbox"
+													id={item.key || itemIndex}
+													className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input"
+													onChange={() => handleFilter(item.key, group)}
+													checked={selectedFilters.some(
+														(filter) => filter.key === item.key && filter.type === group
+													)}
+												/>
+												<label
+													htmlFor={item.key || itemIndex}
+													className="templatiq__sidebar__filter__single__label templatiq__checkbox__label"
 												>
-													<div className="templatiq__sidebar__accordion__item">
-														{ groupedPlugins[
-															group
-														].map(
-															( pluginKey ) => (
-																<div
-																	key={
-																		pluginKey
-																	}
-																	className="templatiq__sidebar__filter__single templatiq__checkbox"
-																>
-																	<input
-																		type="checkbox"
-																		id={
-																			pluginKey
-																		}
-																		className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input"
-																		onChange={ () =>
-																			handleFilter(
-																				pluginKey,
-																				'plugins'
-																			)
-																		}
-																		checked={ selectedFilters.some(
-																			(
-																				filter
-																			) =>
-																				filter.key ===
-																					pluginKey &&
-																				filter.type ===
-																					'plugins'
-																		) }
-																	/>
-																	<label
-																		htmlFor={
-																			pluginKey
-																		}
-																		className="templatiq__sidebar__filter__single__label templatiq__checkbox__label"
-																	>
-																		{
-																			libraryData
-																				.plugins[
-																				pluginKey
-																			]
-																				.name
-																		}
-																	</label>
-																	<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">
-																		{ countPlugins[
-																			pluginKey
-																		] || 0 }
-																	</span>
-																</div>
-															)
-														) }
-													</div>
-												</AccordionItem>
-											)
-										) }
-									</Accordion>
-								</SidebarItemStyle>
-							</TabPanel>
-							<TabPanel>
-								<SidebarItemStyle className="templatiq__sidebar__filter templatiq__sidebar__categories">
-									<div className="templatiq__sidebar__categories__wrapper">
-										{ Object.keys( categories ).map(
-											( categoryKey ) => (
-												<div key={categoryKey} className="templatiq__sidebar__filter__single templatiq__checkbox">
-													<input
-														type="checkbox"
-														id={ categoryKey }
-														className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input"
-														onChange={ () =>
-															handleFilter(
-																categoryKey,
-																'categories'
-															)
-														}
-														checked={ selectedFilters.some(
-															( filter ) =>
-																filter.key ===
-																	categoryKey &&
-																filter.type ===
-																	'categories'
-														) }
-													/>
-													<label
-														for={ categoryKey }
-														className="templatiq__sidebar__filter__single__label templatiq__checkbox__label"
-													>
-														{
-															categories[
-																categoryKey
-															]
-														}
-													</label>
-													<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">
-														{ countCategories[
-															categoryKey
-														] || 0 }
-													</span>
-												</div>
-											)
-										) }
-									</div>
-								</SidebarItemStyle>
-							</TabPanel>
-						</Tabs>
+													{item.title}
+												</label>
+												<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">
+													{item.count}
+												</span>
+											</div>
+											))}
+										{filterGroups[group].length > 2 && (
+											<>
+											{expandedGroups[group] ? (
+												<button onClick={() => handleShowLess(group)}>Show Less</button>
+											) : (
+												<button onClick={() => handleSeeMore(group)}>See More</button>
+											)}
+											</>
+										)}
+										</div>
+									</AccordionItem>
+								))}
+							</Accordion>
+						</SidebarItemStyle>
 					</div>
 				</>
 			) }

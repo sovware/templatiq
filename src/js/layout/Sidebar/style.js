@@ -1,5 +1,5 @@
-import Styled from 'styled-components';
 import chevronIcon from '@icon/chevron-down-solid.svg';
+import Styled from 'styled-components';
 
 const SidebarStyle = Styled.div`
     width: 256px;
@@ -39,96 +39,7 @@ const SidebarStyle = Styled.div`
     }
 
     .templatiq__sidebar__wrapper {
-        padding-bottom: 30px
-    }
-    
-    .templatiq__sidebar__nav {
-        display: flex;
-        gap: 24px;
-        padding: 0 24px;
-        margin-bottom: 24px;
-        border-bottom: 1px solid var(--templatiq-sec-color);
-        .templatiq__sidebar__nav__item {
-            &.react-tabs__tab--selected {
-                .templatiq__sidebar__nav__link {
-                    color: var(--templatiq-primary-color);
-                    &:before {
-                        width: 100%;
-                        background: var(--templatiq-primary-color);
-                    }
-                }
-            }
-        }
-        .templatiq__sidebar__nav__link {
-            position: relative;
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            padding: 0;
-            background: transparent;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--templatiq-body-color);
-            height: 50px;
-            box-shadow: none;
-            cursor: pointer;
-            text-decoration: none;
-            &:before {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                height: 2px;
-                width: 0;
-                background: transparent;
-                transition: width 0.3s ease;
-            }
-            &:hover {
-                color: var(--templatiq-primary-color);
-                &:before {
-                    width: 100%;
-                    background: var(--templatiq-primary-color);
-                }
-            }
-        }
-    }
-
-    .templatiq__sidebar__nav--admin {
-        flex-direction: column;
-        gap: 0;
-        margin: 0;
-        padding: 0;
-        border: none;
-        .templatiq__sidebar__nav__link {
-            height: 46px;
-            gap: 12px;
-            position: relative;
-            background: transparent;
-            padding-inline-start: 24px;
-            transition: background 0.3s ease;
-            path {
-                fill: var(--templatiq-body-color);
-                transition: fill 0.3s ease;
-            }
-            &:before {
-                width: 2px;
-                height: 0;
-                top: 0;
-                inset-inline-end: 0;
-            }
-            &:hover,
-            &.active {
-                color: var(--templatiq-primary-color);
-                background: var(--templatiq-primary-transparent);
-                path {
-                    fill: var(--templatiq-primary-color);
-                }
-                &:before {
-                    width: 2px;
-                    height: 100%;
-                    background: var(--templatiq-primary-color);
-                }
-            }
-        }
+        padding: 30px 0;
     }
 `;
 
@@ -226,4 +137,5 @@ const AdminSidebarStyle = Styled.div`
     }
 `;
 
-export { SidebarStyle, SidebarItemStyle, AdminSidebarStyle };
+export { AdminSidebarStyle, SidebarItemStyle, SidebarStyle };
+

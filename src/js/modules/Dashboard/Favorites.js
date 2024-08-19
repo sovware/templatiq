@@ -1,6 +1,6 @@
+import AllTemplates from '@components/AllTemplates';
 import DashboardLayout from '@layout/DashboardLayout';
 import { TemplatePackStyle } from '@root/style';
-import AllTemplates from '@components/AllTemplates';
 
 export default function MyFavoritesModule( props ) {
 	const { type, status } = props;

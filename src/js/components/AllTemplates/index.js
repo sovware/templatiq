@@ -17,7 +17,7 @@ import arrowRight from '@icon/angle-right.svg';
 import crownIcon from '@icon/crown.svg';
 
 export default function AllTemplates( props ) {
-	const { templateType, templateStatus } = props;
+	const { templateStatus } = props;
 	const paginatePerPage = 6;
 
 	const [ isEmpty, setIsEmpty ] = useState( false );
@@ -72,12 +72,8 @@ export default function AllTemplates( props ) {
 	};
 
 	const filterPluginTemplates = () => {
-		// Filter templates based on filterValue and templateType
+		// Filter templates based on filterValue
 		const newFilteredTemplates = allTemplates.filter( ( template ) => {
-			// Check if the template type matches the specified templateType
-			if ( template.type !== templateType ) {
-				return false;
-			}
 
 			return filterValue.some( ( filter ) => {
 				if ( filter.type === 'plugins' ) {
@@ -85,11 +81,10 @@ export default function AllTemplates( props ) {
 					return template.required_plugins.some(
 						( requiredPlugin ) => requiredPlugin?.slug === filter.key
 					);
-				} else if ( filter.type === 'categories' ) {
+				} else {
 					// Check if the template includes the selected category
 					return template.categories.includes( filter.key );
 				}
-				return false;
 			} );
 		} );
 
@@ -99,14 +94,12 @@ export default function AllTemplates( props ) {
 
 	const checkTemplateType = ( templates ) => {
 		let typeChecked = '';
-		if ( templates && templateType ) {
+		if ( templates ) {
 			user && userFav && templateStatus === 'favorites'
 				? ( typeChecked = templates.filter( ( template ) =>
 						userFav.includes( template.template_id )
 				  ) )
-				: ( typeChecked = templates.filter(
-						( template ) => template.type === templateType
-				  ) );
+				: ( typeChecked = templates );
 
 			setAllTemplates( typeChecked );
 		} else {
@@ -248,11 +241,7 @@ export default function AllTemplates( props ) {
 			<div className="templatiq__content__top">
 				<div className="templatiq__content__top__filter">
 					<h3 className="templatiq__content__top__filter__title capitalize">
-						{
-							templateType === 'pack' ? 
-							__( 'Full Site', 'templatiq' ):
-							`Template ${ templateType }`
-						}
+						{__( 'Template', 'templatiq' )}
 					</h3>
 
 					<TemplatePackFilterStyle className="templatiq__content__top__filter__wrapper">
