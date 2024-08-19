@@ -35,7 +35,7 @@ const SingleTemplateStyle = Styled.div`
             height: 100%;
             top: 0;
             left: 0;
-            background: #00000030;
+            background: #00000070;
             border-radius: 12px;
         }
     }
@@ -264,7 +264,7 @@ const SingleTemplateStyle = Styled.div`
             top: -45px;
             left: 50%;
             transform: translateX(-50%);
-            min-width: 135px;
+            min-width: max-content;
             text-align: center;
             color: var(--templatiq-white-color);
             font-size: 13px;
