@@ -37,6 +37,7 @@ class App {
 		/**
 		 * Service Providers
 		 */
+		\Templatiq\Providers\FullTemplateServiceProviders::init()->boot();
 		\Templatiq\Providers\IntegrationServiceProviders::init()->boot();
 		\Templatiq\Providers\RouteServiceProviders::init()->boot();
 
