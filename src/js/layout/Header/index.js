@@ -1,24 +1,21 @@
 import postData from '@helper/postData';
 import { dispatch, select } from '@wordpress/data';
 import { useEffect, useRef, useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 import ReactSVG from 'react-inlinesvg';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { __ } from '@wordpress/i18n';
 
 import CacheClearBtn from '@components/CacheClearBtn';
 import Dropdown from '@components/Dropdown';
 import checkedClickedOutside from '@helper/checkClickedOutside';
 import store from '@store/index';
 
-import { HeaderActionStyle, HeaderNavStyle, HeaderStyle } from './style';
+import { HeaderActionStyle, HeaderStyle } from './style';
 
 import avatar from '@images/avatar.svg';
 import Fav from '@images/fav.svg';
 import Logo from '@images/logo.svg';
 
-import blocksIcon from '@icon/blocks.svg';
-import fileIcon from '@icon/file-solid.svg';
-import pagesIcon from '@icon/pages.svg';
 import userIcon from '@icon/user-alt.svg';
 
 import backIcon from '@icon/arrow-left.svg';
@@ -26,6 +23,7 @@ import chevronIcon from '@icon/chevron-down-solid.svg';
 import elementorIcon from '@icon/elementor.svg';
 import gutenbergIcon from '@icon/gutenberg.svg';
 
+import Searchform from '@components/Searchform';
 import cartIcon from '@icon/cart.svg';
 import downloadIcon from '@icon/download-alt.svg';
 import heartIcon from '@icon/heart.svg';
@@ -121,42 +119,7 @@ const Header = ( props ) => {
 			) }
 
 			<div className="templatiq__header__content">
-				<HeaderNavStyle className="templatiq__header__nav">
-					<li className="templatiq__header__item">
-						<NavLink
-							to={ ! elementorEditorEnabled ? '/pages' : '/' }
-							className={ `templatiq__header__link` }
-							activeClassName="active"
-						>
-							<ReactSVG
-								src={ pagesIcon }
-								width={ 18 }
-								height={ 18 }
-							/>
-							{__( 'Pages', 'templatiq' )}
-						</NavLink>
-					</li>
-					<li className="templatiq__header__item">
-						<NavLink
-							to="/blocks"
-							className={ `templatiq__header__link` }
-							activeClassName="active"
-						>
-							<ReactSVG
-								src={ blocksIcon }
-								width={ 18 }
-								height={ 18 }
-							/>
-							{__( 'Blocks', 'templatiq' )}
-						</NavLink>
-					</li>
-				</HeaderNavStyle>
-
-				<HeaderActionStyle className="templatiq__header__action">
-					<div className="templatiq__header__action__item">
-						<CacheClearBtn />
-					</div>
-
+				<div className="templatiq__header__content__left">
 					<div className="templatiq__header__action__item">
 						<Dropdown
 							className="templatiq__dropdown"
@@ -165,6 +128,16 @@ const Header = ( props ) => {
 							dropdownList={ editorItems }
 							defaultSelect={ editorItems[ 0 ] }
 						/>
+					</div>
+					
+					<div className="templatiq__content__top__search">
+						<Searchform />
+					</div>
+				</div>
+
+				<HeaderActionStyle className="templatiq__header__action">
+					<div className="templatiq__header__action__item">
+						<CacheClearBtn />
 					</div>
 
 					<div className="templatiq__header__action__item">

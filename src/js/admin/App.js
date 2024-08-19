@@ -4,15 +4,12 @@ import { Suspense, lazy, useEffect, useState } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import { __ } from '@wordpress/i18n';
 
 import store from '@store/index';
 import { dispatch } from '@wordpress/data';
 
 const TemplatePack = lazy( () => import( './pages/TemplatePack' ) );
 const TemplateDetails = lazy( () => import( './pages/TemplateDetails' ) );
-const Pages = lazy( () => import( './pages/Pages' ) );
-const Blocks = lazy( () => import( './pages/Blocks' ) );
 const SignIn = lazy( () => import( './pages/Signin' ) );
 const SignUp = lazy( () => import( './pages/Signup' ) );
 const MyFavorites = lazy( () => import( './pages/dashboard/Favorites' ) );
@@ -23,8 +20,7 @@ const MyAccount = lazy( () => import( './pages/dashboard/Account' ) );
 export default function App() {
 	const [ dir, setDir ] = useState( 'ltr' );
 	const [ dataFetched, setDataFetched ] = useState( false );
-	const [ elementorEditorEnabled, setElementorEditorEnabled ] =
-		useState( false );
+	const [ elementorEditorEnabled, setElementorEditorEnabled ] = useState( false );
 
 	const theme = {
 		direction: dir,
@@ -68,15 +64,8 @@ export default function App() {
 	const adminRoutes = applyFilters( 'templatiq_admin_routes', [
 		{
 			path: `/*`,
-			element: ! elementorEditorEnabled ? <TemplatePack /> : <Pages />,
-		},
-		{
-			path: '/pages',
-			element: <Pages />,
-		},
-		{
-			path: `/blocks`,
-			element: <Blocks />,
+			element: <TemplatePack />,
+			// element: ! elementorEditorEnabled ? <TemplatePack /> : <Pages />,
 		},
 		{
 			path: `/template/:slug`,

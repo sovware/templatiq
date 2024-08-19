@@ -1,12 +1,11 @@
 import store from '@store/index';
 import { select, subscribe } from '@wordpress/data';
 import { Suspense, lazy, useEffect, useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 import ReactSVG from 'react-inlinesvg';
 import ReactPaginate from 'react-paginate';
-import { __ } from '@wordpress/i18n';
 
 import ContentLoading from '@components/ContentLoading';
-import Searchform from '@components/Searchform';
 import { TemplatePackFilterStyle } from '@root/style';
 
 const SingleTemplate = lazy( () => import( '@components/SingleTemplate' ) );
@@ -299,9 +298,6 @@ export default function AllTemplates( props ) {
 							</Tab>
 						</TabList>
 					</TemplatePackFilterStyle>
-				</div>
-				<div className="templatiq__content__top__search">
-					<Searchform />
 				</div>
 			</div>
 

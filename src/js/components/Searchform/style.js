@@ -6,7 +6,7 @@ const SearchformStyle = Styled.div`
     padding: 0;
     display: flex;
     align-items: center;
-    background-color: var(--templatiq-white-color);
+    background-color: var(--templatiq-sec-color);
     border-radius: 8px;
     button {
         position: absolute;

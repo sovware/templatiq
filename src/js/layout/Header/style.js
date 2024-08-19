@@ -20,9 +20,15 @@ const HeaderStyle = Styled.div`
     .templatiq__header__content {
         flex: 1 1 auto;
         display: flex;
+        gap: 32px;
         align-items: center;
         margin-inline-end: 32px;
         justify-content: space-between;
+        .templatiq__header__content__left {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
     }
     .templatiq__header__details {
         display: flex;
@@ -174,4 +180,5 @@ const HeaderActionStyle = Styled.div`
     }
 `;
 
-export { HeaderStyle, HeaderNavStyle, HeaderActionStyle };
+export { HeaderActionStyle, HeaderNavStyle, HeaderStyle };
+
