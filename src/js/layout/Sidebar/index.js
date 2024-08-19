@@ -149,12 +149,14 @@ const Sidebar = () => {
 					<div className="templatiq__sidebar__wrapper">	
 						<SidebarItemStyle className="templatiq__sidebar__filter templatiq__sidebar__plugins">
 							<Accordion
+								allowMultiple
 								transition
 								transitionTimeout={250}
 								className="templatiq__sidebar__accordion"
 							>
 								{Object.keys(filterGroups).map((group) => (
 									<AccordionItem
+										initialEntered
 										key={group}
 										header={group.charAt(0).toUpperCase() + group.slice(1)}
 										className="templatiq__sidebar__accordion__single"
@@ -186,13 +188,24 @@ const Sidebar = () => {
 													{item.count}
 												</span>
 											</div>
-											))}
+										))}
 										{filterGroups[group].length > 2 && (
 											<>
 											{expandedGroups[group] ? (
-												<button onClick={() => handleShowLess(group)}>Show Less</button>
+												<button 
+													className="more"
+													aria-expanded="true"
+													onClick={() => handleShowLess(group)}
+												>
+													Show Less
+												</button>
 											) : (
-												<button onClick={() => handleSeeMore(group)}>See More</button>
+												<button 
+													className="more"
+													onClick={() => handleSeeMore(group)}
+												>
+													See More
+												</button>
 											)}
 											</>
 										)}

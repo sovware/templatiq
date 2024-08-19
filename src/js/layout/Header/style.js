@@ -9,8 +9,8 @@ const HeaderStyle = Styled.div`
     background: var(--templatiq-white-color);
     box-shadow: 0 2px 4px var(--templatiq-dark-color)04;
     .templatiq__header__logo {
-        flex: 0 0 256px;
-        max-width: 256px;
+        flex: 0 0 324px;
+        max-width: 324px;
         text-align: start;
         margin-inline-start: 24px;
         img {
