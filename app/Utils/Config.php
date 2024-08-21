@@ -13,6 +13,7 @@ class Config {
 		$config = [
 			'version'     => '1.0.0',
 			'environment' => 'production',
+			'could_base'  => 'https://templatiq.com/wp-json/cloud',
 		];
 
 		$config = array_merge( $config, self::get_dev_config() );

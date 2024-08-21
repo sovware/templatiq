@@ -308,11 +308,8 @@ class Controller extends ControllerBase {
 			);
 		}
 
-		$response = ( new RemoteRepository() )
-			->get_full_template( $template_id );
-
-		// error_log( 'Demo sites import data received!' );
-		update_option( 'templatiq_sites_import_data', $response, 'no' );
+		$response = ( new RemoteRepository() )->get_full_template( $template_id );
+		update_option( 'templatiq_sites_import_data', $response );
 
 		wp_send_json_success( $response );
 	}

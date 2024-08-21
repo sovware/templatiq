@@ -59,6 +59,7 @@ class RemoteRepository {
 			[
 				'token'       => Options::get( 'token' ),
 				'template_id' => $template_id,
+				'nocache'     => time(),
 			] )
 			->post()
 			->response();
