@@ -13,6 +13,14 @@ class Compatibility {
 	use Singleton;
 
 	public function __construct() {
+		if ( ! wp_doing_ajax() || ( defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, '3.0.0', '>=' ) ) ) {
+			remove_filter( 'templatiq_import_post_meta', [ 'Elementor\Compatibility', 'on_templatiq_import_post_meta' ] );
+			remove_filter( 'templatiq_wxr_importer.pre_process.post_meta', [ 'Elementor\Compatibility', 'on_wxr_importer_pre_process_post_meta' ] );
+
+			add_filter( 'templatiq_import_post_meta', [ $this, 'on_templatiq_import_post_meta' ] );
+			add_filter( 'templatiq_wxr_importer.pre_process.post_meta', [ $this, 'on_wxr_importer_pre_process_post_meta' ] );
+		}
+
 		add_action( 'templatiq_sites_before_delete_imported_posts', [$this, 'force_delete_kit'], 10, 2 );
 		add_action( 'templatiq_sites_before_sse_import', [$this, 'disable_attachment_metadata'] );
 		add_action( 'templatiq_sites_after_plugin_activation', [$this, 'disable_elementor_redirect'] );
@@ -68,7 +76,7 @@ class Compatibility {
 	 * Normalize Elementor post meta on import, We need the `wp_slash` in order
 	 * to avoid the unslashing during the `add_post_meta`.
 	 *
-	 * Fired by `wp_import_post_meta` filter.
+	 * Fired by `templatiq_import_post_meta` filter.
 	 *
 	 * @since 1.4.3
 	 * @access public
@@ -77,12 +85,35 @@ class Compatibility {
 	 *
 	 * @return array Updated post meta.
 	 */
-	public function on_wp_import_post_meta( $post_meta ) {
+	public function on_templatiq_import_post_meta( $post_meta ) {
 		foreach ( $post_meta as &$meta ) {
 			if ( '_elementor_data' === $meta['key'] ) {
 				$meta['value'] = wp_slash( $meta['value'] );
 				break;
 			}
+		}
+
+		return $post_meta;
+	}
+
+	/**
+	 * Process post meta before WXR importer.
+	 *
+	 * Normalize Elementor post meta on import with the new WP_importer, We need
+	 * the `wp_slash` in order to avoid the unslashing during the `add_post_meta`.
+	 *
+	 * Fired by `templatiq_templatiq_wxr_importer.pre_process.post_meta` filter.
+	 *
+	 * @since 1.4.3
+	 * @access public
+	 *
+	 * @param array $post_meta Post meta.
+	 *
+	 * @return array Updated post meta.
+	 */
+	public function on_templatiq_wxr_importer_pre_process_post_meta( $post_meta ) {
+		if ( '_elementor_data' === $post_meta['key'] ) {
+			$post_meta['value'] = wp_slash( $post_meta['value'] );
 		}
 
 		return $post_meta;
@@ -103,7 +134,7 @@ class Compatibility {
 	 *
 	 * @return array Updated post meta.
 	 */
-	public function on_templatiq_wxr_importer_pre_process_post_meta( $post_meta ) {
+	public function on_wxr_importer_pre_process_post_meta( $post_meta ) {
 		if ( '_elementor_data' === $post_meta['key'] ) {
 			$post_meta['value'] = wp_slash( $post_meta['value'] );
 		}
