@@ -1,7 +1,7 @@
 <?php
 
 return [
-	'version'     => '1.0.2',
+	'version'     => '1.1.0',
 	'environment' => 'development',
 	// 'could_base'  => 'http://localhost:10144/wp-json/cloud',
 ];
