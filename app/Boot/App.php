@@ -7,6 +7,8 @@
 
 namespace Templatiq\Boot;
 
+use Templatiq\Utils\Config;
+
 class App {
 	public static bool $loaded;
 	public static App $instance;
@@ -51,9 +53,8 @@ class App {
 		define( 'TEMPLATIQ_ASSETS', TEMPLATIQ_URL . '/assets' );
 		define( 'TEMPLATIQ_ASSETS_PATH', TEMPLATIQ_PATH . '/assets' );
 
-		define( 'TEMPLATIQ_VERSION', \Templatiq\Utils\Config::get( 'version' ) );
-
-		define( 'TEMPLATIQ_CLOUD_BASE', 'https://templatiq.com/wp-json/cloud' );
+		define( 'TEMPLATIQ_VERSION', Config::get( 'version' ) );
+		define( 'TEMPLATIQ_CLOUD_BASE', Config::get( 'could_base' ) );
 		define( 'TEMPLATIQ_API_ENDPOINT', 'https://templatiq.com/' );
 
 		define( 'TEMPLATIQ_DEV', true );
