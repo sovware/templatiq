@@ -210,30 +210,35 @@ const SingleTemplate = ( item ) => {
 						</div>
 					) }
 				</div>
-				<div className="templatiq__template__single__quickmeta">
-					{ price > 0 ? (
-						<span className="templatiq__template__single__quickmeta__item pro-item">
-							{ `${ price ? '$' + price : '' }` }
-						</span>
-					) : (
-						<span className="templatiq__template__single__quickmeta__item free-item">
-							{__( "Free", 'templatiq' )}
-						</span>
-					) }
+				<div className="templatiq__template__single__quickmeta-wrapper">
+					<div className="templatiq__template__single__quickmeta">
+						{ price > 0 ? (
+							<span className="templatiq__template__single__quickmeta__item pro-item">
+								{ `${ price ? '$' + price : '' }` }
+							</span>
+						) : (
+							<span className="templatiq__template__single__quickmeta__item free-item">
+								{__( "Free", 'templatiq' )}
+							</span>
+						) }
 
-					<span
-						className="templatiq__template__single__quickmeta__item templatiq-tooltip"
-						data-info={__( "Total Downloads", 'templatiq' )}
-					>
-						<ReactSVG
-							src={ downloadIcon }
-							width={ 14 }
-							height={ 14 }
-						/>
-						{ number_of_downloads ? number_of_downloads : '' }
-					</span>
+						<span
+							className="templatiq__template__single__quickmeta__item templatiq-tooltip"
+							data-info={__( "Total Downloads", 'templatiq' )}
+						>
+							<ReactSVG
+								src={ downloadIcon }
+								width={ 14 }
+								height={ 14 }
+							/>
+							{ number_of_downloads ? number_of_downloads : '' }
+						</span>
 
-					<Bookmark item={ item } />
+						<Bookmark item={ item } />
+					</div>
+					<Link to={ `/template/${ slug }` } className="templatiq-btn templatiq-btn-primary-transparent">
+						{ __( 'View Details', 'templatiq' ) }
+					</Link>
 				</div>
 			</div>
 		</SingleTemplateStyle>
