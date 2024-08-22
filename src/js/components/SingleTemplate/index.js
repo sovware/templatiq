@@ -4,10 +4,10 @@ import InsertTemplate from '@components/InsertTemplate';
 import store from '@store/index';
 import { select } from '@wordpress/data';
 import { useEffect, useRef, useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 import ReactSVG from 'react-inlinesvg';
 import { Link } from 'react-router-dom';
 import { SingleTemplateStyle } from './style';
-import { __ } from '@wordpress/i18n';
 
 import crownIcon from '@icon/crown.svg';
 import downloadIcon from '@icon/download-alt.svg';
@@ -54,19 +54,13 @@ const SingleTemplate = ( item ) => {
 	const templateRef = useRef( null );
 
 	useEffect( () => {
-		const libraryData = select( store ).getLibraryData();
-
-		const availableCategories = categories.map(
-			( key ) => libraryData.categories[ key ]
-		);
-
 		const visibleCategories =
-			availableCategories.length < 3
-				? availableCategories
-				: availableCategories.slice( 0, 2 );
+			categories.length < 3
+				? categories
+				: categories.slice( 0, 2 );
 
 		// Categories for the dropdown (if any)
-		const hiddenCategories = availableCategories.slice( 2 );
+		const hiddenCategories = categories.slice( 2 );
 
 		setDisplayedCategories( visibleCategories );
 		setDropdownCategories( hiddenCategories );
@@ -179,7 +173,7 @@ const SingleTemplate = ( item ) => {
 					</Link>
 				</h3>
 				<div className="templatiq__template__single__cat">
-					{ displayedCategories.map( ( category, index ) => (
+					{ displayedCategories.length && displayedCategories.map( ( category, index ) => (
 						<a
 							key={ index }
 							href="#"
@@ -216,30 +210,35 @@ const SingleTemplate = ( item ) => {
 						</div>
 					) }
 				</div>
-				<div className="templatiq__template__single__quickmeta">
-					{ price > 0 ? (
-						<span className="templatiq__template__single__quickmeta__item pro-item">
-							{ `${ price ? '$' + price : '' }` }
-						</span>
-					) : (
-						<span className="templatiq__template__single__quickmeta__item free-item">
-							{__( "Free", 'templatiq' )}
-						</span>
-					) }
+				<div className="templatiq__template__single__quickmeta-wrapper">
+					<div className="templatiq__template__single__quickmeta">
+						{ price > 0 ? (
+							<span className="templatiq__template__single__quickmeta__item pro-item">
+								{ `${ price ? '$' + price : '' }` }
+							</span>
+						) : (
+							<span className="templatiq__template__single__quickmeta__item free-item">
+								{__( "Free", 'templatiq' )}
+							</span>
+						) }
 
-					<span
-						className="templatiq__template__single__quickmeta__item templatiq-tooltip"
-						data-info={__( "Total Downloads", 'templatiq' )}
-					>
-						<ReactSVG
-							src={ downloadIcon }
-							width={ 14 }
-							height={ 14 }
-						/>
-						{ number_of_downloads ? number_of_downloads : '' }
-					</span>
+						<span
+							className="templatiq__template__single__quickmeta__item templatiq-tooltip"
+							data-info={__( "Total Downloads", 'templatiq' )}
+						>
+							<ReactSVG
+								src={ downloadIcon }
+								width={ 14 }
+								height={ 14 }
+							/>
+							{ number_of_downloads ? number_of_downloads : '' }
+						</span>
 
-					<Bookmark item={ item } />
+						<Bookmark item={ item } />
+					</div>
+					<Link to={ `/template/${ slug }` } className="templatiq-btn templatiq-btn-primary-transparent">
+						{ __( 'View Details', 'templatiq' ) }
+					</Link>
 				</div>
 			</div>
 		</SingleTemplateStyle>

@@ -21,6 +21,7 @@
   --templatiq-pro-color: #f17d0e;
   --templatiq-pro-color2: #d16a0a;
 
+  --templatiq-primary-100: #e8e3fe;
   --templatiq-primary-transparent: #f2ecff;
   --templatiq-primary-transparent2: #d5c4ff;
 
@@ -209,6 +210,14 @@ button {
       path {
         fill: var(--templatiq-white-color);
       }
+    }
+  }
+  &.templatiq-btn-primary-transparent {
+    color: var(--templatiq-primary-color);
+    background-color: var(--templatiq-primary-transparent);
+    &:hover {
+      color: var(--templatiq-white-color);
+      background-color: var(--templatiq-primary-color);
     }
   }
   &.templatiq-btn-success {
@@ -402,6 +411,7 @@ button {
   justify-content: center;
   width: 36px;
   height: 36px;
+  padding: 0;
   border-radius: 50%;
   position: absolute;
   top: 20px;

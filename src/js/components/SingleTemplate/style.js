@@ -211,9 +211,28 @@ const SingleTemplateStyle = Styled.div`
         flex-direction: column;
     }
 
+    .templatiq__template__single__quickmeta-wrapper {
+        display: flex;
+        gap: 6px;
+        justify-content: space-between;
+        .templatiq-btn {
+            height: 44px;
+            padding: 0 16px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 10px;
+            color: var(--templatiq-primary-color);
+            background-color: var(--templatiq-primary-100);
+            &:hover {
+                color: var(--templatiq-white-color);
+                background-color: var(--templatiq-primary-color);
+            }
+        }
+    }
     .templatiq__template__single__quickmeta {
         display: flex;
         gap: 6px;
+        align-items: center;
     }
     .templatiq__template__single__quickmeta__item {
         display: flex;
