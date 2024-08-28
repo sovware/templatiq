@@ -40,6 +40,7 @@ export default function AllTemplates( props ) {
 	const [ totalPaginate, setTotalPaginate ] = useState( [] );
 	const [ startItemCount, setStartItemCount ] = useState( 0 );
 	const [ endItemCount, setEndItemCount ] = useState( paginatePerPage );
+	const [ paginationKey, setPaginationKey ] = useState(Date.now());
 	const [ forcePage, setForcePage ] = useState( 0 );
 
 	const changeTemplateTab = ( type ) => {
@@ -55,6 +56,11 @@ export default function AllTemplates( props ) {
 		setStartItemCount( selectedPage * paginatePerPage - paginatePerPage );
 		setEndItemCount( selectedPage * paginatePerPage );
 	};
+
+	const handlePaginateReset = () =>{
+		setPaginationKey(Date.now());
+		handlePageChange({ selected: 0 });
+	}
 
 	const searchFilteredTemplates = () => {
 		const newFilteredTemplates =
@@ -189,6 +195,7 @@ export default function AllTemplates( props ) {
 				return () => clearTimeout( delayTimeoutId );
 			}
 		}
+		handlePaginateReset();
 	}, [ filteredTemplates ] );
 
 	useEffect( () => {
@@ -447,7 +454,7 @@ export default function AllTemplates( props ) {
 
 					{ totalPaginate > paginatePerPage && (
 						<ReactPaginate
-							key={ activeTab }
+							key={`${activeTab}-${paginationKey}`}
 							breakLabel="..."
 							onPageChange={ handlePageChange }
 							nextLabel={ <ReactSVG src={ arrowRight } /> }
