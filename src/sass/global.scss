@@ -516,3 +516,9 @@ button {
     transform: rotate(-360deg);
   }
 }
+
+@keyframes shimmerEffect {
+  100% {
+    mask-position: left;
+  }
+}

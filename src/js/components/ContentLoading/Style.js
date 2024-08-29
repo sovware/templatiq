@@ -3,14 +3,13 @@ import Styled from 'styled-components';
 const ContentLoadingStyle = Styled.div`
     &.templatiq-content-loading{
         display: flex;
-        align-items: center;
-        justify-content: center;
         flex-direction: column;
+        width: 100%;
         max-width: 100%;
-        min-height: 500px;
-        padding: 30px;
+        min-height: 150px;
+        padding: 0;
         border-radius: 10px;
-        margin: 15px;
+        margin: 0;
         box-sizing: border-box;
         background-color: var(--templatiq-color-white);
         flex: 1 1 0%;
@@ -19,21 +18,19 @@ const ContentLoadingStyle = Styled.div`
             height: 16px;
             width: 100%;
             background: #f6f7f8;
-            background-image: -webkit-linear-gradient(left,#f6f7f8 0,#edeef1 20%,#f6f7f8 40%,#f6f7f8 100%);
-            background-image: -o-linear-gradient(left,#f6f7f8 0,#edeef1 20%,#f6f7f8 40%,#f6f7f8 100%);
-            background-image: linear-gradient(to right,#f6f7f8 0,#edeef1 20%,#f6f7f8 40%,#f6f7f8 100%);
-            background-repeat: no-repeat;
-            background-size: 800px 104px;
+            mask: linear-gradient(-90deg, #000 10%, #0005, #000 70%) right/350% 100%;
+            animation: shimmerEffect 2s infinite;
             display: inline-block;
             position: relative;
-            animation-duration: 1s;
-            animation-fill-mode: forwards;
-            animation-iteration-count: infinite;
-            animation-name: shimmerEffect;
-            animation-timing-function: linear;
             &:not(:last-child){
                 margin-bottom: 15px;
             }
+        }
+        .templatiq-content-loading__image {
+            height: 200px;
+        }
+        .templatiq-content-loading__single {
+            height: 32px;
         }
     }
 `;

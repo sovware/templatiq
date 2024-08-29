@@ -125,7 +125,12 @@ const Sidebar = () => {
 	return (
 		<SidebarStyle className="templatiq__sidebar">
 			{ loading ? (
-				<ContentLoading style={ { margin: 0, width: '256px' } } />
+				<>
+					<ContentLoading style={ { padding:'30px' } } />
+					<ContentLoading style={ { padding:'30px' } } />
+					<ContentLoading style={ { padding:'30px' } } />
+					<ContentLoading style={ { padding:'30px' } } />
+				</>
 			) : (
 				<>
 					<div className="templatiq__sidebar__top">

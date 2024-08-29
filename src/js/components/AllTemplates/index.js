@@ -311,12 +311,13 @@ export default function AllTemplates( props ) {
 								<div className="templatiq-col-6" key={index}>
 									<Suspense
 										fallback={
-											<ContentLoading
-												style={ {
-													margin: 0,
-													minHeight: 'unset',
-												} }
-											/>
+											<>
+												<ContentLoading 
+													type="image" 
+													style={ { "marginBottom": "20px" } }
+												/>
+												<ContentLoading />
+											</>
 										}
 									>
 										<SingleTemplate
@@ -360,12 +361,13 @@ export default function AllTemplates( props ) {
 								<div className="templatiq-col-6" key={index}>
 									<Suspense
 										fallback={
-											<ContentLoading
-												style={ {
-													margin: 0,
-													minHeight: 'unset',
-												} }
-											/>
+											<>
+												<ContentLoading 
+													type="image" 
+													style={ { "marginBottom": "20px" } }
+												/>
+												<ContentLoading />
+											</>
 										}
 									>
 										<SingleTemplate
@@ -408,12 +410,13 @@ export default function AllTemplates( props ) {
 								<div className="templatiq-col-6" key={index}>
 									<Suspense
 										fallback={
-											<ContentLoading
-												style={ {
-													margin: 0,
-													minHeight: 'unset',
-												} }
-											/>
+											<>
+												<ContentLoading 
+													type="image" 
+													style={ { "marginBottom": "20px" } }
+												/>
+												<ContentLoading />
+											</>
 										}
 									>
 										<SingleTemplate
