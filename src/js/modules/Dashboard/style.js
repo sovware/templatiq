@@ -1,5 +1,5 @@
-import Styled from 'styled-components';
 import chevronIcon from '@icon/chevron-down-solid.svg';
+import Styled from 'styled-components';
 
 const DashboardStyle = Styled.div`
     .templatiq__content__top {
@@ -25,7 +25,7 @@ const DashboardFilterStyle = Styled.ul`
     padding: 4px 10px;
     border-radius: 8px;
     background-color: var(--templatiq-white-color);
-    box-shadow: var(----templatiq-box-shadow);
+    box-shadow: var(--templatiq-box-shadow);
 `;
 
 const SidebarStyle = Styled.div`
@@ -279,10 +279,6 @@ const MyAccountStyle = Styled.div`
 `;
 
 export {
-	DashboardStyle,
-	DashboardFilterStyle,
-	SidebarStyle,
-	SidebarItemStyle,
-	DashboardItemsStyle,
-	MyAccountStyle,
+    DashboardFilterStyle, DashboardItemsStyle, DashboardStyle, MyAccountStyle, SidebarItemStyle, SidebarStyle
 };
+
