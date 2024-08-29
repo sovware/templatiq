@@ -227,6 +227,11 @@ const SingleTemplateStyle = Styled.div`
                 color: var(--templatiq-white-color);
                 background-color: var(--templatiq-primary-color);
             }
+            &.templatiq__loading--btn {
+                &:after {
+                    top: 10px;
+                }
+            }
         }
     }
     .templatiq__template__single__quickmeta {

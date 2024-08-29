@@ -29,6 +29,8 @@ const HeaderStyle = Styled.div`
             display: flex;
             gap: 32px;
             flex-wrap: wrap;
+            width: 100%;
+            flex: 1;
         }
     }
     .templatiq__header__details {

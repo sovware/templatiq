@@ -15,13 +15,13 @@ const SearchformStyle = Styled.div`
         padding: 0;
         background: transparent;
     }
-    input {
+    input[type="text"] {
         width: 100%;
         height: 100%;
         border: none;
         padding: 0 42px;
         background: transparent;
-        box-shadow: var(----templatiq-box-shadow);
+        box-shadow: var(--templatiq-box-shadow);
         outline: none;
         transition: box-shadow 0.3s ease;
         &::placeholder {

@@ -24,6 +24,7 @@ export default function AllTemplates( props ) {
 	const [ activeTab, setActiveTab ] = useState( 'all' );
 
 	const [ allTemplates, setAllTemplates ] = useState( [] );
+	const [ allCategories, setAllCategories ] = useState( [] );
 	const [ filteredTemplates, setFilteredTemplates ] = useState( [] );
 	const [ defaultTemplates, setDefaultTemplates ] = useState( [] );
 	const [ proTemplates, setProTemplates ] = useState( [] );
@@ -40,6 +41,7 @@ export default function AllTemplates( props ) {
 	const [ totalPaginate, setTotalPaginate ] = useState( [] );
 	const [ startItemCount, setStartItemCount ] = useState( 0 );
 	const [ endItemCount, setEndItemCount ] = useState( paginatePerPage );
+	const [ paginationKey, setPaginationKey ] = useState(Date.now());
 	const [ forcePage, setForcePage ] = useState( 0 );
 
 	const changeTemplateTab = ( type ) => {
@@ -55,6 +57,11 @@ export default function AllTemplates( props ) {
 		setStartItemCount( selectedPage * paginatePerPage - paginatePerPage );
 		setEndItemCount( selectedPage * paginatePerPage );
 	};
+
+	const handlePaginateReset = () =>{
+		setPaginationKey(Date.now());
+		handlePageChange({ selected: 0 });
+	}
 
 	const searchFilteredTemplates = () => {
 		const newFilteredTemplates =
@@ -113,6 +120,9 @@ export default function AllTemplates( props ) {
 		if ( templateData ) {
 			checkTemplateType( templateData );
 		}
+
+		const data = select( store ).getLibraryData();
+		setAllCategories( data.categories );
 
 		// Subscribe to changes in the store's data
 		const storeUpdate = subscribe( () => {
@@ -189,6 +199,7 @@ export default function AllTemplates( props ) {
 				return () => clearTimeout( delayTimeoutId );
 			}
 		}
+		handlePaginateReset();
 	}, [ filteredTemplates ] );
 
 	useEffect( () => {
@@ -304,12 +315,13 @@ export default function AllTemplates( props ) {
 								<div className="templatiq-col-6" key={index}>
 									<Suspense
 										fallback={
-											<ContentLoading
-												style={ {
-													margin: 0,
-													minHeight: 'unset',
-												} }
-											/>
+											<>
+												<ContentLoading 
+													type="image" 
+													style={ { "marginBottom": "20px" } }
+												/>
+												<ContentLoading />
+											</>
 										}
 									>
 										<SingleTemplate
@@ -335,7 +347,13 @@ export default function AllTemplates( props ) {
 											required_plugins={
 												template.required_plugins
 											}
-											categories={ template.categories }
+											categories={ 
+												template.categories.flatMap(category =>
+													Object.values(allCategories).flatMap(child =>
+														child[category] ? [child[category]] : []
+													)
+												)
+											}
 											purchase_url={
 												template.purchase_url
 											}
@@ -353,12 +371,13 @@ export default function AllTemplates( props ) {
 								<div className="templatiq-col-6" key={index}>
 									<Suspense
 										fallback={
-											<ContentLoading
-												style={ {
-													margin: 0,
-													minHeight: 'unset',
-												} }
-											/>
+											<>
+												<ContentLoading 
+													type="image" 
+													style={ { "marginBottom": "20px" } }
+												/>
+												<ContentLoading />
+											</>
 										}
 									>
 										<SingleTemplate
@@ -383,7 +402,13 @@ export default function AllTemplates( props ) {
 											required_plugins={
 												template.required_plugins
 											}
-											categories={ template.categories }
+											categories={ 
+												template.categories.flatMap(category =>
+													Object.values(allCategories).flatMap(child =>
+														child[category] ? [child[category]] : []
+													)
+												)
+											}
 											purchase_url={
 												template.purchase_url
 											}
@@ -401,12 +426,13 @@ export default function AllTemplates( props ) {
 								<div className="templatiq-col-6" key={index}>
 									<Suspense
 										fallback={
-											<ContentLoading
-												style={ {
-													margin: 0,
-													minHeight: 'unset',
-												} }
-											/>
+											<>
+												<ContentLoading 
+													type="image" 
+													style={ { "marginBottom": "20px" } }
+												/>
+												<ContentLoading />
+											</>
 										}
 									>
 										<SingleTemplate
@@ -432,7 +458,13 @@ export default function AllTemplates( props ) {
 											required_plugins={
 												template.required_plugins
 											}
-											categories={ template.categories }
+											categories={ 
+												template.categories.flatMap(category =>
+													Object.values(allCategories).flatMap(child =>
+														child[category] ? [child[category]] : []
+													)
+												)
+											}
 											purchase_url={
 												template.purchase_url
 											}
@@ -447,7 +479,7 @@ export default function AllTemplates( props ) {
 
 					{ totalPaginate > paginatePerPage && (
 						<ReactPaginate
-							key={ activeTab }
+							key={`${activeTab}-${paginationKey}`}
 							breakLabel="..."
 							onPageChange={ handlePageChange }
 							nextLabel={ <ReactSVG src={ arrowRight } /> }

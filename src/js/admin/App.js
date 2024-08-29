@@ -104,7 +104,7 @@ export default function App() {
 	return (
 		<>
 			<HashRouter>
-				<Suspense fallback={ <ContentLoading /> }>
+				<Suspense fallback={ <ContentLoading type="full" style={{ "maxHeight": "unset" }} /> }>
 					{ dataFetched ? (
 						<ThemeProvider theme={ theme }>
 							<Routes>
@@ -120,7 +120,7 @@ export default function App() {
 							</Routes>
 						</ThemeProvider>
 					) : (
-						<ContentLoading />
+						<ContentLoading type="full" style={{ "maxHeight": "unset" }} />
 					) }
 				</Suspense>
 			</HashRouter>

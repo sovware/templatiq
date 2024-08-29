@@ -53,7 +53,7 @@ const SidebarItemStyle = Styled.div`
     
     .templatiq__sidebar__accordion {    
         display: flex;
-        gap:38px;
+        gap:32px;
         flex-direction: column;
     }
     .szh-accordion__item-btn {
@@ -63,6 +63,7 @@ const SidebarItemStyle = Styled.div`
         text-align: start;
         font-size: 16px;
         font-weight: 700;
+        line-height: 19px;
         color: var(--templatiq-body-color);
         background: transparent;
         cursor: pointer;
@@ -79,7 +80,7 @@ const SidebarItemStyle = Styled.div`
             transition: transform 0.3s ease;
         }
         &[aria-expanded="true"] {
-            margin: 0 0 25px;
+            margin: 0 0 20px;
             &:before {
                 transform: rotate(180deg);
             }

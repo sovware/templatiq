@@ -16,20 +16,16 @@ const DropdownStyle = Styled.div`
         font-size: 14px;
         font-weight: 500;
         background-color: var(--templatiq-sec-color);
+        border: 1px solid var(--templatiq-sec-color);
         box-shadow: none;
         box-sizing: border-box;
-        transition: background-color 0.3s ease;
+        transition: border-color 0.3s ease;
         path {
             fill: var(--templatiq-body-color);
             transition: fill 0.3s ease;
         }
         &:hover {
-            color: var(--templatiq-white-color);
-            background-color: var(--templatiq-primary-color);
-            path,
-            ~ .templatiq-dropdown__toggle__icon path {
-                fill: var(--templatiq-white-color);
-            }
+            border-color: var(--templatiq-primary-color);
         }
     }
 
