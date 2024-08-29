@@ -24,6 +24,7 @@ export default function AllTemplates( props ) {
 	const [ activeTab, setActiveTab ] = useState( 'all' );
 
 	const [ allTemplates, setAllTemplates ] = useState( [] );
+	const [ allCategories, setAllCategories ] = useState( [] );
 	const [ filteredTemplates, setFilteredTemplates ] = useState( [] );
 	const [ defaultTemplates, setDefaultTemplates ] = useState( [] );
 	const [ proTemplates, setProTemplates ] = useState( [] );
@@ -119,6 +120,9 @@ export default function AllTemplates( props ) {
 		if ( templateData ) {
 			checkTemplateType( templateData );
 		}
+
+		const data = select( store ).getLibraryData();
+		setAllCategories( data.categories );
 
 		// Subscribe to changes in the store's data
 		const storeUpdate = subscribe( () => {
@@ -343,7 +347,13 @@ export default function AllTemplates( props ) {
 											required_plugins={
 												template.required_plugins
 											}
-											categories={ template.categories }
+											categories={ 
+												template.categories.flatMap(category =>
+													Object.values(allCategories).flatMap(child =>
+														child[category] ? [child[category]] : []
+													)
+												)
+											}
 											purchase_url={
 												template.purchase_url
 											}
@@ -392,7 +402,13 @@ export default function AllTemplates( props ) {
 											required_plugins={
 												template.required_plugins
 											}
-											categories={ template.categories }
+											categories={ 
+												template.categories.flatMap(category =>
+													Object.values(allCategories).flatMap(child =>
+														child[category] ? [child[category]] : []
+													)
+												)
+											}
 											purchase_url={
 												template.purchase_url
 											}
@@ -442,7 +458,13 @@ export default function AllTemplates( props ) {
 											required_plugins={
 												template.required_plugins
 											}
-											categories={ template.categories }
+											categories={ 
+												template.categories.flatMap(category =>
+													Object.values(allCategories).flatMap(child =>
+														child[category] ? [child[category]] : []
+													)
+												)
+											}
 											purchase_url={
 												template.purchase_url
 											}

@@ -25,15 +25,12 @@ const SingleTemplate = ( item ) => {
 		required_plugins,
 	} = item;
 
-	const [ isDropdownOpen, setDropdownOpen ] = useState( false );
-	const [ displayedCategories, setDisplayedCategories ] = useState( [] );
-	const [ dropdownCategories, setDropdownCategories ] = useState( [] );
-
 	const { purchased, unlocked } = select(store).getUserInfo();
 
+	const [ isDropdownOpen, setDropdownOpen ] = useState( false );
 	const [ imageLoaded, setImageLoaded ] = useState( false );
-	const [isPurchased, setIsPurchased] = useState(false);
-	const [isUnlocked, setIsUnlocked] = useState(false);
+	const [ isPurchased, setIsPurchased ] = useState(false);
+	const [ isUnlocked, setIsUnlocked ] = useState(false);
 
 	const requiredPlugins = required_plugins.filter(item => item?.init);
 
@@ -54,17 +51,6 @@ const SingleTemplate = ( item ) => {
 	const templateRef = useRef( null );
 
 	useEffect( () => {
-		const visibleCategories =
-			categories.length < 3
-				? categories
-				: categories.slice( 0, 2 );
-
-		// Categories for the dropdown (if any)
-		const hiddenCategories = categories.slice( 2 );
-
-		setDisplayedCategories( visibleCategories );
-		setDropdownCategories( hiddenCategories );
-
 		setIsUnlocked(isItemUnlocked(template_id));
 		setIsPurchased(isItemPurchased(template_id));
 	}, [] );
@@ -173,7 +159,7 @@ const SingleTemplate = ( item ) => {
 					</Link>
 				</h3>
 				<div className="templatiq__template__single__cat">
-					{ displayedCategories.length && displayedCategories.map( ( category, index ) => (
+					{ categories.length && categories.map( ( category, index ) => (
 						<a
 							key={ index }
 							href="#"
@@ -181,8 +167,8 @@ const SingleTemplate = ( item ) => {
 						>
 							{ category }
 						</a>
-					) ) }
-					{ dropdownCategories.length > 0 && (
+					) ).slice( 0, 2 ) }
+					{ categories.length > 2 && (
 						<div className="templatiq__template__single__cat__dropdown">
 							<button
 								className={ `templatiq__template__single__cat__button` }
@@ -194,7 +180,7 @@ const SingleTemplate = ( item ) => {
 							</button>
 							{ isDropdownOpen && (
 								<div className="templatiq__template__single__cat__dropdown-content">
-									{ dropdownCategories.map(
+									{ categories.map(
 										( category, index ) => (
 											<a
 												key={ index }
@@ -204,7 +190,7 @@ const SingleTemplate = ( item ) => {
 												{ category }
 											</a>
 										)
-									) }
+									).slice( 2 ) }
 								</div>
 							) }
 						</div>
