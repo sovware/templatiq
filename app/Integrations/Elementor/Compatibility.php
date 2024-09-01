@@ -86,6 +86,10 @@ class Compatibility {
 	 * @return array Updated post meta.
 	 */
 	public function on_templatiq_import_post_meta( $post_meta ) {
+		if( empty( $post_meta ) ) {
+			return [];
+		}
+		
 		foreach ( $post_meta as &$meta ) {
 			if ( '_elementor_data' === $meta['key'] ) {
 				$meta['value'] = wp_slash( $meta['value'] );

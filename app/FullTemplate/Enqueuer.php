@@ -152,9 +152,12 @@ class Enqueuer extends EnqueuerBase {
 			'favorites'                     => get_option( 'templatiq-sites-favorites' ),
 		];
 
+		$themeStatus = ( new DependencyRepository )->get_theme_status();
+
 		$data = apply_filters(
 			'templatiq_sites_localize_vars',
 			[
+				'themeStatus'						 => $themeStatus,
 				'debug'                              => defined( 'WP_DEBUG' ) ? true : false,
 				'isPro'                              => defined( 'TEMPLATIQ_PRO_SITES_NAME' ) ? true : false,
 				'ajaxurl'                            => esc_url( admin_url( 'admin-ajax.php' ) ),
