@@ -158,44 +158,46 @@ const SingleTemplate = ( item ) => {
 						{ title ? title : __( 'dDoctors', 'templatiq' ) }
 					</Link>
 				</h3>
-				<div className="templatiq__template__single__cat">
-					{ categories.length && categories.map( ( category, index ) => (
-						<a
-							key={ index }
-							href="#"
-							className="templatiq__template__single__cat__link"
-						>
-							{ category }
-						</a>
-					) ).slice( 0, 2 ) }
-					{ categories.length > 2 && (
-						<div className="templatiq__template__single__cat__dropdown">
-							<button
-								className={ `templatiq__template__single__cat__button` }
-								onClick={ () =>
-									setDropdownOpen( ! isDropdownOpen )
-								}
+				{ categories.length > 0 &&
+					<div className="templatiq__template__single__cat">
+						{ categories.map( ( category, index ) => (
+							<a
+								key={ index }
+								href="#"
+								className="templatiq__template__single__cat__link"
 							>
-								...
-							</button>
-							{ isDropdownOpen && (
-								<div className="templatiq__template__single__cat__dropdown-content">
-									{ categories.map(
-										( category, index ) => (
-											<a
-												key={ index }
-												href="#"
-												className="templatiq__template__single__cat__link"
-											>
-												{ category }
-											</a>
-										)
-									).slice( 2 ) }
-								</div>
-							) }
-						</div>
-					) }
-				</div>
+								{ category }
+							</a>
+						) ).slice( 0, 2 ) }
+						{ categories.length > 2 && (
+							<div className="templatiq__template__single__cat__dropdown">
+								<button
+									className={ `templatiq__template__single__cat__button` }
+									onClick={ () =>
+										setDropdownOpen( ! isDropdownOpen )
+									}
+								>
+									...
+								</button>
+								{ isDropdownOpen && (
+									<div className="templatiq__template__single__cat__dropdown-content">
+										{ categories.map(
+											( category, index ) => (
+												<a
+													key={ index }
+													href="#"
+													className="templatiq__template__single__cat__link"
+												>
+													{ category }
+												</a>
+											)
+										).slice( 2 ) }
+									</div>
+								) }
+							</div>
+						) }
+					</div>
+				}
 				<div className="templatiq__template__single__quickmeta-wrapper">
 					<div className="templatiq__template__single__quickmeta">
 						{ price > 0 ? (
