@@ -7,9 +7,13 @@ import { useStateValue } from '../../store/store';
 
 import trashIcon from '@icon/trash.svg';
 import './style.scss';
+const currentUrlParams = new URLSearchParams( window.location.search );
+const template_id = currentUrlParams.get( 'template_id' ) || '';
 
 import {
-	checkRequiredPlugins
+	checkFileSystemPermissions,
+	checkRequiredPlugins,
+	getDemo,
 } from '../import-site/import-utils';
 
 const InsertContent = () => {
@@ -79,6 +83,21 @@ const InsertContent = () => {
 	}
 
 	useEffect(() => {
+		const fetchData = async () => {
+			// Step 1: getDemo
+			const demoData = await getDemo(template_id, dispatch);
+		
+			console.log(' demoData : ',  demoData );
+			// Step 2: checkRequiredPlugins
+			const requiredPluginsData = await checkRequiredPlugins(dispatch);
+
+			// Step 3: checkFileSystemPermissions
+			const fileSystemPermissionsData = await checkFileSystemPermissions(dispatch);
+			
+		};
+		
+		fetchData(); // Call the function to start the chain of async functions
+
 		const fetchRequiredPluginsData = async () => {
 			const requiredPluginsData = await checkRequiredPlugins(dispatch);
 		};
