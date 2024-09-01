@@ -1,6 +1,6 @@
+import Preloader from '@components/Preloader';
 import { createRoot, lazy, Suspense } from '@wordpress/element';
 import { addAction } from '@wordpress/hooks';
-import Preloader from '@components/Preloader';
 const App = lazy( () => import( './App' ) );
 
 function initializeApp( container ) {

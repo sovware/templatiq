@@ -39,8 +39,13 @@ const HeaderStyle = Styled.div`
         align-items: center;
         margin-inline-start: 24px;
         padding-inline-end: 48px;
-        a {
+        a,
+        .templatiq__header__details__logo {
             max-height: 30px;
+            img {
+                width: 30px;
+                heighth: 30px;
+            }
         }
     }
     .templatiq__header__details__return {
