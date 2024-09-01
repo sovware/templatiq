@@ -3,59 +3,35 @@ import Styled from 'styled-components';
 const PreloaderStyle = Styled.div`  
     height: 100dvh;
     display: flex;
+    gap: 10px;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 
-    .ip {
-        width: 16em;
-        height: 8em;
+    .templatiq-preloader__logo {
+        width: 50px;
+        height: 50px;
     }
-    .ip__track {
-        stroke: var(--templatiq-primary-color);
-        transition: stroke 0.3s ease;
+       
+    .loader {
+        width: 120px;
+        height: 12px;
+        border-radius: 20px;
+        border: 2px solid #f857db;
+        position: relative;
     }
-    .ip__worm1,
-    .ip__worm2 {
-        animation: worm1 2s linear infinite;
+    .loader::before {
+        content: "";
+        position: absolute;
+        margin: 2px;
+        inset: 0 100% 0 0;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #A67BEF, #5AA0FF, #FFD166, #f857db);
+        animation: progress 2s infinite;
     }
-    .ip__worm2 {
-        animation-name: worm2;
-    }
-
-    /* Dark theme */
-    @media (prefers-color-scheme: dark) {
-        .ip__track {
-            stroke: var(--templatiq-dark-color);
-        }
-    }
-
-    /* Animation */
-    @keyframes worm1 {
-        from {
-            stroke-dashoffset: 0;
-        }
-        50% {
-            animation-timing-function: steps(1);
-            stroke-dashoffset: -358;
-        }
-        50.01% {
-            animation-timing-function: linear;
-            stroke-dashoffset: 358;
-        }
-        to {
-            stroke-dashoffset: 0;
-        }
-    }
-    @keyframes worm2 {
-        from {
-            stroke-dashoffset: 358;
-        }
-        50% {
-            stroke-dashoffset: 0;
-        }
-        to {
-            stroke-dashoffset: -358;
-        }
+        
+    @keyframes progress {
+        100% {inset:0}
     }
 
 `;
