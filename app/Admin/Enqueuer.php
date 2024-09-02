@@ -14,6 +14,13 @@ class Enqueuer extends EnqueuerBase {
 
 	public function __construct() {
 		$this->action( 'admin_enqueue_scripts', [$this, 'enqueue_scripts'] );
+
+		wp_enqueue_style(
+			'templatiq-admin-menu',
+			'?'
+		);
+
+		wp_add_inline_style( 'templatiq-admin-menu', $this->admin_submenu_css() );
 	}
 
 	public function enqueue_scripts( $hook ) {
@@ -55,5 +62,24 @@ class Enqueuer extends EnqueuerBase {
 				'theme_slug'   => 'best-listing',
 			]
 		);
+	}
+
+	public function admin_submenu_css() {
+		return '.toplevel_page_templatiq > div.wp-menu-image:before {
+					margin-top: 8px;
+					line-height: 27px !important;
+					content: "";
+					background: url("' . esc_attr( TEMPLATIQ_ASSETS ) . '/svg/sidebar-icon.svg' . '") no-repeat center center;
+					speak: none !important;
+					font-style: normal !important;
+					font-weight: normal !important;
+					font-variant: normal !important;
+					text-transform: none !important;
+					/* Better Font Rendering =========== */
+					-webkit-font-smoothing: antialiased !important;
+					-moz-osx-font-smoothing: grayscale !important;
+					box-sizing: content-box;
+					width: 100%
+				}';
 	}
 }

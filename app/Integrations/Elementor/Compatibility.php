@@ -86,7 +86,7 @@ class Compatibility {
 	 * @return array Updated post meta.
 	 */
 	public function on_templatiq_import_post_meta( $post_meta ) {
-		if( empty( $post_meta ) ) {
+		if( ! is_array( $post_meta ) || empty( $post_meta ) ) {
 			return [];
 		}
 		
