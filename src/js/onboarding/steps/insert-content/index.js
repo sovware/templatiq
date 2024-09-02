@@ -10,6 +10,7 @@ import './style.scss';
 const currentUrlParams = new URLSearchParams( window.location.search );
 const template_id = currentUrlParams.get( 'template_id' ) || '';
 
+import ContentLoading from '@components/ContentLoading';
 import {
 	checkFileSystemPermissions,
 	checkRequiredPlugins,
@@ -17,7 +18,9 @@ import {
 } from '../import-site/import-utils';
 
 const InsertContent = () => {
-	const [{ currentIndex, notActivatedList, notInstalledList }, dispatch ] = useStateValue();
+	const [stateValue, dispatch ] = useStateValue();
+	const { currentIndex, notActivatedList, notInstalledList } = stateValue;
+
 	const insertRequiredPlugins = [
 		...notActivatedList.filter(item => item?.init),
 		...notInstalledList.filter(item => item?.init)
@@ -86,14 +89,12 @@ const InsertContent = () => {
 		const fetchData = async () => {
 			// Step 1: getDemo
 			const demoData = await getDemo(template_id, dispatch);
-		
-			console.log(' demoData : ',  demoData );
+
 			// Step 2: checkRequiredPlugins
 			const requiredPluginsData = await checkRequiredPlugins(dispatch);
 
 			// Step 3: checkFileSystemPermissions
 			const fileSystemPermissionsData = await checkFileSystemPermissions(dispatch);
-			
 		};
 		
 		fetchData(); // Call the function to start the chain of async functions
@@ -103,8 +104,8 @@ const InsertContent = () => {
 		};
 		
 		fetchRequiredPluginsData(); 
-		
 	}, []);
+
 
 	return (
 		<DefaultStep
@@ -144,13 +145,13 @@ const InsertContent = () => {
 						</h1>
 						<div className="fullsite-setup-wizard__content__items fullsite-setup-wizard__content__import">
 							{
-								insertRequiredPlugins.length > 0 &&
+								insertRequiredPlugins.length > 0 ?
 								<div className="fullsite-setup-wizard__content__import__wrapper">
 									<h3 className="fullsite-setup-wizard__content__import__title">Install required plugins</h3>
 									{
-										insertRequiredPlugins.map((plugin) => {
+										insertRequiredPlugins.map((plugin, index) => {
 											return (
-												<div className="fullsite-setup-wizard__content__import__single required_plugins">
+												<div key={index} className="fullsite-setup-wizard__content__import__single required_plugins">
 													<input
 														type="checkbox"
 														name={plugin.slug}
@@ -163,6 +164,9 @@ const InsertContent = () => {
 											)
 										})
 									}
+								</div> : 
+								<div className="fullsite-setup-wizard__content__import__wrapper">
+									<ContentLoading />
 								</div>
 							}
 

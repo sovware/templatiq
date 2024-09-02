@@ -1,6 +1,8 @@
 import { __ } from '@wordpress/i18n';
 const { themeStatus, nonce } = starterTemplates;
 
+console.log('themeStatus : ', themeStatus );
+
 export const getDemo = async ( id, dispatch ) => {
 	const generateData = new FormData();
 	generateData.append( 'action', 'templatiq-sites-api-request' );
