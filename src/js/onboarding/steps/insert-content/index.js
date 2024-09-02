@@ -149,9 +149,9 @@ const InsertContent = () => {
 								<div className="fullsite-setup-wizard__content__import__wrapper">
 									<h3 className="fullsite-setup-wizard__content__import__title">Install required plugins</h3>
 									{
-										insertRequiredPlugins.map((plugin) => {
+										insertRequiredPlugins.map((plugin, index) => {
 											return (
-												<div className="fullsite-setup-wizard__content__import__single required_plugins">
+												<div key={index} className="fullsite-setup-wizard__content__import__single required_plugins">
 													<input
 														type="checkbox"
 														name={plugin.slug}
