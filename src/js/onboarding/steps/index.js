@@ -7,6 +7,8 @@ import { STEPS } from './util';
 const { adminUrl } = starterTemplates;
 const $ = jQuery;
 
+const themeStatus = starterTemplates.themeStatus;
+
 const Steps = () => {
 	const [ stateValue, dispatch ] = useStateValue();
 	const {
@@ -75,6 +77,7 @@ const Steps = () => {
 	useEffect( () => {
 		const currentUrlParams = new URLSearchParams( window.location.search );
 		const urlIndex = parseInt( currentUrlParams.get( 'ci' ) ) || 0;
+
 		if ( currentIndex === 0 ) {
 			currentUrlParams.delete( 'ci' );
 			history(
@@ -107,7 +110,6 @@ const Steps = () => {
 		}
 
 		if ( currentIndex === 1 ) {
-			console.log( 'currentIndex', currentIndex );
 			dispatch( {
 				type: 'set',
 				activePalette: {},
@@ -116,6 +118,22 @@ const Steps = () => {
 				typographyIndex: 0,
 			} );
 		}
+
+
+
+		if ( themeStatus === "not-installed" || themeStatus === "installed-but-inactive" && urlIndex === 0 ) {
+			// Set 'ci' parameter to 1
+			currentUrlParams.set('ci', 1);
+
+			// Update the URL without reloading the page
+			const newUrl = `${window.location.pathname}?${currentUrlParams.toString()}`;
+			
+			history(newUrl);
+			dispatch( {
+				type: 'set',
+				currentIndex: 1,
+			} );
+		} 
 
 		setSettingIndex( false );
 	}, [ currentIndex, templateResponse, designStep ] );

@@ -10,9 +10,6 @@ import './style.scss';
 const currentUrlParams = new URLSearchParams( window.location.search );
 const template_id = currentUrlParams.get( 'template_id' ) || '';
 
-
-const { themeStatus } = starterTemplates;
-
 import ContentLoading from '@components/ContentLoading';
 import {
 	checkFileSystemPermissions,
@@ -21,17 +18,13 @@ import {
 } from '../import-site/import-utils';
 
 const InsertContent = () => {
-
-	console.log('themeStatus insert : ', themeStatus );
 	const [stateValue, dispatch ] = useStateValue();
 	const { currentIndex, notActivatedList, notInstalledList } = stateValue;
 
-	const requiredPlugins = [
+	const insertRequiredPlugins = [
 		...notActivatedList.filter(item => item?.init),
 		...notInstalledList.filter(item => item?.init)
 	];
-
-	console.log('Insert Content StateValue : ', {currentIndex, notActivatedList, notInstalledList, requiredPlugins} );
 
 	const prevStep = () => {
 		dispatch( {
@@ -53,7 +46,6 @@ const InsertContent = () => {
     const [installContents, setInstallContents] = useState(['import-listing', 'share-non-sensitive-data']);
     const [eraseExistingData, setEraseExistingData] = useState(false);
     const [removeImportedData, setRemoveImportedData] = useState(false);
-    const [insertRequiredPlugins, setInsertRequiredPlugins] = useState([]);
 
     // Handle change events for checkboxes
     const handleCheckboxChange = (e, setState) => {
@@ -97,8 +89,7 @@ const InsertContent = () => {
 		const fetchData = async () => {
 			// Step 1: getDemo
 			const demoData = await getDemo(template_id, dispatch);
-		
-			console.log(' demoData : ',  demoData );
+
 			// Step 2: checkRequiredPlugins
 			const requiredPluginsData = await checkRequiredPlugins(dispatch);
 
@@ -110,7 +101,6 @@ const InsertContent = () => {
 
 		const fetchRequiredPluginsData = async () => {
 			const requiredPluginsData = await checkRequiredPlugins(dispatch);
-			setInsertRequiredPlugins(requiredPlugins);
 		};
 		
 		fetchRequiredPluginsData(); 

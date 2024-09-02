@@ -131,7 +131,6 @@ export const getDemo = async ( id, dispatch ) => {
 };
 
 export const checkRequiredPlugins = async ( dispatch ) => {
-	console.log('checkRequiredPlugins called');
 	// const [ {}, dispatch ] = storedState;
 
 	const reqPlugins = new FormData();
