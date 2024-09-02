@@ -107,6 +107,7 @@ const Steps = () => {
 		}
 
 		if ( currentIndex === 1 ) {
+			console.log( 'currentIndex', currentIndex );
 			dispatch( {
 				type: 'set',
 				activePalette: {},

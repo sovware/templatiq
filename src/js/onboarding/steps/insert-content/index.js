@@ -10,6 +10,10 @@ import './style.scss';
 const currentUrlParams = new URLSearchParams( window.location.search );
 const template_id = currentUrlParams.get( 'template_id' ) || '';
 
+
+const { themeStatus } = starterTemplates;
+
+import ContentLoading from '@components/ContentLoading';
 import {
 	checkFileSystemPermissions,
 	checkRequiredPlugins,
@@ -17,11 +21,17 @@ import {
 } from '../import-site/import-utils';
 
 const InsertContent = () => {
-	const [{ currentIndex, notActivatedList, notInstalledList }, dispatch ] = useStateValue();
-	const insertRequiredPlugins = [
+
+	console.log('themeStatus insert : ', themeStatus );
+	const [stateValue, dispatch ] = useStateValue();
+	const { currentIndex, notActivatedList, notInstalledList } = stateValue;
+
+	const requiredPlugins = [
 		...notActivatedList.filter(item => item?.init),
 		...notInstalledList.filter(item => item?.init)
 	];
+
+	console.log('Insert Content StateValue : ', {currentIndex, notActivatedList, notInstalledList, requiredPlugins} );
 
 	const prevStep = () => {
 		dispatch( {
@@ -43,6 +53,7 @@ const InsertContent = () => {
     const [installContents, setInstallContents] = useState(['import-listing', 'share-non-sensitive-data']);
     const [eraseExistingData, setEraseExistingData] = useState(false);
     const [removeImportedData, setRemoveImportedData] = useState(false);
+    const [insertRequiredPlugins, setInsertRequiredPlugins] = useState([]);
 
     // Handle change events for checkboxes
     const handleCheckboxChange = (e, setState) => {
@@ -93,18 +104,18 @@ const InsertContent = () => {
 
 			// Step 3: checkFileSystemPermissions
 			const fileSystemPermissionsData = await checkFileSystemPermissions(dispatch);
-			
 		};
 		
 		fetchData(); // Call the function to start the chain of async functions
 
 		const fetchRequiredPluginsData = async () => {
 			const requiredPluginsData = await checkRequiredPlugins(dispatch);
+			setInsertRequiredPlugins(requiredPlugins);
 		};
 		
 		fetchRequiredPluginsData(); 
-		
 	}, []);
+
 
 	return (
 		<DefaultStep
@@ -144,7 +155,7 @@ const InsertContent = () => {
 						</h1>
 						<div className="fullsite-setup-wizard__content__items fullsite-setup-wizard__content__import">
 							{
-								insertRequiredPlugins.length > 0 &&
+								insertRequiredPlugins.length > 0 ?
 								<div className="fullsite-setup-wizard__content__import__wrapper">
 									<h3 className="fullsite-setup-wizard__content__import__title">Install required plugins</h3>
 									{
@@ -163,6 +174,9 @@ const InsertContent = () => {
 											)
 										})
 									}
+								</div> : 
+								<div className="fullsite-setup-wizard__content__import__wrapper">
+									<ContentLoading />
 								</div>
 							}
 
