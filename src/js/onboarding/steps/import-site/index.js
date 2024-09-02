@@ -205,7 +205,11 @@ const ImportSite = () => {
 			importPercent: percentage,
 		} );
 
-		notInstalledList.forEach( ( plugin ) => {
+
+		// Filter the plugins that are not pro (is_pro: false)
+		const installablePlugins = notInstalledList.filter(plugin => !plugin.is_pro);
+
+		installablePlugins.forEach( ( plugin ) => {
 			wp.updates.queue.push( {
 				action: 'install-plugin', // Required action.
 				data: {
