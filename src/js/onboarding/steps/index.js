@@ -119,9 +119,15 @@ const Steps = () => {
 			} );
 		}
 
+		setSettingIndex( false );
+	}, [ currentIndex, templateResponse, designStep ] );
 
-
-		if ( themeStatus === "not-installed" || themeStatus === "installed-but-inactive" && urlIndex === 0 ) {
+	useEffect( () => {
+		const currentUrlParams = new URLSearchParams( window.location.search );
+		const urlIndex = parseInt( currentUrlParams.get( 'ci' ) ) || 0;
+		
+		if ( (themeStatus === "not-installed" || themeStatus === "installed-but-inactive") && urlIndex === 0 ) {
+			console.log('Reset to Step 1', themeStatus, urlIndex);
 			// Set 'ci' parameter to 1
 			currentUrlParams.set('ci', 1);
 
@@ -134,9 +140,7 @@ const Steps = () => {
 				currentIndex: 1,
 			} );
 		} 
-
-		setSettingIndex( false );
-	}, [ currentIndex, templateResponse, designStep ] );
+	}, [ currentIndex ]);
 
 	const goToShowcase = () => {
 		dispatch( {
