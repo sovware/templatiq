@@ -66,7 +66,7 @@ class Enqueuer extends EnqueuerBase {
 
 	public function admin_submenu_css() {
 		return '.toplevel_page_templatiq > div.wp-menu-image:before {
-					margin-top: 8px;
+					margin-top: 0;
 					line-height: 27px !important;
 					content: "";
 					background: url("' . esc_attr( TEMPLATIQ_ASSETS ) . '/svg/sidebar-icon.svg' . '") no-repeat center center;
