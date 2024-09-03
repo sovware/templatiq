@@ -1,7 +1,5 @@
 import { __ } from '@wordpress/i18n';
-const { themeStatus, nonce } = starterTemplates;
-
-console.log('themeStatus : ', themeStatus );
+const { nonce } = starterTemplates;
 
 export const getDemo = async ( id, dispatch ) => {
 	const generateData = new FormData();
@@ -157,98 +155,6 @@ export const checkRequiredPlugins = async ( dispatch ) => {
 		} );
 };
 
-export const installOneDirectory = ( storedState ) => {
-	const [ { importPercent }, dispatch ] = storedState;
-	const themeSlug = 'pixetiq';
-	let percentage = importPercent;
-
-	if ( 'not-installed' === themeStatus ) {
-		// if (
-		// 	wp.updates.shouldRequestFilesystemCredentials && ! wp.updates.ajaxLocked
-		// ) {
-		// 	wp.updates.requestFilesystemCredentials();
-		// }
-
-		percentage += 5;
-		dispatch( {
-			type: 'set',
-			importPercent: percentage,
-			importStatus: __( 'Installing Pixetiq Theme…', 'templatiq-sites' ),
-		} );
-
-		wp.updates.installTheme( {
-			slug: themeSlug,
-			ajax_nonce: templatiqSitesVars._ajax_nonce,
-		} );
-
-		// eslint-disable-next-line no-undef
-		jQuery( document ).on(
-			'wp-theme-install-success',
-			function ( event, response ) {
-				dispatch( {
-					type: 'set',
-					themeStatus: response,
-					importStatus: __( 'Pixetiq Theme Installed.', 'templatiq-sites' ),
-				} );
-			}
-		);
-	}
-
-	if ( 'installed-but-inactive' === themeStatus ) {
-		// WordPress adds "Activate" button after waiting for 1000ms. So we will run our activation after that.
-		setTimeout( function () {
-			const data = new FormData();
-			data.append( 'action', 'templatiq-sites-activate-theme' );
-			data.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
-
-			fetch( ajaxurl, {
-				method: 'post',
-				body: data,
-			} )
-				.then( ( response ) => response.json() )
-				.then( ( response ) => {
-					if ( response.success ) {
-						dispatch( {
-							type: 'set',
-							themeStatus: response,
-							importStatus: __(
-								'Templatiq Theme Installed.',
-								'templatiq-sites'
-							),
-						} );
-					} else {
-						dispatch( {
-							type: 'set',
-							importError: true,
-							importErrorMessages: {
-								primaryText: __(
-									'Templatiq theme installation failed.',
-									'templatiq-sites'
-								),
-								secondaryText: '',
-								errorCode: '',
-								errorText: response.data,
-								solutionText: '',
-								tryAgain: true,
-							},
-						} );
-					}
-				} )
-				.catch( ( error ) => {
-					/* eslint-disable-next-line no-console -- We are displaying errors in the console. */
-					console.error( error );
-				} );
-		}, 3000 );
-	}
-
-	if ( 'installed-and-active' === themeStatus ) {
-		dispatch( {
-			type: 'set',
-			themeStatus: true,
-		} );
-	}
-};
-
 export const setSiteLogo = async ( logo ) => {
 	if ( '' === logo.id ) {
 		return;
@@ -267,40 +173,6 @@ export const setSiteLogo = async ( logo ) => {
 	} );
 };
 
-export const setColorPalettes = async ( palette ) => {
-	if ( ! palette ) {
-		return;
-	}
-
-	const data = new FormData();
-	data.append( 'action', 'templatiq_sites_set_site_data' );
-	data.append( 'param', 'site-colors' );
-	data.append( 'palette', palette );
-	data.append( 'security', nonce );
-
-	await fetch( ajaxurl, {
-		method: 'post',
-		body: data,
-	} );
-
-	console.log( 'setColorPalettes', palette );
-};
-
-export const saveTypography = async ( selectedValue ) => {
-	const data = new FormData();
-	data.append( 'action', 'templatiq_sites_set_site_data' );
-	data.append( 'param', 'site-typography' );
-	data.append( 'typography', JSON.stringify( selectedValue ) );
-	data.append( 'security', nonce );
-
-	await fetch( ajaxurl, {
-		method: 'post',
-		body: data,
-	} );
-
-	console.log( 'saveTypography' );
-};
-
 export const importPersonaWise = async ( selectedValues ) => {
 	const data = new FormData();
 	data.append( 'action', 'templatiq_sites_import_content_persona_wise' );
@@ -311,8 +183,6 @@ export const importPersonaWise = async ( selectedValues ) => {
 		method: 'post',
 		body: data,
 	} );
-
-	console.log( 'importPersonaWise', selectedValues );
 };
 
 export const divideIntoChunks = ( chunkSize, inputArray ) => {
@@ -330,8 +200,6 @@ export const divideIntoChunks = ( chunkSize, inputArray ) => {
 		counter++;
 	}
 	final.push( portion );
-
-	console.log( 'divideIntoChunks' );
 
 	return final;
 };

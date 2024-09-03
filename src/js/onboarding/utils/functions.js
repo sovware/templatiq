@@ -23,14 +23,11 @@ export const getProUrl = () => {
 
 export const sendPostMessage = ( data ) => {
 	const frame = document.getElementById( 'templatiq-library-preview' );
-	console.log('sendPostMessage data : ', data, frame)
+
 	if ( ! frame ) {
 		return;
 	}
-
-
-	console.log('frame found', frame, frame.contentWindow, data);
-
+	
 	frame.contentWindow.postMessage(
 		{
 			call: 'starterTemplatePreviewDispatch',

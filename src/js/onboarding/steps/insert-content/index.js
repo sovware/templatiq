@@ -10,6 +10,8 @@ import './style.scss';
 const currentUrlParams = new URLSearchParams( window.location.search );
 const template_id = currentUrlParams.get( 'template_id' ) || '';
 
+const { themeStatus } = starterTemplates;
+
 import ContentLoading from '@components/ContentLoading';
 import {
 	checkFileSystemPermissions,
@@ -76,7 +78,6 @@ const InsertContent = () => {
 			.filter(plugin => !plugin.is_pro)
 			.map(plugin => plugin.slug);
 
-		console.log('Form Submitted', insertRequiredPlugins, installPlugins, installContents, eraseExistingData, removeImportedData)
 		e.preventDefault();
 		dispatch( {
 			type: 'set',
@@ -86,6 +87,8 @@ const InsertContent = () => {
 	}
 
 	useEffect(() => {
+
+		// When user skip activate pixetiq theme, then run these steps
 		const fetchData = async () => {
 			// Step 1: getDemo
 			const demoData = await getDemo(template_id, dispatch);
@@ -96,14 +99,16 @@ const InsertContent = () => {
 			// Step 3: checkFileSystemPermissions
 			const fileSystemPermissionsData = await checkFileSystemPermissions(dispatch);
 		};
-		
-		fetchData(); // Call the function to start the chain of async functions
 
 		const fetchRequiredPluginsData = async () => {
 			const requiredPluginsData = await checkRequiredPlugins(dispatch);
 		};
 		
-		fetchRequiredPluginsData(); 
+		if( 'installed-and-active' !== themeStatus ) {
+			fetchData();
+		} else {
+			fetchRequiredPluginsData(); 
+		}
 	}, []);
 
 

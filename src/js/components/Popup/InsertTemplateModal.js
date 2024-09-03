@@ -180,7 +180,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 				});
 			},
 			error: function ( data ) {
-				// console.log( 'Error: ', data );
+				console.log( 'Error: ', data );
 			},
 			complete: function ( data ) {
 				closeInsertTemplateModal()

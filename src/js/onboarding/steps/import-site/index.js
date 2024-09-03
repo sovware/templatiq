@@ -35,21 +35,15 @@ const ImportSite = () => {
 			themeStatus,
 			importError,
 			siteLogo,
-			activePalette,
-			typography,
 			currentIndex,
 			importPersonaData,
-			customizerImportFlag,
-			widgetImportFlag,
 			contentImportFlag,
-			themeActivateFlag,
 			requiredPluginsDone,
 			requiredPlugins,
 			notInstalledList,
 			notActivatedList,
 			tryAgainCount,
 			xmlImportDone,
-			templateId,
 			pluginInstallationAttempts,
 		},
 		dispatch,
@@ -192,9 +186,11 @@ const ImportSite = () => {
 	 * Install Required plugins.
 	 */
 	const installRequiredPlugins = () => {
+		// Filter the plugins that are not pro (is_pro: false)
+		const installablePlugins = notInstalledList.filter(plugin => !plugin.is_pro);
+
 		// Install Bulk.
-		if ( notInstalledList.length <= 0 ) {
-			console.log('notInstalledList : ', notInstalledList );
+		if ( installablePlugins.length <= 0 ) {
 			return;
 		}
 
@@ -204,10 +200,6 @@ const ImportSite = () => {
 			importStatus: __( 'Installing Required Plugins.', 'templatiq-sites' ),
 			importPercent: percentage,
 		} );
-
-
-		// Filter the plugins that are not pro (is_pro: false)
-		const installablePlugins = notInstalledList.filter(plugin => !plugin.is_pro);
 
 		installablePlugins.forEach( ( plugin ) => {
 			wp.updates.queue.push( {
@@ -238,7 +230,8 @@ const ImportSite = () => {
 							type: 'set',
 							notActivatedList: inactiveList,
 						} );
-						const notInstalledPluginList = notInstalledList;
+
+						const notInstalledPluginList = installablePlugins;
 						notInstalledPluginList.forEach(
 							( singlePlugin, index ) => {
 								if ( singlePlugin.slug === plugin.slug ) {
@@ -508,7 +501,6 @@ const ImportSite = () => {
 		formOption.append( 'ids', JSON.stringify( chunk ) );
 		formOption.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
 
-		// console.log(JSON.stringify( chunk ))
 		await fetch( ajaxurl, {
 			method: 'post',
 			body: formOption,
@@ -948,7 +940,6 @@ const ImportSite = () => {
 					}
 					return true;
 				} catch ( error ) {
-					console.log( 'XML Error: ', error)
 					report(
 						__(
 							'Importing Site Content failed due to parse JSON error.',
@@ -1113,8 +1104,6 @@ const ImportSite = () => {
 	 */
 	const customizeWebsite = async () => {
 		await setSiteLogo( siteLogo );
-		// await setColorPalettes( JSON.stringify( activePalette ) );
-		// await saveTypography( typography );
 		return true;
 	};
 
@@ -1178,7 +1167,7 @@ const ImportSite = () => {
 			} )
 			.catch( ( error ) => {
 				report(
-					__( 'Final finishings Failed.', 'templatiq-sites' ),
+					__( 'Final finishing failed.', 'templatiq-sites' ),
 					'',
 					error
 				);
@@ -1225,8 +1214,7 @@ const ImportSite = () => {
 
 	/**
 	 * Start the pre import process.
-	 * 		1. Install Templatiq Theme
-	 * 		2. Install Required Plugins.
+	 * Install Required Plugins.
 	 */
 	useEffect( () => {
 		
@@ -1250,15 +1238,6 @@ const ImportSite = () => {
 				importStatus: __( 'Starting Import.', 'templatiq-sites' ),
 			} );
 		}
-
-		// if ( themeActivateFlag && false === themeStatus ) {
-		// 	installOneDirectory( storedState );
-		// } else {
-		// 	dispatch( {
-		// 		type: 'set',
-		// 		themeStatus: true,
-		// 	} );
-		// }
 		
 		dispatch( {
 			type: 'set',
@@ -1271,23 +1250,14 @@ const ImportSite = () => {
 
 	/**
 	 * Start the process only when:
-	 * 		1. Required plugins are installed and activated.
-	 * 		2. Templatiq Theme is installed
+	 * Required plugins are installed and activated.
 	 */
-
-	// var themePluginDone = false;
 	useEffect( () => {
-		if ( requiredPluginsDone && themeStatus ) {
+		if ( requiredPluginsDone ) {
 			sendReportFlag = reportError;
 			importPart1();
-			// themePluginDone = true;
 		}
-	}, [ requiredPluginsDone, themeStatus ] );
-
-	// useEffect( () => {
-	// 	importPart1();
-	// 	console.log('Test ImportPart 1')
-	// }, [ themePluginDone ] );
+	}, [ requiredPluginsDone ] );
 
 	/**
 	 * Start Part 2 of the import once the XML is imported successfully.
@@ -1300,7 +1270,10 @@ const ImportSite = () => {
 
 	// This checks if all the required plugins are installed and activated.
 	useEffect( () => {
-		if ( notActivatedList.length <= 0 && notInstalledList.length <= 0 ) {
+		// Skip PRO Plugin for Install
+		const installablePlugins = notInstalledList.filter(plugin => !plugin.is_pro);
+
+		if ( notActivatedList.length <= 0 && installablePlugins.length <= 0 ) {
 			dispatch( {
 				type: 'set',
 				requiredPluginsDone: true,

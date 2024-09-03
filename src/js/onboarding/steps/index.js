@@ -127,7 +127,6 @@ const Steps = () => {
 		const urlIndex = parseInt( currentUrlParams.get( 'ci' ) ) || 0;
 		
 		if ( (themeStatus === "not-installed" || themeStatus === "installed-but-inactive") && urlIndex === 0 ) {
-			console.log('Reset to Step 1', themeStatus, urlIndex);
 			// Set 'ci' parameter to 1
 			currentUrlParams.set('ci', 1);
 
