@@ -145,9 +145,16 @@ export const checkRequiredPlugins = async ( dispatch ) => {
 				const rPlugins = response.data?.required_plugins;
 				const notInstalledPlugin = rPlugins.notinstalled || '';
 				const notActivePlugins = rPlugins.inactive || '';
+
+				const installablePlugins = [
+					...notInstalledPlugin.filter(plugin => !plugin.is_pro),
+					...notActivePlugins.filter(plugin => !plugin.is_pro)
+				];
+
 				dispatch( {
 					type: 'set',
 					requiredPlugins: response.data,
+					// requiredPluginsDone: installablePlugins.length === 0,
 					notInstalledList: notInstalledPlugin,
 					notActivatedList: notActivePlugins,
 				} );

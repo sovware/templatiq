@@ -21,7 +21,7 @@ import {
 
 const InsertContent = () => {
 	const [stateValue, dispatch ] = useStateValue();
-	const { currentIndex, notActivatedList, notInstalledList } = stateValue;
+	const { currentIndex, notActivatedList, notInstalledList, requiredPluginsDone } = stateValue;
 
 	const insertRequiredPlugins = [
 		...notActivatedList.filter(item => item?.init),
@@ -48,6 +48,7 @@ const InsertContent = () => {
     const [installContents, setInstallContents] = useState(['import-listing', 'share-non-sensitive-data']);
     const [eraseExistingData, setEraseExistingData] = useState(false);
     const [removeImportedData, setRemoveImportedData] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     // Handle change events for checkboxes
     const handleCheckboxChange = (e, setState) => {
@@ -91,26 +92,32 @@ const InsertContent = () => {
 		// When user skip activate pixetiq theme, then run these steps
 		const fetchData = async () => {
 			// Step 1: getDemo
-			const demoData = await getDemo(template_id, dispatch);
+			await getDemo(template_id, dispatch);
 
 			// Step 2: checkRequiredPlugins
-			const requiredPluginsData = await checkRequiredPlugins(dispatch);
+			await checkRequiredPlugins(dispatch);
 
 			// Step 3: checkFileSystemPermissions
-			const fileSystemPermissionsData = await checkFileSystemPermissions(dispatch);
+			await checkFileSystemPermissions(dispatch);
+
+			setLoading(false);
 		};
 
 		const fetchRequiredPluginsData = async () => {
 			const requiredPluginsData = await checkRequiredPlugins(dispatch);
+
+			setLoading(false);
 		};
 		
 		if( 'installed-and-active' !== themeStatus ) {
+			setLoading(true);
 			fetchData();
 		} else {
+			setLoading(true);
 			fetchRequiredPluginsData(); 
 		}
-	}, []);
 
+	}, []);
 
 	return (
 		<DefaultStep
@@ -150,29 +157,32 @@ const InsertContent = () => {
 						</h1>
 						<div className="fullsite-setup-wizard__content__items fullsite-setup-wizard__content__import">
 							{
-								insertRequiredPlugins.length > 0 ?
-								<div className="fullsite-setup-wizard__content__import__wrapper">
-									<h3 className="fullsite-setup-wizard__content__import__title">Install required plugins</h3>
-									{
-										insertRequiredPlugins.map((plugin, index) => {
-											return (
-												<div key={index} className="fullsite-setup-wizard__content__import__single required_plugins">
-													<input
-														type="checkbox"
-														name={plugin.slug}
-														id={plugin.slug}
-														checked= {!plugin.is_pro}
-														disabled = { plugin.is_pro }
-													/>
-													<label htmlFor={plugin.slug}>{plugin.name} {plugin.is_pro ? <span className="plugin_status">(Pro)</span> : null}</label>
-												</div>
-											)
-										})
-									}
-								</div> : 
-								<div className="fullsite-setup-wizard__content__import__wrapper">
-									<ContentLoading />
-								</div>
+								loading ? 
+									<div className="fullsite-setup-wizard__content__import__wrapper">
+										<ContentLoading />
+									</div> : 
+									(
+										insertRequiredPlugins.length > 0 &&
+										<div className="fullsite-setup-wizard__content__import__wrapper">
+											<h3 className="fullsite-setup-wizard__content__import__title">Install required plugins</h3>
+											{
+												insertRequiredPlugins.map((plugin, index) => {
+													return (
+														<div key={index} className="fullsite-setup-wizard__content__import__single required_plugins">
+															<input
+																type="checkbox"
+																name={plugin.slug}
+																id={plugin.slug}
+																checked= {!plugin.is_pro}
+																disabled = { plugin.is_pro }
+															/>
+															<label htmlFor={plugin.slug}>{plugin.name} {plugin.is_pro ? <span className="plugin_status">(Pro)</span> : null}</label>
+														</div>
+													)
+												})
+											}
+										</div>
+									)
 							}
 
 							<div className="fullsite-setup-wizard__content__import__wrapper">
