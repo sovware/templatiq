@@ -88,7 +88,7 @@ class Templatiq_WXR_Importer {
 		/**
 		 * Keep ref for imported menus
 		 */
-		if ( 'wp_navigation' === $data['post_type'] ) {
+		if ( isset( $data['post_type'] ) && 'wp_navigation' === $data['post_type'] ) {
 			$_menu_map                   = get_option( '_templatiq_imported_menu_map', [] );
 			$_menu_map[$data['post_id']] = $post_id;
 			update_option( '_templatiq_imported_menu_map', $_menu_map );
@@ -97,7 +97,7 @@ class Templatiq_WXR_Importer {
 		/**
 		 * Keep ref for imported template parts
 		 */
-		if ( 'wp_template' === $data['post_type'] || 'wp_template_part' === $data['post_type'] ) {
+		if ( isset( $data['post_type'] ) && ( 'wp_template' === $data['post_type'] || 'wp_template_part' === $data['post_type'] ) ) {
 			$_template_parts           = get_option( '_templatiq_imported_template_parts', [] );
 			$_template_parts[$post_id] = $post_id;
 			update_option( '_templatiq_imported_template_parts', $_template_parts );

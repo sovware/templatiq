@@ -15,12 +15,12 @@ class Enqueuer extends EnqueuerBase {
 	public function __construct() {
 		$this->action( 'admin_enqueue_scripts', [$this, 'enqueue_scripts'] );
 
-		wp_enqueue_style(
-			'templatiq-admin-menu',
-			'?'
-		);
+		// wp_enqueue_style(
+		// 	'templatiq-admin-menu',
+		// 	'/'
+		// );
 
-		wp_add_inline_style( 'templatiq-admin-menu', $this->admin_submenu_css() );
+		// wp_add_inline_style( 'templatiq-admin-menu', $this->admin_submenu_css() );
 	}
 
 	public function enqueue_scripts( $hook ) {

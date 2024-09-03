@@ -73,7 +73,7 @@ class Controller extends ControllerBase {
 			wp_send_json_error(
 				[
 					'message' => sprintf( __( 'Invalid Post ID - %d', 'templatiq' ), $post_id ), // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
-					'code'    => 'Error',
+					'code' => 'Error',
 				]
 			);
 		}
@@ -338,14 +338,11 @@ class Controller extends ControllerBase {
 		}
 
 		$import_data = isset( $_POST['import_data'] ) ? sanitize_text_field( $_POST['import_data'] ) : '';
-		if ( empty( $import_data ) ) {
-			wp_send_json_success( true );
+		if ( ! empty( $import_data ) ) {
+			$import_data = json_decode( stripslashes( $import_data ), true );
+			( new Repository )->save_user_requirements( $import_data );
 		}
 
-		$import_data = json_decode( stripslashes( $import_data ), true );
-
-		wp_send_json_success(
-			( new Repository )->save_user_requirements( $import_data )
-		);
+		wp_send_json_success( __( 'Successfully saved', 'templatiq' ) );
 	}
 }
