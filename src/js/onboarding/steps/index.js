@@ -1,20 +1,15 @@
 import { useEffect, useState } from '@wordpress/element';
 import { useNavigate } from 'react-router-dom';
-// import { Tooltip } from '@brainstormforce/templatiq-library-components';
 import { useStateValue } from '../store/store';
 import { storeCurrentState } from '../utils/functions';
 import { STEPS } from './util';
-const { adminUrl } = starterTemplates;
-const $ = jQuery;
 
 const themeStatus = starterTemplates.themeStatus;
 
 const Steps = () => {
 	const [ stateValue, dispatch ] = useStateValue();
 	const {
-		importPersonaData,
 		currentIndex,
-		currentCustomizeIndex,
 		templateResponse,
 		designStep,
 		importError,
@@ -141,67 +136,8 @@ const Steps = () => {
 		} 
 	}, [ currentIndex ]);
 
-	const goToShowcase = () => {
-		dispatch( {
-			type: 'set',
-			currentIndex: currentIndex - 2,
-			currentCustomizeIndex: 0,
-		} );
-	};
-
 	return (
 		<div className={ `st-step ${ current.class }` }>
-			{ currentIndex !== 2 && (
-				// <div className="step-header">
-				// 	{ current.header ? (
-				// 		current.header
-				// 	) : (
-				// 		<div className="row">
-				// 			<div className="col">
-				// 				<Logo />
-				// 			</div>
-				// 			<div className="right-col">
-				// 				{ currentIndex === 3 && (
-				// 					<div
-				// 						className="back-to-main"
-				// 						onClick={ goToShowcase }
-				// 					>
-				// 						{ ICONS.cross }
-				// 						{/* <Tooltip
-				// 							content={ __(
-				// 								'Back to Templates',
-				// 								'templatiq-sites'
-				// 							) }
-				// 						>
-				// 							{ ICONS.cross }
-				// 						</Tooltip> */}
-				// 					</div>
-				// 				) }
-				// 				<div className="col exit-link">
-				// 					<a href={ adminUrl }>
-				// 						{ ICONS.dashboard }
-				// 						{/* <Tooltip
-				// 							content={ __(
-				// 								'Exit to Dashboard',
-				// 								'templatiq-sites'
-				// 							) }
-				// 						>
-				// 							{ ICONS.dashboard }
-				// 						</Tooltip> */}
-				// 					</a>
-				// 				</div>
-				// 			</div>
-				// 		</div>
-				// 	) }
-
-				// 	<canvas
-				// 		id="ist-bashcanvas"
-				// 		width={ window.innerWidth }
-				// 		height={ window.innerHeight }
-				// 	/>
-				// </div>
-				null
-			) }
 			{ settingHistory === false && settingIndex === false && current
 				? current.content
 				: null }

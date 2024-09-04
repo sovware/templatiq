@@ -16,9 +16,16 @@ const MediaUploader = () => {
 	const [ { siteLogo }, dispatch ] = useStateValue();
 
 	const onSelectImage = ( media ) => {
+		let mediaUrl = media.url;
+
+		// Check if the URL contains 'http:' and make it protocol-relative if true
+		if ( ! window.location.href.includes('localhost') && mediaUrl.startsWith('http:')) {
+			mediaUrl = mediaUrl.replace('http:', '');
+		}
+
 		const mediaData = {
 			id: media.id,
-			url: media.url,
+			url: mediaUrl,
 			width: siteLogo.width,
 		};
 

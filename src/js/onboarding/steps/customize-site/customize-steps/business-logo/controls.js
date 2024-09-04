@@ -5,7 +5,7 @@ import { useStateValue } from '../../../../store/store';
 
 const BusinessLogoControls = () => {
 	const [
-		{ siteLogo, currentCustomizeIndex, currentIndex, designStep, templateId },
+		{ siteLogo, currentIndex, templateId },
 		dispatch,
 	] = useStateValue();
 	const nextStep = () => {
@@ -14,20 +14,6 @@ const BusinessLogoControls = () => {
 			currentIndex: currentIndex + 1,
 		} );
 	};
-
-	// const prevStep = () => {
-	// 	sendPostMessage( {
-	// 		param: 'clearPreviewAssets',
-	// 		data: {},
-	// 	} );
-	// 	setTimeout( () => {
-	// 		dispatch( {
-	// 			type: 'set',
-	// 			currentIndex: currentIndex - 1,
-	// 			currentCustomizeIndex: 0,
-	// 		} );
-	// 	}, 300 );
-	// };
 
 	const disabledClass = templateId === 0 ? 'disabled-btn' : '';
 	return (
@@ -43,12 +29,6 @@ const BusinessLogoControls = () => {
 					? __( 'Continue', 'templatiq-sites' )
 					: __( 'Skip & Continue', 'templatiq-sites' ) }
 			</Button>
-			{/* {
-				!designStep === 1 &&
-				<PreviousStepLink onClick={ prevStep }>
-					{ __( 'Back', 'templatiq-sites' ) }
-				</PreviousStepLink>
-			} */}
 		</>
 	);
 };
