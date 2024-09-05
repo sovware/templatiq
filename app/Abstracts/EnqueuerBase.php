@@ -11,15 +11,14 @@ use Templatiq\Utils\Hookable;
 use Templatiq\Utils\Singleton;
 
 abstract class EnqueuerBase {
-	public string $version = TEMPLATIQ_VERSION;
 	use Hookable;
 	use Singleton;
 
-	public function enqueue_script( string $handle, string $src, array $deps = [], $in_footer = true ) {
-		wp_enqueue_script( $handle, TEMPLATIQ_ASSETS . $src, $deps, $this->version, $in_footer );
+	public function enqueue_script( string $handle, string $src, array $deps = [], $in_footer = true, $ver = TEMPLATIQ_VERSION ) {
+		wp_enqueue_script( $handle, TEMPLATIQ_ASSETS . $src, $deps, $ver, $in_footer );
 	}
 
-	public function enqueue_style( string $handle, string $src, array $deps = [] ) {
-		wp_enqueue_style( $handle, TEMPLATIQ_ASSETS . $src, $deps, $this->version );
+	public function enqueue_style( string $handle, string $src, array $deps = [], $ver = TEMPLATIQ_VERSION ) {
+		wp_enqueue_style( $handle, TEMPLATIQ_ASSETS . $src, $deps, $ver );
 	}
 }

@@ -39,10 +39,11 @@ class Enqueuer extends EnqueuerBase {
 		];
 
 		$script_dep = array_merge( $script_info['dependencies'], ['updates', 'wp-hooks'] );
+		$script_ver = $script_info['version'];
 
-		$this->enqueue_script( 'templatiq-app', '/js/admin.js', $script_dep );
+		$this->enqueue_script( 'templatiq-app', '/js/admin.js', $script_dep, true, $script_ver );
 
-		$this->enqueue_style( 'templatiq-app', '/css/global.css' );
+		$this->enqueue_style( 'templatiq-app', '/css/global.css', [], $script_ver );
 
 		$obj = $this->localize_object();
 
