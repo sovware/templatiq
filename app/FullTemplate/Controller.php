@@ -329,7 +329,7 @@ class Controller extends ControllerBase {
 	}
 
 	public function import_content_persona_wise() {
-		if ( wp_doing_ajax() ) {
+		if ( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) {
 			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'manage_options' ) ) {
@@ -338,11 +338,10 @@ class Controller extends ControllerBase {
 		}
 
 		$import_data = isset( $_POST['import_data'] ) ? sanitize_text_field( $_POST['import_data'] ) : '';
-		if ( ! empty( $import_data ) ) {
-			$import_data = json_decode( stripslashes( $import_data ), true );
-			( new Repository )->save_user_requirements( $import_data );
-		}
+		$import_data = json_decode( stripslashes( $import_data ), true );
 
-		wp_send_json_success( __( 'Successfully saved', 'templatiq' ) );
+		wp_send_json_success(
+			( new Repository )->save_user_requirements( $import_data )
+		);
 	}
 }

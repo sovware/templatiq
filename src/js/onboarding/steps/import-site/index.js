@@ -13,7 +13,6 @@ import { useStateValue } from '../../store/store';
 import {
 	checkRequiredPlugins,
 	divideIntoChunks,
-	importPersonaWise,
 	setSiteLogo
 } from './import-utils';
 import sseImport from './sse-import';
@@ -32,7 +31,6 @@ const ImportSite = () => {
 			importPercent,
 			templateResponse,
 			reset,
-			themeStatus,
 			importError,
 			siteLogo,
 			currentIndex,
@@ -433,12 +431,13 @@ const ImportSite = () => {
 		 * Settings backup file store.
 		 */
 		backupFileStatus = await performSettingsBackup();
-
+		console.log('Settings backup file store' );
 		/**
 		 * Reset Customizer.
 		 */
 		if ( backupFileStatus ) {
 			resetCustomizerStatus = await performResetCustomizer();
+			console.log('Reset Customizer.' );
 		}
 
 		/**
@@ -446,6 +445,7 @@ const ImportSite = () => {
 		 */
 		if ( resetCustomizerStatus ) {
 			resetOptionsStatus = await performResetSiteOptions();
+			console.log('Reset Site Options.' );
 		}
 
 		/**
@@ -453,6 +453,7 @@ const ImportSite = () => {
 		 */
 		if ( resetOptionsStatus ) {
 			resetTermsStatus = await performResetTermsAndForms();
+			console.log('Reset Terms, Forms.' );
 		}
 
 		/**
@@ -460,6 +461,7 @@ const ImportSite = () => {
 		 */
 		if ( resetTermsStatus ) {
 			resetPostsStatus = await performResetPosts();
+			console.log('Reset Posts.' );
 		}
 
 		if (
@@ -480,6 +482,7 @@ const ImportSite = () => {
 			importStatus: __( 'Reset for old website is done.', 'templatiq-sites' ),
 		} );
 
+		console.log('Reset for old website is done.')
 		return true;
 	};
 
@@ -555,7 +558,7 @@ const ImportSite = () => {
 	};
 
 	/**
-	 * 1.0 Perform Settings backup file stored.
+	 * 1.1 Perform Settings backup file stored.
 	 */
 	const performSettingsBackup = async () => {
 		dispatch( {
@@ -599,7 +602,7 @@ const ImportSite = () => {
 	};
 
 	/**
-	 * 1.1 Perform Reset for Customizer.
+	 * 1.2 Perform Reset for Customizer.
 	 */
 	const performResetCustomizer = async () => {
 		dispatch( {
@@ -659,7 +662,7 @@ const ImportSite = () => {
 	};
 
 	/**
-	 * 1.2 Perform reset Site options
+	 * 1.3 Perform reset Site options
 	 */
 	const performResetSiteOptions = async () => {
 		dispatch( {
@@ -796,6 +799,9 @@ const ImportSite = () => {
 			.then( async ( response ) => {
 				if ( response.success ) {
 					const chunkArray = divideIntoChunks( 10, response.data );
+
+					console.log('performResetPosts chunkArray : ', chunkArray );
+
 					if ( chunkArray.length > 0 ) {
 						for (
 							let index = 0;
@@ -1187,6 +1193,20 @@ const ImportSite = () => {
 		}
 	};
 
+	const importPersonaWise = async ( selectedValues ) => {
+		const data = new FormData();
+		data.append( 'action', 'templatiq_sites_import_content_persona_wise' );
+		data.append( 'import_data', JSON.stringify( selectedValues ) );
+		data.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
+	
+		const persona = await fetch( ajaxurl, {
+			method: 'post',
+			body: data,
+		} );
+
+		return persona;
+	};
+	
 	useEffect( () => {
 		window.addEventListener('beforeunload', preventRefresh); // eslint-disable-line
 		return () => {
@@ -1216,37 +1236,44 @@ const ImportSite = () => {
 	 * Start the pre import process.
 	 * Install Required Plugins.
 	 */
-	useEffect( () => {
-		
+	useEffect(() => {
 		/**
 		 * Do not process when Import is already going on.
 		 */
-		if ( importStart || importEnd ) {
+		if (importStart || importEnd) {
 			return;
 		}
-		
-		if ( ! importError ) {
-			localStorage.setItem( 'st-import-start', +new Date() );
-			percentage += 5;
+	
+		const processImport = async () => {
+			if (!importError) {
+				localStorage.setItem('st-import-start', +new Date());
+				percentage += 5;
 
-			importPersonaWise( importPersonaData );
+				const personaSaved = await importPersonaWise(importPersonaData);
+				if (personaSaved) {					
+					dispatch({
+						type: 'set',
+						importStart: true,
+						importPercent: percentage,
+						importStatus: __('Starting Import.', 'templatiq-sites'),
+					});
 
-			dispatch( {
-				type: 'set',
-				importStart: true,
-				importPercent: percentage,
-				importStatus: __( 'Starting Import.', 'templatiq-sites' ),
-			} );
-		}
-		
-		dispatch( {
-			type: 'set',
-			themeStatus: true,
-		} );
-
-		sendReportFlag = false;
-		installRequiredPlugins();
-	}, [ templateResponse ] );
+					dispatch({
+						type: 'set',
+						themeStatus: true,
+					});
+			
+					sendReportFlag = false;
+					installRequiredPlugins();
+				}
+			}
+	
+		};
+	
+		// Call the async function
+		processImport();
+	}, [templateResponse]);
+	
 
 	/**
 	 * Start the process only when:

@@ -277,11 +277,6 @@ class Repository {
 		update_option( 'templatiq-import-directorist-listings', false );
 		update_option( 'templatiq-share-non-sensitive-data', false );
 
-		if ( isset( $import_data['eraseExistingData'] ) && $import_data['eraseExistingData'] ) {
-			( new \Templatiq\Integrations\Directorist\Repository() )->erase_existing_data();
-			update_option( 'templatiq-erase-existing-directorist-data', true );
-		}
-
 		if ( isset( $import_data['removeImportedData'] ) && $import_data['removeImportedData'] ) {
 			update_option( 'templatiq-erase-existing-imported-data', true );
 		}
@@ -290,10 +285,23 @@ class Repository {
 		if ( isset( $importContents['import-listing'] ) ) {
 			update_option( 'templatiq-import-directorist-listings', true );
 		}
-
 		if ( isset( $importContents['share-non-sensitive-data'] ) ) {
 			update_option( 'templatiq-share-non-sensitive-data', true );
 			do_action( 'templatiq_share_non_sensitive_data', true );
 		}
+
+		if ( isset( $import_data['eraseExistingData'] ) && $import_data['eraseExistingData'] ) {
+			try {
+				( new \Templatiq\Integrations\Directorist\Repository() )->erase_existing_data();
+			} catch ( \Throwable $th ) {
+				error_log( print_r( $th, true ) );
+			}
+			update_option( 'templatiq-erase-existing-directorist-data', true );
+		}
+
+		return [
+			'success' => true,
+			'text'    => __( 'User requirements saved.', 'templatiq' ),
+		];
 	}
 }
