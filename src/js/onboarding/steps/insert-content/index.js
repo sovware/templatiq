@@ -21,12 +21,16 @@ import {
 
 const InsertContent = () => {
 	const [stateValue, dispatch ] = useStateValue();
-	const { currentIndex, notActivatedList, notInstalledList, requiredPluginsDone } = stateValue;
+	const { currentIndex, notActivatedList, notInstalledList } = stateValue;
 
-	const insertRequiredPlugins = [
-		...notActivatedList.filter(item => item?.init),
-		...notInstalledList.filter(item => item?.init)
-	];
+	const installPlugins = notInstalledList
+			.filter(plugin => !plugin.is_pro)
+			.map(plugin => plugin);
+	const totalInstallablePlugin = [ ...notActivatedList, ...installPlugins ];
+
+	const notInstallablePlugins = notInstalledList
+			.filter(notInstalled => !totalInstallablePlugin
+			.some(installable => installable.slug === notInstalled.slug));
 
 	const prevStep = () => {
 		dispatch( {
@@ -75,11 +79,10 @@ const InsertContent = () => {
     };
 
 	const handleInsertContentForm = (e) => {
-		const installPlugins = insertRequiredPlugins
-			.filter(plugin => !plugin.is_pro)
+		e.preventDefault();
+		const installPlugins = totalInstallablePlugin
 			.map(plugin => plugin.slug);
 
-		e.preventDefault();
 		dispatch( {
 			type: 'set',
 			importPersonaData: {installPlugins, installContents, eraseExistingData, removeImportedData}
@@ -162,11 +165,26 @@ const InsertContent = () => {
 										<ContentLoading />
 									</div> : 
 									(
-										insertRequiredPlugins.length > 0 &&
+										totalInstallablePlugin.length > 0 &&
 										<div className="fullsite-setup-wizard__content__import__wrapper">
 											<h3 className="fullsite-setup-wizard__content__import__title">Install required plugins</h3>
 											{
-												insertRequiredPlugins.map((plugin, index) => {
+												totalInstallablePlugin.map((plugin, index) => {
+													return (
+														<div key={index} className="fullsite-setup-wizard__content__import__single required_plugins">
+															<input
+																type="checkbox"
+																name={plugin.slug}
+																id={plugin.slug}
+																checked
+															/>
+															<label htmlFor={plugin.slug}>{plugin.name} {plugin.is_pro ? <span className="plugin_status">(Pro)</span> : null}</label>
+														</div>
+													)
+												})
+											}
+											{
+												notInstallablePlugins.map((plugin, index) => {
 													return (
 														<div key={index} className="fullsite-setup-wizard__content__import__single required_plugins">
 															<input
