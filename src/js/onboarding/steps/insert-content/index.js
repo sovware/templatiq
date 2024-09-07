@@ -26,10 +26,10 @@ const InsertContent = () => {
 	const installPlugins = notInstalledList
 			.filter(plugin => !plugin.is_pro)
 			.map(plugin => plugin);
-	const totalInstallablePlugin = [ ...notActivatedList, ...installPlugins ];
+	const allRequiredPlugin = [ ...notActivatedList, ...installPlugins ];
 
 	const notInstallablePlugins = notInstalledList
-			.filter(notInstalled => !totalInstallablePlugin
+			.filter(notInstalled => !allRequiredPlugin
 			.some(installable => installable.slug === notInstalled.slug));
 
 	const prevStep = () => {
@@ -80,7 +80,7 @@ const InsertContent = () => {
 
 	const handleInsertContentForm = (e) => {
 		e.preventDefault();
-		const installPlugins = totalInstallablePlugin
+		const installPlugins = allRequiredPlugin
 			.map(plugin => plugin.slug);
 
 		dispatch( {
@@ -165,11 +165,11 @@ const InsertContent = () => {
 										<ContentLoading />
 									</div> : 
 									(
-										totalInstallablePlugin.length > 0 &&
+										allRequiredPlugin.length > 0 &&
 										<div className="fullsite-setup-wizard__content__import__wrapper">
 											<h3 className="fullsite-setup-wizard__content__import__title">Install required plugins</h3>
 											{
-												totalInstallablePlugin.map((plugin, index) => {
+												allRequiredPlugin.map((plugin, index) => {
 													return (
 														<div key={index} className="fullsite-setup-wizard__content__import__single required_plugins">
 															<input
