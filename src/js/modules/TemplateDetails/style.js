@@ -32,6 +32,18 @@ const TemplateDetailsStyle = Styled.div`
         text-align: start;
         color: var(--templatiq-dark-color);
     }
+    .templatiq__details__content__single__description {
+        p {
+            margin: 0 0 15px;
+            font-size: 16px;
+            font-weight: 400;
+            text-align: start;
+            color: var(--templatiq-body-color);
+            &:last-child {
+                margin: 0;
+            }
+        }
+    }
     .templatiq__details__content__single__desc {
         margin: 0 0 15px;
         font-size: 16px;

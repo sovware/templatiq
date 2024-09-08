@@ -1,13 +1,12 @@
-import { useState, useEffect } from '@wordpress/element';
-import { select, subscribe } from '@wordpress/data';
-import store from '@store/index';
-import { TemplateDetailsStyle } from './style';
 import ContentLoading from '@components/ContentLoading';
-import { __ } from '@wordpress/i18n';
+import store from '@store/index';
+import { select, subscribe } from '@wordpress/data';
+import { useEffect, useState } from '@wordpress/element';
+import { TemplateDetailsStyle } from './style';
 
-import TemplateDetailsLayout from './TemplateDetailsLayout';
-import TemplateDetailsHeader from './TemplateDetailsHeader';
 import TemplateDetailsContent from './TemplateDetailsContent';
+import TemplateDetailsHeader from './TemplateDetailsHeader';
+import TemplateDetailsLayout from './TemplateDetailsLayout';
 import TemplateDetailsWidget from './TemplateDetailsWidget';
 
 export default function TemplateDetailsModule( props ) {
