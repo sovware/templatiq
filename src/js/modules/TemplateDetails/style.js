@@ -107,6 +107,7 @@ const TemplateDetailsHeaderStyle = Styled.div`
         align-items: center;
     }
     .templatiq__details__header__action__link {
+        position: relative;
         height: 40px;
         box-shadow: var(--templatiq-box-shadow);
         &.live-demo-btn {
@@ -126,6 +127,10 @@ const TemplateDetailsHeaderStyle = Styled.div`
                     fill: var(--templatiq-white-color);
                 }
             }
+        }
+        &.disabled {
+            pointer-events: none;
+            opacity: 0.5;
         }
     }
 `;

@@ -23,6 +23,7 @@ const Bookmark = ( props ) => {
 	const [ currentFavoriteCount, setCurrentFavoriteCount ] =
 		useState( number_of_bookmarks );
 	const [ addedToFavorite, addFavorite ] = useState( isActive );
+	const [ isFavProcessing, setIsFavProcessing ] = useState( false );
 
 	const addAuthModal = ( e ) => {
 		e.preventDefault();
@@ -53,7 +54,7 @@ const Bookmark = ( props ) => {
 
 	const handleFavorite = ( e ) => {
 		e.preventDefault();
-
+		setIsFavProcessing( true );
 		if ( ! addedToFavorite ) {
 			addBookmark( template_id );
 			const addedCount = Number( currentFavoriteCount ) + 1;
@@ -64,6 +65,10 @@ const Bookmark = ( props ) => {
 			setCurrentFavoriteCount( number_of_bookmarks );
 			addFavorite( false );
 		}
+
+		setTimeout( () => {
+			setIsFavProcessing( false );
+		}, 300 );
 
 		// Trigger the callback function from the parent component if it exists
 		props.onFavoriteCountUpdate?.( addedToFavorite );
@@ -85,7 +90,7 @@ const Bookmark = ( props ) => {
 					href="#"
 					className={ `templatiq__details__header__action__link add-to-favorite templatiq-btn templatiq-btn-white ${
 						addedToFavorite ? 'active' : ''
-					}` }
+					} ${isFavProcessing ? 'disabled' : ''} `}
 					onClick={ ( e ) =>
 						handleFavorite( e, number_of_bookmarks )
 					}
@@ -95,6 +100,12 @@ const Bookmark = ( props ) => {
 						width={ 16 }
 						height={ 16 }
 					/>
+					{
+						isFavProcessing && (
+							<span className="image-loader"></span>
+						)
+					}
+
 				</a>
 			) : ! isLoggedIn ? (
 				<>
