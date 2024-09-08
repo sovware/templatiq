@@ -1,12 +1,12 @@
-import { NavLink } from 'react-router-dom';
-import ReactSVG from 'react-inlinesvg';
-import { AdminSidebarStyle } from './style';
 import { __ } from '@wordpress/i18n';
+import ReactSVG from 'react-inlinesvg';
+import { NavLink } from 'react-router-dom';
+import { AdminSidebarStyle } from './style';
 
 import cartIcon from '@icon/cart.svg';
+import downloadIcon from '@icon/download-alt.svg';
 import heartIcon from '@icon/heart.svg';
 import settingsIcon from '@icon/settings.svg';
-import downloadIcon from '@icon/download-alt.svg';
 
 const AdminSidebar = () => {
 	return (
@@ -14,7 +14,7 @@ const AdminSidebar = () => {
 			<div className="templatiq__sidebar__wrapper">
 				<div
 					className="templatiq__sidebar__nav templatiq__sidebar__nav--admin"
-					activeClassName="active"
+					activeclassname="active"
 				>
 					<NavLink
 						to="/dashboard/favorites"
@@ -30,7 +30,7 @@ const AdminSidebar = () => {
 					<NavLink
 						to="/dashboard/downloads"
 						className="templatiq__sidebar__nav__link"
-						activeClassName="active"
+						activeclassname="active"
 					>
 						<ReactSVG
 							src={ downloadIcon }
@@ -42,7 +42,7 @@ const AdminSidebar = () => {
 					<NavLink
 						to="/dashboard/purchase"
 						className="templatiq__sidebar__nav__link"
-						activeClassName="active"
+						activeclassname="active"
 					>
 						<ReactSVG src={ cartIcon } width={ 16 } height={ 16 } />
 						{__( 'My Purchase', 'templatiq' )}
@@ -50,7 +50,7 @@ const AdminSidebar = () => {
 					<NavLink
 						to="/dashboard/account"
 						className="templatiq__sidebar__nav__link"
-						activeClassName="active"
+						activeclassname="active"
 					>
 						<ReactSVG
 							src={ settingsIcon }

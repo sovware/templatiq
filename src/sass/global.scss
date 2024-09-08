@@ -506,6 +506,28 @@ button {
 .elementor-templates-modal .dialog-message {
   background: var(--templatiq-white-color);
 }
+.image-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--templatiq-primary-color);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+@keyframes rotation {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
 
 @keyframes rotate360 {
   0% {

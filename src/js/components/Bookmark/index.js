@@ -1,13 +1,13 @@
-import { useState, useEffect } from '@wordpress/element';
-import { select, dispatch } from '@wordpress/data';
-import postData from '@helper/postData';
-import ReactSVG from 'react-inlinesvg';
 import AuthModal from '@components/Popup/AuthModal';
+import postData from '@helper/postData';
 import store from '@store/index';
+import { dispatch, select } from '@wordpress/data';
+import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import ReactSVG from 'react-inlinesvg';
 
-import heartIcon from '@icon/heart.svg';
 import heartSolidIcon from '@icon/heart-solid.svg';
+import heartIcon from '@icon/heart.svg';
 
 const Bookmark = ( props ) => {
 	let { template_id, number_of_bookmarks } = props.item;
@@ -128,7 +128,7 @@ const Bookmark = ( props ) => {
 					}` }
 					data-info={
 						addedToFavorite
-							? __( 'Added to Favourite', 'templatiq' )
+							? __( 'Click to Unfavorite', 'templatiq' )
 							: __( 'Add to Favourite', 'templatiq' ) 
 					}
 					onClick={ handleFavorite }

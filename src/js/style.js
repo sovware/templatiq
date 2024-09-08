@@ -242,6 +242,7 @@ const TemplatePackStyle = Styled.div`
         display: flex;
         gap: 20px;
         flex-direction: column;
+        position: relative;
     }
     .templatiq__content__tab {
         display: flex;

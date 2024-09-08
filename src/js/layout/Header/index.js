@@ -194,7 +194,7 @@ const Header = ( props ) => {
 										<div className="templatiq__header__author__info">
 											<div className="templatiq__header__author__info__item">
 												<NavLink
-													activeClassName="active"
+													activeclassname="active"
 													to="/dashboard/favorites"
 													className="templatiq__header__author__info__link"
 												>
@@ -210,7 +210,7 @@ const Header = ( props ) => {
 												<>
 													<div className="templatiq__header__author__info__item">
 														<NavLink
-															activeClassName="active"
+															activeclassname="active"
 															to="/dashboard/downloads"
 															className="templatiq__header__author__info__link"
 														>
@@ -224,7 +224,7 @@ const Header = ( props ) => {
 													</div>
 													<div className="templatiq__header__author__info__item">
 														<NavLink
-															activeClassName="active"
+															activeclassname="active"
 															to="/dashboard/purchase"
 															className="templatiq__header__author__info__link"
 														>
@@ -238,7 +238,7 @@ const Header = ( props ) => {
 													</div>
 													<div className="templatiq__header__author__info__item">
 														<NavLink
-															activeClassName="active"
+															activeclassname="active"
 															to="/dashboard/account"
 															className="templatiq__header__author__info__link"
 														>
