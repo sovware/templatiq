@@ -38,7 +38,7 @@ const SidebarStyle = Styled.div`
         flex-direction: column;
         height: 100vh;
         .templatiq__sidebar__nav__item {
-            &.react-tabs__tab--selected {
+            &.active {
                 .templatiq__sidebar__nav__link {
                     color: var(--templatiq-primary-color);
                     background: var(--templatiq-primary-transparent);
