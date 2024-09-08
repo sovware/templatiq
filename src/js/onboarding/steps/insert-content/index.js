@@ -177,6 +177,7 @@ const InsertContent = () => {
 																name={plugin.slug}
 																id={plugin.slug}
 																checked
+																readOnly
 															/>
 															<label htmlFor={plugin.slug}>{plugin.name} {plugin.is_pro ? <span className="plugin_status">(Pro)</span> : null}</label>
 														</div>
@@ -191,7 +192,6 @@ const InsertContent = () => {
 																type="checkbox"
 																name={plugin.slug}
 																id={plugin.slug}
-																checked= {!plugin.is_pro}
 																disabled = { plugin.is_pro }
 															/>
 															<label htmlFor={plugin.slug}>{plugin.name} {plugin.is_pro ? <span className="plugin_status">(Pro)</span> : null}</label>

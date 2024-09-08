@@ -1,6 +1,6 @@
-import Skeleton from '@mui/material/Skeleton';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Skeleton from '@mui/material/Skeleton';
 
 const SiteSkeleton = () => {
 	return (
@@ -21,7 +21,7 @@ const SiteSkeleton = () => {
 						p="3em 8em"
 						display="flex"
 						justifyContent="flex-end"
-						gridGap="25px"
+						gridgap="25px"
 					>
 						<Skeleton
 							variant="rect"
@@ -98,7 +98,7 @@ const SiteSkeleton = () => {
 						p="1rem 8rem 1rem 2rem"
 						display="flex"
 						justifyContent="flex-end"
-						gridGap="25px"
+						gridgap="25px"
 					>
 						<Skeleton
 							variant="rect"
@@ -113,7 +113,7 @@ const SiteSkeleton = () => {
 						p="3em 8em"
 						display="flex"
 						justifyContent="space-evenly"
-						gridGap="25px"
+						gridgap="25px"
 					>
 						<Skeleton
 							variant="rect"
