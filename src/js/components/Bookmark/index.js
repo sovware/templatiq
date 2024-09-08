@@ -1,13 +1,13 @@
-import { useState, useEffect } from '@wordpress/element';
-import { select, dispatch } from '@wordpress/data';
-import postData from '@helper/postData';
-import ReactSVG from 'react-inlinesvg';
 import AuthModal from '@components/Popup/AuthModal';
+import postData from '@helper/postData';
 import store from '@store/index';
+import { dispatch, select } from '@wordpress/data';
+import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import ReactSVG from 'react-inlinesvg';
 
-import heartIcon from '@icon/heart.svg';
 import heartSolidIcon from '@icon/heart-solid.svg';
+import heartIcon from '@icon/heart.svg';
 
 const Bookmark = ( props ) => {
 	let { template_id, number_of_bookmarks } = props.item;
@@ -23,6 +23,7 @@ const Bookmark = ( props ) => {
 	const [ currentFavoriteCount, setCurrentFavoriteCount ] =
 		useState( number_of_bookmarks );
 	const [ addedToFavorite, addFavorite ] = useState( isActive );
+	const [ isFavProcessing, setIsFavProcessing ] = useState( false );
 
 	const addAuthModal = ( e ) => {
 		e.preventDefault();
@@ -53,7 +54,7 @@ const Bookmark = ( props ) => {
 
 	const handleFavorite = ( e ) => {
 		e.preventDefault();
-
+		setIsFavProcessing( true );
 		if ( ! addedToFavorite ) {
 			addBookmark( template_id );
 			const addedCount = Number( currentFavoriteCount ) + 1;
@@ -64,6 +65,10 @@ const Bookmark = ( props ) => {
 			setCurrentFavoriteCount( number_of_bookmarks );
 			addFavorite( false );
 		}
+
+		setTimeout( () => {
+			setIsFavProcessing( false );
+		}, 300 );
 
 		// Trigger the callback function from the parent component if it exists
 		props.onFavoriteCountUpdate?.( addedToFavorite );
@@ -85,7 +90,7 @@ const Bookmark = ( props ) => {
 					href="#"
 					className={ `templatiq__details__header__action__link add-to-favorite templatiq-btn templatiq-btn-white ${
 						addedToFavorite ? 'active' : ''
-					}` }
+					} ${isFavProcessing ? 'disabled' : ''} `}
 					onClick={ ( e ) =>
 						handleFavorite( e, number_of_bookmarks )
 					}
@@ -95,6 +100,12 @@ const Bookmark = ( props ) => {
 						width={ 16 }
 						height={ 16 }
 					/>
+					{
+						isFavProcessing && (
+							<span className="image-loader"></span>
+						)
+					}
+
 				</a>
 			) : ! isLoggedIn ? (
 				<>
@@ -124,11 +135,12 @@ const Bookmark = ( props ) => {
 				<a
 					href="#"
 					className={ `templatiq__template__single__quickmeta__item favorite-btn templatiq-tooltip ${
-						addedToFavorite ? 'active' : ''
-					}` }
+						addedToFavorite ? 'active' : ''}
+						${isFavProcessing ? 'disabled' : ''}
+					` }
 					data-info={
 						addedToFavorite
-							? __( 'Added to Favourite', 'templatiq' )
+							? __( 'Click to Unfavorite', 'templatiq' )
 							: __( 'Add to Favourite', 'templatiq' ) 
 					}
 					onClick={ handleFavorite }
@@ -139,6 +151,11 @@ const Bookmark = ( props ) => {
 						height={ 14 }
 					/>
 					{ currentFavoriteCount ? currentFavoriteCount : '' }
+					{
+						isFavProcessing && (
+							<span className="image-loader"></span>
+						)
+					}
 				</a>
 			) }
 		</>

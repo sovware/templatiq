@@ -38,7 +38,7 @@ const SidebarStyle = Styled.div`
         flex-direction: column;
         height: 100vh;
         .templatiq__sidebar__nav__item {
-            &.react-tabs__tab--selected {
+            &.active {
                 .templatiq__sidebar__nav__link {
                     color: var(--templatiq-primary-color);
                     background: var(--templatiq-primary-transparent);
@@ -187,9 +187,18 @@ const DashboardItemsStyle = Styled.div`
         flex-direction: column;
     }
     .templatiq__content__dashboard__item__img {
+        position: relative;
         width: 44px;
         height: 44px;
         border-radius: 8px;
+        img {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+        &.loading {
+            background: var(--templatiq-primary-100);
+        }
     }
 
     .templatiq__content__dashboard__single {

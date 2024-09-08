@@ -242,6 +242,7 @@ const TemplatePackStyle = Styled.div`
         display: flex;
         gap: 20px;
         flex-direction: column;
+        position: relative;
     }
     .templatiq__content__tab {
         display: flex;
@@ -320,7 +321,7 @@ const TemplatePackFilterStyle = Styled.div`
     }
     .templatiq__content__top__filter__item {
         display: flex;
-        &.react-tabs__tab--selected {
+        &.active {
             .templatiq__content__top__filter__link {
                 color: var(--templatiq-white-color);
                 background: var(--templatiq-primary-color);

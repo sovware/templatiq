@@ -1,10 +1,10 @@
-import ReactSVG from 'react-inlinesvg';
-import { __ } from '@wordpress/i18n';
 import checkIcon from '@icon/check-alt.svg';
+import { __ } from '@wordpress/i18n';
+import ReactSVG from 'react-inlinesvg';
 
 
 const TemplateDetailsContent = ( props ) => {
-	const { thumbnail } = props.item;
+	const { thumbnail, description } = props.item;
 
 	return (
 		<div className="templatiq__details__content">
@@ -18,12 +18,10 @@ const TemplateDetailsContent = ( props ) => {
 				<h3 className="templatiq__details__content__single__title">
 					{__( "Overview", 'templatiq' )}
 				</h3>
-				<p className="templatiq__details__content__single__desc">
-					{__( "Using this ready template you'll be able to design your website in no time, This offers exclusive dynamic design, which makes it an excellent choice to create fascinating websites.", 'templatiq' )}
-				</p>
-				<p className="templatiq__details__content__single__desc">
-					{__( "Display engaging and attractive landing pages to draw visitors' attention.", 'templatiq' )}
-				</p>
+				<div 
+					className="templatiq__details__content__single__description"
+					dangerouslySetInnerHTML={{ __html: description }}
+				/>
 			</div>
 
 			<div className="templatiq__details__content__single">

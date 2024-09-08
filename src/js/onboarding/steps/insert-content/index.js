@@ -292,7 +292,7 @@ const InsertContent = () => {
 							<button
 								type='submit'
 								// onClick={ nextStep }
-								className={ `fullsite-setup-wizard__content__import__btn ist-button ist-next-step` }
+								className={ `fullsite-setup-wizard__content__import__btn ist-button ist-next-step ${loading ? "disabled" : ""}` }
 							>
 								Submit & Build My Directory Website
 							</button>

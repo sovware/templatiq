@@ -32,8 +32,6 @@ const SingleTemplate = ( item ) => {
 	const [ isPurchased, setIsPurchased ] = useState(false);
 	const [ isUnlocked, setIsUnlocked ] = useState(false);
 
-	const requiredPlugins = required_plugins.filter(item => item?.init);
-
 	const handleImageLoad = () => {
 		setImageLoaded( true );
 	};
@@ -128,27 +126,6 @@ const SingleTemplate = ( item ) => {
 								'templatiq__template__single__info__action__link insert-btn tmTemplateLibrary__insert-button'
 							}
 						/>
-					</div>
-					<div className="templatiq__template__single__info__required">
-						{ requiredPlugins &&
-							requiredPlugins.map( ( plugin, index ) => (
-								<a
-									key={ index }
-									href="#"
-									className="templatiq__template__single__info__required__item templatiq-tooltip"
-									data-info={ plugin?.name }
-								>
-									<img
-										src={ `${ templatiq_obj.assets_url }/svg/icon/${ plugin?.slug }.svg` }
-										width={ 28 }
-										height={ 28 }
-										onError={(e) => {
-											e.target.onerror = null; // prevents looping
-											e.target.src = `${templatiq_obj.assets_url}/svg/icon/wordpress-plugin.png`;
-										}}
-									/>
-								</a>
-							) ) }
 					</div>
 				</div>
 			</div>

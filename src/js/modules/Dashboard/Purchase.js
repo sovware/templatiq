@@ -57,6 +57,55 @@ export default function MyPurchaseModule() {
 		setDefaultTemplates( purchasedTemplate );
 	}
 
+	// Component for individual purchase items
+	const PurchaseItem = ({ item }) => {
+		const [isImageLoaded, setIsImageLoaded] = useState(false);
+	
+		return (
+			<div className="templatiq__content__dashboard__single">
+				<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name">
+					<span
+						className={`templatiq__content__dashboard__item__img ${!isImageLoaded ? "loading" : ""}`}
+					>
+						<img
+							src={item.thumbnail}
+							alt={item.title}
+							onLoad={() => setIsImageLoaded(true)}
+						/>
+						{
+							!isImageLoaded && (
+								<span className="image-loader"></span>
+							)
+						}
+					</span>
+					<span className="templatiq__content__dashboard__item__title">
+						{item.title}
+					</span>
+				</div>
+				<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--type">
+					<span className="templatiq__content__dashboard__item__text">
+						{item.type}
+					</span>
+				</div>
+				<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
+					<span className="templatiq__content__dashboard__item__text">
+						{item.date}
+					</span>
+				</div>
+				<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
+					<InsertTemplate
+						solidIcon
+						item={item}
+						innerText={'Insert'}
+						className={
+						'templatiq__content__dashboard__item__btn templatiq-btn templatiq-btn-success'
+						}
+					/>
+				</div>
+			</div>
+		);
+	};
+
 	useEffect( () => {
 		searchFilteredTemplates();
 	}, [ searchValue ] );
@@ -95,9 +144,6 @@ export default function MyPurchaseModule() {
 								{__( 'My Purchase', 'templatiq' )}
 							</h3>
 						</div>
-						<div className="templatiq__content__top__search">
-							<Searchform />
-						</div>
 					</div>
 					<DashboardItemsStyle className="templatiq__content__dashboard__downloads">
 						<div className="templatiq__content__dashboard__header">
@@ -108,7 +154,7 @@ export default function MyPurchaseModule() {
 							</div>
 							<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--type">
 								<span className="templatiq__content__dashboard__item__header">
-									{__( 'Downloaded Type', 'templatiq' )}
+									{__( 'Template Type', 'templatiq' )}
 								</span>
 							</div>
 							<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
@@ -137,38 +183,8 @@ export default function MyPurchaseModule() {
 									</h3>
 								</div>
 							) : (
-								purchasedTemplates.map( ( item ) => (
-									<div className="templatiq__content__dashboard__single">
-										<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name">
-											<img
-												src={ item.thumbnail }
-												alt={ item.title }
-												className="templatiq__content__dashboard__item__img"
-											/>
-											<span className="templatiq__content__dashboard__item__title">
-												{ item.title }
-											</span>
-										</div>
-										<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--type">
-											<span className="templatiq__content__dashboard__item__text">
-												{ item.type }
-											</span>
-										</div>
-										<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
-											<span className="templatiq__content__dashboard__item__text"> </span>
-										</div>
-
-										<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
-											<InsertTemplate
-												solidIcon
-												item={ item }
-												innerText={ 'Insert' }
-												className={
-													'templatiq__content__dashboard__item__btn templatiq-btn templatiq-btn-success'
-												}
-											/>
-										</div>
-									</div>
+								purchasedTemplates.map( ( item, key ) => (
+									<PurchaseItem key={key} item={item} />
 								) )
 							) }
 						</div>

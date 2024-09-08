@@ -142,6 +142,9 @@ const SingleTemplateStyle = Styled.div`
             border-radius: 8px;
             background-color: var(--templatiq-white-color);
             white-space: nowrap;
+            &.loading {
+                background: var(--templatiq-primary-100);
+            }
         }
     }
 
@@ -217,9 +220,9 @@ const SingleTemplateStyle = Styled.div`
         gap: 6px;
         justify-content: space-between;
         .templatiq-btn {
-            height: 44px;
-            padding: 0 16px;
-            font-size: 16px;
+            height: 40px;
+            padding: 0 14px;
+            font-size: 14px;
             font-weight: 600;
             border-radius: 10px;
             color: var(--templatiq-primary-color);
@@ -278,6 +281,10 @@ const SingleTemplateStyle = Styled.div`
                     fill: var(--templatiq-danger-color);
                 }
             }
+        }
+        &.disabled {
+            pointer-events: none;
+            opacity: 0.5;
         }
     }
 

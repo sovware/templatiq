@@ -1,9 +1,8 @@
-import { useState, useEffect } from '@wordpress/element';
-import { select, subscribe } from '@wordpress/data';
-import DashboardLayout from '@layout/DashboardLayout';
 import ContentLoading from '@components/ContentLoading';
-import Searchform from '@components/Searchform';
+import DashboardLayout from '@layout/DashboardLayout';
 import store from '@store/index';
+import { select, subscribe } from '@wordpress/data';
+import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 import { TemplatePackStyle } from '@root/style';
@@ -32,6 +31,45 @@ export default function MyDownloadsModule() {
 		setFilteredTemplates( newFilteredTemplates );
 
 		return newFilteredTemplates;
+	};
+
+	// Component for individual download items
+	const DownloadItem = ({ item }) => {
+		const [isImageLoaded, setIsImageLoaded] = useState(false);
+	
+		return (
+			<div className="templatiq__content__dashboard__single">
+				<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name">
+					<span
+						className={`templatiq__content__dashboard__item__img ${!isImageLoaded ? "loading" : ""}`}
+					>
+						<img
+							src={item.thumbnail}
+							alt={item.title}
+							onLoad={() => setIsImageLoaded(true)}
+						/>
+						{
+							!isImageLoaded && (
+								<span className="image-loader"></span>
+							)
+						}
+					</span>
+					<span className="templatiq__content__dashboard__item__title">
+						{ item.title }
+					</span>
+				</div>
+				<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--type">
+					<span className="templatiq__content__dashboard__item__text">
+						{ item.type }
+					</span>
+				</div>
+				<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
+					<span className="templatiq__content__dashboard__item__text"> 
+						{ item.date }
+					</span>
+				</div>
+			</div>
+		);
 	};
 
 	useEffect( () => {
@@ -94,9 +132,6 @@ export default function MyDownloadsModule() {
 								{__( 'My Downloads', 'templatiq' )}
 							</h3>
 						</div>
-						<div className="templatiq__content__top__search">
-							<Searchform />
-						</div>
 					</div>
 					<DashboardItemsStyle className="templatiq__content__dashboard__downloads">
 						<div className="templatiq__content__dashboard__header">
@@ -107,7 +142,7 @@ export default function MyDownloadsModule() {
 							</div>
 							<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--type">
 								<span className="templatiq__content__dashboard__item__header">
-									{__( 'Downloaded Type', 'templatiq' )}
+									{__( 'Template Type', 'templatiq' )}
 								</span>
 							</div>
 							<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
@@ -131,27 +166,8 @@ export default function MyDownloadsModule() {
 									</h3>
 								</div>
 							) : (
-								downloadedTemplates.map( ( item ) => (
-									<div className="templatiq__content__dashboard__single">
-										<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name">
-											<img
-												src={ item.thumbnail }
-												alt={ item.title }
-												className="templatiq__content__dashboard__item__img"
-											/>
-											<span className="templatiq__content__dashboard__item__title">
-												{ item.title }
-											</span>
-										</div>
-										<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--type">
-											<span className="templatiq__content__dashboard__item__text">
-												{ item.type }
-											</span>
-										</div>
-										<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
-											<span className="templatiq__content__dashboard__item__text"> </span>
-										</div>
-									</div>
+								downloadedTemplates.map( ( item, key ) => (
+									<DownloadItem key={key} item={item} />
 								) )
 							) }
 						</div>
