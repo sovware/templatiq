@@ -142,6 +142,9 @@ const SingleTemplateStyle = Styled.div`
             border-radius: 8px;
             background-color: var(--templatiq-white-color);
             white-space: nowrap;
+            &.loading {
+                background: var(--templatiq-primary-100);
+            }
         }
     }
 

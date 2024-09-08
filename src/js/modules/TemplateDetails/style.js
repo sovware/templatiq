@@ -197,8 +197,6 @@ const TemplateDetailsWidgetStyle = Styled.div`
         flex-direction: column;
         &.required-plugins {
             gap: 12px;
-            align-items: center;
-            flex-direction: row;
         }
     }
     .templatiq__details__widget__content__title {
@@ -221,16 +219,21 @@ const TemplateDetailsWidgetStyle = Styled.div`
         display: flex;
         gap: 8px;
         align-items: center;
+        flex-wrap: wrap;
     }
-    .templatiq__details__widget__content__required-plugins__link img {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
+    .templatiq__details__widget__content__required-plugins__link {
+        img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+        &.loading {
+            background: var(--templatiq-primary-100);
+        }   
     }
 `;
 
 export {
-	TemplateDetailsStyle,
-	TemplateDetailsHeaderStyle,
-	TemplateDetailsWidgetStyle,
+    TemplateDetailsHeaderStyle, TemplateDetailsStyle, TemplateDetailsWidgetStyle
 };
+

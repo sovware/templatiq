@@ -1,11 +1,41 @@
+import { __ } from '@wordpress/i18n';
 import ReactSVG from 'react-inlinesvg';
 import { TemplateDetailsWidgetStyle } from './style';
-import { __ } from '@wordpress/i18n';
 
 import fireIcon from '@icon/fire.svg';
+import { useState } from '@wordpress/element';
 
 const TemplateDetailsWidget = ( props ) => {
 	const { price, builder, type, categories, required_plugins } = props.item;
+
+	// Component for individual required plugin
+	const RequiredPlugin = ({ plugin }) => {
+		const [isImageLoaded, setIsImageLoaded] = useState(false);
+	
+		return (
+			<span
+				className={`templatiq__details__widget__content__required-plugins__link templatiq-tooltip ${!isImageLoaded ? 'loading' : ''}`}
+				data-info={ plugin?.name }
+			>
+				<img
+					src={ `${ templatiq_obj.assets_url }/svg/icon/${ plugin?.slug }.svg` }
+					alt={ plugin?.name }
+					width={ 30 }
+					height={ 30 }
+					onError={(e) => {
+						e.target.onerror = null; // prevents looping
+						e.target.src = `${templatiq_obj.assets_url}/svg/icon/wordpress-plugin.png`;
+					}}
+					onLoad={() => setIsImageLoaded(true)}
+				/>
+				{
+					!isImageLoaded && (
+						<span className="image-loader"></span>
+					)
+				}
+			</span>
+		);
+	};
 
 	return (
 		<TemplateDetailsWidgetStyle className="templatiq__details__widget">
@@ -86,27 +116,9 @@ const TemplateDetailsWidget = ( props ) => {
 						</span>
 						<div className="templatiq__details__widget__content__required-plugins">
 							{ required_plugins &&
-								required_plugins.map( ( plugin, index ) => {
-									return (
-										<a
-											key={ index }
-											href="#"
-											className="templatiq__details__widget__content__required-plugins__link templatiq-tooltip"
-											data-info={ plugin?.name }
-										>
-											<img
-												src={ `${ templatiq_obj.assets_url }/svg/icon/${ plugin?.slug }.svg` }
-												alt={ plugin?.name }
-												width={ 30 }
-												height={ 30 }
-												onError={(e) => {
-													e.target.onerror = null; // prevents looping
-													e.target.src = `${templatiq_obj.assets_url}/svg/icon/wordpress-plugin.png`;
-												}}
-											/>
-										</a>
-									);
-								} ) }
+							required_plugins.map( ( plugin, index ) => (
+								<RequiredPlugin key={ index } plugin={ plugin } />
+							) ) }
 						</div>
 					</div>
 				</div>

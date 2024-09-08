@@ -48,14 +48,14 @@ const SingleTemplate = ( item ) => {
 		return unlocked && unlocked.some(item => itemId in item);
 	};
 
-	// Component for individual purchase items
+	// Component for individual required plugin
 	const RequiredPlugin = ({ plugin }) => {
 		const [isImageLoaded, setIsImageLoaded] = useState(false);
 	
 		return (
 			<div className="templatiq__content__dashboard__single">
 				<span
-					className="templatiq__template__single__info__required__item templatiq-tooltip"
+					className={`templatiq__template__single__info__required__item templatiq-tooltip ${!isImageLoaded ? 'loading' : ''}`}
 					data-info={ plugin?.name }
 				>
 					<img
