@@ -1372,15 +1372,19 @@ const ImportSite = () => {
 									<ImportLoader />
 								</div>
 								{ importPercent !== 100 && (
-									<Lottie
-										loop
-										animationData={ lottieJson }
-										play
-										style={ {
-											height: 400,
-											margin: '-70px auto -90px auto',
-										} }
-									/>
+									<>
+										<Lottie
+											loop
+											animationData={ lottieJson }
+											play
+											style={ {
+												height: 400,
+												margin: '-70px auto -90px auto',
+											} }
+										/>
+
+										<span className="import-progress-warning">Please Don't Reload The Page</span>
+									</>
 								) }
 							</>
 						) }
