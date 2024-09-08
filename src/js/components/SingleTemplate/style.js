@@ -131,6 +131,7 @@ const SingleTemplateStyle = Styled.div`
     .templatiq__template__single__info__required {
         display: flex;
         gap: 8px;
+        flex-wrap: wrap;
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.3s ease, visibility 0.3s ease;
