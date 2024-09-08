@@ -48,6 +48,36 @@ const SingleTemplate = ( item ) => {
 		return unlocked && unlocked.some(item => itemId in item);
 	};
 
+	// Component for individual purchase items
+	const RequiredPlugin = ({ plugin }) => {
+		const [isImageLoaded, setIsImageLoaded] = useState(false);
+	
+		return (
+			<div className="templatiq__content__dashboard__single">
+				<span
+					className="templatiq__template__single__info__required__item templatiq-tooltip"
+					data-info={ plugin?.name }
+				>
+					<img
+						src={ `${ templatiq_obj.assets_url }/svg/icon/${ plugin?.slug }.svg` }
+						width={ 28 }
+						height={ 28 }
+						onError={(e) => {
+							e.target.onerror = null; // prevents looping
+							e.target.src = `${templatiq_obj.assets_url}/svg/icon/wordpress-plugin.png`;
+						}}
+						onLoad={() => setIsImageLoaded(true)}
+					/>
+					{
+						!isImageLoaded && (
+							<span className="image-loader"></span>
+						)
+					}
+				</span>
+			</div>
+		);
+	};
+
 	const templateRef = useRef( null );
 
 	useEffect( () => {
@@ -132,22 +162,7 @@ const SingleTemplate = ( item ) => {
 					<div className="templatiq__template__single__info__required">
 						{ requiredPlugins &&
 							requiredPlugins.map( ( plugin, index ) => (
-								<a
-									key={ index }
-									href="#"
-									className="templatiq__template__single__info__required__item templatiq-tooltip"
-									data-info={ plugin?.name }
-								>
-									<img
-										src={ `${ templatiq_obj.assets_url }/svg/icon/${ plugin?.slug }.svg` }
-										width={ 28 }
-										height={ 28 }
-										onError={(e) => {
-											e.target.onerror = null; // prevents looping
-											e.target.src = `${templatiq_obj.assets_url}/svg/icon/wordpress-plugin.png`;
-										}}
-									/>
-								</a>
+								<RequiredPlugin key={ index } plugin={ plugin } />
 							) ) }
 					</div>
 				</div>

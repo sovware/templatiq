@@ -33,7 +33,7 @@ export default function MyDownloadsModule() {
 		return newFilteredTemplates;
 	};
 
-	// Component for individual purchase items
+	// Component for individual download items
 	const DownloadItem = ({ item }) => {
 		const [isImageLoaded, setIsImageLoaded] = useState(false);
 	
