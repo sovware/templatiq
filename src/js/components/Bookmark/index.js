@@ -135,8 +135,9 @@ const Bookmark = ( props ) => {
 				<a
 					href="#"
 					className={ `templatiq__template__single__quickmeta__item favorite-btn templatiq-tooltip ${
-						addedToFavorite ? 'active' : ''
-					}` }
+						addedToFavorite ? 'active' : ''}
+						${isFavProcessing ? 'disabled' : ''}
+					` }
 					data-info={
 						addedToFavorite
 							? __( 'Click to Unfavorite', 'templatiq' )
@@ -150,6 +151,11 @@ const Bookmark = ( props ) => {
 						height={ 14 }
 					/>
 					{ currentFavoriteCount ? currentFavoriteCount : '' }
+					{
+						isFavProcessing && (
+							<span className="image-loader"></span>
+						)
+					}
 				</a>
 			) }
 		</>

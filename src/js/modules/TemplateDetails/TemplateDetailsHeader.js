@@ -1,6 +1,6 @@
 import { useEffect, useState } from '@wordpress/element';
-import ReactSVG from 'react-inlinesvg';
 import { __ } from '@wordpress/i18n';
+import ReactSVG from 'react-inlinesvg';
 
 import store from '@store/index';
 import { select } from '@wordpress/data';

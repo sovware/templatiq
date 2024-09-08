@@ -282,6 +282,10 @@ const SingleTemplateStyle = Styled.div`
                 }
             }
         }
+        &.disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
     }
 
     .templatiq-tooltip {

@@ -32,8 +32,6 @@ const SingleTemplate = ( item ) => {
 	const [ isPurchased, setIsPurchased ] = useState(false);
 	const [ isUnlocked, setIsUnlocked ] = useState(false);
 
-	const requiredPlugins = required_plugins.filter(item => item?.init);
-
 	const handleImageLoad = () => {
 		setImageLoaded( true );
 	};
@@ -46,36 +44,6 @@ const SingleTemplate = ( item ) => {
 	const isItemUnlocked = (itemId) => {
 		// Check if any object in unlockedItems contains the itemId as a key
 		return unlocked && unlocked.some(item => itemId in item);
-	};
-
-	// Component for individual required plugin
-	const RequiredPlugin = ({ plugin }) => {
-		const [isImageLoaded, setIsImageLoaded] = useState(false);
-	
-		return (
-			<div className="templatiq__content__dashboard__single">
-				<span
-					className={`templatiq__template__single__info__required__item templatiq-tooltip ${!isImageLoaded ? 'loading' : ''}`}
-					data-info={ plugin?.name }
-				>
-					<img
-						src={ `${ templatiq_obj.assets_url }/svg/icon/${ plugin?.slug }.svg` }
-						width={ 28 }
-						height={ 28 }
-						onError={(e) => {
-							e.target.onerror = null; // prevents looping
-							e.target.src = `${templatiq_obj.assets_url}/svg/icon/wordpress-plugin.png`;
-						}}
-						onLoad={() => setIsImageLoaded(true)}
-					/>
-					{
-						!isImageLoaded && (
-							<span className="image-loader"></span>
-						)
-					}
-				</span>
-			</div>
-		);
 	};
 
 	const templateRef = useRef( null );
@@ -158,12 +126,6 @@ const SingleTemplate = ( item ) => {
 								'templatiq__template__single__info__action__link insert-btn tmTemplateLibrary__insert-button'
 							}
 						/>
-					</div>
-					<div className="templatiq__template__single__info__required">
-						{ requiredPlugins &&
-							requiredPlugins.map( ( plugin, index ) => (
-								<RequiredPlugin key={ index } plugin={ plugin } />
-							) ) }
 					</div>
 				</div>
 			</div>
