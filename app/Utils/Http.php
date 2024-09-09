@@ -38,7 +38,8 @@ class Http {
 	}
 
 	public function body( array $args = [] ) {
-		$this->body = $args ?? $this->body;
+		$args['time'] = time();
+		$this->body   = $args ?? $this->body;
 
 		return $this;
 	}
