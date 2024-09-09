@@ -14,11 +14,11 @@ class Compatibility {
 
 	public function __construct() {
 		if ( ! wp_doing_ajax() || ( defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, '3.0.0', '>=' ) ) ) {
-			remove_filter( 'templatiq_import_post_meta', [ 'Elementor\Compatibility', 'on_templatiq_import_post_meta' ] );
-			remove_filter( 'templatiq_wxr_importer.pre_process.post_meta', [ 'Elementor\Compatibility', 'on_wxr_importer_pre_process_post_meta' ] );
+			remove_filter( 'templatiq_import_post_meta', ['Elementor\Compatibility', 'on_templatiq_import_post_meta'] );
+			remove_filter( 'templatiq_wxr_importer.pre_process.post_meta', ['Elementor\Compatibility', 'on_wxr_importer_pre_process_post_meta'] );
 
-			add_filter( 'templatiq_import_post_meta', [ $this, 'on_templatiq_import_post_meta' ] );
-			add_filter( 'templatiq_wxr_importer.pre_process.post_meta', [ $this, 'on_wxr_importer_pre_process_post_meta' ] );
+			add_filter( 'templatiq_import_post_meta', [$this, 'on_templatiq_import_post_meta'] );
+			add_filter( 'templatiq_wxr_importer.pre_process.post_meta', [$this, 'on_wxr_importer_pre_process_post_meta'] );
 		}
 
 		add_action( 'templatiq_sites_before_delete_imported_posts', [$this, 'force_delete_kit'], 10, 2 );
@@ -43,12 +43,14 @@ class Compatibility {
 	 * Disable the attachment metadata
 	 */
 	public function disable_attachment_metadata() {
-		remove_filter(
-			'wp_update_attachment_metadata', [
-				\Elementor\Plugin::$instance->uploads_manager->get_file_type_handlers( 'svg' ),
-				'set_svg_meta_data',
-			], 10
-		);
+		if ( class_exists( '\Elementor\Plugin' ) ) {
+			remove_filter(
+				'wp_update_attachment_metadata', [
+					\Elementor\Plugin::$instance->uploads_manager->get_file_type_handlers( 'svg' ),
+					'set_svg_meta_data',
+				], 10
+			);
+		}
 	}
 
 	/**
@@ -86,10 +88,10 @@ class Compatibility {
 	 * @return array Updated post meta.
 	 */
 	public function on_templatiq_import_post_meta( $post_meta ) {
-		if( ! is_array( $post_meta ) || empty( $post_meta ) ) {
+		if ( ! is_array( $post_meta ) || empty( $post_meta ) ) {
 			return [];
 		}
-		
+
 		foreach ( $post_meta as &$meta ) {
 			if ( '_elementor_data' === $meta['key'] ) {
 				$meta['value'] = wp_slash( $meta['value'] );
