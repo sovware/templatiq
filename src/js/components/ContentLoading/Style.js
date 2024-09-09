@@ -17,6 +17,7 @@ const ContentLoadingStyle = Styled.div`
             display: block;
             height: 16px;
             width: 100%;
+            text-align: left;
             background: #f6f7f8;
             mask: linear-gradient(-90deg, #000 10%, #0005, #000 70%) right/350% 100%;
             animation: shimmerEffect 2s infinite;
