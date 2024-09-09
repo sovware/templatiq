@@ -147,15 +147,18 @@ const Header = ( props ) => {
 							/>
 						}
 					>
-						<div className="templatiq__header__action__item">
-							<Dropdown
-								className="templatiq__dropdown"
-								dropDownText={__( 'Select Editor', 'templatiq' )}
-								dropDownIcon={ chevronIcon }
-								dropdownList={ editorItems }
-								defaultSelect={ editorItems[ 0 ] }
-							/>
-						</div>
+						{
+							!elementorEditorEnabled &&
+							<div className="templatiq__header__action__item">
+								<Dropdown
+									className="templatiq__dropdown"
+									dropDownText={__( 'Select Editor', 'templatiq' )}
+									dropDownIcon={ chevronIcon }
+									dropdownList={ editorItems }
+									defaultSelect={ editorItems[ 0 ] }
+								/>
+							</div>
+						}
 						
 						<div className="templatiq__content__top__search">
 							<Searchform />

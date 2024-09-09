@@ -18,6 +18,7 @@ const Sidebar = () => {
 	const [expandedGroups, setExpandedGroups] = useState({});
 
 	const [ selectedFilters, setSelectedFilters ] = useState( [] );
+	const [ elementorEditorEnabled, setElementorEditorEnabled ] = useState( false );
 
 	const handleFilter = ( key, type ) => {
 		// Copy the existing selectedFilters array to avoid mutating state directly
@@ -99,6 +100,12 @@ const Sidebar = () => {
 
 	useEffect( () => {
 		setLoading( true );
+		// Check if the 'elementor-editor-active' class is present on the body element
+		const isElementorEditorActive = document.body.classList.contains('elementor-editor-active');
+
+		// Set the state variable based on the presence of Elementor Editor
+		setElementorEditorEnabled( isElementorEditorActive );
+		
 		const data = select( store ).getLibraryData();
 
 		if ( data ) {
@@ -160,62 +167,63 @@ const Sidebar = () => {
 								className="templatiq__sidebar__accordion"
 							>
 								{Object.keys(filterGroups).map((group) => (
-									<AccordionItem
-										initialEntered
-										key={group}
-										header={group.charAt(0).toUpperCase() + group.slice(1)}
-										className="templatiq__sidebar__accordion__single"
-									>
-										<div className="templatiq__sidebar__accordion__item">
-										{filterGroups[group]
-											.slice(0, (expandedGroups[group] ? filterGroups[group].length : 2))
-											.map((item, itemIndex) => (
-											<div
-												key={item.key || itemIndex}
-												className="templatiq__sidebar__filter__single templatiq__checkbox"
-											>
-												<input
-													type="checkbox"
-													id={item.key || itemIndex}
-													className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input"
-													onChange={() => handleFilter(item.key, group)}
-													checked={selectedFilters.some(
-														(filter) => filter.key === item.key && filter.type === group
-													)}
-												/>
-												<label
-													htmlFor={item.key || itemIndex}
-													className="templatiq__sidebar__filter__single__label templatiq__checkbox__label"
+									!(group === 'packs' && elementorEditorEnabled) ?
+										<AccordionItem
+											initialEntered
+											key={group}
+											header={group.charAt(0).toUpperCase() + group.slice(1)}
+											className="templatiq__sidebar__accordion__single"
+										>
+											<div className="templatiq__sidebar__accordion__item">
+											{filterGroups[group]
+												.slice(0, (expandedGroups[group] ? filterGroups[group].length : 2))
+												.map((item, itemIndex) => (
+												<div
+													key={item.key || itemIndex}
+													className="templatiq__sidebar__filter__single templatiq__checkbox"
 												>
-													{item.title}
-												</label>
-												<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">
-													{item.count}
-												</span>
-											</div>
-										))}
-										{filterGroups[group].length > 2 && (
-											<>
-											{expandedGroups[group] ? (
-												<button 
-													className="more"
-													aria-expanded="true"
-													onClick={() => handleShowLess(group)}
-												>
-													Show Less
-												</button>
-											) : (
-												<button 
-													className="more"
-													onClick={() => handleSeeMore(group)}
-												>
-													See More
-												</button>
+													<input
+														type="checkbox"
+														id={item.key || itemIndex}
+														className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input"
+														onChange={() => handleFilter(item.key, group)}
+														checked={selectedFilters.some(
+															(filter) => filter.key === item.key && filter.type === group
+														)}
+													/>
+													<label
+														htmlFor={item.key || itemIndex}
+														className="templatiq__sidebar__filter__single__label templatiq__checkbox__label"
+													>
+														{item.title}
+													</label>
+													<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">
+														{item.count}
+													</span>
+												</div>
+											))}
+											{filterGroups[group].length > 2 && (
+												<>
+												{expandedGroups[group] ? (
+													<button 
+														className="more"
+														aria-expanded="true"
+														onClick={() => handleShowLess(group)}
+													>
+														Show Less
+													</button>
+												) : (
+													<button 
+														className="more"
+														onClick={() => handleSeeMore(group)}
+													>
+														See More
+													</button>
+												)}
+												</>
 											)}
-											</>
-										)}
-										</div>
-									</AccordionItem>
+											</div>
+										</AccordionItem> : null
 								))}
 							</Accordion>
 						</SidebarItemStyle>
