@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) || exit;
  * Description: The Ultimate Templates | Craft beautiful website in no time
  * Author: wpWax
  * Author URI: https://wpwax.com
- * Version: 1.1.0
+ * Version: 1.1.1
  * License: GPLv2 or later
  * Requires PHP: 7.4
  * Text Domain: templatiq
