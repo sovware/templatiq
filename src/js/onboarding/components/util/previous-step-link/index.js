@@ -25,8 +25,8 @@ const PreviousStepLink = ( {
 	};
 	return (
 		<Link
-			before={ before }
-			after={ after }
+			// before={ before }
+			// after={ after }
 			className={ `ist-link
 				${ disabled ? 'disabled' : '' }
 				${ hidden ? 'hidden-btn' : '' }

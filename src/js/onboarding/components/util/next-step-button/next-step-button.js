@@ -22,8 +22,8 @@ const NextStepButton = ( props ) => {
 			large={ large }
 			mb1={ mb1 }
 			ml1={ ml1 }
-			before={ before }
-			after={ after }
+			// before={ before }
+			// after={ after }
 			onClick={ ( event ) => {
 				if ( true !== customizeStep ) {
 					dispatch( {

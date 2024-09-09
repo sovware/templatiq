@@ -37,6 +37,7 @@ const TemplateDetailsStyle = Styled.div`
             margin: 0 0 15px;
             font-size: 16px;
             font-weight: 400;
+            line-height: 1.6;
             text-align: start;
             color: var(--templatiq-body-color);
             &:last-child {
@@ -48,6 +49,7 @@ const TemplateDetailsStyle = Styled.div`
         margin: 0 0 15px;
         font-size: 16px;
         font-weight: 400;
+        line-height: 1.6;
         text-align: start;
         color: var(--templatiq-body-color);
         &:last-child {
