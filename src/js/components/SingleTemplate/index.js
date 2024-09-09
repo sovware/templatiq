@@ -127,6 +127,7 @@ const SingleTemplate = ( item ) => {
 							}
 						/>
 					</div>
+					<div className="templatiq__template__single__info__required"></div>
 				</div>
 			</div>
 			<div className="templatiq__template__single__content">

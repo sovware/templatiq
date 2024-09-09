@@ -1,8 +1,8 @@
 import postData from '@helper/postData';
 import { useEffect, useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 import ReactSVG from 'react-inlinesvg';
 import { InsertTemplateModalStyle } from './style';
-import { __ } from '@wordpress/i18n';
 
 import closeIcon from '@icon/close.svg';
 
@@ -253,13 +253,13 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 								<h2 className="templatiq__modal__title">
 									{ !allPluginsInstalled
 										? __( 'Required Plugins' , 'templatiq' )
-										: directoryType?.length > 1 && !submittedTypes?.length > 0 && !elementorEditorEnabled 
+										: directoryType?.length > 1 && !submittedTypes?.length > 0 && !elementorEditorEnabled && !(directory_page_type === "none" || directory_page_type === "")
 										? __( 'Available Directory Type', 'templatiq' )
 										: elementorEditorEnabled
 										? __( 'Importing...', 'templatiq' )
 										: __( 'Enter Page Title' , 'templatiq' ) }
 								</h2>
-								{ allPluginsInstalled && !directoryType?.length > 1 && !elementorEditorEnabled ? (
+								{ allPluginsInstalled && !directoryType?.length > 1 && !elementorEditorEnabled && !(directory_page_type === "none" || directory_page_type === "") ? (
 									<p className="templatiq__modal__desc">
 										{__( 'To import this item you need to install all the Plugin listed below.', 'templatiq' )}
 									</p>
@@ -379,7 +379,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 												) 
 											}
 										</div>
-									) : directoryType?.length > 1 && ! submittedTypes?.length > 0 && ! elementorEditorEnabled ? (
+									) : directoryType?.length > 1 && ! submittedTypes?.length > 0 && ! elementorEditorEnabled && !(directory_page_type === "none" || directory_page_type === "") ? (
 										<>
 											<p className="templatiq__modal__desc">
 												{__( "Choose the directories where you'd like to include this page. You can choose multiple directories.", 'templatiq' )}
@@ -490,7 +490,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 												{__( "Cancel", 'templatiq' )}
 											</button>
 										</>
-									) : ! submittedTypes?.length && directoryType?.length > 1 && !elementorEditorEnabled ? (
+									) : ! submittedTypes?.length && directoryType?.length > 1 && !elementorEditorEnabled && !(directory_page_type === "none" || directory_page_type === "") ? (
 										<button
 											disabled={ disableButtonType }
 											className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-success"
