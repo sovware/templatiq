@@ -8,9 +8,8 @@
 namespace Templatiq\FullTemplate;
 
 use Templatiq\Abstracts\EnqueuerBase;
-use Templatiq\Repositories\DependencyRepository;
 use Templatiq\FullTemplate\Helper;
-
+use Templatiq\Repositories\DependencyRepository;
 
 class Enqueuer extends EnqueuerBase {
 
@@ -49,9 +48,10 @@ class Enqueuer extends EnqueuerBase {
 		];
 
 		$script_dep = array_merge( $script_info['dependencies'], ['updates', 'wp-hooks'] );
+		$script_ver = $script_info['version'];
 
-		$this->enqueue_script( 'templatiq-onboarding', '/js/onboarding.js', $script_dep );
-		$this->enqueue_style( 'templatiq-onboarding', '/js/style-onboarding.css' );
+		$this->enqueue_script( 'templatiq-onboarding', '/js/onboarding.js', $script_dep, true, $script_ver );
+		$this->enqueue_style( 'templatiq-onboarding', '/js/style-onboarding.css', [], $script_ver );
 
 		wp_localize_script(
 			'templatiq-onboarding', 'wpApiSettings',
@@ -96,7 +96,7 @@ class Enqueuer extends EnqueuerBase {
 			'nonce'             => wp_create_nonce( 'templatiq-sites-set-ai-site-data' ),
 			'restNonce'         => wp_create_nonce( 'wp_rest' ),
 			'retryTimeOut'      => 5000, // 10 Seconds.
-			'siteUrl'           => get_site_url(),
+			'siteUrl' => get_site_url(),
 			'searchData'        => TEMPLATIQ_API_ENDPOINT . 'wp-json/templatiq-library/v1/ist-data',
 			'firstImportStatus' => get_option( 'templatiq_full_template_import_complete', false ),
 			'supportLink'       => 'https://templatiq.com/templatiq-library-support/?ip=' . Helper::get_client_ip(),
@@ -157,7 +157,7 @@ class Enqueuer extends EnqueuerBase {
 		$data = apply_filters(
 			'templatiq_sites_localize_vars',
 			[
-				'themeStatus'						 => $themeStatus,
+				'themeStatus'                        => $themeStatus,
 				'debug'                              => defined( 'WP_DEBUG' ) ? true : false,
 				'isPro'                              => defined( 'TEMPLATIQ_PRO_SITES_NAME' ) ? true : false,
 				'ajaxurl'                            => esc_url( admin_url( 'admin-ajax.php' ) ),

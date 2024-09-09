@@ -180,18 +180,6 @@ export const setSiteLogo = async ( logo ) => {
 	} );
 };
 
-export const importPersonaWise = async ( selectedValues ) => {
-	const data = new FormData();
-	data.append( 'action', 'templatiq_sites_import_content_persona_wise' );
-	data.append( 'import_data', JSON.stringify( selectedValues ) );
-	data.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
-
-	await fetch( ajaxurl, {
-		method: 'post',
-		body: data,
-	} );
-};
-
 export const divideIntoChunks = ( chunkSize, inputArray ) => {
 	const values = Object.keys( inputArray );
 	const final = [];

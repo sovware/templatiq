@@ -1250,7 +1250,8 @@ const ImportSite = () => {
 				percentage += 5;
 
 				const personaSaved = await importPersonaWise(importPersonaData);
-				if (personaSaved) {					
+				if (personaSaved) {			
+					console.log('personaSaved : ', personaSaved );		
 					dispatch({
 						type: 'set',
 						importStart: true,
@@ -1267,7 +1268,6 @@ const ImportSite = () => {
 					installRequiredPlugins();
 				}
 			}
-	
 		};
 	
 		// Call the async function
