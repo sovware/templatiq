@@ -74,7 +74,7 @@ export default function SignInContent() {
 
 	return (
 		<AuthStyle className="templatiq__auth">
-			<h3 className="templatiq__auth__title">Sign in to your account</h3>
+			<h3 className="templatiq__auth__title">Sign in to your templatiq.com account</h3>
 			<form className="templatiq__auth__wrapper" onSubmit={ handleData }>
 				<div className="templatiq__auth__info">
 					<div className="templatiq__auth__info__single">
