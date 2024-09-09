@@ -28,8 +28,6 @@ class ImporterRepository {
 			);
 		}
 
-		error_log( '$template_data: ' . print_r( $template_data, true ) );
-
 		if ( isset( $template_data['message'] ) ) {
 			throw new \Exception(
 				esc_html( $template_data['message'] ),
@@ -41,11 +39,7 @@ class ImporterRepository {
 
 		$DTO->set_template_data( $template_data );
 
-		$inserted_id = apply_filters(
-			'templatiq_import_as_page_created_post_id',
-			0,
-			$DTO
-		);
+		$inserted_id = apply_filters( 'templatiq_import_as_page_created_post_id', 0, $DTO );
 
 		if ( is_wp_error( $inserted_id ) ) {
 			throw new \Exception(

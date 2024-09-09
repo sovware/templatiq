@@ -20,6 +20,7 @@ class ImportAsPage extends ElementorLocal {
 	}
 
 	public function import_as_page( $page_id, ImportAsPageDTO $DTO ) {
+
 		if ( 'elementor' !== $DTO->get_builder() ) {
 			return;
 		}
