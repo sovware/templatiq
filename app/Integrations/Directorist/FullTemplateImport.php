@@ -52,17 +52,16 @@ class FullTemplateImport {
 	}
 
 	public function set_directory_type_term( $term_id, $data ) {
-
 		if ( isset( $data['taxonomy'] ) && ( 'at_biz_dir-location' === $data['taxonomy'] || 'at_biz_dir-category' === $data['taxonomy'] ) ) {
 			// $_pre_types = get_term_meta( $term_id, '_directory_type', true );
 			// error_log( '$_pre_types: ' . print_r( $_pre_types, true ) );
 
-			$types = array_values( get_option( 'templatiq_sites_directory_types_ids_mapping', true ) );
-			update_term_meta( $term_id, '_directory_type', $types );
-			// wp_set_object_terms( $term_id, $value, 'atbdp_listing_types' );
-
+			$types = get_option( 'templatiq_sites_directory_types_ids_mapping', [] );
+			if ( $types ) {
+				update_term_meta( $term_id, '_directory_type', array_values( $types ) );
+				// wp_set_object_terms( $term_id, $value, 'atbdp_listing_types' );
+			}
 		}
-
 	}
 
 	public function set_directory_type( $meta_item, $post_id ) {
