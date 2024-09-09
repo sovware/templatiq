@@ -41,11 +41,21 @@ const MediaUploader = () => {
 
 	function sendMessageToIframe(data) {
 		var iframe = document.getElementById('templatiq-library-preview');
+
+		// Extract the current src of the iframe
+		var iframeSrc = iframe.src;
+
+		// Determine the origin from the iframe src
+		// Extracts the base URL (protocol + hostname)
+		var url = new URL(iframeSrc);
+		var origin = url.origin;
+
 		var message = {
 			type: 'logoUpdate',
 			logo: data
 		};
-		iframe.contentWindow.postMessage(message, 'https://demo.templatiq.com/');
+
+		iframe.contentWindow.postMessage(message, origin);
 	}
 
 	const updateValues = ( data ) => {

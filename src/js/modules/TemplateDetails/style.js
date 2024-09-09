@@ -216,6 +216,7 @@ const TemplateDetailsWidgetStyle = Styled.div`
         flex-direction: column;
         &.required-plugins {
             gap: 12px;
+            padding-inline-end: 25px;
         }
     }
     .templatiq__details__widget__content__title {
