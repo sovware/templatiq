@@ -506,6 +506,12 @@ button {
 .elementor-templates-modal .dialog-message {
   background: var(--templatiq-white-color);
 }
+#tmTemplateLibrary__modal .dialog-message {
+  padding: 0;
+}
+#tmTemplateLibrary__modal .dialog-buttons-wrapper {
+  display: none;
+}
 .image-loader {
   position: absolute;
   top: 50%;
