@@ -63,18 +63,35 @@ export default function AllTemplates( props ) {
 
 	const searchFilteredTemplates = () => {
 		const newFilteredTemplates =
-			allTemplates &&
-			allTemplates.filter( ( template ) =>
+			filteredTemplates &&
+			filteredTemplates.filter( ( template ) =>
 				template.title
 					.toLowerCase()
 					.includes( searchValue.toLowerCase() )
 			);
 
 		// Update the state with the filtered templates
-		setFilteredTemplates( newFilteredTemplates );
+		setDefaultTemplates( newFilteredTemplates );
+		setProTemplates(
+			newFilteredTemplates.filter( ( template ) => template.price > 0 )
+		);
+		setFreeTemplates(
+			newFilteredTemplates.filter( ( template ) => template.price <= 0 )
+		);
 
 		return newFilteredTemplates;
 	};
+
+	const resetFilteredTemplates = () => {
+		setFilteredTemplates( allTemplates );
+		setDefaultTemplates( allTemplates );
+		setProTemplates(
+			allTemplates.filter( ( template ) => template.price > 0 )
+		);
+		setFreeTemplates(
+			allTemplates.filter( ( template ) => template.price <= 0 )
+		);
+	}
 
 	const filterPluginTemplates = () => {
 		// Filter templates based on filterValue
@@ -159,7 +176,7 @@ export default function AllTemplates( props ) {
 	useEffect( () => {
 		filterValue && filterValue.length > 0
 			? filterPluginTemplates()
-			: searchFilteredTemplates();
+			: resetFilteredTemplates();
 	}, [ filterValue, userFav ] );
 
 	useEffect( () => {
@@ -183,8 +200,6 @@ export default function AllTemplates( props ) {
 
 			setTotalPaginate( filteredTemplates.length );
 
-			// filteredTemplates.length > 0 ? setIsEmpty(false) : setIsEmpty(true);
-
 			if ( filteredTemplates.length ) {
 				setIsEmpty( false );
 			} else {
@@ -195,6 +210,10 @@ export default function AllTemplates( props ) {
 
 				// Cleanup the delay timeout
 				return () => clearTimeout( delayTimeoutId );
+			}
+
+			if (searchValue) {
+				searchFilteredTemplates();
 			}
 		}
 		handlePaginateReset();
