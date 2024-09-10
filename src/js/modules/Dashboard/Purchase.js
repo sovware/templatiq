@@ -7,6 +7,7 @@ import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 import { TemplatePackStyle } from '@root/style';
+import { Link } from 'react-router-dom';
 import { DashboardItemsStyle } from './style';
 
 export default function MyPurchaseModule() {
@@ -62,8 +63,12 @@ export default function MyPurchaseModule() {
 	
 		return (
 			<div className="templatiq__content__dashboard__single">
-				<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name">
-					<span
+				<Link 
+					to={`/template/${item.slug}`} 
+					className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name"
+				>
+					<span 
+						to={`/template/${item.slug}`} 
 						className={`templatiq__content__dashboard__item__img ${!isImageLoaded ? "loading" : ""}`}
 					>
 						<img
@@ -80,7 +85,7 @@ export default function MyPurchaseModule() {
 					<span className="templatiq__content__dashboard__item__title">
 						{item.title}
 					</span>
-				</div>
+				</Link>
 				<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--type">
 					<span className="templatiq__content__dashboard__item__text">
 						{item.type}
