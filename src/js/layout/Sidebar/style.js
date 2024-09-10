@@ -1,4 +1,3 @@
-import chevronIcon from '@icon/chevron-down-solid.svg';
 import Styled from 'styled-components';
 
 const SidebarStyle = Styled.div`
@@ -10,8 +9,8 @@ const SidebarStyle = Styled.div`
         display: flex;
         gap: 5px 30px;
         justify-content: space-between;
-        padding: 30px 40px 25px;
-        border-bottom: 1px solid var(--templatiq-section-color2);
+        padding: 30px 20px 25px;
+        border-bottom: 1px solid #EAECF0;
         .templatiq__sidebar__top__title {
             display: flex;
             gap: 10px;
@@ -48,21 +47,28 @@ const SidebarStyle = Styled.div`
 const SidebarItemStyle = Styled.div`
     display: flex;
     gap: 15px;
-    padding: 0 40px;
     flex-direction: column;
     
     .templatiq__sidebar__accordion {    
         display: flex;
-        gap:32px;
+        gap:20px;
         flex-direction: column;
+    }
+    .templatiq__sidebar__accordion__single {
+        padding: 0 20px 20px;
+        border-bottom: 1px solid #EAECF0;
+        &:last-child {
+            border-bottom: none;
+        }
     }
     .templatiq__sidebar__accordion__item {
         text-align: left;
     }
-    .szh-accordion__item-btn {
+    .templatiq__sidebar__accordion__heading {
         position: relative;
         width: 100%;
         padding: 0;
+        margin: 0 0 20px;
         text-align: start;
         font-size: 16px;
         font-weight: 700;
@@ -70,23 +76,8 @@ const SidebarItemStyle = Styled.div`
         color: var(--templatiq-body-color);
         background: transparent;
         cursor: pointer;
-        &:before {
-            content: '';
-            position: absolute;
-            inset-inline-end: 0;
-            top: 2px;
-            width: 12px;
-            height: 12px;
-            background: url(${ chevronIcon }) no-repeat center center;
-            background-size: 12px;
-            opacity: 0.5;
-            transition: transform 0.3s ease;
-        }
         &[aria-expanded="true"] {
             margin: 0 0 20px;
-            &:before {
-                transform: rotate(180deg);
-            }
         }
     }
 

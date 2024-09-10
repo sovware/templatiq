@@ -7,7 +7,6 @@ import store from '@store/index';
 import { SidebarItemStyle, SidebarStyle } from './style';
 
 import ContentLoading from '@components/ContentLoading';
-import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 
 import filterIcon from '@icon/filter.svg';
 
@@ -160,23 +159,21 @@ const Sidebar = () => {
 					</div>
 					<div className="templatiq__sidebar__wrapper">	
 						<SidebarItemStyle className="templatiq__sidebar__filter templatiq__sidebar__plugins">
-							<Accordion
-								allowMultiple
-								transition
-								transitionTimeout={250}
+							<div
 								className="templatiq__sidebar__accordion"
 							>
 								{Object.keys(filterGroups).map((group) => (
 									!(group === 'packs' && elementorEditorEnabled) ?
-										<AccordionItem
-											initialEntered
-											key={group}
-											header={group.charAt(0).toUpperCase() + group.slice(1)}
+										<div
 											className="templatiq__sidebar__accordion__single"
 										>
+											<h3 className="templatiq__sidebar__accordion__heading">
+												{group.charAt(0).toUpperCase() + group.slice(1)}
+											</h3>
+
 											<div className="templatiq__sidebar__accordion__item">
 											{filterGroups[group]
-												.slice(0, (expandedGroups[group] ? filterGroups[group].length : 2))
+												.slice(0, (expandedGroups[group] ? filterGroups[group].length : 5))
 												.map((item, itemIndex) => (
 												<div
 													key={item.key || itemIndex}
@@ -202,7 +199,7 @@ const Sidebar = () => {
 													</span>
 												</div>
 											))}
-											{filterGroups[group].length > 2 && (
+											{filterGroups[group].length > 5 && (
 												<>
 												{expandedGroups[group] ? (
 													<button 
@@ -223,9 +220,9 @@ const Sidebar = () => {
 												</>
 											)}
 											</div>
-										</AccordionItem> : null
+										</div> : null
 								))}
-							</Accordion>
+							</div>
 						</SidebarItemStyle>
 					</div>
 				</>

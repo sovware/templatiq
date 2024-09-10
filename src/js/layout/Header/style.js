@@ -13,7 +13,7 @@ const HeaderStyle = Styled.div`
         flex: 0 0 324px;
         max-width: 324px;
         text-align: start;
-        margin-inline-start: 24px;
+        margin-inline-start: 20px;
         img {
             max-width: 100%;
         }
