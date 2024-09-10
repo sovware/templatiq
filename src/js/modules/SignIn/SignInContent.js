@@ -56,7 +56,7 @@ export default function SignInContent() {
 					// Dispatch the action to update the login status in the store
 					dispatch( store ).setUserInfo( updatedUserInfo );
 	
-					navigate( '/dashboard/favorites' );
+					navigate( '/dashboard/purchase' );
 				} else {
 					setLoading( false );
 				} 

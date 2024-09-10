@@ -10,7 +10,7 @@ const AuthLayout = ( { children } ) => {
 	useEffect( () => {
 		const { isLoggedIn } = select( store ).getUserInfo();
 		if ( isLoggedIn ) {
-			navigate( '/dashboard/favorites' );
+			navigate( '/dashboard/purchase' );
 		}
 	}, [] );
 
