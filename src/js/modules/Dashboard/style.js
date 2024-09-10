@@ -156,9 +156,10 @@ const DashboardItemsStyle = Styled.div`
         }
         &:first-child {
             padding-inline-start: 12px;
-            flex: 0 0 40%;
+            flex: 0 0 35%;
         }
         &:last-child  {
+            flex: 1;
             justify-content: flex-end;
             padding-inline-end: 20px;
         }

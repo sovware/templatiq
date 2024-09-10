@@ -1,6 +1,5 @@
 import ContentLoading from '@components/ContentLoading';
 import InsertTemplate from '@components/InsertTemplate';
-import Searchform from '@components/Searchform';
 import DashboardLayout from '@layout/DashboardLayout';
 import store from '@store/index';
 import { select, subscribe } from '@wordpress/data';
@@ -159,7 +158,7 @@ export default function MyPurchaseModule() {
 							</div>
 							<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
 								<span className="templatiq__content__dashboard__item__header">
-									{__( 'Downloaded Date', 'templatiq' )}
+									{__( 'Purchased Date', 'templatiq' )}
 								</span>
 							</div>
 							<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--insert">
