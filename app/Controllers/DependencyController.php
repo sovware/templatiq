@@ -34,7 +34,7 @@ class DependencyController extends ControllerBase {
 				->set_name( $plugin['name'] )
 				->set_file_name( $plugin['file_name'] )
 				->set_slug( $plugin['slug'] )
-				->set_is_pro( $plugin['is_pro'] );
+				->set_is_pro( $plugin['is_pro'] ?? false );
 
 			$pluginDTOs[] = $pluginDTO;
 		}
