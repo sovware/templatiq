@@ -342,6 +342,11 @@ button {
         cursor: not-allowed;
       }
     }
+    &[readonly] {
+      ~ .templatiq__checkbox__label {
+        cursor: not-allowed;
+      }
+    }
   }
   .templatiq__checkbox__label {
     flex: 1;

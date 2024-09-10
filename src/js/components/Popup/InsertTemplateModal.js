@@ -32,7 +32,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	const [ installablePlugins, setInstallablePlugins ] = useState( freePlugins || [] );
 	const [ installingPlugins, setInstallingPlugins ] = useState( [] );
 	const [ installedPlugins, setInstalledPlugins ] = useState( [] );
-	const [ disableButtonInstall, setDisableButtonInstall ] = useState( true );
+	const [ disableButtonInstall, setDisableButtonInstall ] = useState( false );
 
 	const [ allPluginsInstalled, setAllPluginsInstalled ] = useState( true );
 	const [ importedData, setImportedData ] = useState( false );
@@ -54,13 +54,14 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	};
 
 	const handlePluginChange = ( plugin ) => {
+		console.log( 'plugin', plugin );
 		const updatedPlugins = selectedPlugins.includes( plugin )
 			? selectedPlugins.filter( ( item ) => item !== plugin )
 			: [ ...selectedPlugins, plugin ];
 
 		setSelectedPlugins( updatedPlugins );
 
-		setDisableButtonInstall( updatedPlugins?.length === 0 );
+		// setDisableButtonInstall( updatedPlugins?.length === 0 );
 
 		return updatedPlugins;
 	};
@@ -80,7 +81,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	const handlePopUpForm = async ( e ) => {
 		e.preventDefault();
 
-		for ( const plugin of selectedPlugins ) {
+		for ( const plugin of installablePlugins ) {
 			// Install current plugin
 			await installPlugin( plugin );
 		}
@@ -106,11 +107,11 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 							...prevInstalled,
 							plugin.slug,
 						] );
-						setSelectedPlugins(
-							selectedPlugins.filter(
-								( selected ) => selected.slug !== plugin.slug
-							)
-						);
+						// setSelectedPlugins(
+						// 	selectedPlugins.filter(
+						// 		( selected ) => selected.slug !== plugin.slug
+						// 	)
+						// );
 						resolve( res ); // Resolve the Promise when installation is successful
 					} else {
 						reject( new Error( 'Installation failed' ) ); // Reject the Promise if installation fails
@@ -294,16 +295,18 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 																	}
 																	type="checkbox"
 																	className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
-																	onChange={ () =>
-																		handlePluginChange(
-																			plugin
-																		)
-																	}
-																	checked={selectedPlugins.includes(plugin)}
-																	disabled={
-																		currentInstalling ||
-																		installStatus !== ''
-																	}
+																	checked
+																	readOnly
+																	// onChange={ () =>
+																	// 	handlePluginChange(
+																	// 		plugin
+																	// 	)
+																	// }
+																	// checked={selectedPlugins.includes(plugin)}
+																	// disabled={
+																	// 	currentInstalling ||
+																	// 	installStatus !== ''
+																	// }
 																/>
 
 																<label
