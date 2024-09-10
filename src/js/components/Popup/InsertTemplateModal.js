@@ -186,9 +186,10 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 			},
 			complete: function ( data ) {
 				closeInsertTemplateModal()
-				setTimeout( () => {
-					// document.getElementById('tmTemplateLibrary__modal').style.display = 'none';
-				}, 300);
+				const elementorEditorModal = document.getElementById('tmTemplateLibrary__modal');
+				if (elementorEditorModal) {
+					elementorEditorModal.style.display = 'none';
+				}
 			},
 		} );
 	};
