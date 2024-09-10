@@ -11,7 +11,7 @@ class Config {
 
 	public static function get( string $name ): string {
 		$config = [
-			'version'     => '1.1.1',
+			'version'     => '1.1.2',
 			'environment' => 'production',
 			'could_base'  => 'https://templatiq.com/wp-json/cloud',
 		];
