@@ -1,8 +1,8 @@
 import postData from '@helper/postData';
 import { AuthStyle } from '@root/style';
 import { useEffect, useState } from '@wordpress/element';
-import { Link, useNavigate } from 'react-router-dom';
 import { __ } from '@wordpress/i18n';
+import { Link, useNavigate } from 'react-router-dom';
 
 import store from '@store/index';
 import { select } from '@wordpress/data';
@@ -54,7 +54,7 @@ export default function SignUpContent({ setIsSignedUp }) {
 	};
 
 	useEffect( () => {
-		isLoggedIn && navigate( '/dashboard/favorites' );
+		isLoggedIn && navigate( '/dashboard/purchase' );
 	}, [] );
 
 	return (

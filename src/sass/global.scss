@@ -342,6 +342,11 @@ button {
         cursor: not-allowed;
       }
     }
+    &[readonly] {
+      ~ .templatiq__checkbox__label {
+        cursor: not-allowed;
+      }
+    }
   }
   .templatiq__checkbox__label {
     flex: 1;
@@ -505,6 +510,12 @@ button {
 
 .elementor-templates-modal .dialog-message {
   background: var(--templatiq-white-color);
+}
+#tmTemplateLibrary__modal .dialog-message {
+  padding: 0;
+}
+#tmTemplateLibrary__modal .dialog-buttons-wrapper {
+  display: none;
 }
 .image-loader {
   position: absolute;

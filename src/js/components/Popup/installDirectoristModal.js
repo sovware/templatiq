@@ -1,8 +1,8 @@
 import postData from '@helper/postData';
 import { useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 import ReactSVG from 'react-inlinesvg';
 import { InsertTemplateModalStyle } from './style';
-import { __ } from '@wordpress/i18n';
 
 import checkIcon from '@icon/check.svg';
 import closeIcon from '@icon/close.svg';
@@ -34,6 +34,7 @@ const InstallDirectoristModal = ( { onClose, install_directorist } ) => {
 		setInstallingPlugin(true);
 		postData( installPluginEndPoint, { plugin } ).then( ( res ) => {
 			setInstallingPlugin(false);
+			console.log( 'installDirectorist', res );
 			if ( res.success ) {
 				setInstalledPlugin(true);
 				setTimeout( () => {

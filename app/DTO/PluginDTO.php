@@ -6,6 +6,7 @@
  */
 
 namespace Templatiq\DTO;
+
 use Templatiq\Abstracts\DTOBase;
 
 class PluginDTO extends DTOBase {

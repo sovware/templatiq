@@ -56,6 +56,9 @@ const SidebarItemStyle = Styled.div`
         gap:32px;
         flex-direction: column;
     }
+    .templatiq__sidebar__accordion__item {
+        text-align: left;
+    }
     .szh-accordion__item-btn {
         position: relative;
         width: 100%;

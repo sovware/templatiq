@@ -245,6 +245,10 @@ const InsertTemplateModalStyle = Styled.div`
             }
         }
     }
+    .templatiq__modal__plugin__type {
+        font-weight: 600;
+        color: var(--templatiq-danger-color);
+    }
     
 `;
 

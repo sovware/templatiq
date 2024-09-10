@@ -23,6 +23,7 @@ import backIcon from '@icon/arrow-left.svg';
 import chevronIcon from '@icon/chevron-down-solid.svg';
 import elementorIcon from '@icon/elementor.svg';
 import gutenbergIcon from '@icon/gutenberg.svg';
+import bricksIcon from '@icon/gutenberg.svg';
 
 import Searchform from '@components/Searchform';
 import cartIcon from '@icon/cart.svg';
@@ -64,6 +65,12 @@ const Header = ( props ) => {
 		{
 			icon: gutenbergIcon,
 			text: __( 'Block Editor', 'templatiq' ),
+			url: '#',
+			type: 'upcoming'
+		},
+		{
+			icon: bricksIcon,
+			text: __( 'Bricks Builder', 'templatiq' ),
 			url: '#',
 			type: 'upcoming'
 		},
@@ -147,15 +154,18 @@ const Header = ( props ) => {
 							/>
 						}
 					>
-						<div className="templatiq__header__action__item">
-							<Dropdown
-								className="templatiq__dropdown"
-								dropDownText={__( 'Select Editor', 'templatiq' )}
-								dropDownIcon={ chevronIcon }
-								dropdownList={ editorItems }
-								defaultSelect={ editorItems[ 0 ] }
-							/>
-						</div>
+						{
+							!elementorEditorEnabled &&
+							<div className="templatiq__header__action__item">
+								<Dropdown
+									className="templatiq__dropdown"
+									dropDownText={__( 'Select Editor', 'templatiq' )}
+									dropDownIcon={ chevronIcon }
+									dropdownList={ editorItems }
+									defaultSelect={ editorItems[ 0 ] }
+								/>
+							</div>
+						}
 						
 						<div className="templatiq__content__top__search">
 							<Searchform />

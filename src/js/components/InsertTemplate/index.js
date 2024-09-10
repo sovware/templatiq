@@ -3,8 +3,8 @@ import postData from '@helper/postData';
 import store from '@store/index';
 import { select } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
-import ReactSVG from 'react-inlinesvg';
 import { __ } from '@wordpress/i18n';
+import ReactSVG from 'react-inlinesvg';
 
 import InsertFullTemplateModal from '@components/Popup/insertFullTemplateModal';
 import InsertProModal from '@components/Popup/insertProModal';
@@ -63,6 +63,8 @@ const InsertTemplate = ({
 		setIsPurchased(isItemPurchased(template_id));
 		setIsUnlocked(isItemUnlocked(template_id));
 
+		await handlePlugins(validPlugins);
+
 		if (insertFullTemplate) {
 			isPro && !isItemPurchased(template_id) && !isItemUnlocked(template_id) ?
 				renderModal()
@@ -73,7 +75,7 @@ const InsertTemplate = ({
 			renderModal();
 		} else {
 			try {
-				await handlePlugins(validPlugins);
+				// await handlePlugins(validPlugins);
 				renderModal();
 			} catch (error) {
 				// Handle error if needed
@@ -101,12 +103,9 @@ const InsertTemplate = ({
 
 	const handlePlugins = async (plugins) => {
 		const data = await postData(dependencyCheckEndPoint, { plugins });
+		console.log('dependencyCheckEndPoint:', data);
 		setRequiredPlugins(data);
 	};
-
-	useEffect(() => {
-		handlePlugins(validPlugins);
-	}, []);
 
 	useEffect(() => {
 		if (is_directorist_required) {
