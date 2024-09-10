@@ -23,6 +23,7 @@ const SingleTemplate = ( item ) => {
 		number_of_downloads,
 		categories,
 		required_plugins,
+		bgClass,
 	} = item;
 
 	const { purchased, unlocked } = select(store).getUserInfo();
@@ -55,7 +56,7 @@ const SingleTemplate = ( item ) => {
 
 	return (
 		<SingleTemplateStyle
-			className="templatiq__template__single"
+			className={`templatiq__template__single ${bgClass}`}
 			ref={ templateRef }
 		>
 			<div className="templatiq__template__single__img">

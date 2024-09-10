@@ -1,6 +1,5 @@
 import ContentLoading from '@components/ContentLoading';
 import InsertTemplate from '@components/InsertTemplate';
-import Searchform from '@components/Searchform';
 import DashboardLayout from '@layout/DashboardLayout';
 import store from '@store/index';
 import { select, subscribe } from '@wordpress/data';
@@ -8,6 +7,7 @@ import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 import { TemplatePackStyle } from '@root/style';
+import { Link } from 'react-router-dom';
 import { DashboardItemsStyle } from './style';
 
 export default function MyPurchaseModule() {
@@ -63,8 +63,12 @@ export default function MyPurchaseModule() {
 	
 		return (
 			<div className="templatiq__content__dashboard__single">
-				<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name">
-					<span
+				<Link 
+					to={`/template/${item.slug}`} 
+					className="templatiq__content__dashboard__item templatiq__content__dashboard__item--name"
+				>
+					<span 
+						to={`/template/${item.slug}`} 
 						className={`templatiq__content__dashboard__item__img ${!isImageLoaded ? "loading" : ""}`}
 					>
 						<img
@@ -81,7 +85,7 @@ export default function MyPurchaseModule() {
 					<span className="templatiq__content__dashboard__item__title">
 						{item.title}
 					</span>
-				</div>
+				</Link>
 				<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--type">
 					<span className="templatiq__content__dashboard__item__text">
 						{item.type}
@@ -159,7 +163,7 @@ export default function MyPurchaseModule() {
 							</div>
 							<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--date">
 								<span className="templatiq__content__dashboard__item__header">
-									{__( 'Downloaded Date', 'templatiq' )}
+									{__( 'Purchased Date', 'templatiq' )}
 								</span>
 							</div>
 							<div className="templatiq__content__dashboard__item templatiq__content__dashboard__item--insert">

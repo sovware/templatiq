@@ -5,18 +5,24 @@ const SingleTemplateStyle = Styled.div`
     gap: 20px;
     flex-direction: column;
     background: var(--templatiq-white-color);
-    padding: 20px 20px 24px;
-    border-radius: 16px;
+    padding: 8px;
+    border-radius: 20px;
     box-shadow: var(--templatiq-box-shadow);
     .templatiq__template__single__img {
         display: flex;
         position: relative;
-        border-radius: 12px;
-        min-height: 150px;
+        min-height: 312px;
+        background: var(--templatiq-primary-100);
+        padding: 20px 20px 0;
+        border-radius: 16px;
         img {
             width: 100%;
-            border-radius: 12px;
+            border-radius: 12px 12px 0 0;
         }
+    }
+    
+    .templatiq__template__single__content {
+        padding: 0 12px 16px;
     }
 
     .templatiq__template__single__overlay {
@@ -36,20 +42,20 @@ const SingleTemplateStyle = Styled.div`
             top: 0;
             left: 0;
             background: #00000070;
-            border-radius: 12px;
+            border-radius: 16px;
         }
     }
     .templatiq__template__single__info {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        padding: 16px;
+        padding: 20px;
         position: absolute;
         width: 100%;
         height: 100%;
         top: 0;
         left: 0;
-        border-radius: 12px;
+        border-radius: 16px;
         box-sizing: border-box;
     }
 
@@ -327,6 +333,37 @@ const SingleTemplateStyle = Styled.div`
                 opacity: 1;
                 visibility: visible;
             }
+        }
+    }
+
+    &.background-1 {
+        .templatiq__template__single__img {
+            background: #D444F120;
+        }
+    }
+    &.background-2 {
+        .templatiq__template__single__img {
+            background: #6C3AF820;
+        }
+    }
+    &.background-3 {
+        .templatiq__template__single__img {
+            background: #00A96320;
+        }
+    }
+    &.background-4 {
+        .templatiq__template__single__img {
+            background: #009AE520;
+        }
+    }
+    &.background-5 {
+        .templatiq__template__single__img {
+            background: #FF9E2F20;
+        }
+    }
+    &.background-6 {
+        .templatiq__template__single__img {
+            background: #FB3D3820;
         }
     }
 `;

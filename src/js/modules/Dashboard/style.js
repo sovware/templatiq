@@ -1,4 +1,3 @@
-import chevronIcon from '@icon/chevron-down-solid.svg';
 import Styled from 'styled-components';
 
 const DashboardStyle = Styled.div`
@@ -103,33 +102,16 @@ const SidebarItemStyle = Styled.div`
         gap: 25px;
         flex-direction: column;
     }
-    .szh-accordion__item-heading {
-        font-size: 14px;
-        font-weight: 500;
-    }
-    .szh-accordion__item-btn {
+    .templatiq__sidebar__accordion__heading {
         position: relative;
         width: 100%;
         padding: 0;
+        margin: 0 0 20px;
         text-align: start;
         background: transparent;
         cursor: pointer;
-        &:before {
-            content: '';
-            position: absolute;
-            inset-inline-end: 0;
-            top: 2px;
-            width: 14px;
-            height: 14px;
-            background: url(${ chevronIcon }) no-repeat center center;
-            background-size: 14px;
-            transition: transform 0.3s ease;
-        }
         &[aria-expanded="true"] {
             margin: 0 0 20px;
-            &:before {
-                transform: rotate(180deg);
-            }
         }
     }
 `;
@@ -174,9 +156,10 @@ const DashboardItemsStyle = Styled.div`
         }
         &:first-child {
             padding-inline-start: 12px;
-            flex: 0 0 40%;
+            flex: 0 0 35%;
         }
         &:last-child  {
+            flex: 1;
             justify-content: flex-end;
             padding-inline-end: 20px;
         }

@@ -169,7 +169,7 @@ const InsertTemplate = ({
 					width={14}
 					height={14}
 				/>
-				{type !== 'pack' ? (innerText ? innerText :  __( 'Insert', 'templatiq' ) ) :  __( 'Insert Full Template', 'templatiq' )}
+				{innerText ? innerText :  __( 'Insert', 'templatiq' )}
 			</button>
 		</>
 	);
