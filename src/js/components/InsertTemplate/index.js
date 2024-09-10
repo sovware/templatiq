@@ -63,6 +63,8 @@ const InsertTemplate = ({
 		setIsPurchased(isItemPurchased(template_id));
 		setIsUnlocked(isItemUnlocked(template_id));
 
+		await handlePlugins(validPlugins);
+
 		if (insertFullTemplate) {
 			isPro && !isItemPurchased(template_id) && !isItemUnlocked(template_id) ?
 				renderModal()
@@ -73,7 +75,7 @@ const InsertTemplate = ({
 			renderModal();
 		} else {
 			try {
-				await handlePlugins(validPlugins);
+				// await handlePlugins(validPlugins);
 				renderModal();
 			} catch (error) {
 				// Handle error if needed

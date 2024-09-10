@@ -102,6 +102,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 			const installResponse = await new Promise( ( resolve, reject ) => {
 				postData( installPluginEndPoint, { plugin } ).then( ( res ) => {
 					setLoading( false );
+					console.log( 'installResponse', res );
 					if ( res.success ) {
 						setInstalledPlugins( ( prevInstalled ) => [
 							...prevInstalled,
@@ -237,7 +238,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 		}
 
 
-		console.log( 'installablePlugins', required_plugins, freePlugins, proPlugins, installablePlugins );
+		console.log( 'installablePlugins', {templatiq_obj, required_plugins, freePlugins, proPlugins, installablePlugins} );
 	}, [] );
 
 	return (
@@ -330,7 +331,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 																{
 																	plugin.is_pro && 
 																	<span className="templatiq__modal__plugin__type">
-																		(Pro)
+																		{__( "(Pro)", 'templatiq' )}
 																	</span>
 																}
 
@@ -382,8 +383,8 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 																	</a>
 																</label>
 
-																<span className="templatiq__modal__plugin__status">
-																	{__( "It's Pro Plugin", 'templatiq' )}
+																<span className="templatiq__modal__plugin__type">
+																	{__( "(Pro)", 'templatiq' )}
 																</span>
 															</div>
 														);
