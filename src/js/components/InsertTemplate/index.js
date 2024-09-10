@@ -3,8 +3,8 @@ import postData from '@helper/postData';
 import store from '@store/index';
 import { select } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
-import ReactSVG from 'react-inlinesvg';
 import { __ } from '@wordpress/i18n';
+import ReactSVG from 'react-inlinesvg';
 
 import InsertFullTemplateModal from '@components/Popup/insertFullTemplateModal';
 import InsertProModal from '@components/Popup/insertProModal';
@@ -101,6 +101,7 @@ const InsertTemplate = ({
 
 	const handlePlugins = async (plugins) => {
 		const data = await postData(dependencyCheckEndPoint, { plugins });
+		console.log('dependencyCheckEndPoint:', data);
 		setRequiredPlugins(data);
 	};
 

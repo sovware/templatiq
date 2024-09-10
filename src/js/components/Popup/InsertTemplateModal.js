@@ -235,6 +235,9 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 		if ( isElementorEditorActive && installablePlugins?.length === 0 ) {
 			importElementorData( template_id );
 		}
+
+
+		console.log( 'installablePlugins', required_plugins, freePlugins, proPlugins, installablePlugins );
 	}, [] );
 
 	return (
@@ -324,6 +327,12 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 																		}
 																	</a>
 																</label>
+																{
+																	plugin.is_pro && 
+																	<span className="templatiq__modal__plugin__type">
+																		(Pro)
+																	</span>
+																}
 
 																<span className="templatiq__modal__plugin__status">
 																	{
