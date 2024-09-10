@@ -6,6 +6,7 @@
  */
 
 namespace Templatiq\DTO;
+
 use Templatiq\Abstracts\DTOBase;
 
 class PluginDTO extends DTOBase {
@@ -51,6 +52,6 @@ class PluginDTO extends DTOBase {
 	}
 
 	public function get_is_pro(): bool {
-		return $this->is_pro;
+		return $this->is_pro ?? false;
 	}
 }
