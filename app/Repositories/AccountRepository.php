@@ -30,7 +30,7 @@ class AccountRepository {
 		$status_code = wp_remote_retrieve_response_code( $response );
 		if ( 200 !== $status_code ) {
 			throw new \Exception(
-				esc_html( $response->get_error_message() ),
+				esc_html( $response->get_error_message() ?? __( 'Invalid username or password', 'templatiq' ) ),
 				esc_html( $status_code )
 			);
 		}
