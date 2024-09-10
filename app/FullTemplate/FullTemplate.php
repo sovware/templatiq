@@ -52,8 +52,6 @@ class FullTemplate {
 
 		$this->includes();
 
-		add_action( 'admin_enqueue_scripts', [$this, 'admin_assets'] );
-
 		add_action( 'admin_notices', [$this, 'check_filesystem_access_notice'] );
 
 		add_action( 'delete_attachment', [$this, 'delete_templatiq_images'] );
@@ -63,17 +61,6 @@ class FullTemplate {
 
 	private function includes() {
 		require_once TEMPLATIQ_SITES_DIR . 'inc/functions.php';
-	}
-
-	public function admin_assets() {
-		$current_screen = get_current_screen();
-
-		if ( 'appearance_page_templatiq-library' !== $current_screen->id ) {
-			return;
-		}
-
-		wp_enqueue_style( 'templatiq-sites-admin-page', TEMPLATIQ_SITES_URI . 'assets/css/admin.css', TEMPLATIQ_VERSION, true );
-		wp_enqueue_script( 'templatiq-sites-admin-js', TEMPLATIQ_SITES_URI . 'assets/js/admin.js', ['templatiq-sites-admin-page', 'jquery'], TEMPLATIQ_VERSION, true );
 	}
 
 	public function check_filesystem_access_notice() {
