@@ -53,7 +53,8 @@ class DependencyRepository {
 
 			if ( $plugin->get_is_pro() ) {
 				if ( isset( $_plugins[$plugin->get_file_name()] ) ) {
-					unset( $plugin->is_pro );
+					// error_log( print_r($plugin ,true) );
+					// unset( $plugin->is_pro );
 					$plugin->message = __( 'You have to install this plugin manually.', 'templatiq' );
 				}
 			}

@@ -52,6 +52,6 @@ class PluginDTO extends DTOBase {
 	}
 
 	public function get_is_pro(): bool {
-		return $this->is_pro ?? false;
+		return $this->is_pro;
 	}
 }
