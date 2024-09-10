@@ -90,5 +90,5 @@ At Templatiq, user privacy is our top priority. As a premier marketplace for tem
 
 == Changelog ==
 
-= 0.0.1 - Aug 19, 2024 =
+= 0.0.1(beta) - Sep 10, 2024 =
 * Initial launch
