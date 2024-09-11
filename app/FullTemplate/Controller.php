@@ -9,6 +9,7 @@ namespace Templatiq\FullTemplate;
 
 use Templatiq\Abstracts\ControllerBase;
 use Templatiq\FullTemplate\ErrorHandler;
+use Templatiq\Repositories\DependencyRepository;
 use Templatiq\Repositories\FileSystemRepository;
 use Templatiq\Repositories\RemoteRepository;
 
@@ -140,7 +141,7 @@ class Controller extends ControllerBase {
 		$options          = templatiq_get_site_data( 'templatiq-site-options-data' );
 		$required_plugins = templatiq_get_site_data( 'required-plugins' );
 
-		$data = ( new Repository )->get_required_plugins_data( $response, $required_plugins );
+		$data = ( new DependencyRepository )->get_required_plugins_data( $response, $required_plugins );
 
 		if ( wp_doing_ajax() ) {
 			wp_send_json_success( $data );
@@ -182,7 +183,7 @@ class Controller extends ControllerBase {
 		}
 
 		$options = templatiq_get_site_data( 'templatiq-site-options-data' );
-		( new Repository )->after_plugin_activate( $plugin_init, $options );
+		( new DependencyRepository )->after_plugin_activate( $plugin_init, $options );
 
 		if ( wp_doing_ajax() ) {
 			wp_send_json_success(

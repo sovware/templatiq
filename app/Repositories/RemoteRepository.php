@@ -33,7 +33,6 @@ class RemoteRepository {
 			'templatiq-enabled-extensions' => '',
 			'required-plugins'             => '',
 			'license-status'               => '',
-			'site-type'                    => '',
 			'templatiq-site-url'           => '',
 		];
 
@@ -45,7 +44,6 @@ class RemoteRepository {
 			$remote_args['templatiq-site-wxr-path']     = $data['templatiq-site-wxr-path'];
 			$remote_args['required-plugins']            = $data['required-plugins'];
 			$remote_args['license-status']              = $data['license-status'];
-			$remote_args['site-type']                   = $data['templatiq-site-type'];
 			$remote_args['templatiq-site-url']          = $data['templatiq-site-url'];
 			$remote_args['directory-types']             = $data['directory-types'];
 		}

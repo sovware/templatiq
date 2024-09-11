@@ -9,6 +9,7 @@ namespace Templatiq\Repositories;
 
 use Plugin_Upgrader;
 use Templatiq\DTO\PluginDTO;
+use Templatiq\Utils\Options;
 use WP_Ajax_Upgrader_Skin;
 use WP_Filesystem_Base;
 
@@ -189,5 +190,123 @@ class DependencyRepository {
 
 	public function activate_theme() {
 		switch_theme( 'pixetiq' );
+	}
+
+	public function get_required_plugins_data( $response, $required_plugins ) {
+
+		if ( ! empty( $required_plugins ) ) {
+			foreach ( $required_plugins as $key => $plugin ) {
+				$plugin = (array) $plugin;
+
+				// Installed but Inactive.
+				if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) && is_plugin_inactive( $plugin['init'] ) ) {
+					$link = wp_nonce_url(
+						add_query_arg(
+							[
+								'action' => 'activate',
+								'plugin' => $plugin['init'],
+							],
+							admin_url( 'plugins.php' )
+						),
+						'activate-plugin_' . $plugin['init']
+					);
+					$link                   = str_replace( '&amp;', '&', $link );
+					$plugin['action']       = $link;
+					$response['inactive'][] = $plugin;
+
+					$this->get_unlocked_extensions();
+
+					// Not Installed.
+				} elseif ( ! file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) ) {
+
+					$unlocked_extensions = $this->get_unlocked_extensions();
+
+					if ( isset( $unlocked_extensions[$plugin['slug']] ) ) {
+						$link = wp_nonce_url(
+							add_query_arg(
+								[
+									'action' => 'install-plugin',
+									'plugin' => $unlocked_extensions[$plugin['slug']], // URL of your self-hosted plugin
+								],
+								admin_url( 'update.php' )
+							),
+							'install-plugin_' . $plugin['slug']
+						);
+
+						$plugin['pro_unlocked'] = true;
+					} else {
+
+						$link = wp_nonce_url(
+							add_query_arg(
+								[
+									'action' => 'install-plugin',
+									'plugin' => $plugin['slug'],
+								],
+								admin_url( 'update.php' )
+							),
+							'install-plugin_' . $plugin['slug']
+						);
+
+						$link = str_replace( '&amp;', '&', $link );
+					}
+
+					$plugin['action']           = $link;
+					$response['notinstalled'][] = $plugin;
+
+					// Active.
+				} else {
+					$response['active'][] = $plugin;
+					$options              = templatiq_get_site_data( 'templatiq-site-options-data' );
+					$this->after_plugin_activate( $plugin['init'], $options );
+				}
+			}
+		}
+
+		// Checking the `install_plugins` and `activate_plugins` capability for the current user.
+		// To perform plugin installation process.
+		if (
+			( ! defined( 'WP_CLI' ) && wp_doing_ajax() )
+			&& ( ( ! current_user_can( 'install_plugins' ) && ! empty( $response['notinstalled'] ) )
+				|| ( ! current_user_can( 'activate_plugins' ) && ! empty( $response['inactive'] ) )
+			)
+		) {
+			$message               = __( 'Insufficient Permission. Please contact your Super Admin to allow the install required plugin permissions.', 'templatiq' );
+			$required_plugins_list = array_merge( $response['notinstalled'], $response['inactive'] );
+			$markup                = $message;
+			$markup .= '<ul>';
+			foreach ( $required_plugins_list as $key => $required_plugin ) {
+				$markup .= '<li>' . esc_html( $required_plugin['name'] ) . '</li>';
+			}
+			$markup .= '</ul>';
+
+			wp_send_json_error( $markup );
+		}
+
+		$data = [
+			'required_plugins' => $response,
+		];
+
+		error_log( 'get_required_plugins_data: ' . print_r( $data, true ) );
+
+		return $data;
+	}
+
+	public function after_plugin_activate( $plugin_init = '', $options = [] ) {
+		$data = [
+			'templatiq_site_options' => $options,
+		];
+
+		do_action( 'templatiq_sites_after_plugin_activation', $plugin_init, $data );
+	}
+
+	public function get_unlocked_extensions(): array {
+		$account_data = Options::get( 'account_data', [] );
+		$extensions   = $account_data['unlocked_extensions'] ?? [];
+
+		if ( empty( $extensions ) ) {
+			return [];
+		}
+
+		return $extensions;
 	}
 }
