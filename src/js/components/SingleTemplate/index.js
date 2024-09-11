@@ -16,6 +16,7 @@ const SingleTemplate = ( item ) => {
 	let {
 		template_id,
 		slug,
+		type,
 		preview_link,
 		thumbnail,
 		title,
@@ -126,6 +127,7 @@ const SingleTemplate = ( item ) => {
 							className={
 								'templatiq__template__single__info__action__link insert-btn tmTemplateLibrary__insert-button'
 							}
+							innerText={type === 'pack' ? "Insert Full Site" : "Insert"}
 						/>
 					</div>
 					<div className="templatiq__template__single__info__required"></div>
