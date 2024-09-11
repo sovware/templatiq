@@ -28,7 +28,8 @@ const InsertTemplate = ({
 	const themeInstalled = templatiq_obj?.theme_status === 'installed-and-active';
 	
 	const insertFullTemplate = type === 'pack';
-	const dependencyCheckEndPoint = 'templatiq/dependency/check';
+	// const dependencyCheckEndPoint = 'templatiq/dependency/check';
+	const dependencyCheckEndPoint = 'templatiq/dependency/required-plugins';
 
 	const { isLoggedIn, purchased, unlocked } = select(store).getUserInfo();
 	const [isPurchased, setIsPurchased] = useState(false);
@@ -36,6 +37,7 @@ const InsertTemplate = ({
 	const [insertModalOpen, setInsertModalOpen] = useState(false);
 	const [authModalOpen, setAuthModalOpen] = useState(false);
 	const [requiredPlugins, setRequiredPlugins] = useState(validPlugins);
+	const [notInstallablePlugins, setNotInstallablePlugins] = useState(validPlugins);
 	const [installDirectorist, setInstallDirectorist] = useState(false);
 
 	const isItemPurchased = (itemId) => {
@@ -103,8 +105,15 @@ const InsertTemplate = ({
 
 	const handlePlugins = async (plugins) => {
 		const data = await postData(dependencyCheckEndPoint, { plugins });
-		console.log('dependencyCheckEndPoint:', data);
-		setRequiredPlugins(data);
+		if (data) {
+			const { inactive, notinstalled } = data.required_plugins;
+			const installable = notinstalled.filter(plugin => !plugin.is_pro || plugin.pro_unlocked);;
+			const notInstallable = notinstalled.filter(plugin => plugin.is_pro && !plugin?.pro_unlocked);
+			const allRequiredPlugins = [...inactive, ...installable];
+
+			setRequiredPlugins(allRequiredPlugins);
+			setNotInstallablePlugins(notInstallable);
+		}
 	};
 
 	useEffect(() => {
@@ -136,6 +145,7 @@ const InsertTemplate = ({
 								<InsertTemplateModal
 									item={item}
 									required_plugins={requiredPlugins}
+									not_installable_plugins={notInstallablePlugins}
 									installed_directorist={!installDirectorist}
 									onClose={handleInsertModalClose}
 								/> : null
