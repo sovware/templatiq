@@ -162,9 +162,10 @@ const Sidebar = () => {
 							<div
 								className="templatiq__sidebar__accordion"
 							>
-								{Object.keys(filterGroups).map((group) => (
+								{Object.keys(filterGroups).map((group, key) => (
 									!(group === 'packs' && elementorEditorEnabled) ?
 										<div
+											key={key}
 											className="templatiq__sidebar__accordion__single"
 										>
 											<h3 className="templatiq__sidebar__accordion__heading">
