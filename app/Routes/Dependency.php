@@ -19,5 +19,7 @@ class Dependency extends RouteBase {
 		$this->post( $this->endpoint . '/check', [DependencyController::class, 'check'] );
 		$this->post( $this->endpoint . '/install', [DependencyController::class, 'install'] );
 		$this->post( $this->endpoint . '/activate-theme', [DependencyController::class, 'activate_theme'] );
+
+		
 	}
 }

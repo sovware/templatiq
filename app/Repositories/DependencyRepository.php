@@ -222,17 +222,7 @@ class DependencyRepository {
 					$unlocked_extensions = $this->get_unlocked_extensions();
 
 					if ( isset( $unlocked_extensions[$plugin['slug']] ) ) {
-						$link = wp_nonce_url(
-							add_query_arg(
-								[
-									'action' => 'install-plugin',
-									'plugin' => $unlocked_extensions[$plugin['slug']], // URL of your self-hosted plugin
-								],
-								admin_url( 'update.php' )
-							),
-							'install-plugin_' . $plugin['slug']
-						);
-
+						$link                   = $unlocked_extensions[$plugin['slug']];
 						$plugin['pro_unlocked'] = true;
 					} else {
 

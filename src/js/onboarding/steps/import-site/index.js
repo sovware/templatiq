@@ -185,7 +185,7 @@ const ImportSite = () => {
 	 */
 	const installRequiredPlugins = () => {
 		// Filter the plugins that are not pro (is_pro: false)
-		const installablePlugins = notInstalledList.filter(plugin => !plugin.is_pro);
+		const installablePlugins = notInstalledList.filter(plugin => !plugin.is_pro || plugin.pro_unlocked);
 
 		// Install Bulk.
 		if ( installablePlugins.length <= 0 ) {
@@ -199,84 +199,112 @@ const ImportSite = () => {
 			importPercent: percentage,
 		} );
 
-		installablePlugins.forEach( ( plugin ) => {
-			wp.updates.queue.push( {
-				action: 'install-plugin', // Required action.
-				data: {
-					slug: plugin.slug,
-					init: plugin.init,
-					name: plugin.name,
-					clear_destination: true,
-					ajax_nonce: templatiqSitesVars._ajax_nonce,
-					success() {
-						dispatch( {
-							type: 'set',
-							importStatus: sprintf(
-								// translators: Plugin Name.
-								__(
-									'%1$s plugin installed successfully.',
-									'templatiq-sites'
+		installablePlugins.forEach((plugin) => {
+			console.log('plugin : ', plugin);
+		
+			// Check if the plugin is self-hosted by looking for a direct URL
+			if (plugin.action && plugin.action.includes('http')) {
+				// For self-hosted plugins, use AJAX to call the custom PHP handler
+				jQuery.ajax({
+					url: ajaxurl, // Ensure the ajax_url is available in your script localization
+					method: 'POST',
+					data: {
+						action: 'install_custom_plugin',
+						plugin_url: plugin.action, // Use plugin.action for the URL
+						_ajax_nonce: templatiqSitesVars._ajax_nonce
+					},
+					success(response) {
+						if (response.success) {
+							dispatch({
+								type: 'set',
+								importStatus: sprintf(
+									// translators: Plugin Name.
+									__(
+										'%1$s plugin installed successfully.',
+										'templatiq-sites'
+									),
+									plugin.name
 								),
-								plugin.name
-							),
-						} );
-
-						const inactiveList = notActivatedList;
-						inactiveList.push( plugin );
-
-						dispatch( {
-							type: 'set',
-							notActivatedList: inactiveList,
-						} );
-
-						const notInstalledPluginList = installablePlugins;
-						notInstalledPluginList.forEach(
-							( singlePlugin, index ) => {
-								if ( singlePlugin.slug === plugin.slug ) {
-									notInstalledPluginList.splice( index, 1 );
+							});
+		
+							const inactiveList = notActivatedList;
+							inactiveList.push(plugin);
+		
+							dispatch({
+								type: 'set',
+								notActivatedList: inactiveList,
+							});
+		
+							const notInstalledPluginList = installablePlugins;
+							notInstalledPluginList.forEach((singlePlugin, index) => {
+								if (singlePlugin.slug === plugin.slug) {
+									notInstalledPluginList.splice(index, 1);
 								}
-							}
-						);
-						dispatch( {
-							type: 'set',
-							notInstalledList: notInstalledPluginList,
-						} );
-					},
-					error( err ) {
-						dispatch( {
-							type: 'set',
-							pluginInstallationAttempts:
-								pluginInstallationAttempts + 1,
-						} );
-						let errText = err;
-						if ( err && undefined !== err.errorMessage ) {
-							errText = err.errorMessage;
-							if ( undefined !== err.errorCode ) {
-								errText = err.errorCode + ': ' + errText;
-							}
+							});
+							dispatch({
+								type: 'set',
+								notInstalledList: notInstalledPluginList,
+							});
+						} else {
+							console.error(response.data.errorMessage);
 						}
-						report(
-							sprintf(
-								// translators: Plugin Name.
-								__(
-									'Could not install the plugin - %s',
-									'templatiq-sites'
-								),
-								plugin.name
-							),
-							'',
-							errText,
-							'',
-							'',
-							err
-						);
 					},
-				},
-			} );
-		} );
-
-		// Required to set queue.
-		wp.updates.queueChecker();
+					error(err) {
+						console.error('An error occurred:', err);
+					}
+				});
+			} else {
+				// For WordPress.org hosted plugins, use wp.updates API
+				wp.updates.queue.push({
+					action: 'install-plugin', // Required action.
+					data: {
+						slug: plugin.slug,
+						init: plugin.init,
+						name: plugin.name,
+						clear_destination: true,
+						ajax_nonce: templatiqSitesVars._ajax_nonce,
+						success() {
+							dispatch({
+								type: 'set',
+								importStatus: sprintf(
+									// translators: Plugin Name.
+									__(
+										'%1$s plugin installed successfully.',
+										'templatiq-sites'
+									),
+									plugin.name
+								),
+							});
+		
+							const inactiveList = notActivatedList;
+							inactiveList.push(plugin);
+		
+							dispatch({
+								type: 'set',
+								notActivatedList: inactiveList,
+							});
+		
+							const notInstalledPluginList = installablePlugins;
+							notInstalledPluginList.forEach((singlePlugin, index) => {
+								if (singlePlugin.slug === plugin.slug) {
+									notInstalledPluginList.splice(index, 1);
+								}
+							});
+							dispatch({
+								type: 'set',
+								notInstalledList: notInstalledPluginList,
+							});
+						},
+						error(err) {
+							console.error('An error occurred:', err);
+						}
+					}
+				});
+		
+				// Required to set queue.
+				wp.updates.queueChecker();
+			}
+		});		
 	};
 
 	/**
@@ -1298,7 +1326,7 @@ const ImportSite = () => {
 	// This checks if all the required plugins are installed and activated.
 	useEffect( () => {
 		// Skip PRO Plugin for Install
-		const installablePlugins = notInstalledList.filter(plugin => !plugin.is_pro);
+		const installablePlugins = notInstalledList.filter(plugin => !plugin.is_pro || plugin.pro_unlocked);
 
 		if ( notActivatedList.length <= 0 && installablePlugins.length <= 0 ) {
 			dispatch( {

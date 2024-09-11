@@ -147,8 +147,8 @@ export const checkRequiredPlugins = async ( dispatch ) => {
 				const notActivePlugins = rPlugins.inactive || '';
 
 				const installablePlugins = [
-					...notInstalledPlugin.filter(plugin => !plugin.is_pro),
-					...notActivePlugins.filter(plugin => !plugin.is_pro)
+					...notInstalledPlugin.filter(plugin => !plugin.is_pro || plugin.pro_unlocked),
+					...notActivePlugins.filter(plugin => !plugin.is_pro || plugin.pro_unlocked)
 				];
 
 				dispatch( {
