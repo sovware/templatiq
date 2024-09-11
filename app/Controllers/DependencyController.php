@@ -20,9 +20,9 @@ class DependencyController extends ControllerBase {
 
 		if ( empty( $required_plugins ) ) {
 			return Response::error(
-				'invalid_plugins',
+				'dependency_invalid_plugins',
 				__( 'You have supplied an invalid requirements. Please reload the page and try again.', 'templatiq' ),
-				'dependency/check',
+				'dependency/required-plugins',
 				400
 			);
 		}
@@ -33,9 +33,18 @@ class DependencyController extends ControllerBase {
 			'notinstalled' => [],
 		];
 
-		$required_plugins = ( new DependencyRepository )->get_required_plugins_data( $response, $required_plugins );
-
-		return Response::success( $required_plugins );
+		try {
+			return Response::success(
+				( new DependencyRepository )->get_required_plugins_data( $response, $required_plugins )
+			);
+		} catch ( \Throwable $th ) {
+			return Response::error(
+				'dependency_required_plugins_errors',
+				$th->getMessage(),
+				__FUNCTION__,
+				$th->getCode()
+			);
+		}
 	}
 
 	public function check( WP_REST_Request $request ) {
