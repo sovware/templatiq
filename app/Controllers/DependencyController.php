@@ -15,6 +15,29 @@ use WP_REST_Request;
 
 class DependencyController extends ControllerBase {
 
+	public function required_plugins( WP_REST_Request $request ) {
+		$required_plugins = (array) $request->get_param( 'plugins' );
+
+		if ( empty( $required_plugins ) ) {
+			return Response::error(
+				'invalid_plugins',
+				__( 'You have supplied an invalid requirements. Please reload the page and try again.', 'templatiq' ),
+				'dependency/check',
+				400
+			);
+		}
+
+		$response = [
+			'active'       => [],
+			'inactive'     => [],
+			'notinstalled' => [],
+		];
+
+		$required_plugins = ( new DependencyRepository )->get_required_plugins_data( $response, $required_plugins );
+
+		return Response::success( $required_plugins );
+	}
+
 	public function check( WP_REST_Request $request ) {
 		$plugins = (array) $request->get_param( 'plugins' );
 

@@ -286,8 +286,6 @@ class DependencyRepository {
 			'required_plugins' => $response,
 		];
 
-		error_log( 'get_required_plugins_data: ' . print_r( $data, true ) );
-
 		return $data;
 	}
 
