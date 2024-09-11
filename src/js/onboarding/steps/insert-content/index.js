@@ -23,8 +23,9 @@ const InsertContent = () => {
 	const [stateValue, dispatch ] = useStateValue();
 	const { currentIndex, notActivatedList, notInstalledList } = stateValue;
 
+
 	const installPlugins = notInstalledList
-			.filter(plugin => !plugin.is_pro)
+			.filter(plugin => (!plugin.is_pro || plugin.pro_unlocked))
 			.map(plugin => plugin);
 	const allRequiredPlugin = [ ...notActivatedList, ...installPlugins ];
 
