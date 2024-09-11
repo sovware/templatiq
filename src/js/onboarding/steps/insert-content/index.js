@@ -296,9 +296,6 @@ const InsertContent = () => {
 							>
 								Submit & Build My Directory Website
 							</button>
-							<div className="fullsite-setup-wizard__content__import__notice">
-								By clicking "Submit &amp; Build My Website", you agree to our <a href="#">Terms</a> &amp; <a href="#">Privacy Policy</a>
-							</div>
 						</div>
 					</div>
 
