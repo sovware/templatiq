@@ -20,10 +20,10 @@ import Logo from '@images/logo.svg';
 import userIcon from '@icon/user-alt.svg';
 
 import backIcon from '@icon/arrow-left.svg';
+import bricksIcon from '@icon/bricks.svg';
 import chevronIcon from '@icon/chevron-down-solid.svg';
 import elementorIcon from '@icon/elementor.svg';
 import gutenbergIcon from '@icon/gutenberg.svg';
-import bricksIcon from '@icon/gutenberg.svg';
 
 import Searchform from '@components/Searchform';
 import cartIcon from '@icon/cart.svg';
@@ -284,8 +284,10 @@ const Header = ( props ) => {
 									) }
 								</div>
 							) : (
-								<Link
-									to="/signin"
+								<a
+									href="#"
+									target="_blank"
+									// to="/signin"
 									className="templatiq__header__action__link templatiq-btn"
 								>
 									<ReactSVG
@@ -293,8 +295,8 @@ const Header = ( props ) => {
 										width={ 14 }
 										height={ 14 }
 									/>
-									{__( 'Sign In', 'templatiq' )}
-								</Link>
+									{__( 'Connect Account', 'templatiq' )}
+								</a>
 							) }
 						</div>
 					</Suspense>
