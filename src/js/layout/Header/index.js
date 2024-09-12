@@ -22,7 +22,8 @@ import userIcon from '@icon/user-alt.svg';
 import backIcon from '@icon/arrow-left.svg';
 import chevronIcon from '@icon/chevron-down-solid.svg';
 import elementorIcon from '@icon/elementor.svg';
-import { default as bricksIcon, default as gutenbergIcon } from '@icon/gutenberg.svg';
+import gutenbergIcon from '@icon/gutenberg.svg';
+import bricksIcon from '@icon/bricks.svg';
 
 import Searchform from '@components/Searchform';
 import cartIcon from '@icon/cart.svg';
