@@ -1,8 +1,8 @@
 import postData from '@helper/postData';
 import { useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 import ReactSVG from 'react-inlinesvg';
 import { InsertTemplateModalStyle } from './style';
-import { __ } from '@wordpress/i18n';
 
 import closeIcon from '@icon/close.svg';
 import recommendationIcon from '@icon/recommendation.svg';
@@ -91,7 +91,7 @@ const insertFullTemplateModal = ( { item, onClose } ) => {
 								className='templatiq-btn'
 								onClick={redirectImportPage}
 							> 
-								{__( 'Continue without...' , 'templatiq' )} {themeStatus === 'not-installed' ? 'installing' : 'activating'}	
+								{__( 'Continue without ' , 'templatiq' )} {themeStatus === 'not-installed' ? 'installing' : 'activating'}	
 							</button>
 						}
 						
