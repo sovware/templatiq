@@ -31,6 +31,6 @@ class Ajax extends AjaxBase {
 		$this->action( 'wp_ajax_templatiq-sites-api-request', [Controller::class, 'api_request'] );
 		$this->action( 'wp_ajax_templatiq-sites-filesystem-permission', [Controller::class, 'filesystem_permission'] );
 
-		$this->action( 'wp_ajax_install_custom_plugin', [Controller::class, 'install_custom_plugin'] );
+		$this->action( 'wp_ajax_install_self_hosted_plugin', [Controller::class, 'install_self_hosted_plugin'] );
 	}
 }

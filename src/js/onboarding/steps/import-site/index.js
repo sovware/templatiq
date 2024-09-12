@@ -209,7 +209,7 @@ const ImportSite = () => {
 					url: ajaxurl, // Ensure the ajax_url is available in your script localization
 					method: 'POST',
 					data: {
-						action: 'install_custom_plugin',
+						action: 'install_self_hosted_plugin',
 						plugin_url: plugin.action, // Use plugin.action for the URL
 						_ajax_nonce: templatiqSitesVars._ajax_nonce
 					},
