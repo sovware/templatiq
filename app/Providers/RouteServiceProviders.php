@@ -18,6 +18,8 @@ class RouteServiceProviders extends ProviderBase {
 				$route->init();
 			}
 		}
+
+		( new \Templatiq\Routes\Connect );
 	}
 
 	public function get(): array {

@@ -32,6 +32,9 @@ import heartIcon from '@icon/heart.svg';
 import logoutIcon from '@icon/logout.svg';
 import settingsIcon from '@icon/settings.svg';
 
+const base64Url = btoa(templatiq_obj.dashboard_url);
+const connectUlr = templatiq_obj.cloud_url + '?connect=true&return_to=' + base64Url
+
 const Header = ( props ) => {
 	const { type } = props;
 
@@ -285,7 +288,7 @@ const Header = ( props ) => {
 								</div>
 							) : (
 								<a
-									href="#"
+									href={connectUlr}
 									target="_blank"
 									// to="/signin"
 									className="templatiq__header__action__link templatiq-btn"

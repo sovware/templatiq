@@ -56,6 +56,7 @@ class App {
 		define( 'TEMPLATIQ_VERSION', Config::get( 'version' ) );
 		define( 'TEMPLATIQ_CLOUD_BASE', Config::get( 'could_base' ) );
 		define( 'TEMPLATIQ_API_ENDPOINT', 'https://templatiq.com/' );
+		define( 'TEMPLATIQ_CONNECT_URL', TEMPLATIQ_API_ENDPOINT . 'login/' );
 
 		define( 'TEMPLATIQ_DEV', true );
 		define( 'TEMPLATIQ_DEBUG_LOG', true );

@@ -94,9 +94,11 @@ class AccountRepository {
 			);
 		}
 
-		$body                             = wp_remote_retrieve_body( $response );
-		$response['body']                 = json_decode( $body, true );
-		$response['body']['last_updated'] = time();
+		$body             = wp_remote_retrieve_body( $response );
+		$response['body'] = json_decode( $body, true );
+		if ( is_array( $response['body'] ) ) {
+			$response['body']['last_updated'] = time();
+		}
 
 		Options::set( 'account_data', $response['body'] ?? [] );
 
