@@ -8,6 +8,7 @@
 namespace Templatiq\FullTemplate;
 
 use Templatiq\Abstracts\AjaxBase;
+use Templatiq\Controllers\DependencyController;
 
 class Ajax extends AjaxBase {
 
@@ -17,8 +18,8 @@ class Ajax extends AjaxBase {
 
 		$this->action( 'wp_ajax_templatiq_sites_import_content_persona_wise', [Controller::class, 'import_content_persona_wise'] );
 
-		$this->action( 'wp_ajax_templatiq-required-plugins', [Controller::class, 'required_plugin'] );
-		$this->action( 'wp_ajax_templatiq-required-plugin-activate', [Controller::class, 'required_plugin_activate'] );
+		$this->action( 'wp_ajax_templatiq-required-plugins', [DependencyController::class, 'required_plugins'] );
+		$this->action( 'wp_ajax_templatiq-required-plugin-activate', [DependencyController::class, 'activate_plugin'] );
 
 		$this->action( 'wp_ajax_templatiq-sites-backup-settings', [Controller::class, 'backup_settings'] );
 

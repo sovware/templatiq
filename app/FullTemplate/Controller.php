@@ -8,7 +8,6 @@
 namespace Templatiq\FullTemplate;
 
 use Templatiq\Abstracts\ControllerBase;
-use Templatiq\FullTemplate\ErrorHandler;
 use Templatiq\Repositories\DependencyRepository;
 use Templatiq\Repositories\FileSystemRepository;
 use Templatiq\Repositories\RemoteRepository;
@@ -147,51 +146,6 @@ class Controller extends ControllerBase {
 			wp_send_json_success( $data );
 		} else {
 			return $data;
-		}
-	}
-
-	public function required_plugin_activate( $init = '', $options = [] ) {
-		if ( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) {
-			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
-
-			if ( ! current_user_can( 'install_plugins' ) || ! isset( $_POST['init'] ) || ! sanitize_text_field( $_POST['init'] ) ) {
-				wp_send_json_error(
-					[
-						'success' => false,
-						'message' => __( 'Error: You don\'t have the required permissions to install plugins.', 'templatiq' ),
-					]
-				);
-			}
-		}
-
-		ErrorHandler::get_instance()->start_error_handler();
-
-		$plugin_init = ( isset( $_POST['init'] ) ) ? esc_attr( sanitize_text_field( $_POST['init'] ) ) : $init;
-		$activate    = activate_plugin( $plugin_init, '', false, false );
-
-		ErrorHandler::get_instance()->stop_error_handler();
-
-		if ( is_wp_error( $activate ) ) {
-			if ( wp_doing_ajax() ) {
-				wp_send_json_error(
-					[
-						'success' => false,
-						'message' => $activate->get_error_message(),
-					]
-				);
-			}
-		}
-
-		$options = templatiq_get_site_data( 'templatiq-site-options-data' );
-		( new DependencyRepository )->after_plugin_activate( $plugin_init, $options );
-
-		if ( wp_doing_ajax() ) {
-			wp_send_json_success(
-				[
-					'success' => true,
-					'message' => __( 'Plugin Activated', 'templatiq' ),
-				]
-			);
 		}
 	}
 

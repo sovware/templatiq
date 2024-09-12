@@ -16,7 +16,7 @@ use WP_Filesystem_Base;
 class DependencyRepository {
 	private string $theme_slug = 'Pixetiq';
 
-	private function activate( string $file ) {
+	public function activate( string $file ) {
 		if ( ! is_plugin_inactive( $file ) ) {
 			throw new \Exception(
 				esc_html__( "This plugin already activated", 'templatiq' ),
