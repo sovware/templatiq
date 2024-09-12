@@ -35,6 +35,7 @@ const ImportSite = () => {
 			siteLogo,
 			currentIndex,
 			importPersonaData,
+			importPersonaDataDone,
 			contentImportFlag,
 			requiredPluginsDone,
 			requiredPlugins,
@@ -209,8 +210,8 @@ const ImportSite = () => {
 					url: ajaxurl, // Ensure the ajax_url is available in your script localization
 					method: 'POST',
 					data: {
-						action: 'install_self_hosted_plugin',
-						plugin_url: plugin.action, // Use plugin.action for the URL
+						action: 'templatiq_install_self_hosted_plugin',
+						plugin: plugin, // Use plugin.action for the URL
 						_ajax_nonce: templatiqSitesVars._ajax_nonce
 					},
 					success(response) {
@@ -246,6 +247,7 @@ const ImportSite = () => {
 								notInstalledList: notInstalledPluginList,
 							});
 						} else {
+							console.log(' response : ',  response );
 							console.error(response.data.errorMessage);
 						}
 					},
@@ -1221,18 +1223,21 @@ const ImportSite = () => {
 		}
 	};
 
-	const importPersonaWise = async ( selectedValues ) => {
+	const importPersonaWise = ( ) => {
 		const data = new FormData();
 		data.append( 'action', 'templatiq_sites_import_content_persona_wise' );
-		data.append( 'import_data', JSON.stringify( selectedValues ) );
+		data.append( 'import_data', JSON.stringify( importPersonaData ) );
 		data.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
 	
-		const persona = await fetch( ajaxurl, {
+		const persona = fetch( ajaxurl, {
 			method: 'post',
 			body: data,
 		} );
 
-		return persona;
+		dispatch( {
+			type: 'set',
+			importPersonaDataDone: true,
+		} );
 	};
 	
 	useEffect( () => {
@@ -1271,48 +1276,39 @@ const ImportSite = () => {
 		if (importStart || importEnd) {
 			return;
 		}
-	
-		const processImport = async () => {
-			if (!importError) {
-				localStorage.setItem('st-import-start', +new Date());
-				percentage += 5;
 
-				const personaSaved = await importPersonaWise(importPersonaData);
-				if (personaSaved) {			
-					console.log('personaSaved : ', personaSaved );		
-					dispatch({
-						type: 'set',
-						importStart: true,
-						importPercent: percentage,
-						importStatus: __('Starting Import.', 'templatiq-sites'),
-					});
+		if (!importError) {
+			localStorage.setItem('st-import-start', +new Date());
+			percentage += 5;
 
-					dispatch({
-						type: 'set',
-						themeStatus: true,
-					});
-			
-					sendReportFlag = false;
-					installRequiredPlugins();
-				}
-			}
+			dispatch({
+				type: 'set',
+				importStart: true,
+				importPercent: percentage,
+				importStatus: __('Starting Import.', 'templatiq-sites'),
+			});
+
+			dispatch({
+				type: 'set',
+				themeStatus: true,
+			});
 		};
-	
-		// Call the async function
-		processImport();
+
+		sendReportFlag = false;
+		importPersonaWise();
+		installRequiredPlugins();
 	}, [templateResponse]);
-	
 
 	/**
 	 * Start the process only when:
 	 * Required plugins are installed and activated.
 	 */
 	useEffect( () => {
-		if ( requiredPluginsDone ) {
+		if ( requiredPluginsDone && importPersonaDataDone ) {
 			sendReportFlag = reportError;
 			importPart1();
 		}
-	}, [ requiredPluginsDone ] );
+	}, [ requiredPluginsDone, importPersonaDataDone ] );
 
 	/**
 	 * Start Part 2 of the import once the XML is imported successfully.

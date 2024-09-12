@@ -14,6 +14,7 @@ class PluginDTO extends DTOBase {
 	public string $file_name;
 	public string $slug;
 	public bool $is_pro;
+	public string $download_url;
 
 	public function set_name( string $name ) {
 		$this->name = $name;
@@ -53,5 +54,15 @@ class PluginDTO extends DTOBase {
 
 	public function get_is_pro(): bool {
 		return $this->is_pro;
+	}
+
+	public function set_download_url( string $download_url ) {
+		$this->download_url = $download_url;
+
+		return $this;
+	}
+
+	public function get_download_url() {
+		return $this->download_url;
 	}
 }

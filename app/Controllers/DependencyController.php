@@ -53,38 +53,6 @@ class DependencyController extends ControllerBase {
 		}
 	}
 
-	public function install( WP_REST_Request $request ) {
-		$plugin = (array) $request->get_param( 'plugin' );
-
-		if ( empty( $plugin ) ) {
-			return Response::error(
-				'invalid_plugin',
-				__( 'You have supplied an invalid requirements. Please reload the page and try again.', 'templatiq' ),
-				'dependency/install',
-				400
-			);
-		}
-
-		$pluginDTO = ( new PluginDTO() )
-			->set_name( $plugin['name'] )
-			->set_file_name( $plugin['file_name'] )
-			->set_slug( $plugin['slug'] )
-			->set_is_pro( $plugin['is_pro'] );
-
-		try {
-			return Response::success(
-				( new DependencyRepository )->installer( $pluginDTO )
-			);
-		} catch ( \Throwable $th ) {
-			return Response::error(
-				'dependency_install_errors',
-				$th->getMessage(),
-				__FUNCTION__,
-				$th->getCode()
-			);
-		}
-	}
-
 	public function activate_theme() {
 		try {
 
@@ -225,6 +193,83 @@ class DependencyController extends ControllerBase {
 			} else {
 				return Response::error(
 					'plugin_activate_errors',
+					$th->getMessage(),
+					__FUNCTION__,
+					$th->getCode()
+				);
+			}
+		}
+	}
+
+	public function install_plugin( $request = null ) {
+		// Check if the request is via AJAX
+		if ( wp_doing_ajax() ) {
+			// Verify Nonce for AJAX requests
+			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
+
+			// Check if the user has the required permissions
+			if ( ! current_user_can( 'install_plugins' ) ) {
+				wp_send_json_error(
+					[
+						'success' => false,
+						'message' => __( 'You do not have sufficient permissions to install plugins.', 'templatiq' ),
+					]
+				);
+			}
+
+			// Get plugin details from AJAX request
+			$plugin = (array) $_POST['plugin']; // Assuming 'plugin' is being sent via POST in the AJAX request
+		} else {
+			// Handle REST API request
+			if ( $request instanceof WP_REST_Request ) {
+				$plugin = (array) $request->get_param( 'plugin' );
+			} else {
+				return Response::error(
+					'invalid_request_type',
+					__( 'Invalid request type. Expecting WP_REST_Request.', 'templatiq' ),
+					__FUNCTION__,
+					400
+				);
+			}
+		}
+
+		if ( empty( $plugin ) ) {
+			throw new \Exception( __( 'You have supplied invalid plugin data. Please reload the page and try again.', 'templatiq' ), 400 );
+		}
+
+		// Prepare the PluginDTO object
+		$pluginDTO = ( new PluginDTO() )
+			->set_name( $plugin['name'] )
+			->set_file_name( $plugin['file_name'] )
+			->set_slug( $plugin['slug'] )
+			->set_is_pro( $plugin['is_pro'] );
+
+		if ( isset( $plugin['action'] ) && strpos( $plugin['action'], 'http' ) !== false ) {
+			$pluginDTO->set_is_pro( false )->set_download_url( $plugin['action'] );
+		}
+
+		try {
+			// Use DependencyRepository to handle the plugin installation
+			$result = ( new DependencyRepository )->installer( $pluginDTO );
+
+			// Return success response based on the request type
+			if ( wp_doing_ajax() ) {
+				wp_send_json_success( $result );
+			} else {
+				return Response::success( $result );
+			}
+		} catch ( \Throwable $th ) {
+			// Handle errors for both request types
+			if ( wp_doing_ajax() ) {
+				wp_send_json_error(
+					[
+						'success' => false,
+						'message' => $th->getMessage(),
+					]
+				);
+			} else {
+				return Response::error(
+					'dependency_install_errors',
 					$th->getMessage(),
 					__FUNCTION__,
 					$th->getCode()

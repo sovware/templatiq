@@ -95,6 +95,7 @@ class DependencyRepository {
 		}
 
 		if ( ! $is_installed ) {
+
 			$api = plugins_api(
 				'plugin_information',
 				[
@@ -105,7 +106,9 @@ class DependencyRepository {
 				]
 			);
 
-			if ( is_wp_error( $api ) ) {
+			$download_url = $plugin->get_download_url() ?? '';
+
+			if ( is_wp_error( $api ) && ! $download_url ) {
 				throw new \Exception(
 					esc_html( $api->get_error_message() ),
 					esc_html( $status_code )
@@ -116,7 +119,14 @@ class DependencyRepository {
 
 			$skin     = new WP_Ajax_Upgrader_Skin();
 			$upgrader = new Plugin_Upgrader( $skin );
-			$result   = $upgrader->install( $api->download_link );
+
+			if ( $download_url ) {
+				$api->download_link = $download_url;
+				$api->slug          = $plugin->get_slug();
+				$api->version       = '1.0.0';
+			}
+
+			$result = $upgrader->install( $api->download_link );
 
 			if ( is_wp_error( $result ) ) {
 				$errors['code']    = $result->get_error_code();
@@ -199,7 +209,7 @@ class DependencyRepository {
 				$plugin = (array) $plugin;
 
 				// Installed but Inactive.
-				if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) && is_plugin_inactive( $plugin['init'] ) ) {
+				if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) && ! $this->is_active( $plugin['init'] ) ) {
 					$link = wp_nonce_url(
 						add_query_arg(
 							[
@@ -296,115 +306,5 @@ class DependencyRepository {
 		}
 
 		return $extensions;
-	}
-
-	public function install_self_hosted_plugin( array $args = [] ) {
-		$status = ['success' => false];
-
-		$default = [
-			'url'                => '',
-			'init_wp_filesystem' => true,
-		];
-		$args = array_merge( $default, $args );
-
-		$allowed_host = ['directorist.com', 'wordpress.org', 'downloads.wordpress.org'];
-
-		if ( empty( $args['url'] ) || ! in_array( parse_url( $args['url'], PHP_URL_HOST ), $allowed_host, true ) ) {
-			$status['success'] = false;
-			$status['message'] = __( 'Invalid download link', 'templatiq' );
-
-			return $status;
-		}
-
-		global $wp_filesystem;
-
-		if ( $args['init_wp_filesystem'] ) {
-
-			if ( ! function_exists( 'WP_Filesystem' ) ) {
-				include ABSPATH . 'wp-admin/includes/file.php';
-			}
-
-			WP_Filesystem();
-		}
-
-		$plugin_path = WP_CONTENT_DIR . '/plugins';
-		$temp_dest   = "{$plugin_path}/atbdp-temp-dir";
-		$file_url    = $args['url'];
-		$file_name   = basename( $file_url );
-		$tmp_file    = download_url( $file_url );
-
-		if ( ! is_string( $tmp_file ) ) {
-			$status['success']  = false;
-			$status['tmp_file'] = $tmp_file;
-			$status['file_url'] = $file_url;
-			$status['message']  = 'Could not download the file';
-
-			return $status;
-		}
-
-		// Make Temp Dir
-		if ( $wp_filesystem->exists( $temp_dest ) ) {
-			$wp_filesystem->delete( $temp_dest, true );
-		}
-
-		$wp_filesystem->mkdir( $temp_dest );
-
-		if ( ! file_exists( $temp_dest ) ) {
-			$status['success'] = false;
-			$status['message'] = __( 'Could not create temp directory', 'templatiq' );
-
-			return $status;
-		}
-
-		// Sets file temp destination.
-		$file_path = "{$temp_dest}/{$file_name}";
-
-		set_error_handler(
-			function ( $errno, $errstr, $errfile, $errline ) {
-				// error was suppressed with the @-operator
-				if ( 0 === error_reporting() ) {
-					return false;
-				}
-
-				throw new \ErrorException( $errstr, 0, $errno, $errfile, $errline );
-			}
-		);
-
-		// Copies the file to the final destination and deletes temporary file.
-		try {
-			copy( $tmp_file, $file_path );
-		} catch ( \Exception $e ) {
-			$status['success'] = false;
-			$status['message'] = $e->getMessage();
-
-			return $status;
-		}
-
-		@unlink( $tmp_file );
-		unzip_file( $file_path, $temp_dest );
-
-		if ( "{$plugin_path}/" !== $file_path || $file_path !== $plugin_path ) {
-			@unlink( $file_path );
-		}
-
-		$extracted_file_dir = glob( "{$temp_dest}/*", GLOB_ONLYDIR );
-
-		foreach ( $extracted_file_dir as $dir_path ) {
-			$dir_name  = basename( $dir_path );
-			$dest_path = "{$plugin_path}/{$dir_name}";
-
-			// Delete Previous Files if Exists
-			if ( $wp_filesystem->exists( $dest_path ) ) {
-				$wp_filesystem->delete( $dest_path, true );
-			}
-		}
-
-		copy_dir( $temp_dest, $plugin_path );
-		$wp_filesystem->delete( $temp_dest, true );
-
-		$status['success'] = true;
-		$status['message'] = __( 'The plugin has been downloaded successfully', 'templatiq' );
-
-		return $status;
 	}
 }

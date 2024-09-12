@@ -149,39 +149,6 @@ class Controller extends ControllerBase {
 		}
 	}
 
-	public function install_self_hosted_plugin() {
-		if ( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) {
-			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
-
-			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
-			}
-		}
-
-		// Get the plugin URL from the request
-		$plugin_url = isset( $_POST['plugin_url'] ) ? esc_url_raw( $_POST['plugin_url'] ) : '';
-
-		if ( empty( $plugin_url ) ) {
-			wp_send_json_error( ['errorMessage' => 'No plugin URL provided.'] );
-		}
-
-		try {
-			$output = ( new DependencyRepository )->install_self_hosted_plugin( ['url' => $plugin_url] );
-
-			if ( ! $output['success'] ) {
-				wp_send_json_error( ['errorMessage' => $output['message']] );
-			}
-
-			wp_send_json_success(
-				[
-					'message' => $output['message'],
-				]
-			);
-		} catch ( \Throwable $th ) {
-			wp_send_json_error( ['errorMessage' => $th->getMessage()] );
-		}
-	}
-
 	public function backup_settings() {
 		if ( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) {
 			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
