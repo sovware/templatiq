@@ -6,20 +6,13 @@ import { InsertTemplateModalStyle } from './style';
 
 import closeIcon from '@icon/close.svg';
 
-const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
+const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable_plugins } ) => {
 	const { template_id, builder, directory_page_type } = item;
 
 	const directoryType = templatiq_obj?.directory_types;
 
 	const installPluginEndPoint = 'templatiq/dependency/install';
 	const importAsPageEndPoint = 'templatiq/template/import-as-page';
-
-	const freePlugins = required_plugins?.length > 0 ? required_plugins.filter(
-		( plugin ) => ! plugin.hasOwnProperty( 'is_pro' ) || plugin.is_pro === false
-	) : [];
-	const proPlugins = required_plugins?.length > 0 ? required_plugins.filter(
-		( plugin ) => plugin.hasOwnProperty( 'is_pro' ) && plugin.is_pro === true
-	) : [];
 
 	let [ selectedPlugins, setSelectedPlugins ] = useState( [] );
 	let [ selectedTypes, setSelectedTypes ] = useState( [] );
@@ -29,7 +22,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	let [ loading, setLoading ] = useState( false );
 	let [ errorMsg, setErrorMsg ] = useState( false );
 
-	const [ installablePlugins, setInstallablePlugins ] = useState( freePlugins || [] );
+	const [ installablePlugins, setInstallablePlugins ] = useState( required_plugins || [] );
 	const [ installingPlugins, setInstallingPlugins ] = useState( [] );
 	const [ installedPlugins, setInstalledPlugins ] = useState( [] );
 	const [ disableButtonInstall, setDisableButtonInstall ] = useState( false );
@@ -54,7 +47,6 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 	};
 
 	const handlePluginChange = ( plugin ) => {
-		console.log( 'plugin', plugin );
 		const updatedPlugins = selectedPlugins.includes( plugin )
 			? selectedPlugins.filter( ( item ) => item !== plugin )
 			: [ ...selectedPlugins, plugin ];
@@ -102,7 +94,6 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 			const installResponse = await new Promise( ( resolve, reject ) => {
 				postData( installPluginEndPoint, { plugin } ).then( ( res ) => {
 					setLoading( false );
-					console.log( 'installResponse', res );
 					if ( res.success ) {
 						setInstalledPlugins( ( prevInstalled ) => [
 							...prevInstalled,
@@ -182,7 +173,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 				});
 			},
 			error: function ( data ) {
-				console.log( 'Error: ', data );
+				console.error( 'Error: ', data );
 			},
 			complete: function ( data ) {
 				closeInsertTemplateModal()
@@ -226,7 +217,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 
 	useEffect( () => {
 		requiredPluginStatusCheck();
-		setInstallablePlugins( freePlugins );
+		setInstallablePlugins( required_plugins );
 
 		// Check if the 'elementor-editor-active' class is present on the body element
 		const isElementorEditorActive = document.body.classList.contains('elementor-editor-active');
@@ -237,9 +228,6 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 		if ( isElementorEditorActive && installablePlugins?.length === 0 ) {
 			importElementorData( template_id );
 		}
-
-
-		console.log( 'installablePlugins', {templatiq_obj, required_plugins, freePlugins, proPlugins, installablePlugins} );
 	}, [] );
 
 	return (
@@ -335,19 +323,20 @@ const InsertTemplateModal = ( { item, onClose, required_plugins } ) => {
 																		{__( "(Pro)", 'templatiq' )}
 																	</span>
 																}
-
-																<span className="templatiq__modal__plugin__status">
-																	{
-																		installStatus
-																	}
-																</span>
+																{
+																	installStatus &&
+																	<span className="templatiq__modal__plugin__status">
+																		{installStatus}
+																	</span>
+																}
+																
 															</div>
 														);
 													}
 												) 
 											}
-											{ proPlugins &&
-												proPlugins.map(
+											{ not_installable_plugins &&
+												not_installable_plugins.map(
 													( plugin, index ) => {
 														return (
 															<div
