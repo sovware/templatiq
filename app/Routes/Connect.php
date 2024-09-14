@@ -39,5 +39,9 @@ class Connect {
 		\Templatiq\Utils\Options::set( 'token', $token );
 
 		( new \Templatiq\Repositories\AccountRepository() )->data();
+
+		wp_safe_redirect( admin_url( 'admin.php?page=templatiq&connected=true' ) );
+
+		exit();
 	}
 }

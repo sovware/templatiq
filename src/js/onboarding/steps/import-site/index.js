@@ -204,7 +204,7 @@ const ImportSite = () => {
 			console.log('plugin : ', plugin);
 		
 			// Check if the plugin is self-hosted by looking for a direct URL
-			if (plugin.action && plugin.action.includes('http')) {
+			if (plugin.action && plugin.action.includes('directorist')) {
 				// For self-hosted plugins, use AJAX to call the custom PHP handler
 				jQuery.ajax({
 					url: ajaxurl, // Ensure the ajax_url is available in your script localization
@@ -346,6 +346,7 @@ const ImportSite = () => {
 					const response = JSON.parse( text );
 					cloneResponse = response;
 					if ( response.success ) {
+
 						const notActivatedPluginList = notActivatedList;
 						notActivatedPluginList.forEach(
 							( singlePlugin, index ) => {
@@ -388,7 +389,7 @@ const ImportSite = () => {
 								'<a href="%1$s">Read article</a> to resolve the issue and continue importing template.',
 								'templatiq-sites'
 							),
-							'https://wpastra.com/docs/enable-debugging-in-wordpress/#how-to-use-debugging'
+							'https://templatiq.com/docs/enable-debugging-in-wordpress/#how-to-use-debugging'
 						),
 						text
 					);
