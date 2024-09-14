@@ -293,6 +293,7 @@ class DependencyRepository {
 			'templatiq_site_options' => $options,
 		];
 
+		error_log( print_r( 'after_plugin_activate' ,true) );
 		do_action( 'templatiq_sites_after_plugin_activation', $plugin_init, $data );
 	}
 
