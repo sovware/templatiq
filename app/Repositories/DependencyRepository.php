@@ -28,7 +28,7 @@ class DependencyRepository {
 
 		if ( is_wp_error( $result ) ) {
 			throw new \Exception(
-				esc_html__( "Can't install this plugin", 'templatiq' ),
+				esc_html__( $result->get_error_message(), 'templatiq' ),
 				401
 			);
 		}
@@ -159,14 +159,13 @@ class DependencyRepository {
 			$plugin->set_file_name( $install_status['file'] );
 		}
 
-		$activate_status = $this->activate( $plugin->get_file_name() );
-
-		if ( is_wp_error( $activate_status ) ) {
-			throw new \Exception(
-				esc_html( $activate_status->get_error_message() ),
-				esc_html( $activate_status->get_error_code() )
-			);
-		}
+		// $activate_status = $this->activate( $plugin->get_file_name() );
+		// if ( is_wp_error( $activate_status ) ) {
+		// 	throw new \Exception(
+		// 		esc_html( $activate_status->get_error_message() ),
+		// 		esc_html( $activate_status->get_error_code() )
+		// 	);
+		// }
 
 		return [
 			'success' => true,

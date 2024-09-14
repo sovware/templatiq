@@ -20,6 +20,10 @@ const { reportError } = starterTemplates;
 let sendReportFlag = reportError;
 const successMessageDelay = 8000; // 8 seconds delay for fully assets load.
 
+const installFirstSlugs = [
+	'directorist',
+];
+
 import './style.scss';
 
 const ImportSite = () => {
@@ -41,6 +45,7 @@ const ImportSite = () => {
 			requiredPlugins,
 			notInstalledList,
 			notActivatedList,
+			currentActivatingPluginSlug,
 			tryAgainCount,
 			xmlImportDone,
 			pluginInstallationAttempts,
@@ -188,30 +193,35 @@ const ImportSite = () => {
 		// Filter the plugins that are not pro (is_pro: false)
 		const installablePlugins = notInstalledList.filter(plugin => !plugin.is_pro || plugin.pro_unlocked);
 
+		// Sort the installable plugins to install 'directorist', 'elementor', and 'woocommerce' first.
+		const sortedInstallablePlugins = installablePlugins.sort((a, b) => {
+			const aIsFirst = installFirstSlugs.includes(a.slug);
+			const bIsFirst = installFirstSlugs.includes(b.slug);
+			return aIsFirst === bIsFirst ? 0 : aIsFirst ? -1 : 1;
+		});
+
 		// Install Bulk.
-		if ( installablePlugins.length <= 0 ) {
+		if (sortedInstallablePlugins.length <= 0) {
 			return;
 		}
 
 		percentage += 2;
-		dispatch( {
+		dispatch({
 			type: 'set',
-			importStatus: __( 'Installing Required Plugins.', 'templatiq-sites' ),
+			importStatus: __('Installing Required Plugins.', 'templatiq-sites'),
 			importPercent: percentage,
-		} );
+		});
 
-		installablePlugins.forEach((plugin) => {
-			console.log('plugin : ', plugin);
-		
+		sortedInstallablePlugins.forEach((plugin) => {
 			// Check if the plugin is self-hosted by looking for a direct URL
 			if (plugin.action && plugin.action.includes('directorist')) {
 				// For self-hosted plugins, use AJAX to call the custom PHP handler
 				jQuery.ajax({
-					url: ajaxurl, // Ensure the ajax_url is available in your script localization
+					url: ajaxurl,
 					method: 'POST',
 					data: {
 						action: 'templatiq_install_self_hosted_plugin',
-						plugin: plugin, // Use plugin.action for the URL
+						plugin: plugin,
 						_ajax_nonce: templatiqSitesVars._ajax_nonce
 					},
 					success(response) {
@@ -220,22 +230,21 @@ const ImportSite = () => {
 								type: 'set',
 								importStatus: sprintf(
 									// translators: Plugin Name.
-									__(
-										'%1$s plugin installed successfully.',
-										'templatiq-sites'
-									),
+									__('%1$s plugin installed successfully.', 'templatiq-sites'),
 									plugin.name
 								),
 							});
-		
+
+							console.log('Self-hosted plugin installed:', plugin.name);
+
 							const inactiveList = notActivatedList;
 							inactiveList.push(plugin);
-		
+
 							dispatch({
 								type: 'set',
 								notActivatedList: inactiveList,
 							});
-		
+
 							const notInstalledPluginList = installablePlugins;
 							notInstalledPluginList.forEach((singlePlugin, index) => {
 								if (singlePlugin.slug === plugin.slug) {
@@ -247,7 +256,7 @@ const ImportSite = () => {
 								notInstalledList: notInstalledPluginList,
 							});
 						} else {
-							console.log(' response : ',  response );
+							console.log('Self-hosted plugin response:', response);
 							console.error(response.data.errorMessage);
 						}
 					},
@@ -258,7 +267,7 @@ const ImportSite = () => {
 			} else {
 				// For WordPress.org hosted plugins, use wp.updates API
 				wp.updates.queue.push({
-					action: 'install-plugin', // Required action.
+					action: 'install-plugin',
 					data: {
 						slug: plugin.slug,
 						init: plugin.init,
@@ -266,26 +275,24 @@ const ImportSite = () => {
 						clear_destination: true,
 						ajax_nonce: templatiqSitesVars._ajax_nonce,
 						success() {
+							console.log('Org plugin installed:', plugin.name);
+
 							dispatch({
 								type: 'set',
 								importStatus: sprintf(
-									// translators: Plugin Name.
-									__(
-										'%1$s plugin installed successfully.',
-										'templatiq-sites'
-									),
+									__('%1$s plugin installed successfully.', 'templatiq-sites'),
 									plugin.name
 								),
 							});
-		
+
 							const inactiveList = notActivatedList;
 							inactiveList.push(plugin);
-		
+
 							dispatch({
 								type: 'set',
 								notActivatedList: inactiveList,
 							});
-		
+
 							const notInstalledPluginList = installablePlugins;
 							notInstalledPluginList.forEach((singlePlugin, index) => {
 								if (singlePlugin.slug === plugin.slug) {
@@ -298,21 +305,23 @@ const ImportSite = () => {
 							});
 						},
 						error(err) {
+							console.log('Org plugin not installed:', plugin.name);
 							console.error('An error occurred:', err);
 						}
 					}
 				});
-		
+
 				// Required to set queue.
 				wp.updates.queueChecker();
 			}
-		});		
+		});
 	};
+
 
 	/**
 	 * Activate Plugin
 	 */
-	const activatePlugin = ( plugin ) => {
+	const activatePlugin = async ( plugin ) => {
 		percentage += 2;
 		dispatch( {
 			type: 'set',
@@ -368,9 +377,17 @@ const ImportSite = () => {
 								plugin.name
 							),
 							importPercent: percentage,
+							currentActivatingPluginSlug: '',
 						} );
+
+						console.log('plugin activated : ',  plugin.name  );
+
+						return true;					
 					}
 				} catch ( error ) {
+
+					console.log('plugin not activated : ',  plugin.name  );
+
 					report(
 						sprintf(
 							// translators: Plugin name.
@@ -395,6 +412,8 @@ const ImportSite = () => {
 					);
 
 					errorReported = true;
+
+					return false;
 				}
 
 				if ( ! cloneResponse.success && errorReported === false ) {
@@ -406,6 +425,9 @@ const ImportSite = () => {
 					type: 'set',
 					pluginInstallationAttempts: pluginInstallationAttempts + 1,
 				} );
+
+				console.log('plugin not activated pluginInstallationAttempts: ',  plugin.name, pluginInstallationAttempts  );
+
 				report(
 					sprintf(
 						// translators: Plugin name.
@@ -428,6 +450,8 @@ const ImportSite = () => {
 					),
 					error
 				);
+
+				return false;
 			} );
 	};
 
@@ -1278,6 +1302,18 @@ const ImportSite = () => {
 			return;
 		}
 
+		const setStartFlag = () => {
+			const content = new FormData();
+			content.append( 'action', 'templatiq-sites-set-start-flag' );
+			content.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
+	
+			fetch( ajaxurl, {
+				method: 'post',
+				body: content,
+			} );
+		};
+
+
 		if (!importError) {
 			localStorage.setItem('st-import-start', +new Date());
 			percentage += 5;
@@ -1294,6 +1330,8 @@ const ImportSite = () => {
 				themeStatus: true,
 			});
 		};
+
+		setStartFlag();
 
 		sendReportFlag = false;
 		importPersonaWise();
@@ -1334,12 +1372,25 @@ const ImportSite = () => {
 	}, [ notActivatedList.length, notInstalledList.length ] );
 
 	// Whenever a plugin is installed, this code sends an activation request.
-	useEffect( () => {
+	useEffect(() => {
+		// Sort the notActivatedList to prioritize 'directorist', 'elementor', 'woocommerce'.
+		const sortedNotActivatedList = [...notActivatedList].sort((a, b) => {
+			const aIsFirst = installFirstSlugs.includes(a.slug);
+			const bIsFirst = installFirstSlugs.includes(b.slug);
+			return aIsFirst === bIsFirst ? 0 : aIsFirst ? -1 : 1;
+		});
+
 		// Installed all required plugins.
-		if ( notActivatedList.length > 0 ) {
-			activatePlugin( notActivatedList[ 0 ] );
+		if (sortedNotActivatedList.length > 0 && !currentActivatingPluginSlug ) {
+			dispatch( {
+				type: 'set',
+				currentActivatingPluginSlug: sortedNotActivatedList[0].slug,
+			} );
+
+			activatePlugin(sortedNotActivatedList[0]);
 		}
-	}, [ notActivatedList.length ] );
+	}, [notActivatedList.length]);
+
 
 	return (
 		<DefaultStep

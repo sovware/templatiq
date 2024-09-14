@@ -49,6 +49,9 @@ export const initialState = {
 
 	// Import Persona Data
 	importPersonaData: {},
+	importPersonaDataDone: false,
+
+	currentActivatingPluginSlug: '',
 
 	// Import statuses.
 	reset: 'yes' === starterTemplates.firstImportStatus ? true : false,
