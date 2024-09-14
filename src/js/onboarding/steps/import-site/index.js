@@ -62,6 +62,17 @@ const ImportSite = () => {
 
 	let percentage = importPercent;
 
+	const setStartFlag = () => {
+		const content = new FormData();
+		content.append( 'action', 'templatiq-sites-set-start-flag' );
+		content.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
+
+		fetch( ajaxurl, {
+			method: 'post',
+			body: content,
+		} );
+	};
+
 	/**
 	 *
 	 * @param {string} primary   Primary text for the error.
@@ -1302,18 +1313,6 @@ const ImportSite = () => {
 			return;
 		}
 
-		const setStartFlag = () => {
-			const content = new FormData();
-			content.append( 'action', 'templatiq-sites-set-start-flag' );
-			content.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
-	
-			fetch( ajaxurl, {
-				method: 'post',
-				body: content,
-			} );
-		};
-
-
 		if (!importError) {
 			localStorage.setItem('st-import-start', +new Date());
 			percentage += 5;
@@ -1372,22 +1371,10 @@ const ImportSite = () => {
 	}, [ notActivatedList.length, notInstalledList.length ] );
 
 	// Whenever a plugin is installed, this code sends an activation request.
-	useEffect(() => {
-		// Sort the notActivatedList to prioritize 'directorist', 'elementor', 'woocommerce'.
-		const sortedNotActivatedList = [...notActivatedList].sort((a, b) => {
-			const aIsFirst = installFirstSlugs.includes(a.slug);
-			const bIsFirst = installFirstSlugs.includes(b.slug);
-			return aIsFirst === bIsFirst ? 0 : aIsFirst ? -1 : 1;
-		});
-
+	useEffect( () => {
 		// Installed all required plugins.
-		if (sortedNotActivatedList.length > 0 && !currentActivatingPluginSlug ) {
-			dispatch( {
-				type: 'set',
-				currentActivatingPluginSlug: sortedNotActivatedList[0].slug,
-			} );
-
-			activatePlugin(sortedNotActivatedList[0]);
+		if ( notActivatedList.length > 0 ) {
+			activatePlugin( notActivatedList[ 0 ] );
 		}
 	}, [notActivatedList.length]);
 

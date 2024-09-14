@@ -12,9 +12,10 @@ class Activation {
 
 	public function boot( $file_name ) {
 		$this->auto_deactivate( $file_name );
-		$this->redirection();
 
 		try {
+			$this->redirection();
+
 			( new \Templatiq\Repositories\TemplateRepository )->library_data();
 		} catch ( \Exception $e ) {
 			// do nothing
