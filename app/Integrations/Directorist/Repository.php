@@ -19,7 +19,7 @@ class Repository {
 	private string $cloud_endpoint;
 
 	public function __construct() {
-		$this->cloud_endpoint = TEMPLATIQ_CLOUD_BASE;
+		$this->cloud_endpoint = TEMPLATIQ_CLOUD_API_BASE;
 	}
 
 	public function is_active() {

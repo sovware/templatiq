@@ -13,7 +13,7 @@ use Templatiq\Utils\Options;
 class BookmarkRepository {
 
 	public function add( int $template_id ) {
-		$http     = new Http( TEMPLATIQ_CLOUD_BASE . '/bookmark/add' );
+		$http     = new Http( TEMPLATIQ_CLOUD_API_BASE . '/bookmark/add' );
 		$response = $http->body(
 			[
 				'token'       => Options::get( 'token' ),
@@ -39,7 +39,7 @@ class BookmarkRepository {
 	}
 
 	public function remove( int $template_id ) {
-		$http     = new Http( TEMPLATIQ_CLOUD_BASE . '/bookmark/remove' );
+		$http     = new Http( TEMPLATIQ_CLOUD_API_BASE . '/bookmark/remove' );
 		$response = $http->body(
 			[
 				'token'       => Options::get( 'token' ),

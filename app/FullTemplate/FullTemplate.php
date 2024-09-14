@@ -44,7 +44,7 @@ class FullTemplate {
 	public string $import_analytics_url;
 
 	private function __construct() {
-		$this->api_domain = trailingslashit( TEMPLATIQ_API_ENDPOINT );
+		$this->api_domain = trailingslashit( TEMPLATIQ_CLOUD_BASE );
 		$this->api_url    = apply_filters( 'templatiq_sites_api_url', $this->api_domain . 'wp-json/wp/v2/' );
 
 		$this->search_analytics_url = apply_filters( 'templatiq_sites_search_api_url', $this->api_domain . 'wp-json/analytics/v2/search/' );

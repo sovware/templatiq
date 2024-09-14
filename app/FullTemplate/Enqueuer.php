@@ -21,7 +21,7 @@ class Enqueuer extends EnqueuerBase {
 	public string $api_domain;
 	public string $api_url;
 	public function __construct() {
-		$this->api_domain = trailingslashit( TEMPLATIQ_API_ENDPOINT );
+		$this->api_domain = trailingslashit( TEMPLATIQ_CLOUD_BASE );
 		$this->api_url    = apply_filters( 'templatiq_sites_api_url', $this->api_domain . 'wp-json/wp/v2/' );
 
 		$this->action( 'admin_enqueue_scripts', [$this, 'enqueue_scripts'] );
@@ -97,7 +97,7 @@ class Enqueuer extends EnqueuerBase {
 			'restNonce'         => wp_create_nonce( 'wp_rest' ),
 			'retryTimeOut'      => 5000, // 10 Seconds.
 			'siteUrl' => get_site_url(),
-			'searchData'        => TEMPLATIQ_API_ENDPOINT . 'wp-json/templatiq-library/v1/ist-data',
+			'searchData'        => TEMPLATIQ_CLOUD_BASE . 'wp-json/templatiq-library/v1/ist-data',
 			'firstImportStatus' => get_option( 'templatiq_full_template_import_complete', false ),
 			'supportLink'       => 'https://templatiq.com/templatiq-library-support/?ip=' . Helper::get_client_ip(),
 			'analytics'         => get_site_option( 'bsf_analytics_optin', false ),

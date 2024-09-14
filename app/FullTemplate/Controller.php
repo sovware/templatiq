@@ -64,7 +64,7 @@ class Controller extends ControllerBase {
 			}
 		}
 
-		$api_url = add_query_arg( [], trailingslashit( TEMPLATIQ_API_ENDPOINT ) . 'wp-json/templatiq-library/v2/import-error/' );
+		$api_url = add_query_arg( [], trailingslashit( TEMPLATIQ_CLOUD_BASE ) . 'wp-json/templatiq-library/v2/import-error/' );
 
 		$post_id           = ( isset( $_POST['id'] ) ) ? intval( $_POST['id'] ) : 0;
 		$user_agent_string = isset( $_SERVER['HTTP_USER_AGENT'] ) ? sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] ) : '';

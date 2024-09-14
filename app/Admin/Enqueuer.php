@@ -62,7 +62,7 @@ class Enqueuer extends EnqueuerBase {
 				'theme_status'  => ( new DependencyRepository )->get_theme_status(),
 				'theme_slug'    => 'pixetiq',
 				'dashboard_url' => admin_url( 'admin.php?page=templatiq' ),
-				'cloud_url'     => TEMPLATIQ_CONNECT_URL,
+				'cloud_url'     => TEMPLATIQ_CLOUD_CONNECT_URL,
 			]
 		);
 	}
