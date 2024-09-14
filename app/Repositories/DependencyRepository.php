@@ -18,10 +18,7 @@ class DependencyRepository {
 
 	public function activate( string $file ) {
 		if ( ! is_plugin_inactive( $file ) ) {
-			throw new \Exception(
-				esc_html__( "This plugin already activated", 'templatiq' ),
-				401
-			);
+			return true;
 		}
 
 		$result = activate_plugin( $file, false, false );
@@ -293,7 +290,6 @@ class DependencyRepository {
 			'templatiq_site_options' => $options,
 		];
 
-		error_log( print_r( 'after_plugin_activate' ,true) );
 		do_action( 'templatiq_sites_after_plugin_activation', $plugin_init, $data );
 	}
 
