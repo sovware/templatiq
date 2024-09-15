@@ -14,7 +14,7 @@ class FullTemplateImport {
 
 	public function __construct() {
 		add_filter( 'templatiq_wxr_importer.pre_process.post', [$this, 'pre_process_post'], 10 );
-		add_filter( 'templatiq_wxr_importer.pre_process.post_meta', [$this, 'set_directory_type'], 10, 2 );
+		add_filter( 'templatiq_wxr_importer.pre_process.post_meta', [$this, 'set_directory_type_post_meta'], 10, 2 );
 		add_action( 'templatiq_wxr_importer.processed.term', [$this, 'set_directory_type_term'], 10, 2 );
 		add_action( 'templatiq_full_template_import_complete', [$this, 'change_term_meta'] );
 	}
@@ -51,16 +51,24 @@ class FullTemplateImport {
 		}
 
 		// Directory Type update
-		$types = get_terms( ['taxonomy' => 'atbdp_listing_types', 'fields' => 'ids'] ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-		if ( ! empty( $types ) ) {
-			$uuid = 1;
-			foreach ( $types as $type ) {
-				if ( 1 === $uuid ) {
-					update_term_meta( $type, '_default', $attachment_id );
-					$uuid++;
-				}
-			}
-		}
+		// $types = get_terms( ['taxonomy' => 'atbdp_listing_types', 'fields' => 'ids'] ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+		// if ( ! empty( $types ) ) {
+		// 	$uuid = 1;
+		// 	foreach ( $types as $type ) {
+		// 		if ( 1 === $uuid ) {
+		// 			update_term_meta( $type, '_default', 1 );
+		// 			$uuid++;
+		// 		} else {
+		// 			update_term_meta( $type, '_default', '' );
+		// 		}
+		// 	}
+		// }
+
+		$this->remove_mappings();
+	}
+
+	public function remove_mappings() {
+		delete_option( 'templatiq_sites_directory_types_ids_mapping' );
 	}
 
 	public function set_directory_type_term( $term_id, $data ) {
@@ -83,7 +91,7 @@ class FullTemplateImport {
 		}
 	}
 
-	public function set_directory_type( $meta_item, $post_id ) {
+	public function set_directory_type_post_meta( $meta_item, $post_id ) {
 		$key = $meta_item['key'] ?? '';
 		if ( '_directory_type' === $key ) {
 			$types     = get_option( 'templatiq_sites_directory_types_ids_mapping', true );
@@ -92,7 +100,7 @@ class FullTemplateImport {
 
 			if ( $_pre_type !== $value ) {
 				update_post_meta( $post_id, '_directory_type', $value );
-				wp_set_object_terms( $post_id, $value, 'atbdp_listing_types' );
+				wp_set_object_terms( $post_id, (int) $value, 'atbdp_listing_types' );
 
 				error_log( 'Directory Type Changed - post_id #' . $post_id . ' from #' . $meta_item['value'] . ' => ' . $value );
 			}
