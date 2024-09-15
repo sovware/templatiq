@@ -48,7 +48,7 @@ class Http {
 		$args = [
 			'headers' => $this->headers,
 			'body'    => wp_json_encode( $this->body ),
-			'timeout' => 50,
+			'timeout' => 120,
 		];
 
 		$this->response = wp_remote_post(
@@ -60,12 +60,15 @@ class Http {
 	}
 
 	public function get() {
+		$args = [
+			'headers' => $this->headers,
+			'body'    => wp_json_encode( $this->body ),
+			'timeout' => 120,
+		];
+
 		$this->response = wp_remote_get(
 			$this->url,
-			[
-				'headers' => $this->headers,
-				'body'    => $this->body,
-			]
+			$args
 		);
 
 		return $this;
