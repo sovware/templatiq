@@ -20,7 +20,7 @@ class Ajax extends AjaxBase {
 
 		$this->action( 'wp_ajax_templatiq-required-plugins', [DependencyController::class, 'required_plugins'] );
 		$this->action( 'wp_ajax_templatiq-required-plugin-activate', [DependencyController::class, 'activate_plugin'] );
-		$this->action( 'wp_ajax_templatiq_install_self_hosted_plugin', [DependencyController::class, 'install_plugin'] );
+		$this->action( 'wp_ajax_templatiq_install_self_hosted_plugin', [DependencyController::class, 'install_plugin_via_ajax'] );
 
 		$this->action( 'wp_ajax_templatiq-sites-backup-settings', [Controller::class, 'backup_settings'] );
 

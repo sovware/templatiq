@@ -103,7 +103,7 @@ class DependencyRepository {
 				]
 			);
 
-			$download_url = $plugin->get_download_url() ?? '';
+			$download_url = $plugin->get_download_url();
 
 			if ( is_wp_error( $api ) && ! $download_url ) {
 				throw new \Exception(
@@ -155,14 +155,6 @@ class DependencyRepository {
 			$install_status = install_plugin_install_status( $api );
 			$plugin->set_file_name( $install_status['file'] );
 		}
-
-		// $activate_status = $this->activate( $plugin->get_file_name() );
-		// if ( is_wp_error( $activate_status ) ) {
-		// 	throw new \Exception(
-		// 		esc_html( $activate_status->get_error_message() ),
-		// 		esc_html( $activate_status->get_error_code() )
-		// 	);
-		// }
 
 		return [
 			'success' => true,

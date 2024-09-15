@@ -201,40 +201,30 @@ class DependencyController extends ControllerBase {
 		}
 	}
 
-	public function install_plugin( $request = null ) {
-		// Check if the request is via AJAX
-		if ( wp_doing_ajax() ) {
-			// Verify Nonce for AJAX requests
-			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
+	public function install_plugin_via_ajax() {
+		// Verify Nonce for AJAX requests
+		check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
-			// Check if the user has the required permissions
-			if ( ! current_user_can( 'install_plugins' ) ) {
-				wp_send_json_error(
-					[
-						'success' => false,
-						'message' => __( 'You do not have sufficient permissions to install plugins.', 'templatiq' ),
-					]
-				);
-			}
-
-			// Get plugin details from AJAX request
-			$plugin = (array) $_POST['plugin']; // Assuming 'plugin' is being sent via POST in the AJAX request
-		} else {
-			// Handle REST API request
-			if ( $request instanceof WP_REST_Request ) {
-				$plugin = (array) $request->get_param( 'plugin' );
-			} else {
-				return Response::error(
-					'invalid_request_type',
-					__( 'Invalid request type. Expecting WP_REST_Request.', 'templatiq' ),
-					__FUNCTION__,
-					400
-				);
-			}
+		// Check if the user has the required permissions
+		if ( ! current_user_can( 'install_plugins' ) ) {
+			wp_send_json_error(
+				[
+					'success' => false,
+					'message' => __( 'You do not have sufficient permissions to install plugins.', 'templatiq' ),
+				]
+			);
 		}
 
+		// Get plugin details from AJAX request
+		$plugin = (array) $_POST['plugin'];
+
 		if ( empty( $plugin ) ) {
-			throw new \Exception( __( 'You have supplied invalid plugin data. Please reload the page and try again.', 'templatiq' ), 400 );
+			wp_send_json_error(
+				[
+					'success' => false,
+					'message' => __( 'Invalid plugin data. Please try again.', 'templatiq' ),
+				]
+			);
 		}
 
 		// Prepare the PluginDTO object
@@ -242,9 +232,10 @@ class DependencyController extends ControllerBase {
 			->set_name( $plugin['name'] )
 			->set_file_name( $plugin['file_name'] )
 			->set_slug( $plugin['slug'] )
-			->set_is_pro( $plugin['is_pro'] );
+			->set_is_pro( $plugin['is_pro'] )
+			->set_download_url( '' );
 
-		if ( isset( $plugin['action'] ) && strpos( $plugin['action'], 'http' ) !== false ) {
+		if ( isset( $plugin['action'] ) && strpos( $plugin['action'], 'directorist.com' ) !== false ) {
 			$pluginDTO->set_is_pro( false )->set_download_url( $plugin['action'] );
 		}
 
@@ -252,29 +243,63 @@ class DependencyController extends ControllerBase {
 			// Use DependencyRepository to handle the plugin installation
 			$result = ( new DependencyRepository )->installer( $pluginDTO );
 
-			// Return success response based on the request type
-			if ( wp_doing_ajax() ) {
-				wp_send_json_success( $result );
-			} else {
-				return Response::success( $result );
-			}
+			wp_send_json_success( $result );
 		} catch ( \Throwable $th ) {
-			// Handle errors for both request types
-			if ( wp_doing_ajax() ) {
-				wp_send_json_error(
-					[
-						'success' => false,
-						'message' => $th->getMessage(),
-					]
-				);
-			} else {
-				return Response::error(
-					'dependency_install_errors',
-					$th->getMessage(),
-					__FUNCTION__,
-					$th->getCode()
+			wp_send_json_error(
+				[
+					'success' => false,
+					'message' => $th->getMessage(),
+				]
+			);
+		}
+	}
+
+	public function install_plugin_via_rest( WP_REST_Request $request ) {
+		// Get plugin details from REST API request
+		$plugin = (array) $request->get_param( 'plugin' );
+
+		if ( empty( $plugin ) ) {
+			return Response::error(
+				'invalid_plugin',
+				__( 'You have supplied invalid plugin data. Please reload the page and try again.', 'templatiq' ),
+				__FUNCTION__,
+				400
+			);
+		}
+
+		// Prepare the PluginDTO object
+		$pluginDTO = ( new PluginDTO() )
+			->set_name( $plugin['name'] )
+			->set_file_name( $plugin['file_name'] )
+			->set_slug( $plugin['slug'] )
+			->set_is_pro( $plugin['is_pro'] )
+			->set_download_url( '' );
+
+		if ( isset( $plugin['action'] ) && strpos( $plugin['action'], 'directorist.com' ) !== false ) {
+			$pluginDTO->set_is_pro( false )->set_download_url( $plugin['action'] );
+		}
+
+		try {
+			// Use DependencyRepository to handle the plugin installation
+			$repo   = new DependencyRepository();
+			$result = $repo->installer( $pluginDTO );
+
+			$activate_status = $repo->activate( $pluginDTO->get_file_name() );
+			if ( is_wp_error( $activate_status ) ) {
+				throw new \Exception(
+					esc_html( $activate_status->get_error_message() ),
+					esc_html( $activate_status->get_error_code() )
 				);
 			}
+
+			return Response::success( $result );
+		} catch ( \Throwable $th ) {
+			return Response::error(
+				'dependency_install_errors',
+				$th->getMessage(),
+				__FUNCTION__,
+				$th->getCode()
+			);
 		}
 	}
 }
