@@ -16,6 +16,7 @@ defined( 'ABSPATH' ) || exit;
 include __DIR__ . '/vendor/autoload.php';
 
 final class Templatiq {
+
 	private static Templatiq $instance;
 
 	public static function instance(): Templatiq {
@@ -27,6 +28,9 @@ final class Templatiq {
 	}
 
 	public function load() {
+
+		define( 'TEMPLATIQ_VERSION', '0.0.3' );
+
 		register_activation_hook(
 			__FILE__, function () {
 				( new \Templatiq\Setup\Activation() )->boot( __FILE__ );

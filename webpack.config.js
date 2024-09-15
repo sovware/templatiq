@@ -18,6 +18,7 @@ const devHost = 'templatiq.test';
 function camelCaseDash( string ) {
 	return string.replace( /-([a-z])/g, ( _, letter ) => letter.toUpperCase() );
 }
+const chunkUniqueKey = Date.now().toString();
 
 module.exports = {
 	...defaultConfig,
@@ -32,6 +33,7 @@ module.exports = {
 	output: {
 		path: path.resolve( __dirname, './assets' ),
 		filename: '[name].js',
+		chunkFilename: '[name].js?ver=' + chunkUniqueKey,
 		clean: false,
 	},
 	plugins: [

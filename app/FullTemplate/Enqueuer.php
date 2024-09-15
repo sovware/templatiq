@@ -50,8 +50,8 @@ class Enqueuer extends EnqueuerBase {
 		$script_dep = array_merge( $script_info['dependencies'], ['updates', 'wp-hooks'] );
 		$script_ver = $script_info['version'];
 
-		$this->enqueue_script( 'templatiq-onboarding', '/js/onboarding.js', $script_dep, true, $script_ver );
-		$this->enqueue_style( 'templatiq-onboarding', '/js/style-onboarding.css', [], $script_ver );
+		$this->enqueue_script( 'templatiq-onboarding', '/js/onboarding-' . TEMPLATIQ_VERSION . '.js', $script_dep, true, $script_ver );
+		$this->enqueue_style( 'templatiq-onboarding', '/js/style-onboarding-' . TEMPLATIQ_VERSION . '.css', [], $script_ver );
 
 		wp_localize_script(
 			'templatiq-onboarding', 'wpApiSettings',

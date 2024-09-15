@@ -53,8 +53,6 @@ class App {
 		define( 'TEMPLATIQ_ASSETS', TEMPLATIQ_URL . '/assets' );
 		define( 'TEMPLATIQ_ASSETS_PATH', TEMPLATIQ_PATH . '/assets' );
 
-		define( 'TEMPLATIQ_VERSION', Config::get( 'version' ) );
-
 		define( 'TEMPLATIQ_CLOUD_BASE', Config::get( 'could_base' ) );
 		define( 'TEMPLATIQ_CLOUD_API_BASE', TEMPLATIQ_CLOUD_BASE . 'wp-json/cloud' );
 		define( 'TEMPLATIQ_CLOUD_CONNECT_URL', TEMPLATIQ_CLOUD_BASE . 'login/' );
