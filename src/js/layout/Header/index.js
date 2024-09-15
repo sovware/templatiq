@@ -143,7 +143,7 @@ const Header = ( props ) => {
 						<Link to="/">
 							<img src={ Logo } alt="Logo" />
 						</Link>
-						<sub>0.0.2</sub>
+						<sub>0.0.3</sub>
 					</Suspense>
 				</div>
 			) }

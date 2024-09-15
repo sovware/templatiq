@@ -60,15 +60,12 @@ class Http {
 	}
 
 	public function get() {
-		$args = [
-			'headers' => $this->headers,
-			'body'    => wp_json_encode( $this->body ),
-			'timeout' => 120,
-		];
-
 		$this->response = wp_remote_get(
 			$this->url,
-			$args
+			[
+				'headers' => $this->headers,
+				'body'    => $this->body,
+			]
 		);
 
 		return $this;

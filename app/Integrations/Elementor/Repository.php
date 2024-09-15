@@ -105,8 +105,7 @@ class Repository extends ElementorLocal {
 			[
 				'token' => Options::get( 'token' ),
 			] )
-
-			->get()
+			->post()
 			->response();
 
 		if ( is_wp_error( $response ) ) {

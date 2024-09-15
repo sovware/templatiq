@@ -21,7 +21,7 @@ class TemplateRepository {
 
 		$endpoint = TEMPLATIQ_CLOUD_API_BASE . '/template/library/?' . time();
 		$http     = new Http( $endpoint );
-		$response = $http->get()->response();
+		$response = $http->post()->response();
 
 		if ( is_wp_error( $response ) ) {
 			throw new \Exception(
