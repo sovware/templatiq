@@ -3,9 +3,12 @@ import { AuthStyle } from '@root/style';
 import { dispatch, select } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import store from '@store/index';
+
+const base64Url = btoa(templatiq_obj.dashboard_url);
+const connectUlr = templatiq_obj.cloud_url + '?connect=true&return_to=' + base64Url
 
 export default function SignInContent() {
 	const navigate = useNavigate();
@@ -75,7 +78,14 @@ export default function SignInContent() {
 	return (
 		<AuthStyle className="templatiq__auth">
 			<h3 className="templatiq__auth__title">Sign in to your templatiq.com account</h3>
-			<form className="templatiq__auth__wrapper" onSubmit={ handleData }>
+			<a
+				href={connectUlr}
+				target="_blank"
+				className="templatiq__auth__btn templatiq-btn templatiq-btn-primary"
+			>
+				{__( 'Connect Account', 'templatiq' )}
+			</a>
+			{/* <form className="templatiq__auth__wrapper" onSubmit={ handleData }>
 				<div className="templatiq__auth__info">
 					<div className="templatiq__auth__info__single">
 						<label htmlFor="authorEmail">{__( 'Email Address', 'templatiq' )}</label>
@@ -149,7 +159,7 @@ export default function SignInContent() {
 						</Link>
 					</span>
 				</div>
-			</form>
+			</form> */}
 		</AuthStyle>
 	);
 }

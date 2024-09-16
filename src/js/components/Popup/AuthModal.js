@@ -3,7 +3,6 @@ import SignUpContent from '@modules/SignUp/SignUpContent';
 import { useState } from '@wordpress/element';
 import ReactSVG from 'react-inlinesvg';
 import { AuthModalStyle } from './style';
-import { __ } from '@wordpress/i18n';
 
 import closeIcon from '@icon/close.svg';
 
@@ -37,7 +36,7 @@ const AuthModal = ( { onClose } ) => {
 			>
 				<ReactSVG src={ closeIcon } width={ 20 } height={ 20 } />
 			</button>
-			{!isSignedUp && (
+			{/* {!isSignedUp && (
 				<div className="templatiq__modal__bottom">
 					{!signUpModal
 						?  __( "Don't have an account?", 'templatiq' )
@@ -50,7 +49,7 @@ const AuthModal = ( { onClose } ) => {
 						{!signUpModal ? __( 'Sign up', 'templatiq' ) :  __( 'Sign in', 'templatiq' ) }
 					</a>
 				</div>
-			)}
+			)} */}
 		</AuthModalStyle>
 	);
 };
