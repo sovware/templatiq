@@ -75,8 +75,6 @@ class FullTemplateImport {
 			}
 		}
 
-
-
 		$this->remove_mappings();
 	}
 
