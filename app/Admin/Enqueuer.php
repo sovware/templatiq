@@ -14,16 +14,11 @@ class Enqueuer extends EnqueuerBase {
 
 	public function __construct() {
 		$this->action( 'admin_enqueue_scripts', [$this, 'enqueue_scripts'] );
-
-		// wp_enqueue_style(
-		// 	'templatiq-admin-menu',
-		// 	'/'
-		// );
-
-		// wp_add_inline_style( 'templatiq-admin-menu', $this->admin_submenu_css() );
 	}
 
 	public function enqueue_scripts( $hook ) {
+		$this->admin_submenu_css();
+
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( ! isset( $_GET['page'] ) || 'templatiq' !== $_GET['page'] ) {
 			return;
@@ -68,7 +63,7 @@ class Enqueuer extends EnqueuerBase {
 	}
 
 	public function admin_submenu_css() {
-		return '.toplevel_page_templatiq > div.wp-menu-image:before {
+		echo '<style>.toplevel_page_templatiq > div.wp-menu-image:before {
 					margin-top: 0;
 					line-height: 27px !important;
 					content: "";
@@ -83,6 +78,6 @@ class Enqueuer extends EnqueuerBase {
 					-moz-osx-font-smoothing: grayscale !important;
 					box-sizing: content-box;
 					width: 100%
-				}';
+				}</style>';
 	}
 }
