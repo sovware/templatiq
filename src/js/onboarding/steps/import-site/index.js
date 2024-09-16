@@ -58,6 +58,37 @@ const ImportSite = () => {
 
 	let percentage = importPercent;
 
+
+	const importPersonaWise = async () => {
+		const content = new FormData();
+		content.append( 'action', 'templatiq_sites_import_content_persona_wise' );
+		content.append( 'import_data', JSON.stringify( importPersonaData ) );
+		content.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
+
+		const data = await fetch( ajaxurl, {
+			method: 'post',
+			body: content,
+		} );
+
+		const response = await data.json();
+
+		if( response.data?.ajax_action) { 
+			const nextAjax = new FormData();
+			nextAjax.append( 'action', response.data.ajax_action );
+			nextAjax.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
+	
+			const nextAjaxData = await fetch( ajaxurl, {
+				method: 'post',
+				body: nextAjax,
+			} );
+		}
+
+		dispatch( {
+			type: 'set',
+			importPersonaDataDone: true,
+		} );
+	};
+
 	const setStartFlag = () => {
 		const content = new FormData();
 		content.append( 'action', 'templatiq-sites-set-start-flag' );
@@ -1250,23 +1281,6 @@ const ImportSite = () => {
 			return event;
 		}
 	};
-
-	const importPersonaWise = ( ) => {
-		const data = new FormData();
-		data.append( 'action', 'templatiq_sites_import_content_persona_wise' );
-		data.append( 'import_data', JSON.stringify( importPersonaData ) );
-		data.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
-	
-		const persona = fetch( ajaxurl, {
-			method: 'post',
-			body: data,
-		} );
-
-		dispatch( {
-			type: 'set',
-			importPersonaDataDone: true,
-		} );
-	};
 	
 	useEffect( () => {
 		window.addEventListener('beforeunload', preventRefresh); // eslint-disable-line
@@ -1306,6 +1320,7 @@ const ImportSite = () => {
 		}
 
 		setStartFlag();
+		importPersonaWise();
 
 		if (!importError) {
 			localStorage.setItem('st-import-start', +new Date());
@@ -1325,7 +1340,6 @@ const ImportSite = () => {
 		};
 
 		sendReportFlag = false;
-		importPersonaWise();
 		installRequiredPlugins();
 	}, [templateResponse]);
 

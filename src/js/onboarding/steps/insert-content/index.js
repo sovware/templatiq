@@ -50,8 +50,8 @@ const InsertContent = () => {
 	const firstImportStatus = starterTemplates?.firstImportStatus;
 	
 	// Initialize state for each group of checkboxes
-    const [installContents, setInstallContents] = useState(['import-listing', 'share-non-sensitive-data']);
-    const [eraseExistingData, setEraseExistingData] = useState(false);
+    const [installContents, setInstallContents] = useState(['importListing', 'shareNonSensitiveData']);
+    const [eraseExistingDirectoristData, setEraseExistingDirectoristData] = useState(false);
     const [removeImportedData, setRemoveImportedData] = useState(false);
     const [loading, setLoading] = useState(true);
 
@@ -70,8 +70,8 @@ const InsertContent = () => {
     };
 
 	// Handle change events for erase existing data checkbox
-    const handleEraseExistingData = (e) => {
-        setEraseExistingData(e.target.checked);
+    const handleEraseExistingDirectoristData = (e) => {
+        setEraseExistingDirectoristData(e.target.checked);
     };
 
 	// Handle change events for remove imported data checkbox
@@ -86,7 +86,7 @@ const InsertContent = () => {
 
 		dispatch( {
 			type: 'set',
-			importPersonaData: {installPlugins, installContents, eraseExistingData, removeImportedData}
+			importPersonaData: {installPlugins, installContents, eraseExistingDirectoristData, removeImportedData}
 		} );
 		nextStep();
 	}
@@ -209,24 +209,24 @@ const InsertContent = () => {
 								<div className="fullsite-setup-wizard__content__import__single">
 									<input
 										type="checkbox"
-										name="import-listing"
-										id="import-listing"
+										name="importListing"
+										id="importListing"
 										value="yes"
-										checked={installContents.includes('import-listing')}
+										checked={installContents.includes('importListing')}
 										onChange={(e) => handleCheckboxChange(e, setInstallContents, installContents)}
 									/>
-									<label htmlFor="import-listing">Import Listing</label>
+									<label htmlFor="importListing">Import Listing</label>
 								</div>
 								<div className="fullsite-setup-wizard__content__import__single">
 									<input
 										type="checkbox"
-										name="share-non-sensitive-data"
-										id="share-non-sensitive-data"
+										name="shareNonSensitiveData"
+										id="shareNonSensitiveData"
 										value="yes"
-										checked={installContents.includes('share-non-sensitive-data')}
+										checked={installContents.includes('shareNonSensitiveData')}
 										onChange={(e) => handleCheckboxChange(e, setInstallContents, installContents)}
 									/>
-									<label htmlFor="share-non-sensitive-data">Share Non-Sensitive Data</label>
+									<label htmlFor="shareNonSensitiveData">Share Non-Sensitive Data</label>
 								</div>
 							</div>
 
@@ -243,13 +243,13 @@ const InsertContent = () => {
 													name="erase-directory-data"
 													id="erase-directory-data"
 													value="yes"
-													checked={eraseExistingData}
-													onChange={handleEraseExistingData}
+													checked={eraseExistingDirectoristData}
+													onChange={handleEraseExistingDirectoristData}
 												/>
 												<label htmlFor="erase-directory-data">Erase existing directory data & start fresh</label>
 											</div>
 											{
-												eraseExistingData && 
+												eraseExistingDirectoristData && 
 												<span className="fullsite-setup-wizard__content__import__warning">
 													<ReactSVG
 														src={ trashIcon }

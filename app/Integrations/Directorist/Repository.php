@@ -7,8 +7,6 @@
 
 namespace Templatiq\Integrations\Directorist;
 
-use Templatiq\Repositories\DependencyRepository;
-
 /**
  * Will unlock the directory related templates
  * When directorist is active
@@ -20,10 +18,6 @@ class Repository {
 
 	public function __construct() {
 		$this->cloud_endpoint = TEMPLATIQ_CLOUD_API_BASE;
-	}
-
-	public function is_active() {
-		return ( new DependencyRepository )->is_active( 'directorist/directorist-base.php' );
 	}
 
 	public function get_directory_types(): array {
@@ -52,14 +46,26 @@ class Repository {
 	}
 
 	public function erase_existing_data() {
-		$path = WP_CONTENT_DIR . '/plugins/' . DIRECTORY_SEPARATOR . 'directorist' . DIRECTORY_SEPARATOR . "uninstall.php";
-		if ( ! file_exists( $path ) ) {
-			return;
+		try {
+			$path = WP_CONTENT_DIR . '/plugins/' . DIRECTORY_SEPARATOR . 'directorist' . DIRECTORY_SEPARATOR . "uninstall.php";
+			if ( ! file_exists( $path ) ) {
+				return false;
+			}
+
+			if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+				define( 'WP_UNINSTALL_PLUGIN', true );
+			}
+
+			include_once $path;
+
+			directorist_uninstall();
+
+			return [
+				'message' => __( 'All Directorist data has been erased.', 'templatiq' ),
+			];
+		} catch ( \Throwable $th ) {
+			throw new \Exception( $th->getMessage(), 1 );
 		}
-
-		include_once $path;
-
-		directorist_uninstall();
 	}
 
 	public function import_directory_types() {

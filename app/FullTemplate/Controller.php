@@ -292,11 +292,17 @@ class Controller extends ControllerBase {
 			}
 		}
 
-		$import_data = isset( $_POST['import_data'] ) ? sanitize_text_field( $_POST['import_data'] ) : '';
-		$import_data = json_decode( stripslashes( $import_data ), true );
+		try {
+			$import_data = isset( $_POST['import_data'] ) ? sanitize_text_field( $_POST['import_data'] ) : '';
+			$import_data = json_decode( stripslashes( $import_data ), true );
+			$saved       = ( new Repository )->save_user_requirements( $import_data );
 
-		wp_send_json_success(
-			( new Repository )->save_user_requirements( $import_data )
-		);
+			wp_send_json_success(
+				$saved
+			);
+
+		} catch ( \Throwable $th ) {
+			error_log( print_r( $th, true ) );
+		}
 	}
 }
