@@ -90,21 +90,22 @@ class Repository {
 		}
 
 		$importContents = array_flip( $import_data['installContents'] );
-		if ( isset( $importContents['import-listing'] ) ) {
+		if ( isset( $importContents['importListing'] ) ) {
 			update_option( 'templatiq-import-directorist-listings', true );
 		}
-		if ( isset( $importContents['share-non-sensitive-data'] ) ) {
+		if ( isset( $importContents['shareNonSensitiveData'] ) ) {
 			update_option( 'templatiq-share-non-sensitive-data', true );
 			do_action( 'templatiq_share_non_sensitive_data', true );
 		}
 
-		if ( isset( $import_data['eraseExistingData'] ) && $import_data['eraseExistingData'] ) {
-			try {
-				( new \Templatiq\Integrations\Directorist\Repository() )->erase_existing_data();
-			} catch ( \Throwable $th ) {
-				error_log( print_r( $th, true ) );
-			}
+		if ( isset( $import_data['eraseExistingDirectoristData'] ) && $import_data['eraseExistingDirectoristData'] ) {
 			update_option( 'templatiq-erase-existing-directorist-data', true );
+
+			return [
+				'success'     => true,
+				'text'        => __( 'User requirements saved.', 'templatiq' ),
+				'ajax_action' => 'templatiq_erase_existing_directorist_data',
+			];
 		}
 
 		return [
