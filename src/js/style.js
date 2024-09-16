@@ -361,6 +361,10 @@ const AuthStyle = Styled.div`
         text-align: center;
         color: var(--templatiq-dark-color);
     }
+    .templatiq__auth__btn {
+        width: fit-content;
+        margin: 0 auto;
+    }
     .templatiq__auth__wrapper {
         width: 500px;
         margin: 0 auto;

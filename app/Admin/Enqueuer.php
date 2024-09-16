@@ -68,6 +68,7 @@ class Enqueuer extends EnqueuerBase {
 					line-height: 27px !important;
 					content: "";
 					background: url("' . esc_attr( TEMPLATIQ_ASSETS ) . '/svg/sidebar-icon.svg' . '") no-repeat center center;
+					background-size: 20px 20px;
 					speak: none !important;
 					font-style: normal !important;
 					font-weight: normal !important;
