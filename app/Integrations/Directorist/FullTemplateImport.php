@@ -51,18 +51,31 @@ class FullTemplateImport {
 		}
 
 		// Directory Type update
-		// $types = get_terms( ['taxonomy' => 'atbdp_listing_types', 'fields' => 'ids'] ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-		// if ( ! empty( $types ) ) {
-		// 	$uuid = 1;
-		// 	foreach ( $types as $type ) {
-		// 		if ( 1 === $uuid ) {
-		// 			update_term_meta( $type, '_default', 1 );
-		// 			$uuid++;
-		// 		} else {
-		// 			update_term_meta( $type, '_default', '' );
-		// 		}
-		// 	}
-		// }
+		$types = get_terms( [ 
+			'taxonomy' => 'atbdp_listing_types', 
+			'fields' => 'ids', 
+			'hide_empty' => false 
+			] );
+		
+		if ( ! empty( $types ) ) {
+			$default_found = false;
+			$last_type     = end( $types ); // Get the last term in the array
+
+			// First pass: Check if any type has `_default` set
+			foreach ( $types as $type ) {
+				$check_default = get_term_meta( (int) $type, '_default', true );
+				if ( ! empty( $check_default ) ) {
+					$default_found = true;
+					break; // Stop the loop as we found a `_default`
+				}
+			}
+
+			if( ! $default_found) {
+				update_term_meta( $last_type, '_default', 1 );
+			}
+		}
+
+
 
 		$this->remove_mappings();
 	}

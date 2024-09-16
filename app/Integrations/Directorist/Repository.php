@@ -65,7 +65,6 @@ class Repository {
 	public function import_directory_types() {
 		$types       = get_option( 'templatiq_sites_import_data', true )['directory-types'];
 		$ids_mapping = [];
-		$set_default = false;
 
 		foreach ( $types as $type ) {
 			if ( term_exists( $type['name'], 'atbdp_listing_types' ) ) {
@@ -78,10 +77,6 @@ class Repository {
 			$ids_mapping[$type_id] = $term_id;
 
 			update_term_meta( $term_id, '_templatiq_sites_imported_term', true );
-
-			if ( ! $set_default ) {
-				update_term_meta( $term_id, '_default', true );
-			}
 
 			foreach ( $type['meta'] as $key => $value ) {
 				if ( '_default' !== $key ) {
