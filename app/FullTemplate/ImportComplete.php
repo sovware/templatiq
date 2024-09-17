@@ -28,12 +28,6 @@ class ImportComplete {
 		$this->update_logo_width();
 
 		update_option( 'permalink_structure', "/%postname%/" );
-		
-		// error_log(
-		// 	PHP_EOL . '#############################################'
-		// 	. PHP_EOL . '   Import finished, Congratulations	'
-		// 	. PHP_EOL . '#############################################'
-		// 	. PHP_EOL );
 	}
 
 	public function update_menu_links() {

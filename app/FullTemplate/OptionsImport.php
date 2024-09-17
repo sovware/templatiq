@@ -112,7 +112,7 @@ class OptionsImport {
 		}
 
 		$page = $this->get_page_by_title( $option_value, 'page' );
-
+		
 		if ( is_object( $page ) ) {
 			update_option( $option_name, $page->ID );
 		}
