@@ -77,8 +77,14 @@ class Repository {
 				continue;
 			}
 
-			$type_id               = (string) $type['term_id'];
-			$term                  = wp_insert_term( $type['name'], 'atbdp_listing_types' );
+			$type_id = (string) $type['term_id'];
+			$term    = wp_insert_term(
+				$type['name'],
+				'atbdp_listing_types',
+				[
+					'slug' => $type['slug'], // Retain the original slug
+				]
+			);
 			$term_id               = $term['term_id'];
 			$ids_mapping[$type_id] = $term_id;
 
