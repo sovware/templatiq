@@ -113,7 +113,7 @@ class FullTemplateImport {
 				update_post_meta( $post_id, '_directory_type', $value );
 				wp_set_object_terms( $post_id, (int) $value, 'atbdp_listing_types' );
 
-				error_log( 'Directory Type Changed - post_id #' . $post_id . ' from #' . $meta_item['value'] . ' => ' . $value );
+				// error_log( 'Directory Type Changed - post_id #' . $post_id . ' from #' . $meta_item['value'] . ' => ' . $value );
 			}
 		}
 
