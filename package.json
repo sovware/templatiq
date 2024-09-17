@@ -1,6 +1,6 @@
 {
 	"name": "templatiq",
-	"version": "1.0.0",
+	"version": "0.0.3",
 	"main": "webpack.config.js",
 	"author": "wpWax",
 	"license": "(GPL-3.0)",

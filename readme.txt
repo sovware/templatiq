@@ -90,11 +90,15 @@ At Templatiq, user privacy is our top priority. As a premier marketplace for tem
 
 == Changelog ==
 
-= 0.0.3(beta) - Sep 15, 2024 =
-* Fix: First load error
+= 0.0.3(beta) - Sep 17, 2024 =
+* Fix: First Load Error
+* Fix: Directory Type Assign Issue
+* Fix: Multiple Default Directory Type Issue
+* Fix: Chunk File Cache Issue
+* Fix: Directorist Existing Data Erase Issue
 
 = 0.0.2(beta) - Sep 14, 2024 =
 * Fix Dependencies Install Issue
 
 = 0.0.1(beta) - Sep 10, 2024 =
-* Initial launch
+* Initial Launch
