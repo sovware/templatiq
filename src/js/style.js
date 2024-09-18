@@ -287,8 +287,12 @@ const TemplatePackStyle = Styled.div`
                 border-radius: 4px;
                 box-shadow: none;
                 transition: background 0.3s ease, color 0.3s ease;
-                svg path {
-                    fill: var(--templatiq-primary-color);
+                svg {
+                    width: 10px;
+                    height: 10px;
+                    path {
+                        fill: var(--templatiq-primary-color);
+                    }
                 }
             }
             &.selected,

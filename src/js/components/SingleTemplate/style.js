@@ -101,6 +101,7 @@ const SingleTemplateStyle = Styled.div`
     .templatiq__template__single__info__action {
         display: flex;
         gap: 8px;
+        flex-wrap: wrap;
         justify-content: center;
         visibility: hidden;
         transition: visibility 0.3s ease;
