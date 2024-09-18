@@ -224,6 +224,7 @@ const SingleTemplateStyle = Styled.div`
     .templatiq__template__single__quickmeta-wrapper {
         display: flex;
         gap: 6px;
+        flex-wrap: wrap;
         justify-content: space-between;
         .templatiq-btn {
             height: 40px;

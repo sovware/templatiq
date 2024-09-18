@@ -335,7 +335,7 @@ export default function AllTemplates( props ) {
 										// Determine the background class based on index
 										const backgroundClass = `background-${(index % 6) + 1}`;
 										return (
-											<div className="templatiq-col-6" key={index}>
+											<div className="templatiq-col-xxl-4 templatiq-col-6" key={index}>
 												<Suspense
 													fallback={
 														<>
@@ -381,7 +381,7 @@ export default function AllTemplates( props ) {
 							<div className="templatiq-row templatiq__content__tab-panel">
 								{ templatesToDisplay &&
 									templatesToDisplay.map( ( template, index ) => (
-										<div className="templatiq-col-6" key={index}>
+										<div className="templatiq-col-xxl-4 templatiq-col-6" key={index}>
 											<Suspense
 												fallback={
 													<>
@@ -438,7 +438,7 @@ export default function AllTemplates( props ) {
 							<div className="templatiq-row templatiq__content__tab-panel">
 								{ templatesToDisplay &&
 									templatesToDisplay.map( ( template, index ) => (
-										<div className="templatiq-col-6" key={index}>
+										<div className="templatiq-col-xxl-4 templatiq-col-6" key={index}>
 											<Suspense
 												fallback={
 													<>
