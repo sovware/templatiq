@@ -38,6 +38,14 @@ export default function MyPurchaseModule() {
 
 	const renderPurchasedData = ( totalPurchasedData ) => {
 		setLoading( false );
+		let filteredTemplates = templateData;
+		const isElementorEditorActive = document.body.classList.contains(
+			'elementor-editor-active'
+		);
+		if ( isElementorEditorActive ) {
+			filteredTemplates = templateData.filter( ( template ) => template.type !== 'pack' );
+		}
+		
 		const purchasedTemplateIds = totalPurchasedData
 			.filter(
 				( item ) =>
@@ -48,7 +56,7 @@ export default function MyPurchaseModule() {
 			.map( Number );
 
 		// Find template data for purchased template_ids
-		const purchasedTemplate = templateData.filter( ( template ) =>
+		const purchasedTemplate = filteredTemplates.filter( ( template ) =>
 			purchasedTemplateIds.includes( template.template_id )
 		);
 

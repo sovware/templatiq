@@ -115,7 +115,6 @@ export default function AllTemplates( props ) {
 	};
 
 	const checkTemplateType = ( templates ) => {
-		console.log('checkTemplateType', templates);
 		let typeChecked = '';
 		if ( templates ) {
 			user && userFav && templateStatus === 'favorites'
@@ -139,7 +138,6 @@ export default function AllTemplates( props ) {
 		if ( templateData ) {
 			if (!isElementorEditorActive) {
 				checkTemplateType( templateData );
-
 			} else {
 				checkTemplateType( templateData.filter( ( template ) => template.type !== 'pack' ) );
 			}
