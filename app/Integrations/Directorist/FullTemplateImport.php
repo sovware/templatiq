@@ -13,8 +13,10 @@ class FullTemplateImport {
 	use Singleton;
 
 	public function __construct() {
-		add_filter( 'templatiq_wxr_importer.pre_process.post', [$this, 'pre_process_post'], 10 );
-		add_filter( 'templatiq_wxr_importer.pre_process.post_meta', [$this, 'set_directory_type_post_meta'], 10, 2 );
+		add_filter( 'templatiq_wxr_importer.pre_process.post', [$this, 'before_listing_import'], 10 );
+		add_filter( 'templatiq_wxr_importer.pre_process.post', [$this, 'before_pricing_plan_import'], 10 );
+
+		add_filter( 'templatiq_wxr_importer.pre_process.post_meta', [$this, 'change_post_meta'], 10, 2 );
 		add_action( 'templatiq_wxr_importer.processed.term', [$this, 'set_directory_type_term'], 10, 2 );
 		add_action( 'templatiq_full_template_import_complete', [$this, 'change_term_meta'] );
 	}
@@ -51,12 +53,12 @@ class FullTemplateImport {
 		}
 
 		// Directory Type update
-		$types = get_terms( [ 
-			'taxonomy' => 'atbdp_listing_types', 
-			'fields' => 'ids', 
-			'hide_empty' => false 
-			] );
-		
+		$types = get_terms( [
+			'taxonomy'   => 'atbdp_listing_types',
+			'fields'     => 'ids',
+			'hide_empty' => false,
+		] );
+
 		if ( ! empty( $types ) ) {
 			$default_found = false;
 			$last_type     = end( $types ); // Get the last term in the array
@@ -70,7 +72,7 @@ class FullTemplateImport {
 				}
 			}
 
-			if( ! $default_found) {
+			if ( ! $default_found ) {
 				update_term_meta( $last_type, '_default', 1 );
 			}
 		}
@@ -102,25 +104,39 @@ class FullTemplateImport {
 		}
 	}
 
-	public function set_directory_type_post_meta( $meta_item, $post_id ) {
-		$key = $meta_item['key'] ?? '';
+	public function change_post_meta( $meta_item, $post_id ) {
+		$key   = $meta_item['key'] ?? '';
+		$types = get_option( 'templatiq_sites_directory_types_ids_mapping', true );
+		$value = $types[$meta_item['value']] ?? 0; // if no id found then serve the default directory type
+
+		// Remove Pricing Plan - Listing Meta
+		if ( in_array( $key, ['_fm_plans', '_listing_order_id', '_featured', '_assign_to_directory'] ) ) {
+			update_post_meta( $post_id, $key, '' );
+
+			return [];
+		} elseif ( '_listing_status' === $key ) {
+			update_post_meta( $post_id, $key, 'post_status' );
+
+			return [];
+		}
+
+		// Update Listing Meta
 		if ( '_directory_type' === $key ) {
-			$types     = get_option( 'templatiq_sites_directory_types_ids_mapping', true );
-			$value     = $types[$meta_item['value']] ?? 0; // if no id found then serve the default directory type
+
 			$_pre_type = get_post_meta( $post_id, '_directory_type', true );
 
 			if ( $_pre_type !== $value ) {
 				update_post_meta( $post_id, '_directory_type', $value );
 				wp_set_object_terms( $post_id, (int) $value, 'atbdp_listing_types' );
 
-				// error_log( 'Directory Type Changed - post_id #' . $post_id . ' from #' . $meta_item['value'] . ' => ' . $value );
+				return [];
 			}
 		}
 
 		return $meta_item;
 	}
 
-	public function pre_process_post( $data ) {
+	public function before_listing_import( $data ) {
 		if ( ! isset( $data['post_type'] ) || 'at_biz_dir' !== $data['post_type'] ) {
 			return $data;
 		}
@@ -131,5 +147,13 @@ class FullTemplateImport {
 		}
 
 		return $data;
+	}
+
+	public function before_pricing_plan_import( $data ) {
+		if ( ! isset( $data['post_type'] ) || 'atbdp_pricing_plans' !== $data['post_type'] ) {
+			return $data;
+		}
+
+		return [];
 	}
 }
