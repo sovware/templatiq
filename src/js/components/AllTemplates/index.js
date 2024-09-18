@@ -115,6 +115,7 @@ export default function AllTemplates( props ) {
 	};
 
 	const checkTemplateType = ( templates ) => {
+		console.log('checkTemplateType', templates);
 		let typeChecked = '';
 		if ( templates ) {
 			user && userFav && templateStatus === 'favorites'
@@ -131,9 +132,17 @@ export default function AllTemplates( props ) {
 
 	useEffect( () => {
 		const templateData = select( store ).getTemplates();
+		const isElementorEditorActive = document.body.classList.contains(
+			'elementor-editor-active'
+		);
 
 		if ( templateData ) {
-			checkTemplateType( templateData );
+			if (!isElementorEditorActive) {
+				checkTemplateType( templateData );
+
+			} else {
+				checkTemplateType( templateData.filter( ( template ) => template.type !== 'pack' ) );
+			}
 		}
 
 		const data = select( store ).getLibraryData();
