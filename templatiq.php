@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) || exit;
  * Description: The Ultimate Templates | Craft beautiful website in no time
  * Author: wpWax
  * Author URI: https://wpwax.com
- * Version: 0.0.3
+ * Version: 0.0.4
  * License: GPLv2 or later
  * Requires PHP: 7.4
  * Text Domain: templatiq
@@ -29,7 +29,7 @@ final class Templatiq {
 
 	public function load() {
 
-		define( 'TEMPLATIQ_VERSION', '0.0.3' );
+		define( 'TEMPLATIQ_VERSION', '0.0.4' );
 
 		register_activation_hook(
 			__FILE__, function () {
