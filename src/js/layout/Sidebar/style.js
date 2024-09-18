@@ -40,7 +40,7 @@ const SidebarStyle = Styled.div`
     }
 
     .templatiq__sidebar__wrapper {
-        padding: 30px 0;
+        padding: 20px 0;
     }
     
 

@@ -246,7 +246,7 @@ const TemplatePackStyle = Styled.div`
     }
     .templatiq__content__tab {
         display: flex;
-        gap: 8px;
+        gap: 16px;
         flex-direction: column;
         position: relative;
     }

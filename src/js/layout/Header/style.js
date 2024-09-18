@@ -17,6 +17,11 @@ const HeaderStyle = Styled.div`
         img {
             max-width: 100%;
         }
+        sub {
+            position: relative;
+            top: -5px;
+            left: 5px;
+        }
     }
     .templatiq__header__content {
         flex: 1 1 auto;
