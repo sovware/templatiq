@@ -79,6 +79,9 @@ export default function AllTemplates( props ) {
 			newFilteredTemplates.filter( ( template ) => template.price <= 0 )
 		);
 
+		handlePaginateReset();
+		changeTemplateTab( 'all' )
+
 		return newFilteredTemplates;
 	};
 
