@@ -7,7 +7,6 @@
 
 namespace Templatiq\Controllers;
 
-use Elementor\Plugin;
 use Templatiq\Abstracts\ControllerBase;
 use Templatiq\DTO\ImportAsPageDTO;
 use Templatiq\Repositories\ImporterRepository;
@@ -44,13 +43,15 @@ class TemplateController extends ControllerBase {
 
 			do_action( 'templatiq_import_as_page_after', $inserted_id, $DTO, $request );
 
-			return [
-				'post_id'             => $inserted_id,
-				'edit_link'           => get_edit_post_link( $inserted_id, 'internal' ),
-				'elementor_edit_link' => Plugin::$instance->documents->get( $inserted_id )->get_edit_url(),
-				'visit'               => get_permalink( $inserted_id ),
-				'right_access_ache'   => current_user_can( 'publish_posts' ),
-			];
+			return apply_filters(
+				'templatiq_before_return_import_as_page',
+				[
+					'post_id'   => $inserted_id,
+					'edit_link' => get_edit_post_link( $inserted_id, 'internal' ),
+					'visit'     => get_permalink( $inserted_id ),
+				],
+				$DTO
+			);
 
 		} catch ( \Throwable $th ) {
 			return Response::error(
