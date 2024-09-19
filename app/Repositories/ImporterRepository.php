@@ -39,7 +39,11 @@ class ImporterRepository {
 
 		$DTO->set_template_data( $template_data );
 
-		$inserted_id = apply_filters( 'templatiq_import_as_page_created_post_id', 0, $DTO );
+		if ( 'block' === $DTO->get_builder() ) {
+			$inserted_id = ( new BlockBuilderRepository )->create_page( $DTO );
+		} else {
+			$inserted_id = apply_filters( 'templatiq_import_as_page_created_post_id', 0, $DTO );
+		}
 
 		if ( is_wp_error( $inserted_id ) ) {
 			throw new \Exception(
