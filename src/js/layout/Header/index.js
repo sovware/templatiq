@@ -41,7 +41,7 @@ const Header = ( props ) => {
 	const { isLoggedIn, userDisplayName } = select( store ).getUserInfo();
 	const [ isAuthorInfoVisible, setAuthorInfoVisible ] = useState( false );
 	const [ isLoading, setLoading ] = useState( false );
-	const [ currentEditor, setCurrentEditor ] = useState( 'elementor' );
+	const [ currentEditor, setCurrentEditor ] = useState( false );
 
 	const logOutEndPoint = 'templatiq/account/logout';
 
@@ -93,6 +93,12 @@ const Header = ( props ) => {
 		setAuthorInfoVisible( ! isAuthorInfoVisible );
 	};
 
+	// Handle selected item from Dropdown
+	const handleDropdownChange = (selectedItem) => {
+		setCurrentEditor(selectedItem); // Update the state with selected item
+		console.log('handle Dropdown CHange', selectedItem)
+	};
+
 	/* Close Dropdown click on outside */
 	useEffect( () => {
 		checkedClickedOutside( isAuthorInfoVisible, setAuthorInfoVisible, ref );
@@ -105,10 +111,14 @@ const Header = ( props ) => {
 		);
 
 		const editorName = isElementorEditorActive ? "elementor" : "";
+		// const selectedEditor = editorItems.find((item) => item.name === editorName);
+
+		// console.log('Editor Init', editorName, selectedEditor)
 
 		// Set the state variable based on the presence of Elementor Editor
 		setCurrentEditor( editorName );
 	}, [] );
+	console.log('setCurrentEditor', currentEditor)
 
 	return (
 		<HeaderStyle className="templatiq__header">
@@ -163,41 +173,19 @@ const Header = ( props ) => {
 						}
 					>
 						{
-							!currentEditor ? (
-								<div className="templatiq__header__action__item">
+						!currentEditor &&
+							<div className="templatiq__header__action__item">
 								<Dropdown
 									className="templatiq__dropdown"
 									dropDownText={__('Select Editor', 'templatiq')}
 									dropDownIcon={chevronIcon}
 									dropdownList={editorItems}
 									defaultSelect={editorItems[0]}
+									dropDownChange={handleDropdownChange}
 								/>
-								</div>
-							) : (
-								(() => {
-									const selectedEditor = editorItems.find((item) => item.name === currentEditor);
-									console.log('CHHK', currentEditor, selectedEditor)
-									return (
-										<div className="templatiq__header__action__item">
-										<button className="templatiq__header__action__builder">
-											{selectedEditor && (
-											<>
-												<span className="templatiq__header__action__icon">
-													<img src={selectedEditor.icon} alt={selectedEditor.text} />
-												</span>
-												<span className="templatiq__header__action__text">
-													{selectedEditor.text}
-												</span>
-											</>
-											)}
-										</button>
-										</div>
-									);
-									})()
-								)
-							}
+							</div>
+						}
 
-						
 						<div className="templatiq__content__top__search">
 							<Searchform />
 						</div>
