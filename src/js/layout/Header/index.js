@@ -41,8 +41,7 @@ const Header = ( props ) => {
 	const { isLoggedIn, userDisplayName } = select( store ).getUserInfo();
 	const [ isAuthorInfoVisible, setAuthorInfoVisible ] = useState( false );
 	const [ isLoading, setLoading ] = useState( false );
-	const [ elementorEditorEnabled, setElementorEditorEnabled ] =
-		useState( false );
+	const [ currentEditor, setCurrentEditor ] = useState( 'elementor' );
 
 	const logOutEndPoint = 'templatiq/account/logout';
 
@@ -61,18 +60,21 @@ const Header = ( props ) => {
 	let editorItems = [
 		{
 			icon: elementorIcon,
+			name: "elementor",
 			text: __( 'Elementor', 'templatiq' ),
 			url: '#',
 			type: 'available'
 		},
 		{
 			icon: gutenbergIcon,
+			name: "block",
 			text: __( 'Block Editor', 'templatiq' ),
 			url: '#',
 			type: 'upcoming'
 		},
 		{
 			icon: bricksIcon,
+			name: "bricks",
 			text: __( 'Bricks Builder', 'templatiq' ),
 			url: '#',
 			type: 'upcoming'
@@ -102,8 +104,10 @@ const Header = ( props ) => {
 			'elementor-editor-active'
 		);
 
+		const editorName = isElementorEditorActive ? "elementor" : "";
+
 		// Set the state variable based on the presence of Elementor Editor
-		setElementorEditorEnabled( isElementorEditorActive );
+		setCurrentEditor( editorName );
 	}, [] );
 
 	return (
@@ -159,17 +163,40 @@ const Header = ( props ) => {
 						}
 					>
 						{
-							!elementorEditorEnabled &&
-							<div className="templatiq__header__action__item">
+							!currentEditor ? (
+								<div className="templatiq__header__action__item">
 								<Dropdown
 									className="templatiq__dropdown"
-									dropDownText={__( 'Select Editor', 'templatiq' )}
-									dropDownIcon={ chevronIcon }
-									dropdownList={ editorItems }
-									defaultSelect={ editorItems[ 0 ] }
+									dropDownText={__('Select Editor', 'templatiq')}
+									dropDownIcon={chevronIcon}
+									dropdownList={editorItems}
+									defaultSelect={editorItems[0]}
 								/>
-							</div>
-						}
+								</div>
+							) : (
+								(() => {
+									const selectedEditor = editorItems.find((item) => item.name === currentEditor);
+									console.log('CHHK', currentEditor, selectedEditor)
+									return (
+										<div className="templatiq__header__action__item">
+										<button className="templatiq__header__action__builder">
+											{selectedEditor && (
+											<>
+												<span className="templatiq__header__action__icon">
+													<img src={selectedEditor.icon} alt={selectedEditor.text} />
+												</span>
+												<span className="templatiq__header__action__text">
+													{selectedEditor.text}
+												</span>
+											</>
+											)}
+										</button>
+										</div>
+									);
+									})()
+								)
+							}
+
 						
 						<div className="templatiq__content__top__search">
 							<Searchform />
@@ -220,7 +247,7 @@ const Header = ( props ) => {
 													{__( 'My Favorites', 'templatiq' )}
 												</NavLink>
 											</div>
-											{ ! elementorEditorEnabled && (
+											{ ! currentEditor && (
 												<>
 													<div className="templatiq__header__author__info__item">
 														<NavLink
