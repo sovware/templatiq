@@ -41,7 +41,8 @@ const Header = ( props ) => {
 	const { isLoggedIn, userDisplayName } = select( store ).getUserInfo();
 	const [ isAuthorInfoVisible, setAuthorInfoVisible ] = useState( false );
 	const [ isLoading, setLoading ] = useState( false );
-	const [ currentEditor, setCurrentEditor ] = useState( false );
+	const [ editorEnabled, setEditorEnabled ] = useState( false );
+	const [ selectedEditor, setSelectedEditor ] = useState( null );
 
 	const logOutEndPoint = 'templatiq/account/logout';
 
@@ -95,7 +96,7 @@ const Header = ( props ) => {
 
 	// Handle selected item from Dropdown
 	const handleDropdownChange = (selectedItem) => {
-		setCurrentEditor(selectedItem); // Update the state with selected item
+		setSelectedEditor(selectedItem); // Update the state with selected item
 		console.log('handle Dropdown CHange', selectedItem)
 	};
 
@@ -116,9 +117,8 @@ const Header = ( props ) => {
 		// console.log('Editor Init', editorName, selectedEditor)
 
 		// Set the state variable based on the presence of Elementor Editor
-		setCurrentEditor( editorName );
+		setEditorEnabled( editorName );
 	}, [] );
-	console.log('setCurrentEditor', currentEditor)
 
 	return (
 		<HeaderStyle className="templatiq__header">
@@ -173,7 +173,7 @@ const Header = ( props ) => {
 						}
 					>
 						{
-						!currentEditor &&
+						!editorEnabled &&
 							<div className="templatiq__header__action__item">
 								<Dropdown
 									className="templatiq__dropdown"
@@ -235,7 +235,7 @@ const Header = ( props ) => {
 													{__( 'My Favorites', 'templatiq' )}
 												</NavLink>
 											</div>
-											{ ! currentEditor && (
+											{ ! selectedEditor && (
 												<>
 													<div className="templatiq__header__author__info__item">
 														<NavLink
