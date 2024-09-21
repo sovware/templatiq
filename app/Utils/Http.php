@@ -38,8 +38,13 @@ class Http {
 	}
 
 	public function body( array $args = [] ) {
-		$args['time'] = time();
-		$this->body   = $args ?? $this->body;
+		$builder = get_option( '_templatiq_selected_builder', 'elementor' );
+
+		$args['time']    = time();
+		$args['builder'] = $builder;
+		$args['version'] = TEMPLATIQ_VERSION;
+
+		$this->body = $args ?? $this->body;
 
 		return $this;
 	}
@@ -85,5 +90,15 @@ class Http {
 		Helper::log( 'END RAW RESPONSE' );
 
 		return $this;
+	}
+
+	public function set_response( $response ) {
+		$this->response = $response;
+
+		return $this;
+	}
+
+	public function get_response() {
+		return $this->response;
 	}
 }

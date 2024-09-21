@@ -1,8 +1,7 @@
 <?php
 /**
  * @author  wpWax
- * @since   1.0.0
- * @version 1.0.0
+ * @package Templatiq
  */
 
 namespace Templatiq\Controllers;
@@ -70,6 +69,59 @@ class TemplateController extends ControllerBase {
 		} catch ( \Throwable $th ) {
 			return Response::error(
 				'library_data',
+				$th->getMessage(),
+				__FUNCTION__,
+				$th->getCode()
+			);
+		}
+	}
+
+	public function set_builder( WP_REST_Request $request ) {
+		$builder = $request->get_param( 'builder' );
+
+		add_option( '_templatiq_selected_builder', $builder );
+
+		return $this->library_data();
+	}
+
+	public function templates() {
+		try {
+			return Response::success(
+				( new TemplateRepository )->templates()
+			);
+		} catch ( \Throwable $th ) {
+			return Response::error(
+				'templates',
+				$th->getMessage(),
+				__FUNCTION__,
+				$th->getCode()
+			);
+		}
+	}
+
+	public function descriptions() {
+		try {
+			return Response::success(
+				( new TemplateRepository )->descriptions()
+			);
+		} catch ( \Throwable $th ) {
+			return Response::error(
+				'descriptions',
+				$th->getMessage(),
+				__FUNCTION__,
+				$th->getCode()
+			);
+		}
+	}
+
+	public function filters() {
+		try {
+			return Response::success(
+				( new TemplateRepository )->filters()
+			);
+		} catch ( \Throwable $th ) {
+			return Response::error(
+				'filters',
 				$th->getMessage(),
 				__FUNCTION__,
 				$th->getCode()

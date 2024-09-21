@@ -1,8 +1,7 @@
 <?php
 /**
  * @author  wpWax
- * @since   1.0.0
- * @version 1.0.0
+ * @package Templatiq
  */
 
 namespace Templatiq\Setup;
@@ -14,12 +13,17 @@ class Activation {
 		$this->auto_deactivate( $file_name );
 
 		try {
+			$this->default_builder();
 			$this->redirection();
 
 			( new \Templatiq\Repositories\TemplateRepository )->library_data();
 		} catch ( \Exception $e ) {
 			// do nothing
 		}
+	}
+
+	public function default_builder() {
+		add_option( '_templatiq_selected_builder', 'elementor' );
 	}
 
 	public function redirection() {
