@@ -142,11 +142,16 @@ class ImageImporter {
 			return $attachment;
 		}
 
+		if ( ! function_exists( 'wp_generate_attachment_metadata' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/image.php';
+		}
+
 		$post_id = wp_insert_attachment( $post, $upload['file'] );
 		wp_update_attachment_metadata(
 			$post_id,
 			wp_generate_attachment_metadata( $post_id, $upload['file'] )
 		);
+
 		update_post_meta( $post_id, '_templatiq_sites_image_hash', $this->get_hash_image( $attachment['url'] ) );
 
 		\Templatiq_WXR_Importer::instance()->track_post( $post_id );
