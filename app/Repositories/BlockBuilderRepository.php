@@ -50,6 +50,8 @@ class BlockBuilderRepository {
 				);
 			}
 
+			// error_log( '$processed_content : ' . print_r( $processed_content, true ) );
+
 			$updated_post = [
 				'ID'           => $this->inserted_id,
 				'post_content' => $processed_content,
@@ -146,6 +148,8 @@ class BlockBuilderRepository {
 
 			// Check if the $downloaded_image is an array and contains 'url'
 			if ( ! is_array( $downloaded_image ) || ! isset( $downloaded_image['url'] ) ) {
+				// Log the issue for debugging
+				// error_log( 'Unexpected $downloaded_image format: ' . print_r( $downloaded_image, true ) );
 				throw new \Exception( 'Unexpected image import result. Missing URL.' );
 			}
 
@@ -155,6 +159,7 @@ class BlockBuilderRepository {
 			return $downloaded_image;
 
 		} catch ( \Throwable $th ) {
+			// error_log( 'Error in import_image: ' . $th->getMessage() );
 			throw new \Exception( $th->getMessage(), 'import-image-failed' );
 		}
 	}
