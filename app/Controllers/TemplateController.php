@@ -61,11 +61,16 @@ class TemplateController extends ControllerBase {
 		}
 	}
 
-	public function library_data() {
+	public function library_data( WP_REST_Request $request ) {
 		try {
+			$builder = $request->get_param( 'builder' );
+
+			add_option( '_templatiq_selected_builder', $builder );
+
 			return Response::success(
 				( new TemplateRepository )->library_data()
 			);
+
 		} catch ( \Throwable $th ) {
 			return Response::error(
 				'library_data',
@@ -77,11 +82,23 @@ class TemplateController extends ControllerBase {
 	}
 
 	public function set_builder( WP_REST_Request $request ) {
-		$builder = $request->get_param( 'builder' );
+		try {
+			$builder = $request->get_param( 'builder' );
 
-		add_option( '_templatiq_selected_builder', $builder );
+			add_option( '_templatiq_selected_builder', $builder );
 
-		return $this->library_data();
+			return Response::success(
+				( new TemplateRepository )->library_data()
+			);
+
+		} catch ( \Throwable $th ) {
+			return Response::error(
+				'library_data',
+				$th->getMessage(),
+				__FUNCTION__,
+				$th->getCode()
+			);
+		}
 	}
 
 	public function templates() {
