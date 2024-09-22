@@ -41,7 +41,7 @@ const Header = ( props ) => {
 	const { isLoggedIn, userDisplayName } = select( store ).getUserInfo();
 	const [ isAuthorInfoVisible, setAuthorInfoVisible ] = useState( false );
 	const [ isLoading, setLoading ] = useState( false );
-	const [ elementorEditorEnabled, setElementorEditorEnabled ] =
+	const [ EditorEnabled, setEditorEnabled ] =
 		useState( false );
 
 	const logOutEndPoint = 'templatiq/account/logout';
@@ -103,7 +103,7 @@ const Header = ( props ) => {
 		);
 
 		// Set the state variable based on the presence of Elementor Editor
-		setElementorEditorEnabled( isElementorEditorActive );
+		setEditorEnabled( isElementorEditorActive );
 	}, [] );
 
 	return (
@@ -159,7 +159,7 @@ const Header = ( props ) => {
 						}
 					>
 						{
-							!elementorEditorEnabled &&
+							!EditorEnabled &&
 							<div className="templatiq__header__action__item">
 								<Dropdown
 									className="templatiq__dropdown"
@@ -186,9 +186,12 @@ const Header = ( props ) => {
 							/>
 						}
 					>
-						<div className="templatiq__header__action__item">
-							<CacheClearBtn />
-						</div>
+						{
+							!EditorEnabled &&
+							<div className="templatiq__header__action__item">
+								<CacheClearBtn />
+							</div>
+						}
 
 						<div className="templatiq__header__action__item">
 							{ isLoggedIn ? (
@@ -220,7 +223,7 @@ const Header = ( props ) => {
 													{__( 'My Favorites', 'templatiq' )}
 												</NavLink>
 											</div>
-											{ ! elementorEditorEnabled && (
+											{ ! EditorEnabled && (
 												<>
 													<div className="templatiq__header__author__info__item">
 														<NavLink
