@@ -145,8 +145,9 @@ class ImageImporter {
 		$post_id = wp_insert_attachment( $post, $upload['file'] );
 		wp_update_attachment_metadata(
 			$post_id,
-			wp_generate_attachment_metadata( $post_id, $upload['file'] )
+			\wp_generate_attachment_metadata( $post_id, $upload['file'] )
 		);
+
 		update_post_meta( $post_id, '_templatiq_sites_image_hash', $this->get_hash_image( $attachment['url'] ) );
 
 		\Templatiq_WXR_Importer::instance()->track_post( $post_id );

@@ -39,26 +39,38 @@ class ImporterRepository {
 
 		$DTO->set_template_data( $template_data );
 
-		if ( 'block' === $DTO->get_builder() ) {
-			$inserted_id = ( new BlockBuilderRepository )->create_page( $DTO );
-		} else {
-			$inserted_id = apply_filters( 'templatiq_import_as_page_created_post_id', 0, $DTO );
-		}
+		try {
 
-		if ( is_wp_error( $inserted_id ) ) {
-			throw new \Exception(
-				esc_html( $inserted_id->get_error_message() ),
-				'import-as-page'
-			);
-		}
+			if ( 'block' === $DTO->get_builder() ) {
+				$inserted_id = ( new BlockBuilderRepository )->create_page( $DTO );
 
-		if ( ! $inserted_id ) {
+				error_log( ' $inserted_id : ' . print_r( $inserted_id, true ) );
+
+			} else {
+				$inserted_id = apply_filters( 'templatiq_import_as_page_created_post_id', 0, $DTO );
+			}
+
+			if ( is_wp_error( $inserted_id ) ) {
+				throw new \Exception(
+					esc_html( $inserted_id->get_error_message() ),
+					'import-as-page'
+				);
+			}
+
+			if ( ! $inserted_id ) {
+				throw new \Exception(
+					esc_html__( "Import as page failed", "templatiq" ),
+					'import-as-page-failed'
+				);
+			}
+
+			return $inserted_id;
+
+		} catch ( \Throwable $th ) {
 			throw new \Exception(
-				esc_html__( "Import as page failed", "templatiq" ),
+				$th->getMessage(),
 				'import-as-page-failed'
 			);
 		}
-
-		return $inserted_id;
 	}
 }

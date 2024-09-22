@@ -16,7 +16,17 @@ class Activation {
 			$this->default_builder();
 			$this->redirection();
 
-			( new \Templatiq\Repositories\TemplateRepository )->library_data();
+			$templateRepo = new \Templatiq\Repositories\TemplateRepository;
+
+			$templateRepo->library_data();
+
+			/**
+			 * Optimized Templates API
+			 */
+			// $templateRepo->templates();
+			// $templateRepo->descriptions();
+			// $templateRepo->filters();
+
 		} catch ( \Exception $e ) {
 			// do nothing
 		}
