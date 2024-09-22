@@ -91,14 +91,4 @@ class Http {
 
 		return $this;
 	}
-
-	public function set_response( $response ) {
-		$this->response = $response;
-
-		return $this;
-	}
-
-	public function get_response() {
-		return $this->response;
-	}
 }
