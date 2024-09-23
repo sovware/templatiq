@@ -80,7 +80,7 @@ class TemplateController extends ControllerBase {
 		try {
 			$builder = $request->get_param( 'builder' );
 
-			add_option( '_templatiq_selected_builder', $builder );
+			update_option( '_templatiq_selected_builder', $builder );
 
 			return Response::success(
 				( new TemplateRepository )->library_data()
