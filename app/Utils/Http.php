@@ -41,7 +41,7 @@ class Http {
 		$builder = get_option( '_templatiq_selected_builder', 'elementor' );
 
 		$args['time']    = time();
-		$args['builder'] = $builder;
+		$args['builder'] = $args['builder'] ?? $builder;
 		$args['version'] = TEMPLATIQ_VERSION;
 
 		$this->body = $args ?? $this->body;
