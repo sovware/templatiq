@@ -209,7 +209,7 @@ const Header = ( props ) => {
 						}
 					>
 						{
-							!EditorEnabled &&
+							!editorEnabled &&
 							<div className="templatiq__header__action__item">
 								<CacheClearBtn />
 							</div>
