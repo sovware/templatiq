@@ -43,7 +43,7 @@ const Header = ( props ) => {
 	const [ isAuthorInfoVisible, setAuthorInfoVisible ] = useState( false );
 	const [ isLoading, setLoading ] = useState( false );
 	const [ editorEnabled, setEditorEnabled ] = useState( false );
-	const [ selectedEditor, setSelectedEditor ] = useState( null );
+	const [ selectedEditor, setSelectedEditor ] = useState( 'elementor' );
 
 	const logOutEndPoint = 'templatiq/account/logout';
 
@@ -97,14 +97,18 @@ const Header = ( props ) => {
 
 	// Handle selected item from Dropdown
 	const handleDropdownChange = (selectedItem) => {
-		setSelectedEditor(selectedItem); 
-		console.log('handle Dropdown Change', selectedItem)
+		setSelectedEditor(selectedItem.name); 
 
-		postData( `templatiq/template/set-builder?builder=${selectedItem.name}` )
+		if(selectedEditor !== selectedItem.name) {
+			console.log('Not Same Builder');
+			postData( `templatiq/template/set-builder?builder=${selectedItem.name}` )
 			.then( ( res ) => {
 				dispatch( store ).setTemplates( res.templates );
 				dispatch( store ).setLibraryData( res );
 			} )
+		} else {
+			console.log('Same Builder')
+		}		
 	};
 
 	/* Close Dropdown click on outside */
@@ -119,9 +123,6 @@ const Header = ( props ) => {
 		);
 
 		const editorName = isElementorEditorActive ? "elementor" : "";
-		// const selectedEditor = editorItems.find((item) => item.name === editorName);
-
-		// console.log('Editor Init', editorName, selectedEditor)
 
 		// Set the state variable based on the presence of Elementor Editor
 		setEditorEnabled( editorName );
@@ -242,7 +243,7 @@ const Header = ( props ) => {
 													{__( 'My Favorites', 'templatiq' )}
 												</NavLink>
 											</div>
-											{ ! selectedEditor && (
+											{ ! editorEnabled && (
 												<>
 													<div className="templatiq__header__author__info__item">
 														<NavLink
