@@ -11,6 +11,7 @@ import Dropdown from '@components/Dropdown';
 import checkedClickedOutside from '@helper/checkClickedOutside';
 import store from '@store/index';
 
+
 import { HeaderActionStyle, HeaderStyle } from './style';
 
 import avatar from '@images/avatar.svg';
@@ -71,7 +72,7 @@ const Header = ( props ) => {
 			name: "block",
 			text: __( 'Block Editor', 'templatiq' ),
 			url: '#',
-			type: 'upcoming'
+			type: 'available'
 		},
 		{
 			icon: bricksIcon,
@@ -96,8 +97,14 @@ const Header = ( props ) => {
 
 	// Handle selected item from Dropdown
 	const handleDropdownChange = (selectedItem) => {
-		setSelectedEditor(selectedItem); // Update the state with selected item
-		console.log('handle Dropdown CHange', selectedItem)
+		setSelectedEditor(selectedItem); 
+		console.log('handle Dropdown Change', selectedItem)
+
+		postData( `templatiq/template/set-builder?builder=${selectedItem.name}` )
+			.then( ( res ) => {
+				dispatch( store ).setTemplates( res.templates );
+				dispatch( store ).setLibraryData( res );
+			} )
 	};
 
 	/* Close Dropdown click on outside */

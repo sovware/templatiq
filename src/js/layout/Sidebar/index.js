@@ -118,6 +118,7 @@ const Sidebar = () => {
 		// Subscribe to changes in the store's data
 		const storeUpdate = subscribe( () => {
 			const data = select( store ).getLibraryData();
+			console.log('Sidebar Library Data Updated', data);
 			if ( data ) {
 				setLoading( false );
 				getSidebarData( data );
