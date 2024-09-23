@@ -1,13 +1,11 @@
 <?php
 /**
  * @author  wpWax
- * @since   1.0.0
- * @version 1.0.0
+ * @package Templatiq
  */
 
 namespace Templatiq\Controllers;
 
-use Elementor\Plugin;
 use Templatiq\Abstracts\ControllerBase;
 use Templatiq\DTO\ImportAsPageDTO;
 use Templatiq\Repositories\ImporterRepository;
@@ -44,13 +42,15 @@ class TemplateController extends ControllerBase {
 
 			do_action( 'templatiq_import_as_page_after', $inserted_id, $DTO, $request );
 
-			return [
-				'post_id'             => $inserted_id,
-				'edit_link'           => get_edit_post_link( $inserted_id, 'internal' ),
-				'elementor_edit_link' => Plugin::$instance->documents->get( $inserted_id )->get_edit_url(),
-				'visit'               => get_permalink( $inserted_id ),
-				'right_access_ache'   => current_user_can( 'publish_posts' ),
-			];
+			return apply_filters(
+				'templatiq_before_return_import_as_page',
+				[
+					'post_id'   => $inserted_id,
+					'edit_link' => get_edit_post_link( $inserted_id, 'internal' ),
+					'visit'     => get_permalink( $inserted_id ),
+				],
+				$DTO
+			);
 
 		} catch ( \Throwable $th ) {
 			return Response::error(
@@ -69,6 +69,89 @@ class TemplateController extends ControllerBase {
 		} catch ( \Throwable $th ) {
 			return Response::error(
 				'library_data',
+				$th->getMessage(),
+				__FUNCTION__,
+				$th->getCode()
+			);
+		}
+	}
+
+	public function set_builder( WP_REST_Request $request ) {
+		try {
+			$builder = $request->get_param( 'builder' );
+
+			update_option( '_templatiq_selected_builder', $builder );
+
+			return Response::success(
+				( new TemplateRepository )->library_data()
+			);
+
+		} catch ( \Throwable $th ) {
+			return Response::error(
+				'library_data',
+				$th->getMessage(),
+				__FUNCTION__,
+				$th->getCode()
+			);
+		}
+	}
+
+	public function editor_library( WP_REST_Request $request ) {
+		try {
+
+			$builder = $request->get_param( 'builder' );
+
+			return Response::success(
+				( new TemplateRepository )->editor_library( $builder )
+			);
+		} catch ( \Throwable $th ) {
+			return Response::error(
+				'editor_library',
+				$th->getMessage(),
+				__FUNCTION__,
+				$th->getCode()
+			);
+		}
+	}
+
+	public function templates() {
+		try {
+			return Response::success(
+				( new TemplateRepository )->templates()
+			);
+		} catch ( \Throwable $th ) {
+			return Response::error(
+				'templates',
+				$th->getMessage(),
+				__FUNCTION__,
+				$th->getCode()
+			);
+		}
+	}
+
+	public function descriptions() {
+		try {
+			return Response::success(
+				( new TemplateRepository )->descriptions()
+			);
+		} catch ( \Throwable $th ) {
+			return Response::error(
+				'descriptions',
+				$th->getMessage(),
+				__FUNCTION__,
+				$th->getCode()
+			);
+		}
+	}
+
+	public function filters() {
+		try {
+			return Response::success(
+				( new TemplateRepository )->filters()
+			);
+		} catch ( \Throwable $th ) {
+			return Response::error(
+				'filters',
 				$th->getMessage(),
 				__FUNCTION__,
 				$th->getCode()

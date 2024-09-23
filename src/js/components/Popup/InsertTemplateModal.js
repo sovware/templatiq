@@ -515,7 +515,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable
 								<div className="templatiq__modal__actions">
 									<a
 										href={
-											importedData.elementor_edit_link
+											importedData.edit_link
 										}
 										target="_blank"
 										className="templatiq-btn templatiq-btn-primary"
