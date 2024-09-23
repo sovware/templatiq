@@ -27,7 +27,7 @@ class AdminMenu {
 
 		add_theme_page( $page_title, $page_title, 'manage_options', 'templatiq-library', [$this, 'menu_callback'] );
 
-		if ( 'templatiq-library' === $_GET['page'] && ! isset( $_GET['template_id'] ) ) {
+		if ( isset( $_GET['page'] ) && 'templatiq-library' === $_GET['page'] && ! isset( $_GET['template_id'] ) ) {
 			wp_redirect( admin_url( 'admin.php?page=templatiq' ) );
 			exit;
 		}
