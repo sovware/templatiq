@@ -173,7 +173,7 @@ class TemplateRepository {
 	}
 
 	public function filters() {
-		$data = Cache::get( [$this->get_builder(), 'filters'] );
+		$data = Cache::get( ['filters'] );
 
 		if ( $data ) {
 			return $data;
@@ -206,7 +206,7 @@ class TemplateRepository {
 			$data = (array) $body;
 		}
 
-		Cache::set( [$this->get_builder(), 'filters'], $data );
+		Cache::set( ['filters'], $data );
 
 		return $data;
 	}
