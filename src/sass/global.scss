@@ -124,7 +124,10 @@ button {
     margin: 0;
   }
   .templatiq-content-loading {
+    position: relative;
     padding: 0 16px;
+    z-index: 11;
+    background: var(--templatiq-white-color);
   }
 }
 
@@ -511,6 +514,31 @@ button {
   }
 }
 
+.elementor-editor-active {
+  .elementor-templates-modal__header {
+    height: 0;
+    border: none;
+    .elementor-templates-modal__header__close {
+      position: absolute;
+      top: 27px;
+      z-index: 9;
+    }
+  }
+
+  .templatiq__header {
+    position: fixed;
+    width: 100%;
+    max-width: 1200px;
+    .templatiq__header__action {
+      margin-right: 30px;
+    }
+  }
+  .templatiq__sidebar {
+    position: relative;
+    top: 70px;
+  }
+}
+
 .elementor-templates-modal .dialog-message {
   background: var(--templatiq-white-color);
 }
@@ -520,6 +548,7 @@ button {
 #tmTemplateLibrary__modal .dialog-buttons-wrapper {
   display: none;
 }
+
 .image-loader {
   position: absolute;
   top: 50%;

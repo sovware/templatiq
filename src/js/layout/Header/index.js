@@ -123,7 +123,7 @@ const Header = ( props ) => {
 
 		const editorName = isElementorEditorActive ? "elementor" : "";
 
-		// Set the state variable based on the presence of Elementor Editor
+		// Set the state variable based on the presence of Elementor Edito
 		setEditorEnabled( editorName );
 	}, [] );
 
@@ -208,9 +208,12 @@ const Header = ( props ) => {
 							/>
 						}
 					>
-						<div className="templatiq__header__action__item">
-							<CacheClearBtn />
-						</div>
+						{
+							!EditorEnabled &&
+							<div className="templatiq__header__action__item">
+								<CacheClearBtn />
+							</div>
+						}
 
 						<div className="templatiq__header__action__item">
 							{ isLoggedIn ? (
