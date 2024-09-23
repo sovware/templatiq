@@ -18,7 +18,7 @@ const Sidebar = () => {
 	const [expandedGroups, setExpandedGroups] = useState({});
 
 	const [ selectedFilters, setSelectedFilters ] = useState( [] );
-	const [ elementorEditorEnabled, setElementorEditorEnabled ] = useState( false );
+	const [ editorEnabled, setEditorEnabled ] = useState( false );
 
 	const handleFilter = ( key, type ) => {
 		// Copy the existing selectedFilters array to avoid mutating state directly
@@ -55,7 +55,15 @@ const Sidebar = () => {
 	function getSidebarData( data ) {
 		// Function to count templates for each item
 		const countTemplatesByItem = (item, type) => {
-			return data.templates.filter(template => {
+			let allTemplates = null;
+			const isElementorEditorActive = document.body.classList.contains('elementor-editor-active');
+
+			if(isElementorEditorActive) {
+				allTemplates = data.templates.filter( ( template ) => template.type !== 'pack' )
+			} else {
+				allTemplates = data.templates;
+			}
+			return allTemplates.filter(template => {
 				if (type === 'plugins') {
 					return template.required_plugins.some(p => p.slug === item);
 				}
@@ -102,9 +110,8 @@ const Sidebar = () => {
 		setLoading( true );
 		// Check if the 'elementor-editor-active' class is present on the body element
 		const isElementorEditorActive = document.body.classList.contains('elementor-editor-active');
-
-		// Set the state variable based on the presence of Elementor Editor
-		setElementorEditorEnabled( isElementorEditorActive );
+		
+		setEditorEnabled( isElementorEditorActive );
 		
 		const data = select( store ).getLibraryData();
 
@@ -168,7 +175,7 @@ const Sidebar = () => {
 									className="templatiq__sidebar__accordion"
 								>
 									{Object.keys(filterGroups).map((group, key) => (
-										!(group === 'packs' && elementorEditorEnabled) ?
+										!(group === 'packs' && editorEnabled) ?
 											<div
 												key={key}
 												className="templatiq__sidebar__accordion__single"
