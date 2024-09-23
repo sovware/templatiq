@@ -90,6 +90,12 @@ At Templatiq, user privacy is our top priority. As a premier marketplace for tem
 
 == Changelog ==
 
+= 0.0.6(beta) - Sep 23, 2024 =
+* New: Block Editor Introduced
+* Improved: Editor Mode Popup Header Style
+* Fix: Menu Item Redirection Issue
+* Fix: Filter Issue
+
 = 0.0.5(beta) - Sep 18, 2024 =
 * Remove: Full Site Templates from Editor Mode
 * Fix: Pagination & Tab Initialized on Search Filter Change
