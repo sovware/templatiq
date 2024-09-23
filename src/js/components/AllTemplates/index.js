@@ -377,7 +377,6 @@ export default function AllTemplates( props ) {
 																)
 															)
 														}
-														purchase_url={template.purchase_url}
 														preview_link={template.preview_link}
 														bgClass={backgroundClass}
 													/>
@@ -431,9 +430,6 @@ export default function AllTemplates( props ) {
 																child[category] ? [child[category]] : []
 															)
 														)
-													}
-													purchase_url={
-														template.purchase_url
 													}
 													preview_link={
 														template.preview_link
@@ -489,9 +485,6 @@ export default function AllTemplates( props ) {
 																child[category] ? [child[category]] : []
 															)
 														)
-													}
-													purchase_url={
-														template.purchase_url
 													}
 													preview_link={
 														template.preview_link
