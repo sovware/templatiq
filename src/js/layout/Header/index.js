@@ -41,19 +41,19 @@ const Header = ( props ) => {
 
 	const { isLoggedIn, userDisplayName } = select( store ).getUserInfo();
 	const [ isAuthorInfoVisible, setAuthorInfoVisible ] = useState( false );
-	const [ isLoading, setLoading ] = useState( false );
+	const [ isLogoutLoading, setLogoutLoading ] = useState( false );
 	const [ editorEnabled, setEditorEnabled ] = useState( false );
-	const [ selectedEditor, setSelectedEditor ] = useState( 'elementor' );
+	const [ selectedEditor, setSelectedEditor ] = useState( templatiq_obj.builder );
 
 	const logOutEndPoint = 'templatiq/account/logout';
 
 	// Log Out
 	const handleLogOut = async () => {
-		setLoading( true );
+		setLogoutLoading( true );
 		postData( logOutEndPoint ).then( () => {
 			setTimeout( () => {
 				dispatch( store ).logOut();
-				setLoading( false );
+				setLogoutLoading( false );
 				navigate( '/' );
 			}, 300 );
 		} );
@@ -100,15 +100,14 @@ const Header = ( props ) => {
 		setSelectedEditor(selectedItem.name); 
 
 		if(selectedEditor !== selectedItem.name) {
-			console.log('Not Same Builder');
+			dispatch( store ).setIsLoading( true );
 			postData( `templatiq/template/set-builder?builder=${selectedItem.name}` )
 			.then( ( res ) => {
 				dispatch( store ).setTemplates( res.templates );
 				dispatch( store ).setLibraryData( res );
+				dispatch( store ).setIsLoading( false );
 			} )
-		} else {
-			console.log('Same Builder')
-		}		
+		} 	
 	};
 
 	/* Close Dropdown click on outside */
@@ -188,7 +187,7 @@ const Header = ( props ) => {
 									dropDownText={__('Select Editor', 'templatiq')}
 									dropDownIcon={chevronIcon}
 									dropdownList={editorItems}
-									defaultSelect={editorItems[0]}
+									defaultSelect={editorItems.find(editor => editor.name === templatiq_obj.builder)}
 									dropDownChange={handleDropdownChange}
 								/>
 							</div>
@@ -292,7 +291,7 @@ const Header = ( props ) => {
 											<div className="templatiq__header__author__info__item templatiq__header__author__info__item--logout">
 												<button
 													className={ `templatiq__header__author__info__link templatiq__logout ${
-														isLoading
+														isLogoutLoading
 															? 'templatiq__loading templatiq__loading--btn'
 															: ''
 													}` }

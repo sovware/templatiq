@@ -20,7 +20,7 @@ const MyAccount = lazy( () => import( './pages/dashboard/Account' ) );
 export default function App() {
 	const [ dir, setDir ] = useState( 'ltr' );
 	const [ dataFetched, setDataFetched ] = useState( false );
-	const [ elementorEditorEnabled, setElementorEditorEnabled ] = useState( false );
+	const [ editorEnabled, setEditorEnabled ] = useState( false );
 
 	const theme = {
 		direction: dir,
@@ -58,14 +58,13 @@ export default function App() {
 		);
 
 		// Set the state variable based on the presence of Elementor Editor
-		setElementorEditorEnabled( isElementorEditorActive );
+		setEditorEnabled( isElementorEditorActive );
 	}, [] );
 
 	const adminRoutes = applyFilters( 'templatiq_admin_routes', [
 		{
 			path: `/*`,
 			element: <TemplatePack />,
-			// element: ! elementorEditorEnabled ? <TemplatePack /> : <Pages />,
 		},
 		{
 			path: `/template/:slug`,
