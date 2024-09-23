@@ -11,6 +11,7 @@ import Dropdown from '@components/Dropdown';
 import checkedClickedOutside from '@helper/checkClickedOutside';
 import store from '@store/index';
 
+
 import { HeaderActionStyle, HeaderStyle } from './style';
 
 import avatar from '@images/avatar.svg';
@@ -40,19 +41,19 @@ const Header = ( props ) => {
 
 	const { isLoggedIn, userDisplayName } = select( store ).getUserInfo();
 	const [ isAuthorInfoVisible, setAuthorInfoVisible ] = useState( false );
-	const [ isLoading, setLoading ] = useState( false );
-	const [ elementorEditorEnabled, setElementorEditorEnabled ] =
-		useState( false );
+	const [ isLogoutLoading, setLogoutLoading ] = useState( false );
+	const [ editorEnabled, setEditorEnabled ] = useState( false );
+	const [ selectedEditor, setSelectedEditor ] = useState( templatiq_obj.builder );
 
 	const logOutEndPoint = 'templatiq/account/logout';
 
 	// Log Out
 	const handleLogOut = async () => {
-		setLoading( true );
+		setLogoutLoading( true );
 		postData( logOutEndPoint ).then( () => {
 			setTimeout( () => {
 				dispatch( store ).logOut();
-				setLoading( false );
+				setLogoutLoading( false );
 				navigate( '/' );
 			}, 300 );
 		} );
@@ -61,18 +62,21 @@ const Header = ( props ) => {
 	let editorItems = [
 		{
 			icon: elementorIcon,
+			name: "elementor",
 			text: __( 'Elementor', 'templatiq' ),
 			url: '#',
 			type: 'available'
 		},
 		{
 			icon: gutenbergIcon,
+			name: "block",
 			text: __( 'Block Editor', 'templatiq' ),
 			url: '#',
-			type: 'upcoming'
+			type: 'available'
 		},
 		{
 			icon: bricksIcon,
+			name: "bricks",
 			text: __( 'Bricks Builder', 'templatiq' ),
 			url: '#',
 			type: 'upcoming'
@@ -91,6 +95,21 @@ const Header = ( props ) => {
 		setAuthorInfoVisible( ! isAuthorInfoVisible );
 	};
 
+	// Handle selected item from Dropdown
+	const handleDropdownChange = (selectedItem) => {
+		setSelectedEditor(selectedItem.name); 
+
+		if(selectedEditor !== selectedItem.name) {
+			dispatch( store ).setIsLoading( true );
+			postData( `templatiq/template/set-builder?builder=${selectedItem.name}` )
+			.then( ( res ) => {
+				dispatch( store ).setTemplates( res.templates );
+				dispatch( store ).setLibraryData( res );
+				dispatch( store ).setIsLoading( false );
+			} )
+		} 	
+	};
+
 	/* Close Dropdown click on outside */
 	useEffect( () => {
 		checkedClickedOutside( isAuthorInfoVisible, setAuthorInfoVisible, ref );
@@ -102,8 +121,10 @@ const Header = ( props ) => {
 			'elementor-editor-active'
 		);
 
+		const editorName = isElementorEditorActive ? "elementor" : "";
+
 		// Set the state variable based on the presence of Elementor Editor
-		setElementorEditorEnabled( isElementorEditorActive );
+		setEditorEnabled( editorName );
 	}, [] );
 
 	return (
@@ -159,18 +180,19 @@ const Header = ( props ) => {
 						}
 					>
 						{
-							!elementorEditorEnabled &&
+						!editorEnabled &&
 							<div className="templatiq__header__action__item">
 								<Dropdown
 									className="templatiq__dropdown"
-									dropDownText={__( 'Select Editor', 'templatiq' )}
-									dropDownIcon={ chevronIcon }
-									dropdownList={ editorItems }
-									defaultSelect={ editorItems[ 0 ] }
+									dropDownText={__('Select Editor', 'templatiq')}
+									dropDownIcon={chevronIcon}
+									dropdownList={editorItems}
+									defaultSelect={editorItems.find(editor => editor.name === templatiq_obj.builder)}
+									dropDownChange={handleDropdownChange}
 								/>
 							</div>
 						}
-						
+
 						<div className="templatiq__content__top__search">
 							<Searchform />
 						</div>
@@ -220,7 +242,7 @@ const Header = ( props ) => {
 													{__( 'My Favorites', 'templatiq' )}
 												</NavLink>
 											</div>
-											{ ! elementorEditorEnabled && (
+											{ ! editorEnabled && (
 												<>
 													<div className="templatiq__header__author__info__item">
 														<NavLink
@@ -269,7 +291,7 @@ const Header = ( props ) => {
 											<div className="templatiq__header__author__info__item templatiq__header__author__info__item--logout">
 												<button
 													className={ `templatiq__header__author__info__link templatiq__logout ${
-														isLoading
+														isLogoutLoading
 															? 'templatiq__loading templatiq__loading--btn'
 															: ''
 													}` }

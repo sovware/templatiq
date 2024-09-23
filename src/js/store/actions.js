@@ -1,4 +1,10 @@
 const actions = {
+	setIsLoading( loadingStatus ) {
+		return {
+			type: 'SET_IS_LOADING',
+			loadingStatus
+		};
+	},
 	setLibraryData( data ) {
 		return {
 			type: 'SET_LIBRARY',

@@ -3,6 +3,7 @@ import actions from './actions';
 import selectors from './selectors';
 
 const DEFAULT_STATE = {
+	isLoading: false,
 	userInfo: {
 		loggedIn: '',
 		userName: '',
@@ -22,6 +23,19 @@ const DEFAULT_STATE = {
 const store = createReduxStore( 'templatiq-stores', {
 	reducer( state = DEFAULT_STATE, action ) {
 		switch ( action.type ) {
+			case 'SET_IS_LOADING':
+				const loadingState = {
+					...state,
+					isLoading: action.loadingStatus,
+				};
+
+				// Save state to localStorage whenever it changes
+				localStorage.setItem(
+					'templatiq-stores',
+					JSON.stringify( loadingState )
+				);
+
+				return loadingState;
 			case 'SET_TEMPLATES':
 				const templateState = {
 					...state,

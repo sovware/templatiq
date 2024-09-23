@@ -1,7 +1,7 @@
 import checkedClickedOutside from '@helper/checkClickedOutside';
 import { useEffect, useRef, useState } from '@wordpress/element';
-import ReactSVG from 'react-inlinesvg';
 import { __ } from '@wordpress/i18n';
+import ReactSVG from 'react-inlinesvg';
 
 import { DropdownStyle } from './style';
 
@@ -12,6 +12,7 @@ export default function Dropdown( {
 	dropdownList,
 	defaultSelect,
 	placement,
+	dropDownChange,
 } ) {
 	const ref = useRef( null );
 	const [ isDropdownOpen, setDropDownOpen ] = useState( false );
@@ -39,6 +40,9 @@ export default function Dropdown( {
 	function handleItemSelect( item ) {
 		setDropDownOpen( false );
 		setSelectedItem( item );
+		if ( typeof dropDownChange === 'function' ) {
+			dropDownChange( item ); // Pass the selected item to the parent component
+		}
 	}
 
 	/* Close Dropdown click on outside */
