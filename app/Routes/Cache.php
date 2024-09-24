@@ -19,8 +19,11 @@ class Cache extends RouteBase {
 	}
 
 	public function clear() {
+
 		( new AccountRepository() )->data();
 
-		return UtilsCache::clear( ['library'] );
+		$builder = get_option( '_templatiq_selected_builder', 'elementor' );
+
+		return UtilsCache::clear( [$builder, 'library'] );
 	}
 }
