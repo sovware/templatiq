@@ -308,6 +308,12 @@
   }
 }
 
+@media (max-width: 767px){
+  .templatiq-col-6 {
+    width: 100%;
+  }
+}
+
 @media (min-width: 768px) {
   .templatiq-col-md {
     flex: 1 0 0%;

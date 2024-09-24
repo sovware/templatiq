@@ -17,6 +17,7 @@ const SingleTemplateStyle = Styled.div`
         border-radius: 16px;
         img {
             width: 100%;
+            object-fit: cover;
             border-radius: 12px 12px 0 0;
         }
     }
