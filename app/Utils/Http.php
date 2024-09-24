@@ -38,8 +38,13 @@ class Http {
 	}
 
 	public function body( array $args = [] ) {
-		$args['time'] = time();
-		$this->body   = $args ?? $this->body;
+		$builder = get_option( '_templatiq_selected_builder', 'elementor' );
+
+		$args['time']    = time();
+		$args['builder'] = $args['builder'] ?? $builder;
+		$args['version'] = TEMPLATIQ_VERSION;
+
+		$this->body = $args ?? $this->body;
 
 		return $this;
 	}

@@ -1,3 +1,4 @@
+import postData from '@helper/postData';
 import ContentLoading from '@components/ContentLoading';
 import fetchData from '@helper/fetchData';
 import { Suspense, lazy, useEffect, useState } from '@wordpress/element';
@@ -20,14 +21,26 @@ const MyAccount = lazy( () => import( './pages/dashboard/Account' ) );
 export default function App() {
 	const [ dir, setDir ] = useState( 'ltr' );
 	const [ dataFetched, setDataFetched ] = useState( false );
-	const [ elementorEditorEnabled, setElementorEditorEnabled ] = useState( false );
+	const [ editorEnabled, setEditorEnabled ] = useState( false );
 
 	const theme = {
 		direction: dir,
 	};
 
 	useEffect( () => {
-		fetchData( 'templatiq/template/library' )
+		// Check if the 'elementor-editor-active' class is present on the body element
+		const isElementorEditorActive = document.body.classList.contains(
+			'elementor-editor-active'
+		);
+
+		let endpoint = 'library';
+		let currentEditorMode = isElementorEditorActive ? 'elementor' : '';
+
+		if( currentEditorMode === 'elementor' ) {
+		 	endpoint = `editor-library?builder=${currentEditorMode}`;
+		}
+
+		postData( `templatiq/template/${endpoint}` )
 			.then( ( res ) => {
 				dispatch( store ).setTemplates( res.templates );
 				dispatch( store ).setLibraryData( res );
@@ -52,20 +65,14 @@ export default function App() {
 				} );
 			} );
 
-		// Check if the 'elementor-editor-active' class is present on the body element
-		const isElementorEditorActive = document.body.classList.contains(
-			'elementor-editor-active'
-		);
-
 		// Set the state variable based on the presence of Elementor Editor
-		setElementorEditorEnabled( isElementorEditorActive );
+		setEditorEnabled( isElementorEditorActive );
 	}, [] );
 
 	const adminRoutes = applyFilters( 'templatiq_admin_routes', [
 		{
 			path: `/*`,
 			element: <TemplatePack />,
-			// element: ! elementorEditorEnabled ? <TemplatePack /> : <Pages />,
 		},
 		{
 			path: `/template/:slug`,

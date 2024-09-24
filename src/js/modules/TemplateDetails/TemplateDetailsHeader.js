@@ -21,7 +21,6 @@ const TemplateDetailsHeader = ( props ) => {
 		price,
 		number_of_downloads,
 		number_of_bookmarks,
-		purchase_url,
 		preview_link,
 	} = props.item;
 

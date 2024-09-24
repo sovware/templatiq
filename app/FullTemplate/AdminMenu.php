@@ -23,9 +23,14 @@ class AdminMenu {
 	}
 
 	public function admin_menu() {
-		$page_title = apply_filters( 'templatiq_sites_menu_page_title', esc_html__( 'Templaitq Templates', 'templatiq' ) );
+		$page_title = apply_filters( 'templatiq_sites_menu_page_title', esc_html__( 'Starter Templates', 'templatiq' ) );
 
 		add_theme_page( $page_title, $page_title, 'manage_options', 'templatiq-library', [$this, 'menu_callback'] );
+
+		if ( isset( $_GET['page'] ) && 'templatiq-library' === $_GET['page'] && ! isset( $_GET['template_id'] ) ) {
+			wp_redirect( admin_url( 'admin.php?page=templatiq' ) );
+			exit;
+		}
 	}
 
 	public function menu_callback() {

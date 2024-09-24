@@ -7,16 +7,17 @@
 
 namespace Templatiq\Integrations\Elementor;
 
-use Elementor\TemplateLibrary\Source_Local as ElementorLocal;
 use Templatiq\DTO\ImportAsPageDTO;
 
-class ImportAsPage extends ElementorLocal {
+class ImportAsPage extends \Elementor\TemplateLibrary\Source_Local {
 	use \Templatiq\Utils\Singleton;
 
 	private string $cloud_endpoint;
 
 	public function __construct() {
 		add_filter( 'templatiq_import_as_page_created_post_id', [$this, 'import_as_page'], 10, 2 );
+		add_filter( 'templatiq_before_return_import_as_page', [$this, 'before_return_import_as_page'], 10, 2 );
+
 	}
 
 	public function import_as_page( $page_id, ImportAsPageDTO $DTO ) {
@@ -42,5 +43,14 @@ class ImportAsPage extends ElementorLocal {
 			->set_page_settings( $_page_settings );
 
 		return ( new Repository )->create_page( $templateDataDTO );
+	}
+
+	public function before_return_import_as_page( $data, ImportAsPageDTO $DTO ) {
+		if ( 'elementor' === $DTO->get_builder() ) {
+			$post_id           = $data['post_id'] ?? 0;
+			$data['edit_link'] = \Elementor\Plugin::$instance->documents->get( $post_id )->get_edit_url();
+		}
+
+		return $data;
 	}
 }

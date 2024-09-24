@@ -20,6 +20,7 @@ export default function AllTemplates( props ) {
 
 	const [ isEmpty, setIsEmpty ] = useState( false );
 	const [ activeTab, setActiveTab ] = useState( 'all' );
+	const [ isLoading, setIsLoading ] = useState( false );
 
 	const [ allTemplates, setAllTemplates ] = useState( [] );
 	const [ allCategories, setAllCategories ] = useState( [] );
@@ -79,6 +80,9 @@ export default function AllTemplates( props ) {
 			newFilteredTemplates.filter( ( template ) => template.price <= 0 )
 		);
 
+		handlePaginateReset();
+		changeTemplateTab( 'all' )
+
 		return newFilteredTemplates;
 	};
 
@@ -131,9 +135,16 @@ export default function AllTemplates( props ) {
 
 	useEffect( () => {
 		const templateData = select( store ).getTemplates();
+		const isElementorEditorActive = document.body.classList.contains(
+			'elementor-editor-active'
+		);
 
 		if ( templateData ) {
-			checkTemplateType( templateData );
+			if (!isElementorEditorActive) {
+				checkTemplateType( templateData );
+			} else {
+				checkTemplateType( templateData.filter( ( template ) => template.type !== 'pack' ) );
+			}
 		}
 
 		const data = select( store ).getLibraryData();
@@ -141,12 +152,29 @@ export default function AllTemplates( props ) {
 
 		// Subscribe to changes in the store's data
 		const storeUpdate = subscribe( () => {
+			const isLoading =  select( store ).getIsLoading();
+			setIsLoading(isLoading);
 			const { bookmarks } = select( store ).getUserInfo();
 			const searchQuery = select( store ).getSearchQuery();
 			const filterSearch = select( store ).getFilterSearch();
 			setUserFav( bookmarks );
 			setSearchValue( searchQuery );
 			setFilterValue( filterSearch );
+
+			const newLibraryData = select( store ).getLibraryData();
+			const newTemplateData = select( store ).getTemplates();
+
+			if ( templateData ) {
+				
+				if (!isElementorEditorActive) {
+					checkTemplateType( newTemplateData );
+				} else {
+					checkTemplateType( newTemplateData.filter( ( template ) => template.type !== 'pack' ) );
+				}
+			}
+
+			setAllCategories( newLibraryData.categories );
+
 		} );
 
 		// storeUpdate when the component is unmounted
@@ -318,48 +346,104 @@ export default function AllTemplates( props ) {
 			</div>
 
 			<div className="templatiq__content__wrapper">
-				<>
-					{ isEmpty ? (
-						<div className="templatiq__content__empty">
-							<h3 className="templatiq__content__empty__title">
-								{__( 'No Template Found', 'templatiq' )}								
-							</h3>
-							<h3 className="templatiq__content__empty__desc">
-								{__( 'Search Other Templates', 'templatiq' )}
-							</h3>
-						</div>
-					) : activeTab === 'all' ? (
-							<div className="templatiq-row templatiq__content__tab-panel">
-								{templatesToDisplay &&
-									templatesToDisplay.map((template, index) => {
-										// Determine the background class based on index
-										const backgroundClass = `background-${(index % 6) + 1}`;
-										return (
-											<div className="templatiq-col-xxl-4 templatiq-col-6" key={index}>
+				{
+					!isLoading ?
+					<>
+						{ isEmpty ? (
+							<div className="templatiq__content__empty">
+								<h3 className="templatiq__content__empty__title">
+									{__( 'No Template Found', 'templatiq' )}								
+								</h3>
+								<h3 className="templatiq__content__empty__desc">
+									{__( 'Search Other Templates', 'templatiq' )}
+								</h3>
+							</div>
+						) : activeTab === 'all' ? (
+								<div className="templatiq-row templatiq__content__tab-panel">
+									{templatesToDisplay &&
+										templatesToDisplay.map((template, index) => {
+											// Determine the background class based on index
+											const backgroundClass = `background-${(index % 6) + 1}`;
+											return (
+												<div className="templatiq-col-6" key={index}>
+													<Suspense
+														fallback={
+															<>
+																<ContentLoading 
+																	type="image" 
+																	style={{ "marginBottom": "20px" }}
+																/>
+																<ContentLoading />
+															</>
+														}
+													>
+														<SingleTemplate
+															template_id={template.template_id}
+															builder={template.builder}
+															type={template.type}
+															thumbnail={template.thumbnail}
+															slug={template.slug}
+															title={template.title}
+															price={template.price}
+															number_of_downloads={template.number_of_downloads}
+															number_of_bookmarks={template.number_of_bookmarks}
+															is_directorist_required={template.is_directorist_required}
+															directory_page_type={template.directory_page_type}
+															required_plugins={template.required_plugins}
+															categories={ 
+																template.categories.flatMap(category =>
+																	Object.values(allCategories).flatMap(child =>
+																		child[category] ? [child[category]] : []
+																	)
+																)
+															}
+															preview_link={template.preview_link}
+															bgClass={backgroundClass}
+														/>
+													</Suspense>
+												</div>
+											);
+										})
+									}
+								</div>
+							) : activeTab === "free" ? (
+								<div className="templatiq-row templatiq__content__tab-panel">
+									{ templatesToDisplay &&
+										templatesToDisplay.map( ( template, index ) => (
+											<div className="templatiq-col-6" key={index}>
 												<Suspense
 													fallback={
 														<>
 															<ContentLoading 
 																type="image" 
-																style={{ "marginBottom": "20px" }}
+																style={ { "marginBottom": "20px" } }
 															/>
 															<ContentLoading />
 														</>
 													}
 												>
 													<SingleTemplate
-														template_id={template.template_id}
-														builder={template.builder}
-														type={template.type}
-														thumbnail={template.thumbnail}
-														slug={template.slug}
-														title={template.title}
-														price={template.price}
-														number_of_downloads={template.number_of_downloads}
-														number_of_bookmarks={template.number_of_bookmarks}
-														is_directorist_required={template.is_directorist_required}
-														directory_page_type={template.directory_page_type}
-														required_plugins={template.required_plugins}
+														template_id={ template.template_id }
+														builder={ template.builder }
+														type={ template.type }
+														thumbnail={ template.thumbnail }
+														slug={ template.slug }
+														title={ template.title }
+														number_of_downloads={
+															template.number_of_downloads
+														}
+														number_of_bookmarks={
+															template.number_of_bookmarks
+														}
+														is_directorist_required={
+															template.is_directorist_required
+														}
+														directory_page_type={
+															template.directory_page_type
+														}
+														required_plugins={
+															template.required_plugins
+														}
 														categories={ 
 															template.categories.flatMap(category =>
 																Object.values(allCategories).flatMap(child =>
@@ -367,158 +451,99 @@ export default function AllTemplates( props ) {
 																)
 															)
 														}
-														purchase_url={template.purchase_url}
-														preview_link={template.preview_link}
-														bgClass={backgroundClass}
+														preview_link={
+															template.preview_link
+														}
 													/>
 												</Suspense>
 											</div>
-										);
-									})
-								}
-							</div>
-						) : activeTab === "free" ? (
-							<div className="templatiq-row templatiq__content__tab-panel">
-								{ templatesToDisplay &&
-									templatesToDisplay.map( ( template, index ) => (
-										<div className="templatiq-col-xxl-4 templatiq-col-6" key={index}>
-											<Suspense
-												fallback={
-													<>
-														<ContentLoading 
-															type="image" 
-															style={ { "marginBottom": "20px" } }
-														/>
-														<ContentLoading />
-													</>
-												}
-											>
-												<SingleTemplate
-													template_id={ template.template_id }
-													builder={ template.builder }
-													type={ template.type }
-													thumbnail={ template.thumbnail }
-													slug={ template.slug }
-													title={ template.title }
-													number_of_downloads={
-														template.number_of_downloads
+										) ) 
+									}
+								</div>
+							) : activeTab === "pro" ? (
+								<div className="templatiq-row templatiq__content__tab-panel">
+									{ templatesToDisplay &&
+										templatesToDisplay.map( ( template, index ) => (
+											<div className="templatiq-col-6" key={index}>
+												<Suspense
+													fallback={
+														<>
+															<ContentLoading 
+																type="image" 
+																style={ { "marginBottom": "20px" } }
+															/>
+															<ContentLoading />
+														</>
 													}
-													number_of_bookmarks={
-														template.number_of_bookmarks
-													}
-													is_directorist_required={
-														template.is_directorist_required
-													}
-													directory_page_type={
-														template.directory_page_type
-													}
-													required_plugins={
-														template.required_plugins
-													}
-													categories={ 
-														template.categories.flatMap(category =>
-															Object.values(allCategories).flatMap(child =>
-																child[category] ? [child[category]] : []
+												>
+													<SingleTemplate
+														template_id={ template.template_id }
+														builder={ template.builder }
+														type={ template.type }
+														thumbnail={ template.thumbnail }
+														slug={ template.slug }
+														title={ template.title }
+														price={ template.price }
+														number_of_downloads={
+															template.number_of_downloads
+														}
+														number_of_bookmarks={
+															template.number_of_bookmarks
+														}
+														is_directorist_required={
+															template.is_directorist_required
+														}
+														directory_page_type={
+															template.directory_page_type
+														}
+														required_plugins={
+															template.required_plugins
+														}
+														categories={ 
+															template.categories.flatMap(category =>
+																Object.values(allCategories).flatMap(child =>
+																	child[category] ? [child[category]] : []
+																)
 															)
-														)
-													}
-													purchase_url={
-														template.purchase_url
-													}
-													preview_link={
-														template.preview_link
-													}
-												/>
-											</Suspense>
-										</div>
-									) ) 
-								}
-							</div>
-						) : activeTab === "pro" ? (
-							<div className="templatiq-row templatiq__content__tab-panel">
-								{ templatesToDisplay &&
-									templatesToDisplay.map( ( template, index ) => (
-										<div className="templatiq-col-xxl-4 templatiq-col-6" key={index}>
-											<Suspense
-												fallback={
-													<>
-														<ContentLoading 
-															type="image" 
-															style={ { "marginBottom": "20px" } }
-														/>
-														<ContentLoading />
-													</>
-												}
-											>
-												<SingleTemplate
-													template_id={ template.template_id }
-													builder={ template.builder }
-													type={ template.type }
-													thumbnail={ template.thumbnail }
-													slug={ template.slug }
-													title={ template.title }
-													price={ template.price }
-													number_of_downloads={
-														template.number_of_downloads
-													}
-													number_of_bookmarks={
-														template.number_of_bookmarks
-													}
-													is_directorist_required={
-														template.is_directorist_required
-													}
-													directory_page_type={
-														template.directory_page_type
-													}
-													required_plugins={
-														template.required_plugins
-													}
-													categories={ 
-														template.categories.flatMap(category =>
-															Object.values(allCategories).flatMap(child =>
-																child[category] ? [child[category]] : []
-															)
-														)
-													}
-													purchase_url={
-														template.purchase_url
-													}
-													preview_link={
-														template.preview_link
-													}
-												/>
-											</Suspense>
-										</div>
-									) ) 
-								}
-							</div>
-						) : null
-					}
+														}
+														preview_link={
+															template.preview_link
+														}
+													/>
+												</Suspense>
+											</div>
+										) ) 
+									}
+								</div>
+							) : null
+						}
 
-					{ totalPaginate > paginatePerPage && (
-						<ReactPaginate
-							key={`${activeTab}-${paginationKey}`}
-							breakLabel="..."
-							onPageChange={ handlePageChange }
-							nextLabel={ <ReactSVG src={ arrowRight } /> }
-							previousLabel={ <ReactSVG src={ arrowLeft } /> }
-							pageRangeDisplayed={ 3 }
-							forcePage={ forcePage }
-							pageCount={ Math.ceil(
-								totalPaginate / paginatePerPage
-							) }
-							previousClassName="templatiq-pagination__item"
-							previousLinkClassName="templatiq-pagination__link templatiq-pagination__control"
-							nextClassName="templatiq-pagination__item"
-							nextLinkClassName="templatiq-pagination__link templatiq-pagination__control"
-							containerClassName="templatiq-pagination"
-							pageClassName="templatiq-pagination__item"
-							pageLinkClassName="templatiq-pagination__link"
-							activeLinkClassName="templatiq-pagination__active"
-							renderOnZeroPageCount={ null }
-						/>
-					) }
-				</>
+						{ totalPaginate > paginatePerPage && (
+							<ReactPaginate
+								key={`${activeTab}-${paginationKey}`}
+								breakLabel="..."
+								onPageChange={ handlePageChange }
+								nextLabel={ <ReactSVG src={ arrowRight } /> }
+								previousLabel={ <ReactSVG src={ arrowLeft } /> }
+								pageRangeDisplayed={ 3 }
+								forcePage={ forcePage }
+								pageCount={ Math.ceil(
+									totalPaginate / paginatePerPage
+								) }
+								previousClassName="templatiq-pagination__item"
+								previousLinkClassName="templatiq-pagination__link templatiq-pagination__control"
+								nextClassName="templatiq-pagination__item"
+								nextLinkClassName="templatiq-pagination__link templatiq-pagination__control"
+								containerClassName="templatiq-pagination"
+								pageClassName="templatiq-pagination__item"
+								pageLinkClassName="templatiq-pagination__link"
+								activeLinkClassName="templatiq-pagination__active"
+								renderOnZeroPageCount={ null }
+							/>
+						) }
+					</> : 
+					<ContentLoading type="allTemplate" style={{ "maxHeight": "unset" }} />
+				}
 			</div>
 		</div>
 	);

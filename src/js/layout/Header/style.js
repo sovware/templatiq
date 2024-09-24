@@ -37,6 +37,24 @@ const HeaderStyle = Styled.div`
             width: 100%;
             flex: 1;
         }
+        .templatiq__header__action__builder {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            height: 38px;
+            padding: 0 30px 0 12px;
+            border-radius: 8px;
+            color: var(--templatiq-body-color);
+            font-size: 14px;
+            font-weight: 500;
+            background-color: var(--templatiq-sec-color);
+            border: 1px solid var(--templatiq-sec-color);
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+            .templatiq__header__action__icon {
+                display: flex;
+            }
+        }   
     }
     .templatiq__header__details {
         display: flex;

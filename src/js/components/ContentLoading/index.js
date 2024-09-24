@@ -103,6 +103,77 @@ const ContentLoading = ( props ) => {
 						</div>
 					</div>
 				);
+			case 'sidebar':
+				return (
+					<>
+						<div style={{ marginBottom: "70px", textAlign: "left" }}>
+							<span className="templatiq-shimmer-effect"></span>
+							<span className="templatiq-shimmer-effect" style={{ width: '75%' }}></span>
+							<span className="templatiq-shimmer-effect" style={{ width: '50%' }}></span>
+						</div>
+						<div style={{ marginBottom: "70px", textAlign: "left" }}>
+							<span className="templatiq-shimmer-effect"></span>
+							<span className="templatiq-shimmer-effect" style={{ width: '75%' }}></span>
+							<span className="templatiq-shimmer-effect" style={{ width: '50%' }}></span>
+						</div>
+						<div style={{ marginBottom: "70px", textAlign: "left" }}>
+							<span className="templatiq-shimmer-effect"></span>
+							<span className="templatiq-shimmer-effect" style={{ width: '75%' }}></span>
+							<span className="templatiq-shimmer-effect" style={{ width: '50%' }}></span>
+						</div>
+						<div style={{ marginBottom: "70px", textAlign: "left" }}>
+							<span className="templatiq-shimmer-effect"></span>
+							<span className="templatiq-shimmer-effect" style={{ width: '75%' }}></span>
+							<span className="templatiq-shimmer-effect" style={{ width: '50%' }}></span>
+						</div>
+						<div style={{ marginBottom: "70px", textAlign: "left" }}>
+							<span className="templatiq-shimmer-effect"></span>
+							<span className="templatiq-shimmer-effect" style={{ width: '75%' }}></span>
+							<span className="templatiq-shimmer-effect" style={{ width: '50%' }}></span>
+						</div>
+					</>
+				);
+			case 'allTemplate':
+				return (
+					<div className="templatiq-row">
+						<div className="templatiq-col-6" style={{ marginBottom: "24px", textAlign: "left" }}>
+							<span className="templatiq-content-loading__image templatiq-shimmer-effect" style={ { "marginBottom": "20px" } }></span>
+							<span className="templatiq-shimmer-effect"></span>
+							<span className="templatiq-shimmer-effect" style={{ width: '75%' }}></span>
+							<span className="templatiq-shimmer-effect" style={{ width: '50%' }}></span>
+						</div>
+						<div className="templatiq-col-6" style={{ marginBottom: "24px", textAlign: "left" }}>
+							<span className="templatiq-content-loading__image templatiq-shimmer-effect" style={ { "marginBottom": "20px" } }></span>
+							<span className="templatiq-shimmer-effect"></span>
+							<span className="templatiq-shimmer-effect" style={{ width: '75%' }}></span>
+							<span className="templatiq-shimmer-effect" style={{ width: '50%' }}></span>
+						</div>
+						<div className="templatiq-col-6" style={{ marginBottom: "24px", textAlign: "left" }}>
+							<span className="templatiq-content-loading__image templatiq-shimmer-effect" style={ { "marginBottom": "20px" } }></span>
+							<span className="templatiq-shimmer-effect"></span>
+							<span className="templatiq-shimmer-effect" style={{ width: '75%' }}></span>
+							<span className="templatiq-shimmer-effect" style={{ width: '50%' }}></span>
+						</div>
+						<div className="templatiq-col-6" style={{ marginBottom: "24px", textAlign: "left" }}>
+							<span className="templatiq-content-loading__image templatiq-shimmer-effect" style={ { "marginBottom": "20px" } }></span>
+							<span className="templatiq-shimmer-effect"></span>
+							<span className="templatiq-shimmer-effect" style={{ width: '75%' }}></span>
+							<span className="templatiq-shimmer-effect" style={{ width: '50%' }}></span>
+						</div>
+						<div className="templatiq-col-6" style={{ marginBottom: "24px", textAlign: "left" }}>
+							<span className="templatiq-content-loading__image templatiq-shimmer-effect" style={ { "marginBottom": "20px" } }></span>
+							<span className="templatiq-shimmer-effect"></span>
+							<span className="templatiq-shimmer-effect" style={{ width: '75%' }}></span>
+							<span className="templatiq-shimmer-effect" style={{ width: '50%' }}></span>
+						</div>
+						<div className="templatiq-col-6" style={{ marginBottom: "24px", textAlign: "left" }}>
+							<span className="templatiq-content-loading__image templatiq-shimmer-effect" style={ { "marginBottom": "20px" } }></span>
+							<span className="templatiq-shimmer-effect"></span>
+							<span className="templatiq-shimmer-effect" style={{ width: '75%' }}></span>
+							<span className="templatiq-shimmer-effect" style={{ width: '50%' }}></span>
+						</div>
+					</div>
+				);
 			default:
 				return (
 					<>

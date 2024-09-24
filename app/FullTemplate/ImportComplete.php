@@ -77,7 +77,7 @@ class ImportComplete {
 	}
 
 	public function update_logo_width() {
-		$width     = get_option( '_templatiq_logo_width' . '' );
+		$width     = get_option( '_templatiq_logo_width', '40' );
 		$templates = get_option( '_templatiq_imported_template_parts', [] );
 
 		if ( empty( $width ) || empty( $templates ) ) {
@@ -87,7 +87,6 @@ class ImportComplete {
 		foreach ( $templates as $template_id ) {
 			$post = get_post( $template_id );
 			if ( ! isset( $post->post_content ) ) {
-				error_log( $template_id . 'post content not found' );
 				continue;
 			}
 

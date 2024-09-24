@@ -1,8 +1,7 @@
 <?php
 /**
  * @author  wpWax
- * @since   1.0.0
- * @version 1.0.0
+ * @package Templatiq
  */
 
 namespace Templatiq\Admin;
@@ -46,6 +45,8 @@ class Enqueuer extends EnqueuerBase {
 	}
 
 	public function localize_object() {
+		$builder = get_option( '_templatiq_selected_builder', 'elementor' );
+
 		return apply_filters(
 			'templatiq_admin_localize_data',
 			[
@@ -58,6 +59,7 @@ class Enqueuer extends EnqueuerBase {
 				'theme_slug'    => 'pixetiq',
 				'dashboard_url' => admin_url( 'admin.php?page=templatiq' ),
 				'cloud_url'     => TEMPLATIQ_CLOUD_CONNECT_URL,
+				'builder'       => $builder,
 			]
 		);
 	}

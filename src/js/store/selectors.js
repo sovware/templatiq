@@ -1,4 +1,9 @@
 const selectors = {
+	getIsLoading( state ) {
+		const { isLoading } = state;
+
+		return isLoading;
+	},
 	getLibraryData( state ) {
 		const { libraryData } = state;
 
