@@ -195,7 +195,17 @@ const InsertContent = () => {
 																id={plugin.slug}
 																disabled = { plugin.is_pro }
 															/>
-															<label htmlFor={plugin.slug}>{plugin.name} {plugin.is_pro ? <span className="plugin_status">(Pro)</span> : null}</label>
+															<label htmlFor={plugin.slug}>
+																<span class="plugin_name">{plugin.name}</span> 
+																{plugin.is_pro ? 
+																	<span className="plugin_status">(Pro)</span> : 
+																	null
+																}
+															</label>
+															{plugin.is_pro ? 
+																<a href={plugin.purchase_url || "#"} target="_blank" className="required_plugin_purchase">Purchase</a> : 
+																null
+															}
 														</div>
 													)
 												})

@@ -1,4 +1,3 @@
-import arrowIcon from '@images/icon/angle-left.svg';
 import Logo from '@images/logo.svg';
 import { useEffect } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
@@ -1459,18 +1458,6 @@ const ImportSite = () => {
 								) }
 							</>
 						) }
-					</div>
-					<div className="fullsite-setup-wizard__footer">
-						<div className="fullsite-setup-wizard__back">
-							<a
-								href='#' 
-								className="fullsite-setup-wizard__back__btn"
-								onClick={ prevStep }	
-							>
-								<img src={arrowIcon} alt="" />
-								Back
-							</a>
-						</div>
 					</div>
 				</div>
 			}
