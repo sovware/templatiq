@@ -1,6 +1,6 @@
-import postData from '@helper/postData';
 import ContentLoading from '@components/ContentLoading';
 import fetchData from '@helper/fetchData';
+import postData from '@helper/postData';
 import { Suspense, lazy, useEffect, useState } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { HashRouter, Route, Routes } from 'react-router-dom';
@@ -56,6 +56,7 @@ export default function App() {
 						downloads: data.downloads,
 						purchased: data.purchased,
 						unlocked: data.unlocked_by_directorist,
+						hasAllAccess: data.has_all_access_pass,
 					};
 
 					// Dispatch the action to update the signin status in the store

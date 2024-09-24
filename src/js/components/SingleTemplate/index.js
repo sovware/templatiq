@@ -27,7 +27,7 @@ const SingleTemplate = ( item ) => {
 		bgClass,
 	} = item;
 
-	const { purchased, unlocked } = select(store).getUserInfo();
+	const { purchased, unlocked, hasAllAccess } = select(store).getUserInfo();
 
 	const [ isDropdownOpen, setDropdownOpen ] = useState( false );
 	const [ imageLoaded, setImageLoaded ] = useState( false );
@@ -79,7 +79,7 @@ const SingleTemplate = ( item ) => {
 				<div className="templatiq__template__single__overlay"></div>
 				<div className="templatiq__template__single__info">
 					<div className="templatiq__template__single__info__meta">
-						{ price > 0 && !isUnlocked ? (
+						{ price > 0 && !isUnlocked && !hasAllAccess ? (
 							<span className="templatiq__template__single__info__meta__item pro-item">
 								<ReactSVG
 									src={ crownIcon }
@@ -102,7 +102,7 @@ const SingleTemplate = ( item ) => {
 							)
 						}
 						{
-							isUnlocked && (
+							isUnlocked || hasAllAccess && (
 								<span
 									className="templatiq__template__single__info__meta__item unlocked-item templatiq-tooltip"
 									data-info="Unlocked"
