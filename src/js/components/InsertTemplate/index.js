@@ -25,7 +25,7 @@ const InsertTemplate = ({
 
 	const validPlugins = required_plugins.filter(item => item?.init);
 
-	const themeInstalled = templatiq_obj?.theme_status === 'installed-and-active';
+	const themeInstalled = templatiq_obj?.pixetiq_status === 'installed-and-active';
 	
 	const insertFullTemplate = type === 'pack';
 	// const dependencyCheckEndPoint = 'templatiq/dependency/check';

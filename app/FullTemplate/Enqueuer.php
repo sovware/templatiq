@@ -81,7 +81,7 @@ class Enqueuer extends EnqueuerBase {
 			], site_url( '/' )
 		);
 
-		$themeStatus = ( new DependencyRepository )->get_theme_status();
+		$themeStatus = ( new DependencyRepository )->get_pixetiq_status();
 
 		$data = [
 			'imageDir'          => TEMPLATIQ_FULL_SITE_TEMPLATES_URI . 'assets/images/',
@@ -152,7 +152,7 @@ class Enqueuer extends EnqueuerBase {
 			'favorites'                     => get_option( 'templatiq-sites-favorites' ),
 		];
 
-		$themeStatus = ( new DependencyRepository )->get_theme_status();
+		$themeStatus = ( new DependencyRepository )->get_pixetiq_status();
 
 		$data = apply_filters(
 			'templatiq_sites_localize_vars',

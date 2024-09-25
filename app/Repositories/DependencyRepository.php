@@ -168,7 +168,7 @@ class DependencyRepository {
 		}
 	}
 
-	public function get_theme_status(): string {
+	public function get_pixetiq_status(): string {
 		$theme = wp_get_theme();
 
 		// Theme installed and activate.
@@ -184,6 +184,12 @@ class DependencyRepository {
 		}
 
 		return 'not-installed';
+	}
+
+	public function get_current_theme(): string {
+		$theme = wp_get_theme();
+
+		return $theme->Name;
 	}
 
 	public function activate_theme() {

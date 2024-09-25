@@ -46,20 +46,21 @@ class Enqueuer extends EnqueuerBase {
 
 	public function localize_object() {
 		$builder = get_option( '_templatiq_selected_builder', 'elementor' );
+		$dep     = new DependencyRepository();
 
 		return apply_filters(
 			'templatiq_admin_localize_data',
 			[
-				'rest_args'     => [
+				'rest_args'      => [
 					'nonce'    => wp_create_nonce( 'wp_rest' ),
 					'endpoint' => get_rest_url( null, 'templatiq' ),
 				],
-				'assets_url'    => TEMPLATIQ_ASSETS,
-				'theme_status'  => ( new DependencyRepository )->get_theme_status(),
-				'theme_slug'    => 'pixetiq',
-				'dashboard_url' => admin_url( 'admin.php?page=templatiq' ),
-				'cloud_url'     => TEMPLATIQ_CLOUD_CONNECT_URL,
-				'builder'       => $builder,
+				'assets_url'     => TEMPLATIQ_ASSETS,
+				'pixetiq_status' => $dep->get_pixetiq_status(),
+				'current_theme'  => $dep->get_current_theme(),
+				'dashboard_url'  => admin_url( 'admin.php?page=templatiq' ),
+				'cloud_url'      => TEMPLATIQ_CLOUD_CONNECT_URL,
+				'builder'        => $builder,
 			]
 		);
 	}

@@ -12,7 +12,7 @@ const insertFullTemplateModal = ( { item, onClose } ) => {
 	const [ themeInstalling, setThemeInstalling ] = useState( false );
 
 
-	const themeStatus = templatiq_obj?.theme_status;
+	const themeStatus = templatiq_obj?.pixetiq_status;
 
 	const activateThemeEndPoint = 'templatiq/dependency/activate-theme';
 
