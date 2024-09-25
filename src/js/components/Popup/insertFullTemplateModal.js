@@ -11,8 +11,9 @@ const insertFullTemplateModal = ( { item, onClose } ) => {
 	const { template_id } = item;
 	const [ themeInstalling, setThemeInstalling ] = useState( false );
 
-
-	const themeStatus = templatiq_obj?.pixetiq_status;
+	const currentBuilder = templatiq_obj?.builder;
+	const pixetiqStatus = templatiq_obj?.pixetiq_status;
+	const bricksInstalled = templatiq_obj?.current_theme === 'Bricks' || templatiq_obj?.current_theme === 'Bricks Child Theme';
 
 	const activateThemeEndPoint = 'templatiq/dependency/activate-theme';
 
@@ -61,42 +62,55 @@ const insertFullTemplateModal = ( { item, onClose } ) => {
 			<InsertTemplateModalStyle
 				className="templatiq__modal templatiq__modal--install"
 			>
-				<div className="templatiq__modal__content">
-					<h2 className="templatiq__modal__title">
-						<ReactSVG src={ recommendationIcon } width={ 30 } height={ 30 } />
-						{__( 'Recommendation', 'templatiq' )}
-					</h2>
-					<p className="templatiq__modal__desc">
-						{__( 'We recommend to use Pixetiq Theme to fully experience the design & feature of this template. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist.', 'templatiq' )}
-					</p>
-					<div className="templatiq__modal__actions">
-						<button
-							className='templatiq-btn templatiq-btn-primary'
-							onClick={
-								themeStatus === 'not-installed'
-									? installTheme
-									: themeStatus === 'installed-but-inactive' 
-									? activateTheme
-									: null
-							}
-							disabled={themeInstalling}
-						>
-							{ themeStatus === 'not-installed'
-									? themeInstalling ? __( 'Installing...' , 'templatiq' ) : __( 'Yes, Install' , 'templatiq' )
-									: themeInstalling ? __( 'Activating...' , 'templatiq' )  : __( 'Yes, Activate' , 'templatiq' )}
-						</button>
-						{
-							!themeInstalling && 
+				{
+					currentBuilder === "bricks" && !bricksInstalled ? 
+					<div className="templatiq__modal__content">
+						<h2 className="templatiq__modal__title">
+							<ReactSVG src={ recommendationIcon } width={ 30 } height={ 30 } />
+							{__( 'Required', 'templatiq' )}
+						</h2>
+						<p className="templatiq__modal__desc">
+							{__( 'Bricks Theme Must be Installed', 'templatiq' )}
+						</p>
+					</div> :
+
+					<div className="templatiq__modal__content">
+						<h2 className="templatiq__modal__title">
+							<ReactSVG src={ recommendationIcon } width={ 30 } height={ 30 } />
+							{__( 'Recommendation', 'templatiq' )}
+						</h2>
+						<p className="templatiq__modal__desc">
+							{__( 'We recommend to use Pixetiq Theme to fully experience the design & feature of this template. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist.', 'templatiq' )}
+						</p>
+						<div className="templatiq__modal__actions">
 							<button
-								className='templatiq-btn'
-								onClick={redirectImportPage}
-							> 
-								{__( 'Continue without ' , 'templatiq' )} {themeStatus === 'not-installed' ? 'installing' : 'activating'}	
+								className='templatiq-btn templatiq-btn-primary'
+								onClick={
+									pixetiqStatus === 'not-installed'
+										? installTheme
+										: pixetiqStatus === 'installed-but-inactive' 
+										? activateTheme
+										: null
+								}
+								disabled={themeInstalling}
+							>
+								{ pixetiqStatus === 'not-installed'
+										? themeInstalling ? __( 'Installing...' , 'templatiq' ) : __( 'Yes, Install' , 'templatiq' )
+										: themeInstalling ? __( 'Activating...' , 'templatiq' )  : __( 'Yes, Activate' , 'templatiq' )}
 							</button>
-						}
-						
+							{
+								!themeInstalling && 
+								<button
+									className='templatiq-btn'
+									onClick={redirectImportPage}
+								> 
+									{__( 'Continue without ' , 'templatiq' )} {pixetiqStatus === 'not-installed' ? 'installing' : 'activating'}	
+								</button>
+							}
+							
+						</div>
 					</div>
-				</div>
+				}
 
 				<button
 					className="templatiq__modal__cancel__button"

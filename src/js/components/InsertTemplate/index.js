@@ -25,11 +25,14 @@ const InsertTemplate = ({
 
 	const validPlugins = required_plugins.filter(item => item?.init);
 
-	const themeInstalled = templatiq_obj?.pixetiq_status === 'installed-and-active';
-	
+	const currentBuilder = templatiq_obj?.builder;
+	const pixetiqInstalled = templatiq_obj?.pixetiq_status === 'installed-and-active';
+	const bricksInstalled = templatiq_obj?.current_theme === 'Bricks' || templatiq_obj?.current_theme === 'Bricks Child Theme';
+
 	const insertFullTemplate = type === 'pack';
 	// const dependencyCheckEndPoint = 'templatiq/dependency/check';
 	const dependencyCheckEndPoint = 'templatiq/dependency/required-plugins';
+	const importURL = `?page=templatiq-library&template_id=${template_id}&ci=0`;
 
 	const { isLoggedIn, purchased, unlocked } = select(store).getUserInfo();
 	const [isPurchased, setIsPurchased] = useState(false);
@@ -70,9 +73,16 @@ const InsertTemplate = ({
 		if (insertFullTemplate) {
 			isPro && !isItemPurchased(template_id) && !isItemUnlocked(template_id) ?
 				renderModal()
-				: themeInstalled ? 
-					window.location.href= `?page=templatiq-library&template_id=${template_id}&ci=0`
-					: renderModal();
+				: currentBuilder !== "bricks" ? 
+					(
+						pixetiqInstalled ? 
+						window.location.href= importURL
+						: renderModal()
+					) : (
+							bricksInstalled ? 
+								window.location.href= importURL
+								: renderModal()
+						)
 		} else if (isPro || installDirectorist) {
 			renderModal();
 		} else {
