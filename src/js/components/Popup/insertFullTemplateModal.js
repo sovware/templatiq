@@ -63,7 +63,7 @@ const insertFullTemplateModal = ( { item, onClose } ) => {
 			>
 				<div className="templatiq__modal__content">
 					<h2 className="templatiq__modal__title">
-						<ReactSVG src={ recommendationIcon } width={ 30 } height={ 30 } />
+						<ReactSVG src={ recommendationIcon } width={ 24 } height={ 24 } />
 						{__( 'Recommendation', 'templatiq' )}
 					</h2>
 					<p className="templatiq__modal__desc">

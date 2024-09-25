@@ -381,9 +381,13 @@
           }
         }
         &.required_plugins {
+          display: flex;
+          gap: 15px;
+          align-items: center;
+          justify-content: space-between;
           label {
             display: flex;
-            justify-content: space-between;
+            gap: 10px;
             cursor: default;
             .plugin_status {
               color: #d53034;
@@ -393,10 +397,30 @@
           input[type="checkbox"] {
             &:disabled {
               ~ label {
-                opacity: 0.5;
-                cursor: not-alloweds;
+                .plugin_name {
+                  opacity: 0.5;
+                }
+                .plugin_status {
+                  opacity: 0.75;
+                }
               }
             }
+          }
+          .required_plugin_purchase {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            font-size: 12px;
+            line-height: 18px;
+            font-weight: 600;
+            height: 30px;
+            padding: 0 16px;
+            border-radius: 8px;
+            box-shadow: none;
+            cursor: pointer;
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #8941ff;
           }
         }
       }

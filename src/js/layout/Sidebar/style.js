@@ -1,10 +1,12 @@
 import Styled from 'styled-components';
 
 const SidebarStyle = Styled.div`
+    position: relative;
     width: 316px;
     min-height: 100vh;
     background: var(--templatiq-white-color);
     box-shadow: 0 7px 20px 5px var(--templatiq-dark-color)05;
+    z-index: 1;
     .templatiq__sidebar__top {
         display: flex;
         gap: 5px 30px;
@@ -38,7 +40,7 @@ const SidebarStyle = Styled.div`
     }
 
     .templatiq__sidebar__wrapper {
-        padding: 30px 0;
+        padding: 20px 0;
     }
     
 
