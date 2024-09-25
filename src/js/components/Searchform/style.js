@@ -31,6 +31,12 @@ const SearchformStyle = Styled.div`
             box-shadow: var(----templatiq-box-shadow-focus);
         }
     }
+    .templatiq__content__top__searchbox__clear {
+        position: absolute;
+        inset-inline-end: 12px;
+        top: 10px;
+        cursor: pointer;
+    }
 `;
 
 export { SearchformStyle };

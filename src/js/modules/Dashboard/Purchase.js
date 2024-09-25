@@ -6,6 +6,7 @@ import { select, subscribe } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
+import EmptyTemplate from '@components/EmptyTemplate';
 import { TemplatePackStyle } from '@root/style';
 import { Link } from 'react-router-dom';
 import { DashboardItemsStyle } from './style';
@@ -186,14 +187,10 @@ export default function MyPurchaseModule() {
 									style={ { margin: 0, minHeight: 'unset' } }
 								/>
 							) : isEmpty ? (
-								<div className="templatiq__content__empty">
-									<h3 className="templatiq__content__empty__title">
-										{__( 'No Purchase Found', 'templatiq' )}
-									</h3>
-									<h3 className="templatiq__content__empty__desc">
-										{__( 'Search Other Templates', 'templatiq' )}
-									</h3>
-								</div>
+								<EmptyTemplate 
+									title="No Purchase Found"
+									subTitle="Search Other Templates"
+								/>
 							) : (
 								purchasedTemplates.map( ( item, key ) => (
 									<PurchaseItem key={key} item={item} />
