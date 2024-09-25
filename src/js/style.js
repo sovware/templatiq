@@ -324,14 +324,16 @@ const TemplatePackFilterStyle = Styled.div`
         &.active {
             .templatiq__content__top__filter__link {
                 color: var(--templatiq-white-color);
-                background: var(--templatiq-primary-color);
+                &:before {
+                    left: 0;
+                    width: 100%;
+                    background: var(--templatiq-primary-color);
+                }
             }
         }
     }
     .templatiq__content__top__filter__link {
-        display: flex;
-        gap: 8px;
-        align-items: center;
+        position: relative;
         padding: 7px 12px;
         border-radius: 8px;
         color: var(--templatiq-body-color);
@@ -339,11 +341,27 @@ const TemplatePackFilterStyle = Styled.div`
         line-height: 1;
         cursor: pointer;
         text-transform: uppercase;
-        background: transparent;
-        transition: background 0.3s ease, color 0.3s ease;
+        transition: color 0.3s ease;
+        .templatiq__content__top__filter__link__text {
+            position: relative;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            z-index: 1;
+        }
+        &:before {
+            content: '';
+            width: 0;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            border-radius: 8px;
+            background: transparent;
+            transition: all 0.3s ease;
+        }
         &:hover {
-            color: var(--templatiq-white-color);
-            background: var(--templatiq-primary-color);
+            color: var(--templatiq-primary-color);
         }
     }
 
