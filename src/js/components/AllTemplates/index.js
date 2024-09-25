@@ -307,11 +307,13 @@ export default function AllTemplates( props ) {
 								onClick={ () => changeTemplateTab( 'all' ) }
 							>
 								<button className="templatiq__content__top__filter__link">
-									{__( 'All', 'templatiq' )} (
-									{ defaultTemplates
-										? defaultTemplates.length
-										: '0' }
-									)
+									<span className="templatiq__content__top__filter__link__text">
+										{__( 'All', 'templatiq' )} (
+										{ defaultTemplates
+											? defaultTemplates.length
+											: '0' }
+										)
+									</span>
 								</button>
 							</li>
 							<li
@@ -319,11 +321,13 @@ export default function AllTemplates( props ) {
 								onClick={ () => changeTemplateTab( 'free' ) }
 							>
 								<button className="templatiq__content__top__filter__link">
-									{__( 'Free', 'templatiq' )} (
-									{ freeTemplates
-										? freeTemplates.length
-										: '0' }
-									)
+									<span className="templatiq__content__top__filter__link__text">
+										{__( 'Free', 'templatiq' )} (
+										{ freeTemplates
+											? freeTemplates.length
+											: '0' }
+										)
+									</span>
 								</button>
 							</li>
 							<li
@@ -331,14 +335,16 @@ export default function AllTemplates( props ) {
 								onClick={ () => changeTemplateTab( 'pro' ) }
 							>
 								<button className="templatiq__content__top__filter__link">
-									<ReactSVG
-										src={ crownIcon }
-										width={ 12 }
-										height={ 12 }
-									/>
-									{__( 'Pro', 'templatiq' )} (
-									{ proTemplates ? proTemplates.length : '0' }
-									)
+									<span className="templatiq__content__top__filter__link__text">
+										<ReactSVG
+											src={ crownIcon }
+											width={ 12 }
+											height={ 12 }
+										/>
+										{__( 'Pro', 'templatiq' )} (
+										{ proTemplates ? proTemplates.length : '0' }
+										)
+									</span>
 								</button>
 							</li>
 						</ul>

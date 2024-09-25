@@ -24,7 +24,7 @@ const TemplateDetailsWidget = ( props ) => {
 					height={ 30 }
 					onError={(e) => {
 						e.target.onerror = null; // prevents looping
-						e.target.src = `${templatiq_obj.assets_url}/svg/icon/wordpress-plugin.png`;
+						e.target.src = `${templatiq_obj.assets_url}/svg/icon/plug-alt.svg`;
 					}}
 					onLoad={() => setIsImageLoaded(true)}
 				/>
