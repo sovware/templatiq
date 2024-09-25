@@ -337,6 +337,7 @@ const TemplatePackFilterStyle = Styled.div`
         padding: 7px 12px;
         border-radius: 8px;
         color: var(--templatiq-body-color);
+        background: transparent;
         font-size: 12px;
         line-height: 1;
         cursor: pointer;
