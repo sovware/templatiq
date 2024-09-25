@@ -3,6 +3,7 @@ import Styled from 'styled-components';
 const SearchformStyle = Styled.div`
     position: relative;
     height: 38px;
+    min-width: 175px;
     padding: 0;
     display: flex;
     align-items: center;

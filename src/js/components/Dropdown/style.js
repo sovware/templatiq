@@ -23,6 +23,10 @@ const DropdownStyle = Styled.div`
         &:hover {
             border-color: var(--templatiq-primary-color);
         }
+
+        @media screen and (max-width: 1199px) {
+            min-width: 175px;
+        }
     }
 
     .templatiq-dropdown__toggle__icon {

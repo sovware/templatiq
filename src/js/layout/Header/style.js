@@ -17,6 +17,11 @@ const HeaderStyle = Styled.div`
         img {
             max-width: 100%;
         }
+        sub {
+            position: relative;
+            top: -5px;
+            left: 5px;
+        }
     }
     .templatiq__header__content {
         flex: 1 1 auto;
@@ -27,10 +32,12 @@ const HeaderStyle = Styled.div`
         justify-content: space-between;
         .templatiq__header__content__left {
             display: flex;
-            gap: 32px;
-            flex-wrap: wrap;
+            gap: 14px 32px;
             width: 100%;
             flex: 1;
+            @media screen and (max-width: 1199px) {
+                gap: 14px;
+            }
         }
         .templatiq__header__action__builder {
             display: flex;

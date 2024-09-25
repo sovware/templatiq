@@ -25,6 +25,7 @@ const InsertTemplate = ({
 
 	const validPlugins = required_plugins.filter(item => item?.init);
 
+
 	const currentBuilder = templatiq_obj?.builder;
 	const pixetiqInstalled = templatiq_obj?.pixetiq_status === 'installed-and-active';
 	const bricksInstalled = templatiq_obj?.current_theme === 'Bricks' || templatiq_obj?.current_theme === 'Bricks Child Theme';

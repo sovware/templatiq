@@ -15,7 +15,7 @@ const LayoutStyle = Styled.div`
             bottom: 0;
             background: linear-gradient(135deg, #43cbff 0%, #9708cc 100%);
             opacity: 0.1;
-            filter: blur(66px);
+            filter: blur(132px);
         }
     }
 `;
