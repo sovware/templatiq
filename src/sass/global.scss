@@ -457,22 +457,28 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 8px;
   text-align: center;
   padding: 50px 0;
   .templatiq__content__empty__icon {
     width: 100px;
     height: 100px;
   }
+  .templatiq__content__empty__img {
+    width: 200px;
+    height: 200px;
+  }
   .templatiq__content__empty__title {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 43px;
     margin: 0;
     color: var(--templatiq-dark-color);
   }
   .templatiq__content__empty__desc {
-    font-size: 14px;
-    font-weight: 400;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 29px;
     margin: 0;
     color: var(--templatiq-placeholder-color);
   }

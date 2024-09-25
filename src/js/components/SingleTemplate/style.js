@@ -17,6 +17,7 @@ const SingleTemplateStyle = Styled.div`
         border-radius: 16px;
         img {
             width: 100%;
+            object-fit: cover;
             border-radius: 12px 12px 0 0;
         }
     }
@@ -101,6 +102,7 @@ const SingleTemplateStyle = Styled.div`
     .templatiq__template__single__info__action {
         display: flex;
         gap: 8px;
+        flex-wrap: wrap;
         justify-content: center;
         visibility: hidden;
         transition: visibility 0.3s ease;
@@ -224,6 +226,7 @@ const SingleTemplateStyle = Styled.div`
     .templatiq__template__single__quickmeta-wrapper {
         display: flex;
         gap: 6px;
+        flex-wrap: wrap;
         justify-content: space-between;
         .templatiq-btn {
             height: 40px;

@@ -10,6 +10,7 @@ import { TemplatePackFilterStyle } from '@root/style';
 
 const SingleTemplate = lazy( () => import( '@components/SingleTemplate' ) );
 
+import EmptyTemplate from '@components/EmptyTemplate';
 import arrowLeft from '@icon/angle-left.svg';
 import arrowRight from '@icon/angle-right.svg';
 import crownIcon from '@icon/crown.svg';
@@ -350,14 +351,7 @@ export default function AllTemplates( props ) {
 					!isLoading ?
 					<>
 						{ isEmpty ? (
-							<div className="templatiq__content__empty">
-								<h3 className="templatiq__content__empty__title">
-									{__( 'No Template Found', 'templatiq' )}								
-								</h3>
-								<h3 className="templatiq__content__empty__desc">
-									{__( 'Search Other Templates', 'templatiq' )}
-								</h3>
-							</div>
+							<EmptyTemplate />
 						) : activeTab === 'all' ? (
 								<div className="templatiq-row templatiq__content__tab-panel">
 									{templatesToDisplay &&
@@ -365,7 +359,7 @@ export default function AllTemplates( props ) {
 											// Determine the background class based on index
 											const backgroundClass = `background-${(index % 6) + 1}`;
 											return (
-												<div className="templatiq-col-6" key={index}>
+												<div className="templatiq-col-xxl-4 templatiq-col-6" key={index}>
 													<Suspense
 														fallback={
 															<>
@@ -410,7 +404,7 @@ export default function AllTemplates( props ) {
 								<div className="templatiq-row templatiq__content__tab-panel">
 									{ templatesToDisplay &&
 										templatesToDisplay.map( ( template, index ) => (
-											<div className="templatiq-col-6" key={index}>
+											<div className="templatiq-col-xxl-4 templatiq-col-6" key={index}>
 												<Suspense
 													fallback={
 														<>
@@ -464,7 +458,7 @@ export default function AllTemplates( props ) {
 								<div className="templatiq-row templatiq__content__tab-panel">
 									{ templatesToDisplay &&
 										templatesToDisplay.map( ( template, index ) => (
-											<div className="templatiq-col-6" key={index}>
+											<div className="templatiq-col-xxl-4 templatiq-col-6" key={index}>
 												<Suspense
 													fallback={
 														<>

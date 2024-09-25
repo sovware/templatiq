@@ -3,6 +3,7 @@ import Styled from 'styled-components';
 const SearchformStyle = Styled.div`
     position: relative;
     height: 38px;
+    min-width: 175px;
     padding: 0;
     display: flex;
     align-items: center;
@@ -30,6 +31,12 @@ const SearchformStyle = Styled.div`
         &:focus {
             box-shadow: var(----templatiq-box-shadow-focus);
         }
+    }
+    .templatiq__content__top__searchbox__clear {
+        position: absolute;
+        inset-inline-end: 12px;
+        top: 10px;
+        cursor: pointer;
     }
 `;
 

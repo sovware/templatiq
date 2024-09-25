@@ -3,6 +3,7 @@ import Styled from 'styled-components';
 const SearchBoxStyle = Styled.div`
     position: relative;
     height: 38px;
+    min-width: 175px;
     padding: 0;
     display: flex;
     align-items: center;
@@ -246,7 +247,7 @@ const TemplatePackStyle = Styled.div`
     }
     .templatiq__content__tab {
         display: flex;
-        gap: 8px;
+        gap: 16px;
         flex-direction: column;
         position: relative;
     }
@@ -287,8 +288,12 @@ const TemplatePackStyle = Styled.div`
                 border-radius: 4px;
                 box-shadow: none;
                 transition: background 0.3s ease, color 0.3s ease;
-                svg path {
-                    fill: var(--templatiq-primary-color);
+                svg {
+                    width: 10px;
+                    height: 10px;
+                    path {
+                        fill: var(--templatiq-primary-color);
+                    }
                 }
             }
             &.selected,
