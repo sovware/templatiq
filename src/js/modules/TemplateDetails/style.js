@@ -184,6 +184,7 @@ const TemplateDetailsWidgetStyle = Styled.div`
         font-weight: 600;
         color: var(--templatiq-btn-color);
         strong {
+            margin-left: 5px;
             color: var(--templatiq-pro-color2);
         }
     }

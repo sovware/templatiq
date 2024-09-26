@@ -520,7 +520,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable
 										target="_blank"
 										className="templatiq-btn templatiq-btn-primary"
 									>
-										{__( "Edit Template with Elementor", 'templatiq' )}
+										{__( "Edit Template", 'templatiq' )}
 									</a>
 									<a
 										href={ importedData.visit }

@@ -21,6 +21,7 @@ import Logo from '@images/logo.svg';
 import userIcon from '@icon/user-alt.svg';
 
 import backIcon from '@icon/arrow-left.svg';
+import diviIcon from '@icon/divi.svg';
 import bricksIcon from '@icon/bricks.svg';
 import chevronIcon from '@icon/chevron-down-solid.svg';
 import elementorIcon from '@icon/elementor.svg';
@@ -77,7 +78,14 @@ const Header = ( props ) => {
 		{
 			icon: bricksIcon,
 			name: "bricks",
-			text: __( 'Bricks Builder', 'templatiq' ),
+			text: __( 'Bricks', 'templatiq' ),
+			url: '#',
+			type: 'available'
+		},
+		{
+			icon: diviIcon,
+			name: "divi",
+			text: __( 'Divi Builder', 'templatiq' ),
 			url: '#',
 			type: 'upcoming'
 		},

@@ -102,7 +102,7 @@ const PopupStyle = Styled.div`
 const InsertTemplateModalStyle = Styled.div`
     .templatiq__modal__title {
         display: flex;
-        gap: 14px;
+        gap: 10px;
         align-items: center;
         font-size: 21px;
         line-height: 25px;

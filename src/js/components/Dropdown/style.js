@@ -20,12 +20,12 @@ const DropdownStyle = Styled.div`
         box-shadow: none;
         box-sizing: border-box;
         transition: border-color 0.3s ease;
-        path {
-            fill: var(--templatiq-body-color);
-            transition: fill 0.3s ease;
-        }
         &:hover {
             border-color: var(--templatiq-primary-color);
+        }
+
+        @media screen and (max-width: 1199px) {
+            min-width: 175px;
         }
     }
 
