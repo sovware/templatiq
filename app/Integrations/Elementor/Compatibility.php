@@ -118,7 +118,7 @@ class Compatibility {
 	 * @return array Updated post meta.
 	 */
 	public function on_templatiq_wxr_importer_pre_process_post_meta( $post_meta ) {
-		if ( '_elementor_data' === $post_meta['key'] ) {
+		if ( isset( $post_meta['key'] ) && '_elementor_data' === $post_meta['key'] ) {
 			$post_meta['value'] = wp_slash( $post_meta['value'] );
 		}
 
@@ -141,7 +141,7 @@ class Compatibility {
 	 * @return array Updated post meta.
 	 */
 	public function on_wxr_importer_pre_process_post_meta( $post_meta ) {
-		if ( '_elementor_data' === $post_meta['key'] ) {
+		if ( isset( $post_meta['key'] ) && '_elementor_data' === $post_meta['key'] ) {
 			$post_meta['value'] = wp_slash( $post_meta['value'] );
 		}
 

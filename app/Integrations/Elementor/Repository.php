@@ -26,10 +26,10 @@ class Repository extends ElementorLocal {
 		$remote_data = ( new RemoteRepository() )->get_single_template( $template_id );
 
 		$template_data = ( new TemplateDataDTO )
-			->set_content( $remote_data['content'] )
-			->set_page_settings( $remote_data['page_settings'] )
-			->set_version( $remote_data['version'] )
-			->set_title( $remote_data['title'] );
+			->set_content( $remote_data['content'] ?? [] )
+			->set_page_settings( $remote_data['page_settings'] ?? [] )
+			->set_version( $remote_data['version'] ?? '' )
+			->set_title( $remote_data['title'] ?? '' );
 
 		$this->process_content( $template_data );
 
