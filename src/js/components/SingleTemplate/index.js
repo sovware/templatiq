@@ -23,11 +23,10 @@ const SingleTemplate = ( item ) => {
 		price,
 		number_of_downloads,
 		categories,
-		required_plugins,
 		bgClass,
 	} = item;
 
-	const { purchased, unlocked } = select(store).getUserInfo();
+	const { purchased, unlocked, hasAllAccess } = select(store).getUserInfo();
 
 	const [ isDropdownOpen, setDropdownOpen ] = useState( false );
 	const [ imageLoaded, setImageLoaded ] = useState( false );
@@ -53,7 +52,7 @@ const SingleTemplate = ( item ) => {
 	useEffect( () => {
 		setIsUnlocked(isItemUnlocked(template_id));
 		setIsPurchased(isItemPurchased(template_id));
-	}, [] );
+	}, [template_id] );
 
 	return (
 		<SingleTemplateStyle
@@ -79,7 +78,7 @@ const SingleTemplate = ( item ) => {
 				<div className="templatiq__template__single__overlay"></div>
 				<div className="templatiq__template__single__info">
 					<div className="templatiq__template__single__info__meta">
-						{ price > 0 && !isUnlocked ? (
+						{ price > 0 && !isPurchased && !isUnlocked && !hasAllAccess ? (
 							<span className="templatiq__template__single__info__meta__item pro-item">
 								<ReactSVG
 									src={ crownIcon }
@@ -91,18 +90,18 @@ const SingleTemplate = ( item ) => {
 						) : (
 							''
 						) }
-						{
+						{/* {
 							price > 0 && isPurchased && (
 								<span
 									className="templatiq__template__single__info__meta__item purchased-item templatiq-tooltip"
-									data-info="Unlocked"
+									data-info="Purchased"
 								>
 									{__( "Purchased", 'templatiq' )}
 								</span>
 							)
-						}
-						{
-							isUnlocked && (
+						} */}
+						{/* {
+							isUnlocked || hasAllAccess && (
 								<span
 									className="templatiq__template__single__info__meta__item unlocked-item templatiq-tooltip"
 									data-info="Unlocked"
@@ -110,7 +109,7 @@ const SingleTemplate = ( item ) => {
 									{__( "Unlocked", 'templatiq' )}
 								</span>
 							)
-						}
+						} */}
 					</div>
 					<div className="templatiq__template__single__info__action">
 						<a

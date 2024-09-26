@@ -357,93 +357,46 @@ export default function AllTemplates( props ) {
 					!isLoading ?
 					<>
 						{ isEmpty ? (
-							<EmptyTemplate />
-						) : activeTab === 'all' ? (
-								<div className="templatiq-row templatiq__content__tab-panel">
-									{templatesToDisplay &&
-										templatesToDisplay.map((template, index) => {
-											// Determine the background class based on index
-											const backgroundClass = `background-${(index % 6) + 1}`;
-											return (
-												<div className="templatiq-col-xxl-4 templatiq-col-6" key={index}>
-													<Suspense
-														fallback={
-															<>
-																<ContentLoading 
-																	type="image" 
-																	style={{ "marginBottom": "20px" }}
-																/>
-																<ContentLoading />
-															</>
-														}
-													>
-														<SingleTemplate
-															template_id={template.template_id}
-															builder={template.builder}
-															type={template.type}
-															thumbnail={template.thumbnail}
-															slug={template.slug}
-															title={template.title}
-															price={template.price}
-															number_of_downloads={template.number_of_downloads}
-															number_of_bookmarks={template.number_of_bookmarks}
-															is_directorist_required={template.is_directorist_required}
-															directory_page_type={template.directory_page_type}
-															required_plugins={template.required_plugins}
-															categories={ 
-																template.categories.flatMap(category =>
-																	Object.values(allCategories).flatMap(child =>
-																		child[category] ? [child[category]] : []
-																	)
-																)
-															}
-															preview_link={template.preview_link}
-															bgClass={backgroundClass}
-														/>
-													</Suspense>
-												</div>
-											);
-										})
-									}
-								</div>
-							) : activeTab === "free" ? (
-								<div className="templatiq-row templatiq__content__tab-panel">
-									{ templatesToDisplay &&
-										templatesToDisplay.map( ( template, index ) => (
-											<div className="templatiq-col-xxl-4 templatiq-col-6" key={index}>
+							<div className="templatiq__content__empty">
+								<h3 className="templatiq__content__empty__title">
+									{__( 'No Template Found', 'templatiq' )}								
+								</h3>
+								<h3 className="templatiq__content__empty__desc">
+									{__( 'Search Other Templates', 'templatiq' )}
+								</h3>
+							</div>
+						) : 
+							<div className="templatiq-row templatiq__content__tab-panel">
+								{templatesToDisplay &&
+									templatesToDisplay.map((template, index) => {
+										// Determine the background class based on index
+										const backgroundClass = `background-${(index % 6) + 1}`;
+										return (
+											<div className="templatiq-col-6" key={index}>
 												<Suspense
 													fallback={
 														<>
 															<ContentLoading 
 																type="image" 
-																style={ { "marginBottom": "20px" } }
+																style={{ "marginBottom": "20px" }}
 															/>
 															<ContentLoading />
 														</>
 													}
 												>
 													<SingleTemplate
-														template_id={ template.template_id }
-														builder={ template.builder }
-														type={ template.type }
-														thumbnail={ template.thumbnail }
-														slug={ template.slug }
-														title={ template.title }
-														number_of_downloads={
-															template.number_of_downloads
-														}
-														number_of_bookmarks={
-															template.number_of_bookmarks
-														}
-														is_directorist_required={
-															template.is_directorist_required
-														}
-														directory_page_type={
-															template.directory_page_type
-														}
-														required_plugins={
-															template.required_plugins
-														}
+														template_id={template.template_id}
+														builder={template.builder}
+														type={template.type}
+														thumbnail={template.thumbnail}
+														slug={template.slug}
+														title={template.title}
+														price={template.price}
+														number_of_downloads={template.number_of_downloads}
+														number_of_bookmarks={template.number_of_bookmarks}
+														is_directorist_required={template.is_directorist_required}
+														directory_page_type={template.directory_page_type}
+														required_plugins={template.required_plugins}
 														categories={ 
 															template.categories.flatMap(category =>
 																Object.values(allCategories).flatMap(child =>
@@ -451,71 +404,15 @@ export default function AllTemplates( props ) {
 																)
 															)
 														}
-														preview_link={
-															template.preview_link
-														}
+														preview_link={template.preview_link}
+														bgClass={backgroundClass}
 													/>
 												</Suspense>
 											</div>
-										) ) 
-									}
-								</div>
-							) : activeTab === "pro" ? (
-								<div className="templatiq-row templatiq__content__tab-panel">
-									{ templatesToDisplay &&
-										templatesToDisplay.map( ( template, index ) => (
-											<div className="templatiq-col-xxl-4 templatiq-col-6" key={index}>
-												<Suspense
-													fallback={
-														<>
-															<ContentLoading 
-																type="image" 
-																style={ { "marginBottom": "20px" } }
-															/>
-															<ContentLoading />
-														</>
-													}
-												>
-													<SingleTemplate
-														template_id={ template.template_id }
-														builder={ template.builder }
-														type={ template.type }
-														thumbnail={ template.thumbnail }
-														slug={ template.slug }
-														title={ template.title }
-														price={ template.price }
-														number_of_downloads={
-															template.number_of_downloads
-														}
-														number_of_bookmarks={
-															template.number_of_bookmarks
-														}
-														is_directorist_required={
-															template.is_directorist_required
-														}
-														directory_page_type={
-															template.directory_page_type
-														}
-														required_plugins={
-															template.required_plugins
-														}
-														categories={ 
-															template.categories.flatMap(category =>
-																Object.values(allCategories).flatMap(child =>
-																	child[category] ? [child[category]] : []
-																)
-															)
-														}
-														preview_link={
-															template.preview_link
-														}
-													/>
-												</Suspense>
-											</div>
-										) ) 
-									}
-								</div>
-							) : null
+										);
+									})
+								}
+							</div> 
 						}
 
 						{ totalPaginate > paginatePerPage && (

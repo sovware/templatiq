@@ -48,7 +48,7 @@ const DropdownStyle = Styled.div`
         background: var(--templatiq-white-color);
         padding: 10px 0;
         border-radius: 8px;
-        z-index: 1;
+        z-index: 9;
         &.templatiq-dropdown__content--open {
             display: block;
         }

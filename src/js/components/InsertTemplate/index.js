@@ -35,7 +35,7 @@ const InsertTemplate = ({
 	const dependencyCheckEndPoint = 'templatiq/dependency/required-plugins';
 	const importURL = `?page=templatiq-library&template_id=${template_id}&ci=0`;
 
-	const { isLoggedIn, purchased, unlocked } = select(store).getUserInfo();
+	const { isLoggedIn, purchased, unlocked, hasAllAccess } = select(store).getUserInfo();
 	const [isPurchased, setIsPurchased] = useState(false);
 	const [isUnlocked, setIsUnlocked] = useState(false);
 	const [insertModalOpen, setInsertModalOpen] = useState(false);
@@ -137,7 +137,7 @@ const InsertTemplate = ({
 	return (
 		<>
 			{insertModalOpen ? 
-				isPro && !isPurchased && !isUnlocked ?
+				isPro && !isPurchased && !isUnlocked && !hasAllAccess ?
 					<InsertProModal 
 						item={item}
 						onClose={handleInsertModalClose}
