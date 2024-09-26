@@ -1,10 +1,13 @@
 import store from '@store/index';
 import { select } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
 import ReactSVG from 'react-inlinesvg';
 import { InsertTemplateModalStyle } from './style';
-import { __ } from '@wordpress/i18n';
 
 import closeIcon from '@icon/close.svg';
+
+const base64Url = btoa(templatiq_obj.dashboard_url);
+const connectUlr = templatiq_obj.cloud_url + '?connect=true&return_to=' + base64Url
 
 const InsertProModal = ( { item, onClose, onLoginClick } ) => {
 	const { isLoggedIn } = select(store).getUserInfo();
@@ -49,12 +52,13 @@ const InsertProModal = ( { item, onClose, onLoginClick } ) => {
 								<p className="templatiq__modal__desc">
 									{ __( 'Already a Premium Member?' , 'templatiq' ) }
 								</p>
-								<button
-									onClick={ onLoginClick }
-									className="templatiq-btn templatiq-btn-full"
+								<a
+									href={connectUlr}
+									target="_blank"
+									className="templatiq__auth__btn templatiq-btn templatiq-btn-primary"
 								>
-									{ __( 'Sign In' , 'templatiq' ) }
-								</button>
+									{__( 'Connect Account', 'templatiq' )}
+								</a>
 							</div>
 						)
 					}
