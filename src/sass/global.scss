@@ -535,13 +535,11 @@ button {
     position: fixed;
     width: 100%;
     max-width: 1200px;
-    .templatiq__header__action {
-      margin-right: 30px;
-    }
+    z-index: 9;
   }
-  .templatiq__sidebar {
-    position: relative;
-    top: 70px;
+  .templatiq__sidebar,
+  .templatiq__content {
+    margin-top: 70px;
   }
 }
 
