@@ -109,10 +109,15 @@ export default function App() {
 		},
 	] );
 
+	const contentLoadingStyle = {
+		maxHeight: 'unset',
+		margin: editorEnabled ? '0' : '0 -10px',
+	};
+
 	return (
 		<>
 			<HashRouter>
-				<Suspense fallback={ <ContentLoading type="full" style={{ "maxHeight": "unset", "margin": "0 -16px" }} /> }>
+				<Suspense fallback={ <ContentLoading type="full" style={contentLoadingStyle} /> }>
 					{ dataFetched ? (
 						<ThemeProvider theme={ theme }>
 							<Routes>
@@ -128,7 +133,7 @@ export default function App() {
 							</Routes>
 						</ThemeProvider>
 					) : (
-						<ContentLoading type="full" style={{ "maxHeight": "unset", "margin": "0 -16px" }} />
+						<ContentLoading type="full" style={contentLoadingStyle} />
 					) }
 				</Suspense>
 			</HashRouter>
