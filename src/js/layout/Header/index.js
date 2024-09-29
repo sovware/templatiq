@@ -21,9 +21,9 @@ import Logo from '@images/logo.svg';
 import userIcon from '@icon/user-alt.svg';
 
 import backIcon from '@icon/arrow-left.svg';
-import diviIcon from '@icon/divi.svg';
 import bricksIcon from '@icon/bricks.svg';
 import chevronIcon from '@icon/chevron-down-solid.svg';
+import diviIcon from '@icon/divi.svg';
 import elementorIcon from '@icon/elementor.svg';
 import gutenbergIcon from '@icon/gutenberg.svg';
 
@@ -106,6 +106,8 @@ const Header = ( props ) => {
 	// Handle selected item from Dropdown
 	const handleDropdownChange = (selectedItem) => {
 		setSelectedEditor(selectedItem.name); 
+		// Update templatiq_obj.builder
+		templatiq_obj.builder = selectedItem.name;
 
 		if(selectedEditor !== selectedItem.name) {
 			dispatch( store ).setIsLoading( true );
