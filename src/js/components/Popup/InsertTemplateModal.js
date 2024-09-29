@@ -8,7 +8,7 @@ import closeIcon from '@icon/close.svg';
 import recommendationIcon from '@icon/recommendation.svg';
 
 const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable_plugins } ) => {
-	const { template_id, builder, type, directory_page_type } = item;
+	const { template_id, builder, directory_page_type } = item;
 
 	const directoryType = templatiq_obj?.directory_types;
 	const currentBuilder = templatiq_obj?.builder;
@@ -242,7 +242,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable
 			>
 				{
 					
-					type ==="page" && currentBuilder === "bricks" && !bricksInstalled ? 
+					currentBuilder === "bricks" && !bricksInstalled ? 
 					<div className="templatiq__modal__content required-items-center">
 						<h2 className="templatiq__modal__title">
 							<ReactSVG src={ recommendationIcon } width={ 30 } height={ 30 } />
