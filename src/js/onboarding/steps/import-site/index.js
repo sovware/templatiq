@@ -1409,7 +1409,7 @@ const ImportSite = () => {
 						</div>
 						<div className="fullsite-setup-wizard__close remove-close">
 							<a
-								href='/wp-admin/admin.php?page=templatiq' 
+								href={templatiqSitesVars. st_page_url} 
 								className="fullsite-setup-wizard__close__btn"
 							>
 								<svg xmlns="http://www.w3.org/2000/svg" width="12" height="11.998" viewBox="1237 31 12 11.998"><path d="m1244.409 36.998 4.295-4.286a1.003 1.003 0 0 0-1.418-1.418L1243 35.59l-4.286-4.296a1.003 1.003 0 0 0-1.418 1.418l4.295 4.286-4.295 4.286a.999.999 0 0 0 0 1.419.999.999 0 0 0 1.418 0l4.286-4.296 4.286 4.296a1 1 0 0 0 1.418 0 .999.999 0 0 0 0-1.419l-4.295-4.286Z" fill="#b7b7b7" fillRule="evenodd" data-name="times"></path></svg>
