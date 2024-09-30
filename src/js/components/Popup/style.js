@@ -249,7 +249,12 @@ const InsertTemplateModalStyle = Styled.div`
         font-weight: 600;
         color: var(--templatiq-danger-color);
     }
-    
+    .required-items-center {
+        text-align: center;
+        .templatiq__modal__title {
+            justify-content: center;
+        }
+    }
 `;
 
 const AuthModalStyle = Styled.div`

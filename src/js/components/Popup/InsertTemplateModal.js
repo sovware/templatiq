@@ -5,11 +5,14 @@ import ReactSVG from 'react-inlinesvg';
 import { InsertTemplateModalStyle } from './style';
 
 import closeIcon from '@icon/close.svg';
+import recommendationIcon from '@icon/recommendation.svg';
 
 const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable_plugins } ) => {
 	const { template_id, builder, directory_page_type } = item;
 
 	const directoryType = templatiq_obj?.directory_types;
+	const currentBuilder = templatiq_obj?.builder;
+	const bricksInstalled = templatiq_obj?.current_theme === 'Bricks' || templatiq_obj?.current_theme === 'Bricks Child Theme';
 
 	const installPluginEndPoint = 'templatiq/dependency/install';
 	const importAsPageEndPoint = 'templatiq/template/import-as-page';
@@ -237,107 +240,170 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable
 					loading && allPluginsInstalled ? 'templatiq__loading' : ''
 				}` }
 			>
-				<form
-					className="templatiq__modal__form"
-					onSubmit={ handlePopUpForm }
-				>
-					<div className="templatiq__modal__content">
-						{ !importedData && ! errorMsg ? (
-							<>
-								<h2 className="templatiq__modal__title">
-									{ !allPluginsInstalled
-										? __( 'Required Plugins' , 'templatiq' )
-										: directoryType?.length > 1 && !submittedTypes?.length > 0 && !elementorEditorEnabled && !(directory_page_type === "none" || directory_page_type === "")
-										? __( 'Available Directory Type', 'templatiq' )
-										: elementorEditorEnabled
-										? __( 'Importing...', 'templatiq' )
-										: __( 'Enter Page Title' , 'templatiq' ) }
-								</h2>
-								{ allPluginsInstalled && !directoryType?.length > 1 && !elementorEditorEnabled && !(directory_page_type === "none" || directory_page_type === "") ? (
-									<p className="templatiq__modal__desc">
-										{__( 'To import this item you need to install all the Plugin listed below.', 'templatiq' )}
-									</p>
-								) : null }
-								<div className="templatiq__modal__plugins">
-									{ ! allPluginsInstalled && ! elementorEditorEnabled ? (
-										<div className="templatiq__modal__plugins">
-											{ installablePlugins &&
-												installablePlugins.map(
-													( plugin, index ) => {
-														let currentInstalling = installingPlugins.includes( plugin.slug );
-														let currentInstalled = installedPlugins.includes( plugin.slug );
-														let installStatus = '';
-														if ( currentInstalled ) {
-															installStatus = __( 'Installed', 'templatiq' );
-														} else if ( currentInstalling ) {
-															installStatus = __( 'Installing...', 'templatiq' );
-														}
-														return (
-															<div
-																key={ index }
-																className="templatiq__modal__plugin templatiq__checkbox"
-															>
-																<input
-																	id={
-																		'plugin_' + template_id +
-																		'_' +
-																		index
-																	}
-																	name={
-																		'plugin_' + template_id + '_' + index
-																	}
-																	type="checkbox"
-																	className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
-																	checked
-																	readOnly
-																	// onChange={ () =>
-																	// 	handlePluginChange(
-																	// 		plugin
-																	// 	)
-																	// }
-																	// checked={selectedPlugins.includes(plugin)}
-																	// disabled={
-																	// 	currentInstalling ||
-																	// 	installStatus !== ''
-																	// }
-																/>
-
-																<label
-																	htmlFor={
-																		'plugin_' + template_id + '_' + index
-																	}
-																	className="templatiq__modal__plugin__label templatiq__checkbox__label"
+				{
+					
+					currentBuilder === "bricks" && !bricksInstalled ? 
+					<div className="templatiq__modal__content required-items-center">
+						<h2 className="templatiq__modal__title">
+							<ReactSVG src={ recommendationIcon } width={ 30 } height={ 30 } />
+							{__( 'Required', 'templatiq' )}
+						</h2>
+						<p className="templatiq__modal__desc">
+							{__( 'Bricks Theme Must be Installed', 'templatiq' )}
+						</p>
+					</div> :
+					<form
+						className="templatiq__modal__form"
+						onSubmit={ handlePopUpForm }
+					>
+						<div className="templatiq__modal__content">
+							{ !importedData && ! errorMsg ? (
+								<>
+									<h2 className="templatiq__modal__title">
+										{ !allPluginsInstalled
+											? __( 'Required Plugins' , 'templatiq' )
+											: directoryType?.length > 1 && !submittedTypes?.length > 0 && !elementorEditorEnabled && !(directory_page_type === "none" || directory_page_type === "")
+											? __( 'Available Directory Type', 'templatiq' )
+											: elementorEditorEnabled
+											? __( 'Importing...', 'templatiq' )
+											: __( 'Enter Page Title' , 'templatiq' ) }
+									</h2>
+									{ allPluginsInstalled && !directoryType?.length > 1 && !elementorEditorEnabled && !(directory_page_type === "none" || directory_page_type === "") ? (
+										<p className="templatiq__modal__desc">
+											{__( 'To import this item you need to install all the Plugin listed below.', 'templatiq' )}
+										</p>
+									) : null }
+									<div className="templatiq__modal__plugins">
+										{ ! allPluginsInstalled && ! elementorEditorEnabled ? (
+											<div className="templatiq__modal__plugins">
+												{ installablePlugins &&
+													installablePlugins.map(
+														( plugin, index ) => {
+															let currentInstalling = installingPlugins.includes( plugin.slug );
+															let currentInstalled = installedPlugins.includes( plugin.slug );
+															let installStatus = '';
+															if ( currentInstalled ) {
+																installStatus = __( 'Installed', 'templatiq' );
+															} else if ( currentInstalling ) {
+																installStatus = __( 'Installing...', 'templatiq' );
+															}
+															return (
+																<div
+																	key={ index }
+																	className="templatiq__modal__plugin templatiq__checkbox"
 																>
-																	<a
-																		href="#"
-																		className="templatiq__modal__plugin__link"
-																	>
-																		{
-																			plugin.name
+																	<input
+																		id={
+																			'plugin_' + template_id +
+																			'_' +
+																			index
 																		}
-																	</a>
-																</label>
-																{
-																	plugin.is_pro && 
+																		name={
+																			'plugin_' + template_id + '_' + index
+																		}
+																		type="checkbox"
+																		className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
+																		checked
+																		readOnly
+																		// onChange={ () =>
+																		// 	handlePluginChange(
+																		// 		plugin
+																		// 	)
+																		// }
+																		// checked={selectedPlugins.includes(plugin)}
+																		// disabled={
+																		// 	currentInstalling ||
+																		// 	installStatus !== ''
+																		// }
+																	/>
+
+																	<label
+																		htmlFor={
+																			'plugin_' + template_id + '_' + index
+																		}
+																		className="templatiq__modal__plugin__label templatiq__checkbox__label"
+																	>
+																		<a
+																			href="#"
+																			className="templatiq__modal__plugin__link"
+																		>
+																			{
+																				plugin.name
+																			}
+																		</a>
+																	</label>
+																	{
+																		plugin.is_pro && 
+																		<span className="templatiq__modal__plugin__type">
+																			{__( "(Pro)", 'templatiq' )}
+																		</span>
+																	}
+																	{
+																		installStatus &&
+																		<span className="templatiq__modal__plugin__status">
+																			{installStatus}
+																		</span>
+																	}
+																	
+																</div>
+															);
+														}
+													) 
+												}
+												{ not_installable_plugins &&
+													not_installable_plugins.map(
+														( plugin, index ) => {
+															return (
+																<div
+																	key={ index }
+																	className="templatiq__modal__plugin templatiq__checkbox"
+																>
+																	<input
+																		id={
+																			'plugin_' + template_id + '_pro_' + index
+																		}
+																		name={
+																			'plugin_' + template_id + '_pro_' + index
+																		}
+																		type="checkbox"
+																		className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
+																		disabled={
+																			true
+																		}
+																	/>
+
+																	<label
+																		htmlFor={
+																			'plugin_' + template_id + '_pro_' + index
+																		}
+																		className="templatiq__modal__plugin__label templatiq__checkbox__label"
+																	>
+																		<a
+																			href="#"
+																			className="templatiq__modal__plugin__link"
+																		>
+																			{
+																				plugin.name
+																			}
+																		</a>
+																	</label>
+
 																	<span className="templatiq__modal__plugin__type">
 																		{__( "(Pro)", 'templatiq' )}
 																	</span>
-																}
-																{
-																	installStatus &&
-																	<span className="templatiq__modal__plugin__status">
-																		{installStatus}
-																	</span>
-																}
-																
-															</div>
-														);
-													}
-												) 
-											}
-											{ not_installable_plugins &&
-												not_installable_plugins.map(
-													( plugin, index ) => {
+																</div>
+															);
+														}
+													) 
+												}
+											</div>
+										) : directoryType?.length > 1 && ! submittedTypes?.length > 0 && ! elementorEditorEnabled && !(directory_page_type === "none" || directory_page_type === "") ? (
+											<>
+												<p className="templatiq__modal__desc">
+													{__( "Choose the directories where you'd like to include this page. You can choose multiple directories.", 'templatiq' )}
+												</p>
+												<div className="templatiq__modal__plugins">
+													{ directoryType.map(( type, index ) => {
 														return (
 															<div
 																key={ index }
@@ -345,21 +411,23 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable
 															>
 																<input
 																	id={
-																		'plugin_' + template_id + '_pro_' + index
+																		'type_' + template_id + '_' + index
 																	}
 																	name={
-																		'plugin_' + template_id + '_pro_' + index
+																		'type_' + template_id + '_' + index
 																	}
 																	type="checkbox"
 																	className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
-																	disabled={
-																		true
+																	onChange={ () =>
+																		handleTypeChange(
+																			type
+																		)
 																	}
 																/>
 
 																<label
 																	htmlFor={
-																		'plugin_' + template_id + '_pro_' + index
+																		'type_' + template_id + '_' + index
 																	}
 																	className="templatiq__modal__plugin__label templatiq__checkbox__label"
 																>
@@ -368,181 +436,129 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable
 																		className="templatiq__modal__plugin__link"
 																	>
 																		{
-																			plugin.name
+																			type.name
 																		}
 																	</a>
 																</label>
-
-																<span className="templatiq__modal__plugin__type">
-																	{__( "(Pro)", 'templatiq' )}
-																</span>
 															</div>
-														);
-													}
-												) 
-											}
-										</div>
-									) : directoryType?.length > 1 && ! submittedTypes?.length > 0 && ! elementorEditorEnabled && !(directory_page_type === "none" || directory_page_type === "") ? (
-										<>
-											<p className="templatiq__modal__desc">
-												{__( "Choose the directories where you'd like to include this page. You can choose multiple directories.", 'templatiq' )}
-											</p>
-											<div className="templatiq__modal__plugins">
-												{ directoryType.map(( type, index ) => {
-													return (
-														<div
-															key={ index }
-															className="templatiq__modal__plugin templatiq__checkbox"
-														>
-															<input
-																id={
-																	'type_' + template_id + '_' + index
-																}
-																name={
-																	'type_' + template_id + '_' + index
-																}
-																type="checkbox"
-																className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
-																onChange={ () =>
-																	handleTypeChange(
-																		type
-																	)
-																}
-															/>
-
-															<label
-																htmlFor={
-																	'type_' + template_id + '_' + index
-																}
-																className="templatiq__modal__plugin__label templatiq__checkbox__label"
-															>
-																<a
-																	href="#"
-																	className="templatiq__modal__plugin__link"
-																>
-																	{
-																		type.name
-																	}
-																</a>
-															</label>
-														</div>
+														)}
 													)}
-												)}
+												</div>
+											</>
+										) :
+											<div className="templatiq__modal__page">
+												{ ! elementorEditorEnabled ? (
+													<>
+														<input
+															type="text"
+															className="templatiq__modal__page__title"
+															placeholder={__( "Enter Page Title", 'templatiq' )}
+															onChange={ ( e ) =>
+																handlePageTitle( e )
+															}
+														/>
+														<button
+															type="button"
+															className="templatiq__modal__page__button templatiq-btn templatiq-btn-primary"
+															onClick={() => 
+																importData(
+																pageTitle,
+																template_id,
+																builder,
+																directory_page_type,
+																{ submittedTypes: submittedTypes.length > 0 ? submittedTypes : directoryType }
+																)
+															}														  
+															disabled={
+																pageTitle === ''
+															}
+														>
+															{__( "Create a Page", 'templatiq' )}
+														</button>
+													</>
+												) : (
+													<p className="templatiq__modal__desc">
+														{__( "Elementor Content Importing...", 'templatiq' )}
+													</p>
+												) }
 											</div>
-										</>
-									) :
-										<div className="templatiq__modal__page">
-											{ ! elementorEditorEnabled ? (
-												<>
-													<input
-														type="text"
-														className="templatiq__modal__page__title"
-														placeholder={__( "Enter Page Title", 'templatiq' )}
-														onChange={ ( e ) =>
-															handlePageTitle( e )
-														}
-													/>
-													<button
-														type="button"
-														className="templatiq__modal__page__button templatiq-btn templatiq-btn-primary"
-														onClick={() => 
-															importData(
-															  pageTitle,
-															  template_id,
-															  builder,
-															  directory_page_type,
-															  { submittedTypes: submittedTypes.length > 0 ? submittedTypes : directoryType }
-															)
-														}														  
-														disabled={
-															pageTitle === ''
-														}
-													>
-														{__( "Create a Page", 'templatiq' )}
-													</button>
-												</>
-											) : (
-												<p className="templatiq__modal__desc">
-													{__( "Elementor Content Importing...", 'templatiq' )}
-												</p>
-											) }
-										</div>
-									}
-								</div>
-								{ allPluginsInstalled && !directoryType?.length > 1 && ! elementorEditorEnabled ? (
-									<p className="templatiq__modal__desc">
-										<strong>{__( "Note:", 'templatiq' )}</strong>{__( " Make sure you have manually installed & activated the Pro Plugin listed above.", 'templatiq' )}
-									</p>
-								) : (
-									''
-								) }
-								<div className="templatiq__modal__actions">
-									{ ! allPluginsInstalled ? (
-										<>
-											<button
-												type="submit"
-												disabled={ disableButtonInstall }
-												className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-primary"
-											>
-												{__( "Install and Proceed to Import", 'templatiq' )}
-											</button>
-											<button
-												className="templatiq__modal__action templatiq__modal__action--cancel templatiq-btn"
-												onClick={ closeInsertTemplateModal }
-											>
-												{__( "Cancel", 'templatiq' )}
-											</button>
-										</>
-									) : ! submittedTypes?.length && directoryType?.length > 1 && !elementorEditorEnabled && !(directory_page_type === "none" || directory_page_type === "") ? (
-										<button
-											disabled={ disableButtonType }
-											className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-success"
-											onClick={ (e) => ( handleSelectedType(e))}
-										>
-											{__( "Insert Page", 'templatiq' )}
-										</button>
-									) : null}
-								</div>
-							</>
-						) : importedData ? (
-							<>
-								<h2 className="templatiq__modal__title">
-									Imported Successfully
-								</h2>
-								<p className="templatiq__modal__desc">
-									{__( "You can edit or preview the template or you can push it to Templatiq cloud to share with your team.", 'templatiq' )}
-								</p>
-								<div className="templatiq__modal__actions">
-									<a
-										href={
-											importedData.edit_link
 										}
-										target="_blank"
-										className="templatiq-btn templatiq-btn-primary"
-									>
-										{__( "Edit Template", 'templatiq' )}
-									</a>
-									<a
-										href={ importedData.visit }
-										target="_blank"
-										className="templatiq-btn templatiq-btn-primary"
-									>
-										{__( "View Template", 'templatiq' )}
-									</a>
-								</div>
-							</>
-						) : (
-							<>
-								<h2 className="templatiq__modal__title text-center">
-									{__( "Error", 'templatiq' )}
-								</h2>
-								<p className="templatiq__modal__desc text-danger text-center">
-									{ errorMsg }
-								</p>
-							</>
-						) }
-					</div> 
-				</form>
+									</div>
+									{ allPluginsInstalled && !directoryType?.length > 1 && ! elementorEditorEnabled ? (
+										<p className="templatiq__modal__desc">
+											<strong>{__( "Note:", 'templatiq' )}</strong>{__( " Make sure you have manually installed & activated the Pro Plugin listed above.", 'templatiq' )}
+										</p>
+									) : (
+										''
+									) }
+									<div className="templatiq__modal__actions">
+										{ ! allPluginsInstalled ? (
+											<>
+												<button
+													type="submit"
+													disabled={ disableButtonInstall }
+													className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-primary"
+												>
+													{__( "Install and Proceed to Import", 'templatiq' )}
+												</button>
+												<button
+													className="templatiq__modal__action templatiq__modal__action--cancel templatiq-btn"
+													onClick={ closeInsertTemplateModal }
+												>
+													{__( "Cancel", 'templatiq' )}
+												</button>
+											</>
+										) : ! submittedTypes?.length && directoryType?.length > 1 && !elementorEditorEnabled && !(directory_page_type === "none" || directory_page_type === "") ? (
+											<button
+												disabled={ disableButtonType }
+												className="templatiq__modal__action templatiq__modal__action--import templatiq-btn  templatiq-btn-success"
+												onClick={ (e) => ( handleSelectedType(e))}
+											>
+												{__( "Insert Page", 'templatiq' )}
+											</button>
+										) : null}
+									</div>
+								</>
+							) : importedData ? (
+								<>
+									<h2 className="templatiq__modal__title">
+										Imported Successfully
+									</h2>
+									<p className="templatiq__modal__desc">
+										{__( "You can edit or preview the template or you can push it to Templatiq cloud to share with your team.", 'templatiq' )}
+									</p>
+									<div className="templatiq__modal__actions">
+										<a
+											href={
+												importedData.edit_link
+											}
+											target="_blank"
+											className="templatiq-btn templatiq-btn-primary"
+										>
+											{__( "Edit Template", 'templatiq' )}
+										</a>
+										<a
+											href={ importedData.visit }
+											target="_blank"
+											className="templatiq-btn templatiq-btn-primary"
+										>
+											{__( "View Template", 'templatiq' )}
+										</a>
+									</div>
+								</>
+							) : (
+								<>
+									<h2 className="templatiq__modal__title text-center">
+										{__( "Error", 'templatiq' )}
+									</h2>
+									<p className="templatiq__modal__desc text-danger text-center">
+										{ errorMsg }
+									</p>
+								</>
+							) }
+						</div> 
+					</form>
+				}
 
 				<button
 					className="templatiq__modal__cancel__button"
