@@ -6,6 +6,7 @@ import { InsertTemplateModalStyle } from './style';
 
 import closeIcon from '@icon/close.svg';
 import recommendationIcon from '@icon/recommendation.svg';
+import requiredIcon from '@icon/required.svg';
 
 const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable_plugins } ) => {
 	const { template_id, builder, directory_page_type } = item;
@@ -245,7 +246,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable
 					currentBuilder === "bricks" && !bricksInstalled ? 
 					<div className="templatiq__modal__content required-items-center">
 						<h2 className="templatiq__modal__title">
-							<ReactSVG src={ recommendationIcon } width={ 30 } height={ 30 } />
+							<ReactSVG src={ requiredIcon } width={ 30 } height={ 30 } />
 							{__( 'Required', 'templatiq' )}
 						</h2>
 						<p className="templatiq__modal__desc">
