@@ -119,7 +119,7 @@ const MediaUploader = () => {
 	
 		// Create a new media frame
 		frame = wp.media({
-			title: "Select or Upload Media Of Your Chosen Persuasion",
+			title: "Select or Upload Media",
 			button: {
 				text: "Use this media",
 			},

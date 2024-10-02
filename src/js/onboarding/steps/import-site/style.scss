@@ -28,6 +28,16 @@
   grid-gap: 10px;
 }
 
+.ist-insert-content-wrap {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  .ist-insert-content-image {
+    display: flex;
+    align-items: center;
+  }
+}
+
 .ist-import-progress,
 .ist-import-error {
   margin-top: 25px;
@@ -162,8 +172,6 @@
 }
 
 .import-progress-warning {
-  position: relative;
-  top: 10px;
   font-size: 15px;
   font-weight: 500;
   color: var(--st-color-favorite);

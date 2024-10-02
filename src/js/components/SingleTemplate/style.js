@@ -11,7 +11,7 @@ const SingleTemplateStyle = Styled.div`
     .templatiq__template__single__img {
         display: flex;
         position: relative;
-        min-height: 312px;
+        min-height: 212px;
         background: var(--templatiq-primary-100);
         padding: 20px 20px 0;
         border-radius: 16px;
