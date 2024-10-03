@@ -3,7 +3,7 @@ Contributors: wpwax
 Tags: templates, starter template, design, quick starter, directory websites
 Requires at least: 6.0
 Tested up to: 6.6.2
-Stable tag: 0.0.7
+Stable tag: 0.0.8
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -89,6 +89,12 @@ Currently, Templatiq supports only Elementor. Gutenberg/Block Editor support wil
 At Templatiq, user privacy is our top priority. As a premier marketplace for templates, we are committed to protecting your personal information and strictly adhering to the [terms outlined](https://templatiq.com/terms-conditions/) in this [Privacy Policy](https://templatiq.com/privacy-policy/).
 
 == Changelog ==
+
+= 0.0.8(beta) - Oct 3, 2024 =
+* Improved: Elementor Editor Style
+* Improved: SignIn Modal Replaced with Connect Button
+* Removed: Empty Items & Groups From Sidebar Filters by
+* Fix: Required Bricks on Single Page Import
 
 = 0.0.7(beta) - Sep 26, 2024 =
 * New: Bricks Introduced
