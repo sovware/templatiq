@@ -77,23 +77,30 @@ const Sidebar = () => {
 				key,
 				title: groupValue[key], 
 				count: countTemplatesByItem(key, groupKey)
-			}));
+			})).filter(item => item.count > 0);
 
 		const getPluginItems = (groupValue) => 
 			Object.keys(groupValue || {}).map(key => ({
 				key,
 				title: groupValue[key].name, 
 				count: countTemplatesByItem(key, 'plugins')
-			}));
+			})).filter(item => item.count > 0);
 
 		const newGroupedCategories = {};
 
-		// Initialize categories and plugins in the newGroupedCategories object
+		// Filter categories with at least one non-zero item
 		Object.entries(data.categories).forEach(([groupKey, groupValue]) => {
-			newGroupedCategories[groupKey] = getCategoryItems(groupKey, groupValue);
+			const filteredItems = getCategoryItems(groupKey, groupValue);
+			if (filteredItems.length > 0) {
+				newGroupedCategories[groupKey] = filteredItems;
+			}
 		});
-
-		newGroupedCategories.plugins = getPluginItems(data.plugins);
+	
+		// Filter plugins with at least one non-zero item
+		const filteredPlugins = getPluginItems(data.plugins);
+		if (filteredPlugins.length > 0) {
+			newGroupedCategories.plugins = filteredPlugins;
+		}
 
 		setFilterGroups(newGroupedCategories);
 	}
