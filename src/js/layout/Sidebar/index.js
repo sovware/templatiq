@@ -20,6 +20,7 @@ const Sidebar = () => {
 	const [ selectedFilters, setSelectedFilters ] = useState( [] );
 	const [ editorEnabled, setEditorEnabled ] = useState( false );
 
+	// Handle Filter
 	const handleFilter = ( key, type ) => {
 		// Copy the existing selectedFilters array to avoid mutating state directly
 		const updatedSelectedFilters = [ ...selectedFilters ];
@@ -44,6 +45,7 @@ const Sidebar = () => {
 		dispatch( store ).setFilterSearch( updatedSelectedFilters );
 	};
 
+	// Clear Filter
 	const clearFilters = ( e ) => {
 		e.preventDefault();
 		setSelectedFilters( [] );
@@ -52,6 +54,7 @@ const Sidebar = () => {
 		dispatch( store ).setFilterSearch( [] );
 	};
 
+	// Get Sidebar Data
 	function getSidebarData( data ) {
 		// Function to count templates for each item
 		const countTemplatesByItem = (item, type) => {
@@ -77,31 +80,40 @@ const Sidebar = () => {
 				key,
 				title: groupValue[key], 
 				count: countTemplatesByItem(key, groupKey)
-			}));
+			})).filter(item => item.count > 0);
 
 		const getPluginItems = (groupValue) => 
 			Object.keys(groupValue || {}).map(key => ({
 				key,
 				title: groupValue[key].name, 
 				count: countTemplatesByItem(key, 'plugins')
-			}));
+			})).filter(item => item.count > 0);
 
 		const newGroupedCategories = {};
 
-		// Initialize categories and plugins in the newGroupedCategories object
+		// Filter categories with at least one non-zero item
 		Object.entries(data.categories).forEach(([groupKey, groupValue]) => {
-			newGroupedCategories[groupKey] = getCategoryItems(groupKey, groupValue);
+			const filteredItems = getCategoryItems(groupKey, groupValue);
+			if (filteredItems.length > 0) {
+				newGroupedCategories[groupKey] = filteredItems;
+			}
 		});
-
-		newGroupedCategories.plugins = getPluginItems(data.plugins);
+	
+		// Filter plugins with at least one non-zero item
+		const filteredPlugins = getPluginItems(data.plugins);
+		if (filteredPlugins.length > 0) {
+			newGroupedCategories.plugins = filteredPlugins;
+		}
 
 		setFilterGroups(newGroupedCategories);
 	}
 
+	// Handle See More
 	const handleSeeMore = (group) => {
 		setExpandedGroups((prev) => ({ ...prev, [group]: true }));
 	};
 
+	// Handle See Less
 	const handleShowLess = (group) => {
 		setExpandedGroups((prev) => ({ ...prev, [group]: false }));
 	};
