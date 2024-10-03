@@ -20,6 +20,7 @@ const Sidebar = () => {
 	const [ selectedFilters, setSelectedFilters ] = useState( [] );
 	const [ editorEnabled, setEditorEnabled ] = useState( false );
 
+	// Handle Filter
 	const handleFilter = ( key, type ) => {
 		// Copy the existing selectedFilters array to avoid mutating state directly
 		const updatedSelectedFilters = [ ...selectedFilters ];
@@ -44,6 +45,7 @@ const Sidebar = () => {
 		dispatch( store ).setFilterSearch( updatedSelectedFilters );
 	};
 
+	// Clear Filter
 	const clearFilters = ( e ) => {
 		e.preventDefault();
 		setSelectedFilters( [] );
@@ -52,6 +54,7 @@ const Sidebar = () => {
 		dispatch( store ).setFilterSearch( [] );
 	};
 
+	// Get Sidebar Data
 	function getSidebarData( data ) {
 		// Function to count templates for each item
 		const countTemplatesByItem = (item, type) => {
@@ -105,10 +108,12 @@ const Sidebar = () => {
 		setFilterGroups(newGroupedCategories);
 	}
 
+	// Handle See More
 	const handleSeeMore = (group) => {
 		setExpandedGroups((prev) => ({ ...prev, [group]: true }));
 	};
 
+	// Handle See Less
 	const handleShowLess = (group) => {
 		setExpandedGroups((prev) => ({ ...prev, [group]: false }));
 	};
