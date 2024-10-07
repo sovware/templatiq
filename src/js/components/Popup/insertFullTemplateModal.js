@@ -81,7 +81,7 @@ const insertFullTemplateModal = ( { item, onClose } ) => {
 							{__( 'Recommendation', 'templatiq' )}
 						</h2>
 						<p className="templatiq__modal__desc">
-							{__( 'We recommend to use Pixetiq Theme to fully experience the design & feature of this template. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist.', 'templatiq' )}
+							{__( 'We recommend using the Pixetiq theme to fully experience the design and features of this template. While other themes are compatible, they might not match the demo.', 'templatiq' )}
 						</p>
 						<div className="templatiq__modal__actions">
 							<button
