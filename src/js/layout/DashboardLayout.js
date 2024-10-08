@@ -1,9 +1,9 @@
-import { useEffect } from '@wordpress/element';
-import { select } from '@wordpress/data';
-import { useNavigate } from 'react-router-dom';
-import AdminSidebar from '@layout/Sidebar/AdminSidebar';
 import Header from '@layout/Header';
+import AdminSidebar from '@layout/Sidebar/AdminSidebar';
 import store from '@store/index';
+import { select } from '@wordpress/data';
+import { useEffect } from '@wordpress/element';
+import { useNavigate } from 'react-router-dom';
 
 import { LayoutStyle } from './style.js';
 
@@ -19,7 +19,7 @@ const DashboardLayout = ( { children } ) => {
 
 	return (
 		<div className="templatiq">
-			<Header />
+			<Header type="dashboard" />
 			<LayoutStyle className="templatiq__wrapper">
 				<AdminSidebar />
 				{ children }

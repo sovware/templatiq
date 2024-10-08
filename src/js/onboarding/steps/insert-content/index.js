@@ -214,7 +214,7 @@ const InsertContent = () => {
 							}
 
 							<div className="fullsite-setup-wizard__content__import__wrapper">
-								<h3 className="fullsite-setup-wizard__content__import__title">Install contents</h3>
+								<h3 className="fullsite-setup-wizard__content__import__title">Demo data and data preferences</h3>
 								<div className="fullsite-setup-wizard__content__import__single">
 									<input
 										type="checkbox"
@@ -265,7 +265,7 @@ const InsertContent = () => {
 														width={ 16 }
 														height={ 16 }
 													/>
-													<strong>Warning: </strong> This will remove all existing data from your directories, listing & data associated Directorist.
+													<strong>Warning: </strong> This action will erase all existing directories, listings, and related data from Directorist.
 												</span>
 											}
 										</>
@@ -292,7 +292,7 @@ const InsertContent = () => {
 														width={ 16 }
 														height={ 16 }
 													/>
-													<strong>Warning: </strong> This will remove all imported data from your directories, listing & data associated Directorist.
+													<strong>Warning: </strong> This will remove all existing data from your site.
 												</span>
 											}
 										</>

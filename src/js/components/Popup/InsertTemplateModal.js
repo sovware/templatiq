@@ -5,7 +5,6 @@ import ReactSVG from 'react-inlinesvg';
 import { InsertTemplateModalStyle } from './style';
 
 import closeIcon from '@icon/close.svg';
-import recommendationIcon from '@icon/recommendation.svg';
 import requiredIcon from '@icon/required.svg';
 
 const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable_plugins } ) => {
@@ -523,10 +522,10 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable
 							) : importedData ? (
 								<>
 									<h2 className="templatiq__modal__title">
-										Imported Successfully
+										Congratulations!
 									</h2>
 									<p className="templatiq__modal__desc">
-										{__( "You can edit or preview the template or you can push it to Templatiq cloud to share with your team.", 'templatiq' )}
+										{__( "You've successfully imported your page. You can now edit and customize it as needed.", 'templatiq' )}
 									</p>
 									<div className="templatiq__modal__actions">
 										<a

@@ -219,7 +219,7 @@ const Header = ( props ) => {
 						}
 					>
 						{
-							!editorEnabled &&
+							!editorEnabled && type !== 'dashboard' &&
 							<div className="templatiq__header__action__item">
 								<CacheClearBtn />
 							</div>
