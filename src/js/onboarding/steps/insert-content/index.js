@@ -292,7 +292,7 @@ const InsertContent = () => {
 														width={ 16 }
 														height={ 16 }
 													/>
-													<strong>Warning: </strong> This action will erase all existing directories, listings, and related data from Directorist.
+													<strong>Warning: </strong> This will remove all existing data from your site.
 												</span>
 											}
 										</>
