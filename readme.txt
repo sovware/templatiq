@@ -3,7 +3,7 @@ Contributors: wpwax
 Tags: templates, starter template, design, quick starter, directory websites
 Requires at least: 6.0
 Tested up to: 6.6.2
-Stable tag: 0.0.8
+Stable tag: 0.0.9
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -90,22 +90,26 @@ At Templatiq, user privacy is our top priority. As a premier marketplace for tem
 
 == Changelog ==
 
+= 0.0.9(beta) - Oct 9, 2024 =
+* Improve: Dashboard Design
+* Fix: Logo Import for Third-party Themes
+
 = 0.0.8(beta) - Oct 3, 2024 =
-* Improved: Elementor Editor Style
-* Improved: SignIn Modal Replaced with Connect Button
+* Improve: Elementor Editor Style
+* Improve: SignIn Modal Replaced with Connect Button
 * Removed: Empty Items & Groups From Sidebar Filters by
 * Fix: Required Bricks on Single Page Import
 
 = 0.0.7(beta) - Sep 26, 2024 =
 * New: Bricks Introduced
 * New: Not Found & Search Clear Icon - Added
-* Improved: Dashboard Styles
+* Improve: Dashboard Styles
 * Fix: Cache Clear Issue
 * Fix: Membership Access
 
 = 0.0.6(beta) - Sep 23, 2024 =
 * New: Block Editor Introduced
-* Improved: Editor Mode Popup Header Style
+* Improve: Editor Mode Popup Header Style
 * Fix: Menu Item Redirection Issue
 * Fix: Filter Issue
 
