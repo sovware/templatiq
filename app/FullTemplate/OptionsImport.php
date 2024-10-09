@@ -7,6 +7,7 @@
 
 namespace Templatiq\FullTemplate;
 
+use Templatiq\Repositories\DependencyRepository;
 use Templatiq\Utils\Singleton;
 use Templatiq_WXR_Importer;
 use WP_Query;
@@ -112,7 +113,7 @@ class OptionsImport {
 		}
 
 		$page = $this->get_page_by_title( $option_value, 'page' );
-		
+
 		if ( is_object( $page ) ) {
 			update_option( $option_name, $page->ID );
 		}
@@ -137,6 +138,11 @@ class OptionsImport {
 	}
 
 	private function insert_logo( $image_url = '' ) {
+		$pixetiq_status = ( new DependencyRepository() )->get_pixetiq_status();
+		if ( 'installed-and-active' !== $pixetiq_status ) {
+			return;
+		}
+
 		$downloaded_image = ImageImporter::get_instance()->import(
 			[
 				'url' => $image_url,
