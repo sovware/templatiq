@@ -59,6 +59,7 @@ class Admin {
 						const url = event.data?.href;
 						_lmnLoginBroadCastChannel.close();
 						window.location = url;
+						window.location.reload(true);
 					}
 				};
 			}
