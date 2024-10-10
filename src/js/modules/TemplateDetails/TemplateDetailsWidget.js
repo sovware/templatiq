@@ -57,7 +57,8 @@ const TemplateDetailsWidget = ( props ) => {
 					</div>
 					<div className="templatiq__details__widget__subscribe__btn">
 						<a
-							href="#"
+							href="https://templatiq.com/pricing/"
+							target="_blank"
 							className="templatiq__details__widget__subscribe__btn__link templatiq-btn templatiq-btn-warning"
 						>
 							{__( "Get Unlimited Access", 'templatiq' )}
