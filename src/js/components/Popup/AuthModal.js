@@ -6,7 +6,7 @@ import { AuthModalStyle } from './style';
 
 import closeIcon from '@icon/close.svg';
 
-const AuthModal = ( { onClose } ) => {
+const AuthModal = ( { slug, onClose } ) => {
 	const [ signUpModal, openSignUpModal ] = useState( false );
 	const [isSignedUp, setIsSignedUp] = useState(false);
 
@@ -27,7 +27,7 @@ const AuthModal = ( { onClose } ) => {
 	return (
 		<AuthModalStyle className="templatiq__modal">
 			{ ! signUpModal ?
-			 	<SignInContent /> : 
+			 	<SignInContent slug={slug} /> : 
 				<SignUpContent setIsSignedUp={setIsSignedUp} /> 
 			}
 			<button

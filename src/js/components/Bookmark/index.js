@@ -10,7 +10,7 @@ import heartSolidIcon from '@icon/heart-solid.svg';
 import heartIcon from '@icon/heart.svg';
 
 const Bookmark = ( props ) => {
-	let { template_id, number_of_bookmarks } = props.item;
+	let { template_id, slug, number_of_bookmarks } = props.item;
 	const [ type, setType ] = useState( props.type ? props.type : '' );
 
 	const addBookmarkEndPoint = 'templatiq/bookmark/add';
@@ -111,6 +111,7 @@ const Bookmark = ( props ) => {
 				<>
 					{ authModalOpen ? (
 						<AuthModal
+							slug={ slug }
 							modalEnable={ true }
 							onClose={ handleAuthModalClose }
 						/>

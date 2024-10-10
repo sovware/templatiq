@@ -21,7 +21,7 @@ const InsertTemplate = ({
 	innerText,
 	solidIcon,
 }) => {
-	let { template_id, type, required_plugins, is_directorist_required } = item;
+	let { template_id, slug, type, required_plugins, is_directorist_required } = item;
 
 	const validPlugins = required_plugins.filter(item => item?.init);
 
@@ -165,6 +165,7 @@ const InsertTemplate = ({
 
 			{authModalOpen && (
 				<AuthModal
+					slug={slug}
 					modalEnable={true}
 					onClose={handleAuthModalClose}
 				/>
