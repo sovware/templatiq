@@ -1,3 +1,4 @@
+import getConnectAccountURL from '@helper/connectAccountURL';
 import store from '@store/index';
 import { select } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
@@ -20,9 +21,6 @@ const InsertProModal = ( { item, onClose, onLoginClick } ) => {
 
 		onClose();
 	};
-
-	const base64Url = btoa(templatiq_obj.dashboard_url + '#/template/' + slug);
-	const connectUlr = templatiq_obj.cloud_url + '?connect=true&return_to=' + base64Url;
 
 	return (
 		<>
@@ -53,7 +51,7 @@ const InsertProModal = ( { item, onClose, onLoginClick } ) => {
 									{ __( 'Already a Premium Member?' , 'templatiq' ) }
 								</p>
 								<a
-									href={connectUlr}
+									href={getConnectAccountURL(slug)}
 									target="_blank"
 									className="templatiq__auth__btn templatiq-btn templatiq-btn-primary"
 								>

@@ -1,3 +1,4 @@
+import getConnectAccountURL from '@helper/connectAccountURL';
 import postData from '@helper/postData';
 import { dispatch, select } from '@wordpress/data';
 import { Suspense, useEffect, useRef, useState } from '@wordpress/element';
@@ -33,9 +34,6 @@ import downloadIcon from '@icon/download-alt.svg';
 import heartIcon from '@icon/heart.svg';
 import logoutIcon from '@icon/logout.svg';
 import settingsIcon from '@icon/settings.svg';
-
-const base64Url = btoa(templatiq_obj.dashboard_url);
-const connectUlr = templatiq_obj.cloud_url + '?connect=true&return_to=' + base64Url
 
 const Header = ( props ) => {
 	const { type } = props;
@@ -323,7 +321,7 @@ const Header = ( props ) => {
 								</div>
 							) : (
 								<a
-									href={connectUlr}
+									href={getConnectAccountURL()}
 									target="_blank"
 									// to="/signin"
 									className="templatiq__header__action__link templatiq-btn"
