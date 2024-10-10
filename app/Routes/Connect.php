@@ -73,11 +73,7 @@ class Connect {
 						}
 						if (sameOrigin) {
 							var url = <?php echo wp_json_encode( $redirect_uri ); ?>;
-							if (typeof window.opener.lmnRedirect === 'function') {
-								window.opener.lmnRedirect(url);
-							} else {
-								window.opener.location = url;
-							}
+							window.opener.location = url;
 							window.close();
 						} else {
 							window.location.reload(true);
