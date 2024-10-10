@@ -40,7 +40,12 @@ class Connect {
 
 		( new \Templatiq\Repositories\AccountRepository() )->data();
 
-		wp_safe_redirect( admin_url( 'admin.php?page=templatiq&connected=true' ) );
+		$redirect_url = admin_url( 'admin.php?page=templatiq&connected=true' );
+		if ( isset( $_GET['templateSlug'] ) ) {
+			$redirect_url .= '#/template/' . sanitize_text_field( $_GET['templateSlug'] );
+		}
+
+		wp_safe_redirect( $redirect_url );
 
 		exit();
 	}
