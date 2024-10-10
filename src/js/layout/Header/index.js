@@ -1,9 +1,10 @@
+import getConnectAccountURL from '@helper/connectAccountURL';
 import postData from '@helper/postData';
 import { dispatch, select } from '@wordpress/data';
 import { Suspense, useEffect, useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import ReactSVG from 'react-inlinesvg';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 import CacheClearBtn from '@components/CacheClearBtn';
 import ContentLoading from '@components/ContentLoading';
@@ -34,9 +35,6 @@ import heartIcon from '@icon/heart.svg';
 import logoutIcon from '@icon/logout.svg';
 import settingsIcon from '@icon/settings.svg';
 
-const base64Url = btoa(templatiq_obj.dashboard_url);
-const connectUlr = templatiq_obj.cloud_url + '?connect=true&return_to=' + base64Url
-
 const Header = ( props ) => {
 	const { type } = props;
 
@@ -45,6 +43,7 @@ const Header = ( props ) => {
 	const [ isLogoutLoading, setLogoutLoading ] = useState( false );
 	const [ editorEnabled, setEditorEnabled ] = useState( false );
 	const [ selectedEditor, setSelectedEditor ] = useState( templatiq_obj.builder );
+	const [ currentTemplate, setCurrentTemplate ] = useState( null );
 
 	const logOutEndPoint = 'templatiq/account/logout';
 
@@ -91,6 +90,7 @@ const Header = ( props ) => {
 		},
 	];
 
+	const location = useLocation();
 	const navigate = useNavigate();
 
 	const handleGoBack = () => {
@@ -124,6 +124,21 @@ const Header = ( props ) => {
 	useEffect( () => {
 		checkedClickedOutside( isAuthorInfoVisible, setAuthorInfoVisible, ref );
 	}, [ isAuthorInfoVisible ] );
+
+	useEffect(() => {
+		const currentPath = location.pathname;
+	
+		// Check if 'template' is in the path
+		if (currentPath.includes('/template/')) {
+		  // Extract the value after 'template'
+			const templateValue = currentPath.split('/template/')[1]?.split('/')[0];
+		
+			if (templateValue) {
+				setCurrentTemplate(templateValue);
+			}
+		}
+	}, [location.pathname]);
+	
 
 	useEffect( () => {
 		// Check if the 'elementor-editor-active' class is present on the body element
@@ -174,7 +189,9 @@ const Header = ( props ) => {
 						<Link to="/">
 							<img src={ Logo } alt="Logo" />
 						</Link>
+
 						<sub>0.1.0</sub>
+
 					</Suspense>
 				</div>
 			) }
@@ -323,7 +340,7 @@ const Header = ( props ) => {
 								</div>
 							) : (
 								<a
-									href={connectUlr}
+									href={getConnectAccountURL(currentTemplate)}
 									target="_blank"
 									// to="/signin"
 									className="templatiq__header__action__link templatiq-btn"

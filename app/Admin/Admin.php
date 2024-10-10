@@ -47,6 +47,23 @@ class Admin {
 			}
 			</style>
 			";
+
+			echo "<script>
+			if (typeof BroadcastChannel === 'function') {
+				const _lmnLoginBroadCastChannel = new BroadcastChannel('lmn_login_broadcast_channel');
+				_lmnLoginBroadCastChannel.onmessage = (event) => {
+					
+					console.log('event', event);
+
+					if (event.data?.action === 'redirect') {
+						const url = event.data?.href;
+						_lmnLoginBroadCastChannel.close();
+						window.location = url;
+						window.location.reload(true);
+					}
+				};
+			}
+			</script>";
 		}
 	}
 }

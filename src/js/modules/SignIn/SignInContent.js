@@ -1,3 +1,4 @@
+import getConnectAccountURL from '@helper/connectAccountURL';
 import postData from '@helper/postData';
 import { AuthStyle } from '@root/style';
 import { dispatch, select } from '@wordpress/data';
@@ -7,10 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 import store from '@store/index';
 
-const base64Url = btoa(templatiq_obj.dashboard_url);
-const connectUlr = templatiq_obj.cloud_url + '?connect=true&return_to=' + base64Url
-
-export default function SignInContent() {
+export default function SignInContent({slug}) {
 	const navigate = useNavigate();
 
 	const singInEndPoint = 'templatiq/account/login';
@@ -79,7 +77,7 @@ export default function SignInContent() {
 		<AuthStyle className="templatiq__auth">
 			<h3 className="templatiq__auth__title">Sign in to your templatiq.com account</h3>
 			<a
-				href={connectUlr}
+				href={getConnectAccountURL(slug)}
 				target="_blank"
 				className="templatiq__auth__btn templatiq-btn templatiq-btn-primary"
 			>
