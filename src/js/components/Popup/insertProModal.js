@@ -6,13 +6,10 @@ import { InsertTemplateModalStyle } from './style';
 
 import closeIcon from '@icon/close.svg';
 
-const base64Url = btoa(templatiq_obj.dashboard_url);
-const connectUlr = templatiq_obj.cloud_url + '?connect=true&return_to=' + base64Url
-
 const InsertProModal = ( { item, onClose, onLoginClick } ) => {
 	const { isLoggedIn } = select(store).getUserInfo();
 
-	const { template_id } = item;
+	const { template_id, slug } = item;
 	
 	let closeInsertTemplateModal = ( e ) => {
 		e.preventDefault();
@@ -23,6 +20,9 @@ const InsertProModal = ( { item, onClose, onLoginClick } ) => {
 
 		onClose();
 	};
+
+	const base64Url = btoa(templatiq_obj.dashboard_url + '#/template/' + slug);
+	const connectUlr = templatiq_obj.cloud_url + '?connect=true&return_to=' + base64Url;
 
 	return (
 		<>

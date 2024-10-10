@@ -7,10 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import store from '@store/index';
 
-const base64Url = btoa(templatiq_obj.dashboard_url);
-const connectUlr = templatiq_obj.cloud_url + '?connect=true&return_to=' + base64Url
-
-export default function SignInContent() {
+export default function SignInContent({slug}) {
 	const navigate = useNavigate();
 
 	const singInEndPoint = 'templatiq/account/login';
@@ -74,6 +71,9 @@ export default function SignInContent() {
 	useEffect( () => {
 		isLoggedIn && navigate( '/' );
 	}, [] );
+
+	const base64Url = btoa(templatiq_obj.dashboard_url + '#/template/' + slug);
+	const connectUlr = templatiq_obj.cloud_url + '?connect=true&return_to=' + base64Url;
 
 	return (
 		<AuthStyle className="templatiq__auth">
