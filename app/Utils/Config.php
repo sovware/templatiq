@@ -11,9 +11,9 @@ class Config {
 
 	public static function get( string $name ): string {
 		$config = [
-			'version'        => '0.0.5',
-			'environment'    => 'production',
-			'could_base'     => 'https://templatiq.com/',
+			'version'     => '0.1.0',
+			'environment' => 'production',
+			'could_base'  => 'https://templatiq.com/',
 		];
 
 		$config = array_merge( $config, self::get_dev_config() );
