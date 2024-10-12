@@ -72,7 +72,7 @@ const InsertTemplate = ({
 		await handlePlugins(validPlugins);
 
 		if (insertFullTemplate) {
-			isPro && !isItemPurchased(template_id) && !isItemUnlocked(template_id) ?
+			isPro && !isItemPurchased(template_id) && !isItemUnlocked(template_id) && !pixetiqInstalled ?
 				renderModal()
 				: currentBuilder !== "bricks" ? 
 					(
