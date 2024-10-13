@@ -403,9 +403,7 @@ class Importer {
 			wp_delete_post( $post_id, true );
 		}
 
-		if ( defined( 'WP_CLI' ) ) {
-			WP_CLI::line( $message );
-		} elseif ( wp_doing_ajax() ) {
+		if ( wp_doing_ajax() ) {
 			wp_send_json_success( $message );
 		}
 	}
