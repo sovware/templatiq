@@ -29,11 +29,7 @@ class Reset {
 					$post_type = get_post_type( $post_id );
 					$message   = 'Deleted - Post ID ' . $post_id . ' - ' . $post_type . ' - ' . get_the_title( $post_id );
 
-					if ( 'elementor_library' === $post_type ) {
-						$_GET['force_delete_kit'] = true;
-					}
-
-					// do_action( 'templatiq_sites_before_delete_imported_posts', $post_id, $post_type );
+					do_action( 'templatiq_sites_before_delete_imported_posts', $post_id, $post_type );
 
 					wp_delete_post( $post_id, true );
 

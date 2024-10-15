@@ -57,6 +57,8 @@ class FullTemplate {
 		add_action( 'delete_attachment', [$this, 'delete_templatiq_images'] );
 		add_filter( 'wp_php_error_message', [$this, 'php_error_message'], 10, 2 );
 		add_filter( 'wp_import_post_data_processed', [$this, 'wp_slash_after_xml_import'], 99, 2 );
+
+		add_filter( 'templatiq_wxr_importer.pre_process.post', [$this, 'replace_hard_coded_demo_url'], 10 );
 	}
 
 	private function includes() {
@@ -103,5 +105,14 @@ class FullTemplate {
 
 	public function wp_slash_after_xml_import( $postdata, $data ) {
 		return wp_slash( $postdata );
+	}
+
+	public function replace_hard_coded_demo_url( $data ) {
+		if ( ! empty( $data['post_content'] ) ) {
+			$site_url             = templatiq_get_site_data( 'site_url' );
+			$data['post_content'] = str_replace( $site_url, site_url(), $data['post_content'] );
+		}
+
+		return $data;
 	}
 }

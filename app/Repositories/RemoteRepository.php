@@ -34,6 +34,7 @@ class RemoteRepository {
 			'required-plugins'             => '',
 			'license-status'               => '',
 			'templatiq-site-url'           => '',
+			'site_url'                     => '',
 		];
 
 		$data = $this->get_remote_content( $template_id, 'full-site' );
@@ -46,6 +47,7 @@ class RemoteRepository {
 			$remote_args['license-status']              = $data['license-status'];
 			$remote_args['templatiq-site-url']          = $data['templatiq-site-url'];
 			$remote_args['directory-types']             = $data['directory-types'];
+			$remote_args['site_url']                    = $data['site_url'];
 		}
 
 		return wp_parse_args( $remote_args, $defaults );

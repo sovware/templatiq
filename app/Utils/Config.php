@@ -11,7 +11,7 @@ class Config {
 
 	public static function get( string $name ): string {
 		$config = [
-			'version'     => '0.1.0',
+			'version'     => '0.1.1',
 			'environment' => 'production',
 			'could_base'  => 'https://templatiq.com/',
 		];

@@ -985,7 +985,6 @@ if ( ! class_exists( 'Templatiq_Main_WXR_Importer' ) && class_exists( 'WP_Import
 			}
 
 			$postdata = apply_filters( 'wp_import_post_data_processed', $postdata, $data );
-
 			if ( 'attachment' === $postdata['post_type'] ) {
 				if ( ! $this->options['fetch_attachments'] ) {
 					$this->logger->notice(
@@ -1004,11 +1003,34 @@ if ( ! class_exists( 'Templatiq_Main_WXR_Importer' ) && class_exists( 'WP_Import
 					do_action( 'templatiq_wxr_importer.process_skipped.post', $data, $meta ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
 					return false;
 				}
-				$remote_url = ! empty( $data['attachment_url'] ) ? $data['attachment_url'] : $data['guid'];
-				$post_id    = $this->process_attachment( $postdata, $meta, $remote_url );
+
+				if ( 
+					! empty( $postdata['post_title'] ) 
+					&& ( 
+						strpos( $postdata['post_title'],'.xml') !== false 
+						|| strpos( $postdata['post_title'],'.zip' ) !== false 
+						|| strpos( $postdata['post_title'],'.csv' ) !== false 
+						) 
+				) { 
+					return false;
+				} else {
+					$remote_url = ! empty( $data['attachment_url'] ) ? $data['attachment_url'] : $data['guid'];
+					$post_id    = $this->process_attachment( $postdata, $meta, $remote_url );
+				}
 			} else {
-				$post_id = wp_insert_post( $postdata, true );
-				do_action( 'wp_import_insert_post', $post_id, $original_id, $postdata, $data );
+				if ( 
+					! empty( $postdata['post_title'] ) 
+					&& ( 
+						strpos( $postdata['post_title'],'.xml') !== false 
+						|| strpos( $postdata['post_title'],'.zip' ) !== false 
+						|| strpos( $postdata['post_title'],'.csv' ) !== false 
+						) 
+				) { 
+					return false;
+				} else {
+					$post_id = wp_insert_post( $postdata, true );
+					do_action( 'wp_import_insert_post', $post_id, $original_id, $postdata, $data );
+				}
 			}
 
 			if ( is_wp_error( $post_id ) ) {
