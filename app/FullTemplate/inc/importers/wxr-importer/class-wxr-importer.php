@@ -986,7 +986,6 @@ if ( ! class_exists( 'Templatiq_Main_WXR_Importer' ) && class_exists( 'WP_Import
 
 			$postdata = apply_filters( 'wp_import_post_data_processed', $postdata, $data );
 			if ( 'attachment' === $postdata['post_type'] ) {
-				error_log( '$postdata : ' . print_r($postdata ,true) );
 				if ( ! $this->options['fetch_attachments'] ) {
 					$this->logger->notice(
 						sprintf(
