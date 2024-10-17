@@ -36,8 +36,8 @@ class ImportComplete {
 			return;
 		}
 
-		$demo_url = templatiq_get_site_data( 'templatiq-site-url' );
-		$site_url = site_url() . '/';
+		$demo_url = templatiq_get_site_data( 'site_url' );
+		$site_url = site_url();
 
 		foreach ( $menu_ref as $menu_id ) {
 			$post = get_post( $menu_id );
