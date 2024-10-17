@@ -22,6 +22,14 @@ class FullTemplateImport {
 		add_action( 'templatiq_full_template_import_complete', [$this, 'change_term_meta_after_complete'] );
 		add_action( 'templatiq_full_template_import_complete', [$this, 'change_listing_pricing_plan_meta_after_complete'] );
 		add_action( 'templatiq_full_template_import_complete', [$this, 'remove_mappings_after_complete'] );
+
+		add_action( 'templatiq_after_import_options', [$this, 'import_options'] );
+	}
+
+	// Add this new method to the FullTemplateImport class:
+	public function import_options( $options ) {
+		$options_import = new OptionsImport();
+		$options_import->import_options( $options );
 	}
 
 	public function before_listing_import( $data ) {
@@ -163,4 +171,5 @@ class FullTemplateImport {
 	public function remove_mappings_after_complete() {
 		delete_option( 'templatiq_sites_directory_types_ids_mapping' );
 	}
+
 }

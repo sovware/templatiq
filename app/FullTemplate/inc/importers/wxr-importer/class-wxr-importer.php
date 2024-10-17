@@ -638,6 +638,8 @@ if ( ! class_exists( 'Templatiq_Main_WXR_Importer' ) && class_exists( 'WP_Import
 				$this->prefill_existing_terms();
 			}
 
+			delete_option( 'templatiq_imported_items_mapping' );
+
 			/**
 			 * Begin the import.
 			 *
@@ -661,6 +663,8 @@ if ( ! class_exists( 'Templatiq_Main_WXR_Importer' ) && class_exists( 'WP_Import
 
 			wp_defer_term_counting( false );
 			wp_defer_comment_counting( false );
+
+			add_option( 'templatiq_imported_items_mapping', $this->mapping );
 
 			/**
 			 * Complete the import.
