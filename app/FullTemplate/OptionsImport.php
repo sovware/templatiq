@@ -45,11 +45,6 @@ class OptionsImport {
 			'templatiq-color-palettes',
 			'templatiq-typography-presets',
 
-			// Plugin: Directorist.
-			'atbdp_option',
-			'atbdp_roles_mapped',
-			'atbdp_has_multidirectory',
-			'directorist_setup_wizard_completed',
 		];
 	}
 
@@ -85,6 +80,8 @@ class OptionsImport {
 				}
 			}
 		}
+
+		do_action( 'templatiq_after_import_options', $options );
 	}
 
 	public function get_page_by_title( $post_title, $post_type ) {
@@ -154,8 +151,6 @@ class OptionsImport {
 			Templatiq_WXR_Importer::instance()->track_post( $downloaded_image['id'] );
 			set_theme_mod( 'custom_logo', $downloaded_image['id'] );
 			update_option( 'site_logo', $downloaded_image['id'] ); // the default option for logo in Full Site Editor
-
-			error_log( 'Logo Set from insert_logo()' . $downloaded_image['id'] . $image_url );
 		}
 	}
 }
