@@ -3,7 +3,7 @@ Contributors: wpwax
 Tags: templates, starter template, design, quick starter, directory websites
 Requires at least: 6.0
 Tested up to: 6.6.2
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -89,6 +89,11 @@ Currently, Templatiq supports only Elementor. Gutenberg/Block Editor support wil
 At Templatiq, user privacy is our top priority. As a premier marketplace for templates, we are committed to protecting your personal information and strictly adhering to the [terms outlined](https://templatiq.com/terms-conditions/) in this [Privacy Policy](https://templatiq.com/privacy-policy/).
 
 == Changelog ==
+
+= 0.1.1(beta) - Oct 19, 2024 =
+* Fix: Elementor Kit Error
+* Fix: Replace Demo URL with Current Domain
+* Fix: Persona Wise Directorist Settings Update
 
 = 0.1.0(beta) - Oct 10, 2024 =
 * Improve: Account Connect
