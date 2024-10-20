@@ -53,11 +53,7 @@ class Repository extends ElementorLocal {
 	}
 
 	public function create_page( TemplateDataDTO $template_data ): int {
-		error_log( 'before process_content $template_data : ' . print_r( $template_data, true ) );
-
 		$template_data = $this->process_content( $template_data );
-
-		error_log( 'after process_content $template_data : ' . print_r( $template_data, true ) );
 
 		$page_settings = $this->page_settings( $template_data );
 
