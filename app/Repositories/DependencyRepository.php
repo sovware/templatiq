@@ -200,7 +200,8 @@ class DependencyRepository {
 
 		if ( ! empty( $required_plugins ) ) {
 			foreach ( $required_plugins as $key => $plugin ) {
-				$plugin = (array) $plugin;
+				$plugin      = (array) $plugin;
+				$plugin_data = $this->get_plugin_data( $plugin['init'] );
 
 				// Installed but Inactive.
 				if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) && ! $this->is_active( $plugin['init'] ) ) {
@@ -214,9 +215,11 @@ class DependencyRepository {
 						),
 						'activate-plugin_' . $plugin['init']
 					);
-					$link                   = str_replace( '&amp;', '&', $link );
-					$plugin['action']       = $link;
-					$response['inactive'][] = $plugin;
+					$link                        = str_replace( '&amp;', '&', $link );
+					$plugin['action']            = $link;
+					$plugin['installed_version'] = $plugin_data['Version'];
+					$plugin['update_required']   = version_compare( $plugin_data['Version'], $plugin['min_version'], '<' );
+					$response['inactive'][]      = $plugin;
 
 					$this->get_unlocked_extensions();
 
@@ -249,8 +252,10 @@ class DependencyRepository {
 
 					// Active.
 				} else {
-					$response['active'][] = $plugin;
-					$options              = templatiq_get_site_data( 'templatiq-site-options-data' );
+					$plugin['installed_version'] = $plugin_data['Version'];
+					$plugin['update_required']   = version_compare( $plugin_data['Version'], $plugin['min_version'], '<' );
+					$response['active'][]        = $plugin;
+					$options                     = templatiq_get_site_data( 'templatiq-site-options-data' );
 					$this->after_plugin_activate( $plugin['init'], $options );
 				}
 			}
@@ -300,5 +305,13 @@ class DependencyRepository {
 		}
 
 		return $extensions;
+	}
+
+	private function get_plugin_data( $plugin_file ) {
+		if ( ! function_exists( 'get_plugin_data' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		return get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin_file, false, false );
 	}
 }
