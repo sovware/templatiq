@@ -1123,9 +1123,6 @@ if ( ! class_exists( 'Templatiq_Main_WXR_Importer' ) && class_exists( 'WP_Import
 				$this->process_menu_item_meta( $post_id, $data, $meta );
 			}
 
-			// delete_option( '_templatiq_imported_menu_map');
-			// delete_option( '_templatiq_imported_template_parts');
-
 			/**
 			 * Post processing completed.
 			 *

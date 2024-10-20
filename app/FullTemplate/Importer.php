@@ -8,6 +8,7 @@
 namespace Templatiq\FullTemplate;
 
 use Templatiq\FullTemplate\OptionsImport;
+use Templatiq\Repositories\LoggingRepository;
 
 /**
  * Templatiq Sites Importer
@@ -79,7 +80,6 @@ class Importer {
 
 		return $options;
 	}
-
 
 	/**
 	 * Set the timeout for the HTTP request by request URL.
@@ -160,9 +160,10 @@ class Importer {
 			ImporterLog::add( wp_json_encode( $post_id ) );
 
 			if ( is_wp_error( $post_id ) ) {
+				LoggingRepository::add( 'Error Downloading XML File', '' );
 				wp_send_json_error( __( 'There was an error downloading the XML file.', 'templatiq' ) );
 			} else {
-
+				LoggingRepository::add( 'XML File Downloaded', $post_id );
 				update_option( 'templatiq_sites_imported_wxr_id', $post_id, 'no' );
 				$attachment_metadata = wp_generate_attachment_metadata( $post_id, $xml_path['data']['file'] );
 				wp_update_attachment_metadata( $post_id, $attachment_metadata );
@@ -207,12 +208,16 @@ class Importer {
 			$options_importer = ( new OptionsImport );
 			$options_importer->import_options( $options_data );
 
+			LoggingRepository::add( 'Site Options Imported', $options_data );
 			if ( defined( 'WP_CLI' ) ) {
 				WP_CLI::line( 'Imported Site Options!' );
 			} elseif ( wp_doing_ajax() ) {
 				wp_send_json_success( $options_data );
 			}
 		} else {
+
+			LoggingRepository::add( 'Site Options Empty', '' );
+
 			if ( defined( 'WP_CLI' ) ) {
 				WP_CLI::line( 'Site options are empty!' );
 			} elseif ( wp_doing_ajax() ) {
@@ -244,6 +249,8 @@ class Importer {
 		update_option( 'templatiq_full_template_import_complete', 'yes', 'no' );
 		delete_transient( 'templatiq_sites_import_started' );
 
+		LoggingRepository::add( 'Import Complete', '' );
+
 		if ( wp_doing_ajax() ) {
 			wp_send_json_success();
 		}
@@ -261,6 +268,9 @@ class Importer {
 				wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 			}
 		}
+
+		LoggingRepository::add( 'Start Import Process', '' );
+
 		do_action( 'templatiq_before_start_import_process' );
 		set_transient( 'templatiq_sites_import_started', 'yes', HOUR_IN_SECONDS );
 		wp_send_json_success();

@@ -7,6 +7,8 @@
 
 namespace Templatiq\FullTemplate;
 
+use Templatiq\Repositories\LoggingRepository;
+
 class ImportComplete {
 	public static $instance = null;
 
@@ -28,6 +30,8 @@ class ImportComplete {
 		$this->update_logo_width();
 
 		update_option( 'permalink_structure', "/%postname%/" );
+
+		$this->remove_mappings();
 	}
 
 	public function update_menu_links() {
@@ -49,7 +53,7 @@ class ImportComplete {
 			$post->post_content = str_replace( $demo_url, $site_url, $post->post_content );
 			wp_update_post( $post );
 
-			// error_log( 'Menu Demo URL Replaced with Current Site => #' . $menu_id );
+			LoggingRepository::add( 'Menu Demo URL Replaced', $menu_id );
 		}
 	}
 
@@ -72,12 +76,12 @@ class ImportComplete {
 				wp_update_post( $post );
 			}
 
-			// error_log( 'Main Menu Replaced by Demo one template id => #' . $template_id );
+			LoggingRepository::add( 'Main Menu Replaced', $template_id );
 		}
 	}
 
 	public function update_logo_width() {
-		$width     = get_option( '_templatiq_logo_width', '40' );
+		$width     = get_option( '_templatiq_logo_width' );
 		$templates = get_option( '_templatiq_imported_template_parts', [] );
 
 		if ( empty( $width ) || empty( $templates ) ) {
@@ -93,7 +97,7 @@ class ImportComplete {
 			$post->post_content = $this->update_site_logo_width( $post->post_content, $width );
 			wp_update_post( $post );
 
-			// error_log( 'Logo replaced => #' . $template_id );
+			LoggingRepository::add( 'Logo & Width Replaced', '#' . $template_id . ' - ' . $width . 'px' );
 		}
 	}
 
@@ -115,5 +119,13 @@ class ImportComplete {
 		$updated_content = str_replace( $find, $replace, $data );
 
 		return $updated_content;
+	}
+
+	public function remove_mappings() {
+		delete_option( '_templatiq_imported_menu_map' );
+		delete_option( '_templatiq_imported_template_parts' );
+		delete_option( '_templatiq_logo_width' );
+
+		LoggingRepository::add( 'Mappings Removed', '' );
 	}
 }
