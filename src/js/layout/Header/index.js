@@ -190,7 +190,7 @@ const Header = ( props ) => {
 							<img src={ Logo } alt="Logo" />
 						</Link>
 
-						<sub>0.1.2</sub>
+						<sub>{templatiq_obj.version}</sub>
 
 					</Suspense>
 				</div>

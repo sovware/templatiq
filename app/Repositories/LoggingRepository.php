@@ -7,9 +7,13 @@
 
 namespace Templatiq\Repositories;
 
+use Templatiq\Utils\Config;
+
 class LoggingRepository {
 
 	public static function add( string $context, $message ) {
-		error_log( $context . ' : ' . print_r( $message, true ) );
+		if ( 'development' === Config::get( 'environment' ) ) {
+			error_log( $context . ' : ' . print_r( $message, true ) );
+		}
 	}
 }

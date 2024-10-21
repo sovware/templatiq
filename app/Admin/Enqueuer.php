@@ -61,6 +61,7 @@ class Enqueuer extends EnqueuerBase {
 				'dashboard_url'  => admin_url( 'admin.php?page=templatiq' ),
 				'cloud_url'      => TEMPLATIQ_CLOUD_CONNECT_URL,
 				'builder'        => $builder,
+				'version'        => TEMPLATIQ_VERSION,
 			]
 		);
 	}
