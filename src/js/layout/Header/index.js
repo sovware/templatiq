@@ -190,7 +190,7 @@ const Header = ( props ) => {
 							<img src={ Logo } alt="Logo" />
 						</Link>
 
-						<sub>0.1.1</sub>
+						<sub>0.1.2</sub>
 
 					</Suspense>
 				</div>
