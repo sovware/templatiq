@@ -1323,7 +1323,7 @@ if ( ! class_exists( 'Templatiq_Main_WXR_Importer' ) && class_exists( 'WP_Import
 				 */
 				$meta_item = apply_filters( 'templatiq_wxr_importer.pre_process.post_meta', $meta_item, $post_id ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- 3rd party library.
 				if ( empty( $meta_item ) ) {
-					return false;
+					continue;
 				}
 
 				$key   = apply_filters( 'templatiq_import_post_meta_key', $meta_item['key'], $post_id, $post );
