@@ -48,10 +48,12 @@ class Repository extends ElementorLocal {
 		$content = $this->process_export_import_content( $content, 'on_import' );
 
 		$template_data->set_content( $content );
+
+		return $template_data;
 	}
 
 	public function create_page( TemplateDataDTO $template_data ): int {
-		$this->process_content( $template_data );
+		$template_data = $this->process_content( $template_data );
 
 		$page_settings = $this->page_settings( $template_data );
 

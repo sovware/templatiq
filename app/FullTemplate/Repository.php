@@ -7,6 +7,8 @@
 
 namespace Templatiq\FullTemplate;
 
+use Templatiq\Repositories\LoggingRepository;
+
 class Repository {
 
 	public function get_log_file_path() {
@@ -98,8 +100,12 @@ class Repository {
 			do_action( 'templatiq_share_non_sensitive_data', true );
 		}
 
+		LoggingRepository::add( 'User Requirements Saved', $import_data );
+
 		if ( isset( $import_data['eraseExistingDirectoristData'] ) && $import_data['eraseExistingDirectoristData'] ) {
 			update_option( 'templatiq-erase-existing-directorist-data', true );
+
+			LoggingRepository::add( 'Erase Existing Directorist Data', '' );
 
 			return [
 				'success'     => true,

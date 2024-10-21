@@ -7,6 +7,8 @@
 
 namespace Templatiq\FullTemplate;
 
+use Templatiq\Repositories\LoggingRepository;
+
 defined( 'ABSPATH' ) || exit;
 
 define( 'TEMPLATIQ_ERROR_FATALS', E_ERROR | E_PARSE | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR );
