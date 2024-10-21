@@ -93,6 +93,7 @@ At Templatiq, user privacy is our top priority. As a premier marketplace for tem
 = 0.1.2(beta) - Oct 21, 2024 =
 * Fix: Directorist Listing Image Issue
 * Fix: Default Logo Width Issue
+* Fix: Elementor Image Import Issue
 
 = 0.1.1(beta) - Oct 19, 2024 =
 * Fix: Elementor Kit Error
