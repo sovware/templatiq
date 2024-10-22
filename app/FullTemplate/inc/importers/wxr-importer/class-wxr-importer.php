@@ -1016,6 +1016,7 @@ if ( ! class_exists( 'Templatiq_Main_WXR_Importer' ) && class_exists( 'WP_Import
 						|| strpos( $postdata['post_title'],'.csv' ) !== false 
 						) 
 				) { 
+					error_log( ' skipped : ' . print_r($postdata['post_title'],true) );
 					return false;
 				} else {
 					$remote_url = ! empty( $data['attachment_url'] ) ? $data['attachment_url'] : $data['guid'];
@@ -1030,6 +1031,8 @@ if ( ! class_exists( 'Templatiq_Main_WXR_Importer' ) && class_exists( 'WP_Import
 						|| strpos( $postdata['post_title'],'.csv' ) !== false 
 						) 
 				) { 
+					error_log( ' skipped : ' . print_r($postdata['post_title'],true) );
+
 					return false;
 				} else {
 					$post_id = wp_insert_post( $postdata, true );

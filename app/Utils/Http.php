@@ -43,6 +43,7 @@ class Http {
 		$args['time']    = time();
 		$args['builder'] = $args['builder'] ?? $builder;
 		$args['version'] = TEMPLATIQ_VERSION;
+		$args['env']     = Config::get( 'environment' );
 
 		$this->body = $args ?? $this->body;
 
