@@ -26,7 +26,6 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable
 	let [ loading, setLoading ] = useState( false );
 	let [ errorMsg, setErrorMsg ] = useState( false );
 
-	const [ updateRequired, setUpdateRequired ] = useState( [] );
 	const [ installablePlugins, setInstallablePlugins ] = useState( required_plugins || [] );
 	const [ installingPlugins, setInstallingPlugins ] = useState( [] );
 	const [ installedPlugins, setInstalledPlugins ] = useState( [] );
@@ -191,7 +190,6 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable
             .filter(plugin => plugin.update_required)
             .map(plugin => plugin.slug);
 			
-        setUpdateRequired(pluginsToUpdate);
 		setDisableButtonInstall( pluginsToUpdate?.length !== 0 );
 
 		if(installablePlugins && installablePlugins?.length === 0) {

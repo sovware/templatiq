@@ -1,11 +1,14 @@
 import arrowIcon from '@images/icon/angle-left.svg';
 import Logo from '@images/logo.svg';
 import { useEffect, useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 import ReactSVG from 'react-inlinesvg';
 import DefaultStep from '../../components/default-step/index';
 import { useStateValue } from '../../store/store';
 
 import trashIcon from '@icon/trash.svg';
+import updateRequiredIcon from '@icon/update-required.svg';
+
 import './style.scss';
 const currentUrlParams = new URLSearchParams( window.location.search );
 const template_id = currentUrlParams.get( 'template_id' ) || '';
@@ -21,18 +24,11 @@ import {
 
 const InsertContent = () => {
 	const [stateValue, dispatch ] = useStateValue();
-	const { currentIndex, notActivatedList, notInstalledList } = stateValue;
-
-
-	const installPlugins = notInstalledList
-			.filter(plugin => (!plugin.is_pro || plugin.pro_unlocked))
-			.map(plugin => plugin);
-	const allRequiredPlugin = [ ...notActivatedList, ...installPlugins ];
-
-	const notInstallablePlugins = notInstalledList
-			.filter(notInstalled => !allRequiredPlugin
-			.some(installable => installable.slug === notInstalled.slug));
-
+	const [ allRequiredPlugins, setAllRequiredPlugins ] = useState( [] );
+	const [ notInstallablePlugins, setNotInstallablePlugins ] = useState( [] );
+	const [ disableSubmitButton, setDisableSubmitButton ] = useState( false );
+	const { currentIndex, requiredPlugins } = stateValue;
+	
 	const prevStep = () => {
 		dispatch( {
 			type: 'set',
@@ -81,15 +77,36 @@ const InsertContent = () => {
 
 	const handleInsertContentForm = (e) => {
 		e.preventDefault();
-		const installPlugins = allRequiredPlugin
+
+		const installablePlugins = allRequiredPlugins
 			.map(plugin => plugin.slug);
 
 		dispatch( {
 			type: 'set',
-			importPersonaData: {installPlugins, installContents, eraseExistingDirectoristData, removeImportedData}
+			importPersonaData: {installablePlugins, installContents, eraseExistingDirectoristData, removeImportedData}
 		} );
 		nextStep();
 	}
+
+	useEffect(() => {
+		if( requiredPlugins ) {
+			const { active, inactive, notinstalled } = requiredPlugins?.required_plugins;
+
+			const installablePlugins = notinstalled.filter(plugin => !plugin.is_pro || plugin.pro_unlocked);
+			const notInstallablePlugins = notinstalled.filter(plugin => plugin.is_pro && !plugin?.pro_unlocked);
+			const updateRequired = active.filter(plugin => plugin.update_required);
+			const allRequired = [...updateRequired, ...inactive, ...installablePlugins];
+			
+			// Filter plugins where update_required is true and store their slugs
+			const pluginsToUpdate = allRequired
+				.filter(plugin => plugin.update_required)
+				.map(plugin => plugin.slug);
+
+			setAllRequiredPlugins( allRequired );
+			setNotInstallablePlugins( notInstallablePlugins );
+			setDisableSubmitButton( pluginsToUpdate?.length !== 0 );
+		}
+	}, [requiredPlugins]);
 
 	useEffect(() => {
 
@@ -165,11 +182,11 @@ const InsertContent = () => {
 										<ContentLoading />
 									</div> : 
 									(
-										allRequiredPlugin.length > 0 &&
+										allRequiredPlugins?.length > 0 &&
 										<div className="fullsite-setup-wizard__content__import__wrapper">
 											<h3 className="fullsite-setup-wizard__content__import__title">Install required plugins</h3>
 											{
-												allRequiredPlugin.map((plugin, index) => {
+												allRequiredPlugins.map((plugin, index) => {
 													return (
 														<div key={index} className="fullsite-setup-wizard__content__import__single required_plugins">
 															<input
@@ -179,7 +196,23 @@ const InsertContent = () => {
 																checked
 																readOnly
 															/>
-															<label htmlFor={plugin.slug}>{plugin.name} {plugin.is_pro ? <span className="plugin_status">(Pro)</span> : null}</label>
+															<label htmlFor={plugin.slug}>
+																{plugin.name} {plugin.is_pro ? <span className="plugin_status">(Pro)</span> : null}
+																{
+																	plugin.update_required &&
+																	<div className="fullsite-setup-wizard__content__import__single__label__required">
+																		<ReactSVG 
+																			src={ updateRequiredIcon } 
+																			width={ 12 } 
+																			height={ 12 } 
+																			className="fullsite-setup-wizard__content__import__single__label__required__icon"
+																		/>
+																		<span className="fullsite-setup-wizard__content__import__single__label__required__text">
+																			{__( "Update Required", 'templatiq' )}
+																		</span>
+																	</div>
+																}
+															</label>
 														</div>
 													)
 												})
@@ -195,7 +228,7 @@ const InsertContent = () => {
 																disabled = { plugin.is_pro }
 															/>
 															<label htmlFor={plugin.slug}>
-																<span class="plugin_name">{plugin.name}</span> 
+																<span className="plugin_name">{plugin.name}</span> 
 																{plugin.is_pro ? 
 																	<span className="plugin_status">(Pro)</span> : 
 																	null
@@ -302,7 +335,7 @@ const InsertContent = () => {
 							<button
 								type='submit'
 								// onClick={ nextStep }
-								className={ `fullsite-setup-wizard__content__import__btn ist-button ist-next-step ${loading ? "disabled" : ""}` }
+								className={ `fullsite-setup-wizard__content__import__btn ist-button ist-next-step ${loading || disableSubmitButton ? "disabled" : ""}` }
 							>
 								Submit & Build My Directory Website
 							</button>
