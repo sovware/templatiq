@@ -6,6 +6,7 @@ import { InsertTemplateModalStyle } from './style';
 
 import closeIcon from '@icon/close.svg';
 import requiredIcon from '@icon/required.svg';
+import updateRequiredIcon from '@icon/update-required.svg';
 
 const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable_plugins } ) => {
 	const { template_id, builder, directory_page_type } = item;
@@ -102,11 +103,6 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable
 							...prevInstalled,
 							plugin.slug,
 						] );
-						// setSelectedPlugins(
-						// 	selectedPlugins.filter(
-						// 		( selected ) => selected.slug !== plugin.slug
-						// 	)
-						// );
 						resolve( res ); // Resolve the Promise when installation is successful
 					} else {
 						reject( new Error( 'Installation failed' ) ); // Reject the Promise if installation fails
@@ -189,6 +185,13 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable
 	};
 
 	const requiredPluginStatusCheck = () => {
+		// Filter plugins where update_required is true and store their slugs
+        const pluginsToUpdate = installablePlugins
+            .filter(plugin => plugin.update_required)
+            .map(plugin => plugin.slug);
+			
+		setDisableButtonInstall( pluginsToUpdate?.length !== 0 );
+
 		if(installablePlugins && installablePlugins?.length === 0) {
 			setAllPluginsInstalled( true );
 			setSelectedPlugins( [] );
@@ -198,7 +201,7 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable
 			);
 
 			const missingPlugins = installablePlugins.filter(
-				(plugin) => !installedPlugins.includes(plugin.slug)
+				(plugin) => !installedPlugins.includes(plugin.slug) || plugin.update_required
 			);
 	
 			if ( allRequiredPluginsInstalled ) {
@@ -287,10 +290,11 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable
 															} else if ( currentInstalling ) {
 																installStatus = __( 'Installing...', 'templatiq' );
 															}
+
 															return (
 																<div
 																	key={ index }
-																	className="templatiq__modal__plugin templatiq__checkbox"
+																	className={`templatiq__modal__plugin templatiq__checkbox ${plugin.update_required ? 'update_required' : ''}`}
 																>
 																	<input
 																		id={
@@ -305,16 +309,6 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable
 																		className="templatiq__modal__plugin__checkbox templatiq__checkbox__input"
 																		checked
 																		readOnly
-																		// onChange={ () =>
-																		// 	handlePluginChange(
-																		// 		plugin
-																		// 	)
-																		// }
-																		// checked={selectedPlugins.includes(plugin)}
-																		// disabled={
-																		// 	currentInstalling ||
-																		// 	installStatus !== ''
-																		// }
 																	/>
 
 																	<label
@@ -331,6 +325,20 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable
 																				plugin.name
 																			}
 																		</a>
+																		{
+																			plugin.update_required &&
+																			<div className="templatiq__modal__plugin__label__required">
+																				<ReactSVG 
+																					src={ updateRequiredIcon } 
+																					width={ 12 } 
+																					height={ 12 } 
+																					className="templatiq__modal__plugin__label__required__icon"
+																				/>
+																				<span className="templatiq__modal__plugin__label__required__text">
+																					{__( "Update Required", 'templatiq' )}
+																				</span>
+																			</div>
+																		}
 																	</label>
 																	{
 																		plugin.is_pro && 
@@ -462,11 +470,11 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable
 															className="templatiq__modal__page__button templatiq-btn templatiq-btn-primary"
 															onClick={() => 
 																importData(
-																pageTitle,
-																template_id,
-																builder,
-																directory_page_type,
-																{ submittedTypes: submittedTypes.length > 0 ? submittedTypes : directoryType }
+																	pageTitle,
+																	template_id,
+																	builder,
+																	directory_page_type,
+																	{ submittedTypes: submittedTypes.length > 0 ? submittedTypes : directoryType }
 																)
 															}														  
 															disabled={

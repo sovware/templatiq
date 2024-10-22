@@ -117,10 +117,11 @@ const InsertTemplate = ({
 	const handlePlugins = async (plugins) => {
 		const data = await postData(dependencyCheckEndPoint, { plugins });
 		if (data) {
-			const { inactive, notinstalled } = data.required_plugins;
-			const installable = notinstalled.filter(plugin => !plugin.is_pro || plugin.pro_unlocked);;
+			const { active, inactive, notinstalled } = data.required_plugins;
+			const updateRequired = active.filter(plugin => plugin.update_required);
+			const installable = notinstalled.filter(plugin => !plugin.is_pro || plugin.pro_unlocked);
 			const notInstallable = notinstalled.filter(plugin => plugin.is_pro && !plugin?.pro_unlocked);
-			const allRequiredPlugins = [...inactive, ...installable];
+			const allRequiredPlugins = [...updateRequired, ...inactive, ...installable];
 
 			setRequiredPlugins(allRequiredPlugins);
 			setNotInstallablePlugins(notInstallable);
