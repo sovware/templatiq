@@ -159,6 +159,49 @@ const InsertTemplateModalStyle = Styled.div`
         height: 40px;
         padding: 0 20px;
     }
+    .templatiq__modal__plugin__label {
+        display: flex;
+        gap: 6px;
+        .templatiq__modal__plugin__label__required {
+            display: flex;
+            position: relative;
+            top: 3px;
+            padding-right: 10px;
+            cursor: help;
+            &:hover {
+                .templatiq__modal__plugin__label__required__text {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+            .templatiq__modal__plugin__label__required__text {
+                position: absolute;
+                top: -10px;
+                left: 100%;
+                width: max-content;
+                font-size: 12px;
+                line-height: 18px;
+                font-weight: 600;
+                color: var(--templatiq-white-color);
+                background-color: var(--templatiq-dark-color);
+                padding: 8px 12px;
+                border-radius: 8px;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.3s ease, visibility 0.3s ease;
+                &:before {
+                    content: '';
+                    position: absolute;
+                    right: 100%;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    border-right: 6px solid var(--templatiq-dark-color);
+                    border-top: 6px solid transparent;
+                    border-bottom: 6px solid transparent;
+                }
+            }
+        }
+    }
 
     &.templatiq__modal--install {
         text-align: center;
