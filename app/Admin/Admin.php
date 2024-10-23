@@ -58,7 +58,7 @@ class Admin {
 						setTimeout(() => {
 							window.location.reload(true);
 							_lmnLoginBroadCastChannel.close();
-						}, 400);	
+						}, 1000);	
 					}
 				};
 			}
