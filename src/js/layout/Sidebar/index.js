@@ -20,6 +20,8 @@ const Sidebar = () => {
 	const [ selectedFilters, setSelectedFilters ] = useState( [] );
 	const [ editorEnabled, setEditorEnabled ] = useState( false );
 
+	const currentBuilder = templatiq_obj.builder;
+
 	// Handle Filter
 	const handleFilter = ( key, type ) => {
 		// Copy the existing selectedFilters array to avoid mutating state directly
@@ -47,7 +49,7 @@ const Sidebar = () => {
 
 	// Clear Filter
 	const clearFilters = ( e ) => {
-		e.preventDefault();
+		e && e.preventDefault();
 		setSelectedFilters( [] );
 
 		// Dispatch the action to update the filter search in the store
@@ -117,6 +119,10 @@ const Sidebar = () => {
 	const handleShowLess = (group) => {
 		setExpandedGroups((prev) => ({ ...prev, [group]: false }));
 	};
+
+	useEffect(() => {
+		clearFilters();
+	}, [currentBuilder	]);
 
 	useEffect( () => {
 		setLoading( true );
