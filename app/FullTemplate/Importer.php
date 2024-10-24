@@ -29,6 +29,7 @@ class Importer {
 		add_action( 'wp_ajax_templatiq-sites-import-customizer-settings', [$this, 'import_customizer_settings'] );
 		add_action( 'wp_ajax_templatiq-sites-import-prepare-xml', [$this, 'prepare_xml_data'] );
 		add_action( 'wp_ajax_templatiq-sites-import-options', [$this, 'import_options'] );
+		add_action( 'wp_ajax_templatiq-sites-import-widgets', [$this, 'import_widgets'] );
 		add_action( 'wp_ajax_templatiq-sites-import-end', [$this, 'templatiq_import_end'] );
 
 		// Hooks in AJAX.
@@ -208,20 +209,59 @@ class Importer {
 			$options_importer = ( new OptionsImport );
 			$options_importer->import_options( $options_data );
 
-			LoggingRepository::add( 'Site Options Imported', $options_data );
-			if ( defined( 'WP_CLI' ) ) {
-				WP_CLI::line( 'Imported Site Options!' );
-			} elseif ( wp_doing_ajax() ) {
+			LoggingRepository::add( 'Site Options Imported' );
+
+			if ( wp_doing_ajax() ) {
 				wp_send_json_success( $options_data );
 			}
 		} else {
 
-			LoggingRepository::add( 'Site Options Empty', '' );
+			LoggingRepository::add( 'Site options are empty!' );
 
-			if ( defined( 'WP_CLI' ) ) {
-				WP_CLI::line( 'Site options are empty!' );
-			} elseif ( wp_doing_ajax() ) {
+			if ( wp_doing_ajax() ) {
 				wp_send_json_error( __( 'Site options are empty!', 'templatiq' ) );
+			}
+		}
+	}
+
+	/**
+	 * Import Widgets.
+	 *
+	 * @since 1.0.14
+	 * @since 1.4.0 The `$widgets_data` was added.
+	 *
+	 * @return void
+	 */
+	public function import_widgets() {
+
+		if ( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) {
+			// Verify Nonce.
+			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
+
+			if ( ! current_user_can( 'customize' ) ) {
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq-sites' ) );
+			}
+		}
+
+		$json_data = templatiq_get_site_data( 'templatiq-site-widgets-data' );
+
+		// $result = WidgetsImport::import_widgets( $widgets_data, $data );
+		$data   = json_decode( $json_data ); // Decode file contents to JSON data.
+		$result = WidgetsImport::import_data( $data );
+
+		if ( false === $result['status'] ) {
+
+			LoggingRepository::add( 'Import Widgets', $result['error'] );
+
+			if ( wp_doing_ajax() ) {
+				wp_send_json_error( $result['error'] );
+			}
+		} else {
+
+			LoggingRepository::add( 'Import Widgets', 'Widgets Imported' );
+
+			if ( wp_doing_ajax() ) {
+				wp_send_json_success( 'Widgets Imported!' );
 			}
 		}
 	}
