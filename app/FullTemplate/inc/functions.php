@@ -1,4 +1,5 @@
 <?php
+use Templatiq\Repositories\LoggingRepository;
 /**
  * Functions
  *

@@ -28,6 +28,7 @@ class RemoteRepository {
 		$defaults    = [
 			'id'                           => '',
 			'templatiq-site-options-data'  => '',
+			'templatiq-site-widgets-data'  => '',
 			'templatiq-post-data-mapping'  => '',
 			'templatiq-site-wxr-path'      => '',
 			'templatiq-enabled-extensions' => '',
@@ -42,6 +43,7 @@ class RemoteRepository {
 		if ( ! isset( $data['code'] ) ) {
 			$remote_args['id']                          = $data['id'];
 			$remote_args['templatiq-site-options-data'] = $data['templatiq-site-options-data'];
+			$remote_args['templatiq-site-widgets-data'] = $data['templatiq-site-widgets-data'];
 			$remote_args['templatiq-site-wxr-path']     = $data['templatiq-site-wxr-path'];
 			$remote_args['required-plugins']            = $data['required-plugins'];
 			$remote_args['license-status']              = $data['license-status'];
