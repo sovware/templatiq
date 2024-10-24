@@ -206,11 +206,11 @@ const ImportSite = () => {
 
 		optionsStatus = await importSiteOptions();
 
-		// if ( optionsStatus ) {
-		// 	widgetStatus = await importWidgets();
-		// }
-
 		if ( optionsStatus ) {
+			widgetStatus = await importWidgets();
+		}
+
+		if ( widgetStatus ) {
 			customizationsStatus = await customizeWebsite();
 			percentage += 5;
 			dispatch( {
@@ -1211,8 +1211,6 @@ const ImportSite = () => {
 			importStatus: __( 'Importing Widgets.', 'ai-builder' ),
 		} );
 
-		const widgetsData = templateResponse[ 'templatiq-site-widgets-data' ] || '';
-
 		const widgets = new FormData();
 		widgets.append( 'action', 'templatiq-sites-import-widgets' );
 		widgets.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
@@ -1226,7 +1224,6 @@ const ImportSite = () => {
 				try {
 					const data = JSON.parse( text );
 					if ( data.success ) {
-						percentage.current += 2;
 						dispatch( {
 							importPercent:
 								percentage.current >= 85
