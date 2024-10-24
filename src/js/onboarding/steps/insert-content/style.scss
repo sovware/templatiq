@@ -480,7 +480,7 @@
         border-radius: 8px !important;
         &.disabled {
           opacity: 0.5;
-          cursor: not-allowed;
+          pointer-events: none;
         }
       }
       &__notice {

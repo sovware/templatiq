@@ -747,6 +747,7 @@ body.step-import-site-done {
       &.disabled {
         cursor: not-allowed;
         opacity: 0.5;
+        pointer-events: none;
       }
       &.active {
         svg path {

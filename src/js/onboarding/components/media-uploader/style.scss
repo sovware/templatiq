@@ -76,6 +76,7 @@
     cursor: pointer;
     &.disabled {
       cursor: default;
+      pointer-events: none;
       svg path {
         fill: var(--st-border-color);
       }
