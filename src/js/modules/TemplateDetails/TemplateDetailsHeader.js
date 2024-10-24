@@ -24,7 +24,7 @@ const TemplateDetailsHeader = ( props ) => {
 		preview_link,
 	} = props.item;
 
-	const { purchased, unlocked } = select(store).getUserInfo();
+	const { purchased, unlocked, hasAllAccess } = select(store).getUserInfo();
 	const [ isPurchased, setIsPurchased ] = useState(false);
 	const [ isUnlocked, setIsUnlocked ] = useState(false);
 
@@ -118,7 +118,7 @@ const TemplateDetailsHeader = ( props ) => {
 				>
 					{__( "Live Demo", 'templatiq' )}
 				</a>
-				{ price > 0 && !(isPurchased || isUnlocked) ? (
+				{ price > 0 && !(isPurchased || isUnlocked || hasAllAccess) ? (
 					<a
 						href={`https://templatiq.com/checkout?edd_action=add_to_cart&download_id=${template_id}`} target='_blank'
 						className="templatiq__details__header__action__link purchase-btn templatiq-btn templatiq-btn-primary"
