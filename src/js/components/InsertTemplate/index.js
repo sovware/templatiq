@@ -69,7 +69,9 @@ const InsertTemplate = ({
 		setIsPurchased(isItemPurchased(template_id));
 		setIsUnlocked(isItemUnlocked(template_id));
 
-		await handlePlugins(validPlugins);
+		if (!isPro && isItemPurchased(template_id) && isItemUnlocked(template_id)) {
+			await handlePlugins(validPlugins);
+		}
 
 		if (insertFullTemplate) {
 			isPro && !isItemPurchased(template_id) && !isItemUnlocked(template_id) && !pixetiqInstalled ?
