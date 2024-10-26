@@ -1462,7 +1462,15 @@ const ImportSite = () => {
 				<div className="fullsite-setup-wizard">
 					<div className="fullsite-setup-wizard__header">
 						<div className="fullsite-setup-wizard__logo">
-							<img src={ Logo } alt="Logo" />
+							{ importPercent === 100 ? (
+								<a 
+									href={templatiqSitesVars.dashboard_url}
+								>
+									<img src={ Logo } alt="Logo" />
+								</a>
+							) : 
+								<img src={ Logo } alt="Logo" />
+							}
 						</div>
 						<div className="fullsite-setup-wizard__header__step">
 							<ul className="fullsite-setup-wizard__header__step__wrapper">

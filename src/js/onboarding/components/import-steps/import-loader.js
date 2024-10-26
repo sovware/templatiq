@@ -194,7 +194,7 @@ const ImportLoader = () => {
 								className="view-website-btn import-done-button"
 								after
 								onClick={ () => {
-									window.open( siteUrl, '_blank' );
+									window.location.href = siteUrl;
 								} }
 							>
 								{ __( 'View Your Website', 'templatiq-sites' ) }
