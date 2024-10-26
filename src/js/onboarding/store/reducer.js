@@ -81,6 +81,8 @@ export const initialState = {
 		templatiqSitesVars.default_page_builder === 'fse' ? false : true,
 	themeActivateFlag:
 		templatiqSitesVars.default_page_builder === 'fse' ? false : true,
+	
+	widgetImportFlag: true,
 	contentImportFlag: true,
 	analyticsFlag: starterTemplates.analytics !== 'yes' ? true : false,
 	shownRequirementOnce: false,

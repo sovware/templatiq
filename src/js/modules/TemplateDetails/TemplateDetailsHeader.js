@@ -14,8 +14,11 @@ import crownIcon from '@icon/crown.svg';
 import downloadAltIcon from '@icon/download-alt.svg';
 import heartIcon from '@icon/heart.svg';
 
+import getPurchaseConnectAccountURL from '@helper/purchaseConnectAccountURL';
+
 const TemplateDetailsHeader = ( props ) => {
 	const {
+		slug,
 		template_id,
 		title,
 		price,
@@ -120,7 +123,7 @@ const TemplateDetailsHeader = ( props ) => {
 				</a>
 				{ price > 0 && !(isPurchased || isUnlocked || hasAllAccess) ? (
 					<a
-						href={`https://templatiq.com/checkout?edd_action=add_to_cart&download_id=${template_id}`} target='_blank'
+						href={getPurchaseConnectAccountURL(slug, template_id )} target='_blank'
 						className="templatiq__details__header__action__link purchase-btn templatiq-btn templatiq-btn-primary"
 					>
 						<ReactSVG src={ cartIcon } width={ 16 } height={ 16 } />

@@ -35,6 +35,7 @@ const ImportSite = () => {
 			currentIndex,
 			importPersonaData,
 			importPersonaDataDone,
+			widgetImportFlag,
 			contentImportFlag,
 			requiredPluginsDone,
 			requiredPlugins,
@@ -199,12 +200,17 @@ const ImportSite = () => {
 	 */
 	const importPart2 = async () => {
 		let optionsStatus = false;
+		let widgetStatus = false;
 		let customizationsStatus = false;
 		let finalStepStatus = false;
 
 		optionsStatus = await importSiteOptions();
 
 		if ( optionsStatus ) {
+			widgetStatus = await importWidgets();
+		}
+
+		if ( widgetStatus ) {
 			customizationsStatus = await customizeWebsite();
 			percentage += 5;
 			dispatch( {
@@ -481,7 +487,7 @@ const ImportSite = () => {
 							'<a href="%1$s">Read article</a> to resolve the issue and continue importing template.',
 							'templatiq-sites'
 						),
-						'https://wpastra.com/docs/enable-debugging-in-wordpress/#how-to-use-debugging'
+						'https://wptemplatiq.com/docs/enable-debugging-in-wordpress/#how-to-use-debugging'
 					),
 					error
 				);
@@ -1190,7 +1196,71 @@ const ImportSite = () => {
 	};
 
 	/**
-	 * 5. Update the website as per the customizations selected by the user.
+	 * 5. Import Site Widgets.
+	 */
+	const importWidgets = async () => {
+		if ( ! widgetImportFlag ) {
+			percentage.current += 3;
+			dispatch( {
+				importPercent:
+					percentage.current >= 83 ? 83 : percentage.current,
+			} );
+			return true;
+		}
+		dispatch( {
+			importStatus: __( 'Importing Widgets.', 'ai-builder' ),
+		} );
+
+		const widgets = new FormData();
+		widgets.append( 'action', 'templatiq-sites-import-widgets' );
+		widgets.append( '_ajax_nonce', templatiqSitesVars._ajax_nonce );
+
+		const status = await fetch( ajaxurl, {
+			method: 'post',
+			body: widgets,
+		} )
+			.then( ( response ) => response.text() )
+			.then( ( text ) => {
+				try {
+					const data = JSON.parse( text );
+					if ( data.success ) {
+						dispatch( {
+							importPercent:
+								percentage.current >= 85
+									? 85
+									: percentage.current,
+						} );
+						return true;
+					}
+					throw data.data;
+				} catch ( error ) {
+					report(
+						__(
+							'Importing Widgets failed due to parse JSON error.',
+							'ai-builder'
+						),
+						'',
+						error,
+						'',
+						'',
+						text
+					);
+					return false;
+				}
+			} )
+			.catch( ( error ) => {
+				report(
+					__( 'Importing Widgets Failed.', 'ai-builder' ),
+					'',
+					error
+				);
+				return false;
+			} );
+		return status;
+	};
+
+	/**
+	 * 6. Update the website as per the customizations selected by the user.
 	 * The following steps are covered here.
 	 * 		a. Update Logo
 	 * 		b. Update Color Palette
@@ -1202,7 +1272,7 @@ const ImportSite = () => {
 	};
 
 	/**
-	 * 6. Final setup - Invoking Batch process.
+	 * 7. Final setup - Invoking Batch process.
 	 */
 	const importDone = async () => {
 		dispatch( {
