@@ -104,6 +104,7 @@ class Enqueuer extends EnqueuerBase {
 			'phpVersion'        => PHP_VERSION,
 			'reportError'       => $this->should_report_error(),
 			'directoristDB'     => get_option( 'directorist_db_version', false ),
+			'dashboard_url'		=> admin_url( 'admin.php?page=templatiq' ),
 		];
 
 		return apply_filters( 'templatiq_onboarding_localize_vars', $data );
@@ -224,6 +225,7 @@ class Enqueuer extends EnqueuerBase {
 				'isRTLEnabled'                       => is_rtl(),
 				/* translators: %s Anchor link to support URL. */
 				'support_text'                       => sprintf( __( 'Please report this error %1$shere%2$s, so we can fix it.', 'templatiq' ), '<a href="https://templatiq.com/support/open-a-ticket/" target="_blank">', '</a>' ),
+				'dashboard_url'						 => admin_url( 'admin.php?page=templatiq' ),
 			]
 		);
 

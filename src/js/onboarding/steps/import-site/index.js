@@ -1464,7 +1464,7 @@ const ImportSite = () => {
 						<div className="fullsite-setup-wizard__logo">
 							{ importPercent === 100 ? (
 								<a 
-									href="/wp-admin/admin.php?page=templatiq#/dashboard"
+									href={templatiqSitesVars.dashboard_url}
 								>
 									<img src={ Logo } alt="Logo" />
 								</a>
