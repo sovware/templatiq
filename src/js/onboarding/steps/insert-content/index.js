@@ -21,7 +21,6 @@ import {
 	checkRequiredPlugins,
 	getDemo,
 } from '../import-site/import-utils';
-import { Link } from 'react-router-dom';
 
 const InsertContent = () => {
 	const [stateValue, dispatch ] = useStateValue();
@@ -147,11 +146,7 @@ const InsertContent = () => {
 				<form className="fullsite-setup-wizard" onSubmit={handleInsertContentForm}>
 					<div className="fullsite-setup-wizard__header">
 						<div className="fullsite-setup-wizard__logo">
-							<a 
-								href="/wp-admin/admin.php?page=templatiq#/dashboard"
-							>
-								<img src={ Logo } alt="Logo" />
-							</a>
+							<img src={ Logo } alt="Logo" />
 						</div>
 						<div className="fullsite-setup-wizard__header__step">
 							<ul className="fullsite-setup-wizard__header__step__wrapper">
