@@ -207,7 +207,7 @@ const Header = ( props ) => {
 						}
 					>
 						{
-						!editorEnabled &&
+						!editorEnabled && type !== 'detailsHeader' &&
 							<div className="templatiq__header__action__item">
 								<Dropdown
 									className="templatiq__dropdown"
@@ -220,9 +220,12 @@ const Header = ( props ) => {
 							</div>
 						}
 
-						<div className="templatiq__content__top__search">
-							<Searchform />
-						</div>
+						{
+							type !== 'detailsHeader' &&
+							<div className="templatiq__content__top__search">
+								<Searchform />
+							</div>
+						}
 					</Suspense>
 				</div>
 
