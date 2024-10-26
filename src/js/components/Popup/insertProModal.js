@@ -7,6 +7,8 @@ import { InsertTemplateModalStyle } from './style';
 
 import closeIcon from '@icon/close.svg';
 
+import getPurchaseConnectAccountURL from '@helper/purchaseConnectAccountURL';
+
 const InsertProModal = ( { item, onClose, onLoginClick } ) => {
 	const { isLoggedIn } = select(store).getUserInfo();
 
@@ -35,7 +37,7 @@ const InsertProModal = ( { item, onClose, onLoginClick } ) => {
 						{ __( 'This is a premium template. Get access to this premium template.' , 'templatiq' ) }
 					</p>
 					<a 
-						href={`https://templatiq.com/checkout?edd_action=add_to_cart&download_id=${template_id}`} target='_blank'
+						href={getPurchaseConnectAccountURL(slug, template_id )} target='_blank'
 						className="templatiq-btn templatiq-btn-warning templatiq-btn-full semi-bold"
 					>
 						<svg xmlns="http://www.w3.org/2000/svg" width="16.417" height="16.5" viewBox="1063.75 119.75 16.417 16.5">
