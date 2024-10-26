@@ -85,6 +85,12 @@
     @media (max-width: 767px) {
       border: none;
     }
+    a {
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+    }
     img {
       width: 140px;
     }

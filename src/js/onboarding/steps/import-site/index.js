@@ -1392,7 +1392,11 @@ const ImportSite = () => {
 				<div className="fullsite-setup-wizard">
 					<div className="fullsite-setup-wizard__header">
 						<div className="fullsite-setup-wizard__logo">
-							<img src={ Logo } alt="Logo" />
+							<a 
+								href="/wp-admin/admin.php?page=templatiq#/dashboard"
+							>
+								<img src={ Logo } alt="Logo" />
+							</a>
 						</div>
 						<div className="fullsite-setup-wizard__header__step">
 							<ul className="fullsite-setup-wizard__header__step__wrapper">
