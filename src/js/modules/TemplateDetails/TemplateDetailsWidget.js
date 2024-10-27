@@ -1,3 +1,5 @@
+import store from '@store/index';
+import { select } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import ReactSVG from 'react-inlinesvg';
 import { TemplateDetailsWidgetStyle } from './style';
@@ -6,7 +8,9 @@ import fireIcon from '@icon/fire.svg';
 import { useState } from '@wordpress/element';
 
 const TemplateDetailsWidget = ( props ) => {
-	const { price, builder, type, categories, required_plugins } = props.item;
+	const { builder, type, categories, required_plugins } = props.item;
+
+	const { hasAllAccess } = select(store).getUserInfo();
 
 	// Component for individual required plugin
 	const RequiredPlugin = ({ plugin }) => {
@@ -39,7 +43,7 @@ const TemplateDetailsWidget = ( props ) => {
 
 	return (
 		<TemplateDetailsWidgetStyle className="templatiq__details__widget">
-			{ price ? (
+			{ !hasAllAccess ? (
 				<div className="templatiq__details__widget__single templatiq__details__widget__subscribe">
 					<div className="templatiq__details__widget__subscribe__info">
 						<h3 className="templatiq__details__widget__subscribe__title">
