@@ -1,4 +1,5 @@
 import AuthModal from '@components/Popup/AuthModal';
+import handleMaximumCount from '@helper/handleMaximumCount';
 import postData from '@helper/postData';
 import store from '@store/index';
 import { dispatch, select } from '@wordpress/data';
@@ -129,7 +130,7 @@ const Bookmark = ( props ) => {
 							width={ 14 }
 							height={ 14 }
 						/>
-						{ number_of_bookmarks ? number_of_bookmarks : '' }
+						{ number_of_bookmarks ? handleMaximumCount(number_of_bookmarks) : '' }
 					</a>
 				</>
 			) : (

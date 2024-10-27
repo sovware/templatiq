@@ -1,6 +1,7 @@
 import Bookmark from '@components/Bookmark';
 import ContentLoading from '@components/ContentLoading';
 import InsertTemplate from '@components/InsertTemplate';
+import handleMaximumCount from '@helper/handleMaximumCount';
 import store from '@store/index';
 import { select } from '@wordpress/data';
 import { useEffect, useRef, useState } from '@wordpress/element';
@@ -191,7 +192,7 @@ const SingleTemplate = ( item ) => {
 						) }
 
 						<span
-							className="templatiq__template__single__quickmeta__item templatiq-tooltip"
+							className="templatiq__template__single__quickmeta__item total-download templatiq-tooltip"
 							data-info={__( "Total Downloads", 'templatiq' )}
 						>
 							<ReactSVG
@@ -199,7 +200,7 @@ const SingleTemplate = ( item ) => {
 								width={ 14 }
 								height={ 14 }
 							/>
-							{ number_of_downloads ? number_of_downloads : '' }
+							{ number_of_downloads ? handleMaximumCount(number_of_downloads) : '' }
 						</span>
 
 						<Bookmark item={ item } />
