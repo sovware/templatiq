@@ -1352,10 +1352,20 @@ const ImportSite = () => {
 	};
 	
 	useEffect( () => {
-		window.addEventListener('beforeunload', preventRefresh); // eslint-disable-line
-		return () => {
-		  window.removeEventListener('beforeunload', preventRefresh); // eslint-disable-line
-		};
+		if (importPercent < 100) {
+            // Add beforeunload event listener to prevent leaving during import
+            window.addEventListener('beforeunload', preventRefresh);
+        } else {
+            // Remove the listener and update URL in the address bar
+            window.removeEventListener('beforeunload', preventRefresh);
+            localStorage.setItem('importComplete', 'true');
+            window.history.pushState(null, '', templatiqSitesVars.dashboard_url);
+        }
+
+        return () => {
+            // Cleanup event listener on component unmount
+            window.removeEventListener('beforeunload', preventRefresh);
+        };
 	}, [ importPercent ] ); // Add importPercent as a dependency.
 
 	// Add a useEffect to remove the event listener when importPercent is 100%.
