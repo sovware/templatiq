@@ -19,6 +19,9 @@ const SingleTemplateStyle = Styled.div`
             width: 100%;
             object-fit: cover;
             border-radius: 12px 12px 0 0;
+            @media screen and (max-width: 1660px) {
+                max-height: 350px;
+            }
         }
     }
     
