@@ -9,6 +9,7 @@ namespace Templatiq\Integrations\Bricks;
 
 use Bricks\Helpers;
 use Bricks\Templates;
+use Templatiq\Repositories\LoggingRepository;
 
 class Repository {
 	private string $cloud_endpoint;
@@ -25,7 +26,12 @@ class Repository {
 			'post_title'  => $template_data->get_title(),
 		] );
 
+		LoggingRepository::add( 'Import As Page - Bricks - $inserted_id ', $inserted_id );
+
 		if ( is_wp_error( $inserted_id ) ) {
+
+			LoggingRepository::add( 'Import As Page - Bricks - is_wp_error ', $inserted_id->get_error_message() );
+
 			throw new \Exception(
 				esc_html( $inserted_id->get_error_message() ),
 				esc_html( $inserted_id->get_error_code() )
@@ -71,8 +77,6 @@ class Repository {
 
 			$elements = json_decode( $elements_encoded, true );
 		}
-
-		// STEP: Generate new element IDs (@since 1.9.9)
 
 		return Helpers::generate_new_element_ids( $elements );
 	}
