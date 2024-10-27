@@ -8,6 +8,7 @@
 namespace Templatiq\Integrations\Bricks;
 
 use Templatiq\DTO\ImportAsPageDTO;
+use Templatiq\Repositories\LoggingRepository;
 
 class ImportAsPage {
 	use \Templatiq\Utils\Singleton;
@@ -17,14 +18,15 @@ class ImportAsPage {
 	public function __construct() {
 		add_filter( 'templatiq_import_as_page_created_post_id', [$this, 'import_as_page'], 10, 2 );
 		add_filter( 'templatiq_before_return_import_as_page', [$this, 'before_return_import_as_page'], 10, 2 );
-
 	}
 
 	public function import_as_page( $page_id, ImportAsPageDTO $DTO ) {
 
 		if ( 'bricks' !== $DTO->get_builder() ) {
-			return;
+			return $page_id;
 		}
+
+		LoggingRepository::add( 'Import As Page - Bricks' );
 
 		$template_data = $DTO->get_template_data();
 
@@ -42,7 +44,11 @@ class ImportAsPage {
 			->set_status( $_status )
 			->set_page_settings( $_page_settings );
 
-		return ( new Repository )->create_page( $templateDataDTO );
+		$inserted_id = ( new Repository )->create_page( $templateDataDTO );
+
+		LoggingRepository::add( 'Import As Page - Bricks - page created ', $inserted_id );
+
+		return $inserted_id;
 	}
 
 	public function before_return_import_as_page( $data, ImportAsPageDTO $DTO ) {
