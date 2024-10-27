@@ -43,14 +43,13 @@ class ImporterRepository {
 
 			if ( 'block' === $DTO->get_builder() ) {
 				$inserted_id = ( new BlockBuilderRepository )->create_page( $DTO );
-
-				error_log( ' $inserted_id : ' . print_r( $inserted_id, true ) );
-
+				LoggingRepository::add( 'Import As Page - Block', $inserted_id );
 			} else {
 				$inserted_id = apply_filters( 'templatiq_import_as_page_created_post_id', 0, $DTO );
 			}
 
 			if ( is_wp_error( $inserted_id ) ) {
+				LoggingRepository::add( 'Import As Page - is_wp_error ', $inserted_id );
 				throw new \Exception(
 					esc_html( $inserted_id->get_error_message() ),
 					'import-as-page'
@@ -58,11 +57,14 @@ class ImporterRepository {
 			}
 
 			if ( ! $inserted_id ) {
+				LoggingRepository::add( 'Import As Page - $inserted_id missing' );
 				throw new \Exception(
 					esc_html__( "Import as page failed", "templatiq" ),
 					'import-as-page-failed'
 				);
 			}
+
+			LoggingRepository::add( 'Import As Page - Imported - $inserted_id', $inserted_id );
 
 			return $inserted_id;
 
