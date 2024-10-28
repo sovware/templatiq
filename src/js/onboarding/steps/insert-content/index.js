@@ -259,17 +259,21 @@ const InsertContent = () => {
 									/>
 									<label htmlFor="importListing">Import Listing</label>
 								</div>
-								<div className="fullsite-setup-wizard__content__import__single">
-									<input
-										type="checkbox"
-										name="shareNonSensitiveData"
-										id="shareNonSensitiveData"
-										value="yes"
-										checked={installContents.includes('shareNonSensitiveData')}
-										onChange={(e) => handleCheckboxChange(e, setInstallContents, installContents)}
-									/>
-									<label htmlFor="shareNonSensitiveData">Share Non-Sensitive Data</label>
-								</div>
+								
+								{ templatiqSitesVars?.allowTracking && 'yes' !== templatiqSitesVars.allowTracking ?
+									<div className="fullsite-setup-wizard__content__import__single">
+										<input
+											type="checkbox"
+											name="shareNonSensitiveData"
+											id="shareNonSensitiveData"
+											value="yes"
+											checked={installContents.includes('shareNonSensitiveData')}
+											onChange={(e) => handleCheckboxChange(e, setInstallContents, installContents)}
+										/>
+										<label htmlFor="shareNonSensitiveData">Share Non-Sensitive Data</label>
+									</div>
+									: '' }
+
 							</div>
 
 							{
