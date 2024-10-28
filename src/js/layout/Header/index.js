@@ -306,9 +306,9 @@ const Header = ( props ) => {
 														</NavLink>
 													</div>
 													<div className="templatiq__header__author__info__item">
-														<NavLink
-															activeclassname="active"
-															to="/dashboard/account"
+														<a
+															href={ templatiq_obj.cloud_account }
+															target='_blank'
 															className="templatiq__header__author__info__link"
 														>
 															<ReactSVG
@@ -317,7 +317,7 @@ const Header = ( props ) => {
 																height={ 14 }
 															/>
 															{__( 'Manage Account', 'templatiq' )}
-														</NavLink>
+														</a>
 													</div>
 												</>
 											) }

@@ -47,10 +47,10 @@ const AdminSidebar = () => {
 						<ReactSVG src={ cartIcon } width={ 16 } height={ 16 } />
 						{__( 'My Purchase', 'templatiq' )}
 					</NavLink>
-					<NavLink
-						to="/dashboard/account"
+					<a
+						href={ templatiq_obj.cloud_account }
+						target='_blank'
 						className="templatiq__sidebar__nav__link"
-						activeclassname="active"
 					>
 						<ReactSVG
 							src={ settingsIcon }
@@ -58,7 +58,7 @@ const AdminSidebar = () => {
 							height={ 16 }
 						/>
 						{__( 'My Account', 'templatiq' )}
-					</NavLink>
+					</a>
 				</div>
 			</div>
 		</AdminSidebarStyle>

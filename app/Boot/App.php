@@ -57,6 +57,7 @@ class App {
 		define( 'TEMPLATIQ_CLOUD_API_BASE', TEMPLATIQ_CLOUD_BASE . 'wp-json/cloud' );
 		define( 'TEMPLATIQ_CLOUD_CONNECT_URL', TEMPLATIQ_CLOUD_BASE . 'login/' );
 		define( 'TEMPLATIQ_CLOUD_CHECKOUT_URL', TEMPLATIQ_CLOUD_BASE . 'checkout/' );
+		define( 'TEMPLATIQ_CLOUD_ACCOUNT_URL', TEMPLATIQ_CLOUD_BASE . 'dashboard/?tab=account' );
 
 		define( 'TEMPLATIQ_DEV', true );
 		define( 'TEMPLATIQ_DEBUG_LOG', true );
