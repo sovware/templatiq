@@ -239,7 +239,7 @@ class Importer {
 			check_ajax_referer( 'templatiq-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'customize' ) ) {
-				wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq-sites' ) );
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'templatiq' ) );
 			}
 		}
 
