@@ -19,6 +19,32 @@ class Admin {
 
 		add_action( 'admin_init', [$this, 'redirect_to_dashboard'] );
 		add_action( 'wp_loaded', [$this, 'hide_admin_notices'] );
+
+		$this->init_appsero();
+	}
+
+	/**
+	 * Initialize appsero tracking.
+	 *
+	 * Removed custom plugins meta data field in 7.0.5.4
+	 * since Appsero made this builtin.
+	 *
+	 * @see https://github.com/Appsero/client
+	 *
+	 * @return void
+	 */
+	public function init_appsero() {
+		$client = new \Templatiq\Admin\Appsero\Client(
+			'24d5de94-881f-47c7-bee9-f779e17a55a9',
+			'Templatiq',
+			TEMPLATIQ_FILE
+		);
+
+		$this->insights = $client->insights();
+
+		// Active insights
+		$client->set_textdomain( 'templatiq' );
+		$client->insights()->init();
 	}
 
 	public function redirect_to_dashboard() {
@@ -58,7 +84,7 @@ class Admin {
 						setTimeout(() => {
 							window.location.reload(true);
 							_lmnLoginBroadCastChannel.close();
-						}, 1000);	
+						}, 1000);
 					}
 				};
 			}
