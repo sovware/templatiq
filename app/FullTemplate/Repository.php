@@ -85,7 +85,6 @@ class Repository {
 		update_option( 'templatiq-erase-existing-directorist-data', false );
 		update_option( 'templatiq-erase-existing-imported-data', false );
 		update_option( 'templatiq-import-directorist-listings', false );
-		update_option( 'templatiq-share-non-sensitive-data', false );
 
 		if ( isset( $import_data['removeImportedData'] ) && $import_data['removeImportedData'] ) {
 			update_option( 'templatiq-erase-existing-imported-data', true );
@@ -96,8 +95,7 @@ class Repository {
 			update_option( 'templatiq-import-directorist-listings', true );
 		}
 		if ( isset( $importContents['shareNonSensitiveData'] ) ) {
-			update_option( 'templatiq-share-non-sensitive-data', true );
-			do_action( 'templatiq_share_non_sensitive_data', true );
+			update_option( 'templatiq_allow_tracking', 'yes' );
 		}
 
 		LoggingRepository::add( 'User Requirements Saved', $import_data );

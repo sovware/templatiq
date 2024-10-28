@@ -24,7 +24,7 @@ class WidgetsImport {
 		// If no data or could not decode.
 		if ( empty( $data ) || ! is_object( $data ) ) {
 			wp_die(
-				esc_html__( 'Import data is invalid.', 'widget-importer-exporter' ),
+				esc_html__( 'Import data is invalid.', 'templatiq' ),
 				'',
 				[
 					'back_link' => true,
@@ -66,7 +66,7 @@ class WidgetsImport {
 				$sidebar_available    = false;
 				$use_sidebar_id       = 'wp_inactive_widgets'; // Add to inactive if sidebar does not exist in theme.
 				$sidebar_message_type = 'error';
-				$sidebar_message      = esc_html__( 'Widget area does not exist in theme (using Inactive)', 'widget-importer-exporter' );
+				$sidebar_message      = esc_html__( 'Widget area does not exist in theme (using Inactive)', 'templatiq' );
 			}
 
 			// Result for sidebar
@@ -88,7 +88,7 @@ class WidgetsImport {
 				if ( ! $fail && ! isset( $available_widgets[$id_base] ) ) {
 					$fail                = true;
 					$widget_message_type = 'error';
-					$widget_message      = esc_html__( 'Site does not support widget', 'widget-importer-exporter' ); // Explain why widget not imported.
+					$widget_message      = esc_html__( 'Site does not support widget', 'templatiq' ); // Explain why widget not imported.
 				}
 
 				// Filter to modify settings object before conversion to array and import
@@ -123,7 +123,7 @@ class WidgetsImport {
 							$widget_message_type = 'warning';
 
 							// Explain why widget not imported.
-							$widget_message = esc_html__( 'Widget already exists', 'widget-importer-exporter' );
+							$widget_message = esc_html__( 'Widget already exists', 'templatiq' );
 
 							break;
 						}
@@ -197,16 +197,16 @@ class WidgetsImport {
 					// Success message.
 					if ( $sidebar_available ) {
 						$widget_message_type = 'success';
-						$widget_message      = esc_html__( 'Imported', 'widget-importer-exporter' );
+						$widget_message      = esc_html__( 'Imported', 'templatiq' );
 					} else {
 						$widget_message_type = 'warning';
-						$widget_message      = esc_html__( 'Imported to Inactive', 'widget-importer-exporter' );
+						$widget_message      = esc_html__( 'Imported to Inactive', 'templatiq' );
 					}
 				}
 
 				// Result for widget instance
 				$results[$sidebar_id]['widgets'][$widget_instance_id]['name']         = isset( $available_widgets[$id_base]['name'] ) ? $available_widgets[$id_base]['name'] : $id_base; // Widget name or ID if name not available (not supported by site).
-				$results[$sidebar_id]['widgets'][$widget_instance_id]['title']        = ! empty( $widget['title'] ) ? $widget['title'] : esc_html__( 'No Title', 'widget-importer-exporter' ); // Show "No Title" if widget instance is untitled.
+				$results[$sidebar_id]['widgets'][$widget_instance_id]['title']        = ! empty( $widget['title'] ) ? $widget['title'] : esc_html__( 'No Title', 'templatiq' ); // Show "No Title" if widget instance is untitled.
 				$results[$sidebar_id]['widgets'][$widget_instance_id]['message_type'] = $widget_message_type;
 				$results[$sidebar_id]['widgets'][$widget_instance_id]['message']      = $widget_message;
 			}
