@@ -129,36 +129,6 @@ class Client {
 		return $this->insights;
 	}
 
-	public function updater() {
-		if ( ! class_exists( __NAMESPACE__ . '\Updater' ) ) {
-			require_once __DIR__ . '/Updater.php';
-		}
-
-		// if already instantiated, return the cached one
-		if ( $this->updater ) {
-			return $this->updater;
-		}
-
-		$this->updater = new Updater( $this );
-
-		return $this->updater;
-	}
-
-	public function license() {
-		if ( ! class_exists( __NAMESPACE__ . '\License' ) ) {
-			require_once __DIR__ . '/License.php';
-		}
-
-		// if already instantiated, return the cached one
-		if ( $this->license ) {
-			return $this->license;
-		}
-
-		$this->license = new License( $this );
-
-		return $this->license;
-	}
-
 	/**
 	 * API Endpoint
 	 *
