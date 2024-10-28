@@ -96,7 +96,7 @@ class Enqueuer extends EnqueuerBase {
 			'nonce'             => wp_create_nonce( 'templatiq-sites-set-ai-site-data' ),
 			'restNonce'         => wp_create_nonce( 'wp_rest' ),
 			'retryTimeOut'      => 5000, // 10 Seconds.
-			'siteUrl' => get_site_url(),
+			'siteUrl'           => get_site_url(),
 			'searchData'        => TEMPLATIQ_CLOUD_BASE . 'wp-json/templatiq-library/v1/ist-data',
 			'firstImportStatus' => get_option( 'templatiq_full_template_import_complete', false ),
 			'supportLink'       => 'https://templatiq.com/templatiq-library-support/?ip=' . Helper::get_client_ip(),
@@ -104,7 +104,8 @@ class Enqueuer extends EnqueuerBase {
 			'phpVersion'        => PHP_VERSION,
 			'reportError'       => $this->should_report_error(),
 			'directoristDB'     => get_option( 'directorist_db_version', false ),
-			'dashboard_url'		=> admin_url( 'admin.php?page=templatiq' ),
+			'dashboard_url'     => admin_url( 'admin.php?page=templatiq' ),
+			'allowTracking'     => 'yes' === get_option( 'templatiq_allow_tracking', 'no' ) ? 'yes' : 'no',
 		];
 
 		return apply_filters( 'templatiq_onboarding_localize_vars', $data );
@@ -225,7 +226,8 @@ class Enqueuer extends EnqueuerBase {
 				'isRTLEnabled'                       => is_rtl(),
 				/* translators: %s Anchor link to support URL. */
 				'support_text'                       => sprintf( __( 'Please report this error %1$shere%2$s, so we can fix it.', 'templatiq' ), '<a href="https://templatiq.com/support/open-a-ticket/" target="_blank">', '</a>' ),
-				'dashboard_url'						 => admin_url( 'admin.php?page=templatiq' ),
+				'dashboard_url'                      => admin_url( 'admin.php?page=templatiq' ),
+				'allowTracking'						 => 'yes' === get_option( 'templatiq_allow_tracking', 'no' ) ? 'yes' : 'no',
 			]
 		);
 
