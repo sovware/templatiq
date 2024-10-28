@@ -249,7 +249,7 @@ class Importer {
 		$data   = json_decode( $json_data ); // Decode file contents to JSON data.
 		$result = WidgetsImport::import_data( $data );
 
-		if ( false === $result['status'] ) {
+		if ( isset( $result['status'] ) && false === $result['status'] ) {
 
 			LoggingRepository::add( 'Import Widgets', $result['error'] );
 
