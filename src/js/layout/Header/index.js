@@ -307,8 +307,7 @@ const Header = ( props ) => {
 													</div>
 													<div className="templatiq__header__author__info__item">
 														<a
-															// href={ templatiq_obj.account_url }
-															href='https://templatiq.com/'
+															href={ templatiq_obj.cloud_account }
 															target='_blank'
 															className="templatiq__header__author__info__link"
 														>

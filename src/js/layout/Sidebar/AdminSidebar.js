@@ -48,8 +48,7 @@ const AdminSidebar = () => {
 						{__( 'My Purchase', 'templatiq' )}
 					</NavLink>
 					<a
-						// href={ templatiq_obj.account_url }
-						href='https://templatiq.com/'
+						href={ templatiq_obj.cloud_account }
 						target='_blank'
 						className="templatiq__sidebar__nav__link"
 					>
