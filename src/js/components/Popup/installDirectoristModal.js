@@ -79,10 +79,10 @@ const InstallDirectoristModal = ( { onClose, install_directorist } ) => {
 									<ReactSVG src={ trashIcon } width={ 30 } height={ 30 } />
 								</div>
 								<h2 className="templatiq__modal__title">
-									{__( "Oops!", 'templatiq' )} <span className="text-warning">{__( "Directorist is not Installed", 'templatiq' )}</span>
+									{__( "Oops!", 'templatiq' )} <span className="text-warning">{__( "Directorist Plugin is Required", 'templatiq' )}</span>
 								</h2>
 								<p className="templatiq__modal__desc">
-									{__( "To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist. To install directorist you need to install directorist.", 'templatiq' )}
+									{__( "To insert this template, please complete the installation and setup of the Directorist plugin first.", 'templatiq' )}
 								</p>
 								<button
 									type="submit"
