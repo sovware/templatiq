@@ -19,6 +19,9 @@ const SingleTemplateStyle = Styled.div`
             width: 100%;
             object-fit: cover;
             border-radius: 12px 12px 0 0;
+            @media screen and (max-width: 1660px) {
+                max-height: 350px;
+            }
         }
     }
     
@@ -225,7 +228,7 @@ const SingleTemplateStyle = Styled.div`
 
     .templatiq__template__single__quickmeta-wrapper {
         display: flex;
-        gap: 6px;
+        gap: 10px;
         flex-wrap: wrap;
         justify-content: space-between;
         .templatiq-btn {
@@ -255,6 +258,8 @@ const SingleTemplateStyle = Styled.div`
     .templatiq__template__single__quickmeta__item {
         display: flex;
         gap: 6px;
+        width: 65px;
+        justify-content: center; 
         align-items: center;
         height: 28px;
         padding: 0 12px;
@@ -262,7 +267,11 @@ const SingleTemplateStyle = Styled.div`
         color: var(--templatiq-body-color);
         background: var(--templatiq-sec-color);
         box-shadow: none;
+        box-sizing: border-box; 
         transition: background 0.3s ease;
+        svg {
+            min-width: 14px;
+        }
         path {
             fill: var(--templatiq-gray-color);
         }
@@ -279,6 +288,7 @@ const SingleTemplateStyle = Styled.div`
             background-color: #E1F6EC;
         }
         &.favorite-btn {
+            width: auto;
             &:hover {
                 background-color: #F2ECFF;
                 path {
