@@ -69,7 +69,7 @@ abstract class RouteBase {
 
 	protected function register_endpoint( string $endpoint, array $callback, array $args, string $method ) {
 
-		$check = apply_filters( 'templatiq_register_endpoint', true, $endpoint, $callback, $args, $method );
+		$check = apply_filters( 'templatiq_register_endpoint', true, $endpoint );
 		if ( ! $check ) {
 			return;
 		}
@@ -79,7 +79,15 @@ abstract class RouteBase {
 			$endpoint,
 			[
 				'methods'             => $method,
-				'callback'            => function ( WP_REST_Request $wp_rest_request ) use ( $callback ) {
+				'callback'            => function ( WP_REST_Request $wp_rest_request ) use ( $callback, $endpoint ) {
+
+					$callback = apply_filters(
+						'templatiq_register_endpoint_callback',
+						$callback,
+						$endpoint,
+						$wp_rest_request,
+					);
+
 					$controller = new $callback[0];
 
 					return $controller->{$callback[1]}( $wp_rest_request );

@@ -35,6 +35,13 @@ class Enqueuer extends EnqueuerBase {
 		$script_dep = array_merge( $script_info['dependencies'], ['updates', 'wp-hooks'] );
 		$script_ver = $script_info['version'];
 
+		// Ensure dependencies are registered before enqueuing
+		foreach ( $script_dep as $dep ) {
+			if ( ! wp_script_is( $dep, 'registered' ) ) {
+				wp_register_script( $dep, '', [], false, true );
+			}
+		}
+
 		$this->enqueue_script( 'templatiq-app', '/js/admin.js', $script_dep, true, $script_ver );
 
 		$this->enqueue_style( 'templatiq-app', '/css/global.css', [], $script_ver );
