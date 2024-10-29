@@ -69,7 +69,7 @@ abstract class RouteBase {
 
 	protected function register_endpoint( string $endpoint, array $callback, array $args, string $method ) {
 
-		$check = apply_filters( 'templatiq_register_endpoint', true, $endpoint );
+		$check = apply_filters( 'templatiq_register_endpoint', true, $endpoint, $callback, $args, $method );
 		if ( ! $check ) {
 			return;
 		}
