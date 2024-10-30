@@ -5,6 +5,14 @@ const actions = {
 			loadingStatus
 		};
 	},
+
+	setCloudStarted( cloudStatus ) {
+		return {
+			type: 'SET_CLOUD_STARTED',
+			cloudStatus
+		};
+	},
+
 	setLibraryData( data ) {
 		return {
 			type: 'SET_LIBRARY',

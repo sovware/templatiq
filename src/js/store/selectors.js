@@ -4,6 +4,11 @@ const selectors = {
 
 		return isLoading;
 	},
+	getCloudStarted( state ) {
+		const { cloudStarted } = state;
+
+		return cloudStarted;
+	},
 	getLibraryData( state ) {
 		const { libraryData } = state;
 
