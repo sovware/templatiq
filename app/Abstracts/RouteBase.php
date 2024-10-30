@@ -79,7 +79,15 @@ abstract class RouteBase {
 			$endpoint,
 			[
 				'methods'             => $method,
-				'callback'            => function ( WP_REST_Request $wp_rest_request ) use ( $callback ) {
+				'callback'            => function ( WP_REST_Request $wp_rest_request ) use ( $callback, $endpoint ) {
+
+					$callback = apply_filters(
+						'templatiq_register_endpoint_callback',
+						$callback,
+						$endpoint,
+						$wp_rest_request,
+					);
+
 					$controller = new $callback[0];
 
 					return $controller->{$callback[1]}( $wp_rest_request );
