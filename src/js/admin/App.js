@@ -41,8 +41,11 @@ export default function App() {
 		 	endpoint = `editor-library?builder=${currentEditorMode}`;
 		}
 
+		console.log('endpoint', {endpoint, currentEditorMode, builder: templatiq_obj.builder});
+
 		postData( `templatiq/template/${endpoint}` )
 			.then( ( res ) => {
+				console.log('response data', res);
 				dispatch( store ).setTemplates( res.templates );
 				dispatch( store ).setLibraryData( res );
 			} )

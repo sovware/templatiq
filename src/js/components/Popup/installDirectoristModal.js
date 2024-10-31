@@ -34,7 +34,6 @@ const InstallDirectoristModal = ( { onClose, install_directorist } ) => {
 		setInstallingPlugin(true);
 		postData( installPluginEndPoint, { plugin } ).then( ( res ) => {
 			setInstallingPlugin(false);
-			console.log( 'installDirectorist', res );
 			if ( res.success ) {
 				setInstalledPlugin(true);
 				setTimeout( () => {
