@@ -362,6 +362,7 @@ button {
     flex: 1;
     width: 100%;
     font-size: 14px;
+    line-height: 18px;
     font-weight: 500;
     position: relative;
     color: var(--templatiq-gray-color);
@@ -395,6 +396,7 @@ button {
   }
   .templatiq__checkbox__count {
     text-align: end;
+    line-height: 18px;
     color: var(--templatiq-gray-color);
   }
 

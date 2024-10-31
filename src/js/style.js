@@ -271,8 +271,8 @@ const TemplatePackStyle = Styled.div`
 
         &.templatiq__content__top--cloud {
             position: absolute;
-            top: -56px;
-            left: 257px;
+            top: -75px;
+            left: 248px;
         }
     }
 

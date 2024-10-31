@@ -106,6 +106,7 @@ const HeaderStyle = Styled.div`
     &.templatiq__header--cloud {
         height: auto;
         padding: 20px 32px;
+        margin: 0 0 17px;
         border-radius: 16px;
         background-color: var(--templatiq-white-color);
         .templatiq__header__content {

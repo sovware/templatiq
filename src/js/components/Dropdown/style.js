@@ -71,6 +71,7 @@ const DropdownStyle = Styled.div`
             top: 0;
             inset-inline-start: 48px;
             font-size: 8px;
+            line-height: 18px;
             color: var(--templatiq-danger-color);
         }
     }
