@@ -60,6 +60,8 @@ const TemplateDetailsStyle = Styled.div`
         display: flex;
         gap: 13px;
         flex-wrap: wrap;
+        padding: 0;
+        margin: 0;
     }
     .templatiq__details__content__single__list__item {
         display: flex;
@@ -70,6 +72,13 @@ const TemplateDetailsStyle = Styled.div`
         line-height: 1.7;
         font-weight: 400;
         color: var(--templatiq-body-color);
+    }
+
+    &.templatiq__details--cloud {
+        padding: 0;
+        .templatiq__details__header {
+            margin: 20px 0;
+        }
     }
 
 `;

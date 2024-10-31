@@ -8,9 +8,7 @@ import { select } from '@wordpress/data';
 
 export default function TemplatePackModule( props ) {
 	const { type } = props;
-
 	const cloudStarted =  select( store ).getCloudStarted();
-	console.log('@chk Cloud TemplatePackModule', cloudStarted);
 
 	return (
 		!cloudStarted ? 

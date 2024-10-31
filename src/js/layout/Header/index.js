@@ -37,6 +37,7 @@ import settingsIcon from '@icon/settings.svg';
 
 const Header = ( props ) => {
 	const { type } = props;
+	const cloudStarted =  select( store ).getCloudStarted();
 
 	const { isLoggedIn, userDisplayName } = select( store ).getUserInfo();
 	const [ isAuthorInfoVisible, setAuthorInfoVisible ] = useState( false );
@@ -153,7 +154,7 @@ const Header = ( props ) => {
 	}, [] );
 
 	return (
-		<HeaderStyle className="templatiq__header">
+		<HeaderStyle className={`templatiq__header ${cloudStarted && type == 'detailsHeader' ? 'templatiq__header--cloud-details' : ''}`}>
 			{ type == 'detailsHeader' ? (
 				<div className="templatiq__header__details">
 					<Suspense
@@ -164,11 +165,14 @@ const Header = ( props ) => {
 							/>
 						}
 					>
-						<Link to="/" className="templatiq__header__details__logo">
-							<img src={ Fav } alt="Logo" />
-						</Link>
+						{
+							!cloudStarted &&
+							<Link to="/" className="templatiq__header__details__logo">
+								<img src={ Fav } alt="Logo" />
+							</Link>
+						}
 						<button
-							className="templatiq__header__details__return"
+							className={`templatiq__header__details__return ${cloudStarted ? 'templatiq-btn templatiq-btn-cloud' : ''}`}
 							onClick={ handleGoBack }
 						>
 							<ReactSVG src={ backIcon } width={ 12 } height={ 12 } />
@@ -196,170 +200,173 @@ const Header = ( props ) => {
 				</div>
 			) }
 
-			<div className="templatiq__header__content">
-				<div className="templatiq__header__content__left">
-					<Suspense
-						fallback={
-							<ContentLoading 
-								type="single" 
-								style={{ "maxHeight": "unset", "margin-left": "32px" }} 
-							/>
-						}
-					>
-						{
-						!editorEnabled && type !== 'detailsHeader' &&
-							<div className="templatiq__header__action__item">
-								<Dropdown
-									className="templatiq__dropdown"
-									dropDownText={__('Select Editor', 'templatiq')}
-									dropDownIcon={chevronIcon}
-									dropdownList={editorItems}
-									defaultSelect={editorItems.find(editor => editor.name === templatiq_obj.builder)}
-									dropDownChange={handleDropdownChange}
+			{
+				!cloudStarted &&
+				<div className="templatiq__header__content">
+					<div className="templatiq__header__content__left">
+						<Suspense
+							fallback={
+								<ContentLoading 
+									type="single" 
+									style={{ "maxHeight": "unset", "margin-left": "32px" }} 
 								/>
-							</div>
-						}
-
-						{
-							type !== 'detailsHeader' &&
-							<div className="templatiq__content__top__search">
-								<Searchform />
-							</div>
-						}
-					</Suspense>
-				</div>
-
-				<HeaderActionStyle className="templatiq__header__action">
-					<Suspense
-						fallback={
-							<ContentLoading 
-								type="single" 
-								style={{ "maxHeight": "unset" }} 
-							/>
-						}
-					>
-						{
-							!editorEnabled && type !== 'dashboard' &&
-							<div className="templatiq__header__action__item">
-								<CacheClearBtn />
-							</div>
-						}
-
-						<div className="templatiq__header__action__item">
-							{ isLoggedIn ? (
-								<div
-									className="templatiq__header__author__wrapper"
-									ref={ ref }
-								>
-									<a
-										href="#"
-										className="templatiq__header__action__author"
-										onClick={ handleToggleAuthorInfo }
-									>
-										<img src={ avatar } alt="Avatar" />
-										{ userDisplayName }
-									</a>
-									{ isAuthorInfoVisible && (
-										<div className="templatiq__header__author__info">
-											<div className="templatiq__header__author__info__item">
-												<NavLink
-													activeclassname="active"
-													to="/dashboard/favorites"
-													className="templatiq__header__author__info__link"
-												>
-													<ReactSVG
-														src={ heartIcon }
-														width={ 14 }
-														height={ 14 }
-													/>
-													{__( 'My Favorites', 'templatiq' )}
-												</NavLink>
-											</div>
-											{ ! editorEnabled && (
-												<>
-													<div className="templatiq__header__author__info__item">
-														<NavLink
-															activeclassname="active"
-															to="/dashboard/downloads"
-															className="templatiq__header__author__info__link"
-														>
-															<ReactSVG
-																src={ downloadIcon }
-																width={ 14 }
-																height={ 14 }
-															/>
-															{__( 'My Downloads', 'templatiq' )}
-														</NavLink>
-													</div>
-													<div className="templatiq__header__author__info__item">
-														<NavLink
-															activeclassname="active"
-															to="/dashboard/purchase"
-															className="templatiq__header__author__info__link"
-														>
-															<ReactSVG
-																src={ cartIcon }
-																width={ 14 }
-																height={ 14 }
-															/>
-															{__( 'My Purchase', 'templatiq' )}
-														</NavLink>
-													</div>
-													<div className="templatiq__header__author__info__item">
-														<a
-															href={ templatiq_obj.cloud_account }
-															target='_blank'
-															className="templatiq__header__author__info__link"
-														>
-															<ReactSVG
-																src={ settingsIcon }
-																width={ 14 }
-																height={ 14 }
-															/>
-															{__( 'Manage Account', 'templatiq' )}
-														</a>
-													</div>
-												</>
-											) }
-											<div className="templatiq__header__author__info__item templatiq__header__author__info__item--logout">
-												<button
-													className={ `templatiq__header__author__info__link templatiq__logout ${
-														isLogoutLoading
-															? 'templatiq__loading templatiq__loading--btn'
-															: ''
-													}` }
-													onClick={ handleLogOut }
-												>
-													<ReactSVG
-														src={ logoutIcon }
-														width={ 14 }
-														height={ 14 }
-													/>
-													{__( 'Log Out', 'templatiq' )}
-												</button>
-											</div>
-										</div>
-									) }
-								</div>
-							) : (
-								<a
-									href={getConnectAccountURL(currentTemplate)}
-									target="_blank"
-									// to="/signin"
-									className="templatiq__header__action__link templatiq-btn"
-								>
-									<ReactSVG
-										src={ userIcon }
-										width={ 14 }
-										height={ 14 }
+							}
+						>
+							{
+							!editorEnabled && type !== 'detailsHeader' &&
+								<div className="templatiq__header__action__item">
+									<Dropdown
+										className="templatiq__dropdown"
+										dropDownText={__('Select Editor', 'templatiq')}
+										dropDownIcon={chevronIcon}
+										dropdownList={editorItems}
+										defaultSelect={editorItems.find(editor => editor.name === templatiq_obj.builder)}
+										dropDownChange={handleDropdownChange}
 									/>
-									{__( 'Connect Account', 'templatiq' )}
-								</a>
-							) }
-						</div>
-					</Suspense>
-				</HeaderActionStyle>
-			</div>
+								</div>
+							}
+
+							{
+								type !== 'detailsHeader' &&
+								<div className="templatiq__content__top__search">
+									<Searchform />
+								</div>
+							}
+						</Suspense>
+					</div>
+
+					<HeaderActionStyle className="templatiq__header__action">
+						<Suspense
+							fallback={
+								<ContentLoading 
+									type="single" 
+									style={{ "maxHeight": "unset" }} 
+								/>
+							}
+						>
+							{
+								!editorEnabled && type !== 'dashboard' &&
+								<div className="templatiq__header__action__item">
+									<CacheClearBtn />
+								</div>
+							}
+
+							<div className="templatiq__header__action__item">
+								{ isLoggedIn ? (
+									<div
+										className="templatiq__header__author__wrapper"
+										ref={ ref }
+									>
+										<a
+											href="#"
+											className="templatiq__header__action__author"
+											onClick={ handleToggleAuthorInfo }
+										>
+											<img src={ avatar } alt="Avatar" />
+											{ userDisplayName }
+										</a>
+										{ isAuthorInfoVisible && (
+											<div className="templatiq__header__author__info">
+												<div className="templatiq__header__author__info__item">
+													<NavLink
+														activeclassname="active"
+														to="/dashboard/favorites"
+														className="templatiq__header__author__info__link"
+													>
+														<ReactSVG
+															src={ heartIcon }
+															width={ 14 }
+															height={ 14 }
+														/>
+														{__( 'My Favorites', 'templatiq' )}
+													</NavLink>
+												</div>
+												{ ! editorEnabled && (
+													<>
+														<div className="templatiq__header__author__info__item">
+															<NavLink
+																activeclassname="active"
+																to="/dashboard/downloads"
+																className="templatiq__header__author__info__link"
+															>
+																<ReactSVG
+																	src={ downloadIcon }
+																	width={ 14 }
+																	height={ 14 }
+																/>
+																{__( 'My Downloads', 'templatiq' )}
+															</NavLink>
+														</div>
+														<div className="templatiq__header__author__info__item">
+															<NavLink
+																activeclassname="active"
+																to="/dashboard/purchase"
+																className="templatiq__header__author__info__link"
+															>
+																<ReactSVG
+																	src={ cartIcon }
+																	width={ 14 }
+																	height={ 14 }
+																/>
+																{__( 'My Purchase', 'templatiq' )}
+															</NavLink>
+														</div>
+														<div className="templatiq__header__author__info__item">
+															<a
+																href={ templatiq_obj.cloud_account }
+																target='_blank'
+																className="templatiq__header__author__info__link"
+															>
+																<ReactSVG
+																	src={ settingsIcon }
+																	width={ 14 }
+																	height={ 14 }
+																/>
+																{__( 'Manage Account', 'templatiq' )}
+															</a>
+														</div>
+													</>
+												) }
+												<div className="templatiq__header__author__info__item templatiq__header__author__info__item--logout">
+													<button
+														className={ `templatiq__header__author__info__link templatiq__logout ${
+															isLogoutLoading
+																? 'templatiq__loading templatiq__loading--btn'
+																: ''
+														}` }
+														onClick={ handleLogOut }
+													>
+														<ReactSVG
+															src={ logoutIcon }
+															width={ 14 }
+															height={ 14 }
+														/>
+														{__( 'Log Out', 'templatiq' )}
+													</button>
+												</div>
+											</div>
+										) }
+									</div>
+								) : (
+									<a
+										href={getConnectAccountURL(currentTemplate)}
+										target="_blank"
+										// to="/signin"
+										className="templatiq__header__action__link templatiq-btn"
+									>
+										<ReactSVG
+											src={ userIcon }
+											width={ 14 }
+											height={ 14 }
+										/>
+										{__( 'Connect Account', 'templatiq' )}
+									</a>
+								) }
+							</div>
+						</Suspense>
+					</HeaderActionStyle>
+				</div>
+			}
 		</HeaderStyle>
 	);
 };
