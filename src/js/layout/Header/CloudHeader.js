@@ -1,6 +1,6 @@
 import postData from '@helper/postData';
 import { dispatch } from '@wordpress/data';
-import { useEffect, useState } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 import Dropdown from '@components/Dropdown';
@@ -18,8 +18,7 @@ import gutenbergIcon from '@icon/gutenberg.svg';
 
 
 const CloudHeader = ( ) => {
-	const [ elementorEditorEnabled, setElementorEditorEnabled ] = useState( false );
-	const [ selectedEditor, setSelectedEditor ] = useState( templatiq_obj && templatiq_obj.builder || 'elementor' );
+	const [ selectedEditor, setSelectedEditor ] = useState( templatiq_obj.builder );
 
 	let editorItems = [
 		{
@@ -69,16 +68,6 @@ const CloudHeader = ( ) => {
 		} 	
 	};
 
-	useEffect( () => {
-		// Check if the 'elementor-editor-active' class is present on the body element
-		const isElementorEditorActive = document.body.classList.contains(
-			'elementor-editor-active'
-		);
-
-		// Set the state variable based on the presence of Elementor Editor
-		setElementorEditorEnabled( isElementorEditorActive );
-	}, [] );
-
 	return (
 		<HeaderStyle className="templatiq__header templatiq__header--cloud">
 			<div className="templatiq__header__content">
@@ -89,7 +78,7 @@ const CloudHeader = ( ) => {
 							dropDownText={__( 'Select Editor', 'templatiq' )}
 							dropDownIcon={ chevronIcon }
 							dropdownList={ editorItems }
-							defaultSelect={editorItems.find(editor => editor.name === templatiq_obj.builder || 'elementor')}
+							defaultSelect={editorItems.find(editor => editor.name === templatiq_obj.builder)}
 							dropDownChange={handleDropdownChange}
 						/>
 					</div>
