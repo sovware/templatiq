@@ -86,6 +86,16 @@ const HeaderStyle = Styled.div`
             fill: var(--templatiq-body-color);
         }
     }
+
+    &.templatiq__header--cloud {
+        height: auto;
+        padding: 20px 32px;
+        border-radius: 16px;
+        background-color: var(--templatiq-white-color);
+        .templatiq__header__content {
+            margin: 0;
+        }
+    }
 `;
 const HeaderNavStyle = Styled.ul`
     display: flex;

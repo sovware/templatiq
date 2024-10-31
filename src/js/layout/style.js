@@ -17,6 +17,9 @@ const LayoutStyle = Styled.div`
             opacity: 0.1;
             filter: blur(132px);
         }
+        &.templatiq__content--cloud {
+            padding-top: 0;
+        }
     }
 `;
 

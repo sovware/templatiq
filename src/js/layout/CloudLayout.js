@@ -11,7 +11,7 @@ const CloudLayout = ( { children } ) => {
 	return (
 		<div className="templatiq templatiq-cloud">
 			<LayoutStyle className="templatiq__wrapper">
-				<Sidebar />
+				<Sidebar type="cloud" />
 				{ children }
 			</LayoutStyle>
 		</div>

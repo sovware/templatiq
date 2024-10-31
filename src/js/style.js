@@ -267,6 +267,12 @@ const TemplatePackStyle = Styled.div`
             gap: 20px;
             align-items: center;
         }
+
+        &.templatiq__content__top--cloud {
+            position: absolute;
+            top: -56px;
+            left: 257px;
+        }
     }
 
     .templatiq-pagination {

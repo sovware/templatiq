@@ -10,7 +10,9 @@ import ContentLoading from '@components/ContentLoading';
 
 import filterIcon from '@icon/filter.svg';
 
-const Sidebar = () => {
+const Sidebar = (props) => {
+	const { type } = props;
+
 	const [ loading, setLoading ] = useState( false );
 	const [ isLoading, setIsLoading ] = useState( false );
 
@@ -157,7 +159,7 @@ const Sidebar = () => {
 	}, [] );
 
 	return (
-		<SidebarStyle className="templatiq__sidebar">
+		<SidebarStyle className={`templatiq__sidebar ${type === "cloud" ? 'templatiq__sidebar--cloud' : ''}`}>
 			{ loading ? (
 				<>
 					<ContentLoading style={ { padding:'30px' } } />
