@@ -10,6 +10,7 @@ const SearchBoxStyle = Styled.div`
     background-color: var(--templatiq-white-color);
     border-radius: 8px;
     button {
+        display: flex;
         position: absolute;
         inset-inline-start: 16px;
         top: 10px;

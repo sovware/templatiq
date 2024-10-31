@@ -10,6 +10,7 @@ const SearchformStyle = Styled.div`
     background-color: var(--templatiq-sec-color);
     border-radius: 8px;
     button {
+        display: flex;
         position: absolute;
         inset-inline-start: 16px;
         top: 10px;

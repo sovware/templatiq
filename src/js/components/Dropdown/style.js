@@ -30,6 +30,7 @@ const DropdownStyle = Styled.div`
     }
 
     .templatiq-dropdown__toggle__icon {
+        display: flex;
         position: absolute;
         inset-inline-end: 10px;
         top: 10px;

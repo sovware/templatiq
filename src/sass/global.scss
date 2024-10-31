@@ -118,6 +118,9 @@ button {
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
   }
+  &.templatiq-cloud {
+    background: transparent;
+  }
 }
 .elementor-editor-active {
   .templatiq {

@@ -19,6 +19,10 @@ const LayoutStyle = Styled.div`
         }
         &.templatiq__content--cloud {
             padding-top: 0;
+            padding-right: 0;
+            &:before {
+                display: none;
+            }
         }
     }
 `;
