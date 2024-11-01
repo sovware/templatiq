@@ -45,7 +45,6 @@ export default function App() {
 
 		postData( `templatiq/template/${endpoint}` )
 			.then( ( res ) => {
-				console.log('response data', res);
 				dispatch( store ).setTemplates( res.templates );
 				dispatch( store ).setLibraryData( res );
 			} )
