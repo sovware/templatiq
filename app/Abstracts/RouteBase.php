@@ -40,6 +40,11 @@ abstract class RouteBase {
 
 		$_route = $request->get_route();
 
+		$check = apply_filters( 'templatiq_permission_check', false, $_route );
+		if ( $check ) {
+			return true;
+		}
+
 		return $this->permission_error( '', $_route );
 	}
 
