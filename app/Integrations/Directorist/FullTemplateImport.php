@@ -171,5 +171,4 @@ class FullTemplateImport {
 	public function remove_mappings_after_complete() {
 		delete_option( 'templatiq_sites_directory_types_ids_mapping' );
 	}
-
 }

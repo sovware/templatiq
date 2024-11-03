@@ -14,8 +14,9 @@ class FullSiteImport {
 	use Singleton;
 
 	public function __construct() {
-		add_action( 'templatiq_full_template_import_complete', [$this, 'change_menu_id'] );
 		add_action( 'templatiq_wxr_importer.processed.term', [$this, 'add_menu_mapping'], 10, 2 );
+		add_action( 'templatiq_full_template_import_complete', [$this, 'change_menu_id'] );
+		add_action( 'templatiq_full_template_import_complete', [$this, 'remove_mappings_after_complete'] );
 	}
 
 	public function change_menu_id() {
@@ -40,7 +41,7 @@ class FullSiteImport {
 		}
 
 		foreach ( $meta_value as &$item ) {
-			
+
 			if ( isset( $item['name'] ) && 'nav-menu' === $item['name'] ) {
 
 				if ( isset( $item['settings']['menu'] ) && isset( $menu_ref[$item['settings']['menu']] ) ) {
@@ -64,5 +65,9 @@ class FullSiteImport {
 
 			update_option( '_templatiq_imported_bricks_nav_menu', $_menus );
 		}
+	}
+
+	public function remove_mappings_after_complete() {
+		delete_option( '_templatiq_imported_bricks_nav_menu' );
 	}
 }
