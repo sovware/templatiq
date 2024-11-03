@@ -76,6 +76,9 @@ export default function App() {
 
 	useEffect( () => {
 		dispatch( store ).setCloudStarted( cloudEnabled );
+		if ( cloudEnabled ) {
+			templatiq_obj.builder = 'elementor'
+		}
 	}, [ cloudEnabled ] );
 
 	const adminRoutes = applyFilters( 'templatiq_admin_routes', [
