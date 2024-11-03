@@ -23,5 +23,6 @@ class Bricks extends IntegrationBase {
 		}
 
 		ImportAsPage::init();
+		FullSiteImport::init();
 	}
 }
