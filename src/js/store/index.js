@@ -4,6 +4,7 @@ import selectors from './selectors';
 
 const DEFAULT_STATE = {
 	isLoading: false,
+	cloudStarted: false,
 	userInfo: {
 		loggedIn: '',
 		userName: '',
@@ -36,6 +37,19 @@ const store = createReduxStore( 'templatiq-stores', {
 				);
 
 				return loadingState;
+			case 'SET_CLOUD_STARTED':
+				const cloudState = {
+					...state,
+					cloudStarted: action.cloudStatus,
+				};
+
+				// Save state to localStorage whenever it changes
+				localStorage.setItem(
+					'templatiq-stores',
+					JSON.stringify( cloudState )
+				);
+
+				return cloudState;
 			case 'SET_TEMPLATES':
 				const templateState = {
 					...state,

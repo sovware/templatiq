@@ -10,6 +10,7 @@ const SearchBoxStyle = Styled.div`
     background-color: var(--templatiq-white-color);
     border-radius: 8px;
     button {
+        display: flex;
         position: absolute;
         inset-inline-start: 16px;
         top: 10px;
@@ -266,6 +267,12 @@ const TemplatePackStyle = Styled.div`
             display: flex;
             gap: 20px;
             align-items: center;
+        }
+
+        &.templatiq__content__top--cloud {
+            position: absolute;
+            top: -75px;
+            left: 248px;
         }
     }
 

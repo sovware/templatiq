@@ -18,6 +18,7 @@ const Bookmark = ( props ) => {
 	const removeBookmarkEndPoint = 'templatiq/bookmark/remove';
 
 	const { isLoggedIn, bookmarks } = select( store ).getUserInfo();
+	const cloudStarted =  select( store ).getCloudStarted();
 	const isActive = bookmarks && bookmarks.includes( template_id );
 
 	const [ authModalOpen, setAuthModalOpen ] = useState( false );

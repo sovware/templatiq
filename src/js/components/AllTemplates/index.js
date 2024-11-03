@@ -15,7 +15,7 @@ import arrowRight from '@icon/angle-right.svg';
 import crownIcon from '@icon/crown.svg';
 
 export default function AllTemplates( props ) {
-	const { templateStatus } = props;
+	const { templateStatus, templateType } = props;
 	const paginatePerPage = 6;
 
 	const [ isEmpty, setIsEmpty ] = useState( false );
@@ -295,7 +295,7 @@ export default function AllTemplates( props ) {
 
 	return (
 		<div className="templatiq__content__tab">
-			<div className="templatiq__content__top">
+			<div className={`templatiq__content__top ${templateType === "cloud" ?'templatiq__content__top--cloud' : ''}`}>
 				<div className="templatiq__content__top__filter">
 					<TemplatePackFilterStyle className="templatiq__content__top__filter__wrapper">
 						<ul 

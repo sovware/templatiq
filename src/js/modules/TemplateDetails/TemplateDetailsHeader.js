@@ -28,6 +28,7 @@ const TemplateDetailsHeader = ( props ) => {
 	} = props.item;
 
 	const { purchased, unlocked, hasAllAccess } = select(store).getUserInfo();
+	const cloudStarted =  select( store ).getCloudStarted();
 	const [ isPurchased, setIsPurchased ] = useState(false);
 	const [ isUnlocked, setIsUnlocked ] = useState(false);
 
@@ -95,48 +96,58 @@ const TemplateDetailsHeader = ( props ) => {
 				</div>
 			</div>
 			<div className="templatiq__details__header__action">
-				{ price > 0 && !isUnlocked ? (
-					<span className="templatiq__details__header__action__link templatiq-badge templatiq-badge-dark">
-						<ReactSVG
-							src={ crownIcon }
-							width={ 16 }
-							height={ 16 }
-						/>
-						{__( "PRO", 'templatiq' )}
-					</span>
-				) : (
-					''
-				) }
+				{
+					!cloudStarted && 
+					<>
+						{ price > 0 && !isUnlocked ? (
+							<span className="templatiq__details__header__action__link templatiq-badge templatiq-badge-dark">
+								<ReactSVG
+									src={ crownIcon }
+									width={ 16 }
+									height={ 16 }
+								/>
+								{__( "PRO", 'templatiq' )}
+							</span>
+						) : (
+							''
+						) }
 
-				<Bookmark
-					item={ props.item }
-					type="single"
-					onFavoriteCountUpdate={ countFavorite }
-				/>
+						<Bookmark
+							item={ props.item }
+							type="single"
+							onFavoriteCountUpdate={ countFavorite }
+						/> 
+					</>
+				}
 
 				<a
 					href={ preview_link }
 					target="_blank"
-					className="templatiq__details__header__action__link live-demo-btn templatiq-btn templatiq-btn-white"
+					className={`templatiq__details__header__action__link live-demo-btn templatiq-btn ${!cloudStarted ? 'templatiq-btn-white' : 'templatiq-btn-primary'}`}
 				>
 					{__( "Live Demo", 'templatiq' )}
 				</a>
-				{ price > 0 && !(isPurchased || isUnlocked || hasAllAccess) ? (
-					<a
-						href={getPurchaseConnectAccountURL(slug, template_id )} target='_blank'
-						className="templatiq__details__header__action__link purchase-btn templatiq-btn templatiq-btn-primary"
-					>
-						<ReactSVG src={ cartIcon } width={ 16 } height={ 16 } />
-						{__( "Buy this item", 'templatiq' )} ${ price }
-					</a>
-				) : (
-					<InsertTemplate
-						item={ props.item }
-						className={
-							'templatiq__details__header__action__link insert-btn templatiq-btn templatiq-btn-success'
-						}
-					/>
-				) }
+				{
+					!cloudStarted &&
+					<> 
+						{ price > 0 && !(isPurchased || isUnlocked || hasAllAccess) ? (
+							<a
+								href={getPurchaseConnectAccountURL(slug, template_id )} target='_blank'
+								className="templatiq__details__header__action__link purchase-btn templatiq-btn templatiq-btn-primary"
+							>
+								<ReactSVG src={ cartIcon } width={ 16 } height={ 16 } />
+								{__( "Buy this item", 'templatiq' )} ${ price }
+							</a>
+						) : (
+							<InsertTemplate
+								item={ props.item }
+								className={
+									'templatiq__details__header__action__link insert-btn templatiq-btn templatiq-btn-success'
+								}
+							/>
+						) }
+					</>
+				}
 			</div>
 		</TemplateDetailsHeaderStyle>
 	);

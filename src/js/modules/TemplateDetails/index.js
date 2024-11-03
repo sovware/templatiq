@@ -13,6 +13,7 @@ export default function TemplateDetailsModule( props ) {
 	const { templateSlug } = props;
 	const [ loading, setLoading ] = useState( true );
 	const [ templateDetails, setTemplateDetails ] = useState();
+	const cloudStarted =  select( store ).getCloudStarted();
 
 	const fetchData = async () => {
 		try {
@@ -55,7 +56,7 @@ export default function TemplateDetailsModule( props ) {
 				<ContentLoading style={ { margin: 0, minHeight: 'unset' } } />
 			) : (
 				templateDetails && (
-					<TemplateDetailsStyle className="templatiq__details">
+					<TemplateDetailsStyle className={`templatiq__details ${cloudStarted ? 'templatiq__details--cloud' : ''}`}>
 						<TemplateDetailsHeader item={ templateDetails } />
 						<div className="templatiq__details__wrapper">
 							<TemplateDetailsContent item={ templateDetails } />

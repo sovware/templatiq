@@ -13,9 +13,6 @@ export const getDemo = async ( id, dispatch ) => {
 	} )
 		.then( ( response ) => response.json() )
 		.then( ( response ) => {
-			
-			console.log('getDemo response : ',  response );
-
 			if ( response.success ) {
 				starterTemplates.previewUrl = response.data[ 'templatiq-site-url' ];
 

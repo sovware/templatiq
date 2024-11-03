@@ -28,6 +28,7 @@ const SingleTemplate = ( item ) => {
 	} = item;
 
 	const { purchased, unlocked, hasAllAccess } = select(store).getUserInfo();
+	const cloudStarted =  select( store ).getCloudStarted();
 
 	const [ isDropdownOpen, setDropdownOpen ] = useState( false );
 	const [ imageLoaded, setImageLoaded ] = useState( false );
@@ -120,15 +121,18 @@ const SingleTemplate = ( item ) => {
 						>
 							{__( "Live Demo", 'templatiq' )}
 						</a>
-						<InsertTemplate
-							item={ item }
-							isPro={ parseFloat(price) > 0 }
-							templateRef={ templateRef }
-							className={
-								'templatiq__template__single__info__action__link insert-btn tmTemplateLibrary__insert-button'
-							}
-							innerText={type === 'pack' ? "Insert Full Site" : "Insert"}
-						/>
+						{
+							!cloudStarted && 
+							<InsertTemplate
+								item={ item }
+								isPro={ parseFloat(price) > 0 }
+								templateRef={ templateRef }
+								className={
+									'templatiq__template__single__info__action__link insert-btn tmTemplateLibrary__insert-button'
+								}
+								innerText={type === 'pack' ? "Insert Full Site" : "Insert"}
+							/>
+						}
 					</div>
 					<div className="templatiq__template__single__info__required"></div>
 				</div>
@@ -203,7 +207,10 @@ const SingleTemplate = ( item ) => {
 							{ number_of_downloads ? handleMaximumCount(number_of_downloads) : '' }
 						</span>
 
-						<Bookmark item={ item } />
+						{
+							!cloudStarted && 
+							<Bookmark item={ item } />
+						}
 					</div>
 					<Link to={ `/template/${ slug }` } className="templatiq-btn templatiq-btn-primary-transparent">
 						{ __( 'View Details', 'templatiq' ) }

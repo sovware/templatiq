@@ -85,6 +85,42 @@ const HeaderStyle = Styled.div`
         path {
             fill: var(--templatiq-body-color);
         }
+        &.templatiq-btn-cloud {
+            padding: 0 16px;
+            font-weight: 500;
+            color: var(--templatiq-body-color);
+            background-color: var(--templatiq-sec-color);
+            path {
+                fill: var(--templatiq-body-color);
+            }
+            &:hover {
+                color: var(--templatiq-white-color);
+                background-color: var(--templatiq-primary-color);
+                path {
+                    fill: var(--templatiq-white-color);
+                }
+            }
+        }
+    }
+
+    &.templatiq__header--cloud {
+        height: auto;
+        padding: 20px 32px;
+        margin: 0 0 17px;
+        border-radius: 16px;
+        background-color: var(--templatiq-white-color);
+        .templatiq__header__content {
+            margin: 0;
+        }
+    }
+    
+    &.templatiq__header--cloud-details {
+        height: auto;
+        background: transparent;
+        box-shadow: none;
+        .templatiq__header__details {
+            margin: 0;
+        }
     }
 `;
 const HeaderNavStyle = Styled.ul`

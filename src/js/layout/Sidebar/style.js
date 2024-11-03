@@ -42,6 +42,11 @@ const SidebarStyle = Styled.div`
     .templatiq__sidebar__wrapper {
         padding: 20px 0;
     }
+
+    &.templatiq__sidebar--cloud {
+        border-radius: 16px;
+        box-shadow: 0 7px 20px 5px var(--templatiq-dark-color) 05;
+    }
     
 
 `;

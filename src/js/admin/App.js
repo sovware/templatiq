@@ -22,6 +22,7 @@ export default function App() {
 	const [ dir, setDir ] = useState( 'ltr' );
 	const [ dataFetched, setDataFetched ] = useState( false );
 	const [ editorEnabled, setEditorEnabled ] = useState( false );
+	const [ cloudEnabled, setCloudEnabled ] = useState( false );
 
 	const theme = {
 		direction: dir,
@@ -68,7 +69,14 @@ export default function App() {
 
 		// Set the state variable based on the presence of Elementor Editor
 		setEditorEnabled( isElementorEditorActive );
+
+		// Set the cloud status based on the environment
+		setCloudEnabled( templatiq_obj.env === 'cloud' );
 	}, [] );
+
+	useEffect( () => {
+		dispatch( store ).setCloudStarted( cloudEnabled );
+	}, [ cloudEnabled ] );
 
 	const adminRoutes = applyFilters( 'templatiq_admin_routes', [
 		{

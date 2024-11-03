@@ -118,6 +118,10 @@ button {
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
   }
+  &.templatiq-cloud {
+    background: transparent;
+    margin: 0;
+  }
 }
 .elementor-editor-active {
   .templatiq {
@@ -358,6 +362,7 @@ button {
     flex: 1;
     width: 100%;
     font-size: 14px;
+    line-height: 18px;
     font-weight: 500;
     position: relative;
     color: var(--templatiq-gray-color);
@@ -391,6 +396,7 @@ button {
   }
   .templatiq__checkbox__count {
     text-align: end;
+    line-height: 18px;
     color: var(--templatiq-gray-color);
   }
 
