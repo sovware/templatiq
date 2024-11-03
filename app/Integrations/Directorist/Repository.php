@@ -72,6 +72,10 @@ class Repository {
 		$types       = get_option( 'templatiq_sites_import_data', true )['directory-types'];
 		$ids_mapping = [];
 
+		if ( ! $types ) {
+			return;
+		}
+
 		foreach ( $types as $type ) {
 			if ( term_exists( $type['name'], 'atbdp_listing_types' ) ) {
 				continue;
