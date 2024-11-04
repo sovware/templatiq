@@ -3,7 +3,7 @@ Contributors: wpwax
 Tags: templates, starter template, design, quick starter, directory websites
 Requires at least: 6.0
 Tested up to: 6.6.2
-Stable tag: 0.1.7
+Stable tag: 0.1.8
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -90,8 +90,11 @@ At Templatiq, user privacy is our top priority. As a premier marketplace for tem
 
 == Changelog ==
 
+= 0.1.8(beta) - Nov 04, 2024 =
+* Improve: Template Details
+
 = 0.1.7(beta) - Oct 28, 2024 =
-* Add: AppSero Tracking Consent
+* Add: AppSero Consent
 * Removed: Manage Account 
 
 = 0.1.6(beta) - Oct 27, 2024 =

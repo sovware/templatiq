@@ -94,9 +94,9 @@ const Sidebar = (props) => {
 			})).filter(item => item.count > 0);
 
 		const newGroupedCategories = {};
-
+		
 		// Filter categories with at least one non-zero item
-		Object.entries(data.categories).forEach(([groupKey, groupValue]) => {
+		data.categories && Object.entries(data.categories).forEach(([groupKey, groupValue]) => {
 			const filteredItems = getCategoryItems(groupKey, groupValue);
 			if (filteredItems.length > 0) {
 				newGroupedCategories[groupKey] = filteredItems;
