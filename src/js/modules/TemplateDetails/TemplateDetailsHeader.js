@@ -127,27 +127,24 @@ const TemplateDetailsHeader = ( props ) => {
 				>
 					{__( "Live Demo", 'templatiq' )}
 				</a>
-				{
-					!cloudStarted &&
-					<> 
-						{ price > 0 && !(isPurchased || isUnlocked || hasAllAccess) ? (
-							<a
-								href={getPurchaseConnectAccountURL(slug, template_id )} target='_blank'
-								className="templatiq__details__header__action__link purchase-btn templatiq-btn templatiq-btn-primary"
-							>
-								<ReactSVG src={ cartIcon } width={ 16 } height={ 16 } />
-								{__( "Buy this item", 'templatiq' )} ${ price }
-							</a>
-						) : (
-							<InsertTemplate
-								item={ props.item }
-								className={
-									'templatiq__details__header__action__link insert-btn templatiq-btn templatiq-btn-success'
-								}
-							/>
-						) }
-					</>
-				}
+				
+				{ price > 0 && !(isPurchased || isUnlocked || hasAllAccess) ? (
+					<a
+						href={getPurchaseConnectAccountURL(slug, template_id )} target='_blank'
+						className="templatiq__details__header__action__link purchase-btn templatiq-btn templatiq-btn-primary"
+					>
+						<ReactSVG src={ cartIcon } width={ 16 } height={ 16 } />
+						{__( "Buy this item", 'templatiq' )} ${ price }
+					</a>
+				) : (
+					!cloudStarted ?
+					<InsertTemplate
+						item={ props.item }
+						className={
+							'templatiq__details__header__action__link insert-btn templatiq-btn templatiq-btn-success'
+						}
+					/> : null
+				) }
 			</div>
 		</TemplateDetailsHeaderStyle>
 	);
