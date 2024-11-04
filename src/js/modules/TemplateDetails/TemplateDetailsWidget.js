@@ -1,10 +1,8 @@
 import store from '@store/index';
 import { select } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
-import ReactSVG from 'react-inlinesvg';
 import { TemplateDetailsWidgetStyle } from './style';
 
-import fireIcon from '@icon/fire.svg';
 import { useState } from '@wordpress/element';
 
 const TemplateDetailsWidget = ( props ) => {
@@ -43,7 +41,7 @@ const TemplateDetailsWidget = ( props ) => {
 
 	return (
 		<TemplateDetailsWidgetStyle className="templatiq__details__widget">
-			{ !hasAllAccess ? (
+			{/* { !hasAllAccess ? (
 				<div className="templatiq__details__widget__single templatiq__details__widget__subscribe">
 					<div className="templatiq__details__widget__subscribe__info">
 						<h3 className="templatiq__details__widget__subscribe__title">
@@ -71,7 +69,7 @@ const TemplateDetailsWidget = ( props ) => {
 				</div>
 			) : (
 				''
-			) }
+			) } */}
 
 			<div className="templatiq__details__widget__single templatiq__details__widget__quickinfo">
 				<div className="templatiq__details__widget__header">
