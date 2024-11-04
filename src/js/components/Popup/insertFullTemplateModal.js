@@ -42,6 +42,14 @@ const insertFullTemplateModal = ( { item, onClose } ) => {
 		} );
 	};
 
+	const handlePixetiqTheme = (e) => {
+		pixetiqStatus === 'not-installed'
+			? installTheme(e)
+			: pixetiqStatus === 'installed-but-inactive' 
+			? activateTheme(e)
+			: null
+	}
+
 	const redirectImportPage = (e) => {
 		window.location.href = `?page=templatiq-library&template_id=${template_id}&ci=1`;
 		closeInsertTemplateModal(e);
@@ -86,14 +94,8 @@ const insertFullTemplateModal = ( { item, onClose } ) => {
 						<div className="templatiq__modal__actions">
 							<button
 								className='templatiq-btn templatiq-btn-primary'
-								onClick={
-									pixetiqStatus === 'not-installed'
-										? installTheme
-										: pixetiqStatus === 'installed-but-inactive' 
-										? activateTheme
-										: null
-								}
-								disabled={themeInstalling}
+								onClick={ (e) => handlePixetiqTheme(e) }
+								disabled={ themeInstalling }
 							>
 								{ pixetiqStatus === 'not-installed'
 										? themeInstalling ? __( 'Installing...' , 'templatiq' ) : __( 'Yes, Install' , 'templatiq' )
@@ -103,7 +105,7 @@ const insertFullTemplateModal = ( { item, onClose } ) => {
 								!themeInstalling && 
 								<button
 									className='templatiq-btn'
-									onClick={redirectImportPage}
+									onClick={ redirectImportPage }
 								> 
 									{__( 'Continue without ' , 'templatiq' )} {pixetiqStatus === 'not-installed' ? 'installing' : 'activating'}	
 								</button>
