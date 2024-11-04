@@ -123,14 +123,14 @@ const TemplateDetailsHeader = ( props ) => {
 				<a
 					href={ preview_link }
 					target="_blank"
-					className={`templatiq__details__header__action__link live-demo-btn templatiq-btn ${!cloudStarted ? 'templatiq-btn-white' : 'templatiq-btn-primary'}`}
+					className={`templatiq__details__header__action__link live-demo-btn templatiq-btn ${!cloudStarted ? 'templatiq-btn-white' : price > 0 && !(isPurchased || isUnlocked || hasAllAccess) ? 'templatiq-btn-transparent' : 'templatiq-btn-primary'}`}
 				>
 					{__( "Live Demo", 'templatiq' )}
 				</a>
 				
 				{ price > 0 && !(isPurchased || isUnlocked || hasAllAccess) ? (
 					<a
-						href={getPurchaseConnectAccountURL(slug, template_id )} target='_blank'
+						href={getPurchaseConnectAccountURL( slug, template_id, cloudStarted )} target='_blank'
 						className="templatiq__details__header__action__link purchase-btn templatiq-btn templatiq-btn-primary"
 					>
 						<ReactSVG src={ cartIcon } width={ 16 } height={ 16 } />
