@@ -130,7 +130,7 @@ const TemplateDetailsHeader = ( props ) => {
 				
 				{ price > 0 && !(isPurchased || isUnlocked || hasAllAccess) ? (
 					<a
-						href={getPurchaseConnectAccountURL(slug, template_id )} target='_blank'
+						href={getPurchaseConnectAccountURL( slug, template_id, cloudStarted )} target='_blank'
 						className="templatiq__details__header__action__link purchase-btn templatiq-btn templatiq-btn-primary"
 					>
 						<ReactSVG src={ cartIcon } width={ 16 } height={ 16 } />
