@@ -123,7 +123,7 @@ const TemplateDetailsHeader = ( props ) => {
 				<a
 					href={ preview_link }
 					target="_blank"
-					className={`templatiq__details__header__action__link live-demo-btn templatiq-btn ${!cloudStarted ? 'templatiq-btn-white' : 'templatiq-btn-primary'}`}
+					className={`templatiq__details__header__action__link live-demo-btn templatiq-btn ${!cloudStarted ? 'templatiq-btn-white' : price > 0 && !(isPurchased || isUnlocked || hasAllAccess) ? 'templatiq-btn-transparent' : 'templatiq-btn-primary'}`}
 				>
 					{__( "Live Demo", 'templatiq' )}
 				</a>

@@ -230,6 +230,22 @@ button {
       background-color: var(--templatiq-primary-color);
     }
   }
+  &.templatiq-btn-transparent {
+    background: transparent;
+    color: var(--templatiq-primary-color);
+    border: 1px solid var(--templatiq-primary-color);
+    path {
+      fill: var(--templatiq-primary-color);
+      transition: fill 0.3s ease;
+    }
+    &:hover {
+      color: var(--templatiq-white-color);
+      background: var(--templatiq-primary-color);
+      path {
+        fill: var(--templatiq-white-color);
+      }
+    }
+  }
   &.templatiq-btn-success {
     background-color: var(--templatiq-success-color);
     color: var(--templatiq-white-color);
