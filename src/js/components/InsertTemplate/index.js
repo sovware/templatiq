@@ -70,30 +70,28 @@ const InsertTemplate = ({
 		setIsUnlocked(isItemUnlocked(template_id));
 
 		await handlePlugins(validPlugins);
-
+		
 		if (insertFullTemplate) {
-			isPro && !isItemPurchased(template_id) && !isItemUnlocked(template_id) && !pixetiqInstalled ?
-				renderModal()
-				: currentBuilder !== "bricks" ? 
-					(
-						pixetiqInstalled ? 
+			// Check if the template is a full template, Pro and not accessible by user redirect to the import page
+			if (isPro){
+				if ( !isItemPurchased(template_id) && !isItemUnlocked(template_id) && !hasAllAccess ) {
+					renderModal();
+				} else {
+					pixetiqInstalled ? 
 						window.location.href= importURL
+							: renderModal()
+				}
+			} else if (currentBuilder === "bricks") {
+				bricksInstalled ? 
+					window.location.href= importURL
 						: renderModal()
-					) : (
-							bricksInstalled ? 
-								window.location.href= importURL
-								: renderModal()
-						)
-		} else if (isPro || installDirectorist) {
-			renderModal();
-		} else {
-			try {
-				// await handlePlugins(validPlugins);
-				renderModal();
-			} catch (error) {
-				// Handle error if needed
-				console.error('Error fetching installable plugins:', error);
+			} else {
+				pixetiqInstalled ? 
+					window.location.href= importURL
+						: renderModal()
 			}
+		} else {
+			renderModal();
 		}
 	};
 
