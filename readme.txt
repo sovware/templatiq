@@ -90,8 +90,11 @@ At Templatiq, user privacy is our top priority. As a premier marketplace for tem
 
 == Changelog ==
 
-= 0.1.8(beta) - Nov 04, 2024 =
+= 0.1.8(beta) - Nov 05, 2024 =
 * Improve: Template Details
+* Fix: Authentication Issue
+* Fix: Bricks Menu Importing Issue
+* Fix: Directory Type Missing Error
 
 = 0.1.7(beta) - Oct 28, 2024 =
 * Add: AppSero Consent
