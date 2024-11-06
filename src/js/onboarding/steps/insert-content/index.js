@@ -182,7 +182,7 @@ const InsertContent = () => {
 										<ContentLoading />
 									</div> : 
 									(
-										allRequiredPlugins?.length > 0 &&
+										(allRequiredPlugins?.length > 0 || notInstallablePlugins?.length > 0) && 
 										<div className="fullsite-setup-wizard__content__import__wrapper">
 											<h3 className="fullsite-setup-wizard__content__import__title">Install required plugins</h3>
 											{
