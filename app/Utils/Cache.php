@@ -19,8 +19,8 @@ class Cache {
 		return [];
 	}
 
-	public static function set( array $args, array $data ): bool {
-		return Transient::set( self::key( $args ), $data, MINUTE_IN_SECONDS * 5 );
+	public static function set( array $args, array $data, int $expiration = DAY_IN_SECONDS * 2 ): bool {
+		return Transient::set( self::key( $args ), $data, $expiration );
 	}
 
 	public static function clear( array $args ): bool {
