@@ -244,7 +244,7 @@ const ImportSite = () => {
 		percentage += 2;
 		dispatch( {
 			type: 'set',
-			importStatus: __( 'Installing Required Plugins.', 'templatiq-sites' ),
+			importStatus: __( 'Installing Required Plugins.', 'templatiq' ),
 			importPercent: percentage,
 		} );
 
@@ -270,7 +270,7 @@ const ImportSite = () => {
 									// translators: Plugin Name.
 									__(
 										'%1$s plugin installed successfully.',
-										'templatiq-sites'
+										'templatiq'
 									),
 									plugin.name
 								),
@@ -328,7 +328,7 @@ const ImportSite = () => {
 									// translators: Plugin Name.
 									__(
 										'%1$s plugin installed successfully.',
-										'templatiq-sites'
+										'templatiq'
 									),
 									plugin.name
 								),
@@ -374,12 +374,12 @@ const ImportSite = () => {
 			type: 'set',
 			importStatus: sprintf(
 				// translators: Plugin Name.
-				__( 'Activating %1$s plugin.', 'templatiq-sites' ),
+				__( 'Activating %1$s plugin.', 'templatiq' ),
 				plugin.name
 			),
 			importPercent: percentage,
 		} );
-		console.log( plugin.slug + ' - activating' );
+		console.log( plugin.slug + ' - activating', percentage );
 
 		const activatePluginOptions = new FormData();
 		activatePluginOptions.append( 'action', 'templatiq-required-plugin-activate' );
@@ -415,7 +415,7 @@ const ImportSite = () => {
 							type: 'set',
 							importStatus: sprintf(
 								// translators: Plugin Name.
-								__( '%1$s activated.', 'templatiq-sites' ),
+								__( '%1$s activated.', 'templatiq' ),
 								plugin.name
 							),
 							importPercent: percentage,
@@ -435,7 +435,7 @@ const ImportSite = () => {
 							// translators: Plugin name.
 							__(
 								`JSON_Error: Could not activate the required plugin - %1$s.`,
-								'templatiq-sites'
+								'templatiq'
 							),
 							plugin.name
 						),
@@ -446,7 +446,7 @@ const ImportSite = () => {
 							// translators: Support article URL.
 							__(
 								'<a href="%1$s">Read article</a> to resolve the issue and continue importing template.',
-								'templatiq-sites'
+								'templatiq'
 							),
 							'https://templatiq.com/docs/enable-debugging-in-wordpress/#how-to-use-debugging'
 						),
@@ -474,7 +474,7 @@ const ImportSite = () => {
 						// translators: Plugin name.
 						__(
 							`Could not activate the required plugin - %1$s.`,
-							'templatiq-sites'
+							'templatiq'
 						),
 						plugin.name
 					),
@@ -485,7 +485,7 @@ const ImportSite = () => {
 						// translators: Support article URL.
 						__(
 							'<a href="%1$s">Read article</a> to resolve the issue and continue importing template.',
-							'templatiq-sites'
+							'templatiq'
 						),
 						'https://wptemplatiq.com/docs/enable-debugging-in-wordpress/#how-to-use-debugging'
 					),
@@ -495,7 +495,7 @@ const ImportSite = () => {
 	};
 
 	/**
-	 * 1. Reset.
+	 * 1.1 Reset. 2
 	 * The following steps are covered here.
 	 * 		1. Settings backup file store.
 	 * 		2. Reset Customizer
@@ -511,7 +511,7 @@ const ImportSite = () => {
 		percentage += 2;
 		dispatch( {
 			type: 'set',
-			importStatus: __( 'Resetting site.', 'templatiq-sites' ),
+			importStatus: __( 'Resetting site.', 'templatiq' ),
 			importPercent: percentage,
 		} );
 
@@ -525,13 +525,13 @@ const ImportSite = () => {
 		 * Settings backup file store.
 		 */
 		backupFileStatus = await performSettingsBackup();
-		console.log('Settings backup file store' );
+		console.log('Settings backup file store', percentage );
 		/**
 		 * Reset Customizer.
 		 */
 		if ( backupFileStatus ) {
 			resetCustomizerStatus = await performResetCustomizer();
-			console.log('Reset Customizer.' );
+			console.log('Reset Customizer.', percentage );
 		}
 
 		/**
@@ -539,7 +539,7 @@ const ImportSite = () => {
 		 */
 		if ( resetCustomizerStatus ) {
 			resetOptionsStatus = await performResetSiteOptions();
-			console.log('Reset Site Options.' );
+			console.log('Reset Site Options.', percentage );
 		}
 
 		/**
@@ -547,7 +547,7 @@ const ImportSite = () => {
 		 */
 		if ( resetOptionsStatus ) {
 			resetTermsStatus = await performResetTermsAndForms();
-			console.log('Reset Terms, Forms.' );
+			console.log('Reset Terms, Forms.', percentage );
 		}
 
 		/**
@@ -555,7 +555,7 @@ const ImportSite = () => {
 		 */
 		if ( resetTermsStatus ) {
 			resetPostsStatus = await performResetPosts();
-			console.log('Reset Posts.' );
+			console.log('Reset Posts.', percentage );
 		}
 
 		if (
@@ -573,10 +573,10 @@ const ImportSite = () => {
 		dispatch( {
 			type: 'set',
 			importPercent: percentage >= 50 ? 50 : percentage,
-			importStatus: __( 'Reset for old website is done.', 'templatiq-sites' ),
+			importStatus: __( 'Reset for old website is done.', 'templatiq' ),
 		} );
 
-		console.log('Reset for old website is done.')
+		console.log('Reset for old website is done.', percentage )
 		return true;
 	};
 
@@ -590,7 +590,7 @@ const ImportSite = () => {
 
 		dispatch( {
 			type: 'set',
-			importStatus: __( `Resetting posts.`, 'templatiq-sites' ),
+			importStatus: __( `Resetting posts.`, 'templatiq' ),
 		} );
 
 		const formOption = new FormData();
@@ -621,7 +621,7 @@ const ImportSite = () => {
 					}
 				} catch ( error ) {
 					report(
-						__( 'Resetting posts failed.', 'templatiq-sites' ),
+						__( 'Resetting posts failed.', 'templatiq' ),
 						'',
 						error,
 						'',
@@ -639,7 +639,7 @@ const ImportSite = () => {
 			} )
 			.catch( ( error ) => {
 				report(
-					__( 'Resetting posts failed.', 'templatiq-sites' ),
+					__( 'Resetting posts failed.', 'templatiq' ),
 					'',
 					error?.message,
 					'',
@@ -657,7 +657,7 @@ const ImportSite = () => {
 	const performSettingsBackup = async () => {
 		dispatch( {
 			type: 'set',
-			importStatus: __( 'Taking settings backup.', 'templatiq-sites' ),
+			importStatus: __( 'Taking settings backup.', 'templatiq' ),
 		} );
 
 		const customizerContent = new FormData();
@@ -683,7 +683,7 @@ const ImportSite = () => {
 			} )
 			.catch( ( error ) => {
 				report(
-					__( 'Taking settings backup failed.', 'templatiq-sites' ),
+					__( 'Taking settings backup failed.', 'templatiq' ),
 					'',
 					error?.message,
 					'',
@@ -701,7 +701,7 @@ const ImportSite = () => {
 	const performResetCustomizer = async () => {
 		dispatch( {
 			type: 'set',
-			importStatus: __( 'Resetting customizer.', 'templatiq-sites' ),
+			importStatus: __( 'Resetting customizer.', 'templatiq' ),
 		} );
 
 		const customizerContent = new FormData();
@@ -730,7 +730,7 @@ const ImportSite = () => {
 					throw response.data;
 				} catch ( error ) {
 					report(
-						__( 'Resetting customizer failed.', 'templatiq-sites' ),
+						__( 'Resetting customizer failed.', 'templatiq' ),
 						'',
 						error?.message,
 						'',
@@ -743,7 +743,7 @@ const ImportSite = () => {
 			} )
 			.catch( ( error ) => {
 				report(
-					__( 'Resetting customizer failed.', 'templatiq-sites' ),
+					__( 'Resetting customizer failed.', 'templatiq' ),
 					'',
 					error?.message,
 					'',
@@ -761,7 +761,7 @@ const ImportSite = () => {
 	const performResetSiteOptions = async () => {
 		dispatch( {
 			type: 'set',
-			importStatus: __( 'Resetting site options.', 'templatiq-sites' ),
+			importStatus: __( 'Resetting site options.', 'templatiq' ),
 		} );
 
 		const siteOptions = new FormData();
@@ -787,7 +787,7 @@ const ImportSite = () => {
 					throw data.data;
 				} catch ( error ) {
 					report(
-						__( 'Resetting site options Failed.', 'templatiq-sites' ),
+						__( 'Resetting site options Failed.', 'templatiq' ),
 						'',
 						error?.message,
 						'',
@@ -799,7 +799,7 @@ const ImportSite = () => {
 			} )
 			.catch( ( error ) => {
 				report(
-					__( 'Resetting site options Failed.', 'templatiq-sites' ),
+					__( 'Resetting site options Failed.', 'templatiq' ),
 					'',
 					error?.message,
 					'',
@@ -821,7 +821,7 @@ const ImportSite = () => {
 
 		dispatch( {
 			type: 'set',
-			importStatus: __( 'Resetting terms and forms.', 'templatiq-sites' ),
+			importStatus: __( 'Resetting terms and forms.', 'templatiq' ),
 		} );
 
 		const status = await fetch( ajaxurl, {
@@ -845,7 +845,7 @@ const ImportSite = () => {
 					report(
 						__(
 							'Resetting terms and forms failed.',
-							'templatiq-sites'
+							'templatiq'
 						),
 						'',
 						error,
@@ -858,7 +858,7 @@ const ImportSite = () => {
 			} )
 			.catch( ( error ) => {
 				report(
-					__( 'Resetting terms and forms failed.', 'templatiq-sites' ),
+					__( 'Resetting terms and forms failed.', 'templatiq' ),
 					'',
 					error?.message,
 					'',
@@ -880,7 +880,7 @@ const ImportSite = () => {
 
 		dispatch( {
 			type: 'set',
-			importStatus: __( 'Gathering posts for deletions.', 'templatiq-sites' ),
+			importStatus: __( 'Gathering posts for deletions.', 'templatiq' ),
 		} );
 
 		let err = '';
@@ -914,21 +914,21 @@ const ImportSite = () => {
 		if ( status ) {
 			dispatch( {
 				type: 'set',
-				importStatus: __( 'Resetting posts done.', 'templatiq-sites' ),
+				importStatus: __( 'Resetting posts done.', 'templatiq' ),
 			} );
 		} else {
-			report( __( 'Resetting posts failed.', 'templatiq-sites' ), '', err );
+			report( __( 'Resetting posts failed.', 'templatiq' ), '', err );
 		}
 		return status;
 	};
 
 	/**
-	 * 2. Import Directory Types
+	 * 1.2. Import Directory Types
 	 */
 	const importDirectoryTypes = async () => {
 		dispatch( {
 			type: 'set',
-			importStatus: __( 'Importing Directory Types.', 'templatiq-sites' ),
+			importStatus: __( 'Importing Directory Types.', 'templatiq' ),
 		} );
 
 		const types = new FormData();
@@ -949,6 +949,8 @@ const ImportSite = () => {
 							type: 'set',
 							importPercent: percentage,
 						} );
+
+						console.log('importDirectoryTypes data  : ', percentage );
 						return true;
 					}
 					throw data.data;
@@ -956,7 +958,7 @@ const ImportSite = () => {
 					report(
 						__(
 							'Importing Directory Types failed due to parse JSON error.',
-							'templatiq-sites'
+							'templatiq'
 						),
 						'',
 						error,
@@ -969,7 +971,7 @@ const ImportSite = () => {
 			} )
 			.catch( ( error ) => {
 				report(
-					__( 'Importing Directory Types Failed.', 'templatiq-sites' ),
+					__( 'Importing Directory Types Failed.', 'templatiq' ),
 					'',
 					error
 				);
@@ -979,7 +981,7 @@ const ImportSite = () => {
 	};
 
 	/**
-	 * 3. Import Site Content XML.
+	 * 1.3. Import Site Content XML.
 	 */
 	const importSiteContent = async () => {
 		if ( ! contentImportFlag ) {
@@ -997,10 +999,10 @@ const ImportSite = () => {
 		if ( 'null' === wxrUrl || '' === wxrUrl ) {
 			const errorTxt = __(
 				'The XML URL for the site content is empty.',
-				'templatiq-sites'
+				'templatiq'
 			);
 			report(
-				__( 'Importing Site Content Failed', 'templatiq-sites' ),
+				__( 'Importing Site Content Failed', 'templatiq' ),
 				'',
 				errorTxt,
 				'',
@@ -1012,7 +1014,7 @@ const ImportSite = () => {
 
 		dispatch( {
 			type: 'set',
-			importStatus: __( 'Importing Site Content.', 'templatiq-sites' ),
+			importStatus: __( 'Importing Site Content.', 'templatiq' ),
 		} );
 
 		const content = new FormData();
@@ -1043,7 +1045,7 @@ const ImportSite = () => {
 					report(
 						__(
 							'Importing Site Content failed due to parse JSON error.',
-							'templatiq-sites'
+							'templatiq'
 						),
 						'',
 						error,
@@ -1056,7 +1058,7 @@ const ImportSite = () => {
 			} )
 			.catch( ( error ) => {
 				report(
-					__( 'Importing Site Content Failed.', 'templatiq-sites' ),
+					__( 'Importing Site Content Failed.', 'templatiq' ),
 					'',
 					error
 				);
@@ -1111,7 +1113,7 @@ const ImportSite = () => {
 			report(
 				__(
 					'Importing Site Content Failed. - Import Process Interrupted',
-					'templatiq-sites'
+					'templatiq'
 				),
 				'',
 				error
@@ -1131,7 +1133,7 @@ const ImportSite = () => {
 				type: 'set',
 				importStatus: sprintf(
 					// translators: Response importMessage
-					__( 'Importing - %1$s', 'templatiq-sites' ),
+					__( 'Importing - %1$s', 'templatiq' ),
 					importMessage
 				),
 			} );
@@ -1139,12 +1141,12 @@ const ImportSite = () => {
 	};
 
 	/**
-	 * 4. Import Site Option table values.
+	 * 2.1 Import Site Option table values.
 	 */
 	const importSiteOptions = async () => {
 		dispatch( {
 			type: 'set',
-			importStatus: __( 'Importing Site Options.', 'templatiq-sites' ),
+			importStatus: __( 'Importing Site Options.', 'templatiq' ),
 		} );
 
 		const siteOptions = new FormData();
@@ -1172,7 +1174,7 @@ const ImportSite = () => {
 					report(
 						__(
 							'Importing Site Options failed due to parse JSON error.',
-							'templatiq-sites'
+							'templatiq'
 						),
 						'',
 						error,
@@ -1185,7 +1187,7 @@ const ImportSite = () => {
 			} )
 			.catch( ( error ) => {
 				report(
-					__( 'Importing Site Options Failed.', 'templatiq-sites' ),
+					__( 'Importing Site Options Failed.', 'templatiq' ),
 					'',
 					error
 				);
@@ -1196,7 +1198,7 @@ const ImportSite = () => {
 	};
 
 	/**
-	 * 5. Import Site Widgets.
+	 * 2.2 Import Site Widgets.
 	 */
 	const importWidgets = async () => {
 		if ( ! widgetImportFlag ) {
@@ -1260,7 +1262,7 @@ const ImportSite = () => {
 	};
 
 	/**
-	 * 6. Update the website as per the customizations selected by the user.
+	 * 2.3. Update the website as per the customizations selected by the user.
 	 * The following steps are covered here.
 	 * 		a. Update Logo
 	 * 		b. Update Color Palette
@@ -1272,12 +1274,12 @@ const ImportSite = () => {
 	};
 
 	/**
-	 * 7. Final setup - Invoking Batch process.
+	 * 2.4. Final setup - Invoking Batch process.
 	 */
 	const importDone = async () => {
 		dispatch( {
 			type: 'set',
-			importStatus: __( 'Final finishing.', 'templatiq-sites' ),
+			importStatus: __( 'Final finishing.', 'templatiq' ),
 		} );
 
 		const finalSteps = new FormData();
@@ -1309,7 +1311,7 @@ const ImportSite = () => {
 					report(
 						__(
 							'Final finishing failed due to parse JSON error.',
-							'templatiq-sites'
+							'templatiq'
 						),
 						'',
 						error,
@@ -1331,7 +1333,7 @@ const ImportSite = () => {
 			} )
 			.catch( ( error ) => {
 				report(
-					__( 'Final finishing failed.', 'templatiq-sites' ),
+					__( 'Final finishing failed.', 'templatiq' ),
 					'',
 					error
 				);
@@ -1345,7 +1347,7 @@ const ImportSite = () => {
 		if ( importPercent < 100 ) {
 			event.returnValue = __(
 				'Are you sure you want to cancel the site import process?',
-				'templatiq-sites'
+				'templatiq'
 			);
 			return event;
 		}
@@ -1409,7 +1411,7 @@ const ImportSite = () => {
 				type: 'set',
 				importStart: true,
 				importPercent: percentage,
-				importStatus: __('Starting Import.', 'templatiq-sites'),
+				importStatus: __('Starting Import.', 'templatiq'),
 			});
 
 			dispatch({
@@ -1507,14 +1509,14 @@ const ImportSite = () => {
 					<div className="middle-content middle-content-import">
 						{ importPercent === 100 ? (
 							<h1 className="import-done-congrats">
-								{ __( 'Congratulations', 'templatiq-sites' ) }
+								{ __( 'Congratulations', 'templatiq' ) }
 								<span>{ ICONS.tada }</span>
 							</h1>
 						) : (
 							<h1>
 								{ __(
 									'We are building your website…',
-									'templatiq-sites'
+									'templatiq'
 								) }
 							</h1>
 						) }
@@ -1543,7 +1545,7 @@ const ImportSite = () => {
 			actions={
 				<>
 					<PreviousStepLink before disabled customizeStep={ true }>
-						{ __( 'Back', 'templatiq-sites' ) }
+						{ __( 'Back', 'templatiq' ) }
 					</PreviousStepLink>
 				</>
 			}

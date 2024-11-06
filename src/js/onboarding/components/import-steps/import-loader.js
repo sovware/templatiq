@@ -8,7 +8,7 @@ import { getTotalTime } from '../../utils/functions';
 const { siteUrl } = starterTemplates;
 
 const ImportLoader = () => {
-	const [ { importPercent, importStatus, builder, confettiDone }, dispatch ] =
+	const [ { importPercent, importStatus, confettiDone }, dispatch ] =
 		useStateValue();
 	const doneClass = 100 === importPercent ? 'import-done' : '';
 	let percentClass = '';
@@ -17,24 +17,28 @@ const ImportLoader = () => {
 	if ( importPercent <= 25 ) {
 		percentClass = 'import-1';
 		stepText = __(
-			'1. Installing required plugins, forms, etc',
-			'templatiq-sites'
+			'1. Installing required plugins',
+			'templatiq'
 		);
 	}
-	if ( importPercent > 25 && importPercent <= 50 ) {
+	if ( importPercent > 25 && importPercent <= 70 ) {
+		console.log('2. Importing pages, menus, posts, etc : ', importPercent );
+
 		percentClass = 'import-2';
-		stepText = __( '2. Importing pages, menus, posts, etc', 'templatiq-sites' );
+		stepText = __( '2. Importing pages, menus, posts, etc', 'templatiq' );
 	}
-	if ( importPercent > 50 && importPercent <= 75 ) {
+	if ( importPercent > 70 && importPercent <= 85 ) {
+		console.log('3. Setting up the site settings : ', importPercent );
 		percentClass = 'import-3';
 		stepText = __(
-			'3. Setting up customizer settings and the site settings',
-			'templatiq-sites'
+			'3. Setting up the site settings',
+			'templatiq'
 		);
 	}
-	if ( importPercent > 75 && importPercent <= 100 ) {
+	if ( importPercent > 85 && importPercent <= 100 ) {
+		console.log('4. Finalizing last few settings : ', importPercent );
 		percentClass = 'import-4';
-		stepText = __( '4. Finalizing last few settings', 'templatiq-sites' );
+		stepText = __( '4. Finalizing last few settings', 'templatiq' );
 	}
 
 	const start = localStorage.getItem( 'st-import-start' );
@@ -49,7 +53,7 @@ const ImportLoader = () => {
 
 	let descMessage;
 	let tweetMessage;
-	const themeName = builder !== 'fse' ? '@TemplatiqWP' : '@WPSpectra';
+	const themeName = '@Templatiq';
 	const threshold = 5; // Max 5 mins threshold.
 
 	if ( timeTaken > 0 && timeTaken <= threshold ) {
@@ -59,7 +63,7 @@ const ImportLoader = () => {
 			//translators: %1$s Time taken %2$s Time Type %3$s Website Url.
 			__(
 				`Your Website is ready and it took just %1$s %2$s to build.`,
-				'templatiq-sites'
+				'templatiq'
 			),
 			timeTaken,
 			typeOfTime
@@ -68,7 +72,7 @@ const ImportLoader = () => {
 			//translators: %1$s Time taken %2$s Time Type %3$s theme name.
 			__(
 				`I just built my website in %1$s %2$s with Templatiq by %3$s. Can’t believe how easy it was!!! 😍`,
-				'templatiq-sites'
+				'templatiq'
 			),
 			timeTaken,
 			typeOfTime,
@@ -77,13 +81,13 @@ const ImportLoader = () => {
 	} else {
 		descMessage = __(
 			'Your Website is ready. It took just 25 seconds to build it.',
-			'templatiq-sites'
+			'templatiq'
 		);
 		tweetMessage = sprintf(
 			//translators: %1$s theme name.
 			__(
 				`I just built my website with Templatiq by %1$s in minutes. Can't believe how easy it is! 😍`,
-				'templatiq-sites'
+				'templatiq'
 			),
 			themeName
 		);
@@ -184,7 +188,7 @@ const ImportLoader = () => {
 								rel="noreferrer"
 							>
 								<p className="tweet-btn">
-									{ __( 'Tweet this', 'templatiq-sites' ) }
+									{ __( 'Tweet this', 'templatiq' ) }
 								</p>
 								{ ICONS.twitter }
 							</a>
@@ -197,7 +201,7 @@ const ImportLoader = () => {
 									window.location.href = siteUrl;
 								} }
 							>
-								{ __( 'View Your Website', 'templatiq-sites' ) }
+								{ __( 'View Your Website', 'templatiq' ) }
 							</Button>
 						</div>
 					</div>
