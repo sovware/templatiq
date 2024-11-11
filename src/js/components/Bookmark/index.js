@@ -88,27 +88,52 @@ const Bookmark = ( props ) => {
 	return (
 		<>
 			{ type === 'single' ? (
-				<a
-					href="#"
-					className={ `templatiq__details__header__action__link add-to-favorite templatiq-btn templatiq-btn-white ${
-						addedToFavorite ? 'active' : ''
-					} ${isFavProcessing ? 'disabled' : ''} `}
-					onClick={ ( e ) =>
-						handleFavorite( e, number_of_bookmarks )
-					}
-				>
-					<ReactSVG
-						src={ addedToFavorite ? heartSolidIcon : heartIcon }
-						width={ 16 }
-						height={ 16 }
-					/>
-					{
-						isFavProcessing && (
-							<span className="image-loader"></span>
-						)
-					}
+				! isLoggedIn ? (
+					<>
+						{ authModalOpen ? (
+							<AuthModal
+								slug={ slug }
+								modalEnable={ true }
+								onClose={ handleAuthModalClose }
+							/>
+						) : (
+							''
+						) }
+						<a
+							href="#"
+							className="templatiq__details__header__action__link add-to-favorite templatiq-btn templatiq-btn-white"
+							onClick={ addAuthModal }
+						>
+							<ReactSVG
+								src={ heartIcon }
+								width={ 14 }
+								height={ 14 }
+							/>
+						</a>
+					</>
+				) : (
+					<a
+						href="#"
+						className={ `templatiq__details__header__action__link add-to-favorite templatiq-btn templatiq-btn-white ${
+							addedToFavorite ? 'active' : ''
+						} ${isFavProcessing ? 'disabled' : ''} `}
+						onClick={ ( e ) =>
+							handleFavorite( e, number_of_bookmarks )
+						}
+					>
+						<ReactSVG
+							src={ addedToFavorite ? heartSolidIcon : heartIcon }
+							width={ 16 }
+							height={ 16 }
+						/>
+						{
+							isFavProcessing && (
+								<span className="image-loader"></span>
+							)
+						}
 
-				</a>
+					</a> 
+				)
 			) : ! isLoggedIn ? (
 				<>
 					{ authModalOpen ? (
