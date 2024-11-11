@@ -6,6 +6,7 @@ import ReactSVG from 'react-inlinesvg';
 import DefaultStep from '../../components/default-step/index';
 import { useStateValue } from '../../store/store';
 
+import crownIcon from '@icon/crown.svg';
 import trashIcon from '@icon/trash.svg';
 import updateRequiredIcon from '@icon/update-required.svg';
 
@@ -197,7 +198,13 @@ const InsertContent = () => {
 																readOnly
 															/>
 															<label htmlFor={plugin.slug}>
-																{plugin.name} {plugin.is_pro ? <span className="plugin_status">(Pro)</span> : null}
+																{plugin.name} {plugin.is_pro ? <span className="plugin_status">
+																	<ReactSVG
+																		src={ crownIcon }
+																		width={ 12 }
+																		height={ 12 }
+																	/>
+																</span> : null}
 																{
 																	plugin.update_required &&
 																	<div className="fullsite-setup-wizard__content__import__single__label__required">
@@ -230,7 +237,13 @@ const InsertContent = () => {
 															<label htmlFor={plugin.slug}>
 																<span className="plugin_name">{plugin.name}</span> 
 																{plugin.is_pro ? 
-																	<span className="plugin_status">(Pro)</span> : 
+																	<span className="plugin_status">
+																		<ReactSVG
+																			src={ crownIcon }
+																			width={ 12 }
+																			height={ 12 }
+																		/>
+																	</span> : 
 																	null
 																}
 															</label>

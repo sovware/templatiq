@@ -5,6 +5,7 @@ import ReactSVG from 'react-inlinesvg';
 import { InsertTemplateModalStyle } from './style';
 
 import closeIcon from '@icon/close.svg';
+import crownIcon from '@icon/crown.svg';
 import requiredIcon from '@icon/required.svg';
 import updateRequiredIcon from '@icon/update-required.svg';
 
@@ -343,7 +344,11 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable
 																	{
 																		plugin.is_pro && 
 																		<span className="templatiq__modal__plugin__type">
-																			{__( "(Pro)", 'templatiq' )}
+																			<ReactSVG
+																				src={ crownIcon }
+																				width={ 12 }
+																				height={ 12 }
+																			/>
 																		</span>
 																	}
 																	{
@@ -397,7 +402,11 @@ const InsertTemplateModal = ( { item, onClose, required_plugins, not_installable
 																	</label>
 
 																	<span className="templatiq__modal__plugin__type">
-																		{__( "(Pro)", 'templatiq' )}
+																		<ReactSVG
+																			src={ crownIcon }
+																			width={ 12 }
+																			height={ 12 }
+																		/>
 																	</span>
 																</div>
 															);
