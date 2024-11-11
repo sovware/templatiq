@@ -201,7 +201,10 @@ const Sidebar = (props) => {
 												className="templatiq__sidebar__accordion__single"
 											>
 												<h3 className="templatiq__sidebar__accordion__heading">
-													{group.charAt(0).toUpperCase() + group.slice(1)}
+													{
+														group === 'packs' ? __('Full Site', 'templatiq') :
+														group.charAt(0).toUpperCase() + group.slice(1)
+													}
 												</h3>
 
 												<div className="templatiq__sidebar__accordion__item">
