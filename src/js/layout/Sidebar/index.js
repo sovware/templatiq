@@ -267,7 +267,7 @@ const Sidebar = (props) => {
 															htmlFor={group + '-' + item.key || itemIndex}
 															className="templatiq__sidebar__filter__single__label templatiq__checkbox__label"
 														>
-															{sanitizeHtmlEntities(item.title)}
+															{sanitizeHtmlEntities(item.title)} {item.key === "all" && group !== "packs" ? group.charAt(0).toUpperCase() + group.slice(1) : ''}
 														</label>
 														<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">
 															{item.count}
