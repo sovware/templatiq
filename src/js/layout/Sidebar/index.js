@@ -122,6 +122,13 @@ const Sidebar = (props) => {
 		setExpandedGroups((prev) => ({ ...prev, [group]: false }));
 	};
 
+	// Sanitize HTML Entities
+	function sanitizeHtmlEntities(text) {
+		return text
+			.replace(/&#8211;/g, '–')
+			.replace(/&amp;/g, '&');
+	}
+
 	useEffect(() => {
 		clearFilters();
 	}, [currentBuilder	]);
@@ -228,7 +235,7 @@ const Sidebar = (props) => {
 															htmlFor={item.key || itemIndex}
 															className="templatiq__sidebar__filter__single__label templatiq__checkbox__label"
 														>
-															{item.title}
+															{sanitizeHtmlEntities(item.title)}
 														</label>
 														<span className="templatiq__sidebar__filter__single__count templatiq__checkbox__count">
 															{item.count}
