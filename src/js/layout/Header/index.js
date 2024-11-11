@@ -267,6 +267,23 @@ const Header = ( props ) => {
 										</a>
 										{ isAuthorInfoVisible && (
 											<div className="templatiq__header__author__info">
+												{
+													! editorEnabled &&
+													<div className="templatiq__header__author__info__item">
+														<NavLink
+															activeclassname="active"
+															to="/dashboard/purchase"
+															className="templatiq__header__author__info__link"
+														>
+															<ReactSVG
+																src={ cartIcon }
+																width={ 14 }
+																height={ 14 }
+															/>
+															{__( 'My Purchases', 'templatiq' )}
+														</NavLink>
+													</div>
+												}
 												<div className="templatiq__header__author__info__item">
 													<NavLink
 														activeclassname="active"
@@ -295,20 +312,6 @@ const Header = ( props ) => {
 																	height={ 14 }
 																/>
 																{__( 'My Downloads', 'templatiq' )}
-															</NavLink>
-														</div>
-														<div className="templatiq__header__author__info__item">
-															<NavLink
-																activeclassname="active"
-																to="/dashboard/purchase"
-																className="templatiq__header__author__info__link"
-															>
-																<ReactSVG
-																	src={ cartIcon }
-																	width={ 14 }
-																	height={ 14 }
-																/>
-																{__( 'My Purchase', 'templatiq' )}
 															</NavLink>
 														</div>
 														<div className="templatiq__header__author__info__item">
