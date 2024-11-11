@@ -78,20 +78,52 @@ const Sidebar = (props) => {
 			}).length;
 		};
 
-		// getCategoryItems & getPluginItems functions
-		const getCategoryItems = (groupKey, groupValue) => 
-			Object.keys(groupValue || {}).map(key => ({
-				key,
-				title: groupValue[key], 
-				count: countTemplatesByItem(key, groupKey)
-			})).filter(item => item.count > 0);
+		// Function to calculate total count for "all" items in each group
+		const countTotalTemplatesByGroup = (groupKey, groupValue, type) => {
+			const allTemplates = document.body.classList.contains('elementor-editor-active')
+				? data.templates.filter((template) => template.type !== 'pack')
+				: data.templates;
+			
+			return allTemplates.filter(template => {
+				if (type === 'plugins') {
+					return template.required_plugins.some(p => groupValue[p.slug]);
+				}
+				return template.categories.some(category => groupValue[category]);
+			}).length;
+		};
 
-		const getPluginItems = (groupValue) => 
-			Object.keys(groupValue || {}).map(key => ({
+		// Get category items with an "all" option
+		const getCategoryItems = (groupKey, groupValue) => {
+			const allCount = countTotalTemplatesByGroup(groupKey, groupValue, groupKey);
+			
+			const items = Object.keys(groupValue || {}).map(key => ({
 				key,
-				title: groupValue[key].name, 
-				count: countTemplatesByItem(key, 'plugins')
+				title: groupValue[key],
+				count: countTemplatesByItem(key, groupKey),
 			})).filter(item => item.count > 0);
+	
+			// Add "all" option at the start of the group if there are items
+			if (items.length > 0) {
+				items.unshift({
+					key: 'all',
+					title: 'All',
+					count: allCount,
+				});
+			}
+			
+			return items;
+		};
+	
+		// Get plugin items with an "all" option
+		const getPluginItems = (groupValue) => {			
+			const items = Object.keys(groupValue || {}).map(key => ({
+				key,
+				title: groupValue[key].name,
+				count: countTemplatesByItem(key, 'plugins'),
+			})).filter(item => item.count > 0);
+			
+			return items;
+		};
 
 		const newGroupedCategories = {};
 		
@@ -219,12 +251,12 @@ const Sidebar = (props) => {
 													.slice(0, (expandedGroups[group] ? filterGroups[group].length : 5))
 													.map((item, itemIndex) => (
 													<div
-														key={item.key || itemIndex}
+														key={group + '-' + item.key || itemIndex}
 														className="templatiq__sidebar__filter__single templatiq__checkbox"
 													>
 														<input
 															type="checkbox"
-															id={item.key || itemIndex}
+															id={group + '-' + item.key || itemIndex}
 															className="templatiq__sidebar__filter__single__checkbox templatiq__checkbox__input"
 															onChange={() => handleFilter(item.key, group)}
 															checked={selectedFilters.some(
@@ -232,7 +264,7 @@ const Sidebar = (props) => {
 															)}
 														/>
 														<label
-															htmlFor={item.key || itemIndex}
+															htmlFor={group + '-' + item.key || itemIndex}
 															className="templatiq__sidebar__filter__single__label templatiq__checkbox__label"
 														>
 															{sanitizeHtmlEntities(item.title)}
