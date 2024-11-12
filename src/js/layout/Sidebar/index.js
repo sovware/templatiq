@@ -16,6 +16,7 @@ const Sidebar = (props) => {
 
 	const [ loading, setLoading ] = useState( false );
 	const [ isLoading, setIsLoading ] = useState( false );
+	const [ libraryData, setLibraryData ] = useState( false );
 
 	const [ filterGroups, setFilterGroups ] = useState( {} );
 	const [expandedGroups, setExpandedGroups] = useState({});
@@ -26,29 +27,51 @@ const Sidebar = (props) => {
 	const currentBuilder = templatiq_obj.builder;
 
 	// Handle Filter
-	const handleFilter = ( key, type ) => {
-		// Copy the existing selectedFilters array to avoid mutating state directly
-		const updatedSelectedFilters = [ ...selectedFilters ];
-
-		// Find the index of the selected item in the selectedFilters array
+	const handleFilter = (key, type) => {
+		// Clone the selectedFilters array
+		const updatedSelectedFilters = [...selectedFilters];
+		
+		// Check if the filter already exists in selectedFilters
 		const index = updatedSelectedFilters.findIndex(
-			( filter ) => filter.key === key && filter.type === type
+			(filter) => filter.key === key && filter.type === type
 		);
-
-		if ( index !== -1 ) {
-			// If the item is already selected, remove it from the array
-			updatedSelectedFilters.splice( index, 1 );
+		
+		// Toggle the filter selection
+		if (index !== -1) {
+			updatedSelectedFilters.splice(index, 1); // Remove if already selected
 		} else {
-			// If the item is not selected, add it to the array
-			updatedSelectedFilters.push( { key, type } );
+			updatedSelectedFilters.push({ key, type }); // Add if not selected
 		}
-
-		// Update the state with the new selectedFilters array
-		setSelectedFilters( updatedSelectedFilters );
-
-		// Dispatch the action to update the filter search in the store
-		dispatch( store ).setFilterSearch( updatedSelectedFilters );
-	};
+		
+		// Filter templates based on updated selectedFilters
+		const filteredTemplates = libraryData.templates.filter(template => {
+			return updatedSelectedFilters.every(filter => {
+				// If the filter key is 'all', include everything without filtering by key
+				if (filter.key === 'all') {
+					const filterType = 
+							filter.type === 'packs' ? 'pack' : 
+							filter.type === 'blocks' ? 'section' : 
+							filter.type === 'pages' ? 'page' : '';
+					return template.type.includes(filterType);
+				}
+				
+				// Filter based on category or plugin type
+				if (filter.type === 'plugins') {
+					return template.required_plugins.some(p => p.slug === filter.key);
+				}
+				
+				return template.categories.includes(filter.key);
+			});
+		});
+		
+		// Update selectedFilters state
+		setSelectedFilters(updatedSelectedFilters);
+		// Update updatedSelectedFilters in the store
+		dispatch(store).setFilterSearch(updatedSelectedFilters);
+	
+		// Update sidebar data
+		updateSidebarData({ ...libraryData, templates: filteredTemplates });
+	};	
 
 	// Clear Filter
 	const clearFilters = ( e ) => {
@@ -145,6 +168,51 @@ const Sidebar = (props) => {
 		setFilterGroups(newGroupedCategories);
 	}
 
+	// Update Sidebar Data
+	function updateSidebarData(data) {	
+		// Function to count templates for each item
+		const countTemplatesByItem = (item, type) => {
+			let allTemplates = null;
+			const isElementorEditorActive = document.body.classList.contains('elementor-editor-active');
+	
+			if(isElementorEditorActive) {
+				allTemplates = data.templates.filter(template => template.type !== 'pack');
+			} else {
+				allTemplates = data.templates;
+			}
+			return allTemplates.filter(template => {
+				if (type === 'plugins') {
+					return template.required_plugins.some(p => p.slug === item);
+				}
+				return template.categories.includes(item);
+			}).length;
+		};
+	
+		// Get plugin items with an "all" option
+		const getPluginItems = (groupValue) => {
+			const items = Object.keys(groupValue || {}).map(key => ({
+				key,
+				title: groupValue[key].name,
+				count: countTemplatesByItem(key, 'plugins'),
+			})).filter(item => item.count > 0);
+			
+			return items;
+		};
+	
+		// Create a copy of the filterGroups to avoid mutating the original state
+		const newFilterGroups = { ...filterGroups };
+	
+		// Update the plugins group
+		const filteredPlugins = getPluginItems(data.plugins);
+	
+		if (filteredPlugins.length > 0) {
+			newFilterGroups.plugins = filteredPlugins;
+		}
+	
+		// Set the updated filterGroups
+		setFilterGroups(newFilterGroups);
+	}
+
 	// Handle See More
 	const handleSeeMore = (group) => {
 		setExpandedGroups((prev) => ({ ...prev, [group]: true }));
@@ -171,6 +239,7 @@ const Sidebar = (props) => {
 		if ( data ) {
 			setLoading( false );
 			getSidebarData( data );
+			setLibraryData( data );
 		}
 
 		// Clear Stored Filters
