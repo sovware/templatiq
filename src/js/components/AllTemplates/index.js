@@ -98,27 +98,58 @@ export default function AllTemplates( props ) {
 	}
 
 	const filterPluginTemplates = () => {
-		// Filter templates based on filterValue
-		const newFilteredTemplates = allTemplates.filter( ( template ) => {
-			return filterValue.some( ( filter ) => {
-				if ( filter.key === 'all' ) {
-					let templateType = template.type === 'pack' ? 'packs' : template.type === 'section' ? 'blocks' : template.type === 'page' ? 'pages' : '';
-					return templateType === filter.type;
-				} else if ( filter.type === 'plugins' ) {
-					// Check if any required plugin matches the selected plugin
-					return template.required_plugins.some(
-						( requiredPlugin ) => requiredPlugin?.slug === filter.key
-					);
+		// Step 1: Separate `filterPlugins` and `filterCategories`
+		const { filterPlugins, filterCategories } = filterValue.reduce(
+			(result, filter) => {
+				if (filter.type === "plugins") {
+					result.filterPlugins.push(filter);
 				} else {
-					// Check if the template includes the selected category\
-					return template.categories.includes( filter.key );
+					result.filterCategories.push(filter);
 				}
-			} );
-		} );
+				return result;
+			},
+			{ filterPlugins: [], filterCategories: [] }
+		);
+	
+		let newFilteredTemplates = [];
+		let availableTemplates = [];
 
-		// Update the state with the filtered templates
-		setFilteredTemplates( newFilteredTemplates );
-	};
+		// Step 2: Filter templates based on `filterCategories`
+		if (filterCategories.length > 0) {
+			newFilteredTemplates = allTemplates.filter((template) => {
+				return filterCategories.some((filter) => {
+					if (filter.key === 'all') {
+						// Check if template type matches the filter type for "all" filters
+						const templateType = 
+							template.type === 'pack' ? 'packs' : 
+							template.type === 'section' ? 'blocks' : 
+							template.type === 'page' ? 'pages' : '';
+						return templateType === filter.type;
+					} else {
+						// Check if the template includes the selected category
+						return template.categories.includes(filter.key);
+					}
+				});
+			});
+		}
+	
+		// Step 3: If no change after category filter, use `allTemplates` as availableTemplates
+		availableTemplates = filterCategories.length > 0 && newFilteredTemplates.length !== allTemplates.length ? newFilteredTemplates : allTemplates;
+	
+		// Step 4: Further filter `availableTemplates` with `filterPlugins` if any plugins are selected
+		if (filterPlugins.length > 0) {
+			availableTemplates = availableTemplates.filter((template) => {
+				return filterPlugins.some((filter) => {
+					return template.required_plugins.some(
+						(requiredPlugin) => requiredPlugin?.slug === filter.key
+					);
+				});
+			});
+		}
+	
+		// Step 5: Update the state with the final filtered templates
+		setFilteredTemplates(availableTemplates);
+	};	
 
 	const checkTemplateType = ( templates ) => {
 		let typeChecked = '';
