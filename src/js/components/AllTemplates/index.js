@@ -100,15 +100,17 @@ export default function AllTemplates( props ) {
 	const filterPluginTemplates = () => {
 		// Filter templates based on filterValue
 		const newFilteredTemplates = allTemplates.filter( ( template ) => {
-
 			return filterValue.some( ( filter ) => {
-				if ( filter.type === 'plugins' ) {
+				if ( filter.key === 'all' ) {
+					let templateType = template.type === 'pack' ? 'packs' : template.type === 'section' ? 'blocks' : template.type === 'page' ? 'pages' : '';
+					return templateType === filter.type;
+				} else if ( filter.type === 'plugins' ) {
 					// Check if any required plugin matches the selected plugin
 					return template.required_plugins.some(
 						( requiredPlugin ) => requiredPlugin?.slug === filter.key
 					);
 				} else {
-					// Check if the template includes the selected category
+					// Check if the template includes the selected category\
 					return template.categories.includes( filter.key );
 				}
 			} );

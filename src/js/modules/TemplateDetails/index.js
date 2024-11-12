@@ -24,6 +24,7 @@ export default function TemplateDetailsModule( props ) {
 				templateData.find(
 					( template ) => template.slug === templateSlug
 				);
+				
 			setTemplateDetails( singleTemplate && singleTemplate );
 
 			setLoading( false );

@@ -445,6 +445,8 @@
             gap: 10px;
             cursor: default;
             .plugin_status {
+              display: flex;
+              align-items: center;
               color: #d53034;
               font-weight: 600;
             }
