@@ -1,3 +1,4 @@
+import sanitizeHtmlEntities from '@helper/sanitizeHtmlEntities';
 import checkIcon from '@icon/check-alt.svg';
 import { __ } from '@wordpress/i18n';
 import ReactSVG from 'react-inlinesvg';
@@ -20,7 +21,7 @@ const TemplateDetailsContent = ( props ) => {
 				</h3>
 				<div 
 					className="templatiq__details__content__single__description"
-					dangerouslySetInnerHTML={{ __html: description }}
+					dangerouslySetInnerHTML={{ __html: sanitizeHtmlEntities(description) }}
 				/>
 			</div>
 

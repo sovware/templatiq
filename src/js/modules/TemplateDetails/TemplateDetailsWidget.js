@@ -1,3 +1,4 @@
+import sanitizeHtmlEntities from '@helper/sanitizeHtmlEntities';
 import store from '@store/index';
 import { select } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
@@ -98,7 +99,7 @@ const TemplateDetailsWidget = ( props ) => {
 									key={ index }
 									className="templatiq__details__widget__content__info"
 								>
-									{ category }
+									{ sanitizeHtmlEntities(category) }
 								</span>
 							) ) }
 					</div>

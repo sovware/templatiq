@@ -1,3 +1,4 @@
+import sanitizeHtmlEntities from '@helper/sanitizeHtmlEntities';
 import { dispatch, select, subscribe } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -153,13 +154,6 @@ const Sidebar = (props) => {
 	const handleShowLess = (group) => {
 		setExpandedGroups((prev) => ({ ...prev, [group]: false }));
 	};
-
-	// Sanitize HTML Entities
-	function sanitizeHtmlEntities(text) {
-		return text
-			.replace(/&#8211;/g, '–')
-			.replace(/&amp;/g, '&');
-	}
 
 	useEffect(() => {
 		clearFilters();

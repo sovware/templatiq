@@ -1,3 +1,4 @@
+import sanitizeHtmlEntities from '@helper/sanitizeHtmlEntities';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import ReactSVG from 'react-inlinesvg';
@@ -63,7 +64,7 @@ const TemplateDetailsHeader = ( props ) => {
 	return (
 		<TemplateDetailsHeaderStyle className="templatiq__details__header">
 			<div className="templatiq__details__header__info">
-				<h2 className="templatiq__details__header__title">{ title }</h2>
+				<h2 className="templatiq__details__header__title">{ sanitizeHtmlEntities(title) }</h2>
 				<div className="templatiq__details__header__meta">
 					{ number_of_downloads ? (
 						<span className="templatiq__details__header__meta__item">
