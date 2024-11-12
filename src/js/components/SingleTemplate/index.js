@@ -2,6 +2,7 @@ import Bookmark from '@components/Bookmark';
 import ContentLoading from '@components/ContentLoading';
 import InsertTemplate from '@components/InsertTemplate';
 import handleMaximumCount from '@helper/handleMaximumCount';
+import sanitizeHtmlEntities from '@helper/sanitizeHtmlEntities';
 import store from '@store/index';
 import { select } from '@wordpress/data';
 import { useEffect, useRef, useState } from '@wordpress/element';
@@ -140,7 +141,7 @@ const SingleTemplate = ( item ) => {
 			<div className="templatiq__template__single__content">
 				<h3 className="templatiq__template__single__title">
 					<Link to={ `/template/${ slug }` }>
-						{ title ? title : __( 'dDoctors', 'templatiq' ) }
+						{ title ? sanitizeHtmlEntities(title) : __( 'dDoctors', 'templatiq' ) }
 					</Link>
 				</h3>
 				{ categories.length > 0 &&
@@ -151,7 +152,7 @@ const SingleTemplate = ( item ) => {
 								href="#"
 								className="templatiq__template__single__cat__link"
 							>
-								{ category }
+								{ sanitizeHtmlEntities(category) }
 							</a>
 						) ).slice( 0, 2 ) }
 						{ categories.length > 2 && (
@@ -173,7 +174,7 @@ const SingleTemplate = ( item ) => {
 													href="#"
 													className="templatiq__template__single__cat__link"
 												>
-													{ category }
+													{ sanitizeHtmlEntities(category) }
 												</a>
 											)
 										).slice( 2 ) }

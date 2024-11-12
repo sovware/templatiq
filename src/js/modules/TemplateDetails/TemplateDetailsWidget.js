@@ -1,3 +1,4 @@
+import sanitizeHtmlEntities from '@helper/sanitizeHtmlEntities';
 import store from '@store/index';
 import { select } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
@@ -9,6 +10,7 @@ const TemplateDetailsWidget = ( props ) => {
 	const { builder, type, categories, required_plugins } = props.item;
 
 	const { hasAllAccess } = select(store).getUserInfo();
+	const allCategories = select(store).getLibraryData()?.categories;
 
 	// Component for individual required plugin
 	const RequiredPlugin = ({ plugin }) => {
@@ -37,6 +39,19 @@ const TemplateDetailsWidget = ( props ) => {
 				}
 			</span>
 		);
+	};
+
+	// Get category name from slug
+	const getCategoryName = (slug) => {
+		for (const category in allCategories) {
+			if (allCategories[category][slug]) {
+				// Return the category name if found
+				return allCategories[category][slug];
+			}
+		}
+	
+		// Return null or an appropriate message if not found
+		return null;
 	};
 
 	return (
@@ -98,7 +113,7 @@ const TemplateDetailsWidget = ( props ) => {
 									key={ index }
 									className="templatiq__details__widget__content__info"
 								>
-									{ category }
+									{ sanitizeHtmlEntities(getCategoryName(category) || null) }
 								</span>
 							) ) }
 					</div>
