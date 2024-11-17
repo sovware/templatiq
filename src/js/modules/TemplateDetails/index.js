@@ -22,7 +22,7 @@ export default function TemplateDetailsModule( props ) {
 			const singleTemplate =
 				templateData &&
 				templateData.find(
-					( template ) => template.slug === templateSlug
+					( template ) => ( template.slug === templateSlug || template.template_id == templateSlug )
 				);
 				
 			setTemplateDetails( singleTemplate && singleTemplate );
@@ -34,7 +34,7 @@ export default function TemplateDetailsModule( props ) {
 				const updatedSingleTemplate =
 					updatedTemplateData &&
 					updatedTemplateData.find(
-						( template ) => template.slug === templateSlug
+						( template ) => ( template.slug === templateSlug || template.template_id == templateSlug )
 					);
 
 				setTemplateDetails( updatedSingleTemplate );
