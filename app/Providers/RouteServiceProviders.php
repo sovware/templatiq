@@ -20,6 +20,8 @@ class RouteServiceProviders extends ProviderBase {
 		}
 
 		( new \Templatiq\Routes\Connect );
+
+		add_action( 'init', [$this, 'alter_template_details'] );
 	}
 
 	public function get(): array {
@@ -30,5 +32,21 @@ class RouteServiceProviders extends ProviderBase {
 			\Templatiq\Routes\Dependency::class,
 			\Templatiq\Routes\Template::class,
 		];
+	}
+
+
+	/**
+	 * Set default builder to Elementor 
+	 * If the HTTP_REFER contains 'page=atbdp-extension'
+	 */
+	public function alter_template_details() {
+		if (
+			isset( $_GET['page'] )
+			&& 'templatiq' === $_GET['page']
+			&& isset( $_SERVER['HTTP_REFERER'] )
+			&& strpos( $_SERVER['HTTP_REFERER'], 'page=atbdp-extension' ) !== false
+		) {
+			update_option( '_templatiq_selected_builder', 'elementor' );
+		}
 	}
 }
