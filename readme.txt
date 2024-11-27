@@ -3,64 +3,49 @@ Contributors: wpwax
 Tags: templates, starter template, design, quick starter, directory websites
 Requires at least: 6.0
 Tested up to: 6.6.2
-Stable tag: 0.2.1
+Stable tag: 0.2.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Enhance your Elementor experience with a variety of stunning templates.
 
-== Description ==
+== Description ==  
 
-FREE ELEMENTOR SUPPORTED TEMPLATES
+**Templatiq** is a powerful Template Library designed to enhance your website-building process. It offers a wide variety of Elementor, Bricks, and Gutenberg templates, enabling users to create stunning websites with ease. Whether you're creating a business site, directory, portfolio, or eCommerce website, Templatiq provides pre-designed templates to suit every need.  
 
-Templatiq is a powerful template library designed to enhance your Elementor experience with a variety of stunning templates. Whether you need single page templates or individual sections, Templatiq has you covered. The plugin offers both free and pro templates, with new additions being made regularly.
+With seamless integration into popular page builders, you can effortlessly import and customize templates using a drag-and-drop editor, eliminating the need for coding expertise.  
 
-= LOVED Templatiq? =
+= Key Features =  
+1. **Variety of Templates**: Access a growing library of single-page templates and individual sections for various website types.  
+2. **Popular Page Builder Support**: Easily import and customize templates using Elementor, Bricks, and Gutenberg.  
+3. **Directorist Templates**: Create business directories, real estate listings, and more with templates designed for Directorist.  
+4. **Full-Site Import for Elementor**: Import entire website template packs with one click, without affecting existing layouts.  
+5. **Gutenberg and Block Editor Support**: Import Gutenberg templates for pages and sections, simplifying the design process.  
+6. **Pro and Free Templates**: Choose from a selection of free templates or upgrade to premium for additional designs.  
 
-Join our [Facebook Group](https://www.facebook.com/groups/templatiq) | [Facebook Page](https://www.facebook.com/templatiq)
+= Why Choose Templatiq? =  
+- **Bricks Template Library**: Templatiq offers dedicated templates for users of Bricks Builder, enhancing customization options.  
+- **Seamless Elementor Integration**: Import, customize, and launch stunning Elementor-based websites effortlessly.  
+- **Block Template Library**: Enjoy a variety of pre-designed templates for Gutenberg, ideal for creating dynamic and modern websites.  
+- **Ready Directory Templates with Directorist**: Build directory websites quickly with templates optimized for Directorist.  
 
+Upcoming Templates:  
+- Shop Templates (coming soon)  
+- LMS Templates (coming soon)  
+- Event Templates (coming soon)  
+- Multipurpose Templates (coming soon)  
 
-= Creating Any Type of Directory Websites =
+= How to Use Templatiq =  
+1. **Install and Activate Templatiq Plugin**: Install the plugin via the WordPress plugin screen and activate it.  
+2. **Navigate to the Templatiq Dashboard**: Browse the available templates from the Templatiq dashboard.  
+3. **Select Your Template**: Choose single-page templates, section templates, or full-site packs.  
+4. **Insert the Template**: Click the ‘Insert’ button to add the template to your WordPress site.  
+5. **Complete Authentication (If Necessary)**: Upgrade to Pro or complete authentication if prompted.  
+6. **Customize and Enjoy**: Further customize the imported templates using Elementor, Bricks, or Gutenberg.  
 
-Looking to create directory websites? Templatiq has you covered! It offers a wide array of professionally designed templates specifically for directory websites. There are more types of templates to come in the next releases.
-
-Effortlessly import full site templates, individual pages, or specific sections to build comprehensive directory websites. Whether it's a business directory, real estate listings, or any other type of directory, Templatiq makes the process seamless and efficient.
-
-With our intuitive drag-and-drop interface, you can easily customize and launch your directory website in no time. Get started with Templatiq and create stunning directory websites with ease!
-
-= Stunning FREE Templates =
-Sign up at Templatiq.com now to access beautiful templates and start enhancing your WordPress pages. With Templatiq, you can import these designs with just one click and get started immediately.
-
-= Full Site Import[Upcoming] =
-Templatiq's Full Site Import feature allows you to import entire template packs in one click. This feature will come in the next release and seamlessly integrate new designs into your site without affecting your current layout. Currently version allows you to import single page and section
-
-= Elementor Templates =
-Are you an Elementor enthusiast? Your search ends here! Templatiq provides a vast collection of professionally designed Elementor templates. Effortlessly import entire websites, individual pages, or specific blocks crafted with Elementor to elevate your site’s functionality and aesthetic appeal. Simply drag, drop, customize, and launch your website with ease!
-
-
-= Features =
-
-✔ Variety of Templates: Access a growing library of single page and individual section templates.
-
-✔ Elementor Support: Seamlessly insert readymade templates into the Elementor page builder.
-
-✔ Directorist Templates: Currently providing a selection of directorist templates.
-
-✔ Pro and Free Templates: Choose from a range of free and premium templates.
-
-✔ Upcoming Block Editor Support: Future updates will include support for the Block Editor/Gutenberg.
-
-= Demo Importing Process =
-
-1. Install the Templatiq: Begin by installing and activating the Templatiq plugin.
-2. Redirect to Templatiq Dashboard: After activation, you will be redirected to the Templatiq dashboard.
-3. Select a Template: Browse and select the desired template.
-4. Insert Template: Click the 'Insert' button.
-5. Authentication/Pro Popup: If prompted, complete the authentication process or upgrade to Pro.
-6. Pass Authentication: Upon successful authentication, the demo content will be inserted.
-7. Demo Inserted: Your selected template will now be available in your Elementor page builder.
-
+= Support and Updates =  
+Templatiq offers regular updates and dedicated support to ensure smooth functionality and continuous improvements.  
 
 == Installation ==
 
@@ -89,6 +74,9 @@ Currently, Templatiq supports only Elementor. Gutenberg/Block Editor support wil
 At Templatiq, user privacy is our top priority. As a premier marketplace for templates, we are committed to protecting your personal information and strictly adhering to the [terms outlined](https://templatiq.com/terms-conditions/) in this [Privacy Policy](https://templatiq.com/privacy-policy/).
 
 == Changelog ==
+
+= 0.2.2(beta) - Nov 27, 2024 =
+* Fix: Translation Error Warning
 
 = 0.2.1(beta) - Nov 18, 2024 =
 * Fix: Sidebar Filter Issue
