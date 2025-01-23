@@ -29,7 +29,7 @@ final class Templatiq {
 
 	public function load() {
 
-		define( 'TEMPLATIQ_VERSION', '0.2.2' );
+		define( 'TEMPLATIQ_VERSION', '0.2.3' );
 
 		register_activation_hook(
 			__FILE__, function () {
