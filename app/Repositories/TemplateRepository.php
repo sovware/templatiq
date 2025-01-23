@@ -12,7 +12,10 @@ use Templatiq\Utils\Http;
 
 class TemplateRepository {
 	public function get_builder() {
-		return get_option( '_templatiq_selected_builder', 'elementor' );
+		$builder  = get_option( '_templatiq_selected_builder', 'elementor' );
+		$builders = ['elementor', 'block', 'bricks'];
+
+		return in_array( $builder, $builders ) ? $builder : 'elementor';
 	}
 
 	public function library_data() {
