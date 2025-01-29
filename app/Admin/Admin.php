@@ -40,8 +40,6 @@ class Admin {
 			TEMPLATIQ_FILE
 		);
 
-		$this->insights = $client->insights();
-
 		// Active insights
 		$client->set_textdomain( 'templatiq' );
 		$client->insights()->init();
