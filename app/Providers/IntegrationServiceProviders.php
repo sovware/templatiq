@@ -23,6 +23,7 @@ class IntegrationServiceProviders extends \Templatiq\Abstracts\ProviderBase {
 			\Templatiq\Integrations\Bricks\Bricks::class,
 			\Templatiq\Integrations\Directorist\Directorist::class,
 			\Templatiq\Integrations\Elementor\Elementor::class,
+			\Templatiq\Integrations\FormGent\FormGent::class,
 			\Templatiq\Integrations\WooCommerce\WooCommerce::class,
 		];
 	}
