@@ -48,14 +48,24 @@ class Admin {
 	}
 
 	public function redirect_to_dashboard() {
-		if ( ! get_option( '_templatiq_redirect_to_dashboard', false ) ) {
+		$redirect_to_dashboard = get_option( '_templatiq_redirect_to_dashboard', false );
+		$redirect_to_template  = get_option( '_templatiq_redirect_to_template', false );
+		if (
+			! $redirect_to_dashboard ||
+			! $redirect_to_template ) {
 			return;
 		}
 
-		delete_option( '_templatiq_redirect_to_dashboard' );
+		if ( $redirect_to_dashboard ) {
+			$url = admin_url( 'admin.php?page=templatiq' );
+			delete_option( '_templatiq_redirect_to_dashboard' );
+		} else {
+			$url = admin_url( 'admin.php?page=templatiq#/template/' . $redirect_to_template );
+			delete_option( '_templatiq_redirect_to_template' );
+		}
 
 		if ( ! defined( 'WP_CLI' ) || ! WP_CLI ) {
-			wp_safe_redirect( admin_url( 'admin.php?page=templatiq' ) );
+			wp_safe_redirect( $url );
 			exit();
 		}
 	}
