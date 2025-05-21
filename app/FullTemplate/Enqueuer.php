@@ -165,17 +165,17 @@ class Enqueuer extends EnqueuerBase {
 				'ajaxurl'                            => esc_url( admin_url( 'admin-ajax.php' ) ),
 				'siteURL'                            => site_url(),
 				'getProText'                         => __( 'Get Access!', 'templatiq' ),
-				'getProURL'                          => esc_url( 'https://templatiq.com/templatiq-library-plans/?utm_source=demo-import-panel&utm_campaign=templatiq-sites&utm_medium=wp-dashboard' ),
+				'getProURL'                          => esc_url( 'https://templatiq.com/dashboard/?tab=support&utm_source=demo-import-panel&utm_campaign=templatiq-sites&utm_medium=wp-dashboard' ),
 				'getUpgradeText'                     => __( 'Upgrade', 'templatiq' ),
-				'getUpgradeURL'                      => esc_url( 'https://templatiq.com/templatiq-library-plans/?utm_source=demo-import-panel&utm_campaign=templatiq-sites&utm_medium=wp-dashboard' ),
+				'getUpgradeURL'                      => esc_url( 'https://templatiq.com/dashboard/?tab=support&utm_source=demo-import-panel&utm_campaign=templatiq-sites&utm_medium=wp-dashboard' ),
 				'_ajax_nonce'                        => wp_create_nonce( 'templatiq-sites' ),
 				'requiredPlugins'                    => [],
 				'xmlRequiredFilesMissing'            => __( 'Some of the files required during the import process are missing.<br/><br/>Please try again after some time.', 'templatiq' ),
 				'importFailedMessageDueToDebug'      => __( '<p>WordPress debug mode is currently enabled on your website. This has interrupted the import process..</p><p>Kindly disable debug mode and try importing Starter Template again.</p><p>You can add the following code into the wp-config.php file to disable debug mode.</p><p><code>define(\'WP_DEBUG\', false);</code></p>', 'templatiq' ),
 				/* translators: %s is a documentation link. */
-				'importFailedMessage'                => sprintf( __( '<p>We are facing a temporary issue in importing this template.</p><p>Read <a href="%s" target="_blank">article</a> to resolve the issue and continue importing template.</p>', 'templatiq' ), esc_url( 'https://templatiq.com/docs/fix-starter-template-importing-issues/' ) ),
+				'importFailedMessage'                => sprintf( __( '<p>We are facing a temporary issue in importing this template.</p><p>Please <a href="%s" target="_blank">contact support</a> to resolve the issue and continue importing template.</p>', 'templatiq' ), esc_url( 'https://templatiq.com/dashboard/?tab=support' ) ),
 				/* translators: %s is a documentation link. */
-				'importFailedRequiredPluginsMessage' => sprintf( __( '<p>We are facing a temporary issue in installing the required plugins for this template.</p><p>Read&nbsp;<a href="%s" target="_blank">article</a>&nbsp;to resolve the issue and continue importing template.</p>', 'templatiq' ), esc_url( 'https://templatiq.com/docs/plugin-installation-failed-multisite/' ) ),
+				'importFailedRequiredPluginsMessage' => sprintf( __( '<p>We are facing a temporary issue in installing the required plugins for this template.</p><p>Please <a href="%s" target="_blank"> contact support</a> to resolve the issue and continue importing template.</p>', 'templatiq' ), esc_url( 'https://templatiq.com/dashboard/?tab=support' ) ),
 
 				'strings'                            => [
 					/* translators: %s are white label strings. */
@@ -227,7 +227,7 @@ class Enqueuer extends EnqueuerBase {
 				/* translators: %s Anchor link to support URL. */
 				'support_text'                       => sprintf( __( 'Please report this error %1$shere%2$s, so we can fix it.', 'templatiq' ), '<a href="https://templatiq.com/support/open-a-ticket/" target="_blank">', '</a>' ),
 				'dashboard_url'                      => admin_url( 'admin.php?page=templatiq' ),
-				'allowTracking'						 => 'yes' === get_option( 'templatiq_allow_tracking', 'no' ) ? 'yes' : 'no',
+				'allowTracking'                      => 'yes' === get_option( 'templatiq_allow_tracking', 'no' ) ? 'yes' : 'no',
 			]
 		);
 
