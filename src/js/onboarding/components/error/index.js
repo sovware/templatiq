@@ -109,7 +109,7 @@ const ErrorScreen = () => {
 					{ __( 'Click here and we’ll try again', 'templatiq-sites' ) }
 				</Button>
 			) }
-			<div className="ist-import-error-solution-wrapper">
+			{/* <div className="ist-import-error-solution-wrapper">
 				{ importErrorMessages.solutionText && (
 					<>
 						{ solutionHeading }
@@ -149,7 +149,7 @@ const ErrorScreen = () => {
 							</p>
 						</>
 					) ) }
-			</div>
+			</div> */}
 		</div>
 	);
 };
