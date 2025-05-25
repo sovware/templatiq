@@ -57,13 +57,11 @@ class Admin {
 		}
 
 		if ( $redirect_to_dashboard ) {
-			error_log( '$redirect_to_dashboard : ' . print_r( $redirect_to_dashboard, true ) );
 			$url = admin_url( 'admin.php?page=templatiq' );
 			delete_option( '_templatiq_redirect_to_dashboard' );
 		}
 
 		if ( $redirect_to_template ) {
-			error_log( '$redirect_to_template : ' . print_r( $redirect_to_template, true ) );
 			$url = admin_url( 'admin.php?page=templatiq#/template/' . $redirect_to_template );
 			delete_option( '_templatiq_redirect_to_template' );
 		}
