@@ -2,8 +2,8 @@
 Contributors: wpwax
 Tags: templates, starter template, design, quick starter, directory websites
 Requires at least: 6.0
-Tested up to: 6.6.2
-Stable tag: 0.2.4
+Tested up to: 6.8
+Stable tag: 0.2.5
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -75,6 +75,10 @@ At Templatiq, user privacy is our top priority. As a premier marketplace for tem
 
 == Changelog ==
 
+
+= 0.2.5(beta) - May 25, 2025 =
+* Add: PHP 8.3 Compatibility
+* Add: Directorist New Licensing Compatibility
 
 = 0.2.4(beta) - Feb 5, 2025 =
 * Add: FormGent Compatibility
