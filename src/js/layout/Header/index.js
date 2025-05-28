@@ -263,7 +263,6 @@ const Header = ( props ) => {
 											onClick={ handleToggleAuthorInfo }
 										>
 											<img src={ avatar } alt="Avatar" />
-											{ userDisplayName }
 										</a>
 										{ isAuthorInfoVisible && (
 											<div className="templatiq__header__author__info">
